@@ -26,6 +26,11 @@ In the 'backend' section you MUST use 'export function...'. You can declare your
 then return them from an export function.
 
 
+Filename Extensions
+Wix uses the '.jsw' extension for all of their web modules (backend directory). For ease of use in a local IDE, this repo appends '.js' to the file. When creating
+files for Wix, be sure to omit the '.js'
+
+
 Testing
 Unit testing ain't gonna happen. The way you test is by copy and pasting (just like Willow had to do back in the 1990s!) into Wix.
 In order for the Wix little green arrow thing to work, you MUST use the syntax 'export function someFunciton(){}'. You can call
