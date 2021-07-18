@@ -39,7 +39,7 @@ varies between requests:
 // instantiate the class with a boolean
 // before calling class.makeRequest(secret) you have to get the secret from wix
 // by calling getSecret(class.secretName)
-class SquareRequest {
+export class SquareRequest {
   
   constructor (isProduction) {
     this.isProduction = isProduction
@@ -61,13 +61,7 @@ class SquareRequest {
   
   // METHODS
   // generate idempotency_key
-  options(secret){
-    return {
-      method: 'get',
-      headers: this.headers(secret),
-      body: body
-    };
-  }
+ 
   
   headers(secret){
     return {
@@ -76,6 +70,14 @@ class SquareRequest {
       'Accept': 'application/json',
       'Authorization': `Bearer ${secret}`
     };
+  }
+  
+  options(secret) {
+    return {
+      method: 'get',
+      headers: this.headers (secret),
+      body: body
+    }
   }
   
   // you have to get the secret before calling this method
@@ -93,17 +95,5 @@ class SquareRequest {
   }
 } // END class
 
-
-var list = new SquareRequest(false)
-
-// the function that calls the async getter MUST be async
-// that way they go into the same call stack
-export async function blah (){
-  let secret = await getSecret(list.secretName);
-  console.log(secret);
-  let customerList = await list.makeRequest(secret);
-  
-  console.log(customerList);
-}
 
 
