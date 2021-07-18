@@ -3,14 +3,13 @@ import {getSecret} from 'wix-secrets-backend'
 
 
 const config = {
-  squareVersion: '2021-05-13',
+  squareVersion: '2021-06-16',
   sandboxSecretName: 'square_sandbox',
   productionSecretName: 'square_token',
-  
+  contentType: 'application/json',
+  Accept: 'application/json'
 };
-
 var body = {}
-
 
 // instantiate the class with a boolean
 // before calling class.makeRequest(secret) you have to get the secret from wix
@@ -20,51 +19,76 @@ class SquareRequest {
   constructor (isProduction) {
     this.isProduction = isProduction
     this.apiName = 'customers'
+  }
     // this.body = {}
     // this.response = null
-  }
-  // COMPUTED PROPERTIES
-  get secretName(){
-    return (this.isProduction === true) ? `${config.productionSecretName}` : `${config.sandboxSecretName}`;
-  }
-  get url(){
-    return (this.isProduction === true) ? `https://connect.squareup.com/v2/${this.apiName}` : `https://connect.squareupsandbox.com/v2/${this.apiName}`;
-  }
-  
-  get body(){
-    return {};
-  }
-  
-  // METHODS
-  // generate idempotency_key
-  
-  
-  headers(secret){
-    return {
-      'Square-Version': `${config.squareVersion}`,
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': `Bearer ${secret}`
-    };
-  }
-  
-  
-  // you have to get the secret before calling this method
-  makeRequest(secret){
-    let request = async (url, options) => {
-      const httpResponse = await fetch(url, options);
-      if(!httpResponse.ok){
-        throw new Error('Customer not created.');
-      }
-      let response = await httpResponse.json();
-      return response;
+    // COMPUTED PROPERTIES
+    get secretName ()
+    {
+      return (this.isProduction === true) ? `${config.productionSecretName}` : `${config.sandboxSecretName}`;
     }
-    // I hope this comes back as a promise and not a code smell
-    return request(this.url, this.options(secret));
-  }
+    
+    get baseUrl()
+    {
+      return (this.isProduction === true) ? `https://connect.squareup.com/v2/${this.apiName}` : `https://connect.squareupsandbox.com/v2/${this.apiName}`;
+    }
+    
+    get url ()
+    {
+      return `${this.baseUrl}${this.endpoint()}`;
+    }
+  
+    get body ()
+    {
+      return {};
+    }
+  
+    // METHODS
+    // generate idempotency_key
+  
+  
+    headers (secret)
+    {
+      return {
+        'Square-Version': `${config.squareVersion}`,
+        'Content-Type': `${config.contentType}`,
+        'Accept': `${config.Accept}`,
+        'Authorization': `Bearer ${secret}`
+      };
+    }
+  
+  
+    endpoint(param = '')
+    {
+      return (param === '') ? param : `/${param}`;
+    }
+    
+    // you have to get the secret before calling this method
+    makeRequest (secret)
+    {
+      console.log(this.url)
+      let request = async (url, options) => {
+        const httpResponse = await fetch (url, options);
+        if (!httpResponse.ok) {
+          throw new Error ('Request unsuccessful.');
+        }
+        let response = await httpResponse.json ();
+        return response;
+      }
+      // I hope this comes back as a promise and not a code smell
+      return request (this.url, this.options (secret));
+    }
 } // END class
 
-export class CustomerList extends SquareRequest {
+
+
+
+
+// CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER  CUSTOMER
+// CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER
+
+
+class CustomerList extends SquareRequest {
   constructor (isProduction) {
     super (isProduction);
   }
@@ -75,9 +99,25 @@ export class CustomerList extends SquareRequest {
       body: body
     }
   }
-  
-  
 } // END class
+
+
+
+class CustomerRetrieve extends SquareRequest{
+  constructor (isProduction) {
+    super (isProduction);
+  }
+  options(secret){
+    return {
+      method: 'get',
+      headers: this.headers (secret),
+      body: body
+    }
+  }
+} // END class
+
+
+
 
 
 
