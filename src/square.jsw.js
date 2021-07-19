@@ -102,14 +102,28 @@ class Retrieve extends SquareRequest {
       body: body
     }
   }
-  
   // METHODS
   set id (someId){
     this.endpoint = `/${someId}`;
   }
-  
-  
 } // END class
+
+class Create extends SquareRequest{
+  constructor(isProduction) {
+    super(isProduction);
+    this.endpoint = ''
+    this.body = {}
+  }
+  options(secret) {
+    return {
+      method: 'post',
+      headers: this.headers(secret),
+      body: this.body
+    }
+  }
+} // END class
+
+
 
 class CustomerList extends List {
   constructor(isProduction) {
@@ -125,6 +139,21 @@ class CustomerRetrieve extends Retrieve {
     this.apiName = 'customers';
   }
 }
+
+class CustomerCreate extends Create {
+  constructor (isProduction) {
+    super (isProduction);
+    this.apiName = 'customers';
+    this.body = {
+      idempotency_key: '',
+      given_name: '',
+      family_name: '',
+      
+      
+    }
+  }
+}
+
 
 
 
