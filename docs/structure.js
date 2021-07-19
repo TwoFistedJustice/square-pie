@@ -3,10 +3,10 @@ Url forms:
   // baseUrl/api
   // /command
 
-  // /{someId}
+  // /{someId} // call this a filtered-command
 
-  // /{someId}/action
-  // /{someId}/action/{someOtherId}
+  // /{someId}/action  // call this an filtered-action ()
+  // /{someId}/action/{someOtherId} // member-action (doing to a sub item)
 
 
 const baseUrls = {
