@@ -16,7 +16,7 @@ var bodyTestcase = {
   email_address: "amelia@example.com"
 }
 
-
+// TOP LEVEL CLASSES
 
 // instantiate the class with a boolean
 // before calling class.makeRequest(secret) you have to get the secret from wix
@@ -73,9 +73,8 @@ class SquareRequest {
   }
 } // END class
 
-// CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER  CUSTOMER
-// CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER
 
+// LEVEL TWO CLASSES
 
 class List extends SquareRequest{
 constructor(isProduction) {
@@ -91,6 +90,9 @@ options(secret) {
 }
 } // END class
 
+
+
+// same as Delete and Update except for method - update accordingly
 class Retrieve extends SquareRequest {
   constructor(isProduction) {
     super(isProduction);
@@ -108,6 +110,9 @@ class Retrieve extends SquareRequest {
   }
 } // END class
 
+
+// creates a whole new document
+// you tell it what to store
 class Create extends SquareRequest{
   constructor(isProduction) {
     super(isProduction);
@@ -124,6 +129,19 @@ class Create extends SquareRequest{
 } // END class
 
 
+// Delete and UPdate are same except for method
+class Delete extends SquareRequest {
+  constructor (isProduction) {
+    super (isProduction);
+    this.endp
+  }
+}
+
+
+
+
+// CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER  CUSTOMER
+// CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER
 
 class CustomerList extends List {
   constructor(isProduction) {
