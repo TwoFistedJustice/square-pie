@@ -16,7 +16,7 @@ var bodyTestcase = {
   email_address: "amelia@example.com"
 }
 
-var testCustomerSqID = "MME12TZF5MZ9SA8HGMJNF3M92M";
+
 
 // instantiate the class with a boolean
 // before calling class.makeRequest(secret) you have to get the secret from wix
@@ -59,7 +59,7 @@ class SquareRequest {
   
   // you have to get the secret before calling this method
   makeRequest(secret) {
-    console.log(this.url)
+    console.log(`\ngenerated url: ${this.url}\n\n`)
     let request = async (url, options) => {
       const httpResponse = await fetch(url, options);
       if (!httpResponse.ok) {
@@ -76,21 +76,20 @@ class SquareRequest {
 // CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER  CUSTOMER
 // CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER
 
-class CustomerList extends SquareRequest {
-  constructor(isProduction) {
-    super(isProduction);
-    this.apiName = 'customers'
-    this.endpoint = ''
-  }
-  options(secret) {
-    return {
-      method: 'get',
-      headers: this.headers(secret),
-      body: body
-    }
-  }
-} // END class
 
+class List extends SquareRequest{
+constructor(isProduction) {
+  super(isProduction);
+  this.endpoint = ''
+}
+options(secret) {
+  return {
+    method: 'get',
+    headers: this.headers(secret),
+    body: body
+  }
+}
+} // END class
 
 class Retrieve extends SquareRequest {
   constructor(isProduction) {
@@ -103,15 +102,57 @@ class Retrieve extends SquareRequest {
       body: body
     }
   }
+  
+  // METHODS
+  set id (someId){
+    this.endpoint = `/${someId}`;
+  }
+  
+  
 } // END class
+
+class CustomerList extends List {
+  constructor(isProduction) {
+    super(isProduction);
+    this.apiName = 'customers';
+  }
+} // END class
+
+
+class CustomerRetrieve extends Retrieve {
+  constructor(isProduction) {
+    super(isProduction)
+    this.apiName = 'customers';
+  }
+}
+
+
 
 // the function that calls the async getter MUST be async
 // that way they go into the same call stack
-export async function blah() {
+export async function testList() {
   var list = new CustomerList(false)
   let secret = await getSecret(list.secretName);
   console.log(secret);
   let customerList = await list.makeRequest(secret);
   
   console.log(customerList);
+  return true;
 }
+
+
+
+export async function testRetrieve(){
+  let testCustomerSqID = "CJ5Z66RDA4ZR3AQVCY1SRW4ZW8";
+  let retrieve = new CustomerRetrieve();
+  let secret = await getSecret(retrieve.secretName);
+  console.log(secret);
+  retrieve.id = testCustomerSqID;
+  let customer = await retrieve.makeRequest(secret);
+  console.log(customer);
+  return customer.customer;
+  
+}
+
+
+
