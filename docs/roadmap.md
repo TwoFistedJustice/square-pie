@@ -19,6 +19,7 @@
 | Customer Classes |Super| Implemented|Short Notes
 |---|---|---|---|
 |CustomerList|List|yes
+|CustomerRetrieve|Search|
 |CustomerRetrieve|Retrieve|yes
 |CustomerCreate|Create|in process - russ
 |CustomerDelete|Delete|
