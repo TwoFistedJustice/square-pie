@@ -92,17 +92,22 @@ options(secret) {
 
 
 
-// same as Delete and Update except for method - update accordingly
-class Retrieve extends SquareRequest {
+// to extend this
+// override the options method in the subclass
+// let options = super.options(secret)
+// options.method = 'someHttpMethod'
+// return options
+class RetrieveUpdateDelete extends SquareRequest {
   constructor(isProduction) {
     super(isProduction);
   }
   options(secret) {
-    return {
-      method: 'get',
+    let options = {
+      method: '',
       headers: this.headers(secret),
       body: body
-    }
+    };
+    return options;
   }
   // METHODS
   set id (someId){
@@ -129,16 +134,6 @@ class Create extends SquareRequest{
 } // END class
 
 
-// Delete and UPdate are same except for method
-class Delete extends SquareRequest {
-  constructor (isProduction) {
-    super (isProduction);
-    this.endp
-  }
-}
-
-
-
 
 // CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER  CUSTOMER
 // CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER
@@ -151,11 +146,18 @@ class CustomerList extends List {
 } // END class
 
 
-class CustomerRetrieve extends Retrieve {
+class CustomerRetrieve extends RetrieveUpdateDelete {
   constructor(isProduction) {
     super(isProduction)
     this.apiName = 'customers';
   }
+  
+  options(secret) {
+    let options = super.options(secret);
+    options.method = 'get';
+    return options;
+  }
+  
 }
 
 class CustomerCreate extends Create {
@@ -191,7 +193,7 @@ export async function testList() {
 
 export async function testRetrieve(){
   let testCustomerSqID = "CJ5Z66RDA4ZR3AQVCY1SRW4ZW8";
-  let retrieve = new CustomerRetrieve();
+  let retrieve = new CustomerRetrieve(false);
   let secret = await getSecret(retrieve.secretName);
   console.log(secret);
   retrieve.id = testCustomerSqID;
