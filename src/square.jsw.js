@@ -145,20 +145,30 @@ class CustomerList extends List {
   }
 } // END class
 
-
 class CustomerRetrieve extends RetrieveUpdateDelete {
   constructor(isProduction) {
     super(isProduction)
     this.apiName = 'customers';
   }
-  
   options(secret) {
     let options = super.options(secret);
     options.method = 'get';
     return options;
   }
-  
 }
+
+class CustomerDelete extends RetrieveUpdateDelete {
+  constructor (isProduction) {
+    super (isProduction);
+    this.apiName = 'customers';
+  }
+  options(secret){
+    let options = super.options(secret);
+    options.method = 'delete';
+    return options;
+  }
+}
+
 
 class CustomerCreate extends Create {
   constructor (isProduction) {
@@ -168,8 +178,6 @@ class CustomerCreate extends Create {
       idempotency_key: '',
       given_name: '',
       family_name: '',
-      
-      
     }
   }
 }
@@ -195,11 +203,22 @@ export async function testRetrieve(){
   let testCustomerSqID = "CJ5Z66RDA4ZR3AQVCY1SRW4ZW8";
   let retrieve = new CustomerRetrieve(false);
   let secret = await getSecret(retrieve.secretName);
-  console.log(secret);
   retrieve.id = testCustomerSqID;
   let customer = await retrieve.makeRequest(secret);
   console.log(customer);
   return customer.customer;
+}
+
+
+export async function testDelete(){
+  let testCustomerSqID = "";
+  let vaporizeMe = new CustomerDelete(false);
+  let secret = await getSecret(vaporizeMe.secretName);
+  vaporizeMe.id = testCustomerSqID;
+  let vaporized = await vaporizeMe.makeRequest(secret);
+  console.log(vaporized);
+  
+  
   
 }
 
