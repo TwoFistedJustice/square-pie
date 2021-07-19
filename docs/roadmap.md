@@ -21,7 +21,7 @@
 |CustomerList|List|yes
 |CustomerRetrieve|Search|
 |CustomerRetrieve|Retrieve|yes
-|CustomerCreate|Create|in process - russ
+|CustomerCreate|Create|in process - russ|stub - needs idempotency_key and customer properties
 |CustomerDelete|Delete|
 |CustomerUpdate|Update|
 |CustomerGroup|Group|
