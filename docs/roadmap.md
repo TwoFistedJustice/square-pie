@@ -27,9 +27,9 @@
 |CustomerUngroup|Ungroup|
 
 
-| API | Command| Method | Resource Location | Class | Implemented | Short Notes
-|---|---|---|---|---|---|---|
-|Customer| LIST all | GET| '/customers' | CustomerList | yes |
+| API | Command| Method | Resource Location | Class | 
+|---|---|---|---|---|
+|Customer| LIST all | GET| '/customers' | CustomerList |
 |Customer| CREATE one| POST|'/customers'| CustomerCreate|
 |Customer| SEARCH one | POST|'/customers/search' | CustomerRetrieve|
 |Customer|DELETE one| DELETE |'/customers/{customer_id}' | |
