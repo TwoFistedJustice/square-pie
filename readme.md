@@ -1,13 +1,11 @@
 repo structure
+Due to Wix's restrictions on importing into .jsw web modules, everything is in one file: square.jsw.js
 
-There is a method to the madness. The structure is meant to loosely resemble the
-way Wix structures their code within their online IDE withouth duplicating the 
-godawful mess that their Corvid npm package creates.
+**Installation**
 
-'src' is the topmost folder. Everything that goes into your wix site that you want to tinker with
-locally, goes in this. 
+Make a new .jsw web module in the 'backend' directory. Call it whatever you want. I call it "square.jsw". Copy and paste 
+the entire contents of the repo file into the file you just made.
 
-'main' is what they call their 'Main Pages' AND AND AND what they call their 'Code Files'.
 
 The way you get YOUR code into THEIR online development platform should take you back to a magical time
 called the 1990's. Back then we used loud heavy keyboards made of stone and 'monitors' that shot ultra-violet and 
