@@ -16,14 +16,12 @@ source to another, and what passed for version control was simply saving stuff w
 name, just like Wix expects you to do in their online development platform. At least with MY system, you 
 can use git. But you still have to copy and paste.
 
-Imports/Exports
-Wix has their own implementation that is a bit wonky. Your IDE may not be compatible with it. All exports and 
-imports in this repo are in the Wix style. So your IDE may not be abe to parse them.
-
-In the 'public' section you can import/export functions using curly braces. Export {somevar} import {someVar}
-
-In the 'backend' section you MUST use 'export function...'. You can declare your functions as variables
-then return them from an export function.
+Imports/Exports in .jsw files
+Wix has their own implementation of import/export that is a bit wonky. Basically you can't import anything into a 
+.jsw file and expect it to work they way you want, or at all. You cannot import into a .jsw file from another .jsw file. But
+while you can import from a .js file, you won't be able to use any code that depends on that import in the front
+end. This is extremely limiting, and IMO is a good reason to not use Wix for anything more than their canned modules
+can provide. But... since the client wants to use Wix with Square, here we go.
 
 
 Filename Extensions
