@@ -20,7 +20,9 @@ var body = {
 
 var testCustomerSqID = "MME12TZF5MZ9SA8HGMJNF3M92M";
 
-
+function someFunction(){
+  console.log('Import successful');
+}
 
 
 /*
@@ -39,7 +41,7 @@ varies between requests:
 // instantiate the class with a boolean
 // before calling class.makeRequest(secret) you have to get the secret from wix
 // by calling getSecret(class.secretName)
-export class SquareRequest {
+class SquareRequest {
   
   constructor (isProduction) {
     this.isProduction = isProduction
@@ -72,13 +74,6 @@ export class SquareRequest {
     };
   }
   
-  options(secret) {
-    return {
-      method: 'get',
-      headers: this.headers (secret),
-      body: body
-    }
-  }
   
   // you have to get the secret before calling this method
   makeRequest(secret){
@@ -97,3 +92,4 @@ export class SquareRequest {
 
 
 
+export {SquareRequest, someFunction}
