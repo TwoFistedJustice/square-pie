@@ -45,6 +45,10 @@ class SquareRequest {
     return `${this.baseUrl}${this.endpoint}`;
   }
   
+  set body(val){
+    body = val;
+  }
+  
   // METHODS
   
   headers(secret) {
@@ -58,11 +62,12 @@ class SquareRequest {
   
   // you have to get the secret before calling this method
   makeRequest(secret) {
-    console.log(`\ngenerated url: ${this.url}\n\n`)
     let request = async (url, options) => {
+      
       const httpResponse = await fetch(url, options);
       if (!httpResponse.ok) {
-        throw new Error('Request unsuccessful.');
+        let message = `\ngenerated url: ${this.url}\nmethod: ${options.method}\n${httpResponse.status}: ${httpResponse.statusText}`
+        throw new Error(message);
       }
       let response = await httpResponse.json();
       return response;
@@ -236,7 +241,7 @@ export async function testRetrieve() {
 export async function testCreate() {
   let someGuy = new CustomerCreate(false);
   let secret = await getSecret(someGuy.secretName);
-  someGuy.populate = {
+  let coddlingWixCrapyCodeComplete = {
     given_name: "Phillipe",
     family_name: "Dacreep",
     company_name: "Auntie Susan's Mobile Ice Cream",
@@ -264,6 +269,7 @@ export async function testCreate() {
     note: "walk a mile in his shoes, go to jail",
     birthday: "1998-09-21T00:00:00-00:00"
   };
+  someGuy.populate = coddlingWixCrapyCodeComplete;
   
   let response = await someGuy.makeRequest(secret);
   console.log(response);
