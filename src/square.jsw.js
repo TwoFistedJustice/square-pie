@@ -10,8 +10,6 @@ const config = {
   Accept: 'application/json'
 };
 
-var body = {}
-
 var bodyTestcase = {
   given_name: "Amelia",
   email_address: "amelia@example.com"
@@ -45,8 +43,8 @@ class SquareRequest {
     return `${this.baseUrl}${this.endpoint}`;
   }
   
-  set body(val){
-    body = val;
+  set setBody(val){
+    this.body = val;
   }
   
   // METHODS
@@ -88,7 +86,7 @@ class List extends SquareRequest {
     return {
       method: 'get',
       headers: this.headers(secret),
-      body: body
+      body: {}
     }
   }
 } // END class
@@ -106,7 +104,7 @@ class RetrieveUpdateDelete extends SquareRequest {
     let options = {
       method: '',
       headers: this.headers(secret),
-      body: body
+      body: {}
     };
     return options;
   }
@@ -201,8 +199,9 @@ class CustomerCreate extends Create {
   //METHODS
   populate(customer) {
     console.log(this.getIdempotency_key);
-    this.body = customer;
-    body.idempotency_key = this.idempotency_key;
+    customer.idempotency_key = this.idempotency_key;
+    this.setBody = customer;
+    
   }
   
 }
