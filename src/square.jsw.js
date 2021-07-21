@@ -15,38 +15,7 @@ var shortCustomer = {
   email_address: "amelia@example.com"
 }
 
-let longCustomer = {
-  given_name: "Phillipe",
-  family_name: "Dacreep",
-  company_name: "Auntie Susan's Mobile Ice Cream",
-  nickname: "wanted in 5 systems",
-  email_address: "lilpp@iscream.org",
-  address: {
-    address_line1: "15 Elm Street",
-    address_line2: undefined,
-    address_line3: undefined,
-    administrative_district_level_1: "NY",
-    administrative_district_level_2: undefined,
-    administrative_district_level_3: undefined,
-    country: "US",
-    first_name: "Phil",
-    last_name: "D",
-    locality: "Amityville",
-    oranization: "Auntie Sue's",
-    postal_code: "00100",
-    sublocality: undefined,
-    sublocality_2: undefined,
-    sublocality_3: undefined
-  },
-  phone_number: "212-ruh-roh!",
-  reference_id: "some identifier",
-  note: "walk a mile in his shoes, go to jail",
-  birthday: "1998-09-21T00:00:00-00:00"
-};
-
-
-
-var jsonCustomer = {
+var spiritualCustomer = {
     "given_name": "Freddie",
     "family_name": "Krueger",
     "email_address": "freddie@iscream.org",
@@ -96,7 +65,6 @@ class SquareRequest {
   }
   
   set body(val){
-    console.log('body setter')
     this._body = val;
   }
   
@@ -150,6 +118,8 @@ class List extends SquareRequest {
 // let options = super.options(secret)
 // options.method = 'someHttpMethod'
 // return options
+
+//ToDO whenever something is updated or deleted, log it to a file
 class RetrieveUpdateDelete extends SquareRequest {
   constructor(isProduction) {
     super(isProduction);
@@ -240,7 +210,7 @@ class CustomerDelete extends RetrieveUpdateDelete {
 
 
 
-
+//ToDo add email validation
 class CustomerCreate extends Create {
   constructor(isProduction) {
     super(isProduction);
@@ -253,13 +223,6 @@ class CustomerCreate extends Create {
   }
 }
 
-
-
-
-
-
-
-
 // create a customer class which includes email validation
 
 // the function that calls the async getter MUST be async
@@ -267,11 +230,8 @@ class CustomerCreate extends Create {
 export async function testList() {
   var list = new CustomerList(false)
   let secret = await getSecret(list.secretName);
-  console.log(secret);
   let customerList = await list.makeRequest(secret);
-  
-  console.log(customerList);
-  return true;
+  return customerList;
 }
 
 export async function testRetrieve() {
@@ -287,21 +247,40 @@ export async function testCreate() {
   let someGuy = new CustomerCreate(false);
   let secret = await getSecret(someGuy.secretName);
   // someGuy.customer = shortCustomer;
-  // someGuy.customer = longCustomer;
-  someGuy.customer = jsonCustomer;
+  someGuy.customer = spiritualCustomer;
   let response = await someGuy.makeRequest(secret);
+  console.log('Customer created:');
   console.log(response);
   return response;
 }
 
 // set this up to create a customer, log that customer, then delete it
+// get the list
+// verify that there is a customer at index 0
+//  if not, then create a new customer
+//  and get the id of that customer
+// store it in the test id variable
+// if theew is a list, get the id from index 0
+// // store it in the test id variable
+// delete the customer with test id
+
+
 export async function testDelete() {
-  let testCustomerSqID = "";
+  let testCustomerSqID;
+  let sandbox = false;
+  let secret = await getSecret(config.sandboxSecretName);
+  let list = await testList();
   
-  let vaporizeMe = new CustomerDelete(false);
-  let secret = await getSecret(vaporizeMe.secretName);
+  if (!list.customers) {
+    let newCustomer = await testCreate();
+    testCustomerSqID = newCustomer.customer.id;
+  } else {
+    testCustomerSqID = list.customers[0].id;
+  }
+
+  let vaporizeMe = new CustomerDelete(sandbox);
   vaporizeMe.id = testCustomerSqID;
   let vaporized = await vaporizeMe.makeRequest(secret);
-  console.log(vaporized);
+  return vaporized;
   
 }
