@@ -44,6 +44,28 @@ let longCustomer = {
   birthday: "1998-09-21T00:00:00-00:00"
 };
 
+
+
+var jsonCustomer = {
+    "given_name": "Freddie",
+    "family_name": "Krueger",
+    "email_address": "freddie@iscream.org",
+    "address": {
+      "address_line_1": "187 Elm Street",
+      "address_line_2": "Suite 86",
+      "locality": "Springwood",
+      "administrative_district_level_1": "OH",
+      "postal_code": "43086",
+      "country": "US"
+    },
+    "phone_number": "1-937-555-1054",
+    "reference_id": "10-Claws",
+    "note": "goooo toooo sleeeeeeep",
+    "preferences": {
+      "email_unsubscribed": false
+    },
+}
+
 // TOP LEVEL CLASSES
 
 // instantiate the class with a boolean
@@ -265,7 +287,8 @@ export async function testCreate() {
   let someGuy = new CustomerCreate(false);
   let secret = await getSecret(someGuy.secretName);
   // someGuy.customer = shortCustomer;
-  someGuy.customer = longCustomer;
+  // someGuy.customer = longCustomer;
+  someGuy.customer = jsonCustomer;
   let response = await someGuy.makeRequest(secret);
   console.log(response);
   return response;
