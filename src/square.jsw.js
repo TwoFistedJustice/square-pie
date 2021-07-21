@@ -10,10 +10,39 @@ const config = {
   Accept: 'application/json'
 };
 
-var bodyTestcase = {
+var shortCustomer = {
   given_name: "Amelia",
   email_address: "amelia@example.com"
 }
+
+let longCustomer = {
+  given_name: "Phillipe",
+  family_name: "Dacreep",
+  company_name: "Auntie Susan's Mobile Ice Cream",
+  nickname: "wanted in 5 systems",
+  email_address: "lilpp@iscream.org",
+  address: {
+    address_line1: "15 Elm Street",
+    address_line2: undefined,
+    address_line3: undefined,
+    administrative_district_level_1: "NY",
+    administrative_district_level_2: undefined,
+    administrative_district_level_3: undefined,
+    country: "US",
+    first_name: "Phil",
+    last_name: "D",
+    locality: "Amityville",
+    oranization: "Auntie Sue's",
+    postal_code: "00100",
+    sublocality: undefined,
+    sublocality_2: undefined,
+    sublocality_3: undefined
+  },
+  phone_number: "212-ruh-roh!",
+  reference_id: "some identifier",
+  note: "walk a mile in his shoes, go to jail",
+  birthday: "1998-09-21T00:00:00-00:00"
+};
 
 // TOP LEVEL CLASSES
 
@@ -32,7 +61,7 @@ class SquareRequest {
   }
   
   get body() {
-    console.log('getter')
+    console.log('body getter')
     return this._body;
   }
   
@@ -45,7 +74,7 @@ class SquareRequest {
   }
   
   set body(val){
-    console.log(val)
+    console.log('body setter')
     this._body = val;
   }
   
@@ -62,6 +91,7 @@ class SquareRequest {
   
   // you have to get the secret before calling this method
   makeRequest(secret) {
+    
     let request = async (url, options) => {
       const httpResponse = await fetch(url, options);
       if (!httpResponse.ok) {
@@ -69,6 +99,7 @@ class SquareRequest {
         throw new Error(message);
       }
       let response = await httpResponse.json();
+      
       return response;
     }
     
@@ -134,11 +165,10 @@ class Create extends SquareRequest {
     this.idempotency_key = uuidv4();
   }
   options(secret) {
-    console.log(this.idempotency_key);
     return {
       method: 'post',
       headers: this.headers(secret),
-      body: this._body
+      body: JSON.stringify(this._body)
     }
   }
   
@@ -194,18 +224,11 @@ class CustomerCreate extends Create {
     super(isProduction);
     this.apiName = 'customers';
   }
-  
-  
   //METHODS
-  populate(customer) {
-    console.log(this.getIdempotency_key);
-    console.log(customer);
-    
+ set customer(customer) {
     customer.idempotency_key = this.idempotency_key;
     this.body = customer;
-    
   }
-  
 }
 
 
@@ -235,47 +258,14 @@ export async function testRetrieve() {
   let secret = await getSecret(retrieve.secretName);
   retrieve.id = testCustomerSqID;
   let customer = await retrieve.makeRequest(secret);
-  console.log(customer);
   return customer.customer;
 }
 
 export async function testCreate() {
-  console.log('creating some guy');
   let someGuy = new CustomerCreate(false);
-  console.log('fetching secret');
   let secret = await getSecret(someGuy.secretName);
-  console.log('setting customer fields');
-  let coddlingWixCrapyCodeComplete = {
-    given_name: "Phillipe",
-    family_name: "Dacreep",
-    company_name: "Auntie Susan's Mobile Ice Cream",
-    nickname: "wanted in 5 systems",
-    email_address: "lilpp@iscream.org",
-    address: {
-      address_line1: "15 Elm Street",
-      address_line2: undefined,
-      address_line3: undefined,
-      administrative_district_level_1: "NY",
-      administrative_district_level_2: undefined,
-      administrative_district_level_3: undefined,
-      country: "US",
-      first_name: "Phil",
-      last_name: "D",
-      locality: "Amityville",
-      oranization: "Auntie Sue's",
-      postal_code: "00100",
-      sublocality: undefined,
-      sublocality_2: undefined,
-      sublocality_3: undefined
-    },
-    phone_number: "212-ruh-roh!",
-    reference_id: "some identifier",
-    note: "walk a mile in his shoes, go to jail",
-    birthday: "1998-09-21T00:00:00-00:00"
-  };
-  console.log('populating some guy');
-  someGuy.populate = coddlingWixCrapyCodeComplete;
-  console.log(someGuy.body);
+  // someGuy.customer = shortCustomer;
+  someGuy.customer = longCustomer;
   let response = await someGuy.makeRequest(secret);
   console.log(response);
   return response;
