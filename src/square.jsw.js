@@ -21,9 +21,9 @@ var bodyTestcase = {
 // before calling class.makeRequest(secret) you have to get the secret from wix
 // by calling getSecret(class.secretName)
 class SquareRequest {
-  
   constructor(isProduction) {
     this.isProduction = isProduction;
+    this._body = {}
   }
   
   // COMPUTED PROPERTIES
@@ -32,7 +32,8 @@ class SquareRequest {
   }
   
   get body() {
-    return {};
+    console.log('getter')
+    return this._body;
   }
   
   get baseUrl() {
@@ -43,8 +44,9 @@ class SquareRequest {
     return `${this.baseUrl}${this.endpoint}`;
   }
   
-  set setBody(val){
-    this.body = val;
+  set body(val){
+    console.log(val)
+    this._body = val;
   }
   
   // METHODS
@@ -61,7 +63,6 @@ class SquareRequest {
   // you have to get the secret before calling this method
   makeRequest(secret) {
     let request = async (url, options) => {
-      
       const httpResponse = await fetch(url, options);
       if (!httpResponse.ok) {
         let message = `\ngenerated url: ${this.url}\nmethod: ${options.method}\n${httpResponse.status}: ${httpResponse.statusText}`
@@ -70,7 +71,7 @@ class SquareRequest {
       let response = await httpResponse.json();
       return response;
     }
-    // I hope this comes back as a promise and not a code smell
+    
     return request(this.url, this.options(secret));
   }
 } // END class
@@ -131,14 +132,13 @@ class Create extends SquareRequest {
     super(isProduction);
     this.endpoint = ''
     this.idempotency_key = uuidv4();
-    this.body = {}
   }
   options(secret) {
     console.log(this.idempotency_key);
     return {
       method: 'post',
       headers: this.headers(secret),
-      body: this.body
+      body: this._body
     }
   }
   
@@ -199,8 +199,10 @@ class CustomerCreate extends Create {
   //METHODS
   populate(customer) {
     console.log(this.getIdempotency_key);
+    console.log(customer);
+    
     customer.idempotency_key = this.idempotency_key;
-    this.setBody = customer;
+    this.body = customer;
     
   }
   
@@ -238,8 +240,11 @@ export async function testRetrieve() {
 }
 
 export async function testCreate() {
+  console.log('creating some guy');
   let someGuy = new CustomerCreate(false);
+  console.log('fetching secret');
   let secret = await getSecret(someGuy.secretName);
+  console.log('setting customer fields');
   let coddlingWixCrapyCodeComplete = {
     given_name: "Phillipe",
     family_name: "Dacreep",
@@ -268,8 +273,9 @@ export async function testCreate() {
     note: "walk a mile in his shoes, go to jail",
     birthday: "1998-09-21T00:00:00-00:00"
   };
+  console.log('populating some guy');
   someGuy.populate = coddlingWixCrapyCodeComplete;
-  
+  console.log(someGuy.body);
   let response = await someGuy.makeRequest(secret);
   console.log(response);
   return response;
