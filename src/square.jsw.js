@@ -1,6 +1,7 @@
 import { fetch } from 'wix-fetch';
 import { getSecret } from 'wix-secrets-backend'
 const { v4: uuidv4 } = require('uuid');
+const validator = require('validator');
 
 const config = {
   squareVersion: '2021-06-16',
@@ -12,7 +13,7 @@ const config = {
 
 var shortCustomer = {
   given_name: "Amelia",
-  email_address: "amelia@example.com"
+  email_address: "aMe.lia698214271522544412252474@gmail.com"
 }
 
 var spiritualCustomer = {
@@ -95,6 +96,17 @@ class SquareRequest {
     
     return request(this.url, this.options(secret));
   }
+  
+  normalizeEmail (email){
+    let normalizeOptions = {
+      yahoo_remove_subaddress: false
+    };
+    if(!validator.isEmail(email)){
+      throw new Error("Email is not valid. Please use a valid email address.")
+    }
+    return validator.normalizeEmail(email, normalizeOptions);
+  }
+  
 } // END class
 
 // LEVEL TWO CLASSES
@@ -120,9 +132,15 @@ class List extends SquareRequest {
 // return options
 
 //ToDO whenever something is updated or deleted, log it to a file
+// ToDo first validate all incoming email addresses are valid
+// then normalize them use Validator for both
+// validate.normalizeEmail(email [, options])
+// validate.isEmail(str [, options])
 class RetrieveUpdateDelete extends SquareRequest {
+  
   constructor(isProduction) {
     super(isProduction);
+    
   }
   options(secret) {
     let options = {
@@ -131,10 +149,6 @@ class RetrieveUpdateDelete extends SquareRequest {
       body: {}
     };
     return options;
-  }
-  // METHODS
-  set id(someId) {
-    this.endpoint = `/${someId}`;
   }
 } // END class
 
@@ -219,6 +233,7 @@ class CustomerCreate extends Create {
   //METHODS
  set customer(customer) {
     customer.idempotency_key = this.idempotency_key;
+    customer.email_address = super.normalizeEmail(customer.email_address);
     this.body = customer;
   }
 }
@@ -246,8 +261,8 @@ export async function testRetrieve() {
 export async function testCreate() {
   let someGuy = new CustomerCreate(false);
   let secret = await getSecret(someGuy.secretName);
-  // someGuy.customer = shortCustomer;
-  someGuy.customer = spiritualCustomer;
+  someGuy.customer = shortCustomer;
+  // someGuy.customer = spiritualCustomer;
   let response = await someGuy.makeRequest(secret);
   console.log('Customer created:');
   console.log(response);
@@ -277,7 +292,10 @@ export async function testDelete() {
   } else {
     testCustomerSqID = list.customers[0].id;
   }
-
+    if(!testCustomerSqID){
+      throw new Error('Something went wrong with setting the ID in testDelete();')
+    }
+    console.log(testCustomerSqID);
   let vaporizeMe = new CustomerDelete(sandbox);
   vaporizeMe.id = testCustomerSqID;
   let vaporized = await vaporizeMe.makeRequest(secret);
