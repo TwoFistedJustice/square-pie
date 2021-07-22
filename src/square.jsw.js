@@ -208,6 +208,7 @@ class CustomerRetrieve extends RetrieveUpdateDelete {
     options.method = 'get';
     return options;
   }
+  
 }
 
 class CustomerDelete extends RetrieveUpdateDelete {
@@ -220,11 +221,14 @@ class CustomerDelete extends RetrieveUpdateDelete {
     options.method = 'delete';
     return options;
   }
+  // METHODS
+  set id(someId) {
+    this.endpoint = `/${someId}`;
+  }
 }
 
 
 
-//ToDo add email validation
 class CustomerCreate extends Create {
   constructor(isProduction) {
     super(isProduction);
@@ -295,10 +299,9 @@ export async function testDelete() {
     if(!testCustomerSqID){
       throw new Error('Something went wrong with setting the ID in testDelete();')
     }
-    console.log(testCustomerSqID);
-  let vaporizeMe = new CustomerDelete(sandbox);
-  vaporizeMe.id = testCustomerSqID;
-  let vaporized = await vaporizeMe.makeRequest(secret);
+  let deleteCustomer = new CustomerDelete(sandbox);
+  deleteCustomer.id = testCustomerSqID;
+  let vaporized = await deleteCustomer.makeRequest(secret);
   return vaporized;
   
 }
