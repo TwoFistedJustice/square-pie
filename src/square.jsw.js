@@ -150,6 +150,10 @@ class RetrieveUpdateDelete extends SquareRequest {
     };
     return options;
   }
+  // METHODS
+  set id(someId) {
+    this.endpoint = `/${someId}`;
+  }
 } // END class
 
 
@@ -220,10 +224,7 @@ class CustomerDelete extends RetrieveUpdateDelete {
     options.method = 'delete';
     return options;
   }
-  // METHODS
-  set id(someId) {
-    this.endpoint = `/${someId}`;
-  }
+  
 } // END class
 
 
@@ -277,7 +278,7 @@ export async function testList() {
 }
 
 export async function testRetrieve() {
-  let testCustomerSqID = "CJ5Z66RDA4ZR3AQVCY1SRW4ZW8";
+  let testCustomerSqID = await fetchIndexZeroCustomerId();
   let retrieve = new CustomerRetrieve(false);
   let secret = await getSecret(retrieve.secretName);
   retrieve.id = testCustomerSqID;
