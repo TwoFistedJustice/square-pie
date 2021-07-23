@@ -51,24 +51,19 @@ class SquareRequest {
   get secretName() {
     return (this.isProduction === true) ? `${config.productionSecretName}` : `${config.sandboxSecretName}`;
   }
-  
   get body() {
     console.log('body getter')
     return this._body;
   }
-  
   get baseUrl() {
     return (this.isProduction === true) ? `https://connect.squareup.com/v2/${this.apiName}` : `https://connect.squareupsandbox.com/v2/${this.apiName}`;
   }
-  
   get url() {
     return `${this.baseUrl}${this.endpoint}`;
   }
-  
   set body(val){
     this._body = val;
   }
-  
   // METHODS
   
   headers(secret) {
@@ -79,7 +74,6 @@ class SquareRequest {
       'Authorization': `Bearer ${secret}`
     };
   }
-  
   // you have to get the secret before calling this method
   makeRequest(secret) {
     
@@ -93,7 +87,6 @@ class SquareRequest {
       
       return response;
     }
-    
     return request(this.url, this.options(secret));
   }
   
@@ -106,7 +99,6 @@ class SquareRequest {
     }
     return validator.normalizeEmail(email, normalizeOptions);
   }
-  
 } // END class
 
 // LEVEL TWO CLASSES
@@ -132,15 +124,9 @@ class List extends SquareRequest {
 // return options
 
 //ToDO whenever something is updated or deleted, log it to a file
-// ToDo first validate all incoming email addresses are valid
-// then normalize them use Validator for both
-// validate.normalizeEmail(email [, options])
-// validate.isEmail(str [, options])
 class RetrieveUpdateDelete extends SquareRequest {
-  
   constructor(isProduction) {
     super(isProduction);
-    
   }
   options(secret) {
     let options = {
@@ -155,11 +141,6 @@ class RetrieveUpdateDelete extends SquareRequest {
     this.endpoint = `/${someId}`;
   }
 } // END class
-
-
-
-
-
 
 
 // TODO
@@ -181,14 +162,10 @@ class Create extends SquareRequest {
       body: JSON.stringify(this._body)
     }
   }
-  
   get getIdempotency_key() {
     return this.idempotency_key;
   }
-  
 } // END class
-
-
 
 
 
@@ -228,7 +205,6 @@ class CustomerDelete extends RetrieveUpdateDelete {
 } // END class
 
 
-
 class CustomerCreate extends Create {
   constructor(isProduction) {
     super(isProduction);
@@ -244,8 +220,8 @@ class CustomerCreate extends Create {
 
 // create a customer class which includes email validation
 
-// TESTING FUNCTIONS BELOW HERE
 
+// TESTING FUNCTIONS BELOW HERE
 
 // returns the ID of the first customer in the customers list
 // creates a customer if none exists
