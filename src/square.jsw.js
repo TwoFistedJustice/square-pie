@@ -142,8 +142,8 @@ class RetrieveUpdateDelete extends SquareRequest {
   }
 } // END class
 
-// TODO
-//getting: Cannot set property body of #<SquareRequest> which has only a getter
+// TODO see if it is possible to extact the options to the top level and just have the mid level provide the method.
+
 
 // creates a whole new document
 // you tell it what to store
@@ -273,3 +273,5 @@ export async function testDelete() {
   let vaporized = await deleteCustomer.makeRequest(secret);
   return vaporized;
 }
+
+how to cre
