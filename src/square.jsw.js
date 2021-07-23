@@ -208,8 +208,7 @@ class CustomerRetrieve extends RetrieveUpdateDelete {
     options.method = 'get';
     return options;
   }
-  
-}
+} // END class
 
 class CustomerDelete extends RetrieveUpdateDelete {
   constructor(isProduction) {
@@ -225,7 +224,7 @@ class CustomerDelete extends RetrieveUpdateDelete {
   set id(someId) {
     this.endpoint = `/${someId}`;
   }
-}
+} // END class
 
 
 
@@ -240,9 +239,33 @@ class CustomerCreate extends Create {
     customer.email_address = super.normalizeEmail(customer.email_address);
     this.body = customer;
   }
-}
+} // END class
 
 // create a customer class which includes email validation
+
+// TESTING FUNCTIONS BELOW HERE
+
+
+// returns the ID of the first customer in the customers list
+// creates a customer if none exists
+const fetchIndexZeroCustomerId = async function(){
+  let testCustomerSqID;
+  let sandbox = false;
+  let secret = await getSecret(config.sandboxSecretName);
+  let list = await testList();
+  
+  if (!list.customers) {
+    let newCustomer = await testCreate();
+    testCustomerSqID = newCustomer.customer.id;
+  } else {
+    testCustomerSqID = list.customers[0].id;
+  }
+  if(!testCustomerSqID){
+    throw new Error('Something went wrong with setting the ID in testDelete();')
+  }
+  return list.customers[0].id;
+}
+
 
 // the function that calls the async getter MUST be async
 // that way they go into the same call stack
@@ -269,39 +292,14 @@ export async function testCreate() {
   // someGuy.customer = spiritualCustomer;
   let response = await someGuy.makeRequest(secret);
   console.log('Customer created:');
-  console.log(response);
   return response;
 }
 
-// set this up to create a customer, log that customer, then delete it
-// get the list
-// verify that there is a customer at index 0
-//  if not, then create a new customer
-//  and get the id of that customer
-// store it in the test id variable
-// if theew is a list, get the id from index 0
-// // store it in the test id variable
-// delete the customer with test id
-
-
 export async function testDelete() {
-  let testCustomerSqID;
   let sandbox = false;
   let secret = await getSecret(config.sandboxSecretName);
-  let list = await testList();
-  
-  if (!list.customers) {
-    let newCustomer = await testCreate();
-    testCustomerSqID = newCustomer.customer.id;
-  } else {
-    testCustomerSqID = list.customers[0].id;
-  }
-    if(!testCustomerSqID){
-      throw new Error('Something went wrong with setting the ID in testDelete();')
-    }
   let deleteCustomer = new CustomerDelete(sandbox);
-  deleteCustomer.id = testCustomerSqID;
+  deleteCustomer.id = await fetchIndexZeroCustomerId();
   let vaporized = await deleteCustomer.makeRequest(secret);
   return vaporized;
-  
 }
