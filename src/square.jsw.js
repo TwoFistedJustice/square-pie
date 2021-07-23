@@ -17,23 +17,23 @@ var shortCustomer = {
 }
 
 var spiritualCustomer = {
-    "given_name": "Freddie",
-    "family_name": "Krueger",
-    "email_address": "freddie@iscream.org",
-    "address": {
-      "address_line_1": "187 Elm Street",
-      "address_line_2": "Suite 86",
-      "locality": "Springwood",
-      "administrative_district_level_1": "OH",
-      "postal_code": "43086",
-      "country": "US"
-    },
-    "phone_number": "1-937-555-1054",
-    "reference_id": "10-Claws",
-    "note": "goooo toooo sleeeeeeep",
-    "preferences": {
-      "email_unsubscribed": false
-    },
+  "given_name": "Freddie",
+  "family_name": "Krueger",
+  "email_address": "freddie@iscream.org",
+  "address": {
+    "address_line_1": "187 Elm Street",
+    "address_line_2": "Suite 86",
+    "locality": "Springwood",
+    "administrative_district_level_1": "OH",
+    "postal_code": "43086",
+    "country": "US"
+  },
+  "phone_number": "1-937-555-1054",
+  "reference_id": "10-Claws",
+  "note": "goooo toooo sleeeeeeep",
+  "preferences": {
+    "email_unsubscribed": false
+  },
 }
 
 // TOP LEVEL CLASSES
@@ -61,7 +61,7 @@ class SquareRequest {
   get url() {
     return `${this.baseUrl}${this.endpoint}`;
   }
-  set body(val){
+  set body(val) {
     this._body = val;
   }
   // METHODS
@@ -90,11 +90,11 @@ class SquareRequest {
     return request(this.url, this.options(secret));
   }
   
-  normalizeEmail (email){
+  normalizeEmail(email) {
     let normalizeOptions = {
       yahoo_remove_subaddress: false
     };
-    if(!validator.isEmail(email)){
+    if (!validator.isEmail(email)) {
       throw new Error("Email is not valid. Please use a valid email address.")
     }
     return validator.normalizeEmail(email, normalizeOptions);
@@ -142,10 +142,8 @@ class RetrieveUpdateDelete extends SquareRequest {
   }
 } // END class
 
-
 // TODO
 //getting: Cannot set property body of #<SquareRequest> which has only a getter
-
 
 // creates a whole new document
 // you tell it what to store
@@ -166,8 +164,6 @@ class Create extends SquareRequest {
     return this.idempotency_key;
   }
 } // END class
-
-
 
 // CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER  CUSTOMER
 // CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER
@@ -204,14 +200,13 @@ class CustomerDelete extends RetrieveUpdateDelete {
   
 } // END class
 
-
 class CustomerCreate extends Create {
   constructor(isProduction) {
     super(isProduction);
     this.apiName = 'customers';
   }
   //METHODS
- set customer(customer) {
+  set customer(customer) {
     customer.idempotency_key = this.idempotency_key;
     customer.email_address = super.normalizeEmail(customer.email_address);
     this.body = customer;
@@ -220,12 +215,11 @@ class CustomerCreate extends Create {
 
 // create a customer class which includes email validation
 
-
 // TESTING FUNCTIONS BELOW HERE
 
 // returns the ID of the first customer in the customers list
 // creates a customer if none exists
-const fetchIndexZeroCustomerId = async function(){
+const fetchIndexZeroCustomerId = async function () {
   let testCustomerSqID;
   let sandbox = false;
   let secret = await getSecret(config.sandboxSecretName);
@@ -237,12 +231,11 @@ const fetchIndexZeroCustomerId = async function(){
   } else {
     testCustomerSqID = list.customers[0].id;
   }
-  if(!testCustomerSqID){
+  if (!testCustomerSqID) {
     throw new Error('Something went wrong with setting the ID in testDelete();')
   }
   return list.customers[0].id;
 }
-
 
 // the function that calls the async getter MUST be async
 // that way they go into the same call stack
