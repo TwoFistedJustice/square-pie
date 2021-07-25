@@ -151,14 +151,6 @@ class RetrieveUpdateDelete extends SquareRequest {
   constructor(isProduction) {
     super(isProduction);
   }
-  options(secret) {
-    let options = {
-      method: '',
-      headers: this.headers(secret),
-      body: {}
-    };
-    return options;
-  }
   // METHODS
   set id(someId) {
     this.endpoint = `/${someId}`;
@@ -210,16 +202,12 @@ class CustomerRetrieve extends RetrieveUpdateDelete {
 } // END class
 
 class CustomerDelete extends RetrieveUpdateDelete {
+  _method = 'delete';
+  
   constructor(isProduction) {
     super(isProduction);
     this.apiName = 'customers';
   }
-  options(secret) {
-    let options = super.options(secret);
-    options.method = 'delete';
-    return options;
-  }
-  
 } // END class
 
 class CustomerCreate extends Create {
