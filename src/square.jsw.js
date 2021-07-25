@@ -42,28 +42,38 @@ var spiritualCustomer = {
 // before calling class.makeRequest(secret) you have to get the secret from wix
 // by calling getSecret(class.secretName)
 class SquareRequest {
+  _method;
+  _headers;
+  _body;
+  
   constructor(isProduction) {
     this.isProduction = isProduction;
-    this._body = {}
+    // this._body = {}
+  }
+  
+  // GETTERS
+  get body() {
+    console.log('body getter')
+    return this._body;
+  }
+  
+  // SETTERS
+  set body(val) {
+    this._body = val;
   }
   
   // COMPUTED PROPERTIES
   get secretName() {
     return (this.isProduction === true) ? `${config.productionSecretName}` : `${config.sandboxSecretName}`;
   }
-  get body() {
-    console.log('body getter')
-    return this._body;
-  }
+  
   get baseUrl() {
     return (this.isProduction === true) ? `https://connect.squareup.com/v2/${this.apiName}` : `https://connect.squareupsandbox.com/v2/${this.apiName}`;
   }
   get url() {
     return `${this.baseUrl}${this.endpoint}`;
   }
-  set body(val) {
-    this._body = val;
-  }
+
   // METHODS
   
   headers(secret) {
@@ -142,7 +152,9 @@ class RetrieveUpdateDelete extends SquareRequest {
   }
 } // END class
 
-// TODO see if it is possible to extact the options to the top level and just have the mid level provide the method.
+// TODO see if it is possible to extract the options to the top level and just have the mid level provide the method.
+// set an _options prop at the top level
+// change the options method so it adds a property to it "method: [http method]"
 
 
 // creates a whole new document
@@ -274,4 +286,3 @@ export async function testDelete() {
   return vaporized;
 }
 
-how to cre
