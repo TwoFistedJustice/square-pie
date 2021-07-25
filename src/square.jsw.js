@@ -64,7 +64,7 @@ class SquareRequest {
   // SETTERS
   set body(val) {
     console.log('super body SSSSetter')
-    this._body = val;
+    this._body = JSON.stringify(val);
   }
   
   set method(method){
@@ -165,18 +165,14 @@ class RetrieveUpdateDelete extends SquareRequest {
 // creates a whole new document
 // you tell it what to store
 class Create extends SquareRequest {
+  _method = 'post';
+  
   constructor(isProduction) {
     super(isProduction);
     this.endpoint = ''
     this.idempotency_key = uuidv4();
   }
-  options(secret) {
-    return {
-      method: 'post',
-      headers: this.headers(secret),
-      body: JSON.stringify(this._body)
-    }
-  }
+  
   get getIdempotency_key() {
     return this.idempotency_key;
   }
