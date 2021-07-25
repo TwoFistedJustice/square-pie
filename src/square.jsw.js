@@ -132,7 +132,6 @@ class List extends SquareRequest {
   
   constructor(isProduction) {
     super(isProduction);
-    // this.endpoint = ''
   }
 } // END class
 
@@ -160,7 +159,6 @@ class Create extends SquareRequest {
   
   constructor(isProduction) {
     super(isProduction);
-    // this.endpoint = ''
     this.idempotency_key = uuidv4();
   }
   
