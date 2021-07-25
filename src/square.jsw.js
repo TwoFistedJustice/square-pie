@@ -44,6 +44,7 @@ var spiritualCustomer = {
 class SquareRequest {
   _method = '';
   _body;
+  _endpoint = '';
   
   constructor(isProduction) {
     this.isProduction = isProduction;
@@ -76,7 +77,7 @@ class SquareRequest {
     return (this.isProduction === true) ? `https://connect.squareup.com/v2/${this._apiName}` : `https://connect.squareupsandbox.com/v2/${this._apiName}`;
   }
   get url() {
-    return `${this.baseUrl}${this.endpoint}`;
+    return `${this.baseUrl}${this._endpoint}`;
   }
   
 
@@ -131,7 +132,7 @@ class List extends SquareRequest {
   
   constructor(isProduction) {
     super(isProduction);
-    this.endpoint = ''
+    // this.endpoint = ''
   }
 } // END class
 
@@ -143,7 +144,7 @@ class RetrieveUpdateDelete extends SquareRequest {
   }
   // METHODS
   set id(someId) {
-    this.endpoint = `/${someId}`;
+    this._endpoint = `/${someId}`;
   }
 } // END class
 
@@ -159,7 +160,7 @@ class Create extends SquareRequest {
   
   constructor(isProduction) {
     super(isProduction);
-    this.endpoint = ''
+    // this.endpoint = ''
     this.idempotency_key = uuidv4();
   }
   
