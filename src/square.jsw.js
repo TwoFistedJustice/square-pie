@@ -147,13 +147,8 @@ class RetrieveUpdateDelete extends SquareRequest {
   }
 } // END class
 
-// TODO see if it is possible to extract the options to the top level and just have the mid level provide the method.
-// set an _options prop at the top level
-// change the options method so it adds a property to it "method: [http method]"
-
-
 // creates a whole new document
-// you tell it what to store
+// you tell it what to store in its subclass
 class Create extends SquareRequest {
   _method = 'post';
   
