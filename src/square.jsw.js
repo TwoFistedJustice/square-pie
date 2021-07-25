@@ -47,7 +47,6 @@ class SquareRequest {
   
   constructor(isProduction) {
     this.isProduction = isProduction;
-    // this._body = {}
   }
   
   // GETTERS
@@ -74,7 +73,7 @@ class SquareRequest {
   }
   
   get baseUrl() {
-    return (this.isProduction === true) ? `https://connect.squareup.com/v2/${this.apiName}` : `https://connect.squareupsandbox.com/v2/${this.apiName}`;
+    return (this.isProduction === true) ? `https://connect.squareup.com/v2/${this._apiName}` : `https://connect.squareupsandbox.com/v2/${this._apiName}`;
   }
   get url() {
     return `${this.baseUrl}${this.endpoint}`;
@@ -173,34 +172,35 @@ class Create extends SquareRequest {
 // CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER
 
 class CustomerList extends List {
+  _apiName  = 'customers';
+  
   constructor(isProduction) {
     super(isProduction);
-    this.apiName = 'customers';
   }
 } // END class
 
 class CustomerRetrieve extends RetrieveUpdateDelete {
+  _apiName  = 'customers';
   _method = 'get';
   
   constructor(isProduction) {
     super(isProduction)
-    this.apiName = 'customers';
   }
 } // END class
 
 class CustomerDelete extends RetrieveUpdateDelete {
+  _apiName  = 'customers';
   _method = 'delete';
   
   constructor(isProduction) {
     super(isProduction);
-    this.apiName = 'customers';
   }
 } // END class
 
 class CustomerCreate extends Create {
+  _apiName  = 'customers';
   constructor(isProduction) {
     super(isProduction);
-    this.apiName = 'customers';
   }
   //METHODS
   set customer(customer) {
