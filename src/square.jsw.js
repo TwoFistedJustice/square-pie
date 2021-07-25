@@ -42,8 +42,8 @@ var spiritualCustomer = {
 // before calling class.makeRequest(secret) you have to get the secret from wix
 // by calling getSecret(class.secretName)
 class SquareRequest {
-  _method;
-  _headers;
+  _method = '';
+  // _headers;
   _body;
   
   constructor(isProduction) {
@@ -52,15 +52,35 @@ class SquareRequest {
   }
   
   // GETTERS
+  get method (){
+    console.log('super METHOD GGGGetter')
+    return this._method;
+  }
+  
   get body() {
-    console.log('body getter')
+    console.log('super body GGGGetter')
     return this._body;
   }
   
   // SETTERS
   set body(val) {
+    console.log('super body SSSSetter')
     this._body = val;
   }
+  
+  set method(method){
+    console.log('super METHOD SSSSetter')
+    this._method = method;
+  }
+  
+  // set headers(secret) {
+  //   this._headers = {
+  //     'Square-Version': `${config.squareVersion}`,
+  //     'Content-Type': `${config.contentType}`,
+  //     'Accept': `${config.Accept}`,
+  //     'Authorization': `Bearer ${secret}`
+  //   };
+  // }
   
   // COMPUTED PROPERTIES
   get secretName() {
@@ -73,6 +93,7 @@ class SquareRequest {
   get url() {
     return `${this.baseUrl}${this.endpoint}`;
   }
+  
 
   // METHODS
   
@@ -108,6 +129,14 @@ class SquareRequest {
       throw new Error("Email is not valid. Please use a valid email address.")
     }
     return validator.normalizeEmail(email, normalizeOptions);
+  }
+  options(secret) {
+    return {
+      method: this._method,
+      headers: this.headers (secret),
+      body: this._body
+    
+    }
   }
 } // END class
 
