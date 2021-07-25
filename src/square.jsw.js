@@ -43,7 +43,6 @@ var spiritualCustomer = {
 // by calling getSecret(class.secretName)
 class SquareRequest {
   _method = '';
-  // _headers;
   _body;
   
   constructor(isProduction) {
@@ -72,15 +71,6 @@ class SquareRequest {
     console.log('super METHOD SSSSetter')
     this._method = method;
   }
-  
-  // set headers(secret) {
-  //   this._headers = {
-  //     'Square-Version': `${config.squareVersion}`,
-  //     'Content-Type': `${config.contentType}`,
-  //     'Accept': `${config.Accept}`,
-  //     'Authorization': `Bearer ${secret}`
-  //   };
-  // }
   
   // COMPUTED PROPERTIES
   get secretName() {
@@ -115,7 +105,6 @@ class SquareRequest {
         throw new Error(message);
       }
       let response = await httpResponse.json();
-      
       return response;
     }
     return request(this.url, this.options(secret));
@@ -143,17 +132,13 @@ class SquareRequest {
 // LEVEL TWO CLASSES
 
 class List extends SquareRequest {
+  _method = 'get';
+  
   constructor(isProduction) {
     super(isProduction);
     this.endpoint = ''
   }
-  options(secret) {
-    return {
-      method: 'get',
-      headers: this.headers(secret),
-      body: {}
-    }
-  }
+  
 } // END class
 
 // to extend this
