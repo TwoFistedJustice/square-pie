@@ -14,26 +14,29 @@ The simplest example is fetching a list of customers:
   return await list.makeRequest(secret);```
 
 
-General Features:
+## General Features:
 
-Top Level Classes
-Sets headers
-Makes the actual http request
-Normalize emails
-
-
-Mid Level Classes
-Provide the http method
-Set the fetch request options
-Set the document ID 
+### Top Level Classes
+ - Set headers
+ - Make the actual http request
+ - Normalize emails
 
 
-
-Bottom Level Classes
- Set the endpoint for the http request (api name)
- provide details to the http request (like customer or invoice details)
+### Mid Level Classes
+ - Provide the http method
+ - Set the fetch request options
+ - Set the document ID 
 
 
 
-SquareRequest
-Super of all classes
+### Bottom Level Classes
+  - Set the endpoint for the http request (api name)
+  - provide details to the http request (like customer or invoice details)
+
+
+
+**SquareRequest**
+Super of all request classes
+
+
+
