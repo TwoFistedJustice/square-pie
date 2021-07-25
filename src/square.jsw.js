@@ -52,23 +52,19 @@ class SquareRequest {
   
   // GETTERS
   get method (){
-    console.log('super METHOD GGGGetter')
     return this._method;
   }
   
   get body() {
-    console.log('super body GGGGetter')
     return this._body;
   }
   
   // SETTERS
   set body(val) {
-    console.log('super body SSSSetter')
     this._body = JSON.stringify(val);
   }
   
   set method(method){
-    console.log('super METHOD SSSSetter')
     this._method = method;
   }
   
@@ -140,11 +136,6 @@ class List extends SquareRequest {
   }
 } // END class
 
-// to extend this
-// override the options method in the subclass
-// let options = super.options(secret)
-// options.method = 'someHttpMethod'
-// return options
 
 //ToDO whenever something is updated or deleted, log it to a file
 class RetrieveUpdateDelete extends SquareRequest {
