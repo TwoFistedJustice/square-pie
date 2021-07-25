@@ -138,7 +138,6 @@ class List extends SquareRequest {
     super(isProduction);
     this.endpoint = ''
   }
-  
 } // END class
 
 // to extend this
@@ -202,14 +201,11 @@ class CustomerList extends List {
 } // END class
 
 class CustomerRetrieve extends RetrieveUpdateDelete {
+  _method = 'get';
+  
   constructor(isProduction) {
     super(isProduction)
     this.apiName = 'customers';
-  }
-  options(secret) {
-    let options = super.options(secret);
-    options.method = 'get';
-    return options;
   }
 } // END class
 
