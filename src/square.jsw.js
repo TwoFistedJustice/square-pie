@@ -135,7 +135,7 @@ class List extends SquareRequest {
   }
 } // END class
 
-
+// https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile
 //ToDO whenever something is updated or deleted, log it to a file
 class RetrieveUpdateDelete extends SquareRequest {
   constructor(isProduction) {
@@ -190,7 +190,7 @@ class CustomerDelete extends RetrieveUpdateDelete {
     super(isProduction);
   }
 } // END class
-
+// ToDo execute a search on name, email, phone make sure no duplicates are created
 class CustomerCreate extends Create {
   _apiName  = 'customers';
   constructor(isProduction) {
