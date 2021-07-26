@@ -27,16 +27,16 @@
 |CustomerUngroup|Ungroup| !
 
 
-| API | Command| Method | Resource Location | Class | 
-|---|---|---|---|---|
-|Customer| LIST all | GET| '/customers' | CustomerList |
-|Customer| CREATE one| POST|'/customers'| CustomerCreate|
-|Customer| SEARCH by Attribute | POST|'/customers/search' | CustomerRetrieve|
-|Customer|DELETE one| DELETE |'/customers/{customer_id}' |CustomerDelete |
-|Customer| RETRIEVE by ID | POST|'/customers/{customer_id}' | CustomerRetrieve|
-|Customer|UPDATE one |PUT |'/customers/{customer_id}' | !
-|Customer|REMOVE group from one |DELETE |'/customers/{customer_id}/groups/{group_id}' | !
-|Customer|ADD group from one |PUT |'/customers/{customer_id}/groups/{group_id}' | !
+| API | Command| Method | Resource Location | Class | Square Docs
+|---|---|---|---|---|---|
+|Customer| LIST all | GET| '/customers' | CustomerList |[LIST](https://developer.squareup.com/reference/square/customers-api/list-customers)
+|Customer| CREATE one| POST|'/customers'| CustomerCreate|[CREATE](https://developer.squareup.com/reference/square/customers-api/create-customer)
+|Customer| SEARCH by Attribute | POST|'/customers/search' | CustomerRetrieve| [SEARCH](https://developer.squareup.com/reference/square/customers-api/search-customers)
+|Customer|DELETE one| DELETE |'/customers/{customer_id}' |CustomerDelete | [DELETE](https://developer.squareup.com/reference/square/customers-api/delete-customer)
+|Customer| RETRIEVE by ID | POST|'/customers/{customer_id}' | CustomerRetrieve|[RETRIEVE](https://developer.squareup.com/reference/square/customers-api/retrieve-customer)
+|Customer|UPDATE one |PUT |'/customers/{customer_id}' | ! | [UPDATE](https://developer.squareup.com/reference/square/customers-api/update-customer)
+|Customer|REMOVE group from one |DELETE |'/customers/{customer_id}/groups/{group_id}' | ! | [Remove GROUP](https://developer.squareup.com/reference/square/customers-api/remove-group-from-customer)
+|Customer|ADD group from one |PUT |'/customers/{customer_id}/groups/{group_id}' | ! | [Add GROUP](https://developer.squareup.com/reference/square/customers-api/add-group-to-customer)
 
 
 
