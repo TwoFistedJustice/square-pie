@@ -359,30 +359,11 @@ export async function testDelete() {
   return vaporized;
 }
 
+
 export async function testSearch() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
-  //   let fuzzy = search.fuzzy();
-  //   let filter = fuzzy.email('fred').phone('1054');
-  let filter = search.fuzzy().email('fred').phone('1054');
-  let body = { query: filter }
-  body.query.sort = {
-    field: "CREATED_AT",
-    order: "ASC"
-  }
-  body.query.limit = 2;
-  search.body = body
-  console.log(search.body);
-  let response = await search.makeRequest(secret)
-  return response;
-};
-
-
-export async function testSearchQuery() {
-  let secret = await getSecret(config.sandboxSecretName);
-  let search = new CustomerSearch(config.sandbox);
   search.query().fuzzy().email('fred').phone('867');
-  // console.log(search.body);
-  let response = await search.makeRequest(secret)
+    let response = await search.makeRequest(secret)
   return response;
 };
