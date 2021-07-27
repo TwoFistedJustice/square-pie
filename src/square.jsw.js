@@ -256,8 +256,8 @@ class CustomerSearch extends Search {
           }
         }
       }
-      
-      
+      //ToDO make a 'Sort' method that allows simple chaining maybe use the possible values as chain links
+      // ToDO make a 'limit' method
       
     }
   }
