@@ -52,7 +52,7 @@ class SquareRequest {
   }
   
   // GETTERS
-  get method (){
+  get method() {
     return this._method;
   }
   
@@ -65,7 +65,7 @@ class SquareRequest {
     this._body = JSON.stringify(val);
   }
   
-  set method(method){
+  set method(method) {
     this._method = method;
   }
   
@@ -81,7 +81,6 @@ class SquareRequest {
     return `${this.baseUrl}${this._endpoint}`;
   }
   
-
   // METHODS
   
   headers(secret) {
@@ -119,9 +118,9 @@ class SquareRequest {
   options(secret) {
     return {
       method: this._method,
-      headers: this.headers (secret),
+      headers: this.headers(secret),
       body: this._body
-    
+      
     }
   }
 } // END class
@@ -140,14 +139,13 @@ class List extends SquareRequest {
 
 // THREE props on body: query, limit, cursor - these are same as for Invoices
 // differentiation begins inside the query object
-class Search extends SquareRequest{
+class Search extends SquareRequest {
   _method = 'post';
   _endpoint = '/search'
-  constructor (isProduction) {
-    super (isProduction);
+  constructor(isProduction) {
+    super(isProduction);
   }
 }
-
 
 //ToDO whenever something is updated or deleted, log it to a file in some retrievable location
 class RetrieveUpdateDelete extends SquareRequest {
@@ -179,13 +177,12 @@ class Create extends SquareRequest {
 // CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER
 
 class CustomerList extends List {
-  _apiName  = 'customers';
+  _apiName = 'customers';
   
   constructor(isProduction) {
     super(isProduction);
   }
 } // END class
-
 
 // tacks on its own query and limit properties
 // https://developer.squareup.com/reference/square/customers-api/search-customers
@@ -197,11 +194,20 @@ class CustomerList extends List {
 // query is a property on request.body
 // limit is a property on request.body
 
-
 // most important search criteria for implementation are email, phone, and square ID
 //
 class CustomerSearch extends Search {
-  _apiName  = 'customers';
+  _apiName = 'customers';
+  _body = {
+    query: {
+      filter:{},
+      sort: {
+          field: "CREATED_AT",
+          order: "ASC"
+        },
+      limit: 2
+    },
+  };
   // _method = 'post';
   
   constructor(isProduction) {
@@ -209,38 +215,47 @@ class CustomerSearch extends Search {
   }
   
   // METHODS
-  fuzzy(){
-    return{
-      filter: {},
-      email: function (email) {
-        this.filter.email_address = {fuzzy: email };
+  query(){
+    return {
+      email: (email) => {
+        console.log(this);
+        this._body.query.filter.email_address = { fuzzy: email };
         return this;
-    },
-      phone: function(phone) {
-        this.filter.phone_number = {fuzzy: phone};
-        return this;
-      },
-      id: function(id){
-        this.filter.reference_id = {fuzzy: id};
-        return this;
-        
       }
     }
   }
   
-  exact(){
-    return{
+  fuzzy() {
+    return {
       filter: {},
       email: function (email) {
-        this.filter.email_address = {exact: email };
+        this.filter.email_address = { fuzzy: email };
         return this;
       },
-      phone: function(phone) {
-        this.filter.phone_number = {exact: phone};
+      phone: function (phone) {
+        this.filter.phone_number = { fuzzy: phone };
         return this;
       },
-      id: function(id){
-        this.filter.reference_id = {exact: id};
+      id: function (id) {
+        this.filter.reference_id = { fuzzy: id };
+        return this;
+      }
+    }
+  }
+  
+  exact() {
+    return {
+      filter: {},
+      email: function (email) {
+        this.filter.email_address = { exact: email };
+        return this;
+      },
+      phone: function (phone) {
+        this.filter.phone_number = { exact: phone };
+        return this;
+      },
+      id: function (id) {
+        this.filter.reference_id = { exact: id };
         return this;
         
       }
@@ -250,7 +265,7 @@ class CustomerSearch extends Search {
 } // END class
 
 class CustomerRetrieve extends RetrieveUpdateDelete {
-  _apiName  = 'customers';
+  _apiName = 'customers';
   _method = 'get';
   
   constructor(isProduction) {
@@ -259,7 +274,7 @@ class CustomerRetrieve extends RetrieveUpdateDelete {
 } // END class
 
 class CustomerDelete extends RetrieveUpdateDelete {
-  _apiName  = 'customers';
+  _apiName = 'customers';
   _method = 'delete';
   
   constructor(isProduction) {
@@ -269,7 +284,7 @@ class CustomerDelete extends RetrieveUpdateDelete {
 // ToDo execute a search on name, email, phone make sure no duplicates are created
 //ToDO - reorder code order to mimic documentation order
 class CustomerCreate extends Create {
-  _apiName  = 'customers';
+  _apiName = 'customers';
   constructor(isProduction) {
     super(isProduction);
   }
@@ -342,23 +357,13 @@ export async function testDelete() {
   return vaporized;
 }
 
-
-
-export async function testSearchA(){
+export async function testSearch() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
-  let _filter = search.filter().fuzzy.email('fred');
-  search.body = _filter;
-  let response = await search.makeRequest(secret)
-  return response;
-};
-
-export async function testSearchB(){
-  let secret = await getSecret(config.sandboxSecretName);
-  let search = new CustomerSearch(config.sandbox);
-  let fuzzy = search.fuzzy();
-  let filter = fuzzy.email('fred').phone('1054');
-  let body = {query: filter}
+  //   let fuzzy = search.fuzzy();
+  //   let filter = fuzzy.email('fred').phone('1054');
+  let filter = search.fuzzy().email('fred').phone('1054');
+  let body = { query: filter }
   body.query.sort = {
     field: "CREATED_AT",
     order: "ASC"
@@ -370,3 +375,12 @@ export async function testSearchB(){
   return response;
 };
 
+
+export async function testSearchQuery() {
+  let secret = await getSecret(config.sandboxSecretName);
+  let search = new CustomerSearch(config.sandbox);
+  search.query().email('fred');
+  // console.log(search.body);
+  let response = await search.makeRequest(secret)
+  return response;
+};
