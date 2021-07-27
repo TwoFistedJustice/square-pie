@@ -215,13 +215,50 @@ class CustomerSearch extends Search {
   }
   
   // METHODS
+  // this works like so:
+  // the 'this' inside  query() is the class
+  // use an arrow function for fuzzy, which makes its 'this'the same as query's (the class)
+  // then use regular function declarations for the properties which sets their 'this' to the object they reside in
+  // access the class with the property 'self'
   query(){
     return {
-      email: (email) => {
-        console.log(this);
-        this._body.query.filter.email_address = { fuzzy: email };
-        return this;
+      fuzzy: () => {
+        return {
+          self: this,
+          email: function (email) {
+            this.self._body.query.filter.email_address = { fuzzy: email };
+            return this;
+          },
+          phone: function (phone) {
+            this.self._body.query.filter.phone_number = { fuzzy: phone };
+            return this;
+          },
+          id: function (id) {
+            this.self._body.query.filter.reference_id = { fuzzy: id };
+            return this;
+          }
+        }
+      },
+      exact: () => {
+        return {
+          self: this,
+          email: function (email) {
+            this.self._body.query.filter.email_address = { exact: email };
+            return this;
+          },
+          phone: function (phone) {
+            this.self._body.query.filter.phone_number = { exact: phone };
+            return this;
+          },
+          id: function (id) {
+            this.self._body.query.filter.reference_id = { exact: id };
+            return this;
+          }
+        }
       }
+      
+      
+      
     }
   }
   
@@ -379,7 +416,7 @@ export async function testSearch() {
 export async function testSearchQuery() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
-  search.query().email('fred');
+  search.query().fuzzy().email('fred').phone('867');
   // console.log(search.body);
   let response = await search.makeRequest(secret)
   return response;
