@@ -209,33 +209,41 @@ class CustomerSearch extends Search {
   }
   
   // METHODS
-  // this.body = this.filter._filter
-  // maybe reduce a steop and just call it fuzzy...
-  // too convoluticated - doesn't work
-  filter(){
-    return {
-      _filter: {},
-      fuzzy: () => {
-        return {
-          email: (email) => {
-            
-            this._filter.email_address = {fuzzy: email }
-            return this;
-          }
-          
-        }
-      }
-    }
-  }
-  // THIS one works as expected
   fuzzy(){
     return{
       filter: {},
       _email: function (email) {
-        console.log(this);
         this.filter.email_address = {fuzzy: email };
         return this;
+    },
+      _phone: function(phone) {
+        this.filter.phone_number = {fuzzy: phone};
+        return this;
+      },
+      _id: function(id){
+        this.filter.reference_id = {fuzzy: id};
+        return this;
+        
+      }
     }
+  }
+  
+  exact(){
+    return{
+      filter: {},
+      _email: function (email) {
+        this.filter.email_address = {exact: email };
+        return this;
+      },
+      _phone: function(phone) {
+        this.filter.phone_number = {exact: phone};
+        return this;
+      },
+      _id: function(id){
+        this.filter.reference_id = {exact: id};
+        return this;
+        
+      }
     }
   }
   
