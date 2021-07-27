@@ -136,7 +136,18 @@ class List extends SquareRequest {
 } // END class
 
 // https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile
-//ToDO whenever something is updated or deleted, log it to a file
+
+// THREE props on body: query, limit, cursor - these are same as for Invoices
+// differentiation begins inside the query object
+class Search extends SquareRequest{
+  _method = 'post';
+  constructor (isProduction) {
+    super (isProduction);
+  }
+}
+
+
+//ToDO whenever something is updated or deleted, log it to a file in some retrievable location
 class RetrieveUpdateDelete extends SquareRequest {
   constructor(isProduction) {
     super(isProduction);
@@ -173,6 +184,32 @@ class CustomerList extends List {
   }
 } // END class
 
+
+// tacks on its own query and limit properties
+// https://developer.squareup.com/reference/square/customers-api/search-customers
+
+// IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS
+//    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS
+//IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS
+
+// query is a property on request.body
+// limit is a property on request.body
+
+
+// most important search criteria for implementation are email, phone, and square ID
+//
+class CustomerSearch extends Search {
+  _apiName  = 'customers';
+  // _method = 'post';
+  
+  constructor(isProduction) {
+    super(isProduction)
+  }
+  
+  // METHODS
+  
+} // END class
+
 class CustomerRetrieve extends RetrieveUpdateDelete {
   _apiName  = 'customers';
   _method = 'get';
@@ -191,6 +228,7 @@ class CustomerDelete extends RetrieveUpdateDelete {
   }
 } // END class
 // ToDo execute a search on name, email, phone make sure no duplicates are created
+//ToDO - reorder code order to mimic documentation order
 class CustomerCreate extends Create {
   _apiName  = 'customers';
   constructor(isProduction) {
