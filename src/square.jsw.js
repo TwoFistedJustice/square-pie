@@ -220,6 +220,8 @@ class CustomerSearch extends Search {
   // use an arrow function for fuzzy, which makes its 'this'the same as query's (the class)
   // then use regular function declarations for the properties which sets their 'this' to the object they reside in
   // access the class with the property 'self'
+  // ToDO the fuzzy query works with other fields!!
+  // ToDO make queries for first name, last name, locality, state, postal code
   query(){
     return {
       fuzzy: () => {
@@ -235,6 +237,10 @@ class CustomerSearch extends Search {
           },
           id: function (id) {
             this.self._body.query.filter.reference_id = { fuzzy: id };
+            return this;
+          },
+          limit: function (limit) {
+            this.self._body.limit = limit;
             return this;
           }
         }
@@ -253,11 +259,14 @@ class CustomerSearch extends Search {
           id: function (id) {
             this.self._body.query.filter.reference_id = { exact: id };
             return this;
+          },
+          limit: function (limit) {
+            this.self._body.limit = limit;
+            return this;
           }
         }
       }
       //ToDO make a 'Sort' method that allows simple chaining maybe use the possible values as chain links
-      // ToDO make a 'limit' method
       
     }
   }
@@ -363,7 +372,8 @@ export async function testDelete() {
 export async function testSearch() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
-  search.query().fuzzy().email('fred').phone('867');
+  // search.query().fuzzy().email('fred').phone('867');
+  search.query().fuzzy().email('fred').limit(1);
     let response = await search.makeRequest(secret)
   return response;
 };
