@@ -262,42 +262,7 @@ class CustomerSearch extends Search {
     }
   }
   
-  fuzzy() {
-    return {
-      filter: {},
-      email: function (email) {
-        this.filter.email_address = { fuzzy: email };
-        return this;
-      },
-      phone: function (phone) {
-        this.filter.phone_number = { fuzzy: phone };
-        return this;
-      },
-      id: function (id) {
-        this.filter.reference_id = { fuzzy: id };
-        return this;
-      }
-    }
-  }
   
-  exact() {
-    return {
-      filter: {},
-      email: function (email) {
-        this.filter.email_address = { exact: email };
-        return this;
-      },
-      phone: function (phone) {
-        this.filter.phone_number = { exact: phone };
-        return this;
-      },
-      id: function (id) {
-        this.filter.reference_id = { exact: id };
-        return this;
-        
-      }
-    }
-  }
   
 } // END class
 
