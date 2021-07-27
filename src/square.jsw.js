@@ -62,7 +62,7 @@ class SquareRequest {
   
   // SETTERS
   set body(val) {
-    this._body = JSON.stringify(val);
+    this._body = val;
   }
   
   set method(method) {
@@ -119,7 +119,7 @@ class SquareRequest {
     return {
       method: this._method,
       headers: this.headers(secret),
-      body: this._body
+      body: JSON.stringify(this._body)
       
     }
   }
