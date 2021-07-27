@@ -212,15 +212,15 @@ class CustomerSearch extends Search {
   fuzzy(){
     return{
       filter: {},
-      _email: function (email) {
+      email: function (email) {
         this.filter.email_address = {fuzzy: email };
         return this;
     },
-      _phone: function(phone) {
+      phone: function(phone) {
         this.filter.phone_number = {fuzzy: phone};
         return this;
       },
-      _id: function(id){
+      id: function(id){
         this.filter.reference_id = {fuzzy: id};
         return this;
         
@@ -231,15 +231,15 @@ class CustomerSearch extends Search {
   exact(){
     return{
       filter: {},
-      _email: function (email) {
+      email: function (email) {
         this.filter.email_address = {exact: email };
         return this;
       },
-      _phone: function(phone) {
+      phone: function(phone) {
         this.filter.phone_number = {exact: phone};
         return this;
       },
-      _id: function(id){
+      id: function(id){
         this.filter.reference_id = {exact: id};
         return this;
         
@@ -357,7 +357,7 @@ export async function testSearchB(){
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
   let fuzzy = search.fuzzy();
-  let filter = fuzzy._email('fred');
+  let filter = fuzzy.email('fred').phone('1054');
   let body = {query: filter}
   body.query.sort = {
     field: "CREATED_AT",
