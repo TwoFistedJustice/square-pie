@@ -4,6 +4,7 @@ const { v4: uuidv4 } = require('uuid');
 const validator = require('validator');
 
 const config = {
+  sandbox: false,
   squareVersion: '2021-06-16',
   sandboxSecretName: 'square_sandbox',
   productionSecretName: 'square_token',
@@ -141,6 +142,7 @@ class List extends SquareRequest {
 // differentiation begins inside the query object
 class Search extends SquareRequest{
   _method = 'post';
+  _endpoint = '/search'
   constructor (isProduction) {
     super (isProduction);
   }
@@ -207,6 +209,35 @@ class CustomerSearch extends Search {
   }
   
   // METHODS
+  // this.body = this.filter._filter
+  // maybe reduce a steop and just call it fuzzy...
+  // too convoluticated - doesn't work
+  filter(){
+    return {
+      _filter: {},
+      fuzzy: () => {
+        return {
+          email: (email) => {
+            
+            this._filter.email_address = {fuzzy: email }
+            return this;
+          }
+          
+        }
+      }
+    }
+  }
+  // THIS one works as expected
+  fuzzy(){
+    return{
+      filter: {},
+      _email: function (email) {
+        console.log(this);
+        this.filter.email_address = {fuzzy: email };
+        return this;
+    }
+    }
+  }
   
 } // END class
 
@@ -302,4 +333,32 @@ export async function testDelete() {
   let vaporized = await deleteCustomer.makeRequest(secret);
   return vaporized;
 }
+
+
+
+export async function testSearchA(){
+  let secret = await getSecret(config.sandboxSecretName);
+  let search = new CustomerSearch(config.sandbox);
+  let _filter = search.filter().fuzzy.email('fred');
+  search.body = _filter;
+  let response = await search.makeRequest(secret)
+  return response;
+};
+
+export async function testSearchB(){
+  let secret = await getSecret(config.sandboxSecretName);
+  let search = new CustomerSearch(config.sandbox);
+  let fuzzy = search.fuzzy();
+  let filter = fuzzy._email('fred');
+  let body = {query: filter}
+  body.query.sort = {
+    field: "CREATED_AT",
+    order: "ASC"
+  }
+  body.query.limit = 2;
+  search.body = body
+  console.log(search.body);
+  let response = await search.makeRequest(secret)
+  return response;
+};
 
