@@ -199,6 +199,22 @@ class List extends SquareRequest {
   }
 } // END class
 
+// creates a whole new document
+// you tell it what to store in its subclass
+class Create extends SquareRequest {
+  _method = 'post';
+  
+  constructor(isProduction) {
+    super(isProduction);
+    this.idempotency_key = uuidv4();
+  }
+  
+  get getIdempotency_key() {
+    return this.idempotency_key;
+  }
+} // END class
+
+
 // https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile
 
 // THREE props on body: query, limit, cursor - these are same as for Invoices
@@ -222,20 +238,6 @@ class RetrieveUpdateDelete extends SquareRequest {
   }
 } // END class
 
-// creates a whole new document
-// you tell it what to store in its subclass
-class Create extends SquareRequest {
-  _method = 'post';
-  
-  constructor(isProduction) {
-    super(isProduction);
-    this.idempotency_key = uuidv4();
-  }
-  
-  get getIdempotency_key() {
-    return this.idempotency_key;
-  }
-} // END class
 
 // CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER  CUSTOMER
 // CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER
