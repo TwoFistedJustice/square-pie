@@ -312,12 +312,17 @@ class CustomerSearch extends Search {
           this.self._body.query.sort.order = "DESC";
           return this;
         },
-        sortByName: function () {
+        sortByFirstName: function () {
           this.self._body.query.sort.field = "DEFAULT";
           return this;
         },
         sortByDate: function () {
           this.self._body.query.sort.field = "CREATED_AT";
+          return this;
+        },
+        sortByMostRecent: function () {
+          this.self._body.query.sort.field = "CREATED_AT";
+          this.self._body.query.sort.order = "ASC";
           return this;
         }
       }
