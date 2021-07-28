@@ -258,7 +258,7 @@ class CustomerSearch extends Search {
           field: "CREATED_AT",
           order: "ASC"
         },
-      limit: 2
+      limit: ''
     },
   };
   
