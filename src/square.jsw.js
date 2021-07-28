@@ -248,18 +248,7 @@ class CustomerList extends List {
   }
 } // END class
 
-// tacks on its own query and limit properties
-// https://developer.squareup.com/reference/square/customers-api/search-customers
 
-// IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS
-//    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS
-//IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS    IN PROGRESS
-
-// query is a property on request.body
-// limit is a property on request.body
-
-// most important search criteria for implementation are email, phone, and square ID
-//
 class CustomerSearch extends Search {
   _apiName = 'customers';
   _body = {
@@ -272,7 +261,6 @@ class CustomerSearch extends Search {
       limit: 2
     },
   };
-  // _method = 'post';
   
   constructor(isProduction) {
     super(isProduction)
@@ -373,9 +361,9 @@ class CustomerCreate extends Create {
   }
 } // END class
 
-// create a customer class which includes email validation
-
 // TESTING FUNCTIONS BELOW HERE
+// the function that calls the async getter MUST be async
+// that way they go into the same call stack
 
 // returns the ID of the first customer in the customers list
 // creates a customer if none exists
@@ -397,8 +385,6 @@ const fetchIndexZeroCustomerId = async function () {
   return list.customers[0].id;
 }
 
-// the function that calls the async getter MUST be async
-// that way they go into the same call stack
 export async function testList() {
   var list = new CustomerList(false)
   let secret = await getSecret(list.secretName);
