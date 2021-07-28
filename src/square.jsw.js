@@ -37,6 +37,27 @@ var spiritualCustomer = {
   },
 }
 
+var stoneageCustomer = {
+  "given_name": "Fred",
+  "family_name": "Flintsone",
+  "email_address": "fred@slaterock.com",
+  "address": {
+    "address_line_1": "301 Cobblestone Way",
+    "address_line_2": "",
+    "locality": "Bedrock",
+    "administrative_district_level_1": "BR",
+    "postal_code": "70777",
+    "country": "BR"
+  },
+  "phone_number": "1-937-555-7777",
+  "reference_id": "Flintsone-7777",
+  "note": "yubba dubba doooo",
+  "preferences": {
+    "email_unsubscribed": false
+  },
+}
+
+
 
 var unhappyCustomer = {
   "given_name": "Jason",
@@ -260,75 +281,56 @@ class CustomerSearch extends Search {
   // METHODS
   // this works like so:
   // the 'this' inside  query() is the class
-  // use an arrow function for fuzzy, which makes its 'this'the same as query's (the class)
-  // then use regular function declarations for the properties which sets their 'this' to the object they reside in
-  // access the class with the property 'self'
-  // ToDO the fuzzy query works with other fields!!
-  // ToDO make queries for first name, last name, locality, state, postal code
+  // call Search.query.fuzzy.the-method-you-want
+  // call Search.query.exact.the-method-you-want
   query(){
-    return {
-      fuzzy: () => {
+    const methods = (fuzzacto) => {
         return {
-          self: this,
-          email: function (email) {
-            this.self._body.query.filter.email_address = { fuzzy: email };
-            return this;
-          },
-          phone: function (phone) {
-            this.self._body.query.filter.phone_number = { fuzzy: phone };
-            return this;
-          },
-          id: function (id) {
-            this.self._body.query.filter.reference_id = { fuzzy: id };
-            return this;
-          },
-          limit: function (limit) {
-            this.self._body.limit = limit;
-            return this;
-          },
-          sortUp: function () {
-            this.self._body.query.sort.order = "ASC";
-            return this;
-          },
-          sortDown: function () {
-            this.self._body.query.sort.order = "DESC";
-            return this;
-          },
-          sortByName: function () {
-            this.self._body.query.sort.field = "DEFAULT";
-            return this;
-          },
-          sortByDate: function () {
+        self: this,
+        typeOfSearch: `${fuzzacto}`,
+        email: function (email) {
+          this.self._body.query.filter.email_address = { [this.typeOfSearch]: email };
+          return this;
+        },
+        phone: function (phone) {
+          this.self._body.query.filter.phone_number = { [this.typeOfSearch]: phone };
+          return this;
+        },
+        id: function (id) {
+          this.self._body.query.filter.reference_id = { [this.typeOfSearch]: id };
+          return this;
+        },
+        limit: function (limit) {
+          this.self._body.limit = limit;
+          return this;
+        },
+        sortUp: function () {
+          this.self._body.query.sort.order = "ASC";
+          return this;
+        },
+        sortDown: function () {
+          this.self._body.query.sort.order = "DESC";
+          return this;
+        },
+        sortByName: function () {
+          this.self._body.query.sort.field = "DEFAULT";
+          return this;
+        },
+        sortByDate: function () {
           this.self._body.query.sort.field = "CREATED_AT";
-            return this;
-          }
-        }
-      },
-      exact: () => {
-        return {
-          self: this,
-          email: function (email) {
-            this.self._body.query.filter.email_address = { exact: email };
-            return this;
-          },
-          phone: function (phone) {
-            this.self._body.query.filter.phone_number = { exact: phone };
-            return this;
-          },
-          id: function (id) {
-            this.self._body.query.filter.reference_id = { exact: id };
-            return this;
-          },
-          limit: function (limit) {
-            this.self._body.limit = limit;
-            return this;
-          }
+          return this;
         }
       }
-      //ToDO make a 'Sort' method that allows simple chaining maybe use the possible values as chain links
-      
     }
-  }
+    return {
+      fuzzy: () => {
+        return methods('fuzzy');
+        },
+      exact: () => {
+        return methods('exact');
+      }
+    };
+  }  // END query method
   
   
   
@@ -413,7 +415,8 @@ export async function testCreate() {
   let secret = await getSecret(someGuy.secretName);
   // someGuy.customer = shortCustomer;
   // someGuy.customer = spiritualCustomer;
-  someGuy.customer = unhappyCustomer;
+  // someGuy.customer = unhappyCustomer;
+  someGuy.customer = stoneageCustomer;
   let response = await someGuy.makeRequest(secret);
   console.log('Customer created:');
   return response;
@@ -429,14 +432,24 @@ export async function testDelete() {
 }
 
 
-export async function testSearch() {
+export async function testSearchLimit() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
-  // search.query().fuzzy().email('fred').phone('867');
   search.query().fuzzy().email('fred').limit(1);
-    let response = await search.makeRequest(secret)
+ let response = await search.makeRequest(secret)
+  console.log('expect ONE fred to come back- Either one okay');
   return response;
 };
+
+export async function testSearchPhone() {
+  let secret = await getSecret(config.sandboxSecretName);
+  let search = new CustomerSearch(config.sandbox);
+  search.query().fuzzy().email('fred').phone('77');
+  let response = await search.makeRequest(secret)
+  console.log('expect ONE fred to come back - FLINTSTONE');
+  return response;
+};
+
 
 export async function testSortSearchDown(){
   let secret = await getSecret(config.sandboxSecretName);
@@ -451,3 +464,4 @@ export async function testSortSearchUp(){
   search.query().fuzzy().sortUp().sortByName();
   return await search.makeRequest(secret);
 };
+
