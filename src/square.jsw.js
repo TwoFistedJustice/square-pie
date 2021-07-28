@@ -37,6 +37,49 @@ var spiritualCustomer = {
   },
 }
 
+
+var unhappyCustomer = {
+  "given_name": "Jason",
+  "family_name": "Voorhees",
+  "email_address": "machete@iscream.org",
+  "address": {
+    "address_line_1": "1054 Camp Crystal Lake Street",
+    "address_line_2": "Cabin 86",
+    "locality": "Crystal Lake",
+    "administrative_district_level_1": "OH",
+    "postal_code": "43086",
+    "country": "US"
+  },
+  "phone_number": "1-937-555-0013",
+  "reference_id": "Friday-The-13th",
+  "note": "naughty children go to sleep",
+  "preferences": {
+    "email_unsubscribed": false
+  },
+}
+
+var trickrTreatCustomer = {
+  "given_name": "Michael",
+  "family_name": "Myers",
+  "email_address": "candyTime@iscream.org",
+  "address": {
+    "address_line_1": "86 Nowhere Is Safe Court",
+    "address_line_2": "",
+    "locality": "Haddonfield",
+    "administrative_district_level_1": "IL",
+    "postal_code": "60686",
+    "country": "US"
+  },
+  "phone_number": "1-937-555-1031",
+  "reference_id": "Halloween-31",
+  "note": "want some candy?",
+  "preferences": {
+    "email_unsubscribed": false
+  },
+}
+
+
+
 // TOP LEVEL CLASSES
 
 // instantiate the class with a boolean
@@ -242,6 +285,22 @@ class CustomerSearch extends Search {
           limit: function (limit) {
             this.self._body.limit = limit;
             return this;
+          },
+          sortUp: function () {
+            this.self._body.query.sort.order = "ASC";
+            return this;
+          },
+          sortDown: function () {
+            this.self._body.query.sort.order = "DESC";
+            return this;
+          },
+          sortByName: function () {
+            this.self._body.query.sort.field = "DEFAULT";
+            return this;
+          },
+          sortByDate: function () {
+          this.self._body.query.sort.field = "CREATED_AT";
+            return this;
           }
         }
       },
@@ -352,8 +411,9 @@ export async function testRetrieve() {
 export async function testCreate() {
   let someGuy = new CustomerCreate(false);
   let secret = await getSecret(someGuy.secretName);
-  someGuy.customer = shortCustomer;
+  // someGuy.customer = shortCustomer;
   // someGuy.customer = spiritualCustomer;
+  someGuy.customer = unhappyCustomer;
   let response = await someGuy.makeRequest(secret);
   console.log('Customer created:');
   return response;
@@ -376,4 +436,18 @@ export async function testSearch() {
   search.query().fuzzy().email('fred').limit(1);
     let response = await search.makeRequest(secret)
   return response;
+};
+
+export async function testSortSearchDown(){
+  let secret = await getSecret(config.sandboxSecretName);
+  let search = new CustomerSearch(config.sandbox);
+  search.query().fuzzy().sortDown().sortByName();
+  return await search.makeRequest(secret);
+};
+
+export async function testSortSearchUp(){
+  let secret = await getSecret(config.sandboxSecretName);
+  let search = new CustomerSearch(config.sandbox);
+  search.query().fuzzy().sortUp().sortByName();
+  return await search.makeRequest(secret);
 };
