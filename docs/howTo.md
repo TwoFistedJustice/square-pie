@@ -15,7 +15,7 @@ The simplest example is fetching a list of customers:
   ```
 
 
-## General Features:
+## Class Levels
 
 ### Top Level Classes
  - Set headers
@@ -36,6 +36,8 @@ The simplest example is fetching a list of customers:
   - provide details to the http request (like customer or invoice details)
 
 
+## Class Breakdowns
+
 
 **SquareRequest**\
 Super of all request classes
@@ -50,21 +52,40 @@ Super of classes that fetch lists
 Subclass of SquareRequest
 - sets the method: GET
 
-
-**RetrieveUpdateDelete**\
-Super of all classes that fetch with a document ID
-Subclass of SquareRequest
-- sets the endpoint to the value of the ID
-
 **Create**\
 Super of all classes that create a new document
 Subclass of SquareRequest
 - is idempotent
 - dependent on npm/uuid
 
+
+**Search**\
+Super of all classes that search on fields other than ID
+Subclass of SquareRequest
+- Sets the method 'post'
+- Sets the endpoint '/search'
+
+**RetrieveUpdateDelete**\
+Super of all classes that fetch with a document ID
+Subclass of SquareRequest
+- sets the endpoint to the value of the ID
+
+
+
+
+ ## Customer Classes
+
 **CustomerList**\
 Subclass of List
 - sets the apiName to 'customers'
+
+**CustomerSearch**\
+Subclass of Search
+- sets the apiName to 'customers'
+- Has a pre-established _body structure
+- Has a chainable 'query' method
+    - call it with either 'fuzzy' or 'exact' method then chain on sub-methods to create a filter
+
 
 **CustomerRetrieve**\
 Subclass of RetrieveUpdateDelete
@@ -83,6 +104,8 @@ Subclass of Create
 - receives the http request body data via its 'customer' setter (foo = bar)
 - adds idempotency_key to request body
 - normalizes the email address in the input
+
+
 
 
 
