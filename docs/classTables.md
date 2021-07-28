@@ -8,7 +8,7 @@
 |---|---|---|---|
 |List | SquareRequest|yes
 |Create | SquareRequest|yes
-|Search | SquareRequest| ! Search
+|Search | SquareRequest| yes
 |RetrieveUpdateDelete | SquareRequest|yes
 |Group | SquareRequest| !
 |Ungroup| SquareRequest| !
@@ -18,8 +18,8 @@
 | Customer Classes |Super| Implemented|Short Notes
 |---|---|---|---|
 |CustomerList|List|yes
-|CustomerCreate|Create|yes
-|CustomerSearch|Search| ! CustomerSearch
+|CustomerCreate|Create|yes | *needs duplicate prevention
+|CustomerSearch|Search| yes
 |CustomerDelete|Delete|yes
 |CustomerRetrieve|Retrieve|yes
 |CustomerUpdate|Update| !
