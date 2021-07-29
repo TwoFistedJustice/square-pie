@@ -343,6 +343,8 @@ class CustomerUpdate extends RetrieveUpdateDelete {
   _body = {
     given_name: undefined,
     family_name: undefined,
+    company_name: undefined, //
+    nickname: undefined, //
     email_address: undefined,
     address: {
       address_line_1: undefined,
@@ -355,9 +357,7 @@ class CustomerUpdate extends RetrieveUpdateDelete {
     phone_number: undefined,
     reference_id: undefined,
    note: undefined,
-   preferences: {
-      email_unsubscribed: false
-    },
+    birthday: undefined, // specify this value in YYYY-MM-DD format.
     version: undefined  // Square will automatically increment this on their end when update is made
   }
   constructor (isProduction) {
@@ -372,6 +372,12 @@ class CustomerUpdate extends RetrieveUpdateDelete {
       get family_name () {
         return this._body.family_name;
       }
+      get company_name () {
+        return this._body.company_name;
+      }
+    get nickname () {
+      return this._body.nickname;
+    }
       get email_address () {
         return this._body.email_address;
       }
@@ -387,9 +393,7 @@ class CustomerUpdate extends RetrieveUpdateDelete {
       get note () {
         return this._body.note;
       }
-      get preferences () {
-        return this._body.preferences.email_unsubscribed;
-      }
+      
       get version () {
         return this._body.version;
       }
@@ -402,6 +406,12 @@ class CustomerUpdate extends RetrieveUpdateDelete {
   set family_name (val) {
     this._body.family_name = val;
   }
+  set company_name (val) {
+    this._body.company_name = val;
+  }
+  set nickname (val) {
+    this._body.nickname = val;
+  }
   //TODO normalize email
   set email_address (val) {
     this._body.email_address = val;
@@ -409,9 +419,7 @@ class CustomerUpdate extends RetrieveUpdateDelete {
   set address (preFormattedAddressObject) {
     this._body.address = preFormattedAddressObject;
   }
-  
-  
-  // TODO provide localized normlizer for phone numbers
+  // TODO provide localized normalizer for phone numbers
   set phone_number (val) {
     this._body.phone_number = val;
   }
@@ -421,19 +429,56 @@ class CustomerUpdate extends RetrieveUpdateDelete {
   set note (val) {
     this._body.note = val;
   }
-  set preferences (val) {
-    this._body.preferences.email_unsubscribed = val;
-  }
+  
   set version (val) {
     this._body.version = val;
   }
-  // DELETERS
-      // make setters that remove a value from the DB by setting the value to empty quotes
-  set clear_given_name (val) {
-    this._body.given_name = '';
-  }
+  
   // METHODS
       // make a chainer
+  chainSet () {
+    return {
+      self: this,
+      firstName: function(val){
+        this.self.given_name = val;
+        return this;
+      },
+      lastName: function(val){
+        this.self.family_name = val;
+        return this;
+      },
+      company: function(val){
+        this.self._body.company_name = val;
+        return this;
+      },
+      nickname: function (val) {
+        this.self._body.nickname = val;
+        return this;
+      },
+      email: function(val) {
+        this.self.email_address = val;
+        return this;
+      },
+      phone: function(val) {
+        this.self.phone_number = val;
+        return this;
+      },
+      note: function(val) {
+        this.self.note = val;
+        return this;
+      },
+      //TODO normalize birthday input with dayjs
+      birthday: function (val){
+        //specify val in YYYY-MM-DD format.
+        this.self._body.birthday = val;
+        return this;
+      }
+      
+    }
+  }
+  
+  
+  
 } // END class
 
 
@@ -559,7 +604,8 @@ export async function testUpdate(){
   let retrieveResponse = await retrieve.makeRequest(secret);
   // you need the customer to get the current version number
   let customer = retrieveResponse.customer;
-  let changedName = (customer.given_name === "Jack") ? "Buffy" : "Jack";
+  let firstName = (customer.given_name === "Jack") ? "Buffy" : "Jack";
+  let lastName = (customer.family_name === "Dullboy") ? "Summers" : "Dullboy"
   
   
   
@@ -568,7 +614,9 @@ export async function testUpdate(){
   let update = new CustomerUpdate(false);
   update.id = id;
   update.version = customer.version;
-  update.given_name = changedName;
+  // update.given_name = firstName;
+  // update.chainSet().firstName(firstName).lastName(lastName).subscribe('Y');
+  update.chainSet().firstName(firstName).lastName(lastName);
   let updateResponse = update.makeRequest(secret)
   
   return updateResponse;
