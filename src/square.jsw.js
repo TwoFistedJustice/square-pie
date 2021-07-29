@@ -57,8 +57,6 @@ var stoneageCustomer = {
   },
 }
 
-
-
 var unhappyCustomer = {
   "given_name": "Jason",
   "family_name": "Voorhees",
@@ -184,7 +182,6 @@ class SquareRequest {
       method: this._method,
       headers: this.headers(secret),
       body: JSON.stringify(this._body)
-      
     }
   }
 } // END class
@@ -249,7 +246,6 @@ class CustomerList extends List {
     super(isProduction);
   }
 } // END class
-
 
 class CustomerSearch extends Search {
   _apiName = 'customers';
@@ -326,9 +322,6 @@ class CustomerSearch extends Search {
       }
     };
   }  // END query method
-  
-  
-  
 } // END class
 
 class CustomerRetrieve extends RetrieveUpdateDelete {
@@ -349,7 +342,6 @@ class CustomerDelete extends RetrieveUpdateDelete {
   }
 } // END class
 // ToDo execute a search on name, email, phone make sure no duplicates are created
-//ToDO - reorder code order to mimic documentation order
 class CustomerCreate extends Create {
   _apiName = 'customers';
   constructor(isProduction) {
