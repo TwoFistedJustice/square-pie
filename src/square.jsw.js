@@ -330,6 +330,8 @@ class CustomerSearch extends Search {
 //  a Square customer doc, but set everything to undefined so the chainer won't blow out
 // on an undeclared sub-property
 // to acitvate it call the .id(id) method which exists on the super
+
+//ToDO normalize all incoming email via super method
 class CustomerUpdate extends RetrieveUpdateDelete {
   _apiName = 'customers';
   _method = 'put';
@@ -356,7 +358,7 @@ class CustomerUpdate extends RetrieveUpdateDelete {
    preferences: {
       email_unsubscribed: false
     },
-    version: undefined
+    version: undefined  // Square will automatically increment this on their end when update is made
   }
   constructor (isProduction) {
     super (isProduction);
@@ -364,8 +366,32 @@ class CustomerUpdate extends RetrieveUpdateDelete {
   
   //GETTERS
       // make getters for each customer field
-      get given_name (){
+      get given_name () {
     return this._body.given_name;
+      }
+      get family_name () {
+        return this._body.family_name;
+      }
+      get email_address () {
+        return this._body.email_address;
+      }
+      get address () {
+        return this._body.address;
+      }
+      get phone_number () {
+        return this._body.phone_number;
+      }
+      get reference_id () {
+        return this._body.reference_id;
+      }
+      get note () {
+        return this._body.note;
+      }
+      get preferences () {
+        return this._body.preferences.email_unsubscribed;
+      }
+      get version () {
+        return this._body.version;
       }
   
   // SETTERS
@@ -373,7 +399,31 @@ class CustomerUpdate extends RetrieveUpdateDelete {
   set given_name (val){
     this._body.given_name = val;
   }
+  set family_name (val) {
+    this._body.family_name = val;
+  }
+  //TODO normalize email
+  set email_address (val) {
+    this._body.email_address = val;
+  }
+  set address (preFormattedAddressObject) {
+    this._body.address = preFormattedAddressObject;
+  }
   
+  
+  // TODO provide localized normlizer for phone numbers
+  set phone_number (val) {
+    this._body.phone_number = val;
+  }
+  set reference_id (val) {
+    this._body.reference_id = val;
+  }
+  set note (val) {
+    this._body.note = val;
+  }
+  set preferences (val) {
+    this._body.preferences.email_unsubscribed = val;
+  }
   set version (val) {
     this._body.version = val;
   }

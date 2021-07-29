@@ -13,3 +13,9 @@ Promotional Ideas
 - Decrementing coupon values
   - instead of hard expiry, coupon loses value over time. eg: 10%, then loses 1% every month till it reaches 0%
     
+
+
+Normalization
+ Customers - set up phone number normalization based on locality - is there an ISO standard for this?
+ -- do it for Create and Update - preferably completely automatic
+
