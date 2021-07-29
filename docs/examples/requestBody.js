@@ -73,35 +73,3 @@ var Customer_Query_EXAMPLE = {
   "limit": 2
 };
 
-// EARLY idea for Customer Search Class
-class CustomerSearch extends Search {
-  _apiName  = 'customers';
-  // _method = 'post';
-  
-  constructor(isProduction) {
-    super(isProduction)
-  }
-  
-  // METHODS
-  fuzzy(){
-    return {
-      email: function(partialEmail){},
-      phone: function (paritalPhone){},
-      id: function (partialId){}
-    }
-  }
-  exact(){
-    return {
-      email: function(partialEmail){},
-      phone: function (paritalPhone){},
-      id: function (partialId){}
-    }
-  }
-  
-  timeRange(begin, end) {}
-  
-  group(group_id){
-    throw new Error("Groups are not implemented yet")
-  }
-  
-} // END class
