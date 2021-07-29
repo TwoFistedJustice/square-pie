@@ -5,7 +5,7 @@ Record Ideas Here (Even if they seem silly)
 Ideas for [Mixins](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes#mix-ins)
 - duplicate prevention
 - [pagination](https://developer.squareup.com/docs/working-with-apis/pagination)
-
+- Customer - instead of creating a class for it
 
 
 
