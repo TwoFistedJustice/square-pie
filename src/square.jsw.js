@@ -324,6 +324,69 @@ class CustomerSearch extends Search {
   }  // END query method
 } // END class
 
+
+// update needs to be flexible in structure so it can be used for single fields or multiple fields
+// json stringfify ignores props set to undefined, so build a _body structure that mimics
+//  a Square customer doc, but set everything to undefined so the chainer won't blow out
+// on an undeclared sub-property
+// to acitvate it call the .id(id) method which exists on the super
+class CustomerUpdate extends RetrieveUpdateDelete {
+  _apiName = 'customers';
+  _method = 'put';
+  
+  
+  // I anticipate that it will blank the address and preferences fields because they are set to an 'empty' object
+  // will prob fail without a version
+  // will need a version setter
+  _body = {
+    given_name: undefined,
+    family_name: undefined,
+    email_address: undefined,
+    address: {
+      address_line_1: undefined,
+      address_line_2: undefined,
+      locality: undefined,
+      administrative_district_level_1: undefined,
+      postal_code: undefined,
+      country: undefined
+    },
+    phone_number: undefined,
+    reference_id: undefined,
+   note: undefined,
+   preferences: {
+      email_unsubscribed: false
+    },
+    version: undefined
+  }
+  constructor (isProduction) {
+    super (isProduction);
+  }
+  
+  //GETTERS
+      // make getters for each customer field
+      get given_name (){
+    return this._body.given_name;
+      }
+  
+  // SETTERS
+      // make setters for each customer field
+  set given_name (val){
+    this._body.given_name = val;
+  }
+  
+  set version (val) {
+    this._body.version = val;
+  }
+  // DELETERS
+      // make setters that remove a value from the DB by setting the value to empty quotes
+  set clear_given_name (val) {
+    this._body.given_name = '';
+  }
+  // METHODS
+      // make a chainer
+} // END class
+
+
 class CustomerRetrieve extends RetrieveUpdateDelete {
   _apiName = 'customers';
   _method = 'get';
@@ -386,14 +449,6 @@ export async function testList() {
   return customerList;
 }
 
-export async function testRetrieve() {
-  let testCustomerSqID = await fetchIndexZeroCustomerId();
-  let retrieve = new CustomerRetrieve(false);
-  let secret = await getSecret(retrieve.secretName);
-  retrieve.id = testCustomerSqID;
-  let customer = await retrieve.makeRequest(secret);
-  return customer.customer;
-}
 
 export async function testCreate() {
   let someGuy = new CustomerCreate(false);
@@ -407,14 +462,6 @@ export async function testCreate() {
   return response;
 }
 
-export async function testDelete() {
-  let sandbox = false;
-  let secret = await getSecret(config.sandboxSecretName);
-  let deleteCustomer = new CustomerDelete(sandbox);
-  deleteCustomer.id = await fetchIndexZeroCustomerId();
-  let vaporized = await deleteCustomer.makeRequest(secret);
-  return vaporized;
-}
 
 
 export async function testSearchLimit() {
@@ -450,3 +497,52 @@ export async function testSortSearchUp(){
   return await search.makeRequest(secret);
 };
 
+
+export async function testUpdate(){
+  // first you need the customer ID
+  let id = await fetchIndexZeroCustomerId();
+  // then you need to get the current data as stored on Square
+  // you need the current version number in order to update
+  let retrieve = new CustomerRetrieve(false);
+  let secret = await getSecret(retrieve.secretName);
+  retrieve.id = id;
+  let retrieveResponse = await retrieve.makeRequest(secret);
+  // you need the customer to get the current version number
+  let customer = retrieveResponse.customer;
+  let changedName = (customer.given_name === "Jack") ? "Buffy" : "Jack";
+  
+  
+  
+  //this is where the actual update happens
+  
+  let update = new CustomerUpdate(false);
+  update.id = id;
+  update.version = customer.version;
+  update.given_name = changedName;
+  let updateResponse = update.makeRequest(secret)
+  
+  return updateResponse;
+  
+  
+  
+};
+
+
+export async function testRetrieve() {
+  let testCustomerSqID = await fetchIndexZeroCustomerId();
+  let retrieve = new CustomerRetrieve(false);
+  let secret = await getSecret(retrieve.secretName);
+  retrieve.id = testCustomerSqID;
+  let customer = await retrieve.makeRequest(secret);
+  return customer.customer;
+}
+
+
+export async function testDelete() {
+  let sandbox = false;
+  let secret = await getSecret(config.sandboxSecretName);
+  let deleteCustomer = new CustomerDelete(sandbox);
+  deleteCustomer.id = await fetchIndexZeroCustomerId();
+  let vaporized = await deleteCustomer.makeRequest(secret);
+  return vaporized;
+};
