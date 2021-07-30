@@ -335,22 +335,19 @@ class CustomerSearch extends Search {
 class CustomerUpdate extends RetrieveUpdateDelete {
   _apiName = 'customers';
   _method = 'put';
-  
-  
-  // I anticipate that it will blank the address and preferences fields because they are set to an 'empty' object
-  // will prob fail without a version
-  // will need a version setter
+  // the props on _body aren't necessary, at this point they are just here for reference
+  // the curly braces are necessary
   _body = {
     given_name: undefined,
     family_name: undefined,
-    company_name: undefined, //
-    nickname: undefined, //
+    company_name: undefined,
+    nickname: undefined,
     email_address: undefined,
     address: {
       address_line_1: undefined,
       address_line_2: undefined,
-      locality: undefined,
-      administrative_district_level_1: undefined,
+      locality: undefined, // city
+      administrative_district_level_1: undefined, // state/province
       postal_code: undefined,
       country: undefined
     },
@@ -416,9 +413,22 @@ class CustomerUpdate extends RetrieveUpdateDelete {
   set email_address (val) {
     this._body.email_address = val;
   }
+  
+  //TODO normalize addresses
   set address (preFormattedAddressObject) {
     this._body.address = preFormattedAddressObject;
   }
+  set city (city) {
+    this._body.address.locality = city;
+  }
+  set postalCode (val) {
+    this.body.address.postal_code = val;
+  }
+  
+  set state (province) {
+    this.body.administrative_district_level_1 = province;
+  }
+  
   // TODO provide localized normalizer for phone numbers
   set phone_number (val) {
     this._body.phone_number = val;
