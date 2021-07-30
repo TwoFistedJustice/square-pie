@@ -74,7 +74,7 @@ var unhappyCustomer = {
   "note": "naughty children go to sleep",
   "preferences": {
     "email_unsubscribed": false
-  },
+  }
 }
 
 var trickrTreatCustomer = {
@@ -94,9 +94,29 @@ var trickrTreatCustomer = {
   "note": "want some candy?",
   "preferences": {
     "email_unsubscribed": false
-  },
+  }
 }
 
+
+var daSlayer = {
+  given_name: "Buffy",
+  family_name: "Summers",
+  email_address: "buffy@redwitch.com",
+  address: {
+    address_line_1: "1630 Revello Drive",
+    address_line_2: "",
+    locality: "Sunnydale",
+    administrative_district_level_1: "CA",
+    postal_code: "95037",
+    country: "US"
+  },
+  phone_number: "805-555-0833",
+  reference_id: "1997-2003",
+  note: "When did I get a sister?",
+  preferences: {
+    email_unsubscribed: false
+  }
+}
 
 
 // TOP LEVEL CLASSES
@@ -562,9 +582,9 @@ export async function testCreate() {
   // someGuy.customer = shortCustomer;
   // someGuy.customer = spiritualCustomer;
   // someGuy.customer = unhappyCustomer;
-  someGuy.customer = stoneageCustomer;
+  // someGuy.customer = stoneageCustomer;
+  someGuy.customer = daSlayer;
   let response = await someGuy.makeRequest(secret);
-  console.log('Customer created:');
   return response;
 }
 
@@ -609,33 +629,29 @@ export async function testUpdate(){
   let id = await fetchIndexZeroCustomerId();
   // then you need to get the current data as stored on Square
   // you need the current version number in order to update
+  // the version number is a property on the returned customer
   let retrieve = new CustomerRetrieve(false);
   let secret = await getSecret(retrieve.secretName);
   retrieve.id = id;
   let retrieveResponse = await retrieve.makeRequest(secret);
-  // you need the customer to get the current version number
   let customer = retrieveResponse.customer;
+  
+  // just auto switching some variables to faciliate testing
   let firstName = (customer.given_name === "Jack") ? "Buffy" : "Jack";
   let lastName = (customer.family_name === "Dullboy") ? "Summers" : "Dullboy"
   
-  
-  
   //this is where the actual update happens
-  
   let update = new CustomerUpdate(false);
   update.id = id;
+  // set the version number - it must match with Square for the update to happen- square will increment the value automatially
   update.version = customer.version;
-  // update.given_name = firstName;
-  // update.chainSet().firstName(firstName).lastName(lastName).subscribe('Y');
+  // set the data you want to change
+  // you can chain or set individual properties
   update.chainSet().firstName(firstName).lastName(lastName);
+  
   let updateResponse = update.makeRequest(secret)
-  
   return updateResponse;
-  
-  
-  
 };
-
 
 export async function testRetrieve() {
   let testCustomerSqID = await fetchIndexZeroCustomerId();
