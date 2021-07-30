@@ -269,6 +269,7 @@ class CustomerSearch extends Search {
   // the 'this' inside  query() is the class
   // call Search.query.fuzzy.the-method-you-want
   // call Search.query.exact.the-method-you-want
+  //TODO consider changing the name of query() to search()
   query(){
     const methods = (fuzzacto) => {
         return {
