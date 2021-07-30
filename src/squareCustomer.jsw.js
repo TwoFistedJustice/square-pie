@@ -97,7 +97,6 @@ var trickrTreatCustomer = {
   }
 }
 
-
 var daSlayer = {
   given_name: "Buffy",
   family_name: "Summers",
@@ -117,7 +116,6 @@ var daSlayer = {
     email_unsubscribed: false
   }
 }
-
 
 // TOP LEVEL CLASSES
 
@@ -227,7 +225,6 @@ class Create extends SquareRequest {
   }
 } // END class
 
-
 // https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile
 
 // THREE props on body: query, limit, cursor - these are same as for Invoices
@@ -251,7 +248,6 @@ class RetrieveUpdateDelete extends SquareRequest {
   }
 } // END class
 
-
 // CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER CUSTOMER  CUSTOMER
 // CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER
 
@@ -267,11 +263,11 @@ class CustomerSearch extends Search {
   _apiName = 'customers';
   _body = {
     query: {
-      filter:{},
+      filter: {},
       sort: {
-          field: "CREATED_AT",
-          order: "ASC"
-        },
+        field: "CREATED_AT",
+        order: "ASC"
+      },
       limit: ''
     },
   };
@@ -286,21 +282,24 @@ class CustomerSearch extends Search {
   // call Search.query.fuzzy.the-method-you-want
   // call Search.query.exact.the-method-you-want
   //TODO consider changing the name of query() to search()
-  query(){
+  query() {
     const methods = (fuzzacto) => {
-        return {
+      return {
         self: this,
         typeOfSearch: `${fuzzacto}`,
         email: function (email) {
-          this.self._body.query.filter.email_address = { [this.typeOfSearch]: email };
+          this.self._body.query.filter.email_address = {
+            [this.typeOfSearch]: email };
           return this;
         },
         phone: function (phone) {
-          this.self._body.query.filter.phone_number = { [this.typeOfSearch]: phone };
+          this.self._body.query.filter.phone_number = {
+            [this.typeOfSearch]: phone };
           return this;
         },
         id: function (id) {
-          this.self._body.query.filter.reference_id = { [this.typeOfSearch]: id };
+          this.self._body.query.filter.reference_id = {
+            [this.typeOfSearch]: id };
           return this;
         },
         limit: function (limit) {
@@ -333,14 +332,13 @@ class CustomerSearch extends Search {
     return {
       fuzzy: () => {
         return methods('fuzzy');
-        },
+      },
       exact: () => {
         return methods('exact');
       }
     };
-  }  // END query method
+  } // END query method
 } // END class
-
 
 // update needs to be flexible in structure so it can be used for single fields or multiple fields
 // json stringfify ignores props set to undefined, so build a _body structure that mimics
@@ -370,111 +368,111 @@ class CustomerUpdate extends RetrieveUpdateDelete {
     },
     phone_number: undefined,
     reference_id: undefined,
-   note: undefined,
+    note: undefined,
     birthday: undefined, // specify this value in YYYY-MM-DD format.
-    version: undefined  // Square will automatically increment this on their end when update is made
+    version: undefined // Square will automatically increment this on their end when update is made
   }
-  constructor (isProduction) {
-    super (isProduction);
+  constructor(isProduction) {
+    super(isProduction);
   }
   
   //GETTERS
-      // make getters for each customer field
-      get given_name () {
+  // make getters for each customer field
+  get given_name() {
     return this._body.given_name;
-      }
-      get family_name () {
-        return this._body.family_name;
-      }
-      get company_name () {
-        return this._body.company_name;
-      }
-    get nickname () {
-      return this._body.nickname;
-    }
-      get email_address () {
-        return this._body.email_address;
-      }
-      get address () {
-        return this._body.address;
-      }
-      get phone_number () {
-        return this._body.phone_number;
-      }
-      get reference_id () {
-        return this._body.reference_id;
-      }
-      get note () {
-        return this._body.note;
-      }
-      
-      get version () {
-        return this._body.version;
-      }
+  }
+  get family_name() {
+    return this._body.family_name;
+  }
+  get company_name() {
+    return this._body.company_name;
+  }
+  get nickname() {
+    return this._body.nickname;
+  }
+  get email_address() {
+    return this._body.email_address;
+  }
+  get address() {
+    return this._body.address;
+  }
+  get phone_number() {
+    return this._body.phone_number;
+  }
+  get reference_id() {
+    return this._body.reference_id;
+  }
+  get note() {
+    return this._body.note;
+  }
+  
+  get version() {
+    return this._body.version;
+  }
   
   // SETTERS
-      // make setters for each customer field
-  set given_name (val){
+  // make setters for each customer field
+  set given_name(val) {
     this._body.given_name = val;
   }
-  set family_name (val) {
+  set family_name(val) {
     this._body.family_name = val;
   }
-  set company_name (val) {
+  set company_name(val) {
     this._body.company_name = val;
   }
-  set nickname (val) {
+  set nickname(val) {
     this._body.nickname = val;
   }
   //TODO normalize email
-  set email_address (val) {
+  set email_address(val) {
     this._body.email_address = val;
   }
   
   //TODO normalize addresses
-  set address (preFormattedAddressObject) {
+  set address(preFormattedAddressObject) {
     this._body.address = preFormattedAddressObject;
   }
-  set city (city) {
+  set city(city) {
     this._body.address.locality = city;
   }
-  set postalCode (val) {
+  set postalCode(val) {
     this.body.address.postal_code = val;
   }
   
-  set state (province) {
+  set state(province) {
     this.body.administrative_district_level_1 = province;
   }
   
   // TODO provide localized normalizer for phone numbers
-  set phone_number (val) {
+  set phone_number(val) {
     this._body.phone_number = val;
   }
-  set reference_id (val) {
+  set reference_id(val) {
     this._body.reference_id = val;
   }
-  set note (val) {
+  set note(val) {
     this._body.note = val;
   }
   
-  set version (val) {
+  set version(val) {
     this._body.version = val;
   }
   
   // METHODS
-      // make a chainer
-  chainSet () {
+  // make a chainer
+  chainSet() {
     return {
       self: this,
-      firstName: function(val){
+      firstName: function (val) {
         this.self.given_name = val;
         return this;
       },
-      lastName: function(val){
+      lastName: function (val) {
         this.self.family_name = val;
         return this;
       },
-      company: function(val){
+      company: function (val) {
         this.self._body.company_name = val;
         return this;
       },
@@ -482,20 +480,20 @@ class CustomerUpdate extends RetrieveUpdateDelete {
         this.self._body.nickname = val;
         return this;
       },
-      email: function(val) {
+      email: function (val) {
         this.self.email_address = val;
         return this;
       },
-      phone: function(val) {
+      phone: function (val) {
         this.self.phone_number = val;
         return this;
       },
-      note: function(val) {
+      note: function (val) {
         this.self.note = val;
         return this;
       },
       //TODO normalize birthday input with dayjs
-      birthday: function (val){
+      birthday: function (val) {
         //specify val in YYYY-MM-DD format.
         this.self._body.birthday = val;
         return this;
@@ -504,10 +502,7 @@ class CustomerUpdate extends RetrieveUpdateDelete {
     }
   }
   
-  
-  
 } // END class
-
 
 class CustomerRetrieve extends RetrieveUpdateDelete {
   _apiName = 'customers';
@@ -571,7 +566,6 @@ export async function testList() {
   return customerList;
 }
 
-
 export async function testCreate() {
   let someGuy = new CustomerCreate(false);
   let secret = await getSecret(someGuy.secretName);
@@ -584,13 +578,11 @@ export async function testCreate() {
   return response;
 }
 
-
-
 export async function testSearchLimit() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
   search.query().fuzzy().email('fred').limit(1);
- let response = await search.makeRequest(secret)
+  let response = await search.makeRequest(secret)
   console.log('expect ONE fred to come back- Either one okay');
   return response;
 };
@@ -604,23 +596,21 @@ export async function testSearchPhone() {
   return response;
 };
 
-
-export async function testSortSearchDown(){
+export async function testSortSearchDown() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
   search.query().fuzzy().sortDown().sortByName();
   return await search.makeRequest(secret);
 };
 
-export async function testSortSearchUp(){
+export async function testSortSearchUp() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
   search.query().fuzzy().sortUp().sortByName();
   return await search.makeRequest(secret);
 };
 
-
-export async function testUpdate(){
+export async function testUpdate() {
   // first you need the customer ID
   let id = await fetchIndexZeroCustomerId();
   // then you need to get the current data as stored on Square
@@ -657,7 +647,6 @@ export async function testRetrieve() {
   let customer = await retrieve.makeRequest(secret);
   return customer.customer;
 }
-
 
 export async function testDelete() {
   let sandbox = false;
