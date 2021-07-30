@@ -5,6 +5,7 @@ Due to Wix's restrictions on importing into .jsw web modules, everything is in o
 
 [npm uuid](https://www.npmjs.com/package/uuid)
 
+[npm validator](https://www.npmjs.com/package/validator)
 
 **Installation**
 
