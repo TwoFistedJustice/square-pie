@@ -129,7 +129,7 @@ class SquareRequest {
   _body;
   _endpoint = '';
   
-  constructor(isProduction) {
+  constructor(isProduction = true) {
     this.isProduction = isProduction;
   }
   
@@ -137,7 +137,6 @@ class SquareRequest {
   get method() {
     return this._method;
   }
-  
   get body() {
     return this._body;
   }
@@ -146,7 +145,6 @@ class SquareRequest {
   set body(val) {
     this._body = val;
   }
-  
   set method(method) {
     this._method = method;
   }
@@ -155,7 +153,6 @@ class SquareRequest {
   get secretName() {
     return (this.isProduction === true) ? `${config.productionSecretName}` : `${config.sandboxSecretName}`;
   }
-  
   get baseUrl() {
     return (this.isProduction === true) ? `https://connect.squareup.com/v2/${this._apiName}` : `https://connect.squareupsandbox.com/v2/${this._apiName}`;
   }
@@ -175,7 +172,6 @@ class SquareRequest {
   }
   // you have to get the secret before calling this method
   makeRequest(secret) {
-    
     let request = async (url, options) => {
       const httpResponse = await fetch(url, options);
       if (!httpResponse.ok) {
