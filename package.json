@@ -1,7 +1,7 @@
 {
-  "name": "wix-square-api",
+  "name": "square-pie",
   "version": "1.0.0",
-  "description": "an interface between Wix-Velo and Squareup.com",
+  "description": "an easy to use class based chainable interface for accessing the Square API.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
