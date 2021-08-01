@@ -10,6 +10,10 @@
   },
   "author": "Russ Bain",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TwoFistedJustice/square-pie"
+  },
   "dependencies": {
     "uuid": "^8.3.2",
     "validator": "^13.6.0"
