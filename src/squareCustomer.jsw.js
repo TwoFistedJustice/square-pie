@@ -1,101 +1,101 @@
-import { fetch } from 'wix-fetch';
-import { getSecret } from 'wix-secrets-backend'
-const { v4: uuidv4 } = require('uuid');
-const validator = require('validator');
+import { fetch } from "wix-fetch";
+import { getSecret } from "wix-secrets-backend";
+const { v4: uuidv4 } = require("uuid");
+const validator = require("validator");
 
 const config = {
   sandbox: false,
-  squareVersion: '2021-06-16',
-  sandboxSecretName: 'square_sandbox',
-  productionSecretName: 'square_token',
-  contentType: 'application/json',
-  Accept: 'application/json'
+  squareVersion: "2021-06-16",
+  sandboxSecretName: "square_sandbox",
+  productionSecretName: "square_token",
+  contentType: "application/json",
+  Accept: "application/json",
 };
 
 var shortCustomer = {
   given_name: "Amelia",
-  email_address: "aMe.lia698214271522544412252474@gmail.com"
-}
+  email_address: "aMe.lia698214271522544412252474@gmail.com",
+};
 
 var spiritualCustomer = {
-  "given_name": "Freddie",
-  "family_name": "Krueger",
-  "email_address": "freddie@iscream.org",
-  "address": {
-    "address_line_1": "187 Elm Street",
-    "address_line_2": "Suite 86",
-    "locality": "Springwood",
-    "administrative_district_level_1": "OH",
-    "postal_code": "43086",
-    "country": "US"
+  given_name: "Freddie",
+  family_name: "Krueger",
+  email_address: "freddie@iscream.org",
+  address: {
+    address_line_1: "187 Elm Street",
+    address_line_2: "Suite 86",
+    locality: "Springwood",
+    administrative_district_level_1: "OH",
+    postal_code: "43086",
+    country: "US",
   },
-  "phone_number": "1-937-555-1054",
-  "reference_id": "10-Claws",
-  "note": "goooo toooo sleeeeeeep",
-  "preferences": {
-    "email_unsubscribed": false
+  phone_number: "1-937-555-1054",
+  reference_id: "10-Claws",
+  note: "goooo toooo sleeeeeeep",
+  preferences: {
+    email_unsubscribed: false,
   },
-}
+};
 
 var stoneageCustomer = {
-  "given_name": "Fred",
-  "family_name": "Flintsone",
-  "email_address": "fred@slaterock.com",
-  "address": {
-    "address_line_1": "301 Cobblestone Way",
-    "address_line_2": "",
-    "locality": "Bedrock",
-    "administrative_district_level_1": "BR",
-    "postal_code": "70777",
-    "country": "BR"
+  given_name: "Fred",
+  family_name: "Flintsone",
+  email_address: "fred@slaterock.com",
+  address: {
+    address_line_1: "301 Cobblestone Way",
+    address_line_2: "",
+    locality: "Bedrock",
+    administrative_district_level_1: "BR",
+    postal_code: "70777",
+    country: "BR",
   },
-  "phone_number": "1-937-555-7777",
-  "reference_id": "Flintsone-7777",
-  "note": "yubba dubba doooo",
-  "preferences": {
-    "email_unsubscribed": false
+  phone_number: "1-937-555-7777",
+  reference_id: "Flintsone-7777",
+  note: "yubba dubba doooo",
+  preferences: {
+    email_unsubscribed: false,
   },
-}
+};
 
 var unhappyCustomer = {
-  "given_name": "Jason",
-  "family_name": "Voorhees",
-  "email_address": "machete@iscream.org",
-  "address": {
-    "address_line_1": "1054 Camp Crystal Lake Street",
-    "address_line_2": "Cabin 86",
-    "locality": "Crystal Lake",
-    "administrative_district_level_1": "OH",
-    "postal_code": "43086",
-    "country": "US"
+  given_name: "Jason",
+  family_name: "Voorhees",
+  email_address: "machete@iscream.org",
+  address: {
+    address_line_1: "1054 Camp Crystal Lake Street",
+    address_line_2: "Cabin 86",
+    locality: "Crystal Lake",
+    administrative_district_level_1: "OH",
+    postal_code: "43086",
+    country: "US",
   },
-  "phone_number": "1-937-555-0013",
-  "reference_id": "Friday-The-13th",
-  "note": "naughty children go to sleep",
-  "preferences": {
-    "email_unsubscribed": false
-  }
-}
+  phone_number: "1-937-555-0013",
+  reference_id: "Friday-The-13th",
+  note: "naughty children go to sleep",
+  preferences: {
+    email_unsubscribed: false,
+  },
+};
 
 var trickrTreatCustomer = {
-  "given_name": "Michael",
-  "family_name": "Myers",
-  "email_address": "candyTime@iscream.org",
-  "address": {
-    "address_line_1": "86 Nowhere Is Safe Court",
-    "address_line_2": "",
-    "locality": "Haddonfield",
-    "administrative_district_level_1": "IL",
-    "postal_code": "60686",
-    "country": "US"
+  given_name: "Michael",
+  family_name: "Myers",
+  email_address: "candyTime@iscream.org",
+  address: {
+    address_line_1: "86 Nowhere Is Safe Court",
+    address_line_2: "",
+    locality: "Haddonfield",
+    administrative_district_level_1: "IL",
+    postal_code: "60686",
+    country: "US",
   },
-  "phone_number": "1-937-555-1031",
-  "reference_id": "Halloween-31",
-  "note": "want some candy?",
-  "preferences": {
-    "email_unsubscribed": false
-  }
-}
+  phone_number: "1-937-555-1031",
+  reference_id: "Halloween-31",
+  note: "want some candy?",
+  preferences: {
+    email_unsubscribed: false,
+  },
+};
 
 var daSlayer = {
   given_name: "Buffy",
@@ -107,15 +107,15 @@ var daSlayer = {
     locality: "Sunnydale",
     administrative_district_level_1: "CA",
     postal_code: "95037",
-    country: "US"
+    country: "US",
   },
   phone_number: "805-555-0833",
   reference_id: "1997-2003",
   note: "When did I get a sister?",
   preferences: {
-    email_unsubscribed: false
-  }
-}
+    email_unsubscribed: false,
+  },
+};
 
 // TOP LEVEL CLASSES
 
@@ -123,14 +123,14 @@ var daSlayer = {
 // before calling class.makeRequest(secret) you have to get the secret from wix
 // by calling getSecret(class.secretName)
 class SquareRequest {
-  _method = '';
+  _method = "";
   _body;
-  _endpoint = '';
-  
+  _endpoint = "";
+
   constructor(isProduction = true) {
     this.isProduction = isProduction;
   }
-  
+
   // GETTERS
   get method() {
     return this._method;
@@ -138,7 +138,7 @@ class SquareRequest {
   get body() {
     return this._body;
   }
-  
+
   // SETTERS
   set body(val) {
     this._body = val;
@@ -146,26 +146,30 @@ class SquareRequest {
   set method(method) {
     this._method = method;
   }
-  
+
   // COMPUTED PROPERTIES
   get secretName() {
-    return (this.isProduction === true) ? `${config.productionSecretName}` : `${config.sandboxSecretName}`;
+    return this.isProduction === true
+      ? `${config.productionSecretName}`
+      : `${config.sandboxSecretName}`;
   }
   get baseUrl() {
-    return (this.isProduction === true) ? `https://connect.squareup.com/v2/${this._apiName}` : `https://connect.squareupsandbox.com/v2/${this._apiName}`;
+    return this.isProduction === true
+      ? `https://connect.squareup.com/v2/${this._apiName}`
+      : `https://connect.squareupsandbox.com/v2/${this._apiName}`;
   }
   get url() {
     return `${this.baseUrl}${this._endpoint}`;
   }
-  
+
   // METHODS
-  
+
   headers(secret) {
     return {
-      'Square-Version': `${config.squareVersion}`,
-      'Content-Type': `${config.contentType}`,
-      'Accept': `${config.Accept}`,
-      'Authorization': `Bearer ${secret}`
+      "Square-Version": `${config.squareVersion}`,
+      "Content-Type": `${config.contentType}`,
+      Accept: `${config.Accept}`,
+      Authorization: `Bearer ${secret}`,
     };
   }
   // you have to get the secret before calling this method
@@ -173,21 +177,21 @@ class SquareRequest {
     let request = async (url, options) => {
       const httpResponse = await fetch(url, options);
       if (!httpResponse.ok) {
-        let message = `\ngenerated url: ${this.url}\nmethod: ${options.method}\n${httpResponse.status}: ${httpResponse.statusText}`
+        let message = `\ngenerated url: ${this.url}\nmethod: ${options.method}\n${httpResponse.status}: ${httpResponse.statusText}`;
         throw new Error(message);
       }
       let response = await httpResponse.json();
       return response;
-    }
+    };
     return request(this.url, this.options(secret));
   }
-  
+
   normalizeEmail(email) {
     let normalizeOptions = {
-      yahoo_remove_subaddress: false
+      yahoo_remove_subaddress: false,
     };
     if (!validator.isEmail(email)) {
-      throw new Error("Email is not valid. Please use a valid email address.")
+      throw new Error("Email is not valid. Please use a valid email address.");
     }
     return validator.normalizeEmail(email, normalizeOptions);
   }
@@ -195,16 +199,16 @@ class SquareRequest {
     return {
       method: this._method,
       headers: this.headers(secret),
-      body: JSON.stringify(this._body)
-    }
+      body: JSON.stringify(this._body),
+    };
   }
 } // END class
 
 // LEVEL TWO CLASSES
 
 class List extends SquareRequest {
-  _method = 'get';
-  
+  _method = "get";
+
   constructor(isProduction) {
     super(isProduction);
   }
@@ -213,13 +217,13 @@ class List extends SquareRequest {
 // creates a whole new document
 // you tell it what to store in its subclass
 class Create extends SquareRequest {
-  _method = 'post';
-  
+  _method = "post";
+
   constructor(isProduction) {
     super(isProduction);
     this.idempotency_key = uuidv4();
   }
-  
+
   get getIdempotency_key() {
     return this.idempotency_key;
   }
@@ -230,8 +234,8 @@ class Create extends SquareRequest {
 // THREE props on body: query, limit, cursor - these are same as for Invoices
 // differentiation begins inside the query object
 class Search extends SquareRequest {
-  _method = 'post';
-  _endpoint = '/search'
+  _method = "post";
+  _endpoint = "/search";
   constructor(isProduction) {
     super(isProduction);
   }
@@ -252,30 +256,30 @@ class RetrieveUpdateDelete extends SquareRequest {
 // CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER
 
 class CustomerList extends List {
-  _apiName = 'customers';
-  
+  _apiName = "customers";
+
   constructor(isProduction) {
     super(isProduction);
   }
 } // END class
 
 class CustomerSearch extends Search {
-  _apiName = 'customers';
+  _apiName = "customers";
   _body = {
     query: {
       filter: {},
       sort: {
         field: "CREATED_AT",
-        order: "ASC"
+        order: "ASC",
       },
-      limit: ''
+      limit: "",
     },
   };
-  
+
   constructor(isProduction) {
-    super(isProduction)
+    super(isProduction);
   }
-  
+
   // METHODS
   // this works like so:
   // the 'this' inside  query() is the class
@@ -289,17 +293,20 @@ class CustomerSearch extends Search {
         typeOfSearch: `${fuzzacto}`,
         email: function (email) {
           this.self._body.query.filter.email_address = {
-            [this.typeOfSearch]: email };
+            [this.typeOfSearch]: email,
+          };
           return this;
         },
         phone: function (phone) {
           this.self._body.query.filter.phone_number = {
-            [this.typeOfSearch]: phone };
+            [this.typeOfSearch]: phone,
+          };
           return this;
         },
         id: function (id) {
           this.self._body.query.filter.reference_id = {
-            [this.typeOfSearch]: id };
+            [this.typeOfSearch]: id,
+          };
           return this;
         },
         limit: function (limit) {
@@ -326,16 +333,16 @@ class CustomerSearch extends Search {
           this.self._body.query.sort.field = "CREATED_AT";
           this.self._body.query.sort.order = "ASC";
           return this;
-        }
-      }
-    }
+        },
+      };
+    };
     return {
       fuzzy: () => {
-        return methods('fuzzy');
+        return methods("fuzzy");
       },
       exact: () => {
-        return methods('exact');
-      }
+        return methods("exact");
+      },
     };
   } // END query method
 } // END class
@@ -348,8 +355,8 @@ class CustomerSearch extends Search {
 
 //ToDO normalize all incoming email via super method
 class CustomerUpdate extends RetrieveUpdateDelete {
-  _apiName = 'customers';
-  _method = 'put';
+  _apiName = "customers";
+  _method = "put";
   // the props on _body aren't necessary, at this point they are just here for reference
   // the curly braces are necessary
   _body = {
@@ -364,18 +371,18 @@ class CustomerUpdate extends RetrieveUpdateDelete {
       locality: undefined, // city
       administrative_district_level_1: undefined, // state/province
       postal_code: undefined,
-      country: undefined
+      country: undefined,
     },
     phone_number: undefined,
     reference_id: undefined,
     note: undefined,
     birthday: undefined, // specify this value in YYYY-MM-DD format.
-    version: undefined // Square will automatically increment this on their end when update is made
-  }
+    version: undefined, // Square will automatically increment this on their end when update is made
+  };
   constructor(isProduction) {
     super(isProduction);
   }
-  
+
   //GETTERS
   // make getters for each customer field
   get given_name() {
@@ -405,11 +412,11 @@ class CustomerUpdate extends RetrieveUpdateDelete {
   get note() {
     return this._body.note;
   }
-  
+
   get version() {
     return this._body.version;
   }
-  
+
   // SETTERS
   // make setters for each customer field
   set given_name(val) {
@@ -428,7 +435,7 @@ class CustomerUpdate extends RetrieveUpdateDelete {
   set email_address(val) {
     this._body.email_address = val;
   }
-  
+
   //TODO normalize addresses
   set address(preFormattedAddressObject) {
     this._body.address = preFormattedAddressObject;
@@ -439,11 +446,11 @@ class CustomerUpdate extends RetrieveUpdateDelete {
   set postalCode(val) {
     this.body.address.postal_code = val;
   }
-  
+
   set state(province) {
     this.body.administrative_district_level_1 = province;
   }
-  
+
   // TODO provide localized normalizer for phone numbers
   set phone_number(val) {
     this._body.phone_number = val;
@@ -454,11 +461,11 @@ class CustomerUpdate extends RetrieveUpdateDelete {
   set note(val) {
     this._body.note = val;
   }
-  
+
   set version(val) {
     this._body.version = val;
   }
-  
+
   // METHODS
   // make a chainer
   chainSet() {
@@ -497,33 +504,31 @@ class CustomerUpdate extends RetrieveUpdateDelete {
         //specify val in YYYY-MM-DD format.
         this.self._body.birthday = val;
         return this;
-      }
-      
-    }
+      },
+    };
   }
-  
 } // END class
 
 class CustomerRetrieve extends RetrieveUpdateDelete {
-  _apiName = 'customers';
-  _method = 'get';
-  
+  _apiName = "customers";
+  _method = "get";
+
   constructor(isProduction) {
-    super(isProduction)
+    super(isProduction);
   }
 } // END class
 
 class CustomerDelete extends RetrieveUpdateDelete {
-  _apiName = 'customers';
-  _method = 'delete';
-  
+  _apiName = "customers";
+  _method = "delete";
+
   constructor(isProduction) {
     super(isProduction);
   }
 } // END class
 // ToDo execute a search on name, email, phone make sure no duplicates are created
 class CustomerCreate extends Create {
-  _apiName = 'customers';
+  _apiName = "customers";
   constructor(isProduction) {
     super(isProduction);
   }
@@ -546,7 +551,7 @@ const fetchIndexZeroCustomerId = async function () {
   let sandbox = false;
   let secret = await getSecret(config.sandboxSecretName);
   let list = await testList();
-  
+
   if (!list.customers) {
     let newCustomer = await testCreate();
     testCustomerSqID = newCustomer.customer.id;
@@ -554,13 +559,15 @@ const fetchIndexZeroCustomerId = async function () {
     testCustomerSqID = list.customers[0].id;
   }
   if (!testCustomerSqID) {
-    throw new Error('Something went wrong with setting the ID in testDelete();')
+    throw new Error(
+      "Something went wrong with setting the ID in testDelete();"
+    );
   }
   return list.customers[0].id;
-}
+};
 
 export async function testList() {
-  var list = new CustomerList(false)
+  var list = new CustomerList(false);
   let secret = await getSecret(list.secretName);
   let customerList = await list.makeRequest(secret);
   return customerList;
@@ -581,34 +588,34 @@ export async function testCreate() {
 export async function testSearchLimit() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
-  search.query().fuzzy().email('fred').limit(1);
-  let response = await search.makeRequest(secret)
-  console.log('expect ONE fred to come back- Either one okay');
+  search.query().fuzzy().email("fred").limit(1);
+  let response = await search.makeRequest(secret);
+  console.log("expect ONE fred to come back- Either one okay");
   return response;
-};
+}
 
 export async function testSearchPhone() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
-  search.query().fuzzy().email('fred').phone('77');
-  let response = await search.makeRequest(secret)
-  console.log('expect ONE fred to come back - FLINTSTONE');
+  search.query().fuzzy().email("fred").phone("77");
+  let response = await search.makeRequest(secret);
+  console.log("expect ONE fred to come back - FLINTSTONE");
   return response;
-};
+}
 
 export async function testSortSearchDown() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
   search.query().fuzzy().sortDown().sortByName();
   return await search.makeRequest(secret);
-};
+}
 
 export async function testSortSearchUp() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
   search.query().fuzzy().sortUp().sortByName();
   return await search.makeRequest(secret);
-};
+}
 
 export async function testUpdate() {
   // first you need the customer ID
@@ -621,11 +628,11 @@ export async function testUpdate() {
   retrieve.id = id;
   let retrieveResponse = await retrieve.makeRequest(secret);
   let customer = retrieveResponse.customer;
-  
+
   // just auto switching some variables to faciliate testing
-  let firstName = (customer.given_name === "Jack") ? "Buffy" : "Jack";
-  let lastName = (customer.family_name === "Dullboy") ? "Summers" : "Dullboy"
-  
+  let firstName = customer.given_name === "Jack" ? "Buffy" : "Jack";
+  let lastName = customer.family_name === "Dullboy" ? "Summers" : "Dullboy";
+
   //this is where the actual update happens
   let update = new CustomerUpdate(false);
   update.id = id;
@@ -634,10 +641,10 @@ export async function testUpdate() {
   // set the data you want to change
   // you can chain or set individual properties
   update.chainSet().firstName(firstName).lastName(lastName);
-  
-  let updateResponse = update.makeRequest(secret)
+
+  let updateResponse = update.makeRequest(secret);
   return updateResponse;
-};
+}
 
 export async function testRetrieve() {
   let testCustomerSqID = await fetchIndexZeroCustomerId();
@@ -655,4 +662,4 @@ export async function testDelete() {
   deleteCustomer.id = await fetchIndexZeroCustomerId();
   let vaporized = await deleteCustomer.makeRequest(secret);
   return vaporized;
-};
+}
