@@ -1,0 +1,545 @@
+{
+	"objects": [
+		{
+			"type": "CATEGORY",
+			"id": "FBOFS5DQWYNCSPGGJN72VOIQ",
+			"updated_at": "2019-03-02T17:39:40.99Z",
+			"version": 1551548380990,
+			"is_deleted": false,
+			"catalog_v1_ids": [
+				{
+					"catalog_v1_id": "24E224DA-EE03-4D26-95B8-AAFEB0602269",
+					"location_id": "XSG9GFY66KTHP"
+				}
+			],
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Whole Pies",
+				"ordinal": 0,
+				"abbreviation": "Whole",
+				"label_color": "4AB200"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "RFLYS5COUHMI4TTPCYWGGX55",
+			"updated_at": "2020-10-29T01:31:28.041Z",
+			"version": 1603935088041,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Coffee",
+				"ordinal": 0,
+				"abbreviation": "Coffee",
+				"label_color": "593C00"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "T42ZT2HU3ASOEJMZMHBX4E7R",
+			"updated_at": "2020-01-19T18:15:32.979Z",
+			"version": 1579457732979,
+			"is_deleted": false,
+			"catalog_v1_ids": [
+				{
+					"catalog_v1_id": "9EFF3C3E-4769-4955-90DD-3740D4ABA847",
+					"location_id": "XSG9GFY66KTHP"
+				}
+			],
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "1001 Bobitt Booth",
+				"ordinal": 0,
+				"abbreviation": "1001",
+				"label_color": "2952CC"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "KUB2633CYCGJ5DBL676WBRJU",
+			"updated_at": "2020-01-19T17:48:10.825Z",
+			"version": 1579456090825,
+			"is_deleted": false,
+			"catalog_v1_ids": [
+				{
+					"catalog_v1_id": "9C2F8258-AD19-486E-890A-1DD6C69CF961",
+					"location_id": "XSG9GFY66KTHP"
+				}
+			],
+			"present_at_all_locations": true,
+			"present_at_location_ids": ["XSG9GFY66KTHP"],
+			"category_data": {
+				"name": "1003 First Second Chances (Sara Osborn)",
+				"ordinal": 0,
+				"abbreviation": "1003",
+				"label_color": "9DA2A6"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "H6UO33XTRVJWYGCSSXIGU2IM",
+			"updated_at": "2020-01-19T17:53:54.989Z",
+			"version": 1579456434989,
+			"is_deleted": false,
+			"catalog_v1_ids": [
+				{
+					"catalog_v1_id": "794C68FA-843A-47AE-B4B2-0A8E9959BB2C",
+					"location_id": "XSG9GFY66KTHP"
+				}
+			],
+			"present_at_all_locations": true,
+			"present_at_location_ids": ["XSG9GFY66KTHP"],
+			"category_data": {
+				"name": "1006 Sara’s Soap",
+				"ordinal": 0,
+				"abbreviation": "1006",
+				"label_color": "E5BF00"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "5QKOU5NU7VCUBWPPXA3OSV73",
+			"updated_at": "2020-01-19T22:01:10.532Z",
+			"version": 1579471270532,
+			"is_deleted": false,
+			"catalog_v1_ids": [
+				{
+					"catalog_v1_id": "D6A593DF-4AAE-4FF3-828F-0F9063FE2B9D",
+					"location_id": "XSG9GFY66KTHP"
+				}
+			],
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "1007 BK Enterprises",
+				"ordinal": 0,
+				"abbreviation": "1007",
+				"label_color": "0B8000"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "WE65LXZWKXYCN62ZIJJAXNHG",
+			"updated_at": "2020-06-29T00:55:34.946Z",
+			"version": 1593392134946,
+			"is_deleted": false,
+			"catalog_v1_ids": [
+				{
+					"catalog_v1_id": "43905545-E95E-49B2-9E42-58615FC36349",
+					"location_id": "XSG9GFY66KTHP"
+				}
+			],
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "12 Stories, Wholesale",
+				"ordinal": 0,
+				"abbreviation": "12Stor",
+				"label_color": "9DA2A6"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "VLVD5XYDC72GPJWPZR4Z7CR5",
+			"updated_at": "2020-06-27T19:04:04.822Z",
+			"version": 1593284644822,
+			"is_deleted": false,
+			"catalog_v1_ids": [
+				{
+					"catalog_v1_id": "0B72C5FB-5F25-4ADD-9C7D-A2732A0416BF",
+					"location_id": "XSG9GFY66KTHP"
+				}
+			],
+			"present_at_all_locations": true,
+			"present_at_location_ids": ["XSG9GFY66KTHP"],
+			"category_data": {
+				"name": "Retail",
+				"ordinal": 0,
+				"abbreviation": "Retail",
+				"label_color": "0B8000"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "QYGFBOWWHH3PJ7RWYKVXC45O",
+			"updated_at": "2020-10-31T02:07:48.344Z",
+			"version": 1604110068344,
+			"is_deleted": false,
+			"catalog_v1_ids": [
+				{
+					"catalog_v1_id": "1DC00B7C-3F95-44A1-B160-0BAFBEBB1354",
+					"location_id": "XSG9GFY66KTHP"
+				}
+			],
+			"present_at_all_locations": true,
+			"present_at_location_ids": ["XSG9GFY66KTHP"],
+			"category_data": {
+				"name": "Mocktails",
+				"ordinal": 0,
+				"abbreviation": "Mock",
+				"label_color": "A82EE5"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "QCC6DZXRYCADEHU5JFVQEJDH",
+			"updated_at": "2020-12-06T22:25:45.769Z",
+			"version": 1607293545769,
+			"is_deleted": false,
+			"catalog_v1_ids": [
+				{
+					"catalog_v1_id": "C82D8C2F-35B0-4726-81A8-E7FA262B127F",
+					"location_id": "XSG9GFY66KTHP"
+				}
+			],
+			"present_at_all_locations": true,
+			"present_at_location_ids": ["XSG9GFY66KTHP"],
+			"category_data": {
+				"name": "Confections",
+				"ordinal": 0,
+				"label_color": "593C00"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "RUYDSFWL7YFGCRBYKCIORPJ7",
+			"updated_at": "2020-12-23T17:47:39.948Z",
+			"version": 1608745659948,
+			"is_deleted": false,
+			"catalog_v1_ids": [
+				{
+					"catalog_v1_id": "8FA37E15-15C8-479A-9512-26AFDEBF9F91",
+					"location_id": "XSG9GFY66KTHP"
+				}
+			],
+			"present_at_all_locations": true,
+			"present_at_location_ids": ["XSG9GFY66KTHP"],
+			"category_data": {
+				"name": "Gelato / Ice Cream",
+				"ordinal": 0
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "Y7665SBXSDOWJX7S3WVYSPV5",
+			"updated_at": "2021-02-28T05:27:42.392Z",
+			"version": 1614490062392,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Pie Slice",
+				"ordinal": 0
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "ZQSRLYGR3HTOHLEY33RZIJF2",
+			"updated_at": "2021-05-08T01:20:40.016Z",
+			"version": 1620436840016,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Wholesale Pies",
+				"ordinal": 0
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "JG2VD5ZRBTJCXH7EPVWKW4IN",
+			"updated_at": "2021-05-08T01:22:44.967Z",
+			"version": 1620436964967,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Cake Slice",
+				"ordinal": 0
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "4QBR57DZHOM6WYHPU7L4KVFB",
+			"updated_at": "2021-02-28T05:19:25.664Z",
+			"version": 1614489565664,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Specialty Cake"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "QA6QWLKJNDUKHEPNOMTX7BQS",
+			"updated_at": "2021-02-28T05:19:25.664Z",
+			"version": 1614489565664,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Wholesale Cake"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "3VF5WXD3LEVOWCZPPVXLIYVQ",
+			"updated_at": "2021-02-28T05:19:25.664Z",
+			"version": 1614489565664,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Brownies, Cookies & Confections"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "JDXMRXTCHDKNUEVONTTWOLL4",
+			"updated_at": "2021-02-28T16:48:24.668Z",
+			"version": 1614530904668,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Whole Cake",
+				"ordinal": 0,
+				"abbreviation": "WhCk",
+				"label_color": "E5BF00"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "G4M337ACYXZJQTYXV2DZEZE6",
+			"updated_at": "2021-02-28T05:19:25.664Z",
+			"version": 1614489565664,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Loaf Cake"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "XAN5U52Y5L6BJ7JX7WL2PSG3",
+			"updated_at": "2021-02-28T05:19:25.664Z",
+			"version": 1614489565664,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Mini Bundt Cake"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "D5TPRRYRGBUHJIGP3O52A6QZ",
+			"updated_at": "2021-02-28T05:19:25.664Z",
+			"version": 1614489565664,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Cakelettes"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "PAOG64VQV4B4GXJX342R2YD7",
+			"updated_at": "2021-03-02T03:12:16.278Z",
+			"version": 1614654736278,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "1008 Gail's Books"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "DJKVR35YBOZIELZUNFDIYPVH",
+			"updated_at": "2021-06-04T17:58:58.425Z",
+			"version": 1622829538425,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Farmersville Markets",
+				"ordinal": 0
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "DQAC4KPKP2CDQTZ2DGHJOR75",
+			"updated_at": "2021-04-03T13:43:28.614Z",
+			"version": 1617457408614,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Canned Drinks",
+				"ordinal": 0
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "3SJJM3H4YTQLK6R2EU722POQ",
+			"updated_at": "2021-03-02T03:12:16.278Z",
+			"version": 1614654736278,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Puddings"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "6IXLKLR5SIYTHVON5Q5HYBUL",
+			"updated_at": "2021-03-02T03:12:16.278Z",
+			"version": 1614654736278,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Pastry"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "H2MCRPD2P6HVUX36Q556IAYO",
+			"updated_at": "2021-03-02T03:12:16.278Z",
+			"version": 1614654736278,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "1004 Native American Jewelry"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "SICK5ZPR5ME4MCPH2CCTMXLD",
+			"updated_at": "2021-03-02T03:12:16.278Z",
+			"version": 1614654736278,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Bundt Cake"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "EXTRGHZSF4OZ6K4LNT2B756A",
+			"updated_at": "2021-03-02T03:12:16.278Z",
+			"version": 1614654736278,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Non-Pieville"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "32W5JMW3RBNWWVUTUQIQHUIA",
+			"updated_at": "2021-03-02T03:12:16.278Z",
+			"version": 1614654736278,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Wholesale Pastry"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "BNSFKWZYGHN3DXIZCYY5HA3T",
+			"updated_at": "2021-03-02T03:12:16.278Z",
+			"version": 1614654736278,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Tips"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "N4J3UK5ZKFCP6KBZTZ4Y43HJ",
+			"updated_at": "2021-06-11T05:48:29.18Z",
+			"version": 1623390509180,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Bobitt Christmas",
+				"ordinal": 0
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "EILPKEOI3TW7J4PC4RDURWZH",
+			"updated_at": "2021-03-02T03:12:16.278Z",
+			"version": 1614654736278,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Half Sheet Cake"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "EXZEXOEQGW3TCTXNPKJQO2DO",
+			"updated_at": "2021-04-03T13:42:05.474Z",
+			"version": 1617457325474,
+			"is_deleted": false,
+			"present_at_all_locations": true,
+			"category_data": {
+				"name": "Bundt Loaf",
+				"ordinal": 0
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "E4BJBOKDL6A6LQOKMFPGIZ2S",
+			"updated_at": "2021-05-07T14:31:56.732Z",
+			"version": 1620397916732,
+			"is_deleted": false,
+			"catalog_v1_ids": [
+				{
+					"catalog_v1_id": "A7BA3C73-0BF5-4A0D-BA56-E54081697601",
+					"location_id": "XSG9GFY66KTHP"
+				}
+			],
+			"present_at_all_locations": true,
+			"present_at_location_ids": ["XSG9GFY66KTHP"],
+			"category_data": {
+				"name": "Tea Drinks",
+				"ordinal": 0,
+				"abbreviation": "T Drnk",
+				"label_color": "593C00"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "4EZHMQB5YETIWMSJLQ7QSECA",
+			"updated_at": "2021-05-07T14:31:56.732Z",
+			"version": 1620397916732,
+			"is_deleted": false,
+			"catalog_v1_ids": [
+				{
+					"catalog_v1_id": "C4AC1B36-FA6F-4E64-B4E9-0534B3CCAACD",
+					"location_id": "XSG9GFY66KTHP"
+				}
+			],
+			"present_at_all_locations": true,
+			"present_at_location_ids": ["XSG9GFY66KTHP"],
+			"category_data": {
+				"name": "Tea, Brewed",
+				"ordinal": 0,
+				"abbreviation": "T Brw",
+				"label_color": "593C00"
+			}
+		},
+		{
+			"type": "CATEGORY",
+			"id": "OQS7LUFFBCY3C7LCG5KOUDVI",
+			"updated_at": "2021-06-04T17:38:17.578Z",
+			"version": 1622828297578,
+			"is_deleted": false,
+			"catalog_v1_ids": [
+				{
+					"catalog_v1_id": "0397601F-A655-4AE6-98C0-75AE86B56A8A",
+					"location_id": "XSG9GFY66KTHP"
+				}
+			],
+			"present_at_all_locations": true,
+			"present_at_location_ids": ["XSG9GFY66KTHP"],
+			"category_data": {
+				"name": "Bain-Honnaker 1900 Fest",
+				"ordinal": 0
+			}
+		}
+	]
+}

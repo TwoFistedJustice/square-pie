@@ -1,0 +1,1016 @@
+{
+  "_items": [
+    {
+      "_id": "16b038e7-1cd3-4be9-a6ab-f57f61ad7904",
+      "_updatedDate": "Sat Jan 02 2021 19:27:12 GMT-0600 (Central Standard Time)",
+      "name": "Allotta Colada, alt sugar",
+      "description": "",
+      "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500",
+      "mediaItems": [],
+      "sku": "",
+      "ribbons": [],
+      "currency": "USD",
+      "price": 16,
+      "discountedPrice": 16,
+      "formattedPrice": "$16.00",
+      "formattedDiscountedPrice": "$16.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {},
+      "productPageUrl": "/product-page/allotta-colada-alt-sugar",
+      "customTextFields": [],
+      "manageVariants": false,
+      "productType": "physical",
+      "slug": "allotta-colada-alt-sugar",
+      "weight": 0,
+      "collections": [
+        {
+          "_id": "c2a62c85-0100-4058-88da-aaca9e023970",
+          "name": "Wholesale",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "e94fc718-e32c-b416-5954-0a809e5286fb"
+    },
+    {
+      "_id": "5296a463-fd19-4846-ac96-b2335fcb0e25",
+      "_updatedDate": "Thu Dec 31 2020 15:10:07 GMT-0600 (Central Standard Time)",
+      "name": "Apple Pecan Streusel Pie",
+      "description": "Crunchy roasty pecans in a brown sugar streusel crown our fresh apple medley - the very best marriage of apples, spice and crunch.",
+      "mainMedia": "wix:image://v1/2aac5a_694a888aaef444aa9ac6b2ed2caf706a~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+      "mediaItems": [
+        {
+          "id": "2aac5a_694a888aaef444aa9ac6b2ed2caf706a~mv2.jpg",
+          "src": "wix:image://v1/2aac5a_694a888aaef444aa9ac6b2ed2caf706a~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+          "description": "",
+          "title": "",
+          "type": "Image"
+        }
+      ],
+      "ribbons": [],
+      "currency": "USD",
+      "price": 22,
+      "discountedPrice": 22,
+      "formattedPrice": "$22.00",
+      "formattedDiscountedPrice": "$22.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {
+        "Portion": {
+          "optionType": "drop_down",
+          "name": "Portion",
+          "choices": [
+            "[Object]",
+            "[Object]"
+          ]
+        }
+      },
+      "productPageUrl": "/product-page/apple-pecan-streusel-pie",
+      "customTextFields": [],
+      "manageVariants": true,
+      "productType": "physical",
+      "slug": "apple-pecan-streusel-pie",
+      "collections": [
+        {
+          "_id": "b8f8af74-04a0-4ac1-b906-a83955603a6f",
+          "name": "Pie",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "ad695b9c-02e6-b7b9-5369-4dcca034f1da"
+    },
+    {
+      "_id": "d5fcfeee-3b9e-4b4b-aed4-3e4ffcda6478",
+      "_updatedDate": "Thu Dec 31 2020 15:10:07 GMT-0600 (Central Standard Time)",
+      "name": "Apple, Dbl Crust",
+      "description": "This is the original, just like the one you see in the old movies cooling on Granny’s window sill. Chunks of apple bathed lightly in brown sugar and the happy spices ready for ice cream or a slab of cheddar. Don’t get chased down the street with a broom for stealing Granny’s - get yours here!!!\n<br>\n<br>Designs will vary.",
+      "mainMedia": "wix:image://v1/2aac5a_01de1f69f3fa460b812766a6befe3a81~mv2.jpg/file.jpg#originWidth=4032&originHeight=3024",
+      "mediaItems": [
+        {
+          "id": "2aac5a_01de1f69f3fa460b812766a6befe3a81~mv2.jpg",
+          "src": "wix:image://v1/2aac5a_01de1f69f3fa460b812766a6befe3a81~mv2.jpg/file.jpg#originWidth=4032&originHeight=3024",
+          "description": "",
+          "title": "",
+          "type": "Image"
+        }
+      ],
+      "ribbons": [],
+      "currency": "USD",
+      "price": 22,
+      "discountedPrice": 22,
+      "formattedPrice": "$22.00",
+      "formattedDiscountedPrice": "$22.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {
+        "Portion": {
+          "optionType": "drop_down",
+          "name": "Portion",
+          "choices": [
+            "[Object]",
+            "[Object]"
+          ]
+        },
+        "Options": {
+          "optionType": "drop_down",
+          "name": "Options",
+          "choices": [
+            "[Object]",
+            "[Object]"
+          ]
+        }
+      },
+      "productPageUrl": "/product-page/apple-dbl-crust",
+      "customTextFields": [],
+      "manageVariants": true,
+      "productType": "physical",
+      "slug": "apple-dbl-crust",
+      "collections": [
+        {
+          "_id": "b8f8af74-04a0-4ac1-b906-a83955603a6f",
+          "name": "Pie",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "2a030111-c461-b4b4-512b-c1b003259b87"
+    },
+    {
+      "_id": "f18f5b89-7327-4679-8200-af29f2071950",
+      "_updatedDate": "Sat Jan 02 2021 19:54:23 GMT-0600 (Central Standard Time)",
+      "name": "Apricot Confection",
+      "description": "Classic confection with tangy apricots, tropical coconut and velvety condensed milk. We leave the apricots a bit chunky for a little extra chew. Yummy and rich; leave a few of these out for Santa! For 2020, a little extra leverage can’t hurt!",
+      "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500",
+      "mediaItems": [],
+      "sku": "",
+      "ribbons": [
+        {
+          "text": "Holiday Specials!"
+        }
+      ],
+      "currency": "USD",
+      "price": 7.5,
+      "discountedPrice": 7.5,
+      "formattedPrice": "$7.50",
+      "formattedDiscountedPrice": "$7.50",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {},
+      "productPageUrl": "/product-page/apricot-confection",
+      "customTextFields": [],
+      "manageVariants": false,
+      "productType": "physical",
+      "slug": "apricot-confection",
+      "weight": 0,
+      "collections": [
+        {
+          "_id": "5319ff5b-bd03-477f-9373-045ec1dac97c",
+          "name": "Confections",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        },
+        {
+          "_id": "50904c38-231e-827a-d831-28fbbde9ac8e",
+          "name": "All",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "0e70a476-8cd8-b986-7dff-50d60df8e6af"
+    },
+    {
+      "_id": "cbe389a1-198e-4e8e-a6ec-a5a7d10be95c",
+      "_updatedDate": "Thu Dec 31 2020 15:10:07 GMT-0600 (Central Standard Time)",
+      "name": "Apricot Transparent Pie",
+      "description": "One of our oldest recipes - the Apricot Transparent combines a layer of apricot with a chess like top. Fruity goodness that is a well balanced party for your tastebuds!",
+      "mainMedia": "wix:image://v1/2aac5a_780866d7492846579e0b1a30c0bdbc04~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+      "mediaItems": [
+        {
+          "id": "2aac5a_780866d7492846579e0b1a30c0bdbc04~mv2.jpg",
+          "src": "wix:image://v1/2aac5a_780866d7492846579e0b1a30c0bdbc04~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+          "description": "",
+          "title": "",
+          "type": "Image"
+        }
+      ],
+      "ribbons": [],
+      "currency": "USD",
+      "price": 22,
+      "discountedPrice": 22,
+      "formattedPrice": "$22.00",
+      "formattedDiscountedPrice": "$22.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {
+        "Portion": {
+          "optionType": "drop_down",
+          "name": "Portion",
+          "choices": [
+            "[Object]",
+            "[Object]"
+          ]
+        }
+      },
+      "productPageUrl": "/product-page/apricot-transparent-pie",
+      "customTextFields": [],
+      "manageVariants": true,
+      "productType": "physical",
+      "slug": "apricot-transparent-pie",
+      "collections": [
+        {
+          "_id": "b8f8af74-04a0-4ac1-b906-a83955603a6f",
+          "name": "Pie",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "341c765e-e671-b171-5913-5a582ef416a3"
+    },
+    {
+      "_id": "ee5befa0-6216-4328-87cb-455c2ca90112",
+      "_updatedDate": "Sat Jan 02 2021 19:27:32 GMT-0600 (Central Standard Time)",
+      "name": "Banana Butterscotch, alt sugar",
+      "description": "",
+      "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500",
+      "mediaItems": [],
+      "sku": "",
+      "ribbons": [],
+      "currency": "USD",
+      "price": 16,
+      "discountedPrice": 16,
+      "formattedPrice": "$16.00",
+      "formattedDiscountedPrice": "$16.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {},
+      "productPageUrl": "/product-page/banana-butterscotch-alt-sugar",
+      "customTextFields": [],
+      "manageVariants": false,
+      "productType": "physical",
+      "slug": "banana-butterscotch-alt-sugar",
+      "weight": 0,
+      "collections": [
+        {
+          "_id": "c2a62c85-0100-4058-88da-aaca9e023970",
+          "name": "Wholesale",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "11a4105f-9de9-bcd7-7834-baa3d356feed"
+    },
+    {
+      "_id": "270b6a7a-89e5-4037-bf47-a09fbfca1143",
+      "_updatedDate": "Sat Jan 02 2021 19:26:12 GMT-0600 (Central Standard Time)",
+      "name": "Blueberry Buckle",
+      "description": "Hints of cardamom and cinnamon highlight this buttery coffee cake with a brown sugar and butter streusel topping. The cake is absolutely bursting with fresh juicy blueberries!",
+      "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500",
+      "mediaItems": [],
+      "sku": "",
+      "ribbons": [],
+      "currency": "USD",
+      "price": 18,
+      "discountedPrice": 18,
+      "formattedPrice": "$18.00",
+      "formattedDiscountedPrice": "$18.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {},
+      "productPageUrl": "/product-page/blueberry-buckle",
+      "customTextFields": [],
+      "manageVariants": false,
+      "productType": "physical",
+      "slug": "blueberry-buckle",
+      "weight": 0,
+      "collections": [
+        {
+          "_id": "c2a62c85-0100-4058-88da-aaca9e023970",
+          "name": "Wholesale",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "d8f49585-761a-bfc8-40b8-5f604035eebc"
+    },
+    {
+      "_id": "92fea390-5cd0-4b6c-82c5-9cb1283213bc",
+      "_updatedDate": "Sat Jan 02 2021 19:26:31 GMT-0600 (Central Standard Time)",
+      "name": "Blueberry Zest, alt sugar",
+      "description": "",
+      "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500",
+      "mediaItems": [],
+      "sku": "",
+      "ribbons": [],
+      "currency": "USD",
+      "price": 16,
+      "discountedPrice": 16,
+      "formattedPrice": "$16.00",
+      "formattedDiscountedPrice": "$16.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {},
+      "productPageUrl": "/product-page/blueberry-zest-alt-sugar",
+      "customTextFields": [],
+      "manageVariants": false,
+      "productType": "physical",
+      "slug": "blueberry-zest-alt-sugar",
+      "weight": 0,
+      "collections": [
+        {
+          "_id": "c2a62c85-0100-4058-88da-aaca9e023970",
+          "name": "Wholesale",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "6d015c6f-a32f-b493-7d3a-634ed7cdec43"
+    },
+    {
+      "_id": "cae45094-a632-43a2-bd6d-ec4552baffa2",
+      "_updatedDate": "Sat Jan 02 2021 19:53:11 GMT-0600 (Central Standard Time)",
+      "name": "Bundt Cakes",
+      "description": "Between our classic family recipe to our offerings of local favourites, you will go away with a piece of happiness in cake form.",
+      "mainMedia": "wix:image://v1/2aac5a_62eb7ae744504085a42542329cc0d402~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+      "mediaItems": [
+        {
+          "id": "2aac5a_62eb7ae744504085a42542329cc0d402~mv2.jpg",
+          "src": "wix:image://v1/2aac5a_62eb7ae744504085a42542329cc0d402~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+          "description": "",
+          "title": "",
+          "type": "Image"
+        }
+      ],
+      "ribbons": [],
+      "currency": "USD",
+      "price": 20,
+      "discountedPrice": 20,
+      "formattedPrice": "$20.00",
+      "formattedDiscountedPrice": "$20.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {
+        "Options": {
+          "optionType": "drop_down",
+          "name": "Options",
+          "choices": [
+            "[Object]",
+            "[Object]",
+            "[Object]"
+          ]
+        }
+      },
+      "productPageUrl": "/product-page/bundt-cakes",
+      "customTextFields": [],
+      "manageVariants": true,
+      "productType": "physical",
+      "slug": "bundt-cakes",
+      "collections": [
+        {
+          "_id": "ea1aa9d3-6bb6-4ac4-85cc-a0b774984a96",
+          "name": "Cake",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        },
+        {
+          "_id": "50904c38-231e-827a-d831-28fbbde9ac8e",
+          "name": "All",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "351baf6b-59cd-bc5d-4292-13baad45005d"
+    },
+    {
+      "_id": "d01bc3fa-a86f-456d-ab6c-b61d9bbb821e",
+      "_updatedDate": "Sat Jan 02 2021 19:53:30 GMT-0600 (Central Standard Time)",
+      "name": "Bundt Loaf",
+      "description": "The familiar sour cream pound cake is rich and dense, perfect for eating solo or with a bit of whatever fruit was still available and some whipped cream. Or try it grilled in butter - maybe with a bit of banana! <br> <br>This pretty loaf cake may be as shown, with a flower pattern or in an elegant lattice. You might not always get what you want, but you always get what you need... to paraphrase, please let us choose the pattern for you. <br> <br>If you plan to save some for later, cut what you plan to save and wrap in wax paper, then in foil before putting into the freezer. Let thaw slowly on the counter for best result.",
+      "mainMedia": "wix:image://v1/2aac5a_68d2344935274e91b02a64b75d363289~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+      "mediaItems": [
+        {
+          "id": "2aac5a_68d2344935274e91b02a64b75d363289~mv2.jpg",
+          "src": "wix:image://v1/2aac5a_68d2344935274e91b02a64b75d363289~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+          "description": "",
+          "title": "",
+          "type": "Image"
+        }
+      ],
+      "ribbons": [],
+      "currency": "USD",
+      "price": 12,
+      "discountedPrice": 12,
+      "formattedPrice": "$12.00",
+      "formattedDiscountedPrice": "$12.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {
+        "Options": {
+          "optionType": "drop_down",
+          "name": "Options",
+          "choices": [
+            "[Object]",
+            "[Object]",
+            "[Object]",
+            "[Object]",
+            "[Object]"
+          ]
+        },
+        "Portion": {
+          "optionType": "drop_down",
+          "name": "Portion",
+          "choices": [
+            "[Object]",
+            "[Object]"
+          ]
+        }
+      },
+      "productPageUrl": "/product-page/bundt-loaf",
+      "customTextFields": [],
+      "manageVariants": true,
+      "productType": "physical",
+      "slug": "bundt-loaf",
+      "collections": [
+        {
+          "_id": "ea1aa9d3-6bb6-4ac4-85cc-a0b774984a96",
+          "name": "Cake",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        },
+        {
+          "_id": "50904c38-231e-827a-d831-28fbbde9ac8e",
+          "name": "All",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "2fe43c05-5790-ba92-5493-49e264447de1"
+    },
+    {
+      "_id": "8069c89e-4dce-4e5c-8234-0a74b35312af",
+      "_updatedDate": "Thu Dec 31 2020 15:10:07 GMT-0600 (Central Standard Time)",
+      "name": "Butterscotch Pecan",
+      "description": "Decadent Butterscotchy melty buttery pecan pie. There's nothing else like it! \n<br>\n<br>To freeze (if there is any left!) wrap pan and pie in wax paper, then in foil. Thaw on the counter.",
+      "mainMedia": "wix:image://v1/2aac5a_f4e03027674447bab61e68e2b60c7abe~mv2.jpg/file.jpg#originWidth=640&originHeight=480",
+      "mediaItems": [
+        {
+          "id": "2aac5a_f4e03027674447bab61e68e2b60c7abe~mv2.jpg",
+          "src": "wix:image://v1/2aac5a_f4e03027674447bab61e68e2b60c7abe~mv2.jpg/file.jpg#originWidth=640&originHeight=480",
+          "description": "",
+          "title": "",
+          "type": "Image"
+        }
+      ],
+      "ribbons": [],
+      "currency": "USD",
+      "price": 22,
+      "discountedPrice": 22,
+      "formattedPrice": "$22.00",
+      "formattedDiscountedPrice": "$22.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {
+        "Portion": {
+          "optionType": "drop_down",
+          "name": "Portion",
+          "choices": [
+            "[Object]",
+            "[Object]"
+          ]
+        }
+      },
+      "productPageUrl": "/product-page/butterscotch-pecan",
+      "customTextFields": [],
+      "manageVariants": true,
+      "productType": "physical",
+      "slug": "butterscotch-pecan",
+      "collections": [
+        {
+          "_id": "b8f8af74-04a0-4ac1-b906-a83955603a6f",
+          "name": "Pie",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "7f963761-b231-b1a3-7dcb-f58b4caced50"
+    },
+    {
+      "_id": "ed898d3a-ec2b-45da-9d95-4b8b388c5f09",
+      "_updatedDate": "Thu Dec 31 2020 15:10:07 GMT-0600 (Central Standard Time)",
+      "name": "Chess",
+      "description": "Chess pie vies with Pecan Pie as the Queen of Pie. The very simplest ingredients create an unctuous richness that is not meant to be described. Just, YUM!!! \n<br>\n<br>Chess pie even freezes well. Wrap any left over pieces in wax paper, then tightly in foil. To thaw, leave on the counter.",
+      "mainMedia": "wix:image://v1/2aac5a_780866d7492846579e0b1a30c0bdbc04~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+      "mediaItems": [
+        {
+          "id": "2aac5a_780866d7492846579e0b1a30c0bdbc04~mv2.jpg",
+          "src": "wix:image://v1/2aac5a_780866d7492846579e0b1a30c0bdbc04~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+          "description": "",
+          "title": "",
+          "type": "Image"
+        }
+      ],
+      "ribbons": [],
+      "currency": "USD",
+      "price": 22,
+      "discountedPrice": 22,
+      "formattedPrice": "$22.00",
+      "formattedDiscountedPrice": "$22.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {
+        "Portion": {
+          "optionType": "drop_down",
+          "name": "Portion",
+          "choices": [
+            "[Object]",
+            "[Object]"
+          ]
+        }
+      },
+      "productPageUrl": "/product-page/chess",
+      "customTextFields": [],
+      "manageVariants": true,
+      "productType": "physical",
+      "slug": "chess",
+      "collections": [
+        {
+          "_id": "b8f8af74-04a0-4ac1-b906-a83955603a6f",
+          "name": "Pie",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "127672c5-13d4-ba25-626a-b474c773a0f6"
+    },
+    {
+      "_id": "7021e519-17ed-41d7-a4db-0b64a45637d2",
+      "_updatedDate": "Thu Dec 31 2020 15:10:07 GMT-0600 (Central Standard Time)",
+      "name": "Chocolate Chip Pecan",
+      "description": "Deeply fudgy texture and flavor. Simple ingredients pack rich texture and enough chocolate to make even the evening news feel a little bit better. \n<br>Perfect if heated just 15 seconds in the micro. Not hot, just slightly warmed. O. M. G... \n<br>Whole 9\" Pie. \n<br>This pie freezes well if you'd like so save some for later. Wrap it wax paper, then in foil. Thaw on the counter.",
+      "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500",
+      "mediaItems": [],
+      "ribbons": [],
+      "currency": "USD",
+      "price": 22,
+      "discountedPrice": 22,
+      "formattedPrice": "$22.00",
+      "formattedDiscountedPrice": "$22.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {
+        "Portion": {
+          "optionType": "drop_down",
+          "name": "Portion",
+          "choices": [
+            "[Object]",
+            "[Object]"
+          ]
+        }
+      },
+      "productPageUrl": "/product-page/chocolate-chip-pecan",
+      "customTextFields": [],
+      "manageVariants": true,
+      "productType": "physical",
+      "slug": "chocolate-chip-pecan",
+      "collections": [
+        {
+          "_id": "b8f8af74-04a0-4ac1-b906-a83955603a6f",
+          "name": "Pie",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "8fde1ae6-e812-be28-5b24-f49b5ba9c82d"
+    },
+    {
+      "_id": "8b7bc732-9849-4acb-899d-cfdc90e23c92",
+      "_updatedDate": "Sat Jan 02 2021 19:26:56 GMT-0600 (Central Standard Time)",
+      "name": "Cookie, 5 Mile Chunk, Wholesale",
+      "description": "",
+      "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500",
+      "mediaItems": [],
+      "sku": "",
+      "ribbons": [],
+      "currency": "USD",
+      "price": 19,
+      "discountedPrice": 19,
+      "formattedPrice": "$19.00",
+      "formattedDiscountedPrice": "$19.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {},
+      "productPageUrl": "/product-page/cookie-5-mile-chunk-wholesale",
+      "customTextFields": [],
+      "manageVariants": false,
+      "productType": "physical",
+      "slug": "cookie-5-mile-chunk-wholesale",
+      "weight": 0,
+      "collections": [
+        {
+          "_id": "c2a62c85-0100-4058-88da-aaca9e023970",
+          "name": "Wholesale",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "748438cd-67b6-b534-7662-30236f1dc36d"
+    },
+    {
+      "_id": "1f1a301a-8fdd-47ba-add1-811a74dfb70e",
+      "_updatedDate": "Thu Dec 31 2020 15:10:07 GMT-0600 (Central Standard Time)",
+      "name": "Key Lime Pie",
+      "description": "Sweet and tart, this pretty pie made with real key limes is a Farmersville Fave!",
+      "mainMedia": "wix:image://v1/2aac5a_4daa14ce25564dadbc0f5742a10fe613~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+      "mediaItems": [
+        {
+          "id": "2aac5a_4daa14ce25564dadbc0f5742a10fe613~mv2.jpg",
+          "src": "wix:image://v1/2aac5a_4daa14ce25564dadbc0f5742a10fe613~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+          "description": "",
+          "title": "",
+          "type": "Image"
+        }
+      ],
+      "ribbons": [],
+      "currency": "USD",
+      "price": 22,
+      "discountedPrice": 22,
+      "formattedPrice": "$22.00",
+      "formattedDiscountedPrice": "$22.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {
+        "Portion": {
+          "optionType": "drop_down",
+          "name": "Portion",
+          "choices": [
+            "[Object]",
+            "[Object]"
+          ]
+        }
+      },
+      "productPageUrl": "/product-page/key-lime-pie",
+      "customTextFields": [],
+      "manageVariants": true,
+      "productType": "physical",
+      "slug": "key-lime-pie",
+      "collections": [
+        {
+          "_id": "b8f8af74-04a0-4ac1-b906-a83955603a6f",
+          "name": "Pie",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "e0e5cfe5-7022-b845-522e-7ee58b2048f1"
+    },
+    {
+      "_id": "84c43abd-a54e-49c7-9a94-aa413e60daed",
+      "_updatedDate": "Sat Jan 02 2021 19:53:47 GMT-0600 (Central Standard Time)",
+      "name": "Mini Bundt",
+      "description": "Just like its big brother only in a 2-4 person size! Get one in each flavor and please everyone but the cat (because we know how that goes...)! Various patterns.",
+      "mainMedia": "wix:image://v1/2aac5a_a9cce90b8d354ac89106d2168b8ddd34~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+      "mediaItems": [
+        {
+          "id": "2aac5a_a9cce90b8d354ac89106d2168b8ddd34~mv2.jpg",
+          "src": "wix:image://v1/2aac5a_a9cce90b8d354ac89106d2168b8ddd34~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+          "description": "",
+          "title": "",
+          "type": "Image"
+        }
+      ],
+      "sku": "",
+      "ribbons": [],
+      "currency": "USD",
+      "price": 7.5,
+      "discountedPrice": 7.5,
+      "formattedPrice": "$7.50",
+      "formattedDiscountedPrice": "$7.50",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {},
+      "productPageUrl": "/product-page/mini-bundt",
+      "customTextFields": [],
+      "manageVariants": false,
+      "productType": "physical",
+      "slug": "mini-bundt",
+      "weight": 0,
+      "collections": [
+        {
+          "_id": "ea1aa9d3-6bb6-4ac4-85cc-a0b774984a96",
+          "name": "Cake",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        },
+        {
+          "_id": "50904c38-231e-827a-d831-28fbbde9ac8e",
+          "name": "All",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "7b3bc542-5ab1-b638-656b-55bec19f2512"
+    },
+    {
+      "_id": "cc2dea7f-f165-4eed-a8d2-94ea96475b3c",
+      "_updatedDate": "Thu Dec 31 2020 15:10:07 GMT-0600 (Central Standard Time)",
+      "name": "Old Fashioned Fudge Pie",
+      "description": "Deeply fudgy texture and flavor. Simple ingredients pack rich texture and enough chocolate to make even the evening news feel a little bit better. \n<br>Perfect if heated just 15 seconds in the micro. Not hot, just slightly warmed. O. M. G... \n<br>Whole 9\" Pie. \n<br>This pie freezes well if you'd like so save some for later. Wrap it wax paper, then in foil. Thaw on the counter.",
+      "mainMedia": "wix:image://v1/2aac5a_9c549e6e5db24c8ab973484aa79bbf48~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+      "mediaItems": [
+        {
+          "id": "2aac5a_9c549e6e5db24c8ab973484aa79bbf48~mv2.jpg",
+          "src": "wix:image://v1/2aac5a_9c549e6e5db24c8ab973484aa79bbf48~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+          "description": "",
+          "title": "",
+          "type": "Image"
+        }
+      ],
+      "ribbons": [],
+      "currency": "USD",
+      "price": 22,
+      "discountedPrice": 22,
+      "formattedPrice": "$22.00",
+      "formattedDiscountedPrice": "$22.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {
+        "Portion": {
+          "optionType": "drop_down",
+          "name": "Portion",
+          "choices": [
+            "[Object]",
+            "[Object]"
+          ]
+        }
+      },
+      "productPageUrl": "/product-page/old-fashioned-fudge-pie",
+      "customTextFields": [],
+      "manageVariants": true,
+      "productType": "physical",
+      "slug": "old-fashioned-fudge-pie",
+      "collections": [
+        {
+          "_id": "b8f8af74-04a0-4ac1-b906-a83955603a6f",
+          "name": "Pie",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "33d21580-0e9a-b112-572d-6b1569b8a4c3"
+    },
+    {
+      "_id": "6e6a8004-7d43-4792-92f4-efa38ac7797a",
+      "_updatedDate": "Thu Dec 31 2020 15:10:07 GMT-0600 (Central Standard Time)",
+      "name": "Pecan Pie",
+      "description": "Toasty pecans float lazily in an old fashioned dark syrup base - this is THE old southern favorite from our family's historical Collin County recipes. Yes, we love the other versions, too, but this is the one we turn to when we need a little rich, sweet comfort.",
+      "mainMedia": "wix:image://v1/2aac5a_10f3b885735e4f96a40fc3223aabe0bd~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+      "mediaItems": [
+        {
+          "id": "2aac5a_10f3b885735e4f96a40fc3223aabe0bd~mv2.jpg",
+          "src": "wix:image://v1/2aac5a_10f3b885735e4f96a40fc3223aabe0bd~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+          "description": "",
+          "title": "",
+          "type": "Image"
+        }
+      ],
+      "ribbons": [],
+      "currency": "USD",
+      "price": 22,
+      "discountedPrice": 22,
+      "formattedPrice": "$22.00",
+      "formattedDiscountedPrice": "$22.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {
+        "Portion": {
+          "optionType": "drop_down",
+          "name": "Portion",
+          "choices": [
+            "[Object]",
+            "[Object]"
+          ]
+        }
+      },
+      "productPageUrl": "/product-page/pecan-pie",
+      "customTextFields": [],
+      "manageVariants": true,
+      "productType": "physical",
+      "slug": "pecan-pie",
+      "collections": [
+        {
+          "_id": "b8f8af74-04a0-4ac1-b906-a83955603a6f",
+          "name": "Pie",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "91957ffb-82bc-b86d-6d0b-105c75388685"
+    },
+    {
+      "_id": "710c482b-8d34-4a7d-9bfc-7abee67c1ce4",
+      "_updatedDate": "Sat Jan 02 2021 19:54:29 GMT-0600 (Central Standard Time)",
+      "name": "Rum Balls",
+      "description": "Spheres of rummy, fudgy marvelousness. This is the candy that starts disappearing surreptitiously before it even sees the holiday table at our house! note that by default there is actual rum in the recipe - please click the “alcohol free” option if you want flavoring instead.",
+      "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500",
+      "mediaItems": [],
+      "sku": "",
+      "ribbons": [
+        {
+          "text": "Holiday Specials!"
+        }
+      ],
+      "currency": "USD",
+      "price": 7.5,
+      "discountedPrice": 7.5,
+      "formattedPrice": "$7.50",
+      "formattedDiscountedPrice": "$7.50",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {},
+      "productPageUrl": "/product-page/rum-balls",
+      "customTextFields": [],
+      "manageVariants": false,
+      "productType": "physical",
+      "slug": "rum-balls",
+      "weight": 0,
+      "collections": [
+        {
+          "_id": "5319ff5b-bd03-477f-9373-045ec1dac97c",
+          "name": "Confections",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        },
+        {
+          "_id": "50904c38-231e-827a-d831-28fbbde9ac8e",
+          "name": "All",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "8ef3b7d4-72cb-b582-6403-85411983e31b"
+    },
+    {
+      "_id": "772212ee-99b5-4742-a2f6-20a3a4788592",
+      "_updatedDate": "Thu Dec 31 2020 15:10:07 GMT-0600 (Central Standard Time)",
+      "name": "Sweet Potato Pie",
+      "description": "Velvety, creamy and nostalgic, and spiced just right for Thanksgiving and Christmas! Topped with Campfire Marshmallows or your own whipped cream, this treat is spectacular any time of year!",
+      "mainMedia": "wix:image://v1/2aac5a_5e250d90087c44a083cb76f3d356180a~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+      "mediaItems": [
+        {
+          "id": "2aac5a_5e250d90087c44a083cb76f3d356180a~mv2.jpg",
+          "src": "wix:image://v1/2aac5a_5e250d90087c44a083cb76f3d356180a~mv2.jpg/file.jpg#originWidth=640&originHeight=640",
+          "description": "",
+          "title": "",
+          "type": "Image"
+        }
+      ],
+      "ribbons": [],
+      "currency": "USD",
+      "price": 22,
+      "discountedPrice": 22,
+      "formattedPrice": "$22.00",
+      "formattedDiscountedPrice": "$22.00",
+      "discount": {
+        "type": "NONE",
+        "value": 0
+      },
+      "trackInventory": false,
+      "inStock": true,
+      "additionalInfoSections": [],
+      "productOptions": {
+        "Portion": {
+          "optionType": "drop_down",
+          "name": "Portion",
+          "choices": [
+            "[Object]",
+            "[Object]"
+          ]
+        }
+      },
+      "productPageUrl": "/product-page/sweet-potato-pie",
+      "customTextFields": [],
+      "manageVariants": true,
+      "productType": "physical",
+      "slug": "sweet-potato-pie",
+      "collections": [
+        {
+          "_id": "b8f8af74-04a0-4ac1-b906-a83955603a6f",
+          "name": "Pie",
+          "mainMedia": "wix:image://v1/614034_103e8f4ab0ae4536a38b319d3eb437ed~mv2.png/missing-media.png#originWidth=500&originHeight=500"
+        }
+      ],
+      "inventoryItem": "88dded11-664a-b8bd-5d09-df5c5b877a6d"
+    }
+  ],
+  "_totalCount": 20,
+  "_query": {
+    "orderBy": "undefined",
+    "invalidArguments": [],
+    "filterTree": {},
+    "provider": {
+      "save": "function e(){return t.getJSON(\"/wix/data-web.jsw/save.ajax\",arguments)}",
+      "insert": "function e(){return t.getJSON(\"/wix/data-web.jsw/insert.ajax\",arguments)}",
+      "update": "function e(){return t.getJSON(\"/wix/data-web.jsw/update.ajax\",arguments)}",
+      "get": "function e(){return t.getJSON(\"/wix/data-web.jsw/get.ajax\",arguments)}",
+      "truncate": "function e(){return t.getJSON(\"/wix/data-web.jsw/truncate.ajax\",arguments)}",
+      "remove": "function e(){return t.getJSON(\"/wix/data-web.jsw/remove.ajax\",arguments)}",
+      "find": "function e(){return t.getJSON(\"/wix/data-web.jsw/find.ajax\",arguments)}",
+      "runAggregate": "function e(){return t.getJSON(\"/wix/data-web.jsw/runAggregate.ajax\",arguments)}",
+      "count": "function e(){return t.getJSON(\"/wix/data-web.jsw/count.ajax\",arguments)}",
+      "bulkInsert": "function e(){return t.getJSON(\"/wix/data-web.jsw/bulkInsert.ajax\",arguments)}",
+      "bulkSave": "function e(){return t.getJSON(\"/wix/data-web.jsw/bulkSave.ajax\",arguments)}",
+      "bulkUpdate": "function e(){return t.getJSON(\"/wix/data-web.jsw/bulkUpdate.ajax\",arguments)}",
+      "bulkRemove": "function e(){return t.getJSON(\"/wix/data-web.jsw/bulkRemove.ajax\",arguments)}",
+      "queryReferenced": "function e(){return t.getJSON(\"/wix/data-web.jsw/queryReferenced.ajax\",arguments)}",
+      "insertReference": "function e(){return t.getJSON(\"/wix/data-web.jsw/insertReference.ajax\",arguments)}",
+      "insertReferences": "function e(){return t.getJSON(\"/wix/data-web.jsw/insertReferences.ajax\",arguments)}",
+      "replaceReferences": "function e(){return t.getJSON(\"/wix/data-web.jsw/replaceReferences.ajax\",arguments)}",
+      "removeReference": "function e(){return t.getJSON(\"/wix/data-web.jsw/removeReference.ajax\",arguments)}",
+      "removeReferences": "function e(){return t.getJSON(\"/wix/data-web.jsw/removeReferences.ajax\",arguments)}",
+      "isReferenced": "function e(){return t.getJSON(\"/wix/data-web.jsw/isReferenced.ajax\",arguments)}",
+      "getSchema": "function e(){return t.getJSON(\"/wix/data-web.jsw/getSchema.ajax\",arguments)}"
+    },
+    "collectionName": "Stores/Products",
+    "limitNumber": 50,
+    "skipNumber": 0,
+    "included": [
+      "collections"
+    ]
+  },
+  "_partialIncludes": true,
+  "_pagingFunction": "function e(){return this.find(t)}",
+  "nextSkipNumber": 20,
+  "prevSkipNumber": -50
+}

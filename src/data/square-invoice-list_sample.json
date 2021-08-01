@@ -1,0 +1,3093 @@
+{
+	"invoices": [
+		{
+			"id": "inv:0-ChDstJGMxBjk9yi-WDG0VF4UEPwG",
+			"version": 1,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "UGJyvuhbPZ8wqNk1Z6tXNwvVyjDZY",
+			"payment_requests": [
+				{
+					"uid": "67465790-efb9-4698-b4c1-1116be05ae39",
+					"request_type": "BALANCE",
+					"due_date": "2021-06-14",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "3f3bc126-03d2-4477-9227-7f7c971fc374",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "40348d0e-f36f-4650-b959-c323a8d6f596",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "e39f0385-8f91-4845-abdc-e078f5c7deec",
+							"relative_scheduled_days": 5,
+							"status": "PENDING"
+						},
+						{
+							"uid": "23ba6e08-673b-466e-8ef1-ed5a31453dff",
+							"relative_scheduled_days": 13,
+							"status": "PENDING"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 18700,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200052",
+			"title": "12 Stories, Week ending 13 June 2021",
+			"description": "Thank you for your orders!!! Have a wonderful week!",
+			"public_url": "https://squareup.com/pay-invoice/inv:0-ChDstJGMxBjk9yi-WDG0VF4UEPwG",
+			"status": "UNPAID",
+			"timezone": "America/Chicago",
+			"created_at": "2021-06-11T05:57:41Z",
+			"updated_at": "2021-06-14T15:02:24Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"next_payment_amount_money": {
+				"amount": 18700,
+				"currency": "USD"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": true
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "inv:0-ChBSjHNWMHpYufrGcrAMI-yjEPwG",
+			"version": 0,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "06hbGsvxGinXmFrKdgKh19Dw8h7YY",
+			"payment_requests": [
+				{
+					"uid": "0ab8ccdf-45d4-40d2-a9e8-9962fa9af95d",
+					"request_type": "BALANCE",
+					"due_date": "2021-06-11",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "c3d97471-6799-44c0-8559-94421c246386",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "154bddbb-5727-49f0-88f1-da311bed40d1",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "c051e130-92a6-49e7-98a4-e8e85e698471",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2021-06-14T16:09:09Z"
+						},
+						{
+							"uid": "d1f4ad1c-4773-4ccb-9918-a55df10216d5",
+							"relative_scheduled_days": 5,
+							"status": "SENT",
+							"sent_at": "2021-06-16T16:12:10Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13700,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200053",
+			"title": "12 Stories, Week ending 6 June 21",
+			"description": "Thank you for your orders!!! Have a wonderful week!",
+			"public_url": "https://squareup.com/pay-invoice/inv:0-ChBSjHNWMHpYufrGcrAMI-yjEPwG",
+			"status": "UNPAID",
+			"timezone": "America/Chicago",
+			"created_at": "2021-06-11T06:05:42Z",
+			"updated_at": "2021-06-16T16:12:11Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"next_payment_amount_money": {
+				"amount": 13700,
+				"currency": "USD"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": true
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "inv:0-ChDPChdDkMCyuG_K8VCuhRFiEPwG",
+			"version": 1,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "G56xvBCbIRnLTbBuwYibPHxpmxWZY",
+			"payment_requests": [
+				{
+					"uid": "6d32ce76-5e3e-4b92-bcc6-0a661e8eb388",
+					"request_type": "BALANCE",
+					"due_date": "2021-05-31",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "00f437da-0c3e-4382-9802-9840a125544d",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2021-06-03T16:08:15Z"
+						},
+						{
+							"uid": "d5370c7d-d732-4451-b69d-4ddad70dd15f",
+							"relative_scheduled_days": 7,
+							"status": "SENT",
+							"sent_at": "2021-06-07T16:10:13Z"
+						},
+						{
+							"uid": "e783b6d6-eefa-4728-937a-c520a0cae165",
+							"relative_scheduled_days": 14,
+							"status": "SENT",
+							"sent_at": "2021-06-14T16:03:10Z"
+						},
+						{
+							"uid": "11d419bb-9599-4fd0-a7d3-f091c5d4db63",
+							"relative_scheduled_days": 25,
+							"status": "PENDING"
+						},
+						{
+							"uid": "f8d0a264-bbe5-4ee6-8150-53a5efe012e0",
+							"relative_scheduled_days": 26,
+							"status": "PENDING"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13700,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200051",
+			"title": "12 Stories - Week Ending 30 May 2021",
+			"description": "Thank you for your orders!!! Have a wonderful weekend.",
+			"public_url": "https://squareup.com/pay-invoice/inv:0-ChDPChdDkMCyuG_K8VCuhRFiEPwG",
+			"status": "UNPAID",
+			"timezone": "America/Chicago",
+			"created_at": "2021-05-27T11:08:08Z",
+			"updated_at": "2021-06-14T16:03:10Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"next_payment_amount_money": {
+				"amount": 13700,
+				"currency": "USD"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": true
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "inv:0-ChDrW-ODYtYR1HwsRi9nbNaLEPwG",
+			"version": 4,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "cyz0yC1fvJ8d6C4FxQcVCSpTo3PZY",
+			"payment_requests": [
+				{
+					"uid": "fce0740a-ba4f-4ce0-9e5d-411fb7b2533b",
+					"request_type": "BALANCE",
+					"due_date": "2021-05-27",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "e99f12d1-9e1c-40a4-9bc8-6be928d99d1b",
+							"relative_scheduled_days": 7,
+							"status": "SENT",
+							"sent_at": "2021-06-03T16:01:11Z"
+						},
+						{
+							"uid": "2e51173f-646c-4142-b75b-49167a463086",
+							"relative_scheduled_days": 14,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "791ebc4b-aa4a-418f-8968-05bb47ef8e8e",
+							"relative_scheduled_days": 21,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 12600,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 12600,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200048",
+			"title": "Week ending 10 May 2021",
+			"description": "Thank you for your orders!!!",
+			"public_url": "https://squareup.com/pay-invoice/inv:0-ChDrW-ODYtYR1HwsRi9nbNaLEPwG",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2021-05-06T00:44:35Z",
+			"updated_at": "2021-06-07T22:26:22Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": true
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "inv:0-ChCIAnQNLry3_u7L9MqgiwQrEPwG",
+			"version": 3,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "KvCa0hx0QvpwUXg9KtHhmrFKyZCZY",
+			"payment_requests": [
+				{
+					"uid": "20d4cb0e-7a9d-401a-bbd3-cd91f8c8d044",
+					"request_type": "BALANCE",
+					"due_date": "2021-05-24",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "8d1799d3-0b43-4ab1-b29b-c4dfea13f9a1",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2021-05-27T16:05:13Z"
+						},
+						{
+							"uid": "d0d301e8-ff6a-4d73-98f4-5aaa0518c0dc",
+							"relative_scheduled_days": 7,
+							"status": "SENT",
+							"sent_at": "2021-05-31T16:04:00Z"
+						},
+						{
+							"uid": "87ffc104-460f-4c92-9386-0eb355369ec1",
+							"relative_scheduled_days": 14,
+							"status": "SENT",
+							"sent_at": "2021-06-07T16:10:06Z"
+						},
+						{
+							"uid": "4f10de57-09b8-491e-9966-bc08c12929b9",
+							"relative_scheduled_days": 21,
+							"status": "SENT",
+							"sent_at": "2021-06-14T16:03:07Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15300,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15300,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200050",
+			"title": "12 Stories - Week Ending 23 May 2021",
+			"description": "Thank you for your orders!!!",
+			"public_url": "https://squareup.com/pay-invoice/inv:0-ChCIAnQNLry3_u7L9MqgiwQrEPwG",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2021-05-20T00:58:54Z",
+			"updated_at": "2021-06-15T13:36:51Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": true
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "inv:0-ChDrDCcX9ObMgoehD7oNP8sOEPwG",
+			"version": 1,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "eZQ5Ez0F8DriIWVnqEQwP6cAKWTZY",
+			"payment_requests": [
+				{
+					"uid": "6b8d8811-ff31-49a0-baef-1832ae15c562",
+					"request_type": "BALANCE",
+					"due_date": "2021-05-17",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "056f63aa-c5d8-4276-8cc9-1564490472de",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "16c4d331-492b-4642-b412-2066ef87a55c",
+							"relative_scheduled_days": 7,
+							"status": "SENT",
+							"sent_at": "2021-05-24T16:03:03Z"
+						},
+						{
+							"uid": "fca571d8-bcc4-4548-9bed-02988809e8fd",
+							"relative_scheduled_days": 9,
+							"status": "SENT",
+							"sent_at": "2021-05-26T16:00:54Z"
+						},
+						{
+							"uid": "9d6e19e9-075b-432b-acba-11c5e82bd177",
+							"relative_scheduled_days": 14,
+							"status": "SENT",
+							"sent_at": "2021-05-31T16:01:22Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 20100,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200049",
+			"title": "12 Stories Week Ending 16 May 21",
+			"description": "Includes 3 Dz muffins spec order for May 8",
+			"public_url": "https://squareup.com/pay-invoice/inv:0-ChDrDCcX9ObMgoehD7oNP8sOEPwG",
+			"status": "UNPAID",
+			"timezone": "America/Chicago",
+			"created_at": "2021-05-12T20:41:57Z",
+			"updated_at": "2021-05-31T16:01:23Z",
+			"primary_recipient": {
+				"customer_id": "0A1PRN03R17TSENTRDB61QA07W",
+				"given_name": "David",
+				"family_name": "Hayes",
+				"email_address": "12storiescoffee@gmail.com",
+				"company_name": "12 Stories Coffee"
+			},
+			"next_payment_amount_money": {
+				"amount": 20100,
+				"currency": "USD"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": true
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "inv:0-ChCmBywmnhRFLQDjBdE9BIx0EPwG",
+			"version": 1,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "aB9BWjxbJLCHkAmNa0WsVxkWTETZY",
+			"payment_requests": [
+				{
+					"uid": "50d076b0-ce7d-49a8-bf66-d7f42d62ebff",
+					"request_type": "BALANCE",
+					"due_date": "2021-05-11",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "09d84627-1811-45d5-9fcf-5e4fddfc0fc3",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "13eeb4ef-fb0e-4a0c-8045-8f9b1c251505",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "7e13051d-5e5c-465f-b355-f2d9b4964f1a",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "ea00a42a-c853-4464-9bf0-77385c63356c",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 433,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200047",
+			"title": "",
+			"description": "Thank you for your orders!!!",
+			"public_url": "https://squareup.com/pay-invoice/inv:0-ChCmBywmnhRFLQDjBdE9BIx0EPwG",
+			"status": "CANCELED",
+			"timezone": "America/Chicago",
+			"created_at": "2021-05-04T18:37:53Z",
+			"updated_at": "2021-05-06T00:48:39Z",
+			"primary_recipient": {
+				"customer_id": "0ZS40M9S9D118TGBXETDQP0YC4",
+				"given_name": "elise",
+				"family_name": "Bobitt",
+				"email_address": "perf6k@gmail.com",
+				"address": {
+					"address_line_1": "621 Beech st",
+					"address_line_2": "",
+					"address_line_3": "",
+					"locality": "Bonham",
+					"sublocality": "",
+					"sublocality_2": "",
+					"sublocality_3": "",
+					"administrative_district_level_1": "TX",
+					"administrative_district_level_2": "",
+					"administrative_district_level_3": "",
+					"postal_code": "75442",
+					"country": "US"
+				},
+				"phone_number": "2147272894"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": true
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "inv:0-ChAKrEM7YgdgaLdo-3Q92jhFEPwG",
+			"version": 2,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "ShjDgEOzej2N70icTQfkP6koxoFZY",
+			"payment_requests": [
+				{
+					"uid": "fad70668-a589-4ffb-b3b9-932691679991",
+					"request_type": "BALANCE",
+					"due_date": "2021-06-24",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "6bfc3eb1-e70c-4674-a439-5ec4c190ca20",
+							"relative_scheduled_days": 7,
+							"status": "PENDING"
+						},
+						{
+							"uid": "659920dc-4b9c-4fec-9f2f-b195f9f74efb",
+							"relative_scheduled_days": 30,
+							"status": "PENDING"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 56268,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200037",
+			"title": "Apr 2021",
+			"description": "April 4-28. Thank you for your orders!!!",
+			"status": "DRAFT",
+			"timezone": "America/Chicago",
+			"created_at": "2021-04-26T19:42:11Z",
+			"updated_at": "2021-04-29T21:13:43Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": true
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "inv:0-ChCXoiRFoZO0nMXxV_Se7zzrEPwG",
+			"version": 2,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "SfcSvHMTH135PqHHovN7hr3YHUSZY",
+			"payment_requests": [
+				{
+					"uid": "271dfcb6-6b00-4f8b-9b94-bfd6e63d15ed",
+					"request_type": "BALANCE",
+					"due_date": "2021-06-24",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "510841a3-6e8e-401e-bc4b-a3d4deb3b027",
+							"relative_scheduled_days": 7,
+							"status": "PENDING"
+						},
+						{
+							"uid": "4b89a338-836b-4f19-b52f-86b9b92a6ec2",
+							"relative_scheduled_days": 30,
+							"status": "PENDING"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 66098,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200030",
+			"title": "March 2021",
+			"description": "Thank you for your orders!!!",
+			"status": "DRAFT",
+			"timezone": "America/Chicago",
+			"created_at": "2021-04-26T18:53:37Z",
+			"updated_at": "2021-04-29T20:29:33Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": true
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "inv:0-ChCX-u0IcQmuS-V1wbn3KW_iEPwG",
+			"version": 1,
+			"location_id": "XSG9GFY66KTHP",
+			"payment_requests": [
+				{
+					"uid": "4fdd050d-a193-4398-9f34-3d637fc9a3ca",
+					"request_type": "BALANCE",
+					"due_date": "2021-06-24",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "f603c853-ef4c-4317-bba8-1089e0aa5339",
+							"relative_scheduled_days": 7,
+							"status": "PENDING"
+						},
+						{
+							"uid": "f53d980f-48f7-4323-82e8-59ecd899f448",
+							"relative_scheduled_days": 30,
+							"status": "PENDING"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 42986,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200029",
+			"title": "Feb 9 - 28, 2021",
+			"description": "Thank you for your orders!!!",
+			"status": "DRAFT",
+			"timezone": "America/Chicago",
+			"created_at": "2021-04-26T18:50:20Z",
+			"updated_at": "2021-04-29T20:24:01Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "inv:0-ChAan6h-y0A7y2Z7td88sxmMEPwG",
+			"version": 6,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "qrI072OzUzFfCtdxMIrL76peV",
+			"payment_requests": [
+				{
+					"uid": "c9e76ffc-b9dd-4e79-aa05-64887473f51a",
+					"request_type": "BALANCE",
+					"due_date": "2021-05-03",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "0913d132-14c3-4f45-afbd-b41a7fedd238",
+							"relative_scheduled_days": 7,
+							"status": "SENT",
+							"sent_at": "2021-05-10T16:00:16Z"
+						},
+						{
+							"uid": "a8420ef1-80b3-468f-9f53-bb7bc1a397e3",
+							"relative_scheduled_days": 30,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 40300,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 40300,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200025",
+			"title": "Jan 25-31 + Feb 1-7, 2021",
+			"description": "Thank you for your order! Sure appreciate you guys.",
+			"public_url": "https://squareup.com/pay-invoice/inv:0-ChAan6h-y0A7y2Z7td88sxmMEPwG",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2021-03-18T16:59:31Z",
+			"updated_at": "2021-05-13T00:11:40Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "inv:0-ChC3_JLM5Hi-7p4YnVq3mqH1EPwG",
+			"version": 10,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "Cd9L6QjqL15FlVdt5vPrjm3eV",
+			"payment_requests": [
+				{
+					"uid": "8d11ed02-b1f1-40b6-b7ff-65a411db1d32",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-05-03",
+					"percentage_requested": "17",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "a2849310-bcdb-4bf7-a5a7-dd45326c7d7d",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "2d2ff474-1cbb-4494-a5c1-257628322455",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2021-05-03T16:06:08Z"
+						},
+						{
+							"uid": "2e0f5b62-d990-40bc-8dd7-ec0968172457",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "6a63f4ff-767f-41b1-b381-1e83a4ac4acd",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13711,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 13711,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "619da65c-ae6a-4237-8c22-c72ac2f50f2c",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-05-10",
+					"percentage_requested": "17",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "2bed498a-4462-4a92-8a20-05f45f1450ce",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "b8daeb8f-ac88-428e-a5f8-96b842a9141d",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2021-05-10T16:01:10Z"
+						},
+						{
+							"uid": "6886172e-e9d6-4c48-b8db-fb5d007b93c0",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2021-05-11T16:07:00Z"
+						},
+						{
+							"uid": "0f6b0e68-309f-4425-b4e9-2564e481d21c",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13711,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 13711,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "c53b7995-5364-44ff-8a62-dda1aeb16ab6",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-05-17",
+					"percentage_requested": "17",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "51af296f-ca2d-4aba-8342-b46771c5d82e",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "513f74a1-6861-4310-95d3-a3d242f5534f",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2021-05-17T16:00:43Z"
+						},
+						{
+							"uid": "5fdc851e-fb95-47ee-9788-eeaeafe7a1a6",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2021-05-18T16:08:01Z"
+						},
+						{
+							"uid": "d4c15cf3-2358-41f5-9dd8-1c33136de9bc",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2021-05-20T16:02:11Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13711,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 13711,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "d4254892-fb5f-450b-afd0-8c52da484745",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-07-15",
+					"percentage_requested": "17",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "be515dca-7b61-4a2b-9b7e-0ee445c296ff",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "c403533b-ee40-4974-8da1-9f52f58465e9",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "a69169aa-a770-4cdb-a7d3-2183930a3eea",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "b9e85360-4c19-4c94-8bc6-5710270fc938",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13711,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 13711,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "3cf9b3d9-70d0-4659-aa87-4a05886fe92c",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-07-22",
+					"percentage_requested": "16",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "274cf3f9-aa25-46b0-9a83-4b4115e36f16",
+							"relative_scheduled_days": -7,
+							"status": "PENDING"
+						},
+						{
+							"uid": "b5fff4f7-00fa-476f-af17-ebd387e407de",
+							"relative_scheduled_days": 0,
+							"status": "PENDING"
+						},
+						{
+							"uid": "4d961538-bc5c-4044-a70e-9bd4981339ff",
+							"relative_scheduled_days": 1,
+							"status": "PENDING"
+						},
+						{
+							"uid": "0f4b7bcb-eab7-46e8-b450-62575997254a",
+							"relative_scheduled_days": 3,
+							"status": "PENDING"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 12905,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "c011c52c-2740-49f3-9bce-72300142686d",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-07-29",
+					"percentage_requested": "16",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "2412f41f-5241-405c-bbed-22f5fa4ed293",
+							"relative_scheduled_days": -7,
+							"status": "PENDING"
+						},
+						{
+							"uid": "9742c1d8-3bb3-48bc-bfc0-42877b9e4740",
+							"relative_scheduled_days": 0,
+							"status": "PENDING"
+						},
+						{
+							"uid": "3874fe6d-183b-4084-b317-f35883fb4a80",
+							"relative_scheduled_days": 1,
+							"status": "PENDING"
+						},
+						{
+							"uid": "cf924280-85e1-4da1-93cd-34a94bacfd4a",
+							"relative_scheduled_days": 3,
+							"status": "PENDING"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 12905,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200028",
+			"title": "Oct 12 - Dec 31, 2020",
+			"description": "Continuation of invoice 1200018 with final scheduled payments. This includes a credit for all payments made under the previous invoice.",
+			"public_url": "https://squareup.com/pay-invoice/inv:0-ChC3_JLM5Hi-7p4YnVq3mqH1EPwG",
+			"status": "PARTIALLY_PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2021-04-23T17:05:13Z",
+			"updated_at": "2021-05-26T15:35:06Z",
+			"primary_recipient": {
+				"customer_id": "0A1PRN03R17TSENTRDB61QA07W",
+				"given_name": "David",
+				"family_name": "Hayes",
+				"email_address": "12storiescoffee@gmail.com",
+				"company_name": "12 Stories Coffee"
+			},
+			"next_payment_amount_money": {
+				"amount": 12905,
+				"currency": "USD"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "wPRLx6k0KQKZ7eWu7fZqaA",
+			"version": 27,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "K7ISEV661Hu87archNb602eeV",
+			"payment_requests": [
+				{
+					"uid": "e97fb6c1-514b-41eb-8290-4cdcfa2a0b15",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-01-08",
+					"percentage_requested": "9",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "a11de7d9-7ade-49df-a536-a3bc11f41cf9",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "99a6cb1a-0746-4f95-b796-02aeaff07723",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "9346171f-3435-4fe1-8896-9b6c4a5e0847",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "2d2047d8-8572-4279-993e-578438eb3d64",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15123,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15123,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "63173e45-2a7b-4199-b861-7a2d1a24a342",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-01-15",
+					"percentage_requested": "9",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "3c3ed42b-99a1-4c2b-81a5-560dd97c2e8d",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "9bc9d5b4-6c63-4a78-b7e8-87a705eb959d",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "7cc5f721-1a7a-4678-b524-63ff4e001cdf",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "4b4b1c4c-a732-406f-b7b8-3cbcc017bf21",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15123,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15123,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "2f104a05-55de-44bd-b9cd-77385a831c3e",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-01-22",
+					"percentage_requested": "9",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "e31e0351-3970-4806-abaa-eef39e2e22cb",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "d6f58f1d-f3ce-4e21-ab63-463a7df47f13",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "f2dd5d26-b58d-4507-8a04-53822ecc7904",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "ecb13638-bca7-4c38-834f-f54e680d0c8d",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15123,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15123,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "4d958937-6353-431b-ae05-164d79b133fa",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-03-22",
+					"percentage_requested": "9",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "c0e388d7-6865-4ccc-b388-c5c2c6931182",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "3758b025-75ce-44b4-8e4b-f3e51e2e3730",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "8d50b506-3f4e-4131-888b-6e5e86151283",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "15f1c8fe-fd4c-45e0-8267-edd4114dcaaa",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15123,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15123,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "1566fe56-8fc0-4dfc-8295-1d20d4d0b7d7",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-03-29",
+					"percentage_requested": "8",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "ab72f3b0-88b1-4f18-9b4a-a98c39788368",
+							"relative_scheduled_days": -7,
+							"status": "SENT",
+							"sent_at": "2021-03-22T16:00:10Z"
+						},
+						{
+							"uid": "0b83dc03-5fe6-4a05-b05b-487fa2e4a99b",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2021-03-29T16:00:14Z"
+						},
+						{
+							"uid": "239c9e0e-5c1c-46ad-b9bd-64b703346ddd",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2021-03-30T16:00:16Z"
+						},
+						{
+							"uid": "62a687de-ca2b-43a0-9b5b-16f4ce55505c",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13442,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 13442,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "90a284d7-9db5-432f-baa7-fa6a894a4262",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-04-05",
+					"percentage_requested": "8",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "496e6df4-1cfd-4a9e-aa15-80cafd8fcbbe",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "ad42c264-2b79-4c7d-8e11-b18820af91da",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2021-04-05T16:01:07Z"
+						},
+						{
+							"uid": "0dc0ad16-7a47-4a77-88de-3d41f9cc8884",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2021-04-06T16:01:01Z"
+						},
+						{
+							"uid": "978b05d2-28f1-4245-9515-f3e14e248b72",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2021-04-08T16:00:19Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13442,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 13442,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "0ad4edbc-30ca-43f3-8e32-57e4125adc88",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-04-12",
+					"percentage_requested": "8",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "1d5ccb70-34ba-4ab8-9ea3-99fe006a6991",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "fcef9d17-3730-4bd1-9e88-60d4286eeb25",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2021-04-12T16:02:02Z"
+						},
+						{
+							"uid": "f634c208-c458-4d4c-84dc-1581832160fd",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "9835b0d0-145f-4d5f-ac44-dd2b06eda502",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13442,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "144d83e5-e02a-4094-95df-15e82b0fedbb",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-04-19",
+					"percentage_requested": "8",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "ac71d18b-b40a-4cab-bc68-e91bb5265b32",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "bec6ddf4-92c2-49a0-9812-d09b29cae075",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "35476f74-2d49-4d19-b04b-ccef9cd0ad51",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "98c69bb1-ec3a-4aad-b9b9-56facc57cc3d",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13442,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "c539e88b-4366-40f7-bf0a-5a4095809a48",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-04-26",
+					"percentage_requested": "8",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "6c289d54-6a60-44de-ac9f-5a43b697e077",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "7327155a-abd7-4082-9163-1e29da5558b7",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "23453266-74e0-4af9-a583-1e9ed5197008",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "46711304-a141-434b-b997-25a7941594cf",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13443,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "f8f31ba2-a507-4fd3-a5b2-abe8597a947d",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-05-03",
+					"percentage_requested": "8",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "eafe9722-6cab-4f3f-bdaa-ec7b5bfcd808",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "5201235c-0a88-4eca-becc-27fff3a03049",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "19204b1f-862f-43fe-9621-bbca1a624117",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "e0ba16ac-3166-4ac6-91b4-d22ecf9f6379",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13442,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "6360a495-f92c-430b-b5e9-1dcc5be6c698",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-05-10",
+					"percentage_requested": "8",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "072385de-4f83-4aca-a684-40c7c10812fb",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "50bae1cd-ccde-499d-88a3-b55cb7fed894",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "bb254874-1698-438e-9f01-155442303ffd",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "da190389-6873-46c9-98e8-1543f113a150",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13443,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "298f3d5d-09bf-4f0c-8824-91e8e57e77c5",
+					"request_type": "INSTALLMENT",
+					"due_date": "2021-05-17",
+					"percentage_requested": "8",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "66ba2f27-2260-4e8e-96ce-d3e4db7df608",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "8570f93c-6547-4f7d-9cbc-f9a8b8bbace6",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "d81671af-e7a3-453e-9460-83bb4812c32a",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "f9629afc-f181-47c8-af39-57cc0b2a09d9",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13442,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200018",
+			"title": "Oct 12 - Dec 31",
+			"description": "Thank you for your orders and Happy New Year wishes!\n\nI added a 10% discount for the invoice delays. If you would like the payments arranged a different way, please let me know.",
+			"public_url": "https://squareup.com/pay-invoice/wPRLx6k0KQKZ7eWu7fZqaA",
+			"status": "FAILED",
+			"timezone": "America/Chicago",
+			"created_at": "2020-12-30T18:59:11Z",
+			"updated_at": "2021-04-12T21:09:59Z",
+			"primary_recipient": {
+				"customer_id": "0A1PRN03R17TSENTRDB61QA07W",
+				"given_name": "David",
+				"family_name": "Hayes",
+				"email_address": "12storiescoffee@gmail.com",
+				"company_name": "12 Stories Coffee"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "ute8CGJDcGEI8cEbi2PKAg",
+			"version": 7,
+			"location_id": "XSG9GFY66KTHP",
+			"payment_requests": [
+				{
+					"uid": "9e0c3f64-61b9-4e9f-970f-bbf48648371f",
+					"request_type": "BALANCE",
+					"due_date": "2021-01-28",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "e6a81abc-b746-4813-811c-a974ae90339a",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "98b6b106-5296-471c-9a95-76e04a905cb5",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2021-01-28T16:01:10Z"
+						},
+						{
+							"uid": "e454a4ba-e8c3-4320-ad3b-37280f41e6c2",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2021-01-29T16:03:13Z"
+						},
+						{
+							"uid": "bffe9cf6-35b4-46af-8ad6-ce8a7c3ef82f",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2021-01-31T16:02:01Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 17382,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 0,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200023",
+			"title": "Jan 18-24, 2021",
+			"description": "Thank you for your order! Sure appreciate you guys.",
+			"public_url": "https://squareup.com/pay-invoice/ute8CGJDcGEI8cEbi2PKAg",
+			"status": "UNPAID",
+			"timezone": "America/Chicago",
+			"created_at": "2021-01-18T21:35:24Z",
+			"updated_at": "2021-03-02T14:02:46Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"next_payment_amount_money": {
+				"amount": 17382,
+				"currency": "USD"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "kF7J_NUn24wH-j24g_QhMw",
+			"version": 4,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "GPXIeNWzRmXBC6R1jfzZRY7eV",
+			"payment_requests": [
+				{
+					"uid": "b1612d1e-c84e-4140-b3cc-df2474cf4d17",
+					"request_type": "BALANCE",
+					"due_date": "2021-01-25",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "03bedbb0-2217-4498-905f-f15457fb4af5",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "84ffad4d-da4c-4ff3-941d-78d13e4f6199",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2021-01-25T16:01:06Z"
+						},
+						{
+							"uid": "38380213-ed4d-43db-842f-d8248bbcab3b",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2021-01-26T16:01:08Z"
+						},
+						{
+							"uid": "5fe7510e-3bb2-40aa-b57a-d391842ed154",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2021-01-28T16:00:56Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15100,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15100,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200022",
+			"title": "Jan 1-10, 2021",
+			"description": "Thank you for your orders!!!",
+			"public_url": "https://squareup.com/pay-invoice/kF7J_NUn24wH-j24g_QhMw",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2021-01-11T05:15:11Z",
+			"updated_at": "2021-06-07T22:23:43Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "kf9td-ntA9OjfkGSyoeWDw",
+			"version": 6,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "cUwIbTJMHnq8yfl91o0UEWjeV",
+			"payment_requests": [
+				{
+					"uid": "a53b7bd3-a5b7-4bbc-8dac-d5158da94c71",
+					"request_type": "BALANCE",
+					"due_date": "2021-01-18",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "da91675d-8fe0-4c96-ac7c-8a31bbdffad6",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2021-01-21T16:05:02Z"
+						},
+						{
+							"uid": "b0adbcb1-aa4a-4a72-949a-d0aa6ef90f84",
+							"relative_scheduled_days": 14,
+							"status": "SENT",
+							"sent_at": "2021-02-01T16:02:20Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 17300,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 17300,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200019",
+			"title": "January 4-10, 2021",
+			"description": "Thank you for your orders!!!",
+			"public_url": "https://squareup.com/pay-invoice/kf9td-ntA9OjfkGSyoeWDw",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2021-01-02T18:12:43Z",
+			"updated_at": "2021-03-03T15:06:31Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "yzcmuoxGNy48jnQ1WfMdqw",
+			"version": 2,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "ex0tKc0H9YNN7j13iqfZ2AveV",
+			"payment_requests": [
+				{
+					"uid": "502b0d45-b79f-426f-8c15-f3fe18a554d1",
+					"request_type": "BALANCE",
+					"due_date": "2021-01-14",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "6d1a1ff2-33ac-4c5e-90bf-3856f46319b1",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "a31fcfb9-7a42-4929-b201-3cbce2b05c4d",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2021-01-14T16:03:05Z"
+						},
+						{
+							"uid": "46eade18-4aea-455b-a5b8-645c12af6de4",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2021-01-15T16:07:05Z"
+						},
+						{
+							"uid": "6f88c91c-9a8a-4c91-8df2-d82e182ed22c",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2021-01-17T16:03:01Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 17300,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 17300,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200021",
+			"title": "Jan 1-10, 2021",
+			"description": "Thank you for your orders!!!",
+			"public_url": "https://squareup.com/pay-invoice/yzcmuoxGNy48jnQ1WfMdqw",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2021-01-07T14:52:12Z",
+			"updated_at": "2021-01-18T16:57:19Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "cU-KPoqoqBdDWOmKksi0pQ",
+			"version": 9,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "KzqFCmFnT0KjmHMMFQUx4b8eV",
+			"payment_requests": [
+				{
+					"uid": "d98cc2f8-1f62-4a47-8a4f-96afa1d8dce7",
+					"request_type": "BALANCE",
+					"due_date": "2020-11-16",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "d766a8cf-f141-46cf-987d-b4003d2a27e5",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "0e2a8250-faf3-4f10-aa8d-a50e328a73e9",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "e56e2645-8e28-4019-8217-2b8bdd9b5fb2",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2020-11-17T16:06:06Z"
+						},
+						{
+							"uid": "26182a89-a10d-4570-a4e4-30e7ac25b592",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2020-11-19T16:14:01Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 20900,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 20900,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200017",
+			"title": "Oct 4 - 12, 2020",
+			"description": "Thank you for your orders!!!",
+			"public_url": "https://squareup.com/pay-invoice/cU-KPoqoqBdDWOmKksi0pQ",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-11-16T08:06:46Z",
+			"updated_at": "2020-11-21T02:45:24Z",
+			"primary_recipient": {
+				"customer_id": "0A1PRN03R17TSENTRDB61QA07W",
+				"given_name": "David",
+				"family_name": "Hayes",
+				"email_address": "12storiescoffee@gmail.com",
+				"company_name": "12 Stories Coffee"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "zysCffp4lBTvvNME9H7QOQ",
+			"version": 2,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "qLWlQYmlIxukoBBXYKz3lT7eV",
+			"payment_requests": [
+				{
+					"uid": "71605d71-6a86-4dec-a2fb-7a5dd0828ea3",
+					"request_type": "BALANCE",
+					"due_date": "2020-10-05",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "943ec3cc-4358-4bc7-a93b-829012df28b6",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "23a68db4-5864-4f4a-bc83-b537c15b911d",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "4671e330-df59-4102-b339-82d2cb5aef8c",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2020-10-06T16:11:02Z"
+						},
+						{
+							"uid": "70ca5b5c-7a67-4c85-af2d-1e31a6d159b1",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2020-10-08T16:08:13Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 17500,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 17500,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200015",
+			"title": "Sept 19 - 26",
+			"description": "Thank you for your orders!!!",
+			"public_url": "https://squareup.com/pay-invoice/zysCffp4lBTvvNME9H7QOQ",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-10-05T22:15:48Z",
+			"updated_at": "2020-11-21T02:48:16Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "3_5CijzN0vXDYP-FyP-kUQ",
+			"version": 2,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "GVuGq8lejKs0NBIzRUBqhc0eV",
+			"payment_requests": [
+				{
+					"uid": "f9016a92-bda7-4d22-8155-6e3c280e2c53",
+					"request_type": "BALANCE",
+					"due_date": "2020-10-12",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "5af558cd-1925-4bcb-bd9e-1cadf86a512d",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "2c52af4d-83ea-4dea-aeab-1588e6feb1de",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "849d1c4d-aeec-467f-84ab-6db0a9ce85ad",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "736861d9-cf33-4db3-88d6-542e69bec476",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 13500,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 13500,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200014",
+			"title": "Sept 12 - 19",
+			"description": "Thank you for your orders!!! Second week of head baker absence.",
+			"public_url": "https://squareup.com/pay-invoice/3_5CijzN0vXDYP-FyP-kUQ",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-10-05T22:03:30Z",
+			"updated_at": "2020-10-06T19:44:55Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "GHQndVDUgpHkwDxbNJatyQ",
+			"version": 3,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "qxVPKKnCGoFWW2JWtlVfnreeV",
+			"payment_requests": [
+				{
+					"uid": "32f5bbfc-a34b-405f-83f9-85a68a928db6",
+					"request_type": "BALANCE",
+					"due_date": "2020-10-05",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "5d5efa85-b7f2-45f6-b58c-796d4ea5744d",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "74cccbb3-7599-4f9c-921c-e2cff2a4a8bd",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "ed7e07f3-876c-4533-aa61-b5e35947fde2",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2020-10-06T16:10:12Z"
+						},
+						{
+							"uid": "6c37b5da-b04f-4cad-86c2-4fb28b2983e5",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 100,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 100,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200013",
+			"title": "Sept 5 - 11",
+			"description": "Head baker absent - training / quality issues",
+			"public_url": "https://squareup.com/pay-invoice/GHQndVDUgpHkwDxbNJatyQ",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-10-05T21:53:21Z",
+			"updated_at": "2020-10-06T19:44:07Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "pV-hOieqmZEzn3woO9sbAg",
+			"version": 2,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "ajSrijtn07mMTUpXm3nKfMoeV",
+			"payment_requests": [
+				{
+					"uid": "bce013d9-4a79-4b26-b621-89f8761f423b",
+					"request_type": "BALANCE",
+					"due_date": "2020-10-10",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "84c33d9a-9864-498f-9409-996674aefb26",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "0ecfed80-f0a8-4900-9de6-38501a121650",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2020-10-10T16:06:02Z"
+						},
+						{
+							"uid": "c9cb7446-5936-4e50-9296-c5fbb776c401",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2020-10-11T16:06:06Z"
+						},
+						{
+							"uid": "0ad32549-0dca-4481-8833-36e025f1c6a3",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2020-10-13T16:01:07Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 18744,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 18744,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200012",
+			"title": "",
+			"description": "Thank you for your orders!!!\nSept 27 - Oct 4\n\nIncludes discount for two Alotta Coladas involved in an oven incident and not delivered.",
+			"public_url": "https://squareup.com/pay-invoice/pV-hOieqmZEzn3woO9sbAg",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-10-03T17:45:31Z",
+			"updated_at": "2020-11-21T02:46:20Z",
+			"primary_recipient": {
+				"customer_id": "0A1PRN03R17TSENTRDB61QA07W",
+				"given_name": "David",
+				"family_name": "Hayes",
+				"email_address": "12storiescoffee@gmail.com",
+				"company_name": "12 Stories Coffee"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "NvpHsLEP6M_fLMHfuW0fzg",
+			"version": 2,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "QQNObZLY8aj58xD5u3Lr8HoeV",
+			"payment_requests": [
+				{
+					"uid": "4081ea0e-c878-4501-ac0a-69e9331c7d5f",
+					"request_type": "BALANCE",
+					"due_date": "2020-09-02",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "b34cd9e9-612d-4188-9c7e-96cee3f461fe",
+							"relative_scheduled_days": -7,
+							"status": "SENT",
+							"sent_at": "2020-08-26T16:04:00Z"
+						},
+						{
+							"uid": "68b1dd0f-4829-4c49-9407-747e8df7ce38",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2020-09-02T16:03:08Z"
+						},
+						{
+							"uid": "1544d0db-98c7-4785-a31d-faeaf614941d",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2020-09-03T16:02:25Z"
+						},
+						{
+							"uid": "8682502b-144a-4209-a485-a50a59decc46",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 25000,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 25000,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "#1200010",
+			"title": "Week Ending Aug 15, 2020",
+			"description": "Thank you for your orders!!!",
+			"public_url": "https://squareup.com/pay-invoice/NvpHsLEP6M_fLMHfuW0fzg",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-08-19T05:29:12Z",
+			"updated_at": "2020-09-03T16:19:07Z",
+			"primary_recipient": {
+				"customer_id": "0A1PRN03R17TSENTRDB61QA07W",
+				"given_name": "David",
+				"family_name": "Hayes",
+				"email_address": "12storiescoffee@gmail.com",
+				"company_name": "12 Stories Coffee"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "tNmsrojXHSHRWpio4sqPQw",
+			"version": 4,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "WxMedI29HvzhELbfVv8lJi1eV",
+			"payment_requests": [
+				{
+					"uid": "de7bc859-07b0-4583-b979-cb337e6c0a63",
+					"request_type": "BALANCE",
+					"due_date": "2020-08-19",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "a9fa8635-b245-420f-8dbb-3b09d2b11bd8",
+							"relative_scheduled_days": -7,
+							"status": "SENT",
+							"sent_at": "2020-08-12T16:03:01Z"
+						},
+						{
+							"uid": "2dcd6596-2830-427b-8cd1-8485485b8b4a",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2020-08-19T16:00:45Z"
+						},
+						{
+							"uid": "74a5310a-efe7-40cb-8191-49f999b37c84",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2020-08-20T16:00:48Z"
+						},
+						{
+							"uid": "7a77faf3-2b0c-4da1-8d86-8f8413671e0a",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2020-08-22T16:00:41Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 17100,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 17100,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "120009",
+			"title": "Pieville, Week Ending 1 Aug 2020",
+			"description": "Not sure if you received- email was wrong for Ciera.",
+			"public_url": "https://squareup.com/pay-invoice/tNmsrojXHSHRWpio4sqPQw",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-08-05T20:36:46Z",
+			"updated_at": "2020-08-26T15:56:24Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"address": {
+					"address_line_1": "",
+					"address_line_2": "",
+					"address_line_3": "",
+					"locality": "",
+					"sublocality": "",
+					"sublocality_2": "",
+					"sublocality_3": "",
+					"administrative_district_level_1": "",
+					"administrative_district_level_2": "",
+					"administrative_district_level_3": "",
+					"postal_code": "",
+					"country": "US"
+				},
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "DgxxfZpnv6LbDDjfiFaW8w",
+			"version": 34,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "IEHtVmjqkz2RPQklzgCPGN8eV",
+			"payment_requests": [
+				{
+					"uid": "a2c34c30-a345-4c16-86bc-dd815e74a074",
+					"request_type": "INSTALLMENT",
+					"due_date": "2020-08-01",
+					"fixed_amount_requested_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "b43495db-a966-4c57-847a-f90845df6476",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "c4d6b0aa-3b0d-4d30-bb88-ffe02a5b59b6",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "72d5eff2-006b-4461-af11-32aa27c1be3b",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "cf970dcf-df7a-4478-b5dc-df13187e698f",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "bf64de90-c10d-4a7b-9ffa-8fbc1be33aba",
+					"request_type": "INSTALLMENT",
+					"due_date": "2020-08-08",
+					"fixed_amount_requested_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "8fcbafa4-2a81-42c8-9c8e-8cb3610948f2",
+							"relative_scheduled_days": -7,
+							"status": "SENT",
+							"sent_at": "2020-08-01T16:05:42Z"
+						},
+						{
+							"uid": "a498f82c-126c-40cf-8f04-fb09434ce420",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2020-08-08T16:04:13Z"
+						},
+						{
+							"uid": "f7f0e669-c1ed-4ea0-8d6b-fca8197910f2",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2020-08-09T16:02:03Z"
+						},
+						{
+							"uid": "d73b67a8-b7c9-49cb-b441-72afa39c5142",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "292920ac-3277-4f77-9a40-e809172df941",
+					"request_type": "INSTALLMENT",
+					"due_date": "2020-08-15",
+					"fixed_amount_requested_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "0e5892fe-ab3e-4e3d-9049-1baceeb48a0e",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "1c8dd8f6-029b-47e0-9fe6-626b01387d2a",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2020-08-15T16:02:10Z"
+						},
+						{
+							"uid": "f18ecb77-d981-4d7b-9794-d364fe3419c6",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2020-08-16T16:09:07Z"
+						},
+						{
+							"uid": "4b51cb22-d134-4268-803c-506957bb26ea",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "ed98716f-727d-4e61-9c1c-3e09624c17a8",
+					"request_type": "INSTALLMENT",
+					"due_date": "2020-08-22",
+					"fixed_amount_requested_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "f3b4d1c6-405e-43cd-926b-2dbfd570da03",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "d0ecc7d6-f586-496c-bf38-db70a4d3899f",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2020-08-22T16:00:35Z"
+						},
+						{
+							"uid": "12859f56-40e4-4144-be91-d7e79ac0133a",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2020-08-23T16:02:09Z"
+						},
+						{
+							"uid": "a82404cb-a971-476a-99d5-e57fdaca8de6",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2020-08-25T16:00:42Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "fdd121df-1028-479b-9dd2-1afbd19b7ad7",
+					"request_type": "INSTALLMENT",
+					"due_date": "2020-08-29",
+					"fixed_amount_requested_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "5cc14153-d7b3-4b74-9342-11c2b537ce07",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "4861dc32-1fe1-4706-8870-116cb3dd03e1",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2020-08-29T16:01:01Z"
+						},
+						{
+							"uid": "385c0439-fc42-4c05-b72b-9d14ade5b4a6",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2020-08-30T16:01:01Z"
+						},
+						{
+							"uid": "a7622f37-8b4f-44a9-8227-7a4599004c11",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2020-09-01T16:00:49Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "95004fab-7e41-4f02-a1f6-cd1d1fea7636",
+					"request_type": "INSTALLMENT",
+					"due_date": "2020-09-05",
+					"fixed_amount_requested_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "4a161ea9-5321-4459-8956-b29e64a48569",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "e0a4258e-76e6-433b-9c3d-5a1eb982b8b3",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2020-09-05T16:00:34Z"
+						},
+						{
+							"uid": "4f468b66-cdb3-4a86-ac5a-714ab5b79ca1",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2020-09-06T16:00:14Z"
+						},
+						{
+							"uid": "fd274181-ab37-4230-9472-10d77062edd8",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2020-09-08T16:00:23Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "b4ee473a-1a52-40b6-8fdb-7ad615c168c9",
+					"request_type": "INSTALLMENT",
+					"due_date": "2020-09-12",
+					"fixed_amount_requested_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "15950a05-3ffb-45ee-977c-90d1b3ed0a87",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "769138d7-2a3d-4840-bc46-48e9910dff4b",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2020-09-12T16:00:26Z"
+						},
+						{
+							"uid": "b76beb89-c8c6-4cb0-ad1b-02bf0b4ca4d6",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2020-09-13T16:00:14Z"
+						},
+						{
+							"uid": "f0223e24-bfe4-468d-bb44-f39105b43475",
+							"relative_scheduled_days": 3,
+							"status": "SENT",
+							"sent_at": "2020-09-15T16:00:23Z"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				},
+				{
+					"uid": "2957a664-770d-47e3-8645-0376c1527258",
+					"request_type": "INSTALLMENT",
+					"due_date": "2020-09-19",
+					"fixed_amount_requested_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "66decad5-b4e2-40bc-9bd1-eda416a6895e",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "9dfc5b3c-698a-493c-a2fe-7f0e0b4e2f72",
+							"relative_scheduled_days": 0,
+							"status": "SENT",
+							"sent_at": "2020-09-19T16:00:21Z"
+						},
+						{
+							"uid": "b4a3f2fe-f482-4cae-99c8-45b311fdb105",
+							"relative_scheduled_days": 1,
+							"status": "SENT",
+							"sent_at": "2020-09-20T16:00:10Z"
+						},
+						{
+							"uid": "555169cb-0bac-4ca8-b381-c28ecd68cfc8",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15500,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "120008",
+			"title": "May - June",
+			"description": "This is the breakdown of the May-June orders per your email broken into 8 weekly payments. Please let me know if I can help further.",
+			"public_url": "https://squareup.com/pay-invoice/DgxxfZpnv6LbDDjfiFaW8w",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-07-25T06:43:25Z",
+			"updated_at": "2020-09-21T13:51:18Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "CPBiMtuhrKb8M8zeGGVu-w",
+			"version": 5,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "6pTIH5MH03jBLDfuJAEdQQveV",
+			"payment_requests": [
+				{
+					"uid": "d805d073-f910-4688-bf02-ed6c620bc494",
+					"request_type": "BALANCE",
+					"due_date": "2020-08-07",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "8ddc44ff-ffa6-4875-a038-d87b0a9eb744",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "02ad57db-5795-442e-bc52-4668dd2934de",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "2d4ede89-8d40-4223-b75b-478ee6e44b95",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "c12b1792-bfc2-43e0-9d63-559357828721",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 15600,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15600,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200007",
+			"title": "Week Ending 25 July 2020",
+			"description": "Thank you for your orders!!!\n\nThere is a discount for a cookie dough order reflected here.",
+			"public_url": "https://squareup.com/pay-invoice/CPBiMtuhrKb8M8zeGGVu-w",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-07-21T15:43:53Z",
+			"updated_at": "2020-07-29T18:51:04Z",
+			"primary_recipient": {
+				"customer_id": "0A1PRN03R17TSENTRDB61QA07W",
+				"given_name": "David",
+				"family_name": "Hayes",
+				"email_address": "12stories@gmail.com",
+				"company_name": "12 Stories Coffee"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "ZaZjb0RaKQWuhoayetzDhw",
+			"version": 3,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "yDcjEqfEeX2gBCM1uHDciA5eV",
+			"payment_requests": [
+				{
+					"uid": "6868a1bf-7c9d-47e4-bf63-67be796f99d5",
+					"request_type": "BALANCE",
+					"due_date": "2020-08-04",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "cf9cfe48-e543-4560-9a88-d6cc91c6bf74",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "fbfb250a-1e7b-4043-b917-edb89bcde71e",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "17fe18eb-b619-49f5-b788-83a2337bc0a5",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "90cc7c56-6daf-41b7-a8a6-22fd461c9f71",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 6000,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 6000,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200008",
+			"title": "",
+			"description": "Thank you for your orders!!!",
+			"public_url": "https://squareup.com/pay-invoice/ZaZjb0RaKQWuhoayetzDhw",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-07-21T16:01:40Z",
+			"updated_at": "2020-07-22T18:59:40Z",
+			"primary_recipient": {
+				"customer_id": "0A1PRN03R17TSENTRDB61QA07W",
+				"given_name": "David",
+				"family_name": "Hayes",
+				"email_address": "12stories@gmail.com",
+				"company_name": "12 Stories Coffee"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "yg8KMO5uGqctcxF_wp6ylg",
+			"version": 3,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "armPeWbNFqv1E1DWFAQOeK8eV",
+			"payment_requests": [
+				{
+					"uid": "2abe5571-40e5-455f-8c16-8f49579a896f",
+					"request_type": "BALANCE",
+					"due_date": "2020-07-29",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "6f2adb3e-e62b-4a42-a6ed-027c97ec0ec7",
+							"relative_scheduled_days": -7,
+							"status": "SENT",
+							"sent_at": "2020-07-22T16:00:45Z"
+						},
+						{
+							"uid": "dd01744a-fb90-476f-8087-a844708fdaf3",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "fd2e2aac-6613-4261-9fb7-fe03f2fea187",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "c07e01c4-4513-4750-af3b-ffb961e25c19",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 19900,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 19900,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200005",
+			"title": "Pieville, Week Ending July 11",
+			"description": "Included sample of Nutty Chocoholic muffin as a test at no charge, substituting for banana butterscotch.",
+			"public_url": "https://squareup.com/pay-invoice/yg8KMO5uGqctcxF_wp6ylg",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-07-06T18:04:56Z",
+			"updated_at": "2020-07-22T19:00:31Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "8Dg5ZCm7BZVZo3TcFDUbyA",
+			"version": 10,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "wEPqlPIRHNpIkUcnGgZq1o0eV",
+			"payment_requests": [
+				{
+					"uid": "fbc53a3d-e2d6-4e74-a366-65e0543b4d12",
+					"request_type": "BALANCE",
+					"due_date": "2020-07-17",
+					"tipping_enabled": false,
+					"computed_amount_money": {
+						"amount": 15200,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 15200,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "000001",
+			"title": "Week Ending Friday, July 3",
+			"description": "We appreciate your business! \n\nI’ve marked this payable on delivery, but we can work out other terms. I just wasn’t sure how the due dates were aligning.",
+			"public_url": "https://squareup.com/pay-invoice/8Dg5ZCm7BZVZo3TcFDUbyA",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-06-29T00:59:15Z",
+			"updated_at": "2020-07-07T17:09:26Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "w7seiqH1Sd8vtjHtNQwElA",
+			"version": 3,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "MMqzUI9zncIFT4aXFB8YGt7eV",
+			"payment_requests": [
+				{
+					"uid": "ba603a81-7c2a-4897-b709-5cf008b72244",
+					"request_type": "BALANCE",
+					"due_date": "2020-07-18",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "1a6c535e-2cbb-47c3-a036-168dbd21c8c4",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "35a51d78-87f2-4fa9-b91e-84dbb11e4026",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "55ce2158-8de2-4669-aeb3-27552ffa0639",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "b130feb8-6371-46a0-a9d7-ee1d1200de1d",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 18000,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 18000,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200002",
+			"title": "July 4 Spec Order Pie Frenzy - 2020",
+			"description": "This was great - always a pleasure!!!",
+			"public_url": "https://squareup.com/pay-invoice/w7seiqH1Sd8vtjHtNQwElA",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-07-05T02:26:03Z",
+			"updated_at": "2020-07-07T17:10:39Z",
+			"primary_recipient": {
+				"customer_id": "16QQBBM7BS1CVDC2REC5ZT310C",
+				"given_name": "Ciera",
+				"family_name": "Garza",
+				"email_address": "cierag.12stories@gmail.com",
+				"company_name": "12 Stories"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "iwoIyu8CEc6wYZ9HnZkEFA",
+			"version": 2,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "kaLJBNZYhppcgFwkkENjFEfeV",
+			"payment_requests": [
+				{
+					"uid": "287d588b-8bcf-452f-839f-3fe67fc15002",
+					"request_type": "BALANCE",
+					"due_date": "2020-07-04",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "717b36fb-ce6d-4d11-89b8-41533bc1919f",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "e3c40a1f-7cdc-47b0-98a1-41bc843a5008",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "e5593f9a-ba36-4218-92dc-3e73661e33ad",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "4ed4cc2d-5974-490f-b44a-be64c88a0e32",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 150,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 150,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200004",
+			"title": "",
+			"description": "Thank you for your orders!!!",
+			"public_url": "https://squareup.com/pay-invoice/iwoIyu8CEc6wYZ9HnZkEFA",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-07-05T02:31:34Z",
+			"updated_at": "2020-07-05T02:33:34Z",
+			"primary_recipient": {
+				"customer_id": "0ZS40M9S9D118TGBXETDQP0YC4",
+				"given_name": "elise",
+				"family_name": "Bobitt",
+				"email_address": "perf6k@gmail.com",
+				"address": {
+					"address_line_1": "621 Beech st",
+					"address_line_2": "",
+					"address_line_3": "",
+					"locality": "Bonham",
+					"sublocality": "",
+					"sublocality_2": "",
+					"sublocality_3": "",
+					"administrative_district_level_1": "TX",
+					"administrative_district_level_2": "",
+					"administrative_district_level_3": "",
+					"postal_code": "75442",
+					"country": "US"
+				},
+				"phone_number": "2147272894"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		},
+		{
+			"id": "_h6CzLZPLoDFNqEOd7n6gw",
+			"version": 2,
+			"location_id": "XSG9GFY66KTHP",
+			"order_id": "Snm7WvR6mJgBPwXlorrThJ4eV",
+			"payment_requests": [
+				{
+					"uid": "f68d300b-de17-43c8-b12b-705b8cf88548",
+					"request_type": "BALANCE",
+					"due_date": "2020-07-04",
+					"tipping_enabled": false,
+					"reminders": [
+						{
+							"uid": "8f7c4dd3-82f3-4516-8d86-45c54b3f83c2",
+							"relative_scheduled_days": -7,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "3e356c7a-f23e-4af8-8c0c-c6732c614d0b",
+							"relative_scheduled_days": 0,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "afd8d76a-2825-4c55-96c0-6c793e8fbd1c",
+							"relative_scheduled_days": 1,
+							"status": "NOT_APPLICABLE"
+						},
+						{
+							"uid": "6e950577-10e5-45c5-a190-3fd5d996cd13",
+							"relative_scheduled_days": 3,
+							"status": "NOT_APPLICABLE"
+						}
+					],
+					"computed_amount_money": {
+						"amount": 150,
+						"currency": "USD"
+					},
+					"total_completed_amount_money": {
+						"amount": 150,
+						"currency": "USD"
+					},
+					"automatic_payment_source": "NONE"
+				}
+			],
+			"invoice_number": "1200003",
+			"title": "",
+			"description": "Thank you for your orders!!!",
+			"public_url": "https://squareup.com/pay-invoice/_h6CzLZPLoDFNqEOd7n6gw",
+			"status": "PAID",
+			"timezone": "America/Chicago",
+			"created_at": "2020-07-05T02:28:09Z",
+			"updated_at": "2020-07-05T02:29:29Z",
+			"primary_recipient": {
+				"customer_id": "0ZS40M9S9D118TGBXETDQP0YC4",
+				"given_name": "elise",
+				"family_name": "Bobitt",
+				"email_address": "perf6k@gmail.com",
+				"address": {
+					"address_line_1": "621 Beech st",
+					"address_line_2": "",
+					"address_line_3": "",
+					"locality": "Bonham",
+					"sublocality": "",
+					"sublocality_2": "",
+					"sublocality_3": "",
+					"administrative_district_level_1": "TX",
+					"administrative_district_level_2": "",
+					"administrative_district_level_3": "",
+					"postal_code": "75442",
+					"country": "US"
+				},
+				"phone_number": "2147272894"
+			},
+			"accepted_payment_methods": {
+				"card": true,
+				"square_gift_card": false,
+				"bank_account": false
+			},
+			"delivery_method": "EMAIL"
+		}
+	]
+}
