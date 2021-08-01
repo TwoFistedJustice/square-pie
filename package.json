@@ -4,12 +4,18 @@
   "description": "an easy to use class based chainable interface for accessing the Square API.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prettier:check": "prettier --ignore-path .prettierignore --check '**/*.{js,jsw,jsx, json,md}'",
+    "prettier:fix": "prettier --ignore-path .prettierignore --write '**/*.{js,jsw,jsx,json,md}'"
   },
   "author": "Russ Bain",
   "license": "ISC",
   "dependencies": {
     "uuid": "^8.3.2",
     "validator": "^13.6.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.3.2"
   }
 }
+git
