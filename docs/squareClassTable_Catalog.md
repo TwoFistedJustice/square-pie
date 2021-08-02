@@ -1,5 +1,6 @@
 #Square Catalog Items
-These tables are arranged to help us understand how to implement, NOT to model Square's data structure.
+These tables are arranged to help us understand how to implement, NOT to model Square's data structure.\
+[Tables based on Square Docs for Catalog Object](https://developer.squareup.com/reference/square/enums/CatalogObjectType)
 
 ##Conventions used
 ! : by itself it means "not"\
