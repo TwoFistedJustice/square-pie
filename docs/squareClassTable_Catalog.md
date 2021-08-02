@@ -1,3 +1,9 @@
+#Square Catalog Items
+These tables are arranged to help us understand how to implement, NOT to model Square's data structure.
+
+
+
+
 ###Observations
 - CatalogObjects get nested inside each other
 
@@ -10,14 +16,20 @@ Then have the lower level classes contribute the rest
 
 BECAUSE the upsert features are primarily designed to work with BATCHES\
 : we will have to create the Objects, add them to an array and send that array as a property on the upsert command
+Argument Against:
+Using discrete classes and subclasses prevents us from layering on more data to an item.
+Solution: Use fewerer classes and use mixins
 
 
-| Level One Classes | Super | Idempotent|Implemented | Short Notes | Square Doc
+
+
+
+| Level One Objects | Super | Idempotent|Implemented | Short Notes | Square Doc
 | ----------------- | ----- | ---| ----------- | ----------- |--- |
 | CatalogObject     | none  | yes | !         | | [CatalogObject](https://developer.squareup.com/reference/square/objects/CatalogObject)
 
 
-| Level Two Classes    | Super         | Idempotent| Implemented | Short Notes | Square Doc
+| Level Two Objects    | Super         | Idempotent| Implemented | Short Notes | Square Doc
 | -------------------- | ------------- | ---| ----------- | ----------- |---- |
 | Item                 | CatalogObject | super| !       | | [ ITEM ](https://developer.squareup.com/reference/square/objects/CatalogItem)
 | Item_Variation                 | CatalogObject | super| !    |   |[ ITEM_VARIATION](https://developer.squareup.com/reference/square/objects/CatalogItemVariation)
@@ -32,7 +44,7 @@ BECAUSE the upsert features are primarily designed to work with BATCHES\
 [comment]: <> (|  | CatalogObject | super| ! | |[]&#40;&#41;)
 
 
-## CatalogObject Class
+## CatalogObject Object
 ### Body Properties
 Class| Owns Properties  | Read Only Properties | Value Type | Mutable | Short Notes 
 | --- |--- |--- |--- | --- | --- |
@@ -60,7 +72,7 @@ Class| Method Name| Owns Properties  | Sub Properties | Value Type  | Short Note
 
 
 
-## Item Class
+## Item Object
 ### Body Properties
 Class| Super.propertyName| Sub properties  |  Value Type |  Short Notes
 | --- |--- |--- |---| ---|
@@ -72,13 +84,37 @@ Class| Super.propertyName| Sub properties  |  Value Type |  Short Notes
 | | |category_id | string| 
 | | |description | string | Max length: 4096 
 | | | item_options| CatalogItemOptionForItem [ ] | *Method generated*
+| | | label_color | string
+*| | | modifier_list_info | CatalogItemModifierListInfo []
+| | | name | string
+*| | | product_type | string
+| | | skip_modifier_screen | boolean
+| | | sort_name | string | supported only in Japan as of 7/21/21 
+| | | tax_ids | string [] 
+| | | variations | CatalogObject [] |Array of Item_Variation objects for this item. Must have at least one.
+
 
 ### Methods
-Class| Method Name| Owns Properties  | Sub Properties | Value Type  | Short Notes
-| --- |--- |--- |---| ---|---|
+Class| Method Name| Owns Properties  | Sub Properties | Value Type  | Short Notes| Implemented
+| --- |--- |--- |---| ---|---|---|
 |**Item** |
-| | itemOptions | item_options | |array
+| | itemOptions | item_options | |array | List of item options IDs for this item. Used to manage and group item variations in a specified order. | !
 | | | | { item_option_id : val } | string 
+| | modifyListInfo | | | | give it sub-methods including a default value, settable in a config file. |!
+| | modifyListInfo | modifier_list_info | |array of objects | |!
+| | | | modifier_list_id***| string | |!
+| | | | enabled| boolean | |!
+| | | | max_selected_modifiers| integer (32-bit) | |!
+| | | | min_selected_modifiers| integer (32-bit) | |!
+| | | | modifier_overrides| Array of objects | | |!
+| | prodType | product_type | |string |  |!
+| | | | value: "REGULAR" |
+| | | | value: "APPOINTMENTS_SERVICE" |
+
+
+
+
+
 
 
 
