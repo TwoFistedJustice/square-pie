@@ -150,8 +150,8 @@ Solution: Use fewer classes and use mixins
 
 ### Body Properties
 
-| Class   | Super.propertyName | Sub properties            | Value Type | Short Notes     |
-| ------- | ------------------ | ------------------------- | ---------- | --------------- | --- |
+| Class   | Super.propertyName | Sub properties            | Value Type | Short Notes     | Implemented
+| ------- | ------------------ | ------------------------- | ---------- | --------------- | ---|
 | **Tax** |                    |                           |            |                 | !   |
 |         | tax_data           |                           | CatalogTax |
 |         |                    | name                      | string     | Max length: 255 |
@@ -167,14 +167,14 @@ Solution: Use fewer classes and use mixins
 
 ### Body Properties
 
-| Class | Super.propertyName | Sub properties | Value Type | Short Notes |
-| ----- | ------------------ | -------------- | ---------- | ----------- |
+| Class | Super.propertyName | Sub properties | Value Type | Short Notes |Implemented
+| ----- | ------------------ | -------------- | ---------- | ----------- | ---|
 |       |                    |
 
 ### Methods
 
-| Class | Method Name | Owns Properties | Sub Properties | Value Type | Short Notes |
-| ----- | ----------- | --------------- | -------------- | ---------- | ----------- |
+| Class | Method Name | Owns Properties | Sub Properties | Value Type | Short Notes | Implemented
+| ----- | ----------- | --------------- | -------------- | ---------- | ----------- |---|
 
 ##These need to be tabled
 
