@@ -47,12 +47,12 @@ Class| Owns Properties  | Read Only Properties | Value Type | Mutable | Short No
 | |present_at_all_locations | |Boolean |
 | |present_at_location_ids | |string [ ] |
 | |absent_at_location_ids | |string [ ] |
-| | image_id |  |string | | METHOD created
+| | image_id |  |string | | *Method generated*
 
 ### Methods
-Class| Method Name| Owns Properties  | Sub Properties | Value Type | Mutable | Short Notes
-| --- |--- |--- |---| ---|---| ---|
-|CatalogObject |
+Class| Method Name| Owns Properties  | Sub Properties | Value Type  | Short Notes
+| --- |--- |--- |---| ---|---|
+|**CatalogObject** |
 | | image | image_data | |CatalogImage
 | | | | caption |string |
 | | | | name|string |
@@ -60,10 +60,41 @@ Class| Method Name| Owns Properties  | Sub Properties | Value Type | Mutable | S
 
 
 
+## Item Class
+### Body Properties
+Class| Super.propertyName| Sub properties  |  Value Type |  Short Notes
+| --- |--- |--- |---| ---|
+|**Item** | item_data |  |CatalogItem |
+| | | abbreviation | string |  Max length: 24
+| | | available_electronically| boolean | 
+| | | available_for_pickup| boolean | 
+| | | available_online| boolean | 
+| | |category_id | string| 
+| | |description | string | Max length: 4096 
+| | | item_options| CatalogItemOptionForItem [ ] | *Method generated*
 
-Class| Super.propertyName| Owns Properties  | Read Only Properties | Value Type | Mutable | Short Notes  
+### Methods
+Class| Method Name| Owns Properties  | Sub Properties | Value Type  | Short Notes
+| --- |--- |--- |---| ---|---|
+|**Item** |
+| | itemOptions | item_options | |array
+| | | | { item_option_id : val } | string 
+
+
+
+##  Class
+Class| Super.propertyName| Owns Properties  | Read Only Properties | Value Type | Mutable | Short Notes
 | --- |--- |--- |---| ---|---| ---|
-|**Item** | item_data | | |CatalogItem
+
+### Body Properties
+Class| Super.propertyName| Sub properties  |  Value Type |  Short Notes
+| --- |--- |--- |---| ---|
+
+### Methods
+Class| Method Name| Owns Properties  | Sub Properties | Value Type  | Short Notes
+| --- |--- |--- |---| ---|---|
+
+
 
 
 
@@ -79,7 +110,6 @@ Class| Super.propertyName| Owns Properties  | Read Only Properties | Value Type 
 | | time_period_data |  | |CatalogTimePeriod
 | | product_set_data |  | |CatalogProductSet
 | | pricing_rule_data |  | |CatalogPricingRule
-
 | | measurement_unit_data |  | |CatalogMeasurementUnit
 | | subscription_plan_data|  | |CatalogSubscriptionPlan
 | | item_option_data |  | |CatalogItemOption
