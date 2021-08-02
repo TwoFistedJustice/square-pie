@@ -5,7 +5,7 @@ These tables are arranged to help us understand how to implement, NOT to model S
 ##Conventions used
 ! : by itself it means "not"\
 ! someName : means the thing named is being worked on\
-someName\*\*\*: a name followed by three asterisks means the expected value has specific requirements such as specific string values or a predifined object type. These should appear at the bottom of a table so they can easily be found.\
+someName^^^ : a name followed by three carets means the expected value has specific requirements such as specific string values or a predifined object type. These should appear at the bottom of a table so they can easily be found.
 
 ###Observations
 
@@ -101,11 +101,11 @@ Solution: Use fewer classes and use mixins
 |          |                |                    | { item_option_id : val }      | string           |
 |          | modifyListInfo |                    |                               |                  | give it sub-methods including a default value, settable in a config file.                              | !           |
 |          | modifyListInfo | modifier_list_info |                               | array of objects |                                                                                                        | !           |
-|          |                |                    | modifier_list_id\*\*\*        | string           |                                                                                                        | !           |
+|          |                |                    | modifier_list_id^^^           | string           |                                                                                                        | !           |
 |          |                |                    | enabled                       | boolean          |                                                                                                        | !           |
 |          |                |                    | max_selected_modifiers        | integer (32-bit) |                                                                                                        | !           |
 |          |                |                    | min_selected_modifiers        | integer (32-bit) |                                                                                                        | !           |
-|          |                |                    | modifier_overrides            | Array of objects |                                                                                                        |             | !   |
+|          |                |                    | modifier_overrides            | Array of objects |                                                                                                        | !           |
 |          | prodType       | product_type       |                               | string           |                                                                                                        | !           |
 |          |                |                    | value: "REGULAR"              |
 |          |                |                    | value: "APPOINTMENTS_SERVICE" |
@@ -124,43 +124,43 @@ Solution: Use fewer classes and use mixins
 
 ### Body Properties
 
-| Class             | Super.propertyName  | Sub properties             | Value Type                                 | Short Notes                                            | Implemented |
-| ----------------- | ------------------- | -------------------------- | ------------------------------------------ | ------------------------------------------------------ | ----------- |
-| **itemVariation** | item_variation_data |                            | CatalogItemVariation                       |                                                        | !           |
-|                   |                     | item_id                    | string                                     |
-|                   |                     | name                       | string                                     | Max length: 255                                        |
-|                   |                     | sku                        | string                                     |
-|                   |                     | upc                        | string                                     | They check this value for conformity and punish misuse |
+| Class             | Super.propertyName  | Sub properties            | Value Type                                 | Short Notes                                            | Implemented |
+| ----------------- | ------------------- | ------------------------- | ------------------------------------------ | ------------------------------------------------------ | ----------- |
+| **itemVariation** | item_variation_data |                           | CatalogItemVariation                       |                                                        | !           |
+|                   |                     | item_id                   | string                                     |
+|                   |                     | name                      | string                                     | Max length: 255                                        |
+|                   |                     | sku                       | string                                     |
+|                   |                     | upc                       | string                                     | They check this value for conformity and punish misuse |
 |                   |                     | ordinal                   | integer (32-bit)                           |
-|                   |                     | track_inventory            | boolean                                    |
-|                   |                     | inventory_alert_type\*\*\* | string                                     |
-|                   |                     | inventory_alert_threshold  | integer (64-bit)                           |
-|                   |                     | user_data                  | string                                     | Max length: 255                                        |
-|                   |                     | service_duration           | integer (64-bit)                           |
-|                   |                     | available_for_booking      | boolean                                    |
-|                   |                     | measurement_unit_id        | string                                     |
-|                   |                     | stockable                  | boolean                                    |
-|                   |                     | team_member_ids            | string []                                  |
-|                   |                     | stockable_conversion       | CatalogStockConversion                     |
-|                   |                     | pricing_type\*\*\*         | string                                     |
-|                   |                     | price_money\*\*\*          | { Money }                                  | {amount: number, currency: string}                     |
-|                   |                     | location_overrides\*\*\*   | ItemVariationLocationOverrides [ ]         |
-|                   |                     | item_option_values\*\*\*   | CatalogItemOptionValueForItemVariation [ ] |
+|                   |                     | track_inventory           | boolean                                    |
+|                   |                     | inventory_alert_type^^^   | string                                     |
+|                   |                     | inventory_alert_threshold | integer (64-bit)                           |
+|                   |                     | user_data                 | string                                     | Max length: 255                                        |
+|                   |                     | service_duration          | integer (64-bit)                           |
+|                   |                     | available_for_booking     | boolean                                    |
+|                   |                     | measurement_unit_id       | string                                     |
+|                   |                     | stockable                 | boolean                                    |
+|                   |                     | team_member_ids           | string []                                  |
+|                   |                     | stockable_conversion      | CatalogStockConversion                     |
+|                   |                     | pricing_type^^^           | string                                     |
+|                   |                     | price_money^^^            | { Money }                                  | {amount: number, currency: string}                     |
+|                   |                     | location_overrides^^^     | ItemVariationLocationOverrides [ ]         |
+|                   |                     | item_option_values^^^     | CatalogItemOptionValueForItemVariation [ ] |
 
 ## Object
 
 ### Body Properties
 
-| Class   | Super.propertyName | Sub properties            | Value Type | Short Notes     | Implemented
-| ------- | ------------------ | ------------------------- | ---------- | --------------- | ---|
-| **Tax** |                    |                           |            |                 | !   |
+| Class   | Super.propertyName | Sub properties            | Value Type | Short Notes     | Implemented |
+| ------- | ------------------ | ------------------------- | ---------- | --------------- | ----------- |
+| **Tax** |                    |                           |            |                 | !           |
 |         | tax_data           |                           | CatalogTax |
 |         |                    | name                      | string     | Max length: 255 |
 |         |                    | percentage                | string     |
 |         |                    | applies_to_custom_amounts | boolean    |
 |         |                    | enabled                   | boolean    |
-|         |                    | calculation_phase\*\*\*   | string     |
-|         |                    | inclusion_type\*\*\*      | string     |
+|         |                    | calculation_phase^^^      | string     |
+|         |                    | inclusion_type^^^         | string     |
 
 ## copy these for new table headings
 
@@ -168,14 +168,14 @@ Solution: Use fewer classes and use mixins
 
 ### Body Properties
 
-| Class | Super.propertyName | Sub properties | Value Type | Short Notes |Implemented
-| ----- | ------------------ | -------------- | ---------- | ----------- | ---|
+| Class | Super.propertyName | Sub properties | Value Type | Short Notes | Implemented |
+| ----- | ------------------ | -------------- | ---------- | ----------- | ----------- |
 |       |                    |
 
 ### Methods
 
-| Class | Method Name | Owns Properties | Sub Properties | Value Type | Short Notes | Implemented
-| ----- | ----------- | --------------- | -------------- | ---------- | ----------- |---|
+| Class | Method Name | Owns Properties | Sub Properties | Value Type | Short Notes | Implemented |
+| ----- | ----------- | --------------- | -------------- | ---------- | ----------- | ----------- |
 
 ##These need to be tabled
 
