@@ -94,7 +94,7 @@ Solution: Use fewer classes and use mixins
 ### Item.Methods
 
 | Class    | Method Name    | Owns Properties    | Sub Properties                | Value Type       | Short Notes                                                                                            | Implemented |
-| -------- | -------------- | ------------------ | ----------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------ | ----------- | --- |
+| -------- | -------------- | ------------------ | ----------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------ | ----------- |
 | **Item** |
 |          | itemOptions    | item_options       |                               | array            | List of item options IDs for this item. Used to manage and group item variations in a specified order. | !           |
 |          |                |                    | { item_option_id : val }      | string           |
