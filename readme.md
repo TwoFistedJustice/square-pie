@@ -33,15 +33,16 @@ Test functions exist. They must be run from the 'backend' in a .jsw file. Click 
 ## Author
 
 👤 **Russ Bain**
+q## Contributing Code
 
-##Contributing Code
+### Git:
 
-###Git:
 Please follow the [Conventional Commits Standard](https://www.conventionalcommits.org/en/v1.0.0/)
 
 Conventional Commits [Types can be found here](https://github.com/commitizen/conventional-commit-types/blob/master/index.json)
 
-###Style Guide:
+### Style Guide:
+
 We use Prettier defaults with eslint running on a pre-commit hook as described in the [Prettier install docs](https://prettier.io/docs/en/install.html)
 Please remember to [configure your editor](https://prettier.io/docs/en/editors.html) to use the same version of Prettier as we do. This will not affect your global editor settings.
 
