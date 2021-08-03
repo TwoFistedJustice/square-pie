@@ -2,7 +2,7 @@
 
 | Level One Classes | Super | Implemented | Short Notes |
 | ----------------- | ----- | ----------- | ----------- |
-| SquareRequest     | none  | yes         |
+| SquareRequest     | none  | yes         | 
 
 | Level Two Classes    | Super         | Implemented | Short Notes |
 | -------------------- | ------------- | ----------- | ----------- |
