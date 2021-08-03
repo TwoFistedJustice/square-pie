@@ -5,6 +5,9 @@ output.js
 notes-to-self.txt
 temp.json
 
+#generated files
+.eslintcache
+
 #Dependency directories
 jspm_packages/
 
