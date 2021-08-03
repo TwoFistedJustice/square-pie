@@ -10,6 +10,7 @@ temp.json
 
 #Dependency directories
 jspm_packages/
+.husky
 
 #logs
 npm-debug.log*
