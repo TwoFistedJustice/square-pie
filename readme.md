@@ -7,7 +7,7 @@
 
 ## About
 
-This project came into existence because my former housemate who is a talented front end designer is opening a family run pie bakery and the fam wants to use Square with Wix. The existing tools for that are not very user friendly for people not skilled in backend devlopment. So I decided to make a toolset that is easier to grok and use (grokootilize?). As far as I know they don't actually make square pies. But they do take requests...
+This project came into existence because my former housemate who is a talented front end designer is opening a [family run pie bakery in Texas](https://www.pievilleusa.com/) and the fam wants to use Square with Wix. The existing tools for that are not very user friendly for people not skilled in backend devlopment. So I decided to make a toolset that is easier to grok and use (grokootilize?). As far as I know they don't actually make square pies. But they do take requests...
 
 ## Install
 
@@ -38,6 +38,7 @@ Test functions exist. They must be run from the 'backend' in a .jsw file. Click 
 
 ###Git:
 Please follow the [Conventional Commits Standard](https://www.conventionalcommits.org/en/v1.0.0/)
+Conventional Commits [Types can be found here](https://github.com/commitizen/conventional-commit-types/blob/master/index.json)
 
 ###Style Guide:
 We use Prettier defaults with eslint running on a pre-commit hook as described in the [Prettier install docs](https://prettier.io/docs/en/install.html)
