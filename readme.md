@@ -38,6 +38,7 @@ Test functions exist. They must be run from the 'backend' in a .jsw file. Click 
 
 ###Git:
 Please follow the [Conventional Commits Standard](https://www.conventionalcommits.org/en/v1.0.0/)
+
 Conventional Commits [Types can be found here](https://github.com/commitizen/conventional-commit-types/blob/master/index.json)
 
 ###Style Guide:
