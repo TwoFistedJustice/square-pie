@@ -565,6 +565,7 @@ async function testList() {
   var list = new CustomerList(false);
   let secret = await getSecret(list.secretName);
   let customerList = await list.makeRequest(secret);
+  console.log(`Toal objects: ${customerList.customers.length}`);
   return customerList;
 }
 
