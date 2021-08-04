@@ -1,5 +1,8 @@
-import { fetch } from "wix-fetch";
-import { getSecret } from "wix-secrets-backend";
+// import { fetch } from "wix-fetch";
+// import { getSecret } from "wix-secrets-backend";
+let getSecret = async function () {
+  return;
+};
 const { v4: uuidv4 } = require("uuid");
 const validator = require("validator");
 
@@ -123,12 +126,11 @@ var daSlayer = {
 // before calling class.makeRequest(secret) you have to get the secret from wix
 // by calling getSecret(class.secretName)
 class SquareRequest {
-  _method = "";
-  _body;
-  _endpoint = "";
-
   constructor(isProduction = true) {
     this.isProduction = isProduction;
+    this._method = "";
+    this._body;
+    this._endpoint = "";
   }
 
   // GETTERS
@@ -207,20 +209,18 @@ class SquareRequest {
 // LEVEL TWO CLASSES
 
 class List extends SquareRequest {
-  _method = "get";
-
   constructor(isProduction) {
     super(isProduction);
+    this._method = "get";
   }
 } // END class
 
 // creates a whole new document
 // you tell it what to store in its subclass
 class Create extends SquareRequest {
-  _method = "post";
-
   constructor(isProduction) {
     super(isProduction);
+    this._method = "post";
     this.idempotency_key = uuidv4();
   }
 
@@ -234,10 +234,10 @@ class Create extends SquareRequest {
 // THREE props on body: query, limit, cursor - these are same as for Invoices
 // differentiation begins inside the query object
 class Search extends SquareRequest {
-  _method = "post";
-  _endpoint = "/search";
   constructor(isProduction) {
     super(isProduction);
+    this._method = "post";
+    this._endpoint = "/search";
   }
 }
 
@@ -256,28 +256,26 @@ class RetrieveUpdateDelete extends SquareRequest {
 // CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER  CUSTOMER CUSTOMER CUSTOMER
 
 class CustomerList extends List {
-  _apiName = "customers";
-
   constructor(isProduction) {
     super(isProduction);
+    this._apiName = "customers";
   }
 } // END class
 
 class CustomerSearch extends Search {
-  _apiName = "customers";
-  _body = {
-    query: {
-      filter: {},
-      sort: {
-        field: "CREATED_AT",
-        order: "ASC",
-      },
-      limit: "",
-    },
-  };
-
   constructor(isProduction) {
     super(isProduction);
+    this._apiName = "customers";
+    this._body = {
+      query: {
+        filter: {},
+        sort: {
+          field: "CREATED_AT",
+          order: "ASC",
+        },
+        limit: "",
+      },
+    };
   }
 
   // METHODS
@@ -355,32 +353,32 @@ class CustomerSearch extends Search {
 
 //ToDO normalize all incoming email via super method
 class CustomerUpdate extends RetrieveUpdateDelete {
-  _apiName = "customers";
-  _method = "put";
-  // the props on _body aren't necessary, at this point they are just here for reference
-  // the curly braces are necessary
-  _body = {
-    given_name: undefined,
-    family_name: undefined,
-    company_name: undefined,
-    nickname: undefined,
-    email_address: undefined,
-    address: {
-      address_line_1: undefined,
-      address_line_2: undefined,
-      locality: undefined, // city
-      administrative_district_level_1: undefined, // state/province
-      postal_code: undefined,
-      country: undefined,
-    },
-    phone_number: undefined,
-    reference_id: undefined,
-    note: undefined,
-    birthday: undefined, // specify this value in YYYY-MM-DD format.
-    version: undefined, // Square will automatically increment this on their end when update is made
-  };
   constructor(isProduction) {
     super(isProduction);
+    this._apiName = "customers";
+    this._method = "put";
+    // the props on _body aren't necessary, at this point they are just here for reference
+    // the curly braces are necessary
+    this._body = {
+      given_name: undefined,
+      family_name: undefined,
+      company_name: undefined,
+      nickname: undefined,
+      email_address: undefined,
+      address: {
+        address_line_1: undefined,
+        address_line_2: undefined,
+        locality: undefined, // city
+        administrative_district_level_1: undefined, // state/province
+        postal_code: undefined,
+        country: undefined,
+      },
+      phone_number: undefined,
+      reference_id: undefined,
+      note: undefined,
+      birthday: undefined, // specify this value in YYYY-MM-DD format.
+      version: undefined, // Square will automatically increment this on their end when update is made
+    };
   }
 
   //GETTERS
@@ -510,27 +508,25 @@ class CustomerUpdate extends RetrieveUpdateDelete {
 } // END class
 
 class CustomerRetrieve extends RetrieveUpdateDelete {
-  _apiName = "customers";
-  _method = "get";
-
   constructor(isProduction) {
     super(isProduction);
+    this._apiName = "customers";
+    this._method = "get";
   }
 } // END class
 
 class CustomerDelete extends RetrieveUpdateDelete {
-  _apiName = "customers";
-  _method = "delete";
-
   constructor(isProduction) {
     super(isProduction);
+    this._apiName = "customers";
+    this._method = "delete";
   }
 } // END class
 // ToDo execute a search on name, email, phone make sure no duplicates are created
 class CustomerCreate extends Create {
-  _apiName = "customers";
   constructor(isProduction) {
     super(isProduction);
+    this._apiName = "customers";
   }
   //METHODS
   set customer(customer) {
@@ -548,8 +544,6 @@ class CustomerCreate extends Create {
 // creates a customer if none exists
 const fetchIndexZeroCustomerId = async function () {
   let testCustomerSqID;
-  let sandbox = false;
-  let secret = await getSecret(config.sandboxSecretName);
   let list = await testList();
 
   if (!list.customers) {
@@ -566,26 +560,30 @@ const fetchIndexZeroCustomerId = async function () {
   return list.customers[0].id;
 };
 
-export async function testList() {
+// export async function testList() {
+async function testList() {
   var list = new CustomerList(false);
   let secret = await getSecret(list.secretName);
   let customerList = await list.makeRequest(secret);
   return customerList;
 }
 
-export async function testCreate() {
+// export async function testCreate() {
+async function testCreate() {
   let someGuy = new CustomerCreate(false);
   let secret = await getSecret(someGuy.secretName);
-  // someGuy.customer = shortCustomer;
-  // someGuy.customer = spiritualCustomer;
-  // someGuy.customer = unhappyCustomer;
-  // someGuy.customer = stoneageCustomer;
+  someGuy.customer = shortCustomer;
+  someGuy.customer = trickrTreatCustomer;
+  someGuy.customer = spiritualCustomer;
+  someGuy.customer = unhappyCustomer;
+  someGuy.customer = stoneageCustomer;
   someGuy.customer = daSlayer;
   let response = await someGuy.makeRequest(secret);
   return response;
 }
 
-export async function testSearchLimit() {
+// export async function testSearchLimit() {
+async function testSearchLimit() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
   search.query().fuzzy().email("fred").limit(1);
@@ -594,7 +592,8 @@ export async function testSearchLimit() {
   return response;
 }
 
-export async function testSearchPhone() {
+// export async function testSearchPhone() {
+async function testSearchPhone() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
   search.query().fuzzy().email("fred").phone("77");
@@ -603,21 +602,24 @@ export async function testSearchPhone() {
   return response;
 }
 
-export async function testSortSearchDown() {
+// export async function testSortSearchDown() {
+async function testSortSearchDown() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
   search.query().fuzzy().sortDown().sortByName();
   return await search.makeRequest(secret);
 }
 
-export async function testSortSearchUp() {
+// export async function testSortSearchUp() {
+async function testSortSearchUp() {
   let secret = await getSecret(config.sandboxSecretName);
   let search = new CustomerSearch(config.sandbox);
   search.query().fuzzy().sortUp().sortByName();
   return await search.makeRequest(secret);
 }
 
-export async function testUpdate() {
+// export async function testUpdate() {
+async function testUpdate() {
   // first you need the customer ID
   let id = await fetchIndexZeroCustomerId();
   // then you need to get the current data as stored on Square
@@ -646,7 +648,8 @@ export async function testUpdate() {
   return updateResponse;
 }
 
-export async function testRetrieve() {
+// export async function testRetrieve() {
+async function testRetrieve() {
   let testCustomerSqID = await fetchIndexZeroCustomerId();
   let retrieve = new CustomerRetrieve(false);
   let secret = await getSecret(retrieve.secretName);
@@ -655,7 +658,8 @@ export async function testRetrieve() {
   return customer.customer;
 }
 
-export async function testDelete() {
+// export async function testDelete() {
+async function testDelete() {
   let sandbox = false;
   let secret = await getSecret(config.sandboxSecretName);
   let deleteCustomer = new CustomerDelete(sandbox);
@@ -663,3 +667,14 @@ export async function testDelete() {
   let vaporized = await deleteCustomer.makeRequest(secret);
   return vaporized;
 }
+
+module.export = {
+  testList,
+  testRetrieve,
+  testDelete,
+  testSearchPhone,
+  testSortSearchUp,
+  testSortSearchDown,
+  testSearchLimit,
+  testUpdate,
+};
