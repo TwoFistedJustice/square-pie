@@ -10,9 +10,6 @@
 
 | Level Three Classes  | Super           | Implemented | Short Notes                |
 | -------------------- | --------------- | ----------- | -------------------------- |
-| list                 | CustomerRequest | DEPRECATED  |
-| Create               | CustomerRequest | DEPRECATED  |
-| Search               | CustomerRequest | DEPRECATED  |
 | CustomerList         | CustomerRequest | yes         |
 | CustomerCreate       | Create          | yes         | needs duplicate prevention |
 | CustomerSearch       | Search          | yes         |

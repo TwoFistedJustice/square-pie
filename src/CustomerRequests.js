@@ -35,18 +35,6 @@ class CustomerList extends CustomerRequest {
   }
 } // END class
 
-// class Create extends CustomerRequest {
-//   constructor(isProduction) {
-//     super(isProduction);
-//     this._method = "post";
-//     this.idempotency_key = uuidv4();
-//   }
-//
-//   get getIdempotency_key() {
-//     return this.idempotency_key;
-//   }
-// } // END class
-
 // creates a whole new document
 // you tell it what to store in its subclass
 // ToDo execute a search on name, email, phone make sure no duplicates are created
@@ -70,15 +58,6 @@ class CustomerCreate extends CustomerRequest {
 } // END class
 
 // https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile
-
-// class Search extends CustomerRequest {
-//   constructor(isProduction) {
-//     super(isProduction);
-//     this._method = "post";
-//     this._endpoint = "/search";
-//   }
-// }
-
 //ToDO whenever something is updated or deleted, log it to a file in some retrievable location
 class RetrieveUpdateDelete extends CustomerRequest {
   constructor(isProduction) {
@@ -89,18 +68,6 @@ class RetrieveUpdateDelete extends CustomerRequest {
     this._endpoint = `/${someId}`;
   }
 } // END class
-
-// ToDO merge List and CustomerList DONE
-//ToDo - edit tables to reflect change DONE
-
-// class CustomerList extends List {
-//   constructor(isProduction) {
-//     super(isProduction);
-//   }
-// } // END class
-
-//ToDo merge Search and CustomerSearch DONE
-//ToDo - edit tables to reflect change DONE
 
 // THREE props on body: query, limit, cursor - these are same as for Invoices
 // differentiation begins inside the query object
