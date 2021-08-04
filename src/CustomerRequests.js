@@ -1,79 +1,17 @@
 const { v4: uuidv4 } = require("uuid");
 const validator = require("validator");
-
-const config = require("./config");
+const SquareRequest = require("SquareRequest");
 
 //-----------------------------------------------
-// TOP LEVEL CLASSES
+// LEVEL TWO CLASSES
 //-----------------------------------------------
 
-// instantiate the class with a boolean
-// before calling class.makeRequest(secret) you have to get the secret from wix
-// by calling getSecret(class.secretName)
-//ToDO - Move SquareRequest into its own file and then require it
-//ToDo - edit tables to reflect change
-class SquareRequest {
-  constructor(isProduction = true) {
-    this.isProduction = isProduction;
-    this._method = "";
-    this._body;
-    this._endpoint = "";
+class CustomerRequest extends SquareRequest {
+  constructor(isProduction) {
+    super(isProduction);
+    this._apiName = "customers";
   }
-
-  // GETTERS
-  get method() {
-    return this._method;
-  }
-  get body() {
-    return this._body;
-  }
-
-  // SETTERS
-  set body(val) {
-    this._body = val;
-  }
-  set method(method) {
-    this._method = method;
-  }
-
-  // COMPUTED PROPERTIES
-  get secretName() {
-    return this.isProduction === true
-      ? `${config.productionSecretName}`
-      : `${config.sandboxSecretName}`;
-  }
-  get baseUrl() {
-    return this.isProduction === true
-      ? `https://connect.squareup.com/v2/${this._apiName}`
-      : `https://connect.squareupsandbox.com/v2/${this._apiName}`;
-  }
-  get url() {
-    return `${this.baseUrl}${this._endpoint}`;
-  }
-
   // METHODS
-
-  headers(secret) {
-    return {
-      "Square-Version": `${config.squareVersion}`,
-      "Content-Type": `${config.contentType}`,
-      Accept: `${config.Accept}`,
-      Authorization: `Bearer ${secret}`,
-    };
-  }
-  // you have to get the secret before calling this method
-  makeRequest(secret) {
-    let request = async (url, options) => {
-      const httpResponse = await fetch(url, options);
-      if (!httpResponse.ok) {
-        let message = `\ngenerated url: ${this.url}\nmethod: ${options.method}\n${httpResponse.status}: ${httpResponse.statusText}`;
-        throw new Error(message);
-      }
-      let response = await httpResponse.json();
-      return response;
-    };
-    return request(this.url, this.options(secret));
-  }
 
   normalizeEmail(email) {
     let normalizeOptions = {
@@ -84,55 +22,65 @@ class SquareRequest {
     }
     return validator.normalizeEmail(email, normalizeOptions);
   }
-  options(secret) {
-    return {
-      method: this._method,
-      headers: this.headers(secret),
-      body: JSON.stringify(this._body),
-    };
-  }
 } // END class
 
 //-----------------------------------------------
-// LEVEL TWO CLASSES
+// LEVEL THREE CLASSES
 //-----------------------------------------------
-// ToDo move api name into Level Two classes
 
-class List extends SquareRequest {
+class CustomerList extends CustomerRequest {
   constructor(isProduction) {
     super(isProduction);
     this._method = "get";
   }
 } // END class
 
+// class Create extends CustomerRequest {
+//   constructor(isProduction) {
+//     super(isProduction);
+//     this._method = "post";
+//     this.idempotency_key = uuidv4();
+//   }
+//
+//   get getIdempotency_key() {
+//     return this.idempotency_key;
+//   }
+// } // END class
+
 // creates a whole new document
 // you tell it what to store in its subclass
-class Create extends SquareRequest {
+// ToDo execute a search on name, email, phone make sure no duplicates are created
+class CustomerCreate extends CustomerRequest {
   constructor(isProduction) {
     super(isProduction);
     this._method = "post";
     this.idempotency_key = uuidv4();
   }
-
+  // GETTERS
   get getIdempotency_key() {
     return this.idempotency_key;
+  }
+
+  // COMPUTED PROPERTIES
+  set customer(customer) {
+    customer.idempotency_key = this.idempotency_key;
+    customer.email_address = super.normalizeEmail(customer.email_address);
+    this.body = customer;
   }
 } // END class
 
 // https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile
 
-// THREE props on body: query, limit, cursor - these are same as for Invoices
-// differentiation begins inside the query object
-class Search extends SquareRequest {
-  constructor(isProduction) {
-    super(isProduction);
-    this._method = "post";
-    this._endpoint = "/search";
-  }
-}
+// class Search extends CustomerRequest {
+//   constructor(isProduction) {
+//     super(isProduction);
+//     this._method = "post";
+//     this._endpoint = "/search";
+//   }
+// }
 
 //ToDO whenever something is updated or deleted, log it to a file in some retrievable location
-class RetrieveUpdateDelete extends SquareRequest {
+class RetrieveUpdateDelete extends CustomerRequest {
   constructor(isProduction) {
     super(isProduction);
   }
@@ -142,28 +90,25 @@ class RetrieveUpdateDelete extends SquareRequest {
   }
 } // END class
 
-//-----------------------------------------------
-// LEVEL THREE CLASSES
-//-----------------------------------------------
-//
+// ToDO merge List and CustomerList DONE
+//ToDo - edit tables to reflect change DONE
 
-// ToDO merge List and CustomerList
-//ToDo - edit tables to reflect change
+// class CustomerList extends List {
+//   constructor(isProduction) {
+//     super(isProduction);
+//   }
+// } // END class
 
-class CustomerList extends List {
+//ToDo merge Search and CustomerSearch DONE
+//ToDo - edit tables to reflect change DONE
+
+// THREE props on body: query, limit, cursor - these are same as for Invoices
+// differentiation begins inside the query object
+class CustomerSearch extends CustomerRequest {
   constructor(isProduction) {
     super(isProduction);
-    this._apiName = "customers";
-  }
-} // END class
-
-//ToDo merge Search and CustomerSearch
-//ToDo - edit tables to reflect change
-
-class CustomerSearch extends Search {
-  constructor(isProduction) {
-    super(isProduction);
-    this._apiName = "customers";
+    this._method = "post";
+    this._endpoint = "/search";
     this._body = {
       query: {
         filter: {},
@@ -243,6 +188,11 @@ class CustomerSearch extends Search {
   } // END query method
 } // END class
 
+//-----------------------------------------------
+// LEVEL FOUR CLASSES
+//-----------------------------------------------
+//
+
 // update needs to be flexible in structure so it can be used for single fields or multiple fields
 // json stringfify ignores props set to undefined, so build a _body structure that mimics
 //  a Square customer doc, but set everything to undefined so the chainer won't blow out
@@ -253,7 +203,6 @@ class CustomerSearch extends Search {
 class CustomerUpdate extends RetrieveUpdateDelete {
   constructor(isProduction) {
     super(isProduction);
-    this._apiName = "customers";
     this._method = "put";
     // the props on _body aren't necessary, at this point they are just here for reference
     // the curly braces are necessary
@@ -363,7 +312,7 @@ class CustomerUpdate extends RetrieveUpdateDelete {
   }
 
   // METHODS
-  // make a chainer
+  // allows chaining
   chainSet() {
     return {
       self: this,
@@ -408,7 +357,6 @@ class CustomerUpdate extends RetrieveUpdateDelete {
 class CustomerRetrieve extends RetrieveUpdateDelete {
   constructor(isProduction) {
     super(isProduction);
-    this._apiName = "customers";
     this._method = "get";
   }
 } // END class
@@ -416,21 +364,7 @@ class CustomerRetrieve extends RetrieveUpdateDelete {
 class CustomerDelete extends RetrieveUpdateDelete {
   constructor(isProduction) {
     super(isProduction);
-    this._apiName = "customers";
     this._method = "delete";
-  }
-} // END class
-// ToDo execute a search on name, email, phone make sure no duplicates are created
-class CustomerCreate extends Create {
-  constructor(isProduction) {
-    super(isProduction);
-    this._apiName = "customers";
-  }
-  //METHODS
-  set customer(customer) {
-    customer.idempotency_key = this.idempotency_key;
-    customer.email_address = super.normalizeEmail(customer.email_address);
-    this.body = customer;
   }
 } // END class
 
