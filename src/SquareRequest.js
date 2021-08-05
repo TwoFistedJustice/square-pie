@@ -1,3 +1,4 @@
+const fetch = require("node-fetch");
 const config = require("./config");
 
 //-----------------------------------------------
@@ -79,6 +80,4 @@ class SquareRequest {
   }
 } // END class
 
-module.exports = {
-  SquareRequest,
-};
+module.exports = SquareRequest;
