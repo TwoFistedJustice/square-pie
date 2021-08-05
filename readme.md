@@ -36,6 +36,8 @@ Test functions exist. They must be run from the 'backend' in a .jsw file. Click 
 
 ## Contributing Code
 
+Firstly, make sure that your editor is configured per our Style Guide. All contributions should be made on a new branch. Push your new branch and then creat a pull request. This will trigger a number of actions and queue up your commits for review.
+
 ### Git:
 
 Please follow the [Conventional Commits Standard](https://www.conventionalcommits.org/en/v1.0.0/)
