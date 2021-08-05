@@ -4,8 +4,8 @@
   "description": "an easy to use class based chainable interface for accessing the Square API.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "clunk": "nodemon --exec babel-node tests/clunkyTest.js",
+    "test": "mocha --require @babel/register 'tests/**/**spec.js'",
+    "clunk": "nodemon tests/clunkyTest.js",
     "prettier:check": "prettier --ignore-path .prettierignore --check '**/*.{js,jsw,jsx, json,md}'",
     "prettier:fix": "prettier --ignore-path .prettierignore --write '**/*.{js,jsw,jsx,json,md}'",
     "prepare": "husky install"
@@ -26,10 +26,13 @@
     "@babel/core": "^7.15.0",
     "@babel/node": "^7.14.9",
     "@babel/preset-env": "^7.15.0",
+    "@babel/register": "^7.14.5",
+    "chai": "^4.3.4",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "husky": "^7.0.1",
     "lint-staged": "^11.1.1",
+    "mocha": "^9.0.3",
     "nodemon": "^2.0.12",
     "prettier": "^2.3.2"
   },

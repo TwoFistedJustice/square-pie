@@ -3,6 +3,7 @@
     "node": true,
     "browser": true,
     "shared-node-browser": true,
+    "mocha": true,
     "commonjs": true,
     "es2021": true
   },
