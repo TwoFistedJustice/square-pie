@@ -7,8 +7,6 @@ const config = require("./config");
 // instantiate the class with a boolean
 // before calling class.makeRequest(secret) you have to get the secret from wix
 // by calling getSecret(class.secretName)
-//ToDO - Move SquareRequest into its own file and then require it - DONE
-//ToDo - edit tables to reflect change
 
 class SquareRequest {
   constructor(isProduction = true) {
