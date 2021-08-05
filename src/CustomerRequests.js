@@ -37,7 +37,7 @@ class CustomerList extends CustomerRequest {
 
 // creates a whole new document
 // you tell it what to store in its subclass
-// ToDo execute a search on name, email, phone make sure no duplicates are created
+// ToDo execute a search on email, phone make sure no duplicates are created
 class CustomerCreate extends CustomerRequest {
   constructor(isProduction) {
     super(isProduction);
@@ -93,7 +93,6 @@ class CustomerSearch extends CustomerRequest {
   // the 'this' inside  query() is the class
   // call Search.query.fuzzy.the-method-you-want
   // call Search.query.exact.the-method-you-want
-  //TODO consider changing the name of query() to search()
   query() {
     const methods = (fuzzacto) => {
       return {
