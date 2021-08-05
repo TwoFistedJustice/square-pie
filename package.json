@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clunk": "node tests/clunkyTest.js",
+    "clunk": "nodemon --exec babel-node tests/clunkyTest.js",
     "prettier:check": "prettier --ignore-path .prettierignore --check '**/*.{js,jsw,jsx, json,md}'",
     "prettier:fix": "prettier --ignore-path .prettierignore --write '**/*.{js,jsw,jsx,json,md}'",
     "prepare": "husky install"
@@ -22,6 +22,8 @@
     "validator": "^13.6.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/node": "^7.14.9",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "husky": "^7.0.1",
