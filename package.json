@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clunk": "node tests/clunkyTest.js",
+    "clunk": "nodemon tests/clunkyTest.js",
     "prettier:check": "prettier --ignore-path .prettierignore --check '**/*.{js,jsw,jsx, json,md}'",
     "prettier:fix": "prettier --ignore-path .prettierignore --write '**/*.{js,jsw,jsx,json,md}'",
     "prepare": "husky install"
@@ -26,6 +26,7 @@
     "eslint-config-prettier": "^8.3.0",
     "husky": "^7.0.1",
     "lint-staged": "^11.1.1",
+    "nodemon": "^2.0.12",
     "prettier": "^2.3.2"
   },
   "lint-staged": {
