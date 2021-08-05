@@ -1,6 +1,6 @@
-const { secret } = require("../src/.secretConfig");
-const { sampleCustomers } = require("sampleData");
-
+require("dotenv/config");
+const { sampleCustomers } = require("./sampleData");
+const secret = process.env.SANDBOX;
 const config = require("../src/config");
 const testCustomers = sampleCustomers();
 
