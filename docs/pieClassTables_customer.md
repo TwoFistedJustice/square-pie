@@ -2,29 +2,26 @@
 
 | Level One Classes | Super | Implemented | Short Notes |
 | ----------------- | ----- | ----------- | ----------- |
-| SquareRequest     | none  | yes         | 
+| SquareRequest     | none  | yes         |
 
-| Level Two Classes    | Super         | Implemented | Short Notes |
-| -------------------- | ------------- | ----------- | ----------- |
-| List                 | SquareRequest | yes         |
-| Create               | SquareRequest | yes         |
-| Search               | SquareRequest | yes         |
-| RetrieveUpdateDelete | SquareRequest | yes         |
-| Group                | SquareRequest | !           |
-| Ungroup              | SquareRequest | !           |
+| Level Two Classes | Super         | Implemented | Short Notes |
+| ----------------- | ------------- | ----------- | ----------- |
+| Customer          | SquareRequest | yes         |
 
-**CUSTOMERS STRUCTURES**
+| Level Three Classes  | Super           | Implemented | Short Notes                |
+| -------------------- | --------------- | ----------- | -------------------------- |
+| CustomerList         | CustomerRequest | yes         |
+| CustomerCreate       | Create          | yes         | needs duplicate prevention |
+| CustomerSearch       | Search          | yes         |
+| RetrieveUpdateDelete | CustomerRequest | yes         |
+| CustomerGroup        | CustomerRequest | !           |
+| CustomerUngroup      | CustomerRequest | !           |
 
-| Customer Classes | Super    | Implemented | Short Notes                                 |
-| ---------------- | -------- | ----------- | ------------------------------------------- |
-| CustomerList     | List     | yes         |
-| CustomerCreate   | Create   | yes         | needs duplicate prevention                  |
-| CustomerSearch   | Search   | yes         |
-| CustomerDelete   | Delete   | yes         |
-| CustomerRetrieve | Retrieve | yes         |
-| CustomerUpdate   | Update   | yes         | needs normalization for email and addresses |
-| CustomerGroup    | Group    | !           |
-| CustomerUngroup  | Ungroup  | !           |
+| Level Four Classes | Super                | Implemented | Short Notes                                 |
+| ------------------ | -------------------- | ----------- | ------------------------------------------- |
+| CustomerDelete     | RetrieveUpdateDelete | yes         |
+| CustomerRetrieve   | RetrieveUpdateDelete | yes         |
+| CustomerUpdate     | RetrieveUpdateDelete | yes         | needs normalization for email and addresses |
 
 | API      | Command               | Method | Resource Location                            | Class            | Square Docs                                                                                              | Additional Information                                                                                                  |
 | -------- | --------------------- | ------ | -------------------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
