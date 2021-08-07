@@ -12,6 +12,8 @@ temp.json
 #Dependency directories
 jspm_packages/
 .husky
+# isntabul reporter for jest
+coverage
 
 #logs
 npm-debug.log*
