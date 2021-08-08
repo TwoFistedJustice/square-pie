@@ -1,13 +1,6 @@
 // set a timeout to 1 minute and then have it run the test suite via npm run test
 
-// jest.setTimeout(function () {
-//   console.log("NOW!");
-// }, 100);
-// var end = Date.now() + 12000;
-// while (Date.now() < end);
-// console.log("Run Tests...");
-
-const timeDelay = function (callback, seconds = 1) {
+const delay = function (callback, seconds = 1) {
   const milliseconds = seconds * 1000;
   console.log("Ready....go!");
   setTimeout(() => {
@@ -17,5 +10,5 @@ const timeDelay = function (callback, seconds = 1) {
 };
 
 module.exports = {
-  timeDelay,
+  delay,
 };
