@@ -2,6 +2,10 @@
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/configuration
  */
+// from https://medium.com/@RubenOostinga/combining-chai-and-jest-matchers-d12d1ffd0303
+const chai = require("chai");
+global.jestExpect = global.expect;
+global.expect = chai.expect;
 
 module.exports = {
   // All imported modules in your tests should be mocked automatically

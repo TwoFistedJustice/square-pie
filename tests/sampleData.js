@@ -1,3 +1,62 @@
+const mikey = {
+  given_name: "Michael",
+  family_name: "Myers",
+  email_address: "candyTime@iscream.org",
+  address: {
+    address_line_1: "86 Nowhere Is Safe Court",
+    address_line_2: "",
+    locality: "Haddonfield",
+    administrative_district_level_1: "IL",
+    postal_code: "60686",
+    country: "US",
+  },
+  phone_number: "1-937-555-1031",
+  reference_id: "Halloween-31",
+  note: "want some candy?",
+  preferences: {
+    email_unsubscribed: false,
+  },
+};
+
+const buffy = {
+  given_name: "Buffy",
+  family_name: "Summers",
+  email_address: "buffy@magicbox.com",
+  address: {
+    address_line_1: "1630 Revello Drive",
+    locality: "Sunnydale",
+    administrative_district_level_1: "CA",
+    postal_code: "95037",
+    country: "US",
+  },
+  phone_number: "805-555-0833",
+  reference_id: "1997-2003",
+  note: "When did I get a sister?",
+  preferences: {
+    email_unsubscribed: false,
+  },
+};
+
+const jason = {
+  given_name: "Jason",
+  family_name: "Voorhees",
+  email_address: "machete@iscream.org",
+  address: {
+    address_line_1: "1054 Camp Crystal Lake Street",
+    address_line_2: "Cabin 86",
+    locality: "Crystal Lake",
+    administrative_district_level_1: "OH",
+    postal_code: "43086",
+    country: "US",
+  },
+  phone_number: "1-937-555-0013",
+  reference_id: "Friday-The-13th",
+  note: "naughty children go to sleep",
+  preferences: {
+    email_unsubscribed: false,
+  },
+};
+
 const sampleCustomers = function () {
   return {
     shorthand: {
@@ -103,5 +162,8 @@ const sampleCustomers = function () {
 };
 
 module.exports = {
+  buffy,
+  mikey,
+  jason,
   sampleCustomers,
 };
