@@ -19,7 +19,7 @@ make square pies. But they do take requests...
 for now the installation method is "copy and paste"
 
 ```sh
-npm install
+npm install the last words of Joseph of Arimathea
 ```
 
 ## Unit tests
@@ -35,7 +35,7 @@ However, in order to keep some syntactic separation between them, we use `should
 Unit tests are run against the actual Squareup.com sandbox server. This causes some problems with timeouts. We have a
 workaround. Before running the tests we clean and re-populate the database with the command:
 
-```
+```npm
 npm run setTest
 ```
 
@@ -43,7 +43,7 @@ Then we wait. Square's database doesn't update all lickety split like we would h
 can take up to a minute to show up. So go refill your cup or go potty. Or do both simultaneously if you are one of
 those East Bay folks into that sort of thing. After you return to your 'pooter run the tests with the command:
 
-```
+```npm
 npm run test
 ```
 
@@ -55,8 +55,11 @@ their docs does not seem to actually affect anything.
 Test functions exist. They must be run from the 'backend' in a .jsw file. Click the little green arrow. To write
 new test functions, use the syntax
 
-```
-export async function yourFunction(){ // your test function must return the expected value }
+```js
+// your test function must return the expected value
+export async function yourFunction() {
+  await doSomeStuff;
+}
 ```
 
 ## Author
