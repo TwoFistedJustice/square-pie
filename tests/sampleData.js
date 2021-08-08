@@ -61,7 +61,7 @@ const sampleCustomers = function () {
         email_unsubscribed: false,
       },
     },
-    trickrTreat: {
+    mikey: {
       given_name: "Michael",
       family_name: "Myers",
       email_address: "candyTime@iscream.org",
@@ -80,7 +80,7 @@ const sampleCustomers = function () {
         email_unsubscribed: false,
       },
     },
-    daSlayer: {
+    buffy: {
       given_name: "Buffy",
       family_name: "Summers",
       email_address: "buffy@magicbox.com",
