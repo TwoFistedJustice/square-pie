@@ -60,8 +60,12 @@ class CustomerCreate extends CustomerRequest {
 // https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile
 //ToDO whenever something is updated or deleted, log it to a file in some retrievable location
 class RetrieveUpdateDelete extends CustomerRequest {
-  constructor() {
+  constructor(id = "you_still_need_to_set_the _id") {
     super();
+    this._endpoint = `/${id}`;
+  }
+  get id() {
+    return this._endpoint;
   }
   // METHODS
   set id(someId) {
@@ -167,8 +171,8 @@ class CustomerSearch extends CustomerRequest {
 
 //ToDO normalize all incoming email via super method
 class CustomerUpdate extends RetrieveUpdateDelete {
-  constructor() {
-    super();
+  constructor(id) {
+    super(id);
     this._method = "put";
     // the props on _body aren't necessary, at this point they are just here for reference
     // the curly braces are necessary
@@ -321,15 +325,15 @@ class CustomerUpdate extends RetrieveUpdateDelete {
 } // END class
 
 class CustomerRetrieve extends RetrieveUpdateDelete {
-  constructor() {
-    super();
+  constructor(id) {
+    super(id);
     this._method = "get";
   }
 } // END class
 
 class CustomerDelete extends RetrieveUpdateDelete {
-  constructor() {
-    super();
+  constructor(id) {
+    super(id);
     this._method = "delete";
   }
 } // END class
