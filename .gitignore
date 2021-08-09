@@ -12,6 +12,7 @@ temp.json
 #Dependency directories
 jspm_packages/
 .husky
+coverage
 
 #logs
 npm-debug.log*
