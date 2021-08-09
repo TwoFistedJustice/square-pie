@@ -12,7 +12,7 @@ const buffy = customers.buffy;
 
 const {
   CustomerList,
-  // CustomerSearch,
+  CustomerSearch,
   // CustomerUpdate,
   CustomerRetrieve,
   // CustomerDelete,
@@ -50,19 +50,35 @@ describe("Customer List", () => {
 });
 
 describe("Customer Search", () => {
-  test("Should execute an individual fuzzy Search", async () => {
-    // find by phone '555'
-    // sort descending
+  test("Should execute a fuzzy Search and sort the results in descending order.", async () => {
+    let find555 = new CustomerSearch(false);
+    find555.query().fuzzy().phone("555").sortDown();
+    let response = await find555.makeRequest(secret);
+    let customers = response.customers;
+    customers.should.be.an("Array").that.has.lengthOf(4);
+    Date.parse(customers[0]["created_at"]).should.be.greaterThan(
+      Date.parse(customers[1]["created_at"])
+    );
+
+    Date.parse(customers[1]["created_at"]).should.be.greaterThan(
+      Date.parse(customers[2]["created_at"])
+    );
+
+    Date.parse(customers[2]["created_at"]).should.be.greaterThan(
+      Date.parse(customers[3]["created_at"])
+    );
   });
-  test("Should execute a chain fuzzy Search", async () => {
-    // find by name 'fred'
-    // sort by most recent
+
+  test("Should exact search and find a customer", async () => {
+    let param = "buffy@magicbox.com";
+    let findBuffy = new CustomerSearch(false);
+    findBuffy.query().exact().email(param);
+    let response = await findBuffy.makeRequest(secret);
+    let email = response.customers[0].email_address;
+    email.should.equal(param);
   });
-  test("Should exact find a customer", async () => {
-    // find bufffy summers
-  });
-  test("", async () => {});
 });
+
 describe("Customer Create", () => {
   test("Should create a new customer", async () => {
     // add mikey
@@ -79,13 +95,3 @@ describe("Customer Delete", () => {
     //
   });
 });
-describe("", () => {});
-
-test("Should individual fuzzy Search a customer", async () => {});
-test("Should chain fuzzy Search a customer", async () => {});
-test("", async () => {});
-
-test("Should exact find a customer", async () => {});
-
-test("", async () => {});
-test("", async () => {});
