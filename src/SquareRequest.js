@@ -6,6 +6,15 @@ const config = require("./config");
 // TOP LEVEL CLASSES aka LEVEL ONE CLASSES
 //-----------------------------------------------
 
+/*-----------------------------------------------
+
+  REFACTOR
+
+  Have it fetch the secret from process.env
+  Have two separate key vars one for sbox one for production
+
+-----------------------------------------------*/
+
 // instantiate the class with a boolean
 // before calling class.makeRequest(secret) you have to get the secret from wix
 // by calling getSecret(class.secretName)
@@ -32,12 +41,11 @@ class SquareRequest {
   set method(method) {
     this._method = method;
   }
-
   // COMPUTED PROPERTIES
   get secretName() {
     return process.env.NODE_ENV === "production"
-      ? `${config.productionSecretName}`
-      : `${config.sandboxSecretName}`;
+      ? `${config.secrets.productionSecretName}`
+      : `${config.secrets.sandboxSecretName}`;
   }
   get baseUrl() {
     return process.env.NODE_ENV === "production"
@@ -49,12 +57,11 @@ class SquareRequest {
   }
 
   // METHODS
-
   headers(secret) {
     return {
-      "Square-Version": `${config.squareVersion}`,
-      "Content-Type": `${config.contentType}`,
-      Accept: `${config.Accept}`,
+      "Square-Version": `${config.square.squareVersion}`,
+      "Content-Type": `${config.http_headers.contentType}`,
+      Accept: `${config.http_headers.Accept}`,
       Authorization: `Bearer ${secret}`,
     };
   }
