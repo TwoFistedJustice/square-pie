@@ -1,7 +1,5 @@
 "use strict";
 const should = require("chai").should();
-const secret = process.env.SANDBOX;
-// const { buffy, jason } = require("./sampleData");
 const { sampleCustomers } = require("./sampleData");
 const customers = sampleCustomers();
 const buffy = customers.buffy;
@@ -31,8 +29,8 @@ describe("Customer List", () => {
   let dbBuffy;
   jest.useFakeTimers();
   test("Should fetch the list of customers", async () => {
-    let customerList = new CustomerList(false);
-    let response = await customerList.makeRequest(secret);
+    let customerList = new CustomerList();
+    let response = await customerList.makeRequest();
     let customers = response.customers;
     customers.should.be.an("Array").that.has.lengthOf(4);
     expect(customers[0]).toMatchObject(buffy);
@@ -41,9 +39,9 @@ describe("Customer List", () => {
   // tests below here depend on the success of the LIST test
   describe("Customer Retrieve", () => {
     test("Should Retrieve a customer by id", async () => {
-      let rescueBuffy = new CustomerRetrieve(false);
+      let rescueBuffy = new CustomerRetrieve();
       rescueBuffy.id = dbBuffy.id;
-      let response = await rescueBuffy.makeRequest(secret);
+      let response = await rescueBuffy.makeRequest();
       expect(response.customer).toMatchObject(dbBuffy);
     });
   });
@@ -51,9 +49,9 @@ describe("Customer List", () => {
 
 describe("Customer Search", () => {
   test("Should execute a fuzzy Search and sort the results in descending order.", async () => {
-    let find555 = new CustomerSearch(false);
+    let find555 = new CustomerSearch();
     find555.query().fuzzy().phone("555").sortDown();
-    let response = await find555.makeRequest(secret);
+    let response = await find555.makeRequest();
     let customers = response.customers;
     customers.should.be.an("Array").that.has.lengthOf(4);
     Date.parse(customers[0]["created_at"]).should.be.greaterThan(
@@ -71,9 +69,9 @@ describe("Customer Search", () => {
 
   test("Should exact search and find a customer", async () => {
     let param = "buffy@magicbox.com";
-    let findBuffy = new CustomerSearch(false);
+    let findBuffy = new CustomerSearch();
     findBuffy.query().exact().email(param);
-    let response = await findBuffy.makeRequest(secret);
+    let response = await findBuffy.makeRequest();
     let email = response.customers[0].email_address;
     email.should.equal(param);
   });

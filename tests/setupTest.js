@@ -1,9 +1,9 @@
 require("dotenv").config();
+const secret = process.env.SQUARE_SANDBOX;
 const fetch = require("node-fetch");
 const { v4: uuid4 } = require("uuid");
 uuid4();
 const config = require("../src/config");
-const secret = process.env.SANDBOX;
 const { sampleCustomers } = require("./sampleData");
 const customers = sampleCustomers();
 const buffy = customers.buffy;
@@ -15,9 +15,9 @@ const freddie = customers.freddie;
 const squareCustomer = async function (method, endpoint, person) {
   console.log(`method: ${method}\nendpoint: ${endpoint}`);
   let _headers = {
-    "Square-Version": `${config.squareVersion}`,
-    "Content-Type": `${config.contentType}`,
-    Accept: `${config.Accept}`,
+    "Square-Version": `${config.square.api_version}`,
+    "Content-Type": `${config.http_headers.content_type}`,
+    Accept: `${config.http_headers.Accept}`,
     Authorization: `Bearer ${secret}`,
   };
 
