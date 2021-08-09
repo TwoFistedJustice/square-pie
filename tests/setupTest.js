@@ -4,10 +4,16 @@ const { v4: uuid4 } = require("uuid");
 uuid4();
 const config = require("../src/config");
 const secret = process.env.SANDBOX;
-const { buffy, jason } = require("./sampleData");
+const { sampleCustomers } = require("./sampleData");
+const customers = sampleCustomers();
+const buffy = customers.buffy;
+const jason = customers.jason;
+const fred = customers.fred;
+const freddie = customers.freddie;
 
-const squareCustomer = async function (method, endpoint, _body) {
-  console.log(`method: ${method}\nendpoint: ${endpoint}\nbody: ${_body}`);
+// not every request to this gets a person argument so don't try to access its properties
+const squareCustomer = async function (method, endpoint, person) {
+  console.log(`method: ${method}\nendpoint: ${endpoint}`);
   let _headers = {
     "Square-Version": `${config.squareVersion}`,
     "Content-Type": `${config.contentType}`,
@@ -18,7 +24,7 @@ const squareCustomer = async function (method, endpoint, _body) {
   let options = {
     method: method,
     headers: _headers,
-    body: JSON.stringify(_body),
+    body: JSON.stringify(person),
   };
   let baseUrl = `https://connect.squareupsandbox.com/v2/customers`;
 
@@ -40,6 +46,7 @@ const list = async function () {
 }; // END fn
 
 const addCustomer = async function (person) {
+  console.log(person.given_name);
   person.idempotency_key = uuid4();
   let request = await squareCustomer("post", undefined, person);
   return request;
@@ -48,26 +55,22 @@ const addCustomer = async function (person) {
 const setUpCustomerDBForTests = async function () {
   // count the customers stored in sandbox
   let customerList = await list();
-  //if there are none, add two and return
+  //if there are none, add four and return
   if (!customerList) {
     await addCustomer(buffy);
     await addCustomer(jason);
+    await addCustomer(fred);
+    await addCustomer(freddie);
     return;
   }
-  // if there are some, delete them all then add two
+  // if there are some, delete them all then add four
   customerList.forEach(async (customer) => {
     await squareCustomer("delete", customer.id);
   });
   await addCustomer(buffy);
   await addCustomer(jason);
-
-  // call list again
-  // if list is emtpy, retry until it works
-  // terminate after 20 tries or 30 seconds
-  // several packages called 'jest-retry'
-  //https://openbase.com/js/jest-retry/documentation
-  //https://www.npmjs.com/package/jest-retry
-  // https://www.npmjs.com/package/jest-retries
+  await addCustomer(fred);
+  await addCustomer(freddie);
 }; // END fn
 
 (async () => {
