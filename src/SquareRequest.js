@@ -1,3 +1,4 @@
+require("dotenv").config();
 const fetch = require("node-fetch");
 const config = require("./config");
 
@@ -10,8 +11,7 @@ const config = require("./config");
 // by calling getSecret(class.secretName)
 
 class SquareRequest {
-  constructor(isProduction = true) {
-    this.isProduction = isProduction;
+  constructor() {
     this._method = "";
     this._body;
     this._endpoint = "";
@@ -35,12 +35,12 @@ class SquareRequest {
 
   // COMPUTED PROPERTIES
   get secretName() {
-    return this.isProduction === true
+    return process.env.NODE_ENV === "production"
       ? `${config.productionSecretName}`
       : `${config.sandboxSecretName}`;
   }
   get baseUrl() {
-    return this.isProduction === true
+    return process.env.NODE_ENV === "production"
       ? `https://connect.squareup.com/v2/${this._apiName}`
       : `https://connect.squareupsandbox.com/v2/${this._apiName}`;
   }
