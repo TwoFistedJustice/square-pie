@@ -1,7 +1,6 @@
 require("dotenv/config");
 const { sampleCustomers } = require("./sampleData");
 const secret = process.env.SANDBOX;
-const config = require("../src/config");
 const testCustomers = sampleCustomers();
 
 const {
@@ -35,7 +34,7 @@ const fetchIndexZeroCustomerId = async function () {
 };
 
 async function testList() {
-  var list = new CustomerList(false);
+  var list = new CustomerList();
   let customerList = await list.makeRequest(secret);
   console.log(`Toal objects: ${customerList.customers.length}`);
   console.log(customerList.customers);
@@ -43,7 +42,7 @@ async function testList() {
 }
 
 async function testCreate() {
-  let someGuy = new CustomerCreate(false);
+  let someGuy = new CustomerCreate();
   // someGuy.customer = testCustomers.shorthand;
   // someGuy.customer = testCustomers.trickrTreat;
   // someGuy.customer = testCustomers.spiritual;
@@ -55,7 +54,7 @@ async function testCreate() {
 }
 
 async function testSearchLimit() {
-  let search = new CustomerSearch(config.sandbox);
+  let search = new CustomerSearch();
   search.query().fuzzy().email("fred").limit(1);
   let response = await search.makeRequest(secret);
   console.log("expect ONE fred to come back- Either one okay");
@@ -63,7 +62,7 @@ async function testSearchLimit() {
 }
 
 async function testSearchPhone() {
-  let search = new CustomerSearch(config.sandbox);
+  let search = new CustomerSearch();
   search.query().fuzzy().email("fred").phone("77");
   let response = await search.makeRequest(secret);
   console.log("expect ONE fred to come back - FLINTSTONE");
@@ -71,13 +70,13 @@ async function testSearchPhone() {
 }
 
 async function testSortSearchDown() {
-  let search = new CustomerSearch(config.sandbox);
+  let search = new CustomerSearch();
   search.query().fuzzy().sortDown().sortByName();
   return await search.makeRequest(secret);
 }
 
 async function testSortSearchUp() {
-  let search = new CustomerSearch(config.sandbox);
+  let search = new CustomerSearch();
   search.query().fuzzy().sortUp().sortByName();
   return await search.makeRequest(secret);
 }
@@ -88,7 +87,7 @@ async function testUpdate() {
   // then you need to get the current data as stored on Square
   // you need the current version number in order to update
   // the version number is a property on the returned customer
-  let retrieve = new CustomerRetrieve(false);
+  let retrieve = new CustomerRetrieve();
   retrieve.id = id;
   let retrieveResponse = await retrieve.makeRequest(secret);
   let customer = retrieveResponse.customer;
@@ -98,7 +97,7 @@ async function testUpdate() {
   let lastName = customer.family_name === "Dullboy" ? "Summers" : "Dullboy";
 
   //this is where the actual update happens
-  let update = new CustomerUpdate(false);
+  let update = new CustomerUpdate();
   update.id = id;
   // set the version number - it must match with Square for the update to happen- square will increment the value automatially
   update.version = customer.version;
@@ -112,15 +111,14 @@ async function testUpdate() {
 
 async function testRetrieve() {
   let testCustomerSqID = await fetchIndexZeroCustomerId();
-  let retrieve = new CustomerRetrieve(false);
+  let retrieve = new CustomerRetrieve();
   retrieve.id = testCustomerSqID;
   let customer = await retrieve.makeRequest(secret);
   return customer.customer;
 }
 
 async function testDelete() {
-  let sandbox = false;
-  let deleteCustomer = new CustomerDelete(sandbox);
+  let deleteCustomer = new CustomerDelete();
   deleteCustomer.id = await fetchIndexZeroCustomerId();
   let vaporized = await deleteCustomer.makeRequest(secret);
   return vaporized;
