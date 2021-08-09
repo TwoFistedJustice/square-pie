@@ -1,5 +1,6 @@
 
 #user created files
+.secretConfig.js
 notes/temp.js
 output.js
 notes-to-self.txt
@@ -10,6 +11,8 @@ temp.json
 
 #Dependency directories
 jspm_packages/
+.husky
+coverage
 
 #logs
 npm-debug.log*
@@ -31,6 +34,7 @@ dist/
 www/
 src/fonts
 package-lock.json
+.env
 .env.local
 .env.development.local
 .env.test.local

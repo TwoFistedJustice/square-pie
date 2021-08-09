@@ -7,8 +7,8 @@ const SquareRequest = require("./SquareRequest");
 //-----------------------------------------------
 
 class CustomerRequest extends SquareRequest {
-  constructor(isProduction) {
-    super(isProduction);
+  constructor() {
+    super();
     this._apiName = "customers";
   }
   // METHODS
@@ -29,8 +29,8 @@ class CustomerRequest extends SquareRequest {
 //-----------------------------------------------
 
 class CustomerList extends CustomerRequest {
-  constructor(isProduction) {
-    super(isProduction);
+  constructor() {
+    super();
     this._method = "get";
   }
 } // END class
@@ -39,8 +39,8 @@ class CustomerList extends CustomerRequest {
 // you tell it what to store in its subclass
 // ToDo execute a search on email, phone make sure no duplicates are created
 class CustomerCreate extends CustomerRequest {
-  constructor(isProduction) {
-    super(isProduction);
+  constructor() {
+    super();
     this._method = "post";
     this.idempotency_key = uuidv4();
   }
@@ -60,8 +60,8 @@ class CustomerCreate extends CustomerRequest {
 // https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile
 //ToDO whenever something is updated or deleted, log it to a file in some retrievable location
 class RetrieveUpdateDelete extends CustomerRequest {
-  constructor(isProduction) {
-    super(isProduction);
+  constructor() {
+    super();
   }
   // METHODS
   set id(someId) {
@@ -72,8 +72,8 @@ class RetrieveUpdateDelete extends CustomerRequest {
 // THREE props on body: query, limit, cursor - these are same as for Invoices
 // differentiation begins inside the query object
 class CustomerSearch extends CustomerRequest {
-  constructor(isProduction) {
-    super(isProduction);
+  constructor() {
+    super();
     this._method = "post";
     this._endpoint = "/search";
     this._body = {
@@ -167,8 +167,8 @@ class CustomerSearch extends CustomerRequest {
 
 //ToDO normalize all incoming email via super method
 class CustomerUpdate extends RetrieveUpdateDelete {
-  constructor(isProduction) {
-    super(isProduction);
+  constructor() {
+    super();
     this._method = "put";
     // the props on _body aren't necessary, at this point they are just here for reference
     // the curly braces are necessary
@@ -321,15 +321,15 @@ class CustomerUpdate extends RetrieveUpdateDelete {
 } // END class
 
 class CustomerRetrieve extends RetrieveUpdateDelete {
-  constructor(isProduction) {
-    super(isProduction);
+  constructor() {
+    super();
     this._method = "get";
   }
 } // END class
 
 class CustomerDelete extends RetrieveUpdateDelete {
-  constructor(isProduction) {
-    super(isProduction);
+  constructor() {
+    super();
     this._method = "delete";
   }
 } // END class
