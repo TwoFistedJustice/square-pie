@@ -1,6 +1,7 @@
 require("dotenv").config();
 const fetch = require("node-fetch");
 const config = require("./config");
+const secret = process.env[`${config.secrets.sandbox_secret_name}`];
 
 //-----------------------------------------------
 // TOP LEVEL CLASSES aka LEVEL ONE CLASSES
@@ -24,6 +25,7 @@ class SquareRequest {
     this._method = "";
     this._body;
     this._endpoint = "";
+    this._secret = secret;
   }
 
   // GETTERS
@@ -44,8 +46,8 @@ class SquareRequest {
   // COMPUTED PROPERTIES
   get secretName() {
     return process.env.NODE_ENV === "production"
-      ? `${config.secrets.productionSecretName}`
-      : `${config.secrets.sandboxSecretName}`;
+      ? `${config.secrets.production_secret_name}`
+      : `${config.secrets.sandbox_secret_name}`;
   }
   get baseUrl() {
     return process.env.NODE_ENV === "production"
@@ -57,16 +59,16 @@ class SquareRequest {
   }
 
   // METHODS
-  headers(secret) {
+  headers() {
     return {
-      "Square-Version": `${config.square.squareVersion}`,
-      "Content-Type": `${config.http_headers.contentType}`,
+      "Square-Version": `${config.square.api_version}`,
+      "Content-Type": `${config.http_headers.content_type}`,
       Accept: `${config.http_headers.Accept}`,
-      Authorization: `Bearer ${secret}`,
+      Authorization: `Bearer ${this._secret}`,
     };
   }
   // you have to get the secret before calling this method
-  makeRequest(secret) {
+  makeRequest() {
     let request = async (url, options) => {
       const httpResponse = await fetch(url, options);
       if (!httpResponse.ok) {
@@ -76,12 +78,12 @@ class SquareRequest {
       let response = await httpResponse.json();
       return response;
     };
-    return request(this.url, this.options(secret));
+    return request(this.url, this.options());
   }
-  options(secret) {
+  options() {
     return {
       method: this._method,
-      headers: this.headers(secret),
+      headers: this.headers(),
       body: JSON.stringify(this._body),
     };
   }
