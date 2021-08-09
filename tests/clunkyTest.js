@@ -37,7 +37,7 @@ async function testList() {
   var list = new CustomerList();
   let customerList = await list.makeRequest();
   console.log(`Toal objects: ${customerList.customers.length}`);
-  console.log(customerList.customers);
+  // console.log(customerList.customers);
   return customerList;
 }
 
@@ -87,8 +87,7 @@ async function testUpdate() {
   // then you need to get the current data as stored on Square
   // you need the current version number in order to update
   // the version number is a property on the returned customer
-  let retrieve = new CustomerRetrieve();
-  retrieve.id = id;
+  let retrieve = new CustomerRetrieve(id);
   let retrieveResponse = await retrieve.makeRequest();
   let customer = retrieveResponse.customer;
 
@@ -97,30 +96,32 @@ async function testUpdate() {
   let lastName = customer.family_name === "Dullboy" ? "Summers" : "Dullboy";
 
   //this is where the actual update happens
-  let update = new CustomerUpdate();
-  update.id = id;
+  let update = new CustomerUpdate(id);
+  // update.id = id;
   // set the version number - it must match with Square for the update to happen- square will increment the value automatially
   update.version = customer.version;
   // set the data you want to change
   // you can chain or set individual properties
   update.chainSet().firstName(firstName).lastName(lastName);
 
-  let updateResponse = update.makeRequest(secret);
+  let updateResponse = await update.makeRequest(secret);
+  console.log(updateResponse);
   return updateResponse;
 }
 
 async function testRetrieve() {
-  let testCustomerSqID = await fetchIndexZeroCustomerId();
-  let retrieve = new CustomerRetrieve();
-  retrieve.id = testCustomerSqID;
+  let id = await fetchIndexZeroCustomerId();
+  let retrieve = new CustomerRetrieve(id);
   let customer = await retrieve.makeRequest();
+  console.log(customer);
   return customer.customer;
 }
 
 async function testDelete() {
-  let deleteCustomer = new CustomerDelete();
-  deleteCustomer.id = await fetchIndexZeroCustomerId();
+  let id = await fetchIndexZeroCustomerId();
+  let deleteCustomer = new CustomerDelete(id);
   let vaporized = await deleteCustomer.makeRequest();
+  console.log(vaporized);
   return vaporized;
 }
 
@@ -139,4 +140,8 @@ if (str1 === str2) {
   testDelete();
 }
 
+// testList();
+// testRetrieve();
+// testUpdate();
+// testDelete();
 testList();
