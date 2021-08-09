@@ -9,8 +9,8 @@ const config = {
     api_version: "2021-06-16",
   },
   secrets: {
-    sandboxSecretName: "SQUARE_SANDBOX_",
-    productionSecretName: "SQUARE_PROUDCTION_KEY",
+    sandboxSecretName: "SQUARE_SANDBOX",
+    productionSecretName: "SQUARE_PRODUCTION_KEY",
   },
   http_headers: {
     contentType: "application/json",
