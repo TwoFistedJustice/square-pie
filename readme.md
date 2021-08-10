@@ -48,7 +48,7 @@ npm run test
 ```
 
 Tests may still fail due to timeout. Supposedly Jest has a way to extend the timeout, but the method outlined in
-their docs does not seem to actually affect anything.
+their docs does not seem to actually affect anything. That or I did it wrong.
 
 ## Testing on Wix Velo
 
