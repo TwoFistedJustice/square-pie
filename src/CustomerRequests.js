@@ -247,7 +247,7 @@ class CustomerUpdate extends RetrieveUpdateDelete {
   }
   //TODO normalize email
   set email_address(val) {
-    this._body.email_address = val;
+    this._body.email_address = super.normalizeEmail(val);
   }
 
   //TODO normalize addresses

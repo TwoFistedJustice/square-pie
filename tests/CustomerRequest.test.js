@@ -90,14 +90,15 @@ describe("Customer Request Classes", () => {
 
     // oops the last update put in the wrong email and didn't change her phone number to her new number
     test("Should update a customer using chain setter", async () => {
-      let email = "buffy@scoobies.org";
+      let email = "buFFy@scoobies.org";
+      let normalizedEmail = "buffy@scoobies.org";
       let phone = "1-800-668-2677";
       let update = new CustomerUpdate(dbBuffy.id);
       update.chainSet().email(email).phone(phone);
       let response = await update.makeRequest();
       let updatedEmail = response.customer.email_address;
       let updatedPhone = response.customer.phone_number;
-      updatedEmail.should.equal(email);
+      updatedEmail.should.equal(normalizedEmail);
       updatedPhone.should.equal(phone);
     });
   });
