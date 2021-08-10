@@ -35,14 +35,13 @@ class CustomerList extends CustomerRequest {
   }
 } // END class
 
-// creates a whole new document
-// you tell it what to store in its subclass
-// ToDo execute a search on email, phone make sure no duplicates are created
+// creates a new document in the db
 class CustomerCreate extends CustomerRequest {
-  constructor() {
+  constructor(customer) {
     super();
     this._method = "post";
     this.idempotency_key = uuidv4();
+    this.customer = customer;
   }
   // GETTERS
   get getIdempotency_key() {
