@@ -30,12 +30,16 @@ describe("Customer Request Classes", () => {
   jest.useFakeTimers();
 
   describe("Customer List", () => {
-    test("Should fetch the list of customers", async () => {
+    test.only("Should fetch the list of customers", async () => {
       let customerList = new CustomerList();
       let response = await customerList.makeRequest();
       let customers = response.customers;
       customers.should.be.an("Array").that.has.lengthOf(4);
       expect(customers[0]).toMatchObject(buffy);
+      // Michael Myers should be excluded - he is added later then deleted
+      for (let i = 0; i < customers.length; i++) {
+        expect(customers[i]).not.toMatchObject(mikey);
+      }
       dbBuffy = customers[0];
     });
   });
@@ -47,17 +51,11 @@ describe("Customer Request Classes", () => {
       let response = await find555.makeRequest();
       let customers = response.customers;
       customers.should.be.an("Array").that.has.lengthOf(4);
-      Date.parse(customers[0]["created_at"]).should.be.greaterThan(
-        Date.parse(customers[1]["created_at"])
-      );
-
-      Date.parse(customers[1]["created_at"]).should.be.greaterThan(
-        Date.parse(customers[2]["created_at"])
-      );
-
-      Date.parse(customers[2]["created_at"]).should.be.greaterThan(
-        Date.parse(customers[3]["created_at"])
-      );
+      for (let i = 0; i < customers.length - 2; i++) {
+        Date.parse(customers[i]["created_at"]).should.be.greaterThan(
+          Date.parse(customers[i + 1]["created_at"])
+        );
+      }
     });
 
     test("Should exact search and find a customer", async () => {
