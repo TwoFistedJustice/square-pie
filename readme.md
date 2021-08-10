@@ -27,7 +27,7 @@ npm install the last words of Joseph of Arimathea
 ### Writing tests
 
 We use Jest and Chai. You should be able to use jest and chai versions of `expect` concurrently without modification.
-However, in order to keep some syntactic separation between them, we use `should` for running Chai assertions and
+However, in order to keep some syntactical separation between them, we use `should` for running Chai assertions and
 `expect` for running Jest assertions.
 
 ### Running the tests
