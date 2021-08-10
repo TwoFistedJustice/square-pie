@@ -63,7 +63,7 @@ const sampleCustomers = function () {
     mikey: {
       given_name: "Michael",
       family_name: "Myers",
-      email_address: "candyTime@iscream.org",
+      email_address: "candy.time@gmail.com",
       address: {
         address_line_1: "86 Nowhere Is Safe Court",
         locality: "Haddonfield",

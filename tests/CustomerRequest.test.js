@@ -6,15 +6,15 @@ const buffy = customers.buffy;
 // const jason = customers.jason;
 // const fred = customers.fred;
 // const freddie = customers.freddie;
-// const mikey = customers.mikey;
+const mikey = customers.mikey;
 
 const {
   CustomerList,
   CustomerSearch,
   // CustomerUpdate,
   CustomerRetrieve,
+  CustomerCreate,
   // CustomerDelete,
-  // CustomerCreate,
 } = require("../src/CustomerRequests");
 
 // ---------------------------------------------------
@@ -79,6 +79,12 @@ describe("Customer Search", () => {
 describe("Customer Create", () => {
   test("Should create a new customer", async () => {
     // add mikey
+    let punchingBagForBuffy = new CustomerCreate();
+    punchingBagForBuffy.customer = mikey;
+    let response = await punchingBagForBuffy.makeRequest();
+    let email = response.customer.email_address;
+    // if the email matches, the customer was created
+    email.should.equal("candytime@gmail.com");
   });
 });
 describe("Customer Update", () => {
