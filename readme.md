@@ -71,6 +71,10 @@ export async function yourFunction() {
 
 --> **All contributions should be made on a new branch.**<--
 
+The branch name should begin with the issue number it is meant to address.
+
+Branch naming convention: `issue[issue number]_somethingMeaningful` eg:`issue27_custDocs`
+
 Make sure that your editor is configured per our Style Guide.
 
 Before writing any code, create a github Issue outlining the changes you intend to make (be clear and concise). Assign yourself
