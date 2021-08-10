@@ -58,7 +58,8 @@ new test functions, use the syntax
 ```js
 // your test function must return the expected value
 export async function yourFunction() {
-  await doSomeStuff;
+  // set up your calls
+  return await doSomeStuff.makeRequest();
 }
 ```
 
@@ -68,11 +69,19 @@ export async function yourFunction() {
 
 ## Contributing Code
 
-Firstly, make sure that your editor is configured per our Style Guide. All contributions should be made on a
-new branch. Push your new branch and then create a pull request. This will trigger a number of actions and
-queue up your commits for review.
+--> **All contributions should be made on a new branch.**<--
 
-### Git:
+Make sure that your editor is configured per our Style Guide.
+
+Before writing any code, create a github Issue outlining the changes you intend to make (be clear and concise). Assign yourself
+and TwoFistedJustice to the issue so that notifications will be sent to the repo owner. Assign an appropriate Label. Add the
+issue to the appropriate Project. If no other project seems appropriate, add it to Overview.
+
+On your local copy, make a new git branch for your edits. Make your edits. Push your branch up to github and create a pull request.
+If your PR is an intermediate step add the comment `Progresses #[issue number]`. If your PR is final, then add the comment
+`Closes #[issue number]` These comments will cause the project to update automatically when the PR is accepted.
+
+### Commits:
 
 Please follow the [Conventional Commits Standard](https://www.conventionalcommits.org/en/v1.0.0/)
 
