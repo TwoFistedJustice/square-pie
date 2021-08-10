@@ -105,8 +105,7 @@ describe("Customer Request Classes", () => {
   describe("Customer Create", () => {
     test("Should create a new customer", async () => {
       // add mikey
-      let punchingBagForBuffy = new CustomerCreate();
-      punchingBagForBuffy.customer = mikey;
+      let punchingBagForBuffy = new CustomerCreate(mikey);
       let response = await punchingBagForBuffy.makeRequest();
       let email = response.customer.email_address;
       mikeId = response.customer.id;

@@ -37,18 +37,19 @@ async function testList() {
   var list = new CustomerList();
   let customerList = await list.makeRequest();
   console.log(`Toal objects: ${customerList.customers.length}`);
-  // console.log(customerList.customers);
+  console.log(customerList.customers);
   return customerList;
 }
 
 async function testCreate() {
-  let someGuy = new CustomerCreate();
-  // someGuy.customer = testCustomers.shorthand;
-  // someGuy.customer = testCustomers.trickrTreat;
-  // someGuy.customer = testCustomers.spiritual;
-  // someGuy.customer = testCustomers.unhappy;
-  // someGuy.customer = testCustomers.stoneage;
-  someGuy.customer = testCustomers.daSlayer;
+  let someGuy = new CustomerCreate(testCustomers.amelia);
+  // let someGuy = new CustomerCreate();
+  // someGuy.customer = testCustomers.amelia;
+  // someGuy.customer = testCustomers.mikey;
+  // someGuy.customer = testCustomers.freddie;
+  // someGuy.customer = testCustomers.jason;
+  // someGuy.customer = testCustomers.fred;
+  // someGuy.customer = testCustomers.buffy;
   let response = await someGuy.makeRequest();
   return response;
 }
@@ -145,3 +146,4 @@ if (str1 === str2) {
 // testUpdate();
 // testDelete();
 testList();
+// testCreate();
