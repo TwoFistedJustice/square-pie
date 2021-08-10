@@ -245,7 +245,6 @@ class CustomerUpdate extends RetrieveUpdateDelete {
   set nickname(val) {
     this._body.nickname = val;
   }
-  //TODO normalize email
   set email_address(val) {
     this._body.email_address = super.normalizeEmail(val);
   }
