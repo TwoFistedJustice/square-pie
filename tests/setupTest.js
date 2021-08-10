@@ -13,7 +13,7 @@ const freddie = customers.freddie;
 
 // not every request to this gets a person argument so don't try to access its properties
 const squareCustomer = async function (method, endpoint, person) {
-  console.log(`method: ${method}\nendpoint: ${endpoint}`);
+  console.log(`method: ${method}\nendpoint: ${endpoint}\n`);
   let _headers = {
     "Square-Version": `${config.square.api_version}`,
     "Content-Type": `${config.http_headers.content_type}`,
@@ -61,6 +61,9 @@ const setUpCustomerDBForTests = async function () {
     await addCustomer(jason);
     await addCustomer(fred);
     await addCustomer(freddie);
+    console.log(
+      "Wait one minute before running tests to allow Square time to update."
+    );
     return;
   }
   // if there are some, delete them all then add four
@@ -71,6 +74,10 @@ const setUpCustomerDBForTests = async function () {
   await addCustomer(jason);
   await addCustomer(fred);
   await addCustomer(freddie);
+  console.log(
+    "Wait one minute before running tests to allow Square time to update."
+  );
+  return;
 }; // END fn
 
 (async () => {
