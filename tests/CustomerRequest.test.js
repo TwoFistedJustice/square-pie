@@ -119,7 +119,7 @@ describe("Customer Request Classes", () => {
 
   describe("Customer Delete", () => {
     // id is set in test for Customer Create
-    test("", async () => {
+    test("Should delete the specified customer", async () => {
       // What would happen if Buffy fought Michael Myers?
       let buffyVsMichaelMyers = new CustomerDelete(mikeId);
       let buhbye = await buffyVsMichaelMyers.makeRequest();
