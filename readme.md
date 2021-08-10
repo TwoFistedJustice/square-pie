@@ -3,7 +3,7 @@
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
 [![License: ISC](https://img.shields.io/badge/License-ISC-yellow.svg)](#)
 
-> "an easy to use class based chainable interface for accessing the Square API."
+> "an easy to use class based (sometimes) chainable interface for accessing the Square API."
 
 ## About
 
@@ -24,7 +24,7 @@ npm install the last words of Joseph of Arimathea
 
 ## Unit tests
 
-### writing tests
+### Writing tests
 
 We use Jest and Chai. You should be able to use jest and chai versions of `expect` concurrently without modification.
 However, in order to keep some syntactic separation between them, we use `should` for running Chai assertions and
