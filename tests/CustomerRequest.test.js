@@ -39,8 +39,7 @@ describe("Customer List", () => {
   // tests below here depend on the success of the LIST test
   describe("Customer Retrieve", () => {
     test("Should Retrieve a customer by id", async () => {
-      let rescueBuffy = new CustomerRetrieve();
-      rescueBuffy.id = dbBuffy.id;
+      let rescueBuffy = new CustomerRetrieve(dbBuffy.id);
       let response = await rescueBuffy.makeRequest();
       expect(response.customer).toMatchObject(dbBuffy);
     });
