@@ -60,18 +60,18 @@ Method |Type| Expected Argument | Short Notes |
 ###CustomerSearch
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
-|query|method - chainer|-| beginning of chain - must call query.fuzzy() or query.exact()
-|query.fuzzy|method - chainer + link| sets type of query to fuzzy | returns a chain of methods
-|query.exact|method - chainer + link | sets type of query to exact | returns a chain of methods
-|^.email | method - chain link | email address- String | will get normalized automatically
-|^.phone | method - chain link | phone number - String | Validated by Square. - digits and phone number special characters only
-|^.id | method - chain link | A square ID - String | Validated by Square.
-|^.limit |method - chain link | Integer - Number | 1 -100 - default is 100
-|^.sortUp |method - chain link | - | Sets sort order to Ascending
-|^.sortDown |method - chain link | - | Sets sort order to Descending
-|^.sortByFirstName |method - chain link | - | Sorts the results by first name. This is actually the Square default.
-|^.sortByDate |method - chain link | - | Sorts the results by creation date
-|^.sortByMostRecent |method - chain link | - | Sorts the results by creation date with most recent first. (ascending)
+|♾ query|method - chainer|-| beginning of chain - must call query.fuzzy() or query.exact()
+|♾ ^ .fuzzy|method - chainer + link| sets type of query to fuzzy | returns a chain of methods
+|♾ ^ .exact|method - chainer + link | sets type of query to exact | returns a chain of methods
+|^ .email | method - chain link | email address- String | will get normalized automatically
+|^ .phone | method - chain link | phone number - String | Validated by Square. - digits and phone number special characters only
+|^ .id | method - chain link | A square ID - String | Validated by Square.
+|^ .limit |method - chain link | Integer - Number | 1 -100 - default is 100
+|^ .sortUp |method - chain link | - | Sets sort order to Ascending
+|^ .sortDown |method - chain link | - | Sets sort order to Descending
+|^ .sortByFirstName |method - chain link | - | Sorts the results by first name. This is actually the Square default.
+|^ .sortByDate |method - chain link | - | Sorts the results by creation date
+|^ .sortByMostRecent |method - chain link | - | Sorts the results by creation date with most recent first. (ascending)
 
 ###CustomerRetrieve
 Method |Type| Expected Argument | Short Notes |
@@ -95,15 +95,15 @@ Method |Type| Expected Argument | Short Notes |
 | reference_id|getter/setter | Non-Square ID - String | not validated, can be any string
 | note|getter/setter | - String
 | version|getter/setter | Integer - Number | Must first fetch it from Square- must match the version number in their database
-|chainSet|method - chainer|-| beginning of chain
-|^.firstName | method - chain link | String
-|^.lastName | method - chain link | String
-|^.company | method - chain link | String
-|^.nickname | method - chain link | String
-|^.email | method - chain link | email address -String | will be normalized automatically
-|^.phone | method - chain link | phone number -String | Validated by Square. - digits and phone number special characters only
-|^.note | method - chain link | String
-|^.birthday | method - chain link | Date - String | YYYY-MM-DD format.
+| ♾ chainSet|method - chainer|-| beginning of chain
+|^ .firstName | method - chain link | String
+|^ .lastName | method - chain link | String
+|^ .company | method - chain link | String
+|^ .nickname | method - chain link | String
+|^ .email | method - chain link | email address -String | will be normalized automatically
+|^ .phone | method - chain link | phone number -String | Validated by Square. - digits and phone number special characters only
+|^ .note | method - chain link | String
+|^ .birthday | method - chain link | Date - String | YYYY-MM-DD format.
 
 ###CustomerDelete
 Method |Type| Expected Argument | Short Notes |
