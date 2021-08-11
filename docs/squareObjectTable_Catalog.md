@@ -2,11 +2,6 @@
 These tables are arranged to help us understand how to implement, NOT to model Square's data structure.\
 [Tables based on Square Docs for Catalog Object](https://developer.squareup.com/reference/square/enums/CatalogObjectType)
 
-##Conventions used
-! : by itself it means "not"\
-! someName : means the thing named is being worked on\
-someName^^^ : a name followed by three carets means the expected value has specific requirements such as specific string values or a predifined object type. These should appear at the bottom of a table so they can easily be found.
-
 ###Observations
 
 - CatalogObjects get nested inside each other
