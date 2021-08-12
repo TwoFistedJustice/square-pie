@@ -33,6 +33,16 @@ class CustomerList extends CustomerRequest {
     super();
     this._method = "get";
   }
+  // g/s override super
+  //GETTERS
+  get fardel() {
+    return this._fardel;
+  }
+
+  // SETTERS
+  set fardel(parcel) {
+    this._fardel = parcel.customers;
+  }
 } // END class
 
 // creates a new document in the db
@@ -46,6 +56,14 @@ class CustomerCreate extends CustomerRequest {
   // GETTERS
   get getIdempotency_key() {
     return this.idempotency_key;
+  }
+  get fardel() {
+    return this._fardel;
+  }
+
+  // SETTERS
+  set fardel(parcel) {
+    this._fardel = parcel.customer;
   }
 
   // COMPUTED PROPERTIES
@@ -63,9 +81,19 @@ class RetrieveUpdateDelete extends CustomerRequest {
     super();
     this._endpoint = `/${id}`;
   }
+  // GETTERS
   get id() {
     return this._endpoint;
   }
+  get fardel() {
+    return this._fardel;
+  }
+
+  // SETTERS
+  set fardel(parcel) {
+    this._fardel = parcel.customer;
+  }
+
   // METHODS
   set id(someId) {
     this._endpoint = `/${someId}`;
@@ -91,6 +119,15 @@ class CustomerSearch extends CustomerRequest {
     };
   }
 
+  // GETTERS
+  get fardel() {
+    return this._fardel;
+  }
+
+  // SETTERS
+  set fardel(parcel) {
+    this._fardel = parcel.customers;
+  }
   // METHODS
   // this works like so:
   // the 'this' inside  query() is the class
@@ -333,6 +370,15 @@ class CustomerDelete extends RetrieveUpdateDelete {
   constructor(id) {
     super(id);
     this._method = "delete";
+  }
+  // GETTERS
+  get fardel() {
+    return this._fardel;
+  }
+
+  // SETTERS
+  set fardel(parcel) {
+    this._fardel = parcel;
   }
 } // END class
 
