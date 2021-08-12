@@ -75,10 +75,10 @@ upsert.one() and upsert.many() or upsert.alot()
 
 ### SEARCH - Items
 
-|     | Method | Resource Location              | Body Properties                   | Response Fields | Square Docs                                                                                | Short notes        |
-| --- | ------ | ------------------------------ | --------------------------------- | --------------- | ------------------------------------------------------------------------------------------ | ------------------ |
-|     | POST   | 'catalog/search-catalog-items' |                                   |                 | [Search](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items) |
-|     |        |                                | ^^^text_filter: Str               |                 |                                                                                            |
+|     | Method | Resource Location              | Body Properties                   | Response Fields        | Square Docs                                                                                | Short notes |
+| --- | ------ | ------------------------------ | --------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------ | ----------- |
+|     | POST   | 'catalog/search-catalog-items' |                                   |                        | [Search](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items) |
+|     |        |                                | ^^^text_filter: Str               |                        |                                                                                            |
 |     |        |                                | category_ids: ["id", ...]         |
 |     |        |                                | ^^^stock_levels: Str              |
 |     |        |                                | enabled_location_ids: ["id", ...] |
@@ -87,7 +87,7 @@ upsert.one() and upsert.many() or upsert.alot()
 |     |        |                                | ^^^sort_order: Str                |
 |     |        |                                | ^^^product_types: []              |
 |     |        |                                | ^^^custom_attribute_filters: []   |
-|     |        |                                |                                   | items: [ ]      |                                                                                            | returns no objects |
+|     |        |                                |                                   | items: [cat-obj, ... ] |                                                                                            |             |
 
 ### SEARCH - Objects
 
