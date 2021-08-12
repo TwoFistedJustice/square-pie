@@ -60,7 +60,7 @@ Method |Type| Expected Argument | Short Notes |
 ###CustomerSearch
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
-|♾ query|method - chainer|-| beginning of chain - must call query.fuzzy() or query.exact()
+| ⋈ ♾ query|method - chainer|-| beginning of chain - must call query.fuzzy() or query.exact()
 |♾ ^ .fuzzy|method - chainer + link| sets type of query to fuzzy | returns a chain of methods
 |♾ ^ .exact|method - chainer + link | sets type of query to exact | returns a chain of methods
 |^ .email | method - chain link | email address- String | will get normalized automatically
@@ -95,7 +95,7 @@ Method |Type| Expected Argument | Short Notes |
 | reference_id|getter/setter | Non-Square ID - String | not validated, can be any string
 | note|getter/setter | - String
 | version|getter/setter | Integer - Number | Must first fetch it from Square- must match the version number in their database
-| ♾ chainSet|method - chainer|-| beginning of chain
+| ⋈ ♾ chainSet|method - chainer|-| beginning of chain
 |^ .firstName | method - chain link | String
 |^ .lastName | method - chain link | String
 |^ .company | method - chain link | String
