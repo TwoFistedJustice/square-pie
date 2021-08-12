@@ -34,16 +34,16 @@
 | Customer | REMOVE group from one | DELETE | '/customers/{customer_id}/groups/{group_id}' | !                | [Remove GROUP](https://developer.squareup.com/reference/square/customers-api/remove-group-from-customer) |
 | Customer | ADD group from one    | PUT    | '/customers/{customer_id}/groups/{group_id}' | !                | [Add GROUP](https://developer.squareup.com/reference/square/customers-api/add-group-to-customer)         |
 
-| End User Classes | Constructor Arguments | Short Notes     |
-| ---------------- | --------------------- | --------------- |
-| CustomerList     | none                  |
-| CustomerCreate   | Customer - Object     |
-| CustomerSearch   | none                  |
-| CustomerRetrieve | ID                    |
-| CustomerUpdate   | ID                    |
-| CustomerDelete   | ID                    |
-| CustomerGroup    |                       | not implemented |
-| CustomerUngroup  |                       | not implemented |
+| End User Classes | Constructor Arguments | Response Field     | Short Notes     |
+| ---------------- | --------------------- | ------------------ | --------------- |
+| CustomerList     | none                  | customers: [ ]     |
+| CustomerCreate   | Customer - Object     | customer: cust-obj |
+| CustomerSearch   | none                  | customers: [ ]     |
+| CustomerRetrieve | ID                    | customer: cust-obj |
+| CustomerUpdate   | ID                    | customer: cust-obj |
+| CustomerDelete   | ID                    | empty or errors    |
+| CustomerGroup    |                       | empty or errors    | not implemented |
+| CustomerUngroup  |                       | empty or errors    | not implemented |
 
 ###CustomerList
 Method | Expected Argument | Short Notes |
