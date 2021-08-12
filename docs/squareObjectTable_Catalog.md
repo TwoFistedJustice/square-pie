@@ -14,8 +14,8 @@ Have the top level class make the request and set certain properties
 Then have the lower level classes contribute the rest
 
 BECAUSE the upsert features are primarily designed to work with BATCHES\
-: we will have to create the Objects, add them to an array and send that array as a property on the upsert command
-Argument Against:
+: we will have to create the Objects, add them to an array and send that array as a property on the upsert command\
+**Argument Against:**\
 Using discrete classes and subclasses prevents us from layering on more data to an item.
 Solution: Use fewer classes and use mixins
 
