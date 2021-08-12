@@ -120,7 +120,6 @@ describe("Customer Request Classes", () => {
       // What would happen if Buffy fought Michael Myers?
       let buffyVsMichaelMyers = new CustomerDelete(mikeId);
       await buffyVsMichaelMyers.makeRequest();
-      console.log(buffyVsMichaelMyers.fardel);
       expect(buffyVsMichaelMyers.fardel).toMatchObject({});
     });
   });
