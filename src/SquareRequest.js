@@ -26,6 +26,7 @@ class SquareRequest {
     this._body;
     this._endpoint = "";
     this._secret = secret;
+    this._fardel;
   }
 
   // GETTERS
@@ -36,12 +37,21 @@ class SquareRequest {
     return this._body;
   }
 
+  get fardel() {
+    return this._fardel;
+  }
+
   // SETTERS
   set body(val) {
     this._body = val;
   }
   set method(method) {
     this._method = method;
+  }
+
+  set fardel(parcel) {
+    // who would fardels bear? would they bear you or would you bear them?
+    this._fardel = parcel;
   }
   // COMPUTED PROPERTIES
   get secretName() {
@@ -75,8 +85,11 @@ class SquareRequest {
         let message = `\ngenerated url: ${this.url}\nmethod: ${options.method}\n${httpResponse.status}: ${httpResponse.statusText}`;
         throw new Error(message);
       }
-      let response = await httpResponse.json();
-      return response;
+      // let response = await httpResponse.json();
+      // save the data returned from the server AND return it.
+      this.fardel = await httpResponse.json();
+      // return this._fardel;
+      return this.fardel;
     };
     return request(this.url, this.options());
   }

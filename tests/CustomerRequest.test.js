@@ -30,30 +30,29 @@ describe("Customer Request Classes", () => {
   jest.useFakeTimers();
 
   describe("Customer List", () => {
-    test.only("Should fetch the list of customers", async () => {
+    test("Should fetch the list of customers", async () => {
       let customerList = new CustomerList();
-      let response = await customerList.makeRequest();
-      let customers = response.customers;
-      customers.should.be.an("Array").that.has.lengthOf(4);
-      expect(customers[0]).toMatchObject(buffy);
-      // Michael Myers should be excluded - he is added later then deleted
+      // let response = await customerList.makeRequest();
+      await customerList.makeRequest();
+      customerList.fardel.should.be.an("Array").that.has.lengthOf(4);
+      expect(customerList.fardel[0]).toMatchObject(buffy);
+      // Michael Myers is not invited but will show up later - at which time Buffy will deal with him, as she does.
       for (let i = 0; i < customers.length; i++) {
-        expect(customers[i]).not.toMatchObject(mikey);
+        expect(customerList.fardel[i]).not.toMatchObject(mikey);
       }
-      dbBuffy = customers[0];
+      dbBuffy = customerList.fardel[0];
     });
   });
 
   describe("Customer Search", () => {
     test("Should execute a fuzzy Search and sort the results in descending order.", async () => {
-      let find555 = new CustomerSearch();
-      find555.query().fuzzy().phone("555").sortDown();
-      let response = await find555.makeRequest();
-      let customers = response.customers;
-      customers.should.be.an("Array").that.has.lengthOf(4);
-      for (let i = 0; i < customers.length - 2; i++) {
-        Date.parse(customers[i]["created_at"]).should.be.greaterThan(
-          Date.parse(customers[i + 1]["created_at"])
+      let customers = new CustomerSearch();
+      customers.query().fuzzy().phone("555").sortDown();
+      await customers.makeRequest();
+      customers.fardel.should.be.an("Array").that.has.lengthOf(4);
+      for (let i = 0; i < customers.fardel.length - 2; i++) {
+        Date.parse(customers.fardel[i]["created_at"]).should.be.greaterThan(
+          Date.parse(customers.fardel[i + 1]["created_at"])
         );
       }
     });
@@ -62,8 +61,8 @@ describe("Customer Request Classes", () => {
       let param = "buffy@magicbox.com";
       let findBuffy = new CustomerSearch();
       findBuffy.query().exact().email(param);
-      let response = await findBuffy.makeRequest();
-      let email = response.customers[0].email_address;
+      await findBuffy.makeRequest();
+      let email = findBuffy.fardel[0].email_address;
       email.should.equal(param);
     });
   });
@@ -72,8 +71,8 @@ describe("Customer Request Classes", () => {
   describe("Customer Retrieve", () => {
     test("Should Retrieve a customer by id", async () => {
       let rescueBuffy = new CustomerRetrieve(dbBuffy.id);
-      let response = await rescueBuffy.makeRequest();
-      expect(response.customer).toMatchObject(dbBuffy);
+      await rescueBuffy.makeRequest();
+      expect(rescueBuffy.fardel).toMatchObject(dbBuffy);
     });
   });
 
@@ -83,8 +82,8 @@ describe("Customer Request Classes", () => {
       let email = "buffy@scooby.org";
       let update = new CustomerUpdate(dbBuffy.id);
       update.email_address = email;
-      let response = await update.makeRequest();
-      let updatedEmail = response.customer.email_address;
+      await update.makeRequest();
+      let updatedEmail = update.fardel.email_address;
       updatedEmail.should.equal(email);
     });
 
@@ -95,9 +94,9 @@ describe("Customer Request Classes", () => {
       let phone = "1-800-668-2677";
       let update = new CustomerUpdate(dbBuffy.id);
       update.chainSet().email(email).phone(phone);
-      let response = await update.makeRequest();
-      let updatedEmail = response.customer.email_address;
-      let updatedPhone = response.customer.phone_number;
+      await update.makeRequest();
+      let updatedEmail = update.fardel.email_address;
+      let updatedPhone = update.fardel.phone_number;
       updatedEmail.should.equal(normalizedEmail);
       updatedPhone.should.equal(phone);
     });
@@ -107,9 +106,9 @@ describe("Customer Request Classes", () => {
     test("Should create a new customer", async () => {
       // add mikey
       let punchingBagForBuffy = new CustomerCreate(mikey);
-      let response = await punchingBagForBuffy.makeRequest();
-      let email = response.customer.email_address;
-      mikeId = response.customer.id;
+      await punchingBagForBuffy.makeRequest();
+      let email = punchingBagForBuffy.fardel.email_address;
+      mikeId = punchingBagForBuffy.fardel.id;
       // if the email matches, the customer was created
       email.should.equal("candytime@gmail.com");
     });
@@ -120,8 +119,9 @@ describe("Customer Request Classes", () => {
     test("Should delete the specified customer", async () => {
       // What would happen if Buffy fought Michael Myers?
       let buffyVsMichaelMyers = new CustomerDelete(mikeId);
-      let buhbye = await buffyVsMichaelMyers.makeRequest();
-      expect(buhbye).toMatchObject({});
+      await buffyVsMichaelMyers.makeRequest();
+      console.log(buffyVsMichaelMyers.fardel);
+      expect(buffyVsMichaelMyers.fardel).toMatchObject({});
     });
   });
 });
