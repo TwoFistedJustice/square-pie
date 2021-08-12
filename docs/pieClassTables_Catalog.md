@@ -21,22 +21,18 @@ Argument against: They line up better on the response side by doing them by over
 
 < > These are basically the same except for the endpoint and method
 
-|       | Method | Resource Location        | Body Properties         | Response Fields      | Square Docs                                                                                                  | Short notes |
-| ----- | ------ | ------------------------ | ----------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------ | ----------- |
-| batch | POST   | 'catalog/batch-retrieve' | object_ids: ["id", ...] |                      | [Retrieve batch](https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects) |
-|       |        |                          |                         | objects: [ ]         |                                                                                                              |             |
-|       |        |                          |                         | related_objects: [ ] |                                                                                                              |             |
-
-| one | GET | 'catalog/object/{object_id}' | object_id: "id" | | [Retrieve one](https://developer.squareup.com/reference/square/catalog-api/retrieve-catalog-object) |
-| | | | | object: cat-obj | | |
-| | | | | related_objects: [ ] | | |
+|       | Method | Resource Location            | Body Properties         | Response Fields      | Square Docs                                                                                                  | Short notes |
+| ----- | ------ | ---------------------------- | ----------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------ | ----------- |
+| batch | POST   | 'catalog/batch-retrieve'     | object_ids: ["id", ...] |                      | [Retrieve batch](https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects) |
+|       |        |                              |                         | objects: [ ]         |                                                                                                              |             |
+|       |        |                              |                         | related_objects: [ ] |                                                                                                              |             |
+| one   | GET    | 'catalog/object/{object_id}' | object_id: "id"         |                      | [Retrieve one](https://developer.squareup.com/reference/square/catalog-api/retrieve-catalog-object)          |
+|       |        |                              |                         | object: cat-obj      |                                                                                                              |             |
+|       |        |                              |                         | related_objects: [ ] |                                                                                                              |             |
 
 ### UPSERT - Batch vs One
 
 < > these two are basically the same, except one sends an array of objects and the other a single object
-Post 2: Batch upsert\
-Post 2: Upsert one
-Differences:
 
 |       | Method | Resource Location      | Body Properties     | Response Fields         | Square Docs                                                                                              | Short notes |
 | ----- | ------ | ---------------------- | ------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------- | ----------- |
@@ -65,8 +61,6 @@ upsert.one() and upsert.many() or upsert.alot()
 |       |        |                              |                         | deleted_at: str          |                                                                                                          |
 
 ### UPDATE - Taxes - Modifier Lists
-
-< > Same except for the endpoint, method, and names of body properties
 
 |                | Method | Resource Location                    | Body Properties                        | Response Fields | Square Docs                                                                                                     | Short notes |
 | -------------- | ------ | ------------------------------------ | -------------------------------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | ----------- |
@@ -120,10 +114,24 @@ upsert.one() and upsert.many() or upsert.alot()
 |     |        |                   | catalog_version: int |                 |
 |     |        |                   |                      | objects: [ ]    |
 
-###Post
+### CREATE IMAGE
 
 IMAGE looks more complex than the others...
 Post 3: Create - upload an image -- CAREFUL - this one can cause DB bloat! it allows floaters.
 
-###GET
-Get: Info - definitely its own thing - just returns a set of parameters you must live by\
+|     | Method | Resource Location | Body Properties      | Response Fields | Square Docs                                                                      | Short notes                                  |
+| --- | ------ | ----------------- | -------------------- | --------------- | -------------------------------------------------------------------------------- | -------------------------------------------- |
+|     | GET    | 'catalog/images'  |                      |                 | [Info](https://developer.squareup.com/reference/square/catalog-api/catalog-info) | returns a set of parameters you must live by |
+|     |        |                   | idempotency_key: str |                 |
+|     |        |                   | object_id: "id"      |                 |
+|     |        |                   | image                |                 |
+|     |        |                   |                      |                 |
+|     |        |                   |                      |                 |
+|     |        |                   |                      | image: cat-obj  |
+
+###INFO
+| | Method | Resource Location | Body Properties | Response Fields | Square Docs | Short notes |
+| --- | ------ | ----------------- | -------------------- | --------------- | -------------------------------------------------------------------------------- | ----------- |
+| | GET | 'catalog/info' | empty | | [Info](https://developer.squareup.com/reference/square/catalog-api/catalog-info) |returns a set of parameters you must live by
+| | | | | ^^^limits |
+| | | | | ^^^standard_unit_description_group |
