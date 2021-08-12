@@ -1,5 +1,5 @@
 require("dotenv/config");
-const { sampleCustomers } = require("./sampleData");
+const { sampleCustomers } = require("./sample_data");
 const secret = process.env.SANDBOX;
 const testCustomers = sampleCustomers();
 
@@ -10,7 +10,7 @@ const {
   CustomerRetrieve,
   CustomerDelete,
   CustomerCreate,
-} = require("../src/CustomerRequests");
+} = require("../src/customer_requests");
 
 // These are all repurposed from the original code designed to work on Wix Velo
 // this is a make-do till we get unit testing up and running.

@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const validator = require("validator");
-const SquareRequest = require("./SquareRequest");
+const SquareRequest = require("./square_request");
 
 //-----------------------------------------------
 // LEVEL TWO CLASSES

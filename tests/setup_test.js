@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 const { v4: uuid4 } = require("uuid");
 uuid4();
 const config = require("../src/config");
-const { sampleCustomers } = require("./sampleData");
+const { sampleCustomers } = require("./sample_data");
 const customers = sampleCustomers();
 const buffy = customers.buffy;
 const jason = customers.jason;

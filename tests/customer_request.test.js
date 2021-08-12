@@ -1,6 +1,6 @@
 "use strict";
 const should = require("chai").should();
-const { sampleCustomers } = require("./sampleData");
+const { sampleCustomers } = require("./sample_data");
 const customers = sampleCustomers();
 const buffy = customers.buffy;
 // const jason = customers.jason;
@@ -15,7 +15,7 @@ const {
   CustomerRetrieve,
   CustomerUpdate,
   CustomerDelete,
-} = require("../src/CustomerRequests");
+} = require("../src/customer_requests");
 
 // ---------------------------------------------------
 // Hardcoded http requests for the hooks
