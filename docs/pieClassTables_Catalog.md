@@ -21,10 +21,15 @@ Argument against: They line up better on the response side by doing them by over
 
 < > These are basically the same except for the endpoint and method
 
-|       | Method | Resource Location            | payload                 | Square Docs                                                                                                  |
-| ----- | ------ | ---------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------ |
-| batch | POST   | 'catalog/batch-retrieve'     | object_ids: ["id", ...] | [Retrieve batch](https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects) |
-| one   | GET    | 'catalog/object/{object_id}' | object_id: "id"         | [Retrieve one](https://developer.squareup.com/reference/square/catalog-api/retrieve-catalog-object)          |
+|       | Method | Resource Location        | Body Properties         | Response Fields      | Square Docs                                                                                                  | Short notes |
+| ----- | ------ | ------------------------ | ----------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------ | ----------- |
+| batch | POST   | 'catalog/batch-retrieve' | object_ids: ["id", ...] |                      | [Retrieve batch](https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects) |
+|       |        |                          |                         | objects: [ ]         |                                                                                                              |             |
+|       |        |                          |                         | related_objects: [ ] |                                                                                                              |             |
+
+| one | GET | 'catalog/object/{object_id}' | object_id: "id" | | [Retrieve one](https://developer.squareup.com/reference/square/catalog-api/retrieve-catalog-object) |
+| | | | | object: cat-obj | | |
+| | | | | related_objects: [ ] | | |
 
 ### UPSERT - Batch vs One
 
@@ -33,10 +38,17 @@ Post 2: Batch upsert\
 Post 2: Upsert one
 Differences:
 
-|       | Method | Resource Location      | Body Properties     | Square Docs                                                                                              |
-| ----- | ------ | ---------------------- | ------------------- | -------------------------------------------------------------------------------------------------------- |
-| batch | POST   | 'catalog/batch-upsert' | batches: [ {}, ...] | [Upsert batch](https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects) |
-| one   | POST   | 'catalog/object'       | object: {}          | [Upsert one](https://developer.squareup.com/reference/square/catalog-api/upsert-catalog-object)          |
+|       | Method | Resource Location      | Body Properties     | Response Fields         | Square Docs                                                                                              | Short notes |
+| ----- | ------ | ---------------------- | ------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------- | ----------- |
+| batch | POST   | 'catalog/batch-upsert' |                     |                         | [Upsert batch](https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects) |
+|       |        |                        | batches: [ {}, ...] |                         |                                                                                                          |             |
+|       |        |                        |                     | objects: [ ]            |                                                                                                          |             |
+|       |        |                        |                     | updated_at: str         |                                                                                                          |             |
+|       |        |                        |                     | id_mappings: []         |                                                                                                          |             |
+| one   | POST   | 'catalog/object'       |                     |                         | [Upsert one](https://developer.squareup.com/reference/square/catalog-api/upsert-catalog-object)          |
+|       |        |                        | object: {}          |                         |                                                                                                          |             |
+|       |        |                        |                     | catalog_object: cat-obj |                                                                                                          |             |
+|       |        |                        |                     | id_mappings: [ ]        |                                                                                                          |             |
 
 < > I think I can make a single class that handles both with a simple chainer
 upsert.one() and upsert.many() or upsert.alot()
@@ -45,29 +57,34 @@ upsert.one() and upsert.many() or upsert.alot()
 
 < > These are basically the same except for the endpoint and method
 
-|       | Method | Resource Location            | Body Properties         | Square Docs                                                                                              |
-| ----- | ------ | ---------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------- |
-| batch | POST   | 'catalog/batch-retrieve'     | object_ids: ["id", ...] | [Delete batch](https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects) |
-| one   | DELETE | 'catalog/object/{object_id}' | object_id: "id"         | [Delete one](https://developer.squareup.com/reference/square/catalog-api/delete-catalog-object)          |
+|       | Method | Resource Location            | Body Properties         | Response Fields          | Square Docs                                                                                              | Short notes |
+| ----- | ------ | ---------------------------- | ----------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------- | ----------- |
+| batch | POST   | 'catalog/batch-retrieve'     | object_ids: ["id", ...] |                          | [Delete batch](https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects) |
+| one   | DELETE | 'catalog/object/{object_id}' | object_id: "id"         |                          | [Delete one](https://developer.squareup.com/reference/square/catalog-api/delete-catalog-object)          |
+|       |        |                              |                         | deleted_objects_ids: [ ] |                                                                                                          |
+|       |        |                              |                         | deleted_at: str          |                                                                                                          |
 
 ### UPDATE - Taxes - Modifier Lists
 
 < > Same except for the endpoint, method, and names of body properties
 
-|                | Method | Resource Location                    | Body Properties                        | Square Docs                                                                                                     |
-| -------------- | ------ | ------------------------------------ | -------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| item Taxes     | POST   | 'catalog/update-item-taxes'          | item_ids: ["id", ...]                  | [Update taxes](https://developer.squareup.com/reference/square/catalog-api/update-item-taxes)                   |
+|                | Method | Resource Location                    | Body Properties                        | Response Fields | Square Docs                                                                                                     | Short notes |
+| -------------- | ------ | ------------------------------------ | -------------------------------------- | --------------- | --------------------------------------------------------------------------------------------------------------- | ----------- |
+| item Taxes     | POST   | 'catalog/update-item-taxes'          |                                        |                 | [Update taxes](https://developer.squareup.com/reference/square/catalog-api/update-item-taxes)                   |
+|                |        |                                      | item_ids: ["id", ...]                  |
 |                |        |                                      | modifier_lists_to_enable: ["id", ...]  |
 |                |        |                                      | modifier_lists_to_disable: ["id", ...] |
-| Modifier Lists | POST   | 'catalog/update-item-modifier-lists' | item_ids: ["id", ...]                  | [Update modifier lists](https://developer.squareup.com/reference/square/catalog-api/update-item-modifier-lists) |
+| Modifier Lists | POST   | 'catalog/update-item-modifier-lists' | item_ids: ["id", ...]                  |                 | [Update modifier lists](https://developer.squareup.com/reference/square/catalog-api/update-item-modifier-lists) |
 |                |        |                                      | taxes_to_enable: ["id", ...]           |
 |                |        |                                      | taxes_to_disable: ["id", ...]          |
+|                |        |                                      |                                        | updated_at: str |
 
 ### SEARCH - Items
 
-|     | Method | Resource Location              | Body Properties                   | Square Docs                                                                                |
-| --- | ------ | ------------------------------ | --------------------------------- | ------------------------------------------------------------------------------------------ |
-|     | POST   | 'catalog/search-catalog-items' | ^^^text_filter: Str               | [Search](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items) |
+|     | Method | Resource Location              | Body Properties                   | Response Fields | Square Docs                                                                                | Short notes        |
+| --- | ------ | ------------------------------ | --------------------------------- | --------------- | ------------------------------------------------------------------------------------------ | ------------------ |
+|     | POST   | 'catalog/search-catalog-items' |                                   |                 | [Search](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items) |
+|     |        |                                | ^^^text_filter: Str               |                 |                                                                                            |
 |     |        |                                | category_ids: ["id", ...]         |
 |     |        |                                | ^^^stock_levels: Str              |
 |     |        |                                | enabled_location_ids: ["id", ...] |
@@ -76,19 +93,32 @@ upsert.one() and upsert.many() or upsert.alot()
 |     |        |                                | ^^^sort_order: Str                |
 |     |        |                                | ^^^product_types: []              |
 |     |        |                                | ^^^custom_attribute_filters: []   |
+|     |        |                                |                                   | items: [ ]      |                                                                                            | returns no objects |
 
 ### SEARCH - Objects
 
-|     | Method | Resource Location | Body Properties                  | Square Docs                                                                                  | Short notes             |
-| --- | ------ | ----------------- | -------------------------------- | -------------------------------------------------------------------------------------------- | ----------------------- |
-|     | POST   | 'catalog/search'  |                                  | [Search](https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects) |
-|     |        |                   | cursor: Str                      |
-|     |        |                   | ^^^object_types: [Str, ...]      |
+|     | Method | Resource Location | Body Properties                  | Response Fields      | Square Docs                                                                                  | Short notes |
+| --- | ------ | ----------------- | -------------------------------- | -------------------- | -------------------------------------------------------------------------------------------- | ----------- |
+|     | POST   | 'catalog/search'  |                                  |                      | [Search](https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects) |
+|     |        |                   | cursor: str                      |
+|     |        |                   | ^^^object_types: [str, ...]      |
 |     |        |                   | include_deleted_objects: boolean |
 |     |        |                   | include_related_objects: boolean |
 |     |        |                   | begin_time: str                  |
-|     |        |                   | ^^^query: CatalogQuery           |                                                                                              | Might be complicated... |
+|     |        |                   | ^^^query: CatalogQuery           |                      | Might be complicated...                                                                      |
 |     |        |                   | Limit: Number 1-100              |
+|     |        |                   |                                  | objects: [ ]         |
+|     |        |                   |                                  | related_objects: [ ] |
+
+### lIST - Objects
+
+|     | Method | Resource Location | Body Properties      | Response Fields | Square Docs                                                                      | Short notes |
+| --- | ------ | ----------------- | -------------------- | --------------- | -------------------------------------------------------------------------------- | ----------- |
+|     | GET    | 'catalog/list'    |                      |                 | [List](https://developer.squareup.com/reference/square/catalog-api/list-catalog) |
+|     |        |                   | cursor : str         |                 |
+|     |        |                   | ^^^types: str,csv    |                 |
+|     |        |                   | catalog_version: int |                 |
+|     |        |                   |                      | objects: [ ]    |
 
 ###Post
 
@@ -97,4 +127,3 @@ Post 3: Create - upload an image -- CAREFUL - this one can cause DB bloat! it al
 
 ###GET
 Get: Info - definitely its own thing - just returns a set of parameters you must live by\
-Get: List - Except for the method this is very similar to Search (this one uses 'type' only)
