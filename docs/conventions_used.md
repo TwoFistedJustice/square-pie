@@ -9,3 +9,4 @@
 | someName^^^  | a name followed by three carets means the expected value has specific requirements such as specific string values or a predifined object type. |
 | " val "      | Generic name for an argument passed to a function                                                                                              |
 | someName [ ] | Indicates an array of the named type                                                                                                           |
+| < >          | A note or comment, meant to be displayed to the end user                                                                                       |
