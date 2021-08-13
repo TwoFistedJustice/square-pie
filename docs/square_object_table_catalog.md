@@ -1,4 +1,4 @@
-#Square Catalog Items
+#Square Catalog Items - current as of Version 2021-07-21
 These tables are arranged to help us understand how to implement, NOT to model Square's data structure.\
 [Tables based on Square Docs for Catalog Object](https://developer.squareup.com/reference/square/enums/CatalogObjectType)
 
