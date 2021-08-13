@@ -1,16 +1,3 @@
-const {
-  square_customer,
-  customer_list,
-  customer_add,
-} = require("./customer_prep");
-
-const { sampleCustomers } = require("./sample_customer_data");
-const customers = sampleCustomers();
-const buffy = customers.buffy;
-const jason = customers.jason;
-const fred = customers.fred;
-const freddie = customers.freddie;
-
 console.log("Beginning data configuration.");
 /*
  *  Set up new configurations by making a function to call the http request functions,
@@ -19,6 +6,18 @@ console.log("Beginning data configuration.");
 
 const set_up_customer_DB_for_tests = async function () {
   console.log("Setting up customer data");
+  const {
+    customer_list,
+    customer_add,
+    customer_delete,
+  } = require("./customer_prep");
+  const { sampleCustomers } = require("./sample_customer_data");
+  const customers = sampleCustomers();
+  const buffy = customers.buffy;
+  const jason = customers.jason;
+  const fred = customers.fred;
+  const freddie = customers.freddie;
+
   // count the customers stored in sandbox
   let customerList = await customer_list();
   //if there are none, add four and return
@@ -32,7 +31,7 @@ const set_up_customer_DB_for_tests = async function () {
   // if there are some, delete them all then add four
   // mikey will be added during the tests
   customerList.forEach(async (customer) => {
-    await square_customer("delete", customer.id);
+    await customer_delete(customer.id);
   });
   await customer_add(buffy);
   await customer_add(jason);

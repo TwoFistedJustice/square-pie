@@ -3,9 +3,6 @@ const should = require("chai").should();
 const { sampleCustomers } = require("./data_preparation/sample_customer_data");
 const customers = sampleCustomers();
 const buffy = customers.buffy;
-// const jason = customers.jason;
-// const fred = customers.fred;
-// const freddie = customers.freddie;
 const mikey = customers.mikey;
 
 const {
