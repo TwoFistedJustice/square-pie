@@ -4,13 +4,20 @@
 | ----------------- | ----- | ----------- | ----------- |
 | SquareRequest     | none  | yes         |
 
-| Level Two Classes | Super          | Implemented | Short Notes |
-| ----------------- | -------------- | ----------- | ----------- |
-| Catalog_URDU      | Square_Request | !           |
-| Catalog_Search    | Square_Request | !           |
-| Catalog_Info      | Square_Request | !           |
-| Catalog_list      | Square_Request | !           |
-| Catalog_Image     | Square_Request | !           |
+#Catalog_Request
+api_name: 'catalog
+
+| Level Two Classes | Super         | Implemented | Short Notes |
+| ----------------- | ------------- | ----------- | ----------- |
+| Catalog_Request   | SquareRequest | !           |
+
+| Level Three Classes | Super          | Implemented | Short Notes |
+| ------------------- | -------------- | ----------- | ----------- |
+| Catalog_URDU        | Square_Request | !           |
+| Catalog_Search      | Square_Request | !           |
+| Catalog_Info        | Square_Request | !           |
+| Catalog_list        | Square_Request | !           |
+| Catalog_Image       | Square_Request | !           |
 
 #URDU ( Upsert Retrieve Update Delete)
 method: post
@@ -27,7 +34,7 @@ method: get
 #create image
 method: get
 
-| Level Three Classes    | Super          | Implemented | Short Notes |
+| Level Four Classes     | Super          | Implemented | Short Notes |
 | ---------------------- | -------------- | ----------- | ----------- |
 | Catalog_Upsert         | Catalog_URDU   | !           |
 | Catalog_Retrieve       | Catalog_URDU   | !           |
