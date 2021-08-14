@@ -4,7 +4,7 @@
   "description": "an easy to use class based chainable interface for accessing the Square API.",
   "main": "index.js",
   "scripts": {
-    "setTest": "node tests/setup_test.js",
+    "setTest": "node tests/data_preparation/setup_test.js",
     "test": "jest",
     "clunk": "nodemon tests/clunky_test.js",
     "prettier:check": "prettier --ignore-path .prettierignore --check '**/*.{js,jsw,jsx, json,md}'",
