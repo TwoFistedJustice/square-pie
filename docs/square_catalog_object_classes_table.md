@@ -1,5 +1,5 @@
 #Square Catalog Items - current as of Version 2021-07-21
-These tables are arranged to help us understand how to implement, NOT to model Square's data structure.\
+###These tables are arranged to help us understand how to implement, NOT to model Square's data structure.
 [Tables based on Square Docs for Catalog Object](https://developer.squareup.com/reference/square/enums/CatalogObjectType)
 
 ###Observations
@@ -23,19 +23,30 @@ Solution: Use fewer classes and use mixins
 | ----------------- | ----- | ---------- | ----------- | ----------- | -------------------------------------------------------------------------------------- |
 | CatalogObject     | none  | yes        | !           |             | [CatalogObject](https://developer.squareup.com/reference/square/objects/CatalogObject) |
 
-| Level Two Objects           | Super         | Idempotent | Short Notes | Implemented | Square Doc                                                                                                         |
-| --------------------------- | ------------- | ---------- | ----------- | ----------- | ------------------------------------------------------------------------------------------------------------------ |
-| Item                        | CatalogObject | super      |             | !           | [ ITEM ](https://developer.squareup.com/reference/square/objects/CatalogItem)                                      |
-| Item_Variation              | CatalogObject | super      |             | !           | [ ITEM_VARIATION](https://developer.squareup.com/reference/square/objects/CatalogItemVariation)                    |
-| Modifier                    | CatalogObject | super      |             | !           | [ MODIFIER](https://developer.squareup.com/reference/square/objects/CatalogModifier)                               |
-| Category                    | CatalogObject | super      |             | !           | [CATEGORY](https://developer.squareup.com/reference/square/objects/CatalogCategory)                                |
-| Discount                    | CatalogObject | super      |             | !           | [DISCOUNT](https://developer.squareup.com/reference/square/objects/CatalogDiscount)                                |
-| Pricing_Rule                | CatalogObject | super      |             | !           | [PRICING_RULE](https://developer.squareup.com/reference/square/objects/CatalogPricingRule)                         |
-| Tax                         | CatalogObject | super      |             | !           | [TAX](https://developer.squareup.com/reference/square/objects/CatalogTax)                                          |
-| Quick_Amount_Setting        | CatalogObject | super      |             | !           | [QUICK_AMOUNT_SETTINGS](https://developer.squareup.com/reference/square/objects/CatalogQuickAmountsSettings)       |
-| Custom_Attribute_Definition | CatalogObject | super      |             | !           | [CUSTOM_ATTRIBUTE_DEFINITION](https://developer.squareup.com/reference/square/objects/CatalogCustomAttributeValue) |
+| Level Two Objects           | Priority | Super         | Idempotent | Short Notes | Implemented | Square Doc                                                                                                         |
+| --------------------------- | -------- | ------------- | ---------- | ----------- | ----------- | ------------------------------------------------------------------------------------------------------------------ |
+| Category                    | PRIORITY | CatalogObject | super      |             | !           | [CATEGORY](https://developer.squareup.com/reference/square/objects/CatalogCategory)                                |
+| Custom_Attribute_Definition |          | CatalogObject | super      |             | !           | [CUSTOM_ATTRIBUTE_DEFINITION](https://developer.squareup.com/reference/square/objects/CatalogCustomAttributeValue) |
+| Discount                    |          | CatalogObject | super      |             | !           | [DISCOUNT](https://developer.squareup.com/reference/square/objects/CatalogDiscount)                                |
+| Image                       |          | CatalogObject | super      |             | !           | [IMAGE]()                                                                                                          |
+| Item                        | PRIORITY | CatalogObject | super      |             | !           | [ITEM ](https://developer.squareup.com/reference/square/objects/CatalogItem)                                       |
+| Item_Variation              | PRIORITY | CatalogObject | super      |             | !           | [ITEM_VARIATION](https://developer.squareup.com/reference/square/objects/CatalogItemVariation)                     |
+| Measurement_Unit            |          | CatalogObject | super      |             | !           | [MEASUREMENT_UNIT]()                                                                                               |
+| Modifier                    |          | CatalogObject | super      |             | !           | [MODIFIER](https://developer.squareup.com/reference/square/objects/CatalogModifier)                                |
+| Modifier_List               |          | CatalogObject | super      |             | !           | [MODIFIER_LIST]()                                                                                                  |
+| Pricing_Rule                |          | CatalogObject | super      |             | !           | [PRICING_RULE](https://developer.squareup.com/reference/square/objects/CatalogPricingRule)                         |
+| Product_Set                 |          | CatalogObject | super      |             | !           | [PRODUCT_SET]()                                                                                                    |
+| Quick_Amounts_Setting       |          | CatalogObject | super      |             | !           | [QUICK_AMOUNT_SETTINGS](https://developer.squareup.com/reference/square/objects/CatalogQuickAmountsSettings)       |
+| Tax                         | PRIORITY | CatalogObject | super      |             | !           | [TAX](https://developer.squareup.com/reference/square/objects/CatalogTax)                                          |
+| Time_Period                 |          | CatalogObject | super      |             | !           | [TIME_PERIOD]()                                                                                                    |
 
-## CatalogObject Object
+###Catalog_Object class
+|Property | Type | Char Limit
+
+- sets idempotency key
+- sets name
+
+## CatalogObject
 
 ### Body Properties
 
