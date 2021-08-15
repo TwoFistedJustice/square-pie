@@ -1,6 +1,10 @@
 const { v4: uuidv4 } = require("uuid");
 uuidv4();
 
+//ToDO: refactor to make CatObj just a wrapper
+//ToDO refactor Helper into a Level One Super
+//ToDO Add .parcel method CatObj
+
 class Catalog_Object {
   constructor() {
     this._idempotency_key = uuidv4();
@@ -9,15 +13,13 @@ class Catalog_Object {
   get idempotency_key() {
     return this._idempotency_key;
   }
-
   // SETTERS
-
   set idempotency_key(nothing) {
     // sets a new key, argument required but doesn't do anything
     this._idempotency_key = uuidv4();
   }
-
-  maxLength(max, str) {
+  //TODO move to Helper_Name
+  maxLength(max, str = "") {
     if (str.length > max) {
       throw new Error(`Surpassed maximum character limit of ${max}.\n${str}`);
     }
@@ -25,29 +27,64 @@ class Catalog_Object {
   }
 }
 
-class Category extends Catalog_Object {
+class Helper_Name extends Catalog_Object {
   constructor(name) {
     super();
-    this._type = "CATEGORY";
+    this.character_limit = 255;
     this._name;
     this.name = name;
+  }
+  get name() {
+    return this._name;
+  }
+  set name(str) {
+    if (this.maxLength(this.character_limit, str)) {
+      this._name = str;
+    }
+  }
+}
+
+/*
+ {
+          "type": "CATEGORY",
+          "id": "#Beverages",
+          "present_at_all_locations": true,
+          "category_data": {
+            "name": "Beverages"
+          }
+        }
+ 
+* */
+
+class Category extends Helper_Name {
+  constructor(name) {
+    super(name);
+    this._type = "CATEGORY";
+    this._present_at_all_locations = true;
   }
   get type() {
     return this._type;
   }
-
-  get name() {
-    return this._name;
+  get present_at_all_locations() {
+    return this._this._present_at_all_locations;
   }
+
   set type(bool) {
     this._type = "CATEGORY";
   }
+  set present_at_all_locations(bool) {
+    this._present_at_all_locations = bool;
+  }
 
-  set name(str) {
-    let max = 255;
-    if (this.maxLength(max, str)) {
-      this._name = str;
-    }
+  parcel() {
+    return {
+      type: this.type,
+      id: `#${this.name}`,
+      present_at_all_locations: this.present_at_all_locations,
+      category_data: {
+        name: this.name,
+      },
+    };
   }
 }
 
@@ -56,13 +93,12 @@ class Category extends Catalog_Object {
 // or a have a method that instantiates this class?
 // or require the user to make one, then when it's added to an item
 // the item_id gets set then
-class Item_Variation extends Catalog_Object {
+class Item_Variation extends Helper_Name {
   constructor(item_id, name) {
     super(name);
     this._type = "ITEM_VARIATION";
     // id of associated item
     this._item_id = item_id; //must be set by Item class
-    this._name = name; // 255
     this._sku; // can it be validated?
     this._upc; // can it be validated? min ln:12 max ln:14
     this._pricing_type; // [ CHAIN ]
@@ -87,13 +123,6 @@ class Item_Variation extends Catalog_Object {
   get type() {
     return this._type;
   }
-  get name() {
-    return this._name;
-  }
-
-  set name(str) {
-    this._name = str;
-  }
   set type(bool) {
     this._type = "ITEM_VARIATION";
   }
@@ -105,11 +134,10 @@ class Item_Variation extends Catalog_Object {
   spawn() {}
 }
 
-class Item extends Catalog_Object {
-  constructor(name) {
+class Item extends Helper_Name {
+  constructor() {
     super();
     this._type = "ITEM";
-    this._name = name; // 255
     this._description;
     this._abbreviation;
     this._category_id; // have a config file for this? so user doesn't have to deal with id codes?
@@ -129,19 +157,13 @@ class Item extends Catalog_Object {
   get type() {
     return this._type;
   }
-  get name() {
-    return this._name;
-  }
-
-  set name(str) {
-    this._name = str;
-  }
   set type(bool) {
     this._type = "ITEM";
   }
 }
 
 module.exports = {
+  Helper_Name,
   Category,
   Item,
   Item_Variation,
