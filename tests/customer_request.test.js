@@ -27,7 +27,7 @@ describe("Customer Request Classes", () => {
   jest.useFakeTimers();
 
   describe("Customer List", () => {
-    test("Should fetch the list of customers", async () => {
+    test.only("Should fetch the list of customers", async () => {
       let customerList = new CustomerList();
       // let response = await customerList.makeRequest();
       await customerList.makeRequest();
