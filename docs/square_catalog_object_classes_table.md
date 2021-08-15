@@ -22,6 +22,7 @@ Solution: Use fewer classes and use mixins
 | Level One Objects | Super | Idempotent | Implemented | Unit Tests in Place | Short Notes | Square Doc                                                                             |
 | ----------------- | ----- | ---------- | ----------- | ------------------- | ----------- | -------------------------------------------------------------------------------------- |
 | CatalogObject     | none  | yes        | !           | !                   |             | [CatalogObject](https://developer.squareup.com/reference/square/objects/CatalogObject) |
+|                   |       |            | !           | !                   |             | [Catalog Overview](https://developer.squareup.com/docs/catalog-api/what-it-does)       |
 
 | Level One Objects           | Priority | Super         | Idempotent | Implemented | Unit Tests in Place | Square Doc                                                                                                         | Short Notes |
 | --------------------------- | -------- | ------------- | ---------- | ----------- | ------------------- | ------------------------------------------------------------------------------------------------------------------ | ----------- |
@@ -45,6 +46,9 @@ Solution: Use fewer classes and use mixins
 
 - sets idempotency key
 - sets name
+
+###Catalog_Item_Variation
+.\_parent_id : id of the item it belongs to
 
 ## CatalogObject
 
@@ -82,6 +86,7 @@ Solution: Use fewer classes and use mixins
 | Class    | Super.propertyName | Sub properties           | Value Type                     | Short Notes                                                            | Implemented |
 | -------- | ------------------ | ------------------------ | ------------------------------ | ---------------------------------------------------------------------- | ----------- |
 | **Item** | item_data          |                          | CatalogItem                    |                                                                        | !           |
+|          |                    | name                     | string                         |
 |          |                    | abbreviation             | string                         | Max length: 24                                                         |
 |          |                    | available_electronically | boolean                        |
 |          |                    | available_for_pickup     | boolean                        |
@@ -91,7 +96,6 @@ Solution: Use fewer classes and use mixins
 |          |                    | item_options             | CatalogItemOptionForItem [ ]   | _Method generated_                                                     |
 |          |                    | label_color              | string                         |
 |          |                    | modifier_list_info       | CatalogItemModifierListInfo [] |
-|          |                    | name                     | string                         |
 |          |                    | product_type             | string                         |
 |          |                    | skip_modifier_screen     | boolean                        |
 |          |                    | sort_name                | string                         | supported only in Japan as of 7/21/21                                  |
@@ -133,7 +137,7 @@ Solution: Use fewer classes and use mixins
 | Class             | Super.propertyName  | Sub properties            | Value Type                                 | Short Notes                                            | Implemented |
 | ----------------- | ------------------- | ------------------------- | ------------------------------------------ | ------------------------------------------------------ | ----------- |
 | **itemVariation** | item_variation_data |                           | CatalogItemVariation                       |                                                        | !           |
-|                   |                     | item_id                   | string                                     |
+|                   |                     | item_id (constructor arg) | string                                     | of associated item                                     |
 |                   |                     | name                      | string                                     | Max length: 255                                        |
 |                   |                     | sku                       | string                                     |
 |                   |                     | upc                       | string                                     | They check this value for conformity and punish misuse |
