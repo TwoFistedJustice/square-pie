@@ -1,5 +1,5 @@
 #Square Catalog Items - current as of Version 2021-07-21
-These tables are arranged to help us understand how to implement, NOT to model Square's data structure.\
+###These tables are arranged to help us understand how to implement, NOT to model Square's data structure.
 [Tables based on Square Docs for Catalog Object](https://developer.squareup.com/reference/square/enums/CatalogObjectType)
 
 ###Observations
@@ -19,23 +19,40 @@ BECAUSE the upsert features are primarily designed to work with BATCHES\
 Using discrete classes and subclasses prevents us from layering on more data to an item.
 Solution: Use fewer classes and use mixins
 
-| Level One Objects | Super | Idempotent | Implemented | Short Notes | Square Doc                                                                             |
-| ----------------- | ----- | ---------- | ----------- | ----------- | -------------------------------------------------------------------------------------- |
-| CatalogObject     | none  | yes        | !           |             | [CatalogObject](https://developer.squareup.com/reference/square/objects/CatalogObject) |
+### Catalog_Object super should just be a WRAPPER - and not a super at all
 
-| Level Two Objects           | Super         | Idempotent | Short Notes | Implemented | Square Doc                                                                                                         |
-| --------------------------- | ------------- | ---------- | ----------- | ----------- | ------------------------------------------------------------------------------------------------------------------ |
-| Item                        | CatalogObject | super      |             | !           | [ ITEM ](https://developer.squareup.com/reference/square/objects/CatalogItem)                                      |
-| Item_Variation              | CatalogObject | super      |             | !           | [ ITEM_VARIATION](https://developer.squareup.com/reference/square/objects/CatalogItemVariation)                    |
-| Modifier                    | CatalogObject | super      |             | !           | [ MODIFIER](https://developer.squareup.com/reference/square/objects/CatalogModifier)                               |
-| Category                    | CatalogObject | super      |             | !           | [CATEGORY](https://developer.squareup.com/reference/square/objects/CatalogCategory)                                |
-| Discount                    | CatalogObject | super      |             | !           | [DISCOUNT](https://developer.squareup.com/reference/square/objects/CatalogDiscount)                                |
-| Pricing_Rule                | CatalogObject | super      |             | !           | [PRICING_RULE](https://developer.squareup.com/reference/square/objects/CatalogPricingRule)                         |
-| Tax                         | CatalogObject | super      |             | !           | [TAX](https://developer.squareup.com/reference/square/objects/CatalogTax)                                          |
-| Quick_Amount_Setting        | CatalogObject | super      |             | !           | [QUICK_AMOUNT_SETTINGS](https://developer.squareup.com/reference/square/objects/CatalogQuickAmountsSettings)       |
-| Custom_Attribute_Definition | CatalogObject | super      |             | !           | [CUSTOM_ATTRIBUTE_DEFINITION](https://developer.squareup.com/reference/square/objects/CatalogCustomAttributeValue) |
+| Level One Objects | Super          | Idempotent | Implemented      | Unit Tests in Place | Short Notes                                 | Square Doc                                                                             |
+| ----------------- | -------------- | ---------- | ---------------- | ------------------- | ------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Catalog_Object    | none           | yes        | ! Catalog_Object | !                   |                                             | [CatalogObject](https://developer.squareup.com/reference/square/objects/CatalogObject) |
+| Helper_Name       | Catalog_Object | no         |                  |                     | Owns name property - validates length limit | none                                                                                   |
 
-## CatalogObject Object
+| Level X Objects             | Priority  | Super       | Idempotent | Implemented | Unit Tests in Place | Square Doc                                                                                                         | Short Notes                     |
+| --------------------------- | --------- | ----------- | ---------- | ----------- | ------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------- |
+| Category                    | PRIORITY  | Helper_Name | no         |             |                     | [CATEGORY](https://developer.squareup.com/reference/square/objects/CatalogCategory)                                |
+| Item                        | PRIORITY  | Helper_Name | no         | !           | !                   | [ITEM ](https://developer.squareup.com/reference/square/objects/CatalogItem)                                       |
+| Item_Variation              | PRIORITY  | Helper_Name | no         | !           | !                   | [ITEM_VARIATION](https://developer.squareup.com/reference/square/objects/CatalogItemVariation)                     |
+| Tax                         | PRIORITY  | Helper_Name | no         | !           | !                   | [TAX](https://developer.squareup.com/reference/square/objects/CatalogTax)                                          |
+| Custom_Attribute_Definition |           | Helper_Name | no         | !           | !                   | [CUSTOM_ATTRIBUTE_DEFINITION](https://developer.squareup.com/reference/square/objects/CatalogCustomAttributeValue) |
+| Discount                    |           | Helper_Name | no         | !           | !                   | [DISCOUNT](https://developer.squareup.com/reference/square/objects/CatalogDiscount)                                |
+| Image                       |           | Helper_Name | no         | !           | !                   | [IMAGE]()                                                                                                          |
+| !!! Measurement_Unit        | property? | ?           | no         | !           | !                   | [MEASUREMENT_UNIT](https://developer.squareup.com/reference/square/objects/CatalogMeasurementUnit)                 | Better as a property on a class |
+| Modifier                    |           | Helper_Name | no         | !           | !                   | [MODIFIER](https://developer.squareup.com/reference/square/objects/CatalogModifier)                                |
+| Modifier_List               |           | Helper_Name | no         | !           | !                   | [MODIFIER_LIST]()                                                                                                  |
+| Pricing_Rule                |           | Helper_Name | no         | !           | !                   | [PRICING_RULE](https://developer.squareup.com/reference/square/objects/CatalogPricingRule)                         |
+| Product_Set                 |           | Helper_Name | no         | !           | !                   | [PRODUCT_SET](https://developer.squareup.com/reference/square/objects/CatalogProductSet)                           |
+| Quick_Amounts_Setting       | property? | ?           | no         | !           | !                   | [QUICK_AMOUNT_SETTINGS](https://developer.squareup.com/reference/square/objects/CatalogQuickAmountsSettings)       |
+| Time_Period                 | property? | ?           | no         | !           | !                   | [TIME_PERIOD]()                                                                                                    |
+
+###Catalog_Object class
+|Property | Type | Char Limit
+
+- sets idempotency key
+- sets name
+
+###Catalog_Item_Variation
+.\_parent_id : id of the item it belongs to
+
+## CatalogObject
 
 ### Body Properties
 
@@ -71,6 +88,7 @@ Solution: Use fewer classes and use mixins
 | Class    | Super.propertyName | Sub properties           | Value Type                     | Short Notes                                                            | Implemented |
 | -------- | ------------------ | ------------------------ | ------------------------------ | ---------------------------------------------------------------------- | ----------- |
 | **Item** | item_data          |                          | CatalogItem                    |                                                                        | !           |
+|          |                    | name                     | string                         |
 |          |                    | abbreviation             | string                         | Max length: 24                                                         |
 |          |                    | available_electronically | boolean                        |
 |          |                    | available_for_pickup     | boolean                        |
@@ -80,7 +98,6 @@ Solution: Use fewer classes and use mixins
 |          |                    | item_options             | CatalogItemOptionForItem [ ]   | _Method generated_                                                     |
 |          |                    | label_color              | string                         |
 |          |                    | modifier_list_info       | CatalogItemModifierListInfo [] |
-|          |                    | name                     | string                         |
 |          |                    | product_type             | string                         |
 |          |                    | skip_modifier_screen     | boolean                        |
 |          |                    | sort_name                | string                         | supported only in Japan as of 7/21/21                                  |
@@ -122,7 +139,7 @@ Solution: Use fewer classes and use mixins
 | Class             | Super.propertyName  | Sub properties            | Value Type                                 | Short Notes                                            | Implemented |
 | ----------------- | ------------------- | ------------------------- | ------------------------------------------ | ------------------------------------------------------ | ----------- |
 | **itemVariation** | item_variation_data |                           | CatalogItemVariation                       |                                                        | !           |
-|                   |                     | item_id                   | string                                     |
+|                   |                     | item_id (constructor arg) | string                                     | of associated item                                     |
 |                   |                     | name                      | string                                     | Max length: 255                                        |
 |                   |                     | sku                       | string                                     |
 |                   |                     | upc                       | string                                     | They check this value for conformity and punish misuse |
