@@ -129,20 +129,22 @@ Wrapper Class
 - Automatically adjusts it's payload form for one or many objects.
 
 Usage:
-Instantiate the wrap
-const foo = new Catalog_Object_Wrapper()
+Instantiate the wrap\
+
+`const foo = new Catalog_Object_Wrapper()`
 
 Cram in one or more Catalog Objects you created. Don't be gentle, it can eat as many as you serve up.
 
-foo.attach(obj).attach(obj)
-Or another way to do the same thing.
-foo.add(obj).add(obj)
+`foo.attach(obj).attach(obj)`
+Or
+`foo.add(obj).add(obj)`
 
-Tell it when you are done adding objects.
-foo.finalize()
-The correctly formatted catalog object payload now sits on the fardel property.
-payload = foo.fardel;
+Tell it when you are done adding objects.\
+`foo.finalize()`
+
+The correctly formatted catalog object payload now sits on the fardel property.\
+`let payload = foo.fardel;`
 
 **Category**\
-const someCategory = new Category("The name you chose for it");
+`const someCategory = new Category("The name you chose for it")`\
 You are done.
