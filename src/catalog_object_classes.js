@@ -2,34 +2,131 @@ const { v4: uuidv4 } = require("uuid");
 uuidv4();
 
 //ToDO: refactor to make CatObj just a wrapper
-//ToDO refactor Helper into a Level One Super
 //ToDO Add .parcel method CatObj
 
+// instantiate class
+// class.attach(stuff).attach(stuff)
+// class.attach(stuff-I-forgot)
+//class.add(same-as-attach)
+// class.finalize() // todo extract this step out
+// send out class.fardel
 class Catalog_Object {
   constructor() {
-    this._idempotency_key = uuidv4();
+    // this._idempotency_key = uuidv4();
+    this._idempotency_key = "something unique";
+    this._fardel = {
+      idempotency_key: this._idempotency_key,
+    };
+    this._payload;
   }
   // GETTERS
   get idempotency_key() {
     return this._idempotency_key;
   }
+  get payload() {
+    return this._payload;
+  }
+  get fardel() {
+    return this._fardel;
+  }
   // SETTERS
   set idempotency_key(nothing) {
     // sets a new key, argument required but doesn't do anything
-    this._idempotency_key = uuidv4();
+    // this._idempotency_key = uuidv4();
+    this._idempotency_key = "something unique";
   }
-  //TODO move to Helper_Name
-  maxLength(max, str = "") {
-    if (str.length > max) {
-      throw new Error(`Surpassed maximum character limit of ${max}.\n${str}`);
+  set fardel_one(parcel) {
+    if (typeof parcel !== "object" || Array.isArray(parcel)) {
+      throw new TypeError("Parcel must be a curly brace Object.");
     }
-    return true;
+
+    if (Object.prototype.hasOwnProperty.call(this._fardel, "objects")) {
+      delete this._fardel.objects;
+      // } else if (!this._fardel.hasOwnProperty("object")) {
+    } else if (!Object.prototype.hasOwnProperty.call(this._fardel, "object")) {
+      Object.defineProperty(this._fardel, "object", {
+        value: parcel,
+        writable: true,
+      });
+    } else {
+      this._fardel.object = parcel;
+    }
+  }
+
+  set fardel_many(parcel) {
+    if (!Array.isArray(parcel)) {
+      throw new TypeError("Parcel must be an array.");
+    }
+    if (Object.prototype.hasOwnProperty.call(this._fardel, "object")) {
+      delete this._fardel.object;
+    } else if (!Object.prototype.hasOwnProperty.call(this._fardel, "objects")) {
+      Object.defineProperty(this._fardel, "objects", {
+        value: parcel,
+        writable: true,
+      });
+    } else {
+      this._fardel.objects = parcel;
+    }
+  }
+
+  set payload_one(parcel) {
+    this._payload = parcel;
+  }
+  set payload_array(parcel) {
+    this._payload.push(parcel);
+  }
+
+  attach(parcel) {
+    if (this.payload === undefined) {
+      this.payload_one = parcel;
+    } else if (
+      typeof (this.payload === "object") &&
+      !Array.isArray(this.payload)
+    ) {
+      let cache = this.payload;
+      this.payload_one = [];
+      this.payload_array = cache;
+      this.payload_array = parcel;
+    } else if (Array.isArray(this.payload)) {
+      this.payload_array = parcel;
+    } else {
+      throw new TypeError(
+        "Catalog Object attach method error. Make sure you passed in a Catalog Object"
+      );
+    }
+    return this;
+  }
+  // because I keep calling add, even though it's supposed to be attach
+  add(parcel) {
+    this.attach(parcel);
+    return this;
+  }
+
+  finalize() {
+    // the needs of the many outweigh the needs of the few, or the one
+    if (Array.isArray(this.payload)) {
+      this.fardel_many = this.payload;
+    } else {
+      this.fardel_one = this.payload;
+    }
   }
 }
 
-class Helper_Name extends Catalog_Object {
+var a = { a: 1 };
+var b = { b: 2 };
+var c = { c: 3 };
+var d = { d: 4 };
+var e = { e: 5 };
+var thing = new Catalog_Object();
+thing.attach(a);
+thing.add(b).attach(c).add(d);
+thing.attach(e);
+thing.finalize();
+console.log(thing.payload);
+console.log(thing.fardel);
+
+class Helper_Name {
   constructor(name) {
-    super();
     this.character_limit = 255;
     this._name;
     this.name = name;
@@ -42,19 +139,13 @@ class Helper_Name extends Catalog_Object {
       this._name = str;
     }
   }
+  maxLength(max, str = "") {
+    if (str.length > max) {
+      throw new Error(`Surpassed maximum character limit of ${max}.\n${str}`);
+    }
+    return true;
+  }
 }
-
-/*
- {
-          "type": "CATEGORY",
-          "id": "#Beverages",
-          "present_at_all_locations": true,
-          "category_data": {
-            "name": "Beverages"
-          }
-        }
- 
-* */
 
 class Category extends Helper_Name {
   constructor(name) {
@@ -66,7 +157,7 @@ class Category extends Helper_Name {
     return this._type;
   }
   get present_at_all_locations() {
-    return this._this._present_at_all_locations;
+    return this._present_at_all_locations;
   }
 
   set type(bool) {
