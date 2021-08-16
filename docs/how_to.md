@@ -34,6 +34,20 @@ The simplest example is fetching a list of customers:
 - Set the endpoint for the http request (api name)
 - provide details to the http request (like customer or invoice details)
 
+### Wrapper Classes
+
+- Will have "Wrapper" in the class name
+- Serves as a container for another object - Catalog Object Wrapper is an example
+- This the equivalent of the UPS truck, but in code.
+
+### Helper/Structural Classes
+
+- Will have "Helper" in the name or the name
+- Structural classes will be named with an acronym (URDU is an example Upsert Retrieve Delete Update)
+- Do not conform to anything in Square's actual API
+- Similar to a Mixin, but not a mixin
+- Carries common properties and methods for classes that do conform to something in Square's actual API
+
 ## Class Breakdowns
 
 **SquareRequest**\
@@ -71,7 +85,7 @@ Subclass of SquareRequest
 
 - sets the endpoint to the value of the ID
 
-## Customer Classes
+## Customer Request Classes
 
 **CustomerList**\
 Subclass of List
@@ -105,3 +119,30 @@ Subclass of Create
 - receives the http request body data via its 'customer' setter (foo = bar)
 - adds idempotency_key to request body
 - normalizes the email address in the input
+
+## Catalog Object Classes
+
+**Catalog_Object_Wrapper**\
+Wrapper Class
+
+- Holds all the Catalog Objects that get upserted
+- Automatically adjusts it's payload form for one or many objects.
+
+Usage:
+Instantiate the wrap
+const foo = new Catalog_Object_Wrapper()
+
+Cram in one or more Catalog Objects you created. Don't be gentle, it can eat as many as you serve up.
+
+foo.attach(obj).attach(obj)
+Or another way to do the same thing.
+foo.add(obj).add(obj)
+
+Tell it when you are done adding objects.
+foo.finalize()
+The correctly formatted catalog object payload now sits on the fardel property.
+payload = foo.fardel;
+
+**Category**\
+const someCategory = new Category("The name you chose for it");
+You are done.
