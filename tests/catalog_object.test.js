@@ -10,12 +10,17 @@ describe("Catalog: Helper_Name", () => {
   const helper = new Helper_Name();
   let just_right = "Just right";
   let too_long =
-    "ouwoiuwolakrusdspfvjknktuceglhhyemavhppauktqgxwnhfsfuvgdtrjxxcsuorblgukzyibvqdetdwetfjzvyooejafifnfnsqiqguojlthnrjoxxcimbqdkzrvmbtixiflmvkxcvtagwkyyelpahhmzciabaxcnjenaublzpzddkotoxcddsydyceggamrsuukxacgrqymmtogglpufrvfhoiueijldihluswluymcphzhmyzbpjwpjwcqnaawfhnn";
+    "ouwoiuwolakrusdspfvjknktuceglhhyemavhppauktqgxwnhfsfuvgdtrjxxcsuorblgukz" +
+    "yibvqdetdwetfjzvyooejafifnfnsqiqguojlthnrjoxxcimbqdkzrvmbtixiflmvkxcvtagw" +
+    "kyyelpahhmzciabaxcnjenaublzpzddkotoxcddsydyceggamrsuukxacgrqymmtogglpufrv" +
+    "fhoiueijldihluswluymcphzhmyzbpjwpjwcqnaawfhnn";
+
   test("Should accept a value that is less than 255 characters", () => {
     expect(() => {
       helper.name = just_right;
     }).not.toThrow();
   });
+
   test("Should reject a value that is more than 255 characters", () => {
     expect(() => {
       helper.name = too_long;
@@ -29,7 +34,11 @@ describe("Catalog: Category", () => {
   // const testValue = testSubject.parcel();
   const expected = {
     type: "CATEGORY",
-    name: name,
+    id: `#${name}`,
+    present_at_all_locations: true,
+    category_data: {
+      name: name,
+    },
   };
   test.only("Should have the expected name and type.", () => {
     expect(testSubject.parcel()).toMatchObject(expected);
