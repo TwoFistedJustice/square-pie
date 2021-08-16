@@ -1,19 +1,16 @@
 const { v4: uuidv4 } = require("uuid");
 uuidv4();
 
-//ToDO: refactor to make CatObj just a wrapper
-//ToDO Add .parcel method CatObj
-
 // instantiate class
 // class.attach(stuff).attach(stuff)
 // class.attach(stuff-I-forgot)
 //class.add(same-as-attach)
 // class.finalize() // todo extract this step out
 // send out class.fardel
-class Catalog_Object {
+//ToDO add ability to remove an item from payload array
+class Catalog_Object_Wrapper {
   constructor() {
-    // this._idempotency_key = uuidv4();
-    this._idempotency_key = "something unique";
+    this._idempotency_key = uuidv4();
     this._fardel = {
       idempotency_key: this._idempotency_key,
     };
@@ -32,16 +29,15 @@ class Catalog_Object {
   // SETTERS
   set idempotency_key(nothing) {
     // sets a new key, argument required but doesn't do anything
-    // this._idempotency_key = uuidv4();
-    this._idempotency_key = "something unique";
+    this._idempotency_key = uuidv4();
   }
   set fardel_one(parcel) {
     if (typeof parcel !== "object" || Array.isArray(parcel)) {
       throw new TypeError("Parcel must be a curly brace Object.");
     }
-
     if (Object.prototype.hasOwnProperty.call(this._fardel, "objects")) {
-      delete this._fardel.objects;
+      // delete this._fardel.objects;
+      this._fardel.objects = undefined;
       // } else if (!this._fardel.hasOwnProperty("object")) {
     } else if (!Object.prototype.hasOwnProperty.call(this._fardel, "object")) {
       Object.defineProperty(this._fardel, "object", {
@@ -58,7 +54,8 @@ class Catalog_Object {
       throw new TypeError("Parcel must be an array.");
     }
     if (Object.prototype.hasOwnProperty.call(this._fardel, "object")) {
-      delete this._fardel.object;
+      // delete this._fardel.object;
+      this._fardel.object = undefined;
     } else if (!Object.prototype.hasOwnProperty.call(this._fardel, "objects")) {
       Object.defineProperty(this._fardel, "objects", {
         value: parcel,
@@ -101,7 +98,8 @@ class Catalog_Object {
     this.attach(parcel);
     return this;
   }
-
+  // Todo try to eliminate this step
+  // integrate it into attach or something
   finalize() {
     // the needs of the many outweigh the needs of the few, or the one
     if (Array.isArray(this.payload)) {
@@ -111,19 +109,6 @@ class Catalog_Object {
     }
   }
 }
-
-var a = { a: 1 };
-var b = { b: 2 };
-var c = { c: 3 };
-var d = { d: 4 };
-var e = { e: 5 };
-var thing = new Catalog_Object();
-thing.attach(a);
-thing.add(b).attach(c).add(d);
-thing.attach(e);
-thing.finalize();
-console.log(thing.payload);
-console.log(thing.fardel);
 
 class Helper_Name {
   constructor(name) {
@@ -254,6 +239,7 @@ class Item extends Helper_Name {
 }
 
 module.exports = {
+  Catalog_Object_Wrapper,
   Helper_Name,
   Category,
   Item,
