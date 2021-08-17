@@ -1,0 +1,16 @@
+const { Catalog_Object_Wrapper } = require("./lib/catalog_object_wrapper");
+const { Catalog_Item } = require("./lib/catalog_object_item");
+const { Catalog_Category } = require("./lib/catalog_object_category");
+// const { Catalog_Object_ } = require("./lib/");
+// const { Catalog_Object_ } = require("./lib/");
+// const { Catalog_Object_ } = require("./lib/");
+
+const version = "1.0.0";
+const square_pie = {
+  version: version,
+  Catalog_Object_Wrapper: Catalog_Object_Wrapper,
+  Catalog_Item: Catalog_Item,
+  Catalog_Category: Catalog_Category,
+};
+
+module.exports = square_pie;

@@ -12,7 +12,7 @@ const {
   CustomerRetrieve,
   CustomerUpdate,
   CustomerDelete,
-} = require("../src/customer_requests");
+} = require("../src/lib/customer_requests");
 
 // ---------------------------------------------------
 // Hardcoded http requests for the hooks
