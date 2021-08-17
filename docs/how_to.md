@@ -9,7 +9,7 @@ and passing that value to someclass.makeRequest(secretName)
 
 The simplest example is fetching a list of customers:
 
-```let list = new CustomerList(false)
+```let list = new Customer_List(false)
   let secret = await getSecret(list.secretName);
   return await list.makeRequest(secret);
 ```
@@ -87,12 +87,12 @@ Subclass of SquareRequest
 
 ## Customer Request Classes
 
-**CustomerList**\
+**Customer_List**\
 Subclass of List
 
 - sets the apiName to 'customers'
 
-**CustomerSearch**\
+**Customer_Search**\
 Subclass of Search
 
 - sets the apiName to 'customers'
@@ -100,19 +100,19 @@ Subclass of Search
 - Has a chainable 'query' method
   - call it with either 'fuzzy' or 'exact' method then chain on sub-methods to create a filter
 
-**CustomerRetrieve**\
+**Customer_Retrieve**\
 Subclass of RetrieveUpdateDelete
 
 - sets the apiName to 'customers'
 - sets the method: GET
 
-**CustomerDelete**\
+**Customer_Delete**\
 Subclass of RetrieveUpdateDelete
 
 - sets the apiName to 'customers'
 - sets the method: DELETE
 
-**CustomerCreate**\
+**Customer_Create**\
 Subclass of Create
 
 - sets the apiName to 'customers'

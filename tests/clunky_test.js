@@ -43,7 +43,7 @@ async function testList() {
 
 async function testCreate() {
   let someGuy = new CustomerCreate(testCustomers.amelia);
-  // let someGuy = new CustomerCreate();
+  // let someGuy = new Customer_Create();
   // someGuy.customer = testCustomers.amelia;
   // someGuy.customer = testCustomers.mikey;
   // someGuy.customer = testCustomers.freddie;
