@@ -2,26 +2,26 @@
 
 | Level One Classes | Super | Implemented | Short Notes |
 | ----------------- | ----- | ----------- | ----------- |
-| SquareRequest     | none  | yes         |
+| Square_Request    | none  | yes         |
 
-| Level Two Classes | Super         | Implemented | Short Notes |
-| ----------------- | ------------- | ----------- | ----------- |
-| Customer          | SquareRequest | yes         |
+| Level Two Classes | Super          | Implemented | Short Notes |
+| ----------------- | -------------- | ----------- | ----------- |
+| Customer          | Square_Request | yes         |
 
-| Level Three Classes  | Super           | Implemented | Short Notes                |
-| -------------------- | --------------- | ----------- | -------------------------- |
-| Customer_List        | CustomerRequest | yes         |
-| Customer_Create      | Create          | yes         | needs duplicate prevention |
-| Customer_Search      | Search          | yes         |
-| RetrieveUpdateDelete | CustomerRequest | yes         |
-| CustomerGroup        | CustomerRequest | !           |
-| CustomerUngroup      | CustomerRequest | !           |
+| Level Three Classes    | Super            | Implemented | Short Notes                |
+| ---------------------- | ---------------- | ----------- | -------------------------- |
+| Customer_List          | Customer_Request | yes         |
+| Customer_Create        | Customer_Request | yes         | needs duplicate prevention |
+| Customer_Search        | Customer_Request | yes         |
+| Retrieve_Update_Delete | Customer_Request | yes         |
+| Customer_Group         |                  | !           |
+| Customer_Ungroup       |                  | !           |
 
-| Level Four Classes | Super                | Implemented | Short Notes                                 |
-| ------------------ | -------------------- | ----------- | ------------------------------------------- |
-| Customer_Delete    | RetrieveUpdateDelete | yes         |
-| Customer_Retrieve  | RetrieveUpdateDelete | yes         |
-| Customer_Update    | RetrieveUpdateDelete | yes         | needs normalization for email and addresses |
+| Level Four Classes | Super                  | Implemented | Short Notes                                 |
+| ------------------ | ---------------------- | ----------- | ------------------------------------------- |
+| Customer_Delete    | Retrieve_Update_Delete | yes         |
+| Customer_Retrieve  | Retrieve_Update_Delete | yes         |
+| Customer_Update    | Retrieve_Update_Delete | yes         | needs normalization for email and addresses |
 
 | API      | Command               | Method | Resource Location                            | Class             | Square Docs                                                                                              | Additional Information                                                                                                  |
 | -------- | --------------------- | ------ | -------------------------------------------- | ----------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |

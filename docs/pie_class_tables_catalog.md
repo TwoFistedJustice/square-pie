@@ -19,7 +19,8 @@ api_name: 'catalog
 | Catalog_list        | Square_Request | !           |
 | Catalog_Image       | Square_Request | !           |
 
-#URDU ( Upsert Retrieve Update Delete)
+# Upsert_Retrieve_Update_Delete (URDU )
+
 method: post
 
 #Search

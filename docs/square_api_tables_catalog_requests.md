@@ -11,7 +11,7 @@ Argument against: They line up better on the response side by doing them by over
 
 | Level One Classes | Super | Implemented | Short Notes |
 | ----------------- | ----- | ----------- | ----------- |
-| SquareRequest     | none  | !           |
+| Square_Request    | none  | !           |
 
 | Level Two Classes | Super         | Method | Implemented | Short Notes |
 | ----------------- | ------------- | ------ | ----------- | ----------- |
