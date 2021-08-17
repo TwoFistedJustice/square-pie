@@ -9,7 +9,7 @@ and passing that value to someclass.makeRequest(secretName)
 
 The simplest example is fetching a list of customers:
 
-```let list = new CustomerList(false)
+```let list = new Customer_List(false)
   let secret = await getSecret(list.secretName);
   return await list.makeRequest(secret);
 ```
@@ -50,7 +50,7 @@ The simplest example is fetching a list of customers:
 
 ## Class Breakdowns
 
-**SquareRequest**\
+**Square_Request**\
 Super of all request classes
 
 - takes a boolean argument which determines production or sandbox
@@ -59,27 +59,7 @@ Super of all request classes
 - normalizes email addresses
 - makes the actual http request
 
-**List**\
-Super of classes that fetch lists
-Subclass of SquareRequest
-
-- sets the method: GET
-
-**Create**\
-Super of all classes that create a new document
-Subclass of SquareRequest
-
-- is idempotent
-- dependent on npm/uuid
-
-**Search**\
-Super of all classes that search on fields other than ID
-Subclass of SquareRequest
-
-- Sets the method 'post'
-- Sets the endpoint '/search'
-
-**RetrieveUpdateDelete**\
+**Retrieve_Update_Delete**\
 Super of all classes that fetch with a document ID
 Subclass of SquareRequest
 
@@ -87,32 +67,34 @@ Subclass of SquareRequest
 
 ## Customer Request Classes
 
-**CustomerList**\
-Subclass of List
+**Customer_List**\
+Super of classes that fetch lists
+Subclass of SquareRequest
 
 - sets the apiName to 'customers'
+- sets the method: GET
 
-**CustomerSearch**\
-Subclass of Search
+**Customer_Search**\
 
 - sets the apiName to 'customers'
+- sets the method: POST
 - Has a pre-established \_body structure
 - Has a chainable 'query' method
   - call it with either 'fuzzy' or 'exact' method then chain on sub-methods to create a filter
 
-**CustomerRetrieve**\
+**Customer_Retrieve**\
 Subclass of RetrieveUpdateDelete
 
 - sets the apiName to 'customers'
 - sets the method: GET
 
-**CustomerDelete**\
+**Customer_Delete**\
 Subclass of RetrieveUpdateDelete
 
 - sets the apiName to 'customers'
 - sets the method: DELETE
 
-**CustomerCreate**\
+**Customer_Create**\
 Subclass of Create
 
 - sets the apiName to 'customers'
@@ -145,6 +127,6 @@ Tell it when you are done adding objects.\
 The correctly formatted catalog object payload now sits on the fardel property.\
 `let payload = foo.fardel;`
 
-**Category**\
+**Catalog_Category**\
 `const someCategory = new Category("The name you chose for it")`\
 You are done.

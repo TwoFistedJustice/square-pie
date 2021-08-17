@@ -2,62 +2,62 @@
 
 | Level One Classes | Super | Implemented | Short Notes |
 | ----------------- | ----- | ----------- | ----------- |
-| SquareRequest     | none  | yes         |
+| Square_Request    | none  | yes         |
 
-| Level Two Classes | Super         | Implemented | Short Notes |
-| ----------------- | ------------- | ----------- | ----------- |
-| Customer          | SquareRequest | yes         |
+| Level Two Classes | Super          | Implemented | Short Notes |
+| ----------------- | -------------- | ----------- | ----------- |
+| Customer          | Square_Request | yes         |
 
-| Level Three Classes  | Super           | Implemented | Short Notes                |
-| -------------------- | --------------- | ----------- | -------------------------- |
-| CustomerList         | CustomerRequest | yes         |
-| CustomerCreate       | Create          | yes         | needs duplicate prevention |
-| CustomerSearch       | Search          | yes         |
-| RetrieveUpdateDelete | CustomerRequest | yes         |
-| CustomerGroup        | CustomerRequest | !           |
-| CustomerUngroup      | CustomerRequest | !           |
+| Level Three Classes    | Super            | Implemented | Short Notes                |
+| ---------------------- | ---------------- | ----------- | -------------------------- |
+| Customer_List          | Customer_Request | yes         |
+| Customer_Create        | Customer_Request | yes         | needs duplicate prevention |
+| Customer_Search        | Customer_Request | yes         |
+| Retrieve_Update_Delete | Customer_Request | yes         |
+| Customer_Group         |                  | !           |
+| Customer_Ungroup       |                  | !           |
 
-| Level Four Classes | Super                | Implemented | Short Notes                                 |
-| ------------------ | -------------------- | ----------- | ------------------------------------------- |
-| CustomerDelete     | RetrieveUpdateDelete | yes         |
-| CustomerRetrieve   | RetrieveUpdateDelete | yes         |
-| CustomerUpdate     | RetrieveUpdateDelete | yes         | needs normalization for email and addresses |
+| Level Four Classes | Super                  | Implemented | Short Notes                                 |
+| ------------------ | ---------------------- | ----------- | ------------------------------------------- |
+| Customer_Delete    | Retrieve_Update_Delete | yes         |
+| Customer_Retrieve  | Retrieve_Update_Delete | yes         |
+| Customer_Update    | Retrieve_Update_Delete | yes         | needs normalization for email and addresses |
 
-| API      | Command               | Method | Resource Location                            | Class            | Square Docs                                                                                              | Additional Information                                                                                                  |
-| -------- | --------------------- | ------ | -------------------------------------------- | ---------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| Customer | LIST all              | GET    | '/customers'                                 | CustomerList     | [LIST](https://developer.squareup.com/reference/square/customers-api/list-customers)                     |
-| Customer | CREATE one            | POST   | '/customers'                                 | CustomerCreate   | [CREATE](https://developer.squareup.com/reference/square/customers-api/create-customer)                  |
-| Customer | SEARCH by Attribute   | POST   | '/customers/search'                          | CustomerSearch   | [SEARCH](https://developer.squareup.com/reference/square/customers-api/search-customers)                 |
-| Customer | DELETE one            | DELETE | '/customers/{customer_id}'                   | CustomerDelete   | [DELETE](https://developer.squareup.com/reference/square/customers-api/delete-customer)                  |
-| Customer | RETRIEVE by ID        | POST   | '/customers/{customer_id}'                   | CustomerRetrieve | [RETRIEVE](https://developer.squareup.com/reference/square/customers-api/retrieve-customer)              |
-| Customer | UPDATE one            | PUT    | '/customers/{customer_id}'                   | CustomerUpdate   | [UPDATE](https://developer.squareup.com/reference/square/customers-api/update-customer)                  | [Version Control](https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile) |
-| Customer | REMOVE group from one | DELETE | '/customers/{customer_id}/groups/{group_id}' | !                | [Remove GROUP](https://developer.squareup.com/reference/square/customers-api/remove-group-from-customer) |
-| Customer | ADD group from one    | PUT    | '/customers/{customer_id}/groups/{group_id}' | !                | [Add GROUP](https://developer.squareup.com/reference/square/customers-api/add-group-to-customer)         |
+| API      | Command               | Method | Resource Location                            | Class             | Square Docs                                                                                              | Additional Information                                                                                                  |
+| -------- | --------------------- | ------ | -------------------------------------------- | ----------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Customer | LIST all              | GET    | '/customers'                                 | Customer_List     | [LIST](https://developer.squareup.com/reference/square/customers-api/list-customers)                     |
+| Customer | CREATE one            | POST   | '/customers'                                 | Customer_Create   | [CREATE](https://developer.squareup.com/reference/square/customers-api/create-customer)                  |
+| Customer | SEARCH by Attribute   | POST   | '/customers/search'                          | Customer_Search   | [SEARCH](https://developer.squareup.com/reference/square/customers-api/search-customers)                 |
+| Customer | DELETE one            | DELETE | '/customers/{customer_id}'                   | Customer_Delete   | [DELETE](https://developer.squareup.com/reference/square/customers-api/delete-customer)                  |
+| Customer | RETRIEVE by ID        | POST   | '/customers/{customer_id}'                   | Customer_Retrieve | [RETRIEVE](https://developer.squareup.com/reference/square/customers-api/retrieve-customer)              |
+| Customer | UPDATE one            | PUT    | '/customers/{customer_id}'                   | Customer_Update   | [UPDATE](https://developer.squareup.com/reference/square/customers-api/update-customer)                  | [Version Control](https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile) |
+| Customer | REMOVE group from one | DELETE | '/customers/{customer_id}/groups/{group_id}' | !                 | [Remove GROUP](https://developer.squareup.com/reference/square/customers-api/remove-group-from-customer) |
+| Customer | ADD group from one    | PUT    | '/customers/{customer_id}/groups/{group_id}' | !                 | [Add GROUP](https://developer.squareup.com/reference/square/customers-api/add-group-to-customer)         |
 
-| End User Classes | Constructor Arguments | Response Field     | Short Notes     |
-| ---------------- | --------------------- | ------------------ | --------------- |
-| CustomerList     | none                  | customers: [ ]     |
-| CustomerCreate   | Customer - Object     | customer: cust-obj |
-| CustomerSearch   | none                  | customers: [ ]     |
-| CustomerRetrieve | ID                    | customer: cust-obj |
-| CustomerUpdate   | ID                    | customer: cust-obj |
-| CustomerDelete   | ID                    | empty or errors    |
-| CustomerGroup    |                       | empty or errors    | not implemented |
-| CustomerUngroup  |                       | empty or errors    | not implemented |
+| End User Classes  | Constructor Arguments | Response Field     | Short Notes     |
+| ----------------- | --------------------- | ------------------ | --------------- |
+| Customer_List     | none                  | customers: [ ]     |
+| Customer_Create   | Customer - Object     | customer: cust-obj |
+| Customer_Search   | none                  | customers: [ ]     |
+| Customer_Retrieve | ID                    | customer: cust-obj |
+| Customer_Update   | ID                    | customer: cust-obj |
+| Customer_Delete   | ID                    | empty or errors    |
+| CustomerGroup     |                       | empty or errors    | not implemented |
+| CustomerUngroup   |                       | empty or errors    | not implemented |
 
-###CustomerList
+###Customer_List
 Method | Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- |
 | none exist
 
-###CustomerCreate
+###Customer_Create
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
 | getIdempotency_key | getter | -
 | customer | setter - computed | Customer - Object | sets idempotency key and normalizes email
 |super.normalizeEmail | email address - String
 
-###CustomerSearch
+###Customer_Search
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
 | ⋈ ♾ query|method - chainer|-| beginning of chain - must call query.fuzzy() or query.exact()
@@ -73,13 +73,13 @@ Method |Type| Expected Argument | Short Notes |
 |^ .sortByDate |method - chain link | - | Sorts the results by creation date
 |^ .sortByMostRecent |method - chain link | - | Sorts the results by creation date with most recent first. (ascending)
 
-###CustomerRetrieve
+###Customer_Retrieve
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
 |super.id|getter
 |super.id|setter|square customer ID - String | sets the url endpoint and prepends '/'
 
-###CustomerUpdate
+###Customer_Update
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
 |super.normalizeEmail | email address - String
@@ -105,7 +105,7 @@ Method |Type| Expected Argument | Short Notes |
 |^ .note | method - chain link | String
 |^ .birthday | method - chain link | Date - String | YYYY-MM-DD format.
 
-###CustomerDelete
+###Customer_Delete
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
 |super.id|getter

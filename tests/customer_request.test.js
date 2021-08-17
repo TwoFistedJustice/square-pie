@@ -1,18 +1,15 @@
 "use strict";
 const should = require("chai").should();
+const Customer_List = require("../src/lib/customer_request_list");
+const Customer_Search = require("../src/lib/customer_request_search");
+const Customer_Create = require("../src/lib/customer_request_create");
+const Customer_Retrieve = require("../src/lib/customer_request_retrieve");
+const Customer_Update = require("../src/lib/customer_request_update");
+const Customer_Delete = require("../src/lib/customer_request_delete");
 const { sampleCustomers } = require("./data_preparation/sample_customer_data");
 const customers = sampleCustomers();
 const buffy = customers.buffy;
 const mikey = customers.mikey;
-
-const {
-  CustomerList,
-  CustomerSearch,
-  CustomerCreate,
-  CustomerRetrieve,
-  CustomerUpdate,
-  CustomerDelete,
-} = require("../src/customer_requests");
 
 // ---------------------------------------------------
 // Hardcoded http requests for the hooks
@@ -27,8 +24,8 @@ describe("Customer Request Classes", () => {
   jest.useFakeTimers();
 
   describe("Customer List", () => {
-    test.only("Should fetch the list of customers", async () => {
-      let customerList = new CustomerList();
+    test("Should fetch the list of customers", async () => {
+      let customerList = new Customer_List();
       // let response = await customerList.makeRequest();
       await customerList.makeRequest();
       customerList.fardel.should.be.an("Array").that.has.lengthOf(4);
@@ -43,7 +40,7 @@ describe("Customer Request Classes", () => {
 
   describe("Customer Search", () => {
     test("Should execute a fuzzy Search and sort the results in descending order.", async () => {
-      let customers = new CustomerSearch();
+      let customers = new Customer_Search();
       customers.query().fuzzy().phone("555").sortDown();
       await customers.makeRequest();
       customers.fardel.should.be.an("Array").that.has.lengthOf(4);
@@ -56,7 +53,7 @@ describe("Customer Request Classes", () => {
 
     test("Should exact search and find a customer", async () => {
       let param = "buffy@magicbox.com";
-      let findBuffy = new CustomerSearch();
+      let findBuffy = new Customer_Search();
       findBuffy.query().exact().email(param);
       await findBuffy.makeRequest();
       let email = findBuffy.fardel[0].email_address;
@@ -67,7 +64,7 @@ describe("Customer Request Classes", () => {
   // tests below here depend on the success of the LIST test
   describe("Customer Retrieve", () => {
     test("Should Retrieve a customer by id", async () => {
-      let rescueBuffy = new CustomerRetrieve(dbBuffy.id);
+      let rescueBuffy = new Customer_Retrieve(dbBuffy.id);
       await rescueBuffy.makeRequest();
       expect(rescueBuffy.fardel).toMatchObject(dbBuffy);
     });
@@ -77,7 +74,7 @@ describe("Customer Request Classes", () => {
     // change Buffy's email
     test("Should update a customer using normal setter", async () => {
       let email = "buffy@scooby.org";
-      let update = new CustomerUpdate(dbBuffy.id);
+      let update = new Customer_Update(dbBuffy.id);
       update.email_address = email;
       await update.makeRequest();
       let updatedEmail = update.fardel.email_address;
@@ -89,7 +86,7 @@ describe("Customer Request Classes", () => {
       let email = "buFFy@scoobies.org";
       let normalizedEmail = "buffy@scoobies.org";
       let phone = "1-800-668-2677";
-      let update = new CustomerUpdate(dbBuffy.id);
+      let update = new Customer_Update(dbBuffy.id);
       update.chainSet().email(email).phone(phone);
       await update.makeRequest();
       let updatedEmail = update.fardel.email_address;
@@ -102,7 +99,7 @@ describe("Customer Request Classes", () => {
   describe("Customer Create", () => {
     test("Should create a new customer", async () => {
       // add mikey
-      let punchingBagForBuffy = new CustomerCreate(mikey);
+      let punchingBagForBuffy = new Customer_Create(mikey);
       await punchingBagForBuffy.makeRequest();
       let email = punchingBagForBuffy.fardel.email_address;
       mikeId = punchingBagForBuffy.fardel.id;
@@ -115,7 +112,7 @@ describe("Customer Request Classes", () => {
     // id is set in test for Customer Create
     test("Should delete the specified customer", async () => {
       // What would happen if Buffy fought Michael Myers?
-      let buffyVsMichaelMyers = new CustomerDelete(mikeId);
+      let buffyVsMichaelMyers = new Customer_Delete(mikeId);
       await buffyVsMichaelMyers.makeRequest();
       expect(buffyVsMichaelMyers.fardel).toMatchObject({});
     });

@@ -3,11 +3,11 @@ const should = require("chai").should();
 const { v4: uuidv4 } = require("uuid");
 uuidv4();
 
-const {
-  Catalog_Object_Wrapper,
-  Helper_Name,
-  Category,
-} = require("../src/catalog_object_classes");
+const Catalog_Object_Wrapper = require("../src/lib/catalog_object_wrapper");
+const Catalog_Category = require("../src/lib/catalog_object_category");
+const { Helper_Name } = require("../src/lib/catalog_object_helpers");
+// const { Catalog_ } = require("../src/lib/catalog_");
+// const { Catalog_ } = require("../src/lib/catalog_");
 
 describe("Empty block", () => {
   test("Should pass because it is an empty test", () => {});
@@ -102,7 +102,7 @@ describe("Catalog: Helper_Name", () => {
 
 describe("Catalog: Category", () => {
   const name = "Thing";
-  const testSubject = new Category(name);
+  const testSubject = new Catalog_Category(name);
   // const testValue = testSubject.parcel();
   const expected = {
     type: "CATEGORY",

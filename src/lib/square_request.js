@@ -1,6 +1,6 @@
 require("dotenv").config();
 const fetch = require("node-fetch");
-const config = require("./config");
+const config = require("../config");
 const secret = process.env[`${config.secrets.sandbox_secret_name}`];
 
 //-----------------------------------------------
@@ -20,7 +20,7 @@ const secret = process.env[`${config.secrets.sandbox_secret_name}`];
 // before calling class.makeRequest(secret) you have to get the secret from wix
 // by calling getSecret(class.secretName)
 
-class SquareRequest {
+class Square_Request {
   constructor() {
     this._method = "";
     this._body;
@@ -102,4 +102,4 @@ class SquareRequest {
   }
 } // END class
 
-module.exports = SquareRequest;
+module.exports = Square_Request;
