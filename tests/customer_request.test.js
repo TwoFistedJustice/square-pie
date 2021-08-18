@@ -118,3 +118,9 @@ describe("Customer Request Classes", () => {
     });
   });
 });
+
+describe("Silence Async tests", () => {
+  test.only("Should silence async customer tests", () => {
+    expect("a").toEqual("a");
+  });
+});

@@ -6,6 +6,7 @@ uuidv4();
 const Catalog_Object_Wrapper = require("../src/lib/catalog_object_wrapper");
 const Catalog_Category = require("../src/lib/catalog_object_category");
 const { Helper_Name } = require("../src/lib/catalog_object_helpers");
+const Catalog_Item = require("../src/lib/catalog_object_item");
 // const { Catalog_ } = require("../src/lib/catalog_");
 // const { Catalog_ } = require("../src/lib/catalog_");
 
@@ -114,5 +115,15 @@ describe("Catalog: Category", () => {
   };
   test("Should have the expected name and type.", () => {
     expect(testSubject.parcel()).toMatchObject(expected);
+  });
+});
+
+describe("Catalog Item", () => {
+  const item = new Catalog_Item();
+  let config = item.spawn();
+  config.product_type().APPOINTMENTS_SERVICE();
+
+  test.only("Should set the property product_type using the dynamic chain", () => {
+    expect(item.product_type).toEqual("APPOINTMENTS_SERVICE");
   });
 });
