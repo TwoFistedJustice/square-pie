@@ -9,6 +9,35 @@ const allowedValues_item = {
   product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
 };
 
+/*
+ *  may need to be refactored for 'this' inside the class
+ * */
+// Keys: an array of prop names
+// Values: an array of function names
+// obj: the object which holds the generated methods
+// props: the class (this) which holds the final values
+// channels is a synonym for methods, basically because it's adding methods to methods
+// and calling it methods would be confusing.
+// requires that you feed it an array of keys to work on, after that it
+// churns out curried methods
+
+var microwaved_curry = function (keys, values, obj, props) {
+  keys.forEach((key) => {
+    obj[key] = function () {
+      let channels = {};
+      values[key].forEach((value) => {
+        channels[value] = function () {
+          props[key] = value;
+          return this;
+        };
+      });
+      return channels;
+    };
+  });
+};
+// to silence eslint
+microwaved_curry();
+
 // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
 // const allowedValues_item_variation = {
 //   maxLength: {
@@ -201,12 +230,12 @@ class Catalog_Item extends Helper_Name {
 
     // const methods = function () {
     const methods = () => {
-      const names = ["product_type"];
+      const keys = ["product_type"];
       return {
-        [names[0]]: () => {
+        [keys[0]]: () => {
           const channels = {};
-          let options = allowedValues_item[names[0]];
-          options.forEach((option) => {
+          let values = allowedValues_item[keys[0]];
+          values.forEach((option) => {
             let cache = option;
             const self = this;
             channels[option] = function () {
