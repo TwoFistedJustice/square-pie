@@ -1,5 +1,23 @@
 const { Helper_Name } = require("./catalog_object_helpers");
 
+const allowedValues_item = {
+  maxLength: {
+    name: 512,
+    description: 4096,
+    abbreviation: 24,
+  },
+  product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
+};
+
+// https://developer.squareup.com/reference/square/objects/CatalogItemVariation
+// const allowedValues_item_variation = {
+//   maxLength: {
+//     name: 255,
+//   },
+//   pricing_type: ["FIXED_PRICING", " VARIABLE_PRICING"],
+//   inventory_alert_type: ["NONE", "LOW_QUANTITY"],
+// };
+
 /* -------------------------------------------------------------------
 //  MAKE ITEM A SUB CLASS OF ITEM-VARIATION OR VICE VERSA
 // GIVE ITEM A 'DEFAULT' VARIATION METHOD THAT CREATES A 'REGULAR' ONE
@@ -61,6 +79,12 @@ class Catalog_Item extends Helper_Name {
     this._item_options = [];
     this._sort_name = undefined; // supported in Japan only
   }
+
+  //METHODs
+
+  // for bools have chain propName.yes, propName.no
+
+  // for fixed values make a link for each value
 
   // GETTERS
   get type() {
@@ -149,7 +173,7 @@ class Catalog_Item extends Helper_Name {
     // push the obj onto the array
   }
   set product_type(val) {
-    // "REGULAR" or "APPOINTMENTS_SERVICE"
+    this._product_type = val;
   }
   set item_options(id) {
     // max length of 6
@@ -160,11 +184,57 @@ class Catalog_Item extends Helper_Name {
     // the sort_name field is absent, the regular name field is used for sorting.
   }
 
-  //METHODs
+  spawn() {
+    // const methods1 = {
+    //   self: this,
+    //   product_type: function () {
+    //     let channels = {};
+    //     let options = allowedValues_item.product_type;
+    //     options.forEach((option) => {
+    //       let cache = option;
+    //       this.self.product_type = option;
+    //       return this;
+    //     })
+    //       return channels;
+    //   },
+    // };
 
-  // for bools have chain propName.yes, propName.no
-
-  // for fixed values make a link for each value
+    // const methods = function () {
+    const methods = () => {
+      const names = ["product_type"];
+      return {
+        [names[0]]: () => {
+          const channels = {};
+          let options = allowedValues_item[names[0]];
+          options.forEach((option) => {
+            let cache = option;
+            const self = this;
+            channels[option] = function () {
+              self.product_type = cache;
+              return this;
+            };
+          });
+          return channels;
+        },
+      };
+      // return {
+      //   product_type: () => {
+      //     const channels = {};
+      //     let options = allowedValues_item.product_type;
+      //     options.forEach((option) => {
+      //       let cache = option;
+      //       const self = this;
+      //       channels[option] = function () {
+      //         self.product_type = cache;
+      //         return this;
+      //       };
+      //     });
+      //     return channels;
+      //   },
+      // };
+    };
+    return methods();
+  }
 }
 
 module.exports = Catalog_Item;
