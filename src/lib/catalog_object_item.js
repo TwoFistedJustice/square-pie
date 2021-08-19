@@ -1,11 +1,13 @@
 const { Helper_Name } = require("./catalog_object_helpers");
+const { setter_chain_generator_config } = require("./utilities_curry");
 
-const allowedValues_item = {
+const configuration = {
   maxLength: {
     name: 512,
     description: 4096,
     abbreviation: 24,
   },
+  keys: ["product_type"], // array of property names where Square expects specific values
   product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
 };
 
@@ -186,53 +188,11 @@ class Catalog_Item extends Helper_Name {
 
   // have spawn to auto gen and chainSet for manual
   spawn() {
-    // const methods1 = {
-    //   self: this,
-    //   product_type: function () {
-    //     let channels = {};
-    //     let options = allowedValues_item.product_type;
-    //     options.forEach((option) => {
-    //       let cache = option;
-    //       this.self.product_type = option;
-    //       return this;
-    //     })
-    //       return channels;
-    //   },
-    // };
-
-    // const methods = function () {
     const methods = () => {
-      const keys = ["product_type"];
-      return {
-        [keys[0]]: () => {
-          const channels = {};
-          let values = allowedValues_item[keys[0]];
-          values.forEach((option) => {
-            let cache = option;
-            const self = this;
-            channels[option] = function () {
-              self.product_type = cache;
-              return this;
-            };
-          });
-          return channels;
-        },
-      };
-      // return {
-      //   product_type: () => {
-      //     const channels = {};
-      //     let options = allowedValues_item.product_type;
-      //     options.forEach((option) => {
-      //       let cache = option;
-      //       const self = this;
-      //       channels[option] = function () {
-      //         self.product_type = cache;
-      //         return this;
-      //       };
-      //     });
-      //     return channels;
-      //   },
-      // };
+      const properties = {};
+      setter_chain_generator_config(configuration, properties, this);
+
+      return properties;
     };
     return methods();
   }
