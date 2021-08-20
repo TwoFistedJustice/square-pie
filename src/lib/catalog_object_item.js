@@ -1,19 +1,20 @@
 const { Helper_Name } = require("./catalog_object_helpers");
 const { setter_chain_generator_config } = require("./utilities_curry");
+const { isHexColor } = require("validator");
 
-const configuration = {
-  maxLength: {
-    name: 512,
-    description: 4096,
-    abbreviation: 24,
-  },
-  keys: ["product_type"], // array of property names where Square expects specific values
-  product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
-};
+// const configuration = {
+//   lengthLimits: {
+//     name: 512,
+//     description: 4096,
+//     abbreviation: 24,
+//   },
+//   keys: ["product_type"], // array of property names where Square expects specific values
+//   product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
+// };
 
 // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
 // const allowedValues_item_variation = {
-//   maxLength: {
+//   lengthLimits: {
 //     name: 255,
 //   },
 //   pricing_type: ["FIXED_PRICING", " VARIABLE_PRICING"],
@@ -65,6 +66,15 @@ or make a method called 'variation' and curry it
 class Catalog_Item extends Helper_Name {
   constructor() {
     super();
+    this.configuration = {
+      lengthLimits: {
+        name: 512,
+        description: 4096,
+        abbreviation: 24,
+      },
+      keys: ["product_type"], // array of property names where Square expects specific values
+      product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
+    };
     this._type = "ITEM";
     this._description;
     this._abbreviation;
@@ -72,7 +82,7 @@ class Catalog_Item extends Helper_Name {
     this._label_color;
     this._available_online;
     this._available_for_pickup;
-    this._available_electronically;
+    this._available_electroncially;
     this._tax_ids = [];
     this._modifier_list_info = [];
     this._variations = [];
@@ -82,11 +92,7 @@ class Catalog_Item extends Helper_Name {
     this._sort_name = undefined; // supported in Japan only
   }
 
-  //METHODs
-
   // for bools have chain propName.yes, propName.no
-
-  // for fixed values make a link for each value
 
   // GETTERS
   get type() {
@@ -111,7 +117,7 @@ class Catalog_Item extends Helper_Name {
     return this._available_for_pickup;
   }
   get available_electronically() {
-    return this._available_electronically;
+    return this._available_electroncially;
   }
   get tax_ids() {
     return this._tax_ids;
@@ -139,17 +145,26 @@ class Catalog_Item extends Helper_Name {
   set type(bool) {
     this._type = "ITEM";
   }
-  set name(val) {
-    // max 512
+  // set name(val) {
+  //   // max 512 - shouldn't need to be explicity created bc this.configuration is premade
+  // }
+  set description(str) {
+    if (this.maxLength(this.configuration.lengthLimits.description, str)) {
+      this._description = str;
+    }
   }
-  set description(val) {
-    //max 4096
+  set abbreviation(str) {
+    if (this.maxLength(this.configuration.lengthLimits.abbreviation, str)) {
+      this._abbreviation = str;
+    }
   }
-  set abbreviation(val) {
-    //max 24
-  }
-  set label_color(val) {
-    // validate hed color code
+  set label_color(hex) {
+    if (!isHexColor(hex)) {
+      throw new Error(
+        `label_color must be a valid hex color. /"${hex}/" is not a valid hex color.`
+      );
+    }
+    this._label_color = hex;
   }
   set available_online(bool) {
     this._available_online = bool;
@@ -160,40 +175,47 @@ class Catalog_Item extends Helper_Name {
   set available_electroncially(bool) {
     this._available_electroncially = bool;
   }
-  set category_id(val) {
-    //The ID of the item's category, if any.
+  set category_id(id) {
+    this._category_id = id;
   }
   set tax_ids(id) {
-    // push the id onto the array
+    this._tax_ids.push(id);
   }
   set modifer_list_info(obj) {
-    //validate the object
-    // push the obj onto the array
+    //todo validate the object
+    // has one required value -- the subpropery modifier_Overrids also has one required value
+    this._modifier_list_info.push(obj);
   }
   set variations(obj) {
-    //validate the object
-    // push the obj onto the array
+    //todo validate the object - this is complex and might be best done with a subclass
+    // An item must have at least one variation.
+    this._variations.push(obj);
   }
   set product_type(val) {
     this._product_type = val;
   }
   set item_options(id) {
-    // max length of 6
-    // push the id obj onto the array
+    let lengthLimit = 6;
+    if (this.item_options.length > lengthLimit - 1) {
+      throw new Error(
+        `Item options array can contain no more than ${lengthLimit} items.`
+      );
+    }
+    this._item_options.push(id);
   }
-  set sort_name(val) {
-    // A name to sort the item by. If this name is unspecified, namely,
-    // the sort_name field is absent, the regular name field is used for sorting.
+  set sort_name(str) {
+    // Square uses the regular name field as default
+    this._sort_name = str;
   }
-
+  //METHODS
   // have spawn to auto gen and chainSet for manual
   spawn() {
     const methods = () => {
       const properties = {};
-      setter_chain_generator_config(configuration, properties, this);
-
+      setter_chain_generator_config(this.configuration, properties, this);
       return properties;
     };
+
     return methods();
   }
 }
