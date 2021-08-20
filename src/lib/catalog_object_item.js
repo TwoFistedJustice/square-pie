@@ -211,7 +211,63 @@ class Catalog_Item extends Helper_Name {
   // have spawn to auto gen and chainSet for manual
   spawn() {
     const methods = () => {
-      const properties = {};
+      const properties = {
+        self: this,
+        name: function (str) {
+          this.self._name = str;
+          return this;
+        },
+        description: function (str) {
+          this.self.description = str;
+          return this;
+        },
+        abbreviation: function (str) {
+          this.self.abbreviation = str;
+          return this;
+        },
+        label_color: function (hex) {
+          this.self._label_color = hex;
+          return this;
+        },
+        available_online: function (bool) {
+          // if arg is defined, set
+          //otherwise .yes and .no
+          this.self.available_online = bool;
+          return this;
+        },
+        available_for_pickup: function (bool) {
+          this.self.available_for_pickup = bool;
+          return this;
+        },
+        available_electroncially: function (bool) {
+          this.self.available_electronically = bool;
+          return this;
+        },
+        category_id: function (id) {
+          this.self.category_id = id;
+          return this;
+        },
+        tax_ids: function (id) {
+          this.self.tax_ids = id;
+          return this;
+        },
+        modifer_list_info: function (obj) {
+          this.self.modifier_list_info = obj;
+          return this;
+        },
+        variations: function (obj) {
+          this.self.variations = obj;
+          return this;
+        },
+        item_options: function (id) {
+          this.self.item_options = id;
+          return this;
+        },
+        sort_name: function (str) {
+          this.self.sort_name = str;
+          return this;
+        },
+      };
       setter_chain_generator_config(this.configuration, properties, this);
       return properties;
     };
