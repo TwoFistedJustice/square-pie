@@ -7,6 +7,8 @@ const Catalog_Object_Wrapper = require("../src/lib/catalog_object_wrapper");
 const Catalog_Category = require("../src/lib/catalog_object_category");
 const { Helper_Name } = require("../src/lib/catalog_object_helpers");
 const Catalog_Item = require("../src/lib/catalog_object_item");
+const Catalog_Object_Super = require("../src/lib/catalog_object_aaa_super");
+
 // const { Catalog_ } = require("../src/lib/catalog_");
 // const { Catalog_ } = require("../src/lib/catalog_");
 
@@ -23,6 +25,21 @@ const long_strings = {
 
 describe("Empty block", () => {
   test("Should pass because it is an empty test", () => {});
+});
+
+describe("Catalog Object Super", () => {
+  const id = "prettyflowers";
+  const idhash = "#prettyflowers";
+  test("Should prepend a hash sign to the pre-upsert ID if one is not provided", () => {
+    const superduper = new Catalog_Object_Super();
+    superduper.id = id;
+    superduper.id.should.equal(idhash);
+  });
+  test("Should NOT prepend a hash sign to the pre-upsert ID if one IS provided", () => {
+    const superduper = new Catalog_Object_Super();
+    superduper.id = id;
+    superduper.id.should.equal(idhash);
+  });
 });
 
 describe("Catalog Object Wrapper", () => {

@@ -1,5 +1,8 @@
-class Helper_Name {
+const Catalog_Object_Super = require("./catalog_object_aaa_super");
+
+class Helper_Name extends Catalog_Object_Super {
   constructor(name) {
+    super();
     this.configuration = {
       lengthLimits: {
         name: 255,

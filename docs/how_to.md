@@ -127,6 +127,26 @@ Tell it when you are done adding objects.\
 The correctly formatted catalog object payload now sits on the fardel property.\
 `let payload = foo.fardel;`
 
+**Catalog_Object classes in general**\
+Whenever you upsert a new object it MUST have a temporary ID that you give it. This is just for your own reference
+and for referencing that object within that upsert request. Square will replace it with its own unique ID as soon
+as you upsert it. It can be pretty much anything, a word, or the ID you use in your own db. The class will
+automatically prepend the required "#" character so you don't have to.
+
+Many classes have a 'spawn' method that allows you chain together properties you want to set so you can do most of
+that with one line of code. Anytime a Square property has specific expected string values there will be an automatic
+function generator that reads from the expected properties and creates a chainable function to quickly set the correct
+values without having to worry about typos.
+
+example: Square has a property called "product_type". Square requires that it be set to either "REGULAR" or "APPOINTMENTS_SERVICE"
+Any other value will cause the request to fail with 400 "bad request".
+The class with that property will auto generate a setter in the form of `someConst.product_type().APPOINTMENTS_SERVICE()`
+allowing you to quickly and without error set that value. In some cases a default value will be provided. The default value
+will tend to favor tangible, in-person products.
+
+Every mutable property (one Square wants you to set yourself) will also have an old fashioned getter and setter so you can change
+any values you want prior to upsert.
+
 **Catalog_Category**\
 `const someCategory = new Category("The name you chose for it")`\
 You are done.
