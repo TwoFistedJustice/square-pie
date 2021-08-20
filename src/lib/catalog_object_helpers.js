@@ -12,7 +12,7 @@ class Helper_Name {
     return this._name;
   }
   set name(str) {
-    // if (this.maxLength(this.character_limit, str)) {
+    // if (this.lengthLimits(this.character_limit, str)) {
     if (this.maxLength(this.configuration.lengthLimits.name, str)) {
       this._name = str;
     }

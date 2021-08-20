@@ -122,8 +122,17 @@ describe("Catalog Item", () => {
   const item = new Catalog_Item();
   let config = item.spawn();
   config.product_type().APPOINTMENTS_SERVICE();
-
-  test.only("Should set the property product_type using the dynamic chain", () => {
+  test("Should set the property product_type using the dynamic chain", () => {
     expect(item.product_type).toEqual("APPOINTMENTS_SERVICE");
   });
 });
+
+/* item tests:
+   name length up to 512
+   description  length up to 4096
+   abbreviation  length up to 24
+   
+*
+*
+*
+* */
