@@ -27,6 +27,10 @@ describe("Empty block", () => {
   test("Should pass because it is an empty test", () => {});
 });
 
+// --------------------------------------------------------------
+//                         CATALOG OBJECT SUPER
+// --------------------------------------------------------------
+
 describe("Catalog Object Super", () => {
   const id = "prettyflowers";
   const idhash = "#prettyflowers";
@@ -41,6 +45,10 @@ describe("Catalog Object Super", () => {
     superduper.id.should.equal(idhash);
   });
 });
+
+// --------------------------------------------------------------
+//                         CATALOG OBJECT WRAPPER
+// --------------------------------------------------------------
 
 describe("Catalog Object Wrapper", () => {
   const arr = [{ a: 0 }, { b: 1 }, { c: 2 }, { d: 3 }, { e: 4 }];
@@ -107,6 +115,10 @@ describe("Catalog Object Wrapper", () => {
   // });
 });
 
+// --------------------------------------------------------------
+//                    HELPER
+// --------------------------------------------------------------
+
 describe("Catalog: Helper_Name", () => {
   const helper = new Helper_Name();
   let just_right = "Just right";
@@ -123,6 +135,10 @@ describe("Catalog: Helper_Name", () => {
     }).toThrow();
   });
 });
+
+// --------------------------------------------------------------
+//                         CATEGORY
+// --------------------------------------------------------------
 
 describe("Catalog: Category", () => {
   const name = "Thing";
@@ -141,9 +157,15 @@ describe("Catalog: Category", () => {
   });
 });
 
+// --------------------------------------------------------------
+//                         ITEM
+// --------------------------------------------------------------
+
+//TODO CHECK THAT FARDEL CONTAINS NAME PROP
+
 describe("Catalog Item setters", () => {
   const item = new Catalog_Item();
-  let name = "FRED";
+  let name = "SCEANCE";
   let config = item.spawn();
   config.product_type().APPOINTMENTS_SERVICE();
   config
@@ -158,6 +180,11 @@ describe("Catalog Item setters", () => {
     item.name.should.equal(name);
     item.available_for_pickup.should.equal(false);
     item.tax_ids.should.be.an("array").lengthOf(2);
+  });
+
+  test("Should have properly set fardel.name property", () => {
+    console.log(JSON.stringify(item.fardel));
+    item.name.should.equal(name);
   });
 });
 

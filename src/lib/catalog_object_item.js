@@ -16,6 +16,7 @@ class Catalog_Item extends Helper_Name {
     };
     this._fardel = {
       type: "ITEM",
+      name: undefined,
       description: undefined,
       abbreviation: undefined,
       category_id: undefined, // have a config file for this? so user doesn't have to deal with id codes?
@@ -23,6 +24,7 @@ class Catalog_Item extends Helper_Name {
       available_online: undefined,
       available_for_pickup: undefined,
       available_electroncially: undefined,
+      //todo ISSUE 51 change arrays to undefined, have setter check isArray and make one if it isn't there.
       tax_ids: [],
       modifier_list_info: [],
       variations: [],
