@@ -24,13 +24,12 @@ class Catalog_Item extends Helper_Name {
       available_online: undefined,
       available_for_pickup: undefined,
       available_electroncially: undefined,
-      //todo ISSUE 51 change arrays to undefined, have setter check isArray and make one if it isn't there.
-      tax_ids: [],
-      modifier_list_info: [],
-      variations: [],
+      tax_ids: undefined, // => array of strings
+      modifier_list_info: undefined, // =>  array of objects
+      variations: undefined, // => array of objects
       product_type: "REGULAR", // make a switcher
       skip_modifier_screen: undefined, //default is false
-      item_options: [],
+      item_options: undefined, // => array of strings
       sort_name: undefined, // supported in Japan only
     };
   }
@@ -125,16 +124,25 @@ class Catalog_Item extends Helper_Name {
     this._fardel.category_id = id;
   }
   set tax_ids(id) {
+    if (!Array.isArray(this.tax_ids)) {
+      this._fardel.tax_ids = [];
+    }
     this._fardel.tax_ids.push(id);
   }
   set modifier_list_info(obj) {
     //todo validate the object
     // has one required value -- the subpropery modifier_Overrids also has one required value
+    if (!Array.isArray(this.modifier_list_info)) {
+      this._fardel.modifier_list_info = [];
+    }
     this._fardel.modifier_list_info.push(obj);
   }
   set variations(obj) {
     //todo validate the object - this is complex and might be best done with a subclass
     // An item must have at least one variation.
+    if (!Array.isArray(this._fardel.variations)) {
+      this._fardel.variations = [];
+    }
     this._fardel.variations.push(obj);
   }
   set product_type(val) {
@@ -142,6 +150,9 @@ class Catalog_Item extends Helper_Name {
   }
   set item_options(id) {
     let lengthLimit = 6;
+    if (!Array.isArray(this._fardel.item_options)) {
+      this._fardel.item_options = [];
+    }
     if (this.item_options.length > lengthLimit - 1) {
       throw new Error(
         `Item options array can contain no more than ${lengthLimit} items.`
@@ -201,7 +212,7 @@ class Catalog_Item extends Helper_Name {
           this.self.tax_ids = id;
           return this;
         },
-        modifer_list_info: function (obj) {
+        modifier_list_info: function (obj) {
           this.self.modifier_list_info = obj;
           return this;
         },

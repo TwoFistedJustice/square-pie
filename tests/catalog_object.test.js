@@ -183,7 +183,6 @@ describe("Catalog Item setters", () => {
   });
 
   test("Should have properly set fardel.name property", () => {
-    console.log(JSON.stringify(item.fardel));
     item.name.should.equal(name);
   });
 });
@@ -201,4 +200,38 @@ describe("Catalog Item string length validators", () => {
   expect(() => {
     config.description(long_strings.len_4097);
   }).toThrow();
+});
+
+describe("Catalog Item fardel arrays should be undefined", () => {
+  // check that each one is set to undefined by default
+  const item = new Catalog_Item();
+  test("Array storage properties should begin as undefined", () => {
+    // expect(item._fardel.tax_ids).toBeUndefined();
+    expect(item.tax_ids).toBeUndefined();
+    expect(item._fardel.modifier_list_info).toBeUndefined();
+    expect(item._fardel.variations).toBeUndefined();
+    expect(item._fardel.item_options).toBeUndefined();
+  });
+
+  // let config = item.spawn();
+
+  // config.tax_ids(str).modifer_list_info(obj).variations(obj).item_options(str);
+});
+describe("Catalog Item fardel arrays should be arrays containing the appropriate type.", () => {
+  //   check that each one is an array after something is added
+  const obj = { a: 1 };
+  const str = "somestring";
+  const item = new Catalog_Item();
+  test("Should be arrays containing appropriate type", () => {
+    let config = item.spawn();
+    config
+      .tax_ids(str)
+      .modifier_list_info(obj)
+      .variations(obj)
+      .item_options(str);
+    item.tax_ids.should.be.an("array").that.includes(str);
+    item.modifier_list_info.should.be.an("array").that.includes(obj);
+    item.variations.should.be.an("array").that.includes(obj);
+    item.item_options.should.be.an("array").that.includes(str);
+  });
 });
