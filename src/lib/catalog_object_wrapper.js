@@ -38,7 +38,6 @@ class Catalog_Object_Wrapper {
     if (Object.prototype.hasOwnProperty.call(this._fardel, "objects")) {
       // delete this._fardel.objects;
       this._fardel.objects = undefined;
-      // } else if (!this._fardel.hasOwnProperty("object")) {
     } else if (!Object.prototype.hasOwnProperty.call(this._fardel, "object")) {
       Object.defineProperty(this._fardel, "object", {
         value: parcel,

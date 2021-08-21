@@ -9,9 +9,6 @@ const { Helper_Name } = require("../src/lib/catalog_object_helpers");
 const Catalog_Item = require("../src/lib/catalog_object_item");
 const Catalog_Object_Super = require("../src/lib/catalog_object_aaa_super");
 
-// const { Catalog_ } = require("../src/lib/catalog_");
-// const { Catalog_ } = require("../src/lib/catalog_");
-
 // https://www.browserling.com/tools/random-string
 const long_strings = {
   len_25: "tdiqxhdarmjybdajemybgunom",
@@ -109,10 +106,6 @@ describe("Catalog Object Wrapper", () => {
       .true;
     thing.fardel.objects.should.be.an("array");
   });
-
-  // test("", () => {
-  //   let thing = new Catalog_Object_Wrapper();
-  // });
 });
 
 // --------------------------------------------------------------
@@ -212,10 +205,6 @@ describe("Catalog Item fardel arrays should be undefined", () => {
     expect(item._fardel.variations).toBeUndefined();
     expect(item._fardel.item_options).toBeUndefined();
   });
-
-  // let config = item.spawn();
-
-  // config.tax_ids(str).modifer_list_info(obj).variations(obj).item_options(str);
 });
 describe("Catalog Item fardel arrays should be arrays containing the appropriate type.", () => {
   //   check that each one is an array after something is added

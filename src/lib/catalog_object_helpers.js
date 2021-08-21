@@ -18,7 +18,6 @@ class Helper_Name extends Catalog_Object_Super {
     return this._fardel.name;
   }
   set name(str) {
-    // if (this.lengthLimits(this.character_limit, str)) {
     if (this.maxLength(this.configuration.lengthLimits.name, str)) {
       this._fardel.name = str;
     }

@@ -19,7 +19,7 @@ class Catalog_Item extends Helper_Name {
       name: undefined,
       description: undefined,
       abbreviation: undefined,
-      category_id: undefined, // have a config file for this? so user doesn't have to deal with id codes?
+      category_id: undefined, // add a property to configuration so user doesn't have to deal with id codes?
       label_color: undefined,
       available_online: undefined,
       available_for_pickup: undefined,
@@ -27,7 +27,7 @@ class Catalog_Item extends Helper_Name {
       tax_ids: undefined, // => array of strings
       modifier_list_info: undefined, // =>  array of objects
       variations: undefined, // => array of objects
-      product_type: "REGULAR", // make a switcher
+      product_type: "REGULAR",
       skip_modifier_screen: undefined, //default is false
       item_options: undefined, // => array of strings
       sort_name: undefined, // supported in Japan only
@@ -90,9 +90,6 @@ class Catalog_Item extends Helper_Name {
   set type(bool) {
     this._fardel.type = "ITEM";
   }
-  // set name(val) {
-  //   // max 512 - shouldn't need to be explicity created bc this.configuration is premade
-  // }
   set description(str) {
     if (this.maxLength(this.configuration.lengthLimits.description, str)) {
       this._fardel.description = str;
@@ -165,7 +162,6 @@ class Catalog_Item extends Helper_Name {
     this._fardel.sort_name = str;
   }
   //METHODS
-  // have spawn to auto gen and chainSet for manual
   spawn() {
     const methods = () => {
       const properties = {
@@ -200,6 +196,7 @@ class Catalog_Item extends Helper_Name {
           this.self.available_for_pickup = bool;
           return this;
         },
+        //TODO fix spelling here and in tests to available_electronically
         available_electroncially: function (bool) {
           this.self.available_electronically = bool;
           return this;
@@ -237,24 +234,7 @@ class Catalog_Item extends Helper_Name {
   }
 }
 
-// const configuration = {
-//   lengthLimits: {
-//     name: 512,
-//     description: 4096,
-//     abbreviation: 24,
-//   },
-//   keys: ["product_type"], // array of property names where Square expects specific values
-//   product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
-// };
-
 // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
-// const allowedValues_item_variation = {
-//   lengthLimits: {
-//     name: 255,
-//   },
-//   pricing_type: ["FIXED_PRICING", " VARIABLE_PRICING"],
-//   inventory_alert_type: ["NONE", "LOW_QUANTITY"],
-// };
 
 /* -------------------------------------------------------------------
 //  MAKE ITEM A SUB CLASS OF ITEM-VARIATION OR VICE VERSA
@@ -294,7 +274,6 @@ or make a method called 'variation' and curry it
 //     this._team_member_ids;
 //     this._stockable_coversion;
 //   }
-//   // new standard name for chain setters
 //   spawn() {}
 // }
 
