@@ -15,7 +15,7 @@ const setter_chain_generator_config = function (config, methods, that) {
       let channels = {};
       config[key].forEach((value) => {
         channels[value] = function () {
-          //this requires a setter of [key] name on the class
+          //this calls a setter of [key] name on the class
           that[key] = value;
           return this;
         };
