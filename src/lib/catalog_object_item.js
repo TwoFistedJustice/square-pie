@@ -2,67 +2,6 @@ const { Helper_Name } = require("./catalog_object_helpers");
 const { setter_chain_generator_config } = require("./utilities_curry");
 const { isHexColor } = require("validator");
 
-// const configuration = {
-//   lengthLimits: {
-//     name: 512,
-//     description: 4096,
-//     abbreviation: 24,
-//   },
-//   keys: ["product_type"], // array of property names where Square expects specific values
-//   product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
-// };
-
-// https://developer.squareup.com/reference/square/objects/CatalogItemVariation
-// const allowedValues_item_variation = {
-//   lengthLimits: {
-//     name: 255,
-//   },
-//   pricing_type: ["FIXED_PRICING", " VARIABLE_PRICING"],
-//   inventory_alert_type: ["NONE", "LOW_QUANTITY"],
-// };
-
-/* -------------------------------------------------------------------
-//  MAKE ITEM A SUB CLASS OF ITEM-VARIATION OR VICE VERSA
-// GIVE ITEM A 'DEFAULT' VARIATION METHOD THAT CREATES A 'REGULAR' ONE
-// OR
-Make item variation a mixin...
-
-or make a method called 'variation' and curry it
-
--------------------------------------------------------------------*/
-
-//MAYBE instead of a unique class, have a METHOD
-// on the ITEM class that makes this as a property...
-// or a have a method that instantiates this class?
-// or require the user to make one, then when it's added to an item
-// the item_id gets set then
-// class Item_Variation extends Helper_Name {
-//   constructor(item_id, name) {
-//     super(name);
-//     this._type = "ITEM_VARIATION";
-//     // id of associated item
-//     this._item_id = item_id; //must be set by Item class
-//     this._sku; // can it be validated?
-//     this._upc; // can it be validated? min ln:12 max ln:14
-//     this._pricing_type; // [ CHAIN ]
-//     this._price_money; // [ CHAIN ]
-//     this._location_overrides; // [ CHAIN ]
-//     this._track_inventory; // [ CHAIN T/F ]
-//     this._inventory_alert_type;
-//     this._inventory_alert_type_threshold;
-//     this._user_data; //255
-//     this._service_duration;
-//     this._available_for_booking;
-//     this._item_options_values;
-//     this._measurement_unit_id;
-//     this._stockable;
-//     this._team_member_ids;
-//     this._stockable_coversion;
-//   }
-//   // new standard name for chain setters
-//   spawn() {}
-// }
-
 class Catalog_Item extends Helper_Name {
   constructor() {
     super();
@@ -217,6 +156,10 @@ class Catalog_Item extends Helper_Name {
           this.self._name = str;
           return this;
         },
+        id: function (tempId) {
+          this.id = tempId;
+          return this;
+        },
         description: function (str) {
           this.self.description = str;
           return this;
@@ -275,5 +218,66 @@ class Catalog_Item extends Helper_Name {
     return methods();
   }
 }
+
+// const configuration = {
+//   lengthLimits: {
+//     name: 512,
+//     description: 4096,
+//     abbreviation: 24,
+//   },
+//   keys: ["product_type"], // array of property names where Square expects specific values
+//   product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
+// };
+
+// https://developer.squareup.com/reference/square/objects/CatalogItemVariation
+// const allowedValues_item_variation = {
+//   lengthLimits: {
+//     name: 255,
+//   },
+//   pricing_type: ["FIXED_PRICING", " VARIABLE_PRICING"],
+//   inventory_alert_type: ["NONE", "LOW_QUANTITY"],
+// };
+
+/* -------------------------------------------------------------------
+//  MAKE ITEM A SUB CLASS OF ITEM-VARIATION OR VICE VERSA
+// GIVE ITEM A 'DEFAULT' VARIATION METHOD THAT CREATES A 'REGULAR' ONE
+// OR
+Make item variation a mixin...
+
+or make a method called 'variation' and curry it
+
+-------------------------------------------------------------------*/
+
+//MAYBE instead of a unique class, have a METHOD
+// on the ITEM class that makes this as a property...
+// or a have a method that instantiates this class?
+// or require the user to make one, then when it's added to an item
+// the item_id gets set then
+// class Item_Variation extends Helper_Name {
+//   constructor(item_id, name) {
+//     super(name);
+//     this._type = "ITEM_VARIATION";
+//     // id of associated item
+//     this._item_id = item_id; //must be set by Item class
+//     this._sku; // can it be validated?
+//     this._upc; // can it be validated? min ln:12 max ln:14
+//     this._pricing_type; // [ CHAIN ]
+//     this._price_money; // [ CHAIN ]
+//     this._location_overrides; // [ CHAIN ]
+//     this._track_inventory; // [ CHAIN T/F ]
+//     this._inventory_alert_type;
+//     this._inventory_alert_type_threshold;
+//     this._user_data; //255
+//     this._service_duration;
+//     this._available_for_booking;
+//     this._item_options_values;
+//     this._measurement_unit_id;
+//     this._stockable;
+//     this._team_member_ids;
+//     this._stockable_coversion;
+//   }
+//   // new standard name for chain setters
+//   spawn() {}
+// }
 
 module.exports = Catalog_Item;
