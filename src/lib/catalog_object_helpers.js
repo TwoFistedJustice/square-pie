@@ -8,16 +8,19 @@ class Helper_Name extends Catalog_Object_Super {
         name: 255,
       },
     };
-    this._name;
+    // this._name;
+    this._fardel = {
+      name: undefined,
+    };
     this.name = name;
   }
   get name() {
-    return this._name;
+    return this._fardel.name;
   }
   set name(str) {
     // if (this.lengthLimits(this.character_limit, str)) {
     if (this.maxLength(this.configuration.lengthLimits.name, str)) {
-      this._name = str;
+      this._fardel.name = str;
     }
   }
   maxLength(max, str = "") {
