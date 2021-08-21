@@ -14,87 +14,92 @@ class Catalog_Item extends Helper_Name {
       keys: ["product_type"], // array of property names where Square expects specific values
       product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
     };
-    this._type = "ITEM";
-    this._description;
-    this._abbreviation;
-    this._category_id; // have a config file for this? so user doesn't have to deal with id codes?
-    this._label_color;
-    this._available_online;
-    this._available_for_pickup;
-    this._available_electroncially;
-    this._tax_ids = [];
-    this._modifier_list_info = [];
-    this._variations = [];
-    this._product_type = "REGULAR"; // make a switcher
-    this._skip_modifier_screen; //default is false
-    this._item_options = [];
-    this._sort_name = undefined; // supported in Japan only
+    this._fardel = {
+      type: "ITEM",
+      description: undefined,
+      abbreviation: undefined,
+      category_id: undefined, // have a config file for this? so user doesn't have to deal with id codes?
+      label_color: undefined,
+      available_online: undefined,
+      available_for_pickup: undefined,
+      available_electroncially: undefined,
+      tax_ids: [],
+      modifier_list_info: [],
+      variations: [],
+      product_type: "REGULAR", // make a switcher
+      skip_modifier_screen: undefined, //default is false
+      item_options: [],
+      sort_name: undefined, // supported in Japan only
+    };
   }
 
   // for bools have chain propName.yes, propName.no
 
   // GETTERS
+  get fardel() {
+    return this._fardel;
+  }
   get type() {
-    return this._type;
+    return this._fardel.type;
   }
   get description() {
-    return this._description;
+    return this._fardel.description;
   }
   get abbreviation() {
-    return this._abbreviation;
+    return this._fardel.abbreviation;
   }
   get category_id() {
-    return this._category_id;
+    return this._fardel.category_id;
   }
   get label_color() {
-    return this._label_color;
+    return this._fardel.label_color;
   }
   get available_online() {
-    return this._available_online;
+    return this._fardel.available_online;
   }
   get available_for_pickup() {
-    return this._available_for_pickup;
+    return this._fardel.available_for_pickup;
   }
   get available_electronically() {
-    return this._available_electroncially;
+    return this._fardel.available_electroncially;
   }
   get tax_ids() {
-    return this._tax_ids;
+    return this._fardel.tax_ids;
   }
   get modifier_list_info() {
-    return this._modifier_list_info;
+    return this._fardel.modifier_list_info;
   }
   get variations() {
-    return this._variations;
+    return this._fardel.variations;
   }
   get product_type() {
-    return this._product_type;
+    return this._fardel.product_type;
   }
   get skip_modifier_screen() {
-    return this._skip_modifier_screen;
+    return this._fardel.skip_modifier_screen;
   }
   get item_options() {
-    return this._item_options;
+    return this._fardel.item_options;
   }
   get sort_name() {
-    return this._sort_name;
+    return this._fardel.sort_name;
   }
 
   // SETTERS
   set type(bool) {
-    this._type = "ITEM";
+    this._fardel.type = "ITEM";
   }
   // set name(val) {
   //   // max 512 - shouldn't need to be explicity created bc this.configuration is premade
   // }
   set description(str) {
     if (this.maxLength(this.configuration.lengthLimits.description, str)) {
-      this._description = str;
+      this._fardel.description = str;
     }
   }
   set abbreviation(str) {
     if (this.maxLength(this.configuration.lengthLimits.abbreviation, str)) {
-      this._abbreviation = str;
+      this._fardel.abbreviation = str;
     }
   }
   set label_color(hex) {
@@ -103,35 +108,35 @@ class Catalog_Item extends Helper_Name {
         `label_color must be a valid hex color. /"${hex}/" is not a valid hex color.`
       );
     }
-    this._label_color = hex;
+    this._fardel.label_color = hex;
   }
   set available_online(bool) {
-    this._available_online = bool;
+    this._fardel.available_online = bool;
   }
   set available_for_pickup(bool) {
-    this._available_for_pickup = bool;
+    this._fardel.available_for_pickup = bool;
   }
-  set available_electroncially(bool) {
-    this._available_electroncially = bool;
+  set available_electronically(bool) {
+    this._fardel.available_electroncially = bool;
   }
   set category_id(id) {
-    this._category_id = id;
+    this._fardel.category_id = id;
   }
   set tax_ids(id) {
-    this._tax_ids.push(id);
+    this._fardel.tax_ids.push(id);
   }
-  set modifer_list_info(obj) {
+  set modifier_list_info(obj) {
     //todo validate the object
     // has one required value -- the subpropery modifier_Overrids also has one required value
-    this._modifier_list_info.push(obj);
+    this._fardel.modifier_list_info.push(obj);
   }
   set variations(obj) {
     //todo validate the object - this is complex and might be best done with a subclass
     // An item must have at least one variation.
-    this._variations.push(obj);
+    this._fardel.variations.push(obj);
   }
   set product_type(val) {
-    this._product_type = val;
+    this._fardel.product_type = val;
   }
   set item_options(id) {
     let lengthLimit = 6;
@@ -140,11 +145,11 @@ class Catalog_Item extends Helper_Name {
         `Item options array can contain no more than ${lengthLimit} items.`
       );
     }
-    this._item_options.push(id);
+    this._fardel.item_options.push(id);
   }
   set sort_name(str) {
     // Square uses the regular name field as default
-    this._sort_name = str;
+    this._fardel.sort_name = str;
   }
   //METHODS
   // have spawn to auto gen and chainSet for manual
@@ -153,7 +158,7 @@ class Catalog_Item extends Helper_Name {
       const properties = {
         self: this,
         name: function (str) {
-          this.self._name = str;
+          this.self.name = str;
           return this;
         },
         id: function (tempId) {
@@ -169,7 +174,7 @@ class Catalog_Item extends Helper_Name {
           return this;
         },
         label_color: function (hex) {
-          this.self._label_color = hex;
+          this.self.label_color = hex;
           return this;
         },
         available_online: function (bool) {
