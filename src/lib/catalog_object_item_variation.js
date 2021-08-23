@@ -1,4 +1,5 @@
 const { Helper_Name } = require("./catalog_object_helpers");
+const { setter_chain_generator_config } = require("./utilities_curry");
 // const { setter_chain_generator_config } = require("./utilities_curry");
 
 class Catalog_Object_Item_Variation extends Helper_Name {
@@ -96,6 +97,7 @@ class Catalog_Object_Item_Variation extends Helper_Name {
   set sku(sku) {
     this._fardel.sku = sku;
   }
+
   set upc(upc) {
     // todo convert it to a string first
     // create validator for this - submit to validator.js
@@ -103,6 +105,8 @@ class Catalog_Object_Item_Variation extends Helper_Name {
     this._fardel.upc = upc;
   }
 
+  // todo PRIORITY PRIORITY PRIORITY
+  //  PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY
   set pricing_type(str) {
     // todo obj, two props, one with fixed string value
     //  maybe make a central repository for all these fixed values...
@@ -110,9 +114,13 @@ class Catalog_Object_Item_Variation extends Helper_Name {
     // The item variation's price, if fixed pricing is used.
     this._fardel.pricing_type = str;
   }
+
+  // todo PRIORITY PRIORITY PRIORITY
+  //  PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY
   set price_money(num) {
     this._fardel.price_money = num;
   }
+
   set location_overrides(obj) {
     // todo practically a subclass unto itself...
     this._fardel.location_overrides = obj;
@@ -163,6 +171,31 @@ class Catalog_Object_Item_Variation extends Helper_Name {
   set user_data(str) {
     // todo validate
     this._fardel.user_data = str;
+  }
+
+  //METHODS
+  spawn() {
+    const methods = () => {
+      const properties = {
+        self: this,
+        name: function (str) {
+          this.self.name = str;
+          return this;
+        },
+        present_at_all_locations: function (bool) {
+          this.self.present_at_all_locations = bool;
+          return this;
+        },
+        present_at_all_locations_ids: function (id) {
+          this.present_at_all_locations_ids = id;
+          return this;
+        },
+      };
+
+      setter_chain_generator_config(this.configuration, properties, this);
+      return properties;
+    };
+    return methods();
   }
 }
 

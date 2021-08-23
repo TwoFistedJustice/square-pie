@@ -184,6 +184,14 @@ class Catalog_Item extends Helper_Name {
           this.self.name = str;
           return this;
         },
+        present_at_all_locations: function (bool) {
+          this.self.present_at_all_locations = bool;
+          return this;
+        },
+        present_at_all_locations_ids: function (id) {
+          this.present_at_all_locations_ids = id;
+          return this;
+        },
         id: function (tempId) {
           this.id = tempId;
           return this;
@@ -228,6 +236,10 @@ class Catalog_Item extends Helper_Name {
           return this;
         },
         variations: function (obj) {
+          // todo validate object
+          // if obj contains .service_duration or .available_for_booking
+          // chekc if product type is appointements type
+
           this.self.variations = obj;
           return this;
         },

@@ -41,6 +41,15 @@ describe("Catalog Object Super", () => {
     superduper.id = id;
     superduper.id.should.equal(idhash);
   });
+  test("Should ", () => {
+    const superduper = new Catalog_Object_Super();
+    superduper.present_at_all_locations = true;
+    superduper.present_at_all_locations_ids = id;
+    expect(superduper.present_at_all_locations).toBe(true);
+    expect(superduper.present_at_all_locations_ids).toEqual(
+      expect.arrayContaining([id])
+    );
+  });
 });
 
 // --------------------------------------------------------------
