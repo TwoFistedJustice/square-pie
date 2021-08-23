@@ -1,0 +1,196 @@
+const { Helper_Name } = require("./catalog_object_helpers");
+// const { setter_chain_generator_config } = require("./utilities_curry");
+
+class Catalog_Object_Item_Variation extends Helper_Name {
+  constructor() {
+    super();
+    this._type = "ITEM_VARIATION";
+    (this.configuration = {
+      lengthLimits: {
+        name: 255,
+        user_data: 255,
+      },
+      keys: ["pricing_type", "inventory_alert_type", "", "", "", ""],
+      pricing_type: ["FIXED_PRICING", "VARIABLE_PRICING"],
+      inventory_alert_type: ["NONE", "LOW_QUANTITY"],
+    }),
+      (this._fardel = {
+        available_for_booking: undefined, //
+        service_duration: undefined, //
+        item_id: "", // empty string to aid next step
+        item_options_values: undefined, // ARRAY of ids
+        location_overrides: undefined, // // [ CHAIN ]
+        inventory_alert_type: undefined, //
+        inventory_alert_type_threshold: undefined, //
+        track_inventory: undefined, // // [ CHAIN T/F ]
+        measurement_unit_id: undefined, //
+        pricing_type: undefined, // // [ CHAIN ]
+        price_money: undefined, // // [ CHAIN ]
+        sku: undefined, // // can it be validated?
+        stockable: undefined, //
+        stockable_coversion: undefined, //
+        team_member_ids: undefined, //
+        upc: undefined, // // can it be validated? min ln:12 max ln:14
+        user_data: undefined, // //255
+      });
+  }
+
+  get item_id() {
+    return this._fardel.item_id;
+  }
+
+  get sku() {
+    return this._fardel.sku;
+  }
+  get upc() {
+    return this._fardel.upc;
+  }
+  get pricing_type() {
+    return this._fardel.pricing_type;
+  }
+  get price_money() {
+    return this._fardel.price_money;
+  }
+  get location_overrides() {
+    return this._fardel.location_overrides;
+  }
+  get track_inventory() {
+    return this._fardel.track_inventory;
+  }
+  get inventory_alert_type() {
+    return this._fardel.inventory_alert_type;
+  }
+  get inventory_alert_type_threshold() {
+    return this._fardel.inventory_alert_type_threshold;
+  }
+  get user_data() {
+    return this._fardel.user_data;
+  }
+  get service_duration() {
+    return this._fardel.service_duration;
+  }
+  get available_for_booking() {
+    return this._fardel.available_for_booking;
+  }
+  get item_options_values() {
+    return this._fardel.item_options_values;
+  }
+  get measurement_unit_id() {
+    return this._fardel.measurement_unit_id;
+  }
+  get stockable() {
+    return this._fardel.stockable;
+  }
+  get team_member_ids() {
+    return this._fardel.team_member_ids;
+  }
+  get stockable_coversion() {
+    return this._fardel.stockable_coversion;
+  }
+
+  // call this from Item
+  set item_id(id) {
+    // will automatically be set when added to an Item, but you can set it here if you want
+    this._fardel.id = id;
+  }
+  set sku(sku) {
+    this._fardel.sku = sku;
+  }
+  set upc(upc) {
+    // todo convert it to a string first
+    // create validator for this - submit to validator.js
+    // https://en.wikipedia.org/wiki/Universal_Product_Code#Check_digit_calculation
+    this._fardel.upc = upc;
+  }
+
+  set pricing_type(str) {
+    // todo obj, two props, one with fixed string value
+    //  maybe make a central repository for all these fixed values...
+    //  that would really simplify maintenance
+    // The item variation's price, if fixed pricing is used.
+    this._fardel.pricing_type = str;
+  }
+  set price_money(num) {
+    this._fardel.price_money = num;
+  }
+  set location_overrides(obj) {
+    // todo practically a subclass unto itself...
+    this._fardel.location_overrides = obj;
+  }
+  set track_inventory(bool) {
+    this._fardel.track_inventory = bool;
+  }
+  set inventory_alert_type(str) {
+    this._fardel.inventory_alert_type = str;
+  }
+  set inventory_alert_type_threshold(str) {
+    this._fardel.inventory_alert_type_threshold = str;
+  }
+  set service_duration(num) {
+    // todo If the CatalogItem that owns this item variation is of type APPOINTMENTS_SERVICE
+    // enter the number in minutes - sets in ms (times 60 sec times 1000 ms)
+    this._fardel.service_duration = num * 60 * 1000;
+  }
+  set available_for_booking(bool) {
+    // todo If the CatalogItem that owns this item variation is of type APPOINTMENTS_SERVICE
+    this._fardel.available_for_booking = bool;
+  }
+  set item_options_values(str) {
+    // todo docs are unclear about this
+    // todo ARRAY sequence
+    this._fardel.item_options_values.push(str);
+  }
+  set measurement_unit_id(str) {
+    // If left unset, the item will be sold in whole quantities.
+    this._fardel.measurement_unit_id = str;
+  }
+  set stockable(bool) {
+    // Whether stock is counted directly on this variation (TRUE) or only on its components (FALSE).
+    // For backward compatibility missing values will be interpreted as TRUE.
+    this._fardel.stockable = bool;
+  }
+  set team_member_ids(str) {
+    // todo ARRAY sequence
+    this._fardel.team_member_ids.push(str);
+  }
+  set stockable_coversion(obj) {
+    // todo opinionated object
+    this._fardel.stockable_coversion = obj;
+  }
+
+  //
+
+  set user_data(str) {
+    // todo validate
+    this._fardel.user_data = str;
+  }
+}
+
+// https://developer.squareup.com/reference/square/objects/CatalogItemVariation
+
+/* -------------------------------------------------------------------
+//  MAKE ITEM A SUB CLASS OF ITEM-VARIATION OR VICE VERSA
+// GIVE ITEM A 'DEFAULT' VARIATION METHOD THAT CREATES A 'REGULAR' ONE
+// OR
+Make item variation a mixin...
+
+or make a method called 'variation' and curry it
+
+-------------------------------------------------------------------*/
+
+//MAYBE instead of a unique class, have a METHOD
+// on the ITEM class that makes this as a property...
+// or a have a method that instantiates this class?
+// or require the user to make one, then when it's added to an item
+// the item_id gets set then
+// class Item_Variation extends Helper_Name {
+//   constructor(item_id, name) {
+//     super(name);
+
+// id of associated item
+
+//   }
+//   spawn() {}
+// }
+
+module.exports = Catalog_Object_Item_Variation;

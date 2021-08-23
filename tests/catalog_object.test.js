@@ -152,9 +152,9 @@ describe("Catalog: Category", () => {
 
 // --------------------------------------------------------------
 //                         ITEM
+// ToDO Item varition ID matches item id
+// TODO CHECK THAT FARDEL CONTAINS NAME PROP
 // --------------------------------------------------------------
-
-//TODO CHECK THAT FARDEL CONTAINS NAME PROP
 
 describe("Catalog Item setters", () => {
   const item = new Catalog_Item();
@@ -224,3 +224,7 @@ describe("Catalog Item fardel arrays should be arrays containing the appropriate
     item.item_options.should.be.an("array").that.includes(str);
   });
 });
+
+// --------------------------------------------------------------
+//                         ITEM VARIATION
+// --------------------------------------------------------------
