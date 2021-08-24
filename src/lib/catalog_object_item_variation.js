@@ -101,7 +101,6 @@ class Catalog_Object_Item_Variation extends Helper_Name {
   }
 
   set upc(upc) {
-    // todo convert it to a string first
     // create validator for this - submit to validator.js
     // https://en.wikipedia.org/wiki/Universal_Product_Code#Check_digit_calculation
     this._fardel.item_variation_data.upc = upc;
@@ -137,12 +136,26 @@ class Catalog_Object_Item_Variation extends Helper_Name {
     this._fardel.item_variation_data.inventory_alert_type_threshold = str;
   }
   set service_duration(num) {
-    // todo If the CatalogItem that owns this item variation is of type APPOINTMENTS_SERVICE
     // enter the number in minutes - sets in ms (times 60 sec times 1000 ms)
-    this._fardel.item_variation_data.service_duration = num * 60 * 1000;
+    let parsed = parseInt(num);
+    if (isNaN(parsed)) {
+      throw new TypeError(
+        `Item Variation: ${
+          this.name
+        } received a ${typeof num} but expects a number.`
+      );
+    }
+    this._fardel.item_variation_data.service_duration = parsed * 60 * 1000;
   }
   set available_for_booking(bool) {
-    // todo If the CatalogItem that owns this item variation is of type APPOINTMENTS_SERVICE
+    if (typeof bool !== "boolean") {
+      throw new TypeError(
+        `Item Variation: ${
+          this.name
+        } received a ${typeof bool} but expects a boolean.`
+      );
+    }
+
     this._fardel.item_variation_data.available_for_booking = bool;
   }
   set item_options_values(str) {

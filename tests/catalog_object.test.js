@@ -232,6 +232,13 @@ describe("Catalog Item fardel arrays should be arrays containing the appropriate
     item.variations.should.be.an("array").that.includes(obj);
     item.item_options.should.be.an("array").that.includes(str);
   });
+
+  //todo test auto_set_appointment_service
+
+  // todo test that item correctly detects presence of service_duration and
+  //  available_for_booking props and sets product type correctly
+
+  // todo
 });
 
 // --------------------------------------------------------------

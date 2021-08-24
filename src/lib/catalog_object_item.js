@@ -11,6 +11,7 @@ class Catalog_Item extends Helper_Name {
         description: 4096,
         abbreviation: 24,
       },
+      auto_set_appointment_service: true,
       keys: ["product_type"], // array of property names where Square expects specific values
       product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
     };
@@ -28,7 +29,9 @@ class Catalog_Item extends Helper_Name {
         tax_ids: undefined, // => array of strings
         modifier_list_info: undefined, // =>  array of objects
         variations: undefined, // => array of objects
-        product_type: "REGULAR",
+        product_type: this.configuration.auto_set_appointment_service
+          ? "APPOINTMENTS_SERVICE"
+          : "REGULAR",
         skip_modifier_screen: undefined, //default is false
         item_options: undefined, // => array of strings
         sort_name: undefined, // supported in Japan only
@@ -147,15 +150,18 @@ class Catalog_Item extends Helper_Name {
   set variations(obj) {
     //todo validate the object - this is complex and might be best done with a subclass
     // An item must have at least one variation.
-
     if (!Array.isArray(this._fardel.item_data.variations)) {
       this._fardel.item_data.variations = [];
     }
-
     if (obj.item_id !== this.id) {
       obj.item_id = this.id;
     }
-
+    if (
+      obj.available_for_booking !== undefined ||
+      obj.service_duration !== undefined
+    ) {
+      this.product_type = "APPOINTMENTS_SERVICE";
+    }
     this._fardel.item_data.variations.push(obj);
   }
   set product_type(val) {
