@@ -11,7 +11,7 @@ class Catalog_Object_Item_Variation extends Helper_Name {
         name: 255,
         user_data: 255,
       },
-      keys: ["pricing_type", "inventory_alert_type", "", "", "", ""],
+      keys: ["pricing_type", "inventory_alert_type"],
       pricing_type: ["FIXED_PRICING", "VARIABLE_PRICING"],
       inventory_alert_type: ["NONE", "LOW_QUANTITY"],
     }),
@@ -147,7 +147,9 @@ class Catalog_Object_Item_Variation extends Helper_Name {
   }
   set item_options_values(str) {
     // todo docs are unclear about this
-    // todo ARRAY sequence
+    if (!Array.isArray(this._fardel.item_variation_data.item_options_values)) {
+      this._fardel.item_variation_data.item_options_values = [];
+    }
     this._fardel.item_variation_data.item_options_values.push(str);
   }
   set measurement_unit_id(str) {
@@ -160,7 +162,9 @@ class Catalog_Object_Item_Variation extends Helper_Name {
     this._fardel.item_variation_data.stockable = bool;
   }
   set team_member_ids(str) {
-    // todo ARRAY sequence
+    if (!Array.isArray(this._fardel.item_variation_data.team_member_ids)) {
+      this._fardel.item_variation_data.team_member_ids = [];
+    }
     this._fardel.item_variation_data.team_member_ids.push(str);
   }
   set stockable_coversion(obj) {
