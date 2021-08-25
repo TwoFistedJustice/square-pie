@@ -111,17 +111,17 @@ class Catalog_Object_Item_Variation extends Helper_Name {
   set service_duration(num) {
     // enter the number in minutes - sets in ms (times 60 sec times 1000 ms)
     let parsed = parseInt(num);
-    if (isNaN(parsed)) {
+    if (isNaN(parsed) || num != parsed) {
       throw new TypeError(
         `Item Variation: ${
           this.name
         } received a ${typeof num} but expects a number.`
       );
     }
-    this._fardel.item_variation_data.service_duration = parsed * 60 * 1000;
+    this._fardel.item_variation_data.service_duration = num * 60 * 1000;
   }
   set item_options_values(str) {
-    // todo docs are unclear about this
+    // todo Square docs are unclear about this - figurretowt
     if (!Array.isArray(this._fardel.item_variation_data.item_options_values)) {
       this._fardel.item_variation_data.item_options_values = [];
     }
