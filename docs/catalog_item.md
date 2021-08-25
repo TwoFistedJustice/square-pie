@@ -37,6 +37,17 @@ This package does not currently support multiple simultaneous currencies.
 
 To set the price you need only pass in the price in cents, without the currency. (This is different than the Square docs)
 
+### pricing_type
+
+You don't need to set this property, pretty much ever. It will be automatically set to the required
+type when you set a property that requires that pricing type. This will happen every time
+you add a price, or a service duration, or mark a service available for booking. Whatever you
+did last is how it will be set. But if you are bound and determined to break it, you can still
+set it manually, as long as you do it after the other stuff.
+
+These properties also will not allow you to feed them the wrong kind of food. They will cough up
+a TypeError if you do.
+
 ### Incomplete Parts:
 
 The following properties on the item variation object were not priorities and remain
