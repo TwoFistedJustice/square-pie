@@ -11,7 +11,9 @@ class Catalog_Item extends Helper_Name {
         description: 4096,
         abbreviation: 24,
       },
-      auto_set_appointment_service: true,
+      defaults: {
+        auto_set_appointment_service: true,
+      },
       keys: ["product_type"], // array of property names where Square expects specific values
       product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
     };
@@ -29,7 +31,7 @@ class Catalog_Item extends Helper_Name {
         tax_ids: undefined, // => array of strings
         modifier_list_info: undefined, // =>  array of objects
         variations: undefined, // => array of objects
-        product_type: this.configuration.auto_set_appointment_service
+        product_type: this.configuration.defaults.auto_set_appointment_service
           ? "APPOINTMENTS_SERVICE"
           : "REGULAR",
         skip_modifier_screen: undefined, //default is false
