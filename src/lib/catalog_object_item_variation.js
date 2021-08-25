@@ -133,7 +133,7 @@ class Catalog_Object_Item_Variation extends Helper_Name {
   }
   set pricing_type(str) {
     if (str === "VARIABLE_PRICING") {
-      this._fardel.price_money = undefined;
+      this._fardel.item_variation_data.price_money = undefined;
     }
     this._fardel.item_variation_data.pricing_type = str;
   }
