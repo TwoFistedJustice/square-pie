@@ -106,6 +106,7 @@ class Catalog_Object_Item_Variation extends Helper_Name {
         } received a ${typeof bool} but expects a boolean.`
       );
     }
+    this.pricing_type = "VARIABLE_PRICING";
     this._fardel.item_variation_data.available_for_booking = bool;
   }
   set service_duration(num) {
@@ -118,6 +119,7 @@ class Catalog_Object_Item_Variation extends Helper_Name {
         } received a ${typeof num} but expects a number.`
       );
     }
+    this.pricing_type = "VARIABLE_PRICING";
     this._fardel.item_variation_data.service_duration = num * 60 * 1000;
   }
   set item_options_values(str) {
