@@ -90,7 +90,6 @@ class Catalog_Object_Item_Variation extends Helper_Name {
   get team_member_ids() {
     return this._fardel.item_variation_data.team_member_ids;
   }
-  //todo fix spelling - missing 'n' here and elsewhere
   get stockable_conversion() {
     return this._fardel.item_variation_data.stockable_conversion;
   }
@@ -144,9 +143,7 @@ class Catalog_Object_Item_Variation extends Helper_Name {
       amount: val,
       currency: this.configuration.defaults.currency,
     };
-    if (this.pricing_type !== "FIXED_PRICING") {
-      this.pricing_type = "FIXED_PRICING";
-    }
+    this._fardel.item_variation_data.pricing_type = "FIXED_PRICING";
     this._fardel.item_variation_data.price_money = moneyIsTooAnObject;
   }
   set inventory_alert_type(str) {
@@ -216,59 +213,59 @@ class Catalog_Object_Item_Variation extends Helper_Name {
           return this;
         },
         available_for_booking: function (bool) {
-          self.this.available_for_booking = bool;
+          this.self.available_for_booking = bool;
           return this;
         },
         service_duration: function (num) {
-          self.this.service_duration = num;
+          this.self.service_duration = num;
           return this;
         },
         item_options_values: function (str) {
-          self.this.item_options_values = str;
+          this.self.item_options_values = str;
           return this;
         },
         location_overrides: function (obj) {
-          self.this.location_overrides = obj;
+          this.self.location_overrides = obj;
           return this;
         },
         inventory_alert_type_threshold: function (str) {
-          self.this.inventory_alert_type_threshold = str;
+          this.self.inventory_alert_type_threshold = str;
           return this;
         },
         track_inventory: function (bool) {
-          self.this.track_inventory = bool;
+          this.self.track_inventory = bool;
           return this;
         },
         measurement_unit_id: function (str) {
-          self.this.measurement_unit_id = str;
+          this.self.measurement_unit_id = str;
           return this;
         },
         price_money: function (val) {
-          self.this.price_money = val;
+          this.self.price_money = val;
           return this;
         },
         sku: function (str) {
-          self.this.sku = str;
+          this.self.sku = str;
           return this;
         },
         stockable: function (bool) {
-          self.this.stockable = bool;
+          this.self.stockable = bool;
           return this;
         },
         stockable_conversion: function (obj) {
-          self.this.stockable_conversion = obj;
+          this.self.stockable_conversion = obj;
           return this;
         },
         team_member_ids: function (str) {
-          self.this.team_member_ids = str;
+          this.self.team_member_ids = str;
           return this;
         },
         upc: function (upc) {
-          self.this.upc = upc;
+          this.self.upc = upc;
           return this;
         },
         user_data: function (str) {
-          self.this.user_data = str;
+          this.self.user_data = str;
           return this;
         },
       };
