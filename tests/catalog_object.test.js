@@ -300,13 +300,47 @@ describe("Item Variation pricing featues", () => {
       spawn.available_for_booking(true);
     }).not.toThrow();
   });
+
+  test("Available for booking have correct boolean value", () => {
+    const variation = new Catalog_Item_Variation();
+    const spawn = variation.spawn();
+    spawn.available_for_booking(true);
+    expect(variation.available_for_booking).toEqual(true);
+  });
+
+  test("Service duration have correct time in milliseconds", () => {
+    const timeInMinutes = 60;
+    const timeInMilliseconds = timeInMinutes * 60 * 1000;
+    const variation = new Catalog_Item_Variation();
+    const spawn = variation.spawn();
+    spawn.service_duration(timeInMinutes);
+    expect(variation.service_duration).toEqual(timeInMilliseconds);
+  });
+
+  test("Available for booking should reset pricing type to variable", () => {
+    const variation = new Catalog_Item_Variation();
+    const spawn = variation.spawn();
+    spawn.pricing_type().FIXED_PRICING();
+    spawn.available_for_booking(true);
+    expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
+  });
+
+  test("Service duration should reset pricing type to variable", () => {
+    const timeInMinutes = 60;
+    const variation = new Catalog_Item_Variation();
+    const spawn = variation.spawn();
+    spawn.pricing_type().FIXED_PRICING();
+    spawn.service_duration(timeInMinutes);
+    expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
+  });
 });
 
 // --------------------------------------------------------------
 //                        INTERACTION BETWEEN ITEM && ITEM VARIATION
 // --------------------------------------------------------------
 
-// todo test that item correctly detects presence of service_duration and
-//
-
-// todo available_for_booking props and sets product type correctly
+describe("Item and Item Variation should interact correctly", () => {
+  // todo test that item correctly detects presence of service_duration and
+  //
+  // todo available_for_booking props and sets product type correctly
+});
