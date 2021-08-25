@@ -18,3 +18,14 @@ somevar.product_type().APPOINTMENTS_SERVICE();
 
 'product_type' will also be set to 'APPOINTMENTS_SERVICE' if any of the item variations you add have the properties `service_duration` or 'available_for_booking'
 In other words, you must not try to mix and match Regular and Appointment items. Square may let you do this. But we don't.
+
+## Item Variation
+
+Note: This is for upserting a new object. It does not cover updating an existing one.
+
+###Pricing a new item:
+If you wish to set a fixed price, there is no need to set pricing type. This will be done automatically
+when you add a price.
+
+Conversely, if you made a mistake and wish to change to variable pricing, you need only set the pricing type to variable. The price data will be
+cleared automatically.

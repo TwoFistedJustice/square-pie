@@ -11,6 +11,9 @@ class Catalog_Object_Item_Variation extends Helper_Name {
         name: 255,
         user_data: 255,
       },
+      defaults: {
+        currency: "USD",
+      },
       keys: ["pricing_type", "inventory_alert_type"],
       pricing_type: ["FIXED_PRICING", "VARIABLE_PRICING"],
       inventory_alert_type: ["NONE", "LOW_QUANTITY"],
@@ -87,6 +90,7 @@ class Catalog_Object_Item_Variation extends Helper_Name {
   get team_member_ids() {
     return this._fardel.item_variation_data.team_member_ids;
   }
+  //todo fix spelling - missing 'n' here and elsewhere
   get stockable_coversion() {
     return this._fardel.item_variation_data.stockable_coversion;
   }
@@ -113,12 +117,20 @@ class Catalog_Object_Item_Variation extends Helper_Name {
     //  maybe make a central repository for all these fixed values...
     //  that would really simplify maintenance
     // The item variation's price, if fixed pricing is used.
+    if (str === "VARIABLE_PRICING") {
+      this._fardel.price_money = undefined;
+    }
+
     this._fardel.item_variation_data.pricing_type = str;
   }
 
   // todo PRIORITY PRIORITY PRIORITY
   //  PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY
   set price_money(num) {
+    // if pricing type isn't fixed, set it to fixed
+    if (this.pricing_type !== "FIXED_PRICING") {
+      this.pricing_type = "FIXED_PRICING";
+    }
     this._fardel.item_variation_data.price_money = num;
   }
 

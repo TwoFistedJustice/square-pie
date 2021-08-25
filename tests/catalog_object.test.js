@@ -238,7 +238,7 @@ describe("Catalog Item fardel arrays should be arrays containing the appropriate
   // todo test that item correctly detects presence of service_duration and
   //  available_for_booking props and sets product type correctly
 
-  // todo
+  // todo  test that "fixed pricing" gets set automatically when adding a price
 });
 
 // --------------------------------------------------------------
