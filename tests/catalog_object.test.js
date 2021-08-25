@@ -256,15 +256,7 @@ describe("Item Variation pricing featues", () => {
     expect(variation.price_money).toBeUndefined();
   });
 
-  //todo test auto_set_appointment_service
-  // may need to build that feature
-  // service duration
-  // -- feed it an alphanumeric string "5o" <- that's the letter 'o', should throw
-  // -- feed it a bool, should throw
-  // -- feed it an object, should throw
-  // -- feed it a number, should NOT throw
-
-  test.only("Should reject unexcpected argument types", () => {
+  test("Service duration should throw unexpected argument types", () => {
     const variation = new Catalog_Item_Variation();
     const spawn = variation.spawn();
 
@@ -287,13 +279,28 @@ describe("Item Variation pricing featues", () => {
       spawn.service_duration(3600);
     }).not.toThrow();
   });
-});
 
-// todo available for booking
-//  -- feed it an alphanumeric string "5o" <- that's the letter 'o', should throw
-//  -- feed it an object, should throw
-//  -- feed it a number, should throw
-//  -- feed it a bool, should NOT throw
+  test("Available for booking should throw on unexpected argument types", () => {
+    const variation = new Catalog_Item_Variation();
+    const spawn = variation.spawn();
+
+    expect(() => {
+      spawn.available_for_booking();
+    }).toThrow();
+    expect(() => {
+      spawn.available_for_booking("words");
+    }).toThrow();
+    expect(() => {
+      spawn.available_for_booking({ a: true });
+    }).toThrow();
+    expect(() => {
+      spawn.available_for_booking(1);
+    }).toThrow();
+    expect(() => {
+      spawn.available_for_booking(true);
+    }).not.toThrow();
+  });
+});
 
 // --------------------------------------------------------------
 //                        INTERACTION BETWEEN ITEM && ITEM VARIATION
