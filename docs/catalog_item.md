@@ -29,3 +29,10 @@ when you add a price.
 
 Conversely, if you made a mistake and wish to change to variable pricing, you need only set the pricing type to variable. The price data will be
 cleared automatically.
+
+### Currency
+
+catalog_object_item_variation.js has a default value of "USD". If you need a different currency, change this value the one you want.
+This package does not currently support multiple simultaneous currencies.
+
+To set the price you need only pass in the price in cents, without the currency. (This is different than the Square docs)

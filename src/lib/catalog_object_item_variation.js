@@ -12,7 +12,7 @@ class Catalog_Object_Item_Variation extends Helper_Name {
         user_data: 255,
       },
       defaults: {
-        currency: "USD",
+        currency: "USD", // set to undefined or "none" to have no default currency - see Square docs for other values
       },
       keys: ["pricing_type", "inventory_alert_type"],
       pricing_type: ["FIXED_PRICING", "VARIABLE_PRICING"],
@@ -110,28 +110,23 @@ class Catalog_Object_Item_Variation extends Helper_Name {
     this._fardel.item_variation_data.upc = upc;
   }
 
-  // todo PRIORITY PRIORITY PRIORITY
-  //  PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY
   set pricing_type(str) {
-    // todo obj, two props, one with fixed string value
-    //  maybe make a central repository for all these fixed values...
-    //  that would really simplify maintenance
-    // The item variation's price, if fixed pricing is used.
     if (str === "VARIABLE_PRICING") {
       this._fardel.price_money = undefined;
     }
-
     this._fardel.item_variation_data.pricing_type = str;
   }
+  // price_money is only used if pricing type is fixed. So set it to fixed and save a step.
+  set price_money(val) {
+    let moneyIsTooAnObject = {
+      amount: val,
+      currency: this.configuration.defaults.currency,
+    };
 
-  // todo PRIORITY PRIORITY PRIORITY
-  //  PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY PRIORITY
-  set price_money(num) {
-    // if pricing type isn't fixed, set it to fixed
     if (this.pricing_type !== "FIXED_PRICING") {
       this.pricing_type = "FIXED_PRICING";
     }
-    this._fardel.item_variation_data.price_money = num;
+    this._fardel.item_variation_data.price_money = moneyIsTooAnObject;
   }
 
   set location_overrides(obj) {
