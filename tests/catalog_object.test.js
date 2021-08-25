@@ -255,9 +255,51 @@ describe("Item Variation pricing featues", () => {
     expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
     expect(variation.price_money).toBeUndefined();
   });
+
+  //todo test auto_set_appointment_service
+  // may need to build that feature
+  // service duration
+  // -- feed it an alphanumeric string "5o" <- that's the letter 'o', should throw
+  // -- feed it a bool, should throw
+  // -- feed it an object, should throw
+  // -- feed it a number, should NOT throw
+
+  test.only("Should reject unexcpected argument types", () => {
+    const variation = new Catalog_Item_Variation();
+    const spawn = variation.spawn();
+
+    expect(() => {
+      spawn.service_duration();
+    }).toThrow();
+    expect(() => {
+      spawn.service_duration("5o");
+    }).toThrow();
+    expect(() => {
+      spawn.service_duration("words");
+    }).toThrow();
+    expect(() => {
+      spawn.service_duration(true);
+    }).toThrow();
+    expect(() => {
+      spawn.service_duration({ time: 3600 });
+    }).toThrow();
+    expect(() => {
+      spawn.service_duration(3600);
+    }).not.toThrow();
+  });
 });
 
-//todo test auto_set_appointment_service
+// todo available for booking
+//  -- feed it an alphanumeric string "5o" <- that's the letter 'o', should throw
+//  -- feed it an object, should throw
+//  -- feed it a number, should throw
+//  -- feed it a bool, should NOT throw
+
+// --------------------------------------------------------------
+//                        INTERACTION BETWEEN ITEM && ITEM VARIATION
+// --------------------------------------------------------------
 
 // todo test that item correctly detects presence of service_duration and
-//  available_for_booking props and sets product type correctly
+//
+
+// todo available_for_booking props and sets product type correctly
