@@ -33,7 +33,7 @@ class Catalog_Object_Item_Variation extends Helper_Name {
           price_money: undefined, // // [ CHAIN ]
           sku: undefined, // // can it be validated?
           stockable: undefined, //
-          stockable_coversion: undefined, //
+          stockable_conversion: undefined, //
           team_member_ids: undefined, //
           upc: undefined, // // can it be validated? min ln:12 max ln:14
           user_data: undefined, // //255
@@ -91,56 +91,23 @@ class Catalog_Object_Item_Variation extends Helper_Name {
     return this._fardel.item_variation_data.team_member_ids;
   }
   //todo fix spelling - missing 'n' here and elsewhere
-  get stockable_coversion() {
-    return this._fardel.item_variation_data.stockable_coversion;
+  get stockable_conversion() {
+    return this._fardel.item_variation_data.stockable_conversion;
   }
-
-  // call this from Item
+  // this gets called automatically from Item - so you don't need to
   set item_id(id) {
     // will automatically be set when added to an Item, but you can set it here if you want
     this._fardel.item_variation_data.id = id;
   }
-  set sku(sku) {
-    this._fardel.item_variation_data.sku = sku;
-  }
-
-  set upc(upc) {
-    // create validator for this - submit to validator.js
-    // https://en.wikipedia.org/wiki/Universal_Product_Code#Check_digit_calculation
-    this._fardel.item_variation_data.upc = upc;
-  }
-
-  set pricing_type(str) {
-    if (str === "VARIABLE_PRICING") {
-      this._fardel.price_money = undefined;
+  set available_for_booking(bool) {
+    if (typeof bool !== "boolean") {
+      throw new TypeError(
+        `Item Variation.available_for_booking: ${
+          this.name
+        } received a ${typeof bool} but expects a boolean.`
+      );
     }
-    this._fardel.item_variation_data.pricing_type = str;
-  }
-  // price_money is only used if pricing type is fixed. So set it to fixed and save a step.
-  set price_money(val) {
-    let moneyIsTooAnObject = {
-      amount: val,
-      currency: this.configuration.defaults.currency,
-    };
-
-    if (this.pricing_type !== "FIXED_PRICING") {
-      this.pricing_type = "FIXED_PRICING";
-    }
-    this._fardel.item_variation_data.price_money = moneyIsTooAnObject;
-  }
-
-  set location_overrides(obj) {
-    // todo practically a subclass unto itself...
-    this._fardel.item_variation_data.location_overrides = obj;
-  }
-  set track_inventory(bool) {
-    this._fardel.item_variation_data.track_inventory = bool;
-  }
-  set inventory_alert_type(str) {
-    this._fardel.item_variation_data.inventory_alert_type = str;
-  }
-  set inventory_alert_type_threshold(str) {
-    this._fardel.item_variation_data.inventory_alert_type_threshold = str;
+    this._fardel.item_variation_data.available_for_booking = bool;
   }
   set service_duration(num) {
     // enter the number in minutes - sets in ms (times 60 sec times 1000 ms)
@@ -154,17 +121,6 @@ class Catalog_Object_Item_Variation extends Helper_Name {
     }
     this._fardel.item_variation_data.service_duration = parsed * 60 * 1000;
   }
-  set available_for_booking(bool) {
-    if (typeof bool !== "boolean") {
-      throw new TypeError(
-        `Item Variation: ${
-          this.name
-        } received a ${typeof bool} but expects a boolean.`
-      );
-    }
-
-    this._fardel.item_variation_data.available_for_booking = bool;
-  }
   set item_options_values(str) {
     // todo docs are unclear about this
     if (!Array.isArray(this._fardel.item_variation_data.item_options_values)) {
@@ -172,14 +128,59 @@ class Catalog_Object_Item_Variation extends Helper_Name {
     }
     this._fardel.item_variation_data.item_options_values.push(str);
   }
+  set location_overrides(obj) {
+    // todo practically a subclass unto itself...
+    this._fardel.item_variation_data.location_overrides = obj;
+  }
+  set pricing_type(str) {
+    if (str === "VARIABLE_PRICING") {
+      this._fardel.price_money = undefined;
+    }
+    this._fardel.item_variation_data.pricing_type = str;
+  }
+  // price_money is only used if pricing type is fixed. So set it to fixed and save a step.
+  set price_money(val) {
+    let moneyIsTooAnObject = {
+      amount: val,
+      currency: this.configuration.defaults.currency,
+    };
+    if (this.pricing_type !== "FIXED_PRICING") {
+      this.pricing_type = "FIXED_PRICING";
+    }
+    this._fardel.item_variation_data.price_money = moneyIsTooAnObject;
+  }
+  set inventory_alert_type(str) {
+    this._fardel.item_variation_data.inventory_alert_type = str;
+  }
+  set inventory_alert_type_threshold(str) {
+    this._fardel.item_variation_data.inventory_alert_type_threshold = str;
+  }
+  set track_inventory(bool) {
+    this._fardel.item_variation_data.track_inventory = bool;
+  }
   set measurement_unit_id(str) {
     // If left unset, the item will be sold in whole quantities.
     this._fardel.item_variation_data.measurement_unit_id = str;
   }
+  set sku(sku) {
+    this._fardel.item_variation_data.sku = sku;
+  }
   set stockable(bool) {
     // Whether stock is counted directly on this variation (TRUE) or only on its components (FALSE).
     // For backward compatibility missing values will be interpreted as TRUE.
+    if (typeof bool !== "boolean") {
+      throw new TypeError(
+        `Item Variation.stockable: ${
+          this.name
+        } received a ${typeof bool} but expects a boolean.`
+      );
+    }
+
     this._fardel.item_variation_data.stockable = bool;
+  }
+  set stockable_conversion(obj) {
+    // todo opinionated object
+    this._fardel.item_variation_data.stockable_conversion = obj;
   }
   set team_member_ids(str) {
     if (!Array.isArray(this._fardel.item_variation_data.team_member_ids)) {
@@ -187,13 +188,11 @@ class Catalog_Object_Item_Variation extends Helper_Name {
     }
     this._fardel.item_variation_data.team_member_ids.push(str);
   }
-  set stockable_coversion(obj) {
-    // todo opinionated object
-    this._fardel.item_variation_data.stockable_coversion = obj;
+  set upc(upc) {
+    // create validator for this - submit to validator.js
+    // https://en.wikipedia.org/wiki/Universal_Product_Code#Check_digit_calculation
+    this._fardel.item_variation_data.upc = upc;
   }
-
-  //
-
   set user_data(str) {
     // todo validate
     this._fardel.item_variation_data.user_data = str;
@@ -214,6 +213,62 @@ class Catalog_Object_Item_Variation extends Helper_Name {
         },
         present_at_all_locations_ids: function (id) {
           this.present_at_all_locations_ids = id;
+          return this;
+        },
+        available_for_booking: function (bool) {
+          self.this.available_for_booking = bool;
+          return this;
+        },
+        service_duration: function (num) {
+          self.this.service_duration = num;
+          return this;
+        },
+        item_options_values: function (str) {
+          self.this.item_options_values = str;
+          return this;
+        },
+        location_overrides: function (obj) {
+          self.this.location_overrides = obj;
+          return this;
+        },
+        inventory_alert_type_threshold: function (str) {
+          self.this.inventory_alert_type_threshold = str;
+          return this;
+        },
+        track_inventory: function (bool) {
+          self.this.track_inventory = bool;
+          return this;
+        },
+        measurement_unit_id: function (str) {
+          self.this.measurement_unit_id = str;
+          return this;
+        },
+        price_money: function (val) {
+          self.this.price_money = val;
+          return this;
+        },
+        sku: function (str) {
+          self.this.sku = str;
+          return this;
+        },
+        stockable: function (bool) {
+          self.this.stockable = bool;
+          return this;
+        },
+        stockable_conversion: function (obj) {
+          self.this.stockable_conversion = obj;
+          return this;
+        },
+        team_member_ids: function (str) {
+          self.this.team_member_ids = str;
+          return this;
+        },
+        upc: function (upc) {
+          self.this.upc = upc;
+          return this;
+        },
+        user_data: function (str) {
+          self.this.user_data = str;
           return this;
         },
       };

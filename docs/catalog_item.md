@@ -36,3 +36,15 @@ catalog_object_item_variation.js has a default value of "USD". If you need a dif
 This package does not currently support multiple simultaneous currencies.
 
 To set the price you need only pass in the price in cents, without the currency. (This is different than the Square docs)
+
+### Incomplete Parts:
+
+The following properties on the item variation object were not priorities and remain
+uncompleted. You can still pass in properly formatted data. But there is not auto formatting.
+You pretty much have to set it manually.
+
+**location_overrides**
+
+- is quite complex, almost a class unto itself
+
+**stockable_conversion**
