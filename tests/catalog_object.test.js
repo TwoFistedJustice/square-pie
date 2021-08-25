@@ -6,8 +6,9 @@ uuidv4();
 const Catalog_Object_Wrapper = require("../src/lib/catalog_object_wrapper");
 const Catalog_Category = require("../src/lib/catalog_object_category");
 const { Helper_Name } = require("../src/lib/catalog_object_helpers");
-const Catalog_Item = require("../src/lib/catalog_object_item");
 const Catalog_Object_Super = require("../src/lib/catalog_object_aaa_super");
+const Catalog_Item = require("../src/lib/catalog_object_item");
+const Catalog_Item_Variation = require("../src/lib/catalog_object_item_variation");
 
 // https://www.browserling.com/tools/random-string
 const long_strings = {
@@ -205,7 +206,6 @@ describe("Catalog Item string length validators", () => {
 });
 
 describe("Catalog Item fardel arrays should be undefined", () => {
-  // check that each one is set to undefined by default
   const item = new Catalog_Item();
   test("Array storage properties should begin as undefined", () => {
     // expect(item._fardel.tax_ids).toBeUndefined();
@@ -232,16 +232,32 @@ describe("Catalog Item fardel arrays should be arrays containing the appropriate
     item.variations.should.be.an("array").that.includes(obj);
     item.item_options.should.be.an("array").that.includes(str);
   });
-
-  //todo test auto_set_appointment_service
-
-  // todo test that item correctly detects presence of service_duration and
-  //  available_for_booking props and sets product type correctly
-
-  // todo test that "fixed pricing" gets set automatically when adding a price
-  // todo test that price money object is correctly formatted and populated
 });
 
 // --------------------------------------------------------------
 //                         ITEM VARIATION
 // --------------------------------------------------------------
+
+describe("Item Variation pricing featues", () => {
+  test("Should auto configure pricing data to correctly", () => {
+    const expected = {
+      amount: 1500,
+      currency: "USD",
+    };
+    const variation = new Catalog_Item_Variation();
+    const spawn = variation.spawn();
+    spawn.price_money(expected.amount);
+
+    expect(variation.pricing_type).toEqual("FIXED_PRICING");
+    expect(variation.price_money).toMatchObject(expected);
+
+    spawn.pricing_type().VARIABLE_PRICING();
+    expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
+    expect(variation.price_money).toBeUndefined();
+  });
+});
+
+//todo test auto_set_appointment_service
+
+// todo test that item correctly detects presence of service_duration and
+//  available_for_booking props and sets product type correctly
