@@ -191,18 +191,20 @@ describe("Catalog Item setters", () => {
 });
 
 describe("Catalog Item string length validators", () => {
-  const item = new Catalog_Item();
-  let config = item.spawn();
-  expect(() => {
-    item.name = long_strings.len_513;
-  }).toThrow();
-  expect(() => {
-    // config.abbreviation(long_strings.len_25);
-    item.abbreviation = long_strings.len_25;
-  }).toThrow();
-  expect(() => {
-    config.description(long_strings.len_4097);
-  }).toThrow();
+  test("Should throw errors when strings are too long.", () => {
+    const item = new Catalog_Item();
+    let config = item.spawn();
+    expect(() => {
+      item.name = long_strings.len_513;
+    }).toThrow();
+    expect(() => {
+      // config.abbreviation(long_strings.len_25);
+      item.abbreviation = long_strings.len_25;
+    }).toThrow();
+    expect(() => {
+      config.description(long_strings.len_4097);
+    }).toThrow();
+  });
 });
 
 describe("Catalog Item fardel arrays should be undefined", () => {
