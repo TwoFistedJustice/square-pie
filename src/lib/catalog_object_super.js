@@ -14,6 +14,13 @@ class Catalog_Object_Super {
     return this._fardel.id;
   }
 
+  get present_at_all_locations() {
+    return this._fardel.present_at_all_locations;
+  }
+  get present_at_location_ids() {
+    return this._fardel.present_at_location_ids;
+  }
+
   set id(tempId) {
     if (tempId[0] !== "#") {
       this._fardel.id = "#" + tempId.slice(0);
@@ -25,11 +32,11 @@ class Catalog_Object_Super {
   set present_at_all_locations(bool) {
     this._fardel.present_at_all_locations = bool;
   }
-  set present_at_all_locations_ids(id) {
-    if (!Array.isArray(this._fardel.present_at_all_locations_ids)) {
-      this._fardel.present_at_all_locations_ids = [];
+  set present_at_location_ids(id) {
+    if (!Array.isArray(this.present_at_locations_ids)) {
+      this._fardel.present_at_location_ids = [];
     }
-    this._fardel.present_at_all_locations_ids.push(id);
+    this._fardel.present_at_location_ids.push(id);
   }
   // METHODS
   maxLength(max, str = "") {
