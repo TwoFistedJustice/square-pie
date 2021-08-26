@@ -1,6 +1,6 @@
 # Welcome to square-pie 👋
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000)
+![Version](https://img.shields.io/badge/version-1.0.0--alpha-red.svg?cacheSeconds=2592000)
 [![License: ISC](https://img.shields.io/badge/License-ISC-yellow.svg)](#)
 
 > "an easy to use class based (sometimes) chainable interface for accessing the Square API."
