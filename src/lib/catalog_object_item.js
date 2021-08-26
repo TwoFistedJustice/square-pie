@@ -143,14 +143,13 @@ class Catalog_Item extends Helper_Name {
   }
   set modifier_list_info(obj) {
     //todo validate the object
-    // has one required value -- the subpropery modifier_Overrids also has one required value
+    // has one required value -- the subproperty modifier_overrides also has one required value
     if (!Array.isArray(this.modifier_list_info)) {
       this._fardel.item_data.modifier_list_info = [];
     }
     this._fardel.item_data.modifier_list_info.push(obj);
   }
   set variations(obj) {
-    //todo validate the object - this is complex and might be best done with a subclass
     // An item must have at least one variation.
     if (!Array.isArray(this._fardel.item_data.variations)) {
       this._fardel.item_data.variations = [];
@@ -246,10 +245,6 @@ class Catalog_Item extends Helper_Name {
           return this;
         },
         variations: function (obj) {
-          // todo validate object
-          // if obj contains .service_duration or .available_for_booking
-          // chekc if product type is appointements type
-
           this.self.variations = obj;
           return this;
         },

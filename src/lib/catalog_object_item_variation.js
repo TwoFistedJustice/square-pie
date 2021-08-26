@@ -1,7 +1,6 @@
 const { Helper_Name } = require("./catalog_object_helpers");
 const { setter_chain_generator_config } = require("./utilities_curry");
-// const { setter_chain_generator_config } = require("./utilities_curry");
-
+// // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
 class Catalog_Object_Item_Variation extends Helper_Name {
   constructor() {
     super();
@@ -20,23 +19,23 @@ class Catalog_Object_Item_Variation extends Helper_Name {
     }),
       (this._fardel = {
         item_variation_data: {
-          available_for_booking: undefined, //
-          service_duration: undefined, //
+          available_for_booking: undefined,
+          service_duration: undefined,
           item_id: "", // empty string to aid next step
           item_options_values: undefined, // ARRAY of ids
-          location_overrides: undefined, // // [ CHAIN ]
-          inventory_alert_type: undefined, //
-          inventory_alert_type_threshold: undefined, //
-          track_inventory: undefined, // // [ CHAIN T/F ]
-          measurement_unit_id: undefined, //
-          pricing_type: undefined, // // [ CHAIN ]
-          price_money: undefined, // // [ CHAIN ]
-          sku: undefined, // // can it be validated?
-          stockable: undefined, //
-          stockable_conversion: undefined, //
-          team_member_ids: undefined, //
-          upc: undefined, // // can it be validated? min ln:12 max ln:14
-          user_data: undefined, // //255
+          location_overrides: undefined, // [ CHAIN ]
+          inventory_alert_type: undefined,
+          inventory_alert_type_threshold: undefined,
+          track_inventory: undefined,
+          measurement_unit_id: undefined,
+          pricing_type: undefined,
+          price_money: undefined,
+          sku: undefined,
+          stockable: undefined,
+          stockable_conversion: undefined,
+          team_member_ids: undefined,
+          upc: undefined,
+          user_data: undefined,
         },
       });
   }
@@ -188,8 +187,6 @@ class Catalog_Object_Item_Variation extends Helper_Name {
     this._fardel.item_variation_data.team_member_ids.push(str);
   }
   set upc(upc) {
-    // create validator for this - submit to validator.js
-    // https://en.wikipedia.org/wiki/Universal_Product_Code#Check_digit_calculation
     this._fardel.item_variation_data.upc = upc;
   }
   set user_data(str) {
@@ -278,32 +275,5 @@ class Catalog_Object_Item_Variation extends Helper_Name {
     return methods();
   }
 }
-
-// https://developer.squareup.com/reference/square/objects/CatalogItemVariation
-
-/* -------------------------------------------------------------------
-//  MAKE ITEM A SUB CLASS OF ITEM-VARIATION OR VICE VERSA
-// GIVE ITEM A 'DEFAULT' VARIATION METHOD THAT CREATES A 'REGULAR' ONE
-// OR
-Make item variation a mixin...
-
-or make a method called 'variation' and curry it
-
--------------------------------------------------------------------*/
-
-//MAYBE instead of a unique class, have a METHOD
-// on the ITEM class that makes this as a property...
-// or a have a method that instantiates this class?
-// or require the user to make one, then when it's added to an item
-// the item_id gets set then
-// class Item_Variation extends Helper_Name {
-//   constructor(item_id, name) {
-//     super(name);
-
-// id of associated item
-
-//   }
-//   spawn() {}
-// }
 
 module.exports = Catalog_Object_Item_Variation;
