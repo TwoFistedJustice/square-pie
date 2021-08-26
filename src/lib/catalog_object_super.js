@@ -33,7 +33,7 @@ class Catalog_Object_Super {
     this._fardel.present_at_all_locations = bool;
   }
   set present_at_location_ids(id) {
-    if (!Array.isArray(this.present_at_locations_ids)) {
+    if (!Array.isArray(this.present_at_location_ids)) {
       this._fardel.present_at_location_ids = [];
     }
     this._fardel.present_at_location_ids.push(id);

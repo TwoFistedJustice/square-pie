@@ -44,9 +44,9 @@ describe("Catalog Object Super", () => {
   test("Should ", () => {
     const superduper = new Catalog_Object_Super();
     superduper.present_at_all_locations = true;
-    superduper.present_at_locations_ids = id;
+    superduper.present_at_location_ids = id;
     expect(superduper.present_at_all_locations).toBe(true);
-    expect(superduper.present_at_locations_ids).toEqual(
+    expect(superduper.present_at_location_ids).toEqual(
       expect.arrayContaining([id])
     );
   });
