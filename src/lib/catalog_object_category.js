@@ -34,7 +34,6 @@ class Catalog_Category extends Catalog_Object_Super {
     if (this._fardel.id === undefined) {
       this.id = this.name;
     }
-    console.log(JSON.stringify(this._fardel, null, 2));
     return this._fardel;
   }
   // SETTERS
@@ -68,8 +67,8 @@ class Catalog_Category extends Catalog_Object_Super {
         this.self.present_at_all_locations = bool;
         return this;
       },
-      present_at_all_locations_ids: function (id) {
-        this.self.present_at_all_locations_ids = id;
+      present_at_location_ids: function (id) {
+        this.self.present_at_location_ids = id;
         return this;
       },
     };
