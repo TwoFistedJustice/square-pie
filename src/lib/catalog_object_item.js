@@ -227,8 +227,7 @@ class Catalog_Item extends Helper_Name {
           this.self.available_for_pickup = bool;
           return this;
         },
-        //TODO fix spelling here and in tests to available_electronically
-        available_electroncially: function (bool) {
+        available_electronically: function (bool) {
           this.self.available_electronically = bool;
           return this;
         },
