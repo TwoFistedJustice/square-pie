@@ -1,4 +1,4 @@
-const { Helper_Name } = require("./catalog_object_helpers");
+const Catalog_Object_Super = require("./catalog_object_super");
 const { setter_chain_generator_config } = require("./utilities_curry");
 const { isHexColor } = require("validator");
 
@@ -6,7 +6,7 @@ const { isHexColor } = require("validator");
 // add name property, getter, setter to item
 // update the docs and tests to reflect those changes
 
-class Catalog_Item extends Helper_Name {
+class Catalog_Item extends Catalog_Object_Super {
   constructor() {
     super();
     this.configuration = {
@@ -158,8 +158,8 @@ class Catalog_Item extends Helper_Name {
     if (!Array.isArray(this._fardel.item_data.variations)) {
       this._fardel.item_data.variations = [];
     }
-    if (obj.item_variation_data.item_id !== super.id) {
-      obj.item_variation_data.item_id = super.id;
+    if (obj.item_variation_data.item_id !== this.id) {
+      obj.item_variation_data.item_id = this.id;
     }
     if (
       obj.available_for_booking !== undefined ||
