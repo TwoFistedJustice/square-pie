@@ -5,7 +5,6 @@ uuidv4();
 
 const Catalog_Object_Wrapper = require("../src/lib/catalog_object_wrapper");
 const Catalog_Category = require("../src/lib/catalog_object_category");
-const { Helper_Name } = require("../src/lib/catalog_object_helpers");
 const Catalog_Object_Super = require("../src/lib/catalog_object_super");
 const Catalog_Item = require("../src/lib/catalog_object_item");
 const Catalog_Item_Variation = require("../src/lib/catalog_object_item_variation");
@@ -45,9 +44,9 @@ describe("Catalog Object Super", () => {
   test("Should ", () => {
     const superduper = new Catalog_Object_Super();
     superduper.present_at_all_locations = true;
-    superduper.present_at_all_locations_ids = id;
+    superduper.present_at_location_ids = id;
     expect(superduper.present_at_all_locations).toBe(true);
-    expect(superduper.present_at_all_locations_ids).toEqual(
+    expect(superduper.present_at_location_ids).toEqual(
       expect.arrayContaining([id])
     );
   });
@@ -119,45 +118,33 @@ describe("Catalog Object Wrapper", () => {
 });
 
 // --------------------------------------------------------------
-//                    HELPER
-// --------------------------------------------------------------
-
-describe("Catalog: Helper_Name", () => {
-  const helper = new Helper_Name();
-  let just_right = "Just right";
-
-  test("Should accept a value that is less than 255 characters", () => {
-    expect(() => {
-      helper.name = just_right;
-    }).not.toThrow();
-  });
-
-  test("Should reject a value that is more than 255 characters", () => {
-    expect(() => {
-      helper.name = long_strings.len_256;
-    }).toThrow();
-  });
-});
-
-// --------------------------------------------------------------
 //                         CATEGORY
 // --------------------------------------------------------------
 
 describe("Catalog: Category", () => {
   const name = "Thing";
-  const testSubject = new Catalog_Category(name);
-  // const testValue = testSubject.parcel();
+  const loc = "Pieville USA";
   const expected = {
     type: "CATEGORY",
     id: `#${name}`,
-    present_at_all_locations: true,
+    present_at_all_locations: false,
+    present_at_location_ids: [loc],
     category_data: {
       name: name,
     },
   };
   test("Should have the expected name and type.", () => {
-    expect(testSubject.parcel()).toMatchObject(expected);
+    const category = new Catalog_Category();
+    const config = category.spawn();
+    config
+      .name(name)
+      .present_at_all_locations(false)
+      .present_at_location_ids(loc);
+
+    expect(category.fardel).toMatchObject(expected);
   });
+
+  //todo test that it throws without a name
 });
 
 // --------------------------------------------------------------
@@ -348,7 +335,7 @@ describe("Item and Item Variation should interact correctly", () => {
   const expected_variation = {
     type: "ITEM_VARIATION",
     present_at_all_locations: true,
-    present_at_all_locations_ids: ["Pieville USA"],
+    present_at_location_ids: ["Pieville USA"],
     item_variation_data: {
       name: "Classic",
       item_id: "#some_item",
@@ -372,7 +359,7 @@ describe("Item and Item Variation should interact correctly", () => {
       .present_at_all_locations(true)
       .price_money(1500)
       .sku("12345")
-      .present_at_all_locations_ids("Pieville USA");
+      .present_at_location_ids("Pieville USA");
     item.variations = variation.fardel;
     const fardel = item.fardel;
     expect(fardel.item_data.variations[0]).toEqual(
