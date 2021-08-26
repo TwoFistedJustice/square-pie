@@ -62,6 +62,9 @@ class Catalog_Item extends Catalog_Object_Super {
   get type() {
     return this._fardel.type;
   }
+  get name() {
+    return this._fardel.item_data.name;
+  }
   get description() {
     return this._fardel.item_data.description;
   }
@@ -108,6 +111,11 @@ class Catalog_Item extends Catalog_Object_Super {
   // SETTERS
   set type(bool) {
     this._fardel.type = "ITEM";
+  }
+  set name(str) {
+    if (this.maxLength(this.configuration.lengthLimits.name, str)) {
+      this._fardel.item_data.name = str;
+    }
   }
   set description(str) {
     if (this.maxLength(this.configuration.lengthLimits.description, str)) {
