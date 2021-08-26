@@ -221,7 +221,7 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
           return this;
         },
         present_at_all_locations_ids: function (id) {
-          this.self.present_at_all_locations_ids = id;
+          this.self.present_at_locations_ids = id;
           return this;
         },
         available_for_booking: function (bool) {

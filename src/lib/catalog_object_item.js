@@ -211,7 +211,7 @@ class Catalog_Item extends Catalog_Object_Super {
           return this;
         },
         present_at_all_locations_ids: function (id) {
-          this.self.present_at_all_locations_ids = id;
+          this.self.present_at_locations_ids = id;
           return this;
         },
         id: function (tempId) {
