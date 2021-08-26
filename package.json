@@ -1,6 +1,6 @@
 {
   "name": "square-pie",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha",
   "description": "an easy to use class based chainable interface for accessing the Square API.",
   "main": "index.js",
   "scripts": {
