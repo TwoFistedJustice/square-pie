@@ -5,7 +5,6 @@ uuidv4();
 
 const Catalog_Object_Wrapper = require("../src/lib/catalog_object_wrapper");
 const Catalog_Category = require("../src/lib/catalog_object_category");
-const { Helper_Name } = require("../src/lib/catalog_object_helpers");
 const Catalog_Object_Super = require("../src/lib/catalog_object_super");
 const Catalog_Item = require("../src/lib/catalog_object_item");
 const Catalog_Item_Variation = require("../src/lib/catalog_object_item_variation");
@@ -45,9 +44,9 @@ describe("Catalog Object Super", () => {
   test("Should ", () => {
     const superduper = new Catalog_Object_Super();
     superduper.present_at_all_locations = true;
-    superduper.present_at_all_locations_ids = id;
+    superduper.present_at_locations_ids = id;
     expect(superduper.present_at_all_locations).toBe(true);
-    expect(superduper.present_at_all_locations_ids).toEqual(
+    expect(superduper.present_at_locations_ids).toEqual(
       expect.arrayContaining([id])
     );
   });
@@ -119,27 +118,6 @@ describe("Catalog Object Wrapper", () => {
 });
 
 // --------------------------------------------------------------
-//                    HELPER
-// --------------------------------------------------------------
-
-describe("Catalog: Helper_Name", () => {
-  const helper = new Helper_Name();
-  let just_right = "Just right";
-
-  test("Should accept a value that is less than 255 characters", () => {
-    expect(() => {
-      helper.name = just_right;
-    }).not.toThrow();
-  });
-
-  test("Should reject a value that is more than 255 characters", () => {
-    expect(() => {
-      helper.name = long_strings.len_256;
-    }).toThrow();
-  });
-});
-
-// --------------------------------------------------------------
 //                         CATEGORY
 // --------------------------------------------------------------
 
@@ -150,12 +128,12 @@ describe("Catalog: Category", () => {
     type: "CATEGORY",
     id: `#${name}`,
     present_at_all_locations: false,
-    present_at_locations_ids: [loc],
+    present_at_location_ids: [loc],
     category_data: {
       name: name,
     },
   };
-  test.only("Should have the expected name and type.", () => {
+  test("Should have the expected name and type.", () => {
     const category = new Catalog_Category();
     const config = category.spawn();
     config
