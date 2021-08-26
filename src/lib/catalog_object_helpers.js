@@ -1,4 +1,4 @@
-const Catalog_Object_Super = require("./catalog_object_aaa_super");
+const Catalog_Object_Super = require("./catalog_object_super");
 
 class Helper_Name extends Catalog_Object_Super {
   constructor(name) {

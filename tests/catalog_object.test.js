@@ -6,8 +6,9 @@ uuidv4();
 const Catalog_Object_Wrapper = require("../src/lib/catalog_object_wrapper");
 const Catalog_Category = require("../src/lib/catalog_object_category");
 const { Helper_Name } = require("../src/lib/catalog_object_helpers");
+const Catalog_Object_Super = require("../src/lib/catalog_object_super");
 const Catalog_Item = require("../src/lib/catalog_object_item");
-const Catalog_Object_Super = require("../src/lib/catalog_object_aaa_super");
+const Catalog_Item_Variation = require("../src/lib/catalog_object_item_variation");
 
 // https://www.browserling.com/tools/random-string
 const long_strings = {
@@ -40,6 +41,15 @@ describe("Catalog Object Super", () => {
     const superduper = new Catalog_Object_Super();
     superduper.id = id;
     superduper.id.should.equal(idhash);
+  });
+  test("Should ", () => {
+    const superduper = new Catalog_Object_Super();
+    superduper.present_at_all_locations = true;
+    superduper.present_at_all_locations_ids = id;
+    expect(superduper.present_at_all_locations).toBe(true);
+    expect(superduper.present_at_all_locations_ids).toEqual(
+      expect.arrayContaining([id])
+    );
   });
 });
 
@@ -152,9 +162,9 @@ describe("Catalog: Category", () => {
 
 // --------------------------------------------------------------
 //                         ITEM
+// ToDO Item varition ID matches item id
+// TODO CHECK THAT FARDEL CONTAINS NAME PROP
 // --------------------------------------------------------------
-
-//TODO CHECK THAT FARDEL CONTAINS NAME PROP
 
 describe("Catalog Item setters", () => {
   const item = new Catalog_Item();
@@ -181,22 +191,23 @@ describe("Catalog Item setters", () => {
 });
 
 describe("Catalog Item string length validators", () => {
-  const item = new Catalog_Item();
-  let config = item.spawn();
-  expect(() => {
-    item.name = long_strings.len_513;
-  }).toThrow();
-  expect(() => {
-    // config.abbreviation(long_strings.len_25);
-    item.abbreviation = long_strings.len_25;
-  }).toThrow();
-  expect(() => {
-    config.description(long_strings.len_4097);
-  }).toThrow();
+  test("Should throw errors when strings are too long.", () => {
+    const item = new Catalog_Item();
+    let config = item.spawn();
+    expect(() => {
+      item.name = long_strings.len_513;
+    }).toThrow();
+    expect(() => {
+      // config.abbreviation(long_strings.len_25);
+      item.abbreviation = long_strings.len_25;
+    }).toThrow();
+    expect(() => {
+      config.description(long_strings.len_4097);
+    }).toThrow();
+  });
 });
 
 describe("Catalog Item fardel arrays should be undefined", () => {
-  // check that each one is set to undefined by default
   const item = new Catalog_Item();
   test("Array storage properties should begin as undefined", () => {
     // expect(item._fardel.tax_ids).toBeUndefined();
@@ -222,5 +233,147 @@ describe("Catalog Item fardel arrays should be arrays containing the appropriate
     item.modifier_list_info.should.be.an("array").that.includes(obj);
     item.variations.should.be.an("array").that.includes(obj);
     item.item_options.should.be.an("array").that.includes(str);
+  });
+});
+
+// --------------------------------------------------------------
+//                         ITEM VARIATION
+// --------------------------------------------------------------
+
+describe("Item Variation pricing featues", () => {
+  test("Should auto configure pricing data to correctly", () => {
+    const expected = {
+      amount: 1500,
+      currency: "USD",
+    };
+    const variation = new Catalog_Item_Variation();
+    const spawn = variation.spawn();
+    spawn.price_money(expected.amount);
+
+    expect(variation.pricing_type).toEqual("FIXED_PRICING");
+    expect(variation.price_money).toMatchObject(expected);
+
+    spawn.pricing_type().VARIABLE_PRICING();
+    expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
+    expect(variation.price_money).toBeUndefined();
+  });
+
+  test("Service duration should throw unexpected argument types", () => {
+    const variation = new Catalog_Item_Variation();
+    const spawn = variation.spawn();
+
+    expect(() => {
+      spawn.service_duration();
+    }).toThrow();
+    expect(() => {
+      spawn.service_duration("5o");
+    }).toThrow();
+    expect(() => {
+      spawn.service_duration("words");
+    }).toThrow();
+    expect(() => {
+      spawn.service_duration(true);
+    }).toThrow();
+    expect(() => {
+      spawn.service_duration({ time: 3600 });
+    }).toThrow();
+    expect(() => {
+      spawn.service_duration(3600);
+    }).not.toThrow();
+  });
+
+  test("Available for booking should throw on unexpected argument types", () => {
+    const variation = new Catalog_Item_Variation();
+    const spawn = variation.spawn();
+
+    expect(() => {
+      spawn.available_for_booking();
+    }).toThrow();
+    expect(() => {
+      spawn.available_for_booking("words");
+    }).toThrow();
+    expect(() => {
+      spawn.available_for_booking({ a: true });
+    }).toThrow();
+    expect(() => {
+      spawn.available_for_booking(1);
+    }).toThrow();
+    expect(() => {
+      spawn.available_for_booking(true);
+    }).not.toThrow();
+  });
+
+  test("Available for booking have correct boolean value", () => {
+    const variation = new Catalog_Item_Variation();
+    const spawn = variation.spawn();
+    spawn.available_for_booking(true);
+    expect(variation.available_for_booking).toEqual(true);
+  });
+
+  test("Service duration have correct time in milliseconds", () => {
+    const timeInMinutes = 60;
+    const timeInMilliseconds = timeInMinutes * 60 * 1000;
+    const variation = new Catalog_Item_Variation();
+    const spawn = variation.spawn();
+    spawn.service_duration(timeInMinutes);
+    expect(variation.service_duration).toEqual(timeInMilliseconds);
+  });
+
+  test("Available for booking should reset pricing type to variable", () => {
+    const variation = new Catalog_Item_Variation();
+    const spawn = variation.spawn();
+    spawn.pricing_type().FIXED_PRICING();
+    spawn.available_for_booking(true);
+    expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
+  });
+
+  test("Service duration should reset pricing type to variable", () => {
+    const timeInMinutes = 60;
+    const variation = new Catalog_Item_Variation();
+    const spawn = variation.spawn();
+    spawn.pricing_type().FIXED_PRICING();
+    spawn.service_duration(timeInMinutes);
+    expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
+  });
+});
+
+// --------------------------------------------------------------
+//                        INTERACTION BETWEEN ITEM && ITEM VARIATION
+// --------------------------------------------------------------
+
+describe("Item and Item Variation should interact correctly", () => {
+  const expected_variation = {
+    type: "ITEM_VARIATION",
+    item_variation_data: {
+      name: "Classic",
+      item_id: "#some_item",
+      present_at_all_locations: true,
+      present_at_all_locations_ids: ["Pieville USA"],
+      pricing_type: "FIXED_PRICING",
+      price_money: {
+        amount: 1500,
+        currency: "USD",
+      },
+      sku: "12345",
+    },
+  };
+
+  test.only("Item should contain one correctly formed item variation", () => {
+    const variation = new Catalog_Item_Variation();
+    const item = new Catalog_Item();
+    const vari_spawn = variation.spawn();
+    const item_spawn = item.spawn();
+    item_spawn.id("some_item");
+    vari_spawn
+      .name("Classic")
+      .present_at_all_locations(true)
+      .price_money(1500)
+      .sku("12345")
+      .present_at_all_locations_ids("Pieville USA");
+    item.variations = variation.fardel;
+    const fardel = item.fardel;
+    expect(fardel.item_data.variations[0]).toEqual(
+      expect.objectContaining(expected_variation)
+    );
   });
 });
