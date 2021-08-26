@@ -1,4 +1,4 @@
-const { Helper_Name } = require("./catalog_object_helpers");
+const Catalog_Object_Super = require("./catalog_object_super");
 const { setter_chain_generator_config } = require("./utilities_curry");
 const { isHexColor } = require("validator");
 
@@ -6,7 +6,7 @@ const { isHexColor } = require("validator");
 // add name property, getter, setter to item
 // update the docs and tests to reflect those changes
 
-class Catalog_Item extends Helper_Name {
+class Catalog_Item extends Catalog_Object_Super {
   constructor() {
     super();
     this.configuration = {
@@ -62,6 +62,9 @@ class Catalog_Item extends Helper_Name {
   get type() {
     return this._fardel.type;
   }
+  get name() {
+    return this._fardel.item_data.name;
+  }
   get description() {
     return this._fardel.item_data.description;
   }
@@ -109,6 +112,11 @@ class Catalog_Item extends Helper_Name {
   set type(bool) {
     this._fardel.type = "ITEM";
   }
+  set name(str) {
+    if (this.maxLength(this.configuration.lengthLimits.name, str)) {
+      this._fardel.item_data.name = str;
+    }
+  }
   set description(str) {
     if (this.maxLength(this.configuration.lengthLimits.description, str)) {
       this._fardel.item_data.description = str;
@@ -146,20 +154,21 @@ class Catalog_Item extends Helper_Name {
     this._fardel.item_data.tax_ids.push(id);
   }
   set modifier_list_info(obj) {
-    //todo validate the object
     // has one required value -- the subproperty modifier_overrides also has one required value
     if (!Array.isArray(this.modifier_list_info)) {
       this._fardel.item_data.modifier_list_info = [];
     }
     this._fardel.item_data.modifier_list_info.push(obj);
   }
+
+  // todo this method seems to be a persistent source of bugs
   set variations(obj) {
     // An item must have at least one variation.
     if (!Array.isArray(this._fardel.item_data.variations)) {
       this._fardel.item_data.variations = [];
     }
-    if (obj.item_variation_data.item_id !== super.id) {
-      obj.item_variation_data.item_id = super.id;
+    if (obj.item_variation_data.item_id !== this.id) {
+      obj.item_variation_data.item_id = this.id;
     }
     if (
       obj.available_for_booking !== undefined ||
