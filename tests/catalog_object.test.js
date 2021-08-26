@@ -6,7 +6,7 @@ uuidv4();
 const Catalog_Object_Wrapper = require("../src/lib/catalog_object_wrapper");
 const Catalog_Category = require("../src/lib/catalog_object_category");
 const { Helper_Name } = require("../src/lib/catalog_object_helpers");
-const Catalog_Object_Super = require("../src/lib/catalog_object_aaa_super");
+const Catalog_Object_Super = require("../src/lib/catalog_object_super");
 const Catalog_Item = require("../src/lib/catalog_object_item");
 const Catalog_Item_Variation = require("../src/lib/catalog_object_item_variation");
 
@@ -339,8 +339,22 @@ describe("Item Variation pricing featues", () => {
 //                        INTERACTION BETWEEN ITEM && ITEM VARIATION
 // --------------------------------------------------------------
 
-describe("Item and Item Variation should interact correctly", () => {
-  // todo test that item correctly detects presence of service_duration and
-  //
-  // todo available_for_booking props and sets product type correctly
-});
+// describe("Item and Item Variation should interact correctly", () => {
+//   const expected_variation = {
+//     name: "Classic",
+//     item_id: "#some_item",
+//     pricing_type: "FIXED_PRICING",
+//     price_money: {
+//       amount: 1500,
+//       currency: "USD",
+//     },
+//     sku: "12345",
+//   };
+//
+//   const variation = new Catalog_Item_Variation();
+//   const item = new Catalog_Item();
+//   const vari_spawn = variation.spawn();
+//   const item_spawn = item.spawn();
+//
+//   vari_spawn.name = "Classic";
+// });
