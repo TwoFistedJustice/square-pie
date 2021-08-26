@@ -1,10 +1,9 @@
-const { Helper_Name } = require("./catalog_object_helpers");
 const { setter_chain_generator_config } = require("./utilities_curry");
+const Catalog_Object_Super = require("./catalog_object_super");
 // // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
-class Catalog_Object_Item_Variation extends Helper_Name {
+class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   constructor() {
     super();
-    this._type = "ITEM_VARIATION";
     (this.configuration = {
       lengthLimits: {
         name: 255,
@@ -18,7 +17,12 @@ class Catalog_Object_Item_Variation extends Helper_Name {
       inventory_alert_type: ["NONE", "LOW_QUANTITY"],
     }),
       (this._fardel = {
+        type: "ITEM_VARIATION",
         item_variation_data: {
+          name: undefined,
+          type: undefined,
+          present_at_all_locations: undefined,
+          present_at_all_locations_ids: undefined,
           available_for_booking: undefined,
           service_duration: undefined,
           item_id: "", // empty string to aid next step
@@ -40,10 +44,15 @@ class Catalog_Object_Item_Variation extends Helper_Name {
       });
   }
 
+  get fardel() {
+    return this._fardel;
+  }
   get item_id() {
     return this._fardel.item_variation_data.item_id;
   }
-
+  get name() {
+    return this._fardel.item_variation_data.name;
+  }
   get sku() {
     return this._fardel.item_variation_data.sku;
   }
@@ -97,6 +106,29 @@ class Catalog_Object_Item_Variation extends Helper_Name {
     // will automatically be set when added to an Item, but you can set it here if you want
     this._fardel.item_variation_data.id = id;
   }
+  // overrides super
+  set name(str) {
+    if (this.maxLength(this.configuration.lengthLimits.name, str)) {
+      this._fardel.item_variation_data.name = str;
+    }
+  }
+  // overrides super
+  set present_at_all_locations(bool) {
+    this._fardel.item_variation_data.present_at_all_locations = bool;
+  }
+  // overrides super
+  set present_at_all_locations_ids(id) {
+    console.log(`***************************${id}`);
+    if (
+      !Array.isArray(
+        this._fardel.item_variation_data.present_at_all_locations_ids
+      )
+    ) {
+      this._fardel.item_variation_data.present_at_all_locations_ids = [];
+    }
+    this._fardel.item_variation_data.present_at_all_locations_ids.push(id);
+  }
+
   set available_for_booking(bool) {
     if (typeof bool !== "boolean") {
       throw new TypeError(
@@ -208,7 +240,7 @@ class Catalog_Object_Item_Variation extends Helper_Name {
           return this;
         },
         present_at_all_locations_ids: function (id) {
-          this.present_at_all_locations_ids = id;
+          this.self.present_at_all_locations_ids = id;
           return this;
         },
         available_for_booking: function (bool) {
