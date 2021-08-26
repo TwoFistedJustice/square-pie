@@ -36,6 +36,13 @@ class Catalog_Object_Super {
     }
     this._present_at_all_locations_ids.push(id);
   }
+
+  maxLength(max, str = "") {
+    if (str.length > max) {
+      throw new Error(`Surpassed maximum character limit of ${max}.\n${str}`);
+    }
+    return true;
+  }
 } // END class
 
 module.exports = Catalog_Object_Super;
