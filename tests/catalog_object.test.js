@@ -198,7 +198,6 @@ describe("Catalog Item string length validators", () => {
       item.name = long_strings.len_513;
     }).toThrow();
     expect(() => {
-      // config.abbreviation(long_strings.len_25);
       item.abbreviation = long_strings.len_25;
     }).toThrow();
     expect(() => {
@@ -219,10 +218,14 @@ describe("Catalog Item fardel arrays should be undefined", () => {
 });
 describe("Catalog Item fardel arrays should be arrays containing the appropriate type.", () => {
   //   check that each one is an array after something is added
-  const obj = { a: 1 };
+  const obj = {
+    item_variation_data: {
+      item_id: "",
+    },
+  };
   const str = "somestring";
   const item = new Catalog_Item();
-  test("Should be arrays containing appropriate type", () => {
+  test.only("Should be arrays containing appropriate type", () => {
     let config = item.spawn();
     config
       .tax_ids(str)
@@ -358,7 +361,7 @@ describe("Item and Item Variation should interact correctly", () => {
     },
   };
 
-  test.only("Item should contain one correctly formed item variation", () => {
+  test("Item should contain one correctly formed item variation", () => {
     const variation = new Catalog_Item_Variation();
     const item = new Catalog_Item();
     const vari_spawn = variation.spawn();
