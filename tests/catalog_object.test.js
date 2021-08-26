@@ -335,7 +335,7 @@ describe("Item and Item Variation should interact correctly", () => {
   const expected_variation = {
     type: "ITEM_VARIATION",
     present_at_all_locations: true,
-    present_at_all_locations_ids: ["Pieville USA"],
+    present_at_location_ids: ["Pieville USA"],
     item_variation_data: {
       name: "Classic",
       item_id: "#some_item",
@@ -359,7 +359,7 @@ describe("Item and Item Variation should interact correctly", () => {
       .present_at_all_locations(true)
       .price_money(1500)
       .sku("12345")
-      .present_at_all_locations_ids("Pieville USA");
+      .present_at_location_ids("Pieville USA");
     item.variations = variation.fardel;
     const fardel = item.fardel;
     expect(fardel.item_data.variations[0]).toEqual(
