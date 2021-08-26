@@ -21,8 +21,6 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
         item_variation_data: {
           name: undefined,
           type: undefined,
-          present_at_all_locations: undefined,
-          present_at_all_locations_ids: undefined,
           available_for_booking: undefined,
           service_duration: undefined,
           item_id: "", // empty string to aid next step
@@ -112,22 +110,6 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
       this._fardel.item_variation_data.name = str;
     }
   }
-  // overrides super
-  set present_at_all_locations(bool) {
-    this._fardel.item_variation_data.present_at_all_locations = bool;
-  }
-  // overrides super
-  set present_at_all_locations_ids(id) {
-    if (
-      !Array.isArray(
-        this._fardel.item_variation_data.present_at_all_locations_ids
-      )
-    ) {
-      this._fardel.item_variation_data.present_at_all_locations_ids = [];
-    }
-    this._fardel.item_variation_data.present_at_all_locations_ids.push(id);
-  }
-
   set available_for_booking(bool) {
     if (typeof bool !== "boolean") {
       throw new TypeError(

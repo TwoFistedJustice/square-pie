@@ -154,13 +154,14 @@ class Catalog_Item extends Catalog_Object_Super {
     this._fardel.item_data.tax_ids.push(id);
   }
   set modifier_list_info(obj) {
-    //todo validate the object
     // has one required value -- the subproperty modifier_overrides also has one required value
     if (!Array.isArray(this.modifier_list_info)) {
       this._fardel.item_data.modifier_list_info = [];
     }
     this._fardel.item_data.modifier_list_info.push(obj);
   }
+
+  // todo this method seems to be a persistent source of bugs
   set variations(obj) {
     // An item must have at least one variation.
     if (!Array.isArray(this._fardel.item_data.variations)) {

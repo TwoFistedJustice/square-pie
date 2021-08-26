@@ -4,39 +4,34 @@
 class Catalog_Object_Super {
   constructor() {
     // do not add a constructor argument as it will interfere with subclasses
-    this._id;
-    this._present_at_all_locations; //bools
-    this._present_at_location_ids; //[str]
+    this._fardel = {
+      id: undefined,
+      present_at_all_locations: undefined, // bool
+      present_at_location_ids: undefined, //[str]
+    };
   }
-
   get id() {
-    return this._id;
-  }
-  get present_at_all_locations() {
-    return this._present_at_all_locations;
-  }
-  get present_at_all_locations_ids() {
-    return this._present_at_all_locations_ids;
+    return this._fardel.id;
   }
 
   set id(tempId) {
     if (tempId[0] !== "#") {
-      this._id = "#" + tempId.slice(0);
+      this._fardel.id = "#" + tempId.slice(0);
     } else {
-      this._id = tempId;
+      this._fardel.id = tempId;
     }
   }
+
   set present_at_all_locations(bool) {
-    this._present_at_all_locations = bool;
+    this._fardel.present_at_all_locations = bool;
   }
-
   set present_at_all_locations_ids(id) {
-    if (!Array.isArray(this.present_at_all_locations_ids)) {
-      this._present_at_all_locations_ids = [];
+    if (!Array.isArray(this._fardel.present_at_all_locations_ids)) {
+      this._fardel.present_at_all_locations_ids = [];
     }
-    this._present_at_all_locations_ids.push(id);
+    this._fardel.present_at_all_locations_ids.push(id);
   }
-
+  // METHODS
   maxLength(max, str = "") {
     if (str.length > max) {
       throw new Error(`Surpassed maximum character limit of ${max}.\n${str}`);

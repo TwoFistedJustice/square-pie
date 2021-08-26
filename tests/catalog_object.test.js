@@ -347,11 +347,11 @@ describe("Item Variation pricing featues", () => {
 describe("Item and Item Variation should interact correctly", () => {
   const expected_variation = {
     type: "ITEM_VARIATION",
+    present_at_all_locations: true,
+    present_at_all_locations_ids: ["Pieville USA"],
     item_variation_data: {
       name: "Classic",
       item_id: "#some_item",
-      present_at_all_locations: true,
-      present_at_all_locations_ids: ["Pieville USA"],
       pricing_type: "FIXED_PRICING",
       price_money: {
         amount: 1500,
