@@ -341,22 +341,42 @@ describe("Item Variation pricing featues", () => {
 //                        INTERACTION BETWEEN ITEM && ITEM VARIATION
 // --------------------------------------------------------------
 
-// describe("Item and Item Variation should interact correctly", () => {
-//   const expected_variation = {
-//     name: "Classic",
-//     item_id: "#some_item",
-//     pricing_type: "FIXED_PRICING",
-//     price_money: {
-//       amount: 1500,
-//       currency: "USD",
-//     },
-//     sku: "12345",
-//   };
-//
-//   const variation = new Catalog_Item_Variation();
-//   const item = new Catalog_Item();
-//   const vari_spawn = variation.spawn();
-//   const item_spawn = item.spawn();
-//
-//   vari_spawn.name = "Classic";
-// });
+describe("Item and Item Variation should interact correctly", () => {
+  const expected_variation = {
+    type: "ITEM_VARIATION",
+    item_variation_data: {
+      name: "Classic",
+      item_id: "#some_item",
+      present_at_all_locations: true,
+      present_at_all_locations_ids: ["Pieville USA"],
+      pricing_type: "FIXED_PRICING",
+      price_money: {
+        amount: 1500,
+        currency: "USD",
+      },
+      sku: "12345",
+    },
+  };
+
+  test.only("Item should contain one correctly formed item variation", () => {
+    const variation = new Catalog_Item_Variation();
+    const item = new Catalog_Item();
+    const vari_spawn = variation.spawn();
+    const item_spawn = item.spawn();
+    item_spawn.id("some_item");
+    vari_spawn
+      .name("Classic")
+      .present_at_all_locations(true)
+      .price_money(1500)
+      .sku("12345")
+      .present_at_all_locations_ids("Pieville USA");
+    item.variations = variation.fardel;
+    const fardel = item.fardel;
+    // console.log(fardel);
+    expect(fardel.item_data.variations[0]).toEqual(
+      expect.objectContaining(expected_variation)
+    );
+  });
+
+  // todo make sure item variation has type: "ITEM VARIATION" or whatever it's supposed to be
+});
