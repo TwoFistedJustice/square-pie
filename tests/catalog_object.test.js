@@ -145,19 +145,28 @@ describe("Catalog: Helper_Name", () => {
 
 describe("Catalog: Category", () => {
   const name = "Thing";
-  const testSubject = new Catalog_Category(name);
-  // const testValue = testSubject.parcel();
+  const loc = "Pieville USA";
   const expected = {
     type: "CATEGORY",
     id: `#${name}`,
-    present_at_all_locations: true,
+    present_at_all_locations: false,
+    present_at_locations_ids: [loc],
     category_data: {
       name: name,
     },
   };
-  test("Should have the expected name and type.", () => {
-    expect(testSubject.parcel()).toMatchObject(expected);
+  test.only("Should have the expected name and type.", () => {
+    const category = new Catalog_Category();
+    const config = category.spawn();
+    config
+      .name(name)
+      .present_at_all_locations(false)
+      .present_at_location_ids(loc);
+
+    expect(category.fardel).toMatchObject(expected);
   });
+
+  //todo test that it throws without a name
 });
 
 // --------------------------------------------------------------
