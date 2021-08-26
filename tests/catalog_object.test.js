@@ -372,11 +372,8 @@ describe("Item and Item Variation should interact correctly", () => {
       .present_at_all_locations_ids("Pieville USA");
     item.variations = variation.fardel;
     const fardel = item.fardel;
-    // console.log(fardel);
     expect(fardel.item_data.variations[0]).toEqual(
       expect.objectContaining(expected_variation)
     );
   });
-
-  // todo make sure item variation has type: "ITEM VARIATION" or whatever it's supposed to be
 });

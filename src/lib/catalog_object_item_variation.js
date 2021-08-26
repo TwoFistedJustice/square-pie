@@ -118,7 +118,6 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   }
   // overrides super
   set present_at_all_locations_ids(id) {
-    console.log(`***************************${id}`);
     if (
       !Array.isArray(
         this._fardel.item_variation_data.present_at_all_locations_ids
