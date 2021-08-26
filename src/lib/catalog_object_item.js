@@ -2,6 +2,10 @@ const { Helper_Name } = require("./catalog_object_helpers");
 const { setter_chain_generator_config } = require("./utilities_curry");
 const { isHexColor } = require("validator");
 
+//todo 8/26 - change the super to Super, delete the helper class file entirely
+// add name property, getter, setter to item
+// update the docs and tests to reflect those changes
+
 class Catalog_Item extends Helper_Name {
   constructor() {
     super();
@@ -47,7 +51,7 @@ class Catalog_Item extends Helper_Name {
   get fardel() {
     if (
       !Array.isArray(this._fardel.item_data.variations) ||
-      this._fardel.item_data.variations.length <= 1
+      this._fardel.item_data.variations.length < 1
     ) {
       throw new Error(
         "Items must have at least one variation or Square will reject the request."
@@ -154,8 +158,8 @@ class Catalog_Item extends Helper_Name {
     if (!Array.isArray(this._fardel.item_data.variations)) {
       this._fardel.item_data.variations = [];
     }
-    if (obj.item_id !== this.id) {
-      obj.item_id = this.id;
+    if (obj.item_variation_data.item_id !== super.id) {
+      obj.item_variation_data.item_id = super.id;
     }
     if (
       obj.available_for_booking !== undefined ||
@@ -198,11 +202,11 @@ class Catalog_Item extends Helper_Name {
           return this;
         },
         present_at_all_locations_ids: function (id) {
-          this.present_at_all_locations_ids = id;
+          this.self.present_at_all_locations_ids = id;
           return this;
         },
         id: function (tempId) {
-          this.id = tempId;
+          this.self.id = tempId;
           return this;
         },
         description: function (str) {
