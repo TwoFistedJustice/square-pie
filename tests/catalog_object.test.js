@@ -225,7 +225,7 @@ describe("Catalog Item fardel arrays should be arrays containing the appropriate
   };
   const str = "somestring";
   const item = new Catalog_Item();
-  test.only("Should be arrays containing appropriate type", () => {
+  test("Should be arrays containing appropriate type", () => {
     let config = item.spawn();
     config
       .tax_ids(str)
