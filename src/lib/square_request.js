@@ -50,7 +50,6 @@ class Square_Request {
   }
 
   set delivery(parcel) {
-    // who would fardels bear? would they bear you or would you bear them?
     this._delivery = parcel;
   }
   // COMPUTED PROPERTIES

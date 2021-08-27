@@ -24,6 +24,7 @@ class Catalog_Object_Wrapper {
     return this._payload;
   }
   get fardel() {
+    // who would fardels bear? would they bear you or would you bear them?
     return this._fardel;
   }
   // SETTERS
