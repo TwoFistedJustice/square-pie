@@ -6,18 +6,19 @@ class Retrieve_Update_Delete extends Customer_Request {
   constructor(id = "you_still_need_to_set_the _id") {
     super();
     this._endpoint = `/${id}`;
+    this._delivery;
   }
   // GETTERS
   get id() {
     return this._endpoint;
   }
   get delivery() {
-    return this._fardel;
+    return this._delivery;
   }
 
   // SETTERS
   set delivery(parcel) {
-    this._fardel = parcel.customer;
+    this._delivery = parcel.customer;
   }
 
   // METHODS

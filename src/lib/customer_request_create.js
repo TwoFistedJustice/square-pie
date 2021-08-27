@@ -8,18 +8,19 @@ class Customer_Create extends Customer_Request {
     this._method = "post";
     this.idempotency_key = uuidv4();
     this.customer = customer;
+    this._delivery;
   }
   // GETTERS
   get getIdempotency_key() {
     return this.idempotency_key;
   }
   get delivery() {
-    return this._fardel;
+    return this._delivery;
   }
 
   // SETTERS
   set delivery(parcel) {
-    this._fardel = parcel.customer;
+    this._delivery = parcel.customer;
   }
 
   // COMPUTED PROPERTIES
