@@ -7,5 +7,5 @@ Method |Type| Expected Argument | Short Notes |
 | baseUrl|computed | - | determines which Square base url to use based on value of NODE_ENV |
 | url | computed |- | constructs the final url to include in the http request|
 | headers| method | - | constructs the http headers based on values from .config
-| ⋈ makeRequest | method | - | makes the actual http request saves the response to this.fardel |
+| ⋈ makeRequest | method | - | makes the actual http request saves the response to this.delivery |
 |options | method | - | creates the http options object |

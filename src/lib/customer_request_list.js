@@ -4,16 +4,17 @@ class Customer_List extends Customer_Request {
   constructor() {
     super();
     this._method = "get";
+    this._delivery;
   }
   // g/s override super
   //GETTERS
-  get fardel() {
-    return this._fardel;
+  get delivery() {
+    return this._delivery;
   }
 
   // SETTERS
-  set fardel(parcel) {
-    this._fardel = parcel.customers;
+  set delivery(parcel) {
+    this._delivery = parcel.customers;
   }
 }
 

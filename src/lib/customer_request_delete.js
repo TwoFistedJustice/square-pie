@@ -4,15 +4,16 @@ class Customer_Delete extends Retrieve_Update_Delete {
   constructor(id) {
     super(id);
     this._method = "delete";
+    this._delivery;
   }
   // GETTERS
-  get fardel() {
-    return this._fardel;
+  get delivery() {
+    return this._delivery;
   }
 
   // SETTERS
-  set fardel(parcel) {
-    this._fardel = parcel;
+  set delivery(parcel) {
+    this._delivery = parcel;
   }
 }
 

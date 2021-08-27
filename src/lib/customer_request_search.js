@@ -17,16 +17,17 @@ class Customer_Search extends Customer_Request {
         limit: "",
       },
     };
+    this._delivery;
   }
 
   // GETTERS
-  get fardel() {
-    return this._fardel;
+  get delivery() {
+    return this._delivery;
   }
 
   // SETTERS
-  set fardel(parcel) {
-    this._fardel = parcel.customers;
+  set delivery(parcel) {
+    this._delivery = parcel.customers;
   }
   // METHODS
   // this works like so:
