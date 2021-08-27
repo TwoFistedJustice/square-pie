@@ -26,7 +26,7 @@ class Square_Request {
     this._body;
     this._endpoint = "";
     this._secret = secret;
-    this._fardel;
+    this._delivery;
   }
 
   // GETTERS
@@ -37,8 +37,8 @@ class Square_Request {
     return this._body;
   }
 
-  get fardel() {
-    return this._fardel;
+  get delivery() {
+    return this._delivery;
   }
 
   // SETTERS
@@ -49,9 +49,9 @@ class Square_Request {
     this._method = method;
   }
 
-  set fardel(parcel) {
+  set delivery(parcel) {
     // who would fardels bear? would they bear you or would you bear them?
-    this._fardel = parcel;
+    this._delivery = parcel;
   }
   // COMPUTED PROPERTIES
   get secretName() {
@@ -87,9 +87,9 @@ class Square_Request {
       }
       // let response = await httpResponse.json();
       // save the data returned from the server AND return it.
-      this.fardel = await httpResponse.json();
-      // return this._fardel;
-      return this.fardel;
+      this.delivery = await httpResponse.json();
+      // return this._delivery;
+      return this.delivery;
     };
     return request(this.url, this.options());
   }

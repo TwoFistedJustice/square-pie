@@ -7,12 +7,12 @@ class Customer_List extends Customer_Request {
   }
   // g/s override super
   //GETTERS
-  get fardel() {
+  get delivery() {
     return this._fardel;
   }
 
   // SETTERS
-  set fardel(parcel) {
+  set delivery(parcel) {
     this._fardel = parcel.customers;
   }
 }

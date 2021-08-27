@@ -11,12 +11,12 @@ class Retrieve_Update_Delete extends Customer_Request {
   get id() {
     return this._endpoint;
   }
-  get fardel() {
+  get delivery() {
     return this._fardel;
   }
 
   // SETTERS
-  set fardel(parcel) {
+  set delivery(parcel) {
     this._fardel = parcel.customer;
   }
 

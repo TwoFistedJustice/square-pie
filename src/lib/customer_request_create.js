@@ -13,12 +13,12 @@ class Customer_Create extends Customer_Request {
   get getIdempotency_key() {
     return this.idempotency_key;
   }
-  get fardel() {
+  get delivery() {
     return this._fardel;
   }
 
   // SETTERS
-  set fardel(parcel) {
+  set delivery(parcel) {
     this._fardel = parcel.customer;
   }
 

@@ -6,7 +6,7 @@ uuidv4();
 // class.attach(stuff-I-forgot)
 //class.add(same-as-attach)
 // class.finalize() // todo extract this step out
-// send out class.fardel
+// send out class.delivery
 //ToDO add ability to remove an item from payload array
 class Catalog_Object_Wrapper {
   constructor() {
@@ -36,7 +36,7 @@ class Catalog_Object_Wrapper {
       throw new TypeError("Parcel must be a curly brace Object.");
     }
     if (Object.prototype.hasOwnProperty.call(this._fardel, "objects")) {
-      // delete this._fardel.objects;
+      // delete this._delivery.objects;
       this._fardel.objects = undefined;
     } else if (!Object.prototype.hasOwnProperty.call(this._fardel, "object")) {
       Object.defineProperty(this._fardel, "object", {
@@ -53,7 +53,7 @@ class Catalog_Object_Wrapper {
       throw new TypeError("Parcel must be an array.");
     }
     if (Object.prototype.hasOwnProperty.call(this._fardel, "object")) {
-      // delete this._fardel.object;
+      // delete this._delivery.object;
       this._fardel.object = undefined;
     } else if (!Object.prototype.hasOwnProperty.call(this._fardel, "objects")) {
       Object.defineProperty(this._fardel, "objects", {

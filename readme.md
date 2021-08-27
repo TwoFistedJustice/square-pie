@@ -105,13 +105,13 @@ Give a ⭐️ if this project helped you!
 
 ## Basic usage - how to make a request
 
-There is no need to know the full variety of specifics of Square's http return values. The important bits sit on the "fardel" property
+There is no need to know the full variety of specifics of Square's http return values. The important bits sit on the "delivery" property
 
 ```js
 async someFunction()
 {
   var someVar = new someClass (); // Create a variable set to new class instance - may require an argument
   await someClass.makeRequest ();  // make the http request
-  console.log (someClass.fardel) // log the results of the call - they reside on the "fardel" property
+  console.log (someClass.fardel) // log the results of the call - they reside on the "delivery" property
 }
 ```
