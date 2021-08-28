@@ -24,19 +24,6 @@ Argument against: They line up better on the response side by doing them by over
 | Catalog_Create_Image   | SquareRequest | GET            | !           |
 | Catalog_Info           | SquareRequest | GET            | !           |
 
-### RETRIEVE - Batch vs One
-
-< > These are basically the same except for the endpoint and method
-
-|       | Method | Resource Location            | Body Properties         | Response Fields      | Square Docs                                                                                                  | Short notes |
-| ----- | ------ | ---------------------------- | ----------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------ | ----------- |
-| batch | POST   | 'catalog/batch-retrieve'     | object_ids: ["id", ...] |                      | [Retrieve batch](https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects) |
-|       |        |                              |                         | objects: [ ]         |                                                                                                              |             |
-|       |        |                              |                         | related_objects: [ ] |                                                                                                              |             |
-| one   | GET    | 'catalog/object/{object_id}' | object_id: "id"         |                      | [Retrieve one](https://developer.squareup.com/reference/square/catalog-api/retrieve-catalog-object)          |
-|       |        |                              |                         | object: cat-obj      |                                                                                                              |             |
-|       |        |                              |                         | related_objects: [ ] |                                                                                                              |             |
-
 ### UPSERT - Batch vs One
 
 < > these two are basically the same, except one sends an array of objects and the other a single object
@@ -55,6 +42,19 @@ Argument against: They line up better on the response side by doing them by over
 
 < > I think I can make a single class that handles both with a simple chainer
 upsert.one() and upsert.many() or upsert.alot()
+
+### RETRIEVE - Batch vs One
+
+< > These are basically the same except for the endpoint and method
+
+|       | Method | Resource Location            | Body Properties         | Response Fields      | Square Docs                                                                                                  | Short notes |
+| ----- | ------ | ---------------------------- | ----------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------ | ----------- |
+| batch | POST   | 'catalog/batch-retrieve'     | object_ids: ["id", ...] |                      | [Retrieve batch](https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects) |
+|       |        |                              |                         | objects: [ ]         |                                                                                                              |             |
+|       |        |                              |                         | related_objects: [ ] |                                                                                                              |             |
+| one   | GET    | 'catalog/object/{object_id}' | object_id: "id"         |                      | [Retrieve one](https://developer.squareup.com/reference/square/catalog-api/retrieve-catalog-object)          |
+|       |        |                              |                         | object: cat-obj      |                                                                                                              |             |
+|       |        |                              |                         | related_objects: [ ] |                                                                                                              |             |
 
 ### DELETE - Batch vs One
 
