@@ -13,9 +13,16 @@ Argument against: They line up better on the response side by doing them by over
 | ----------------- | ----- | ----------- | ----------- |
 | Square_Request    | none  | !           |
 
-| Level Two Classes | Super         | Method | Implemented | Short Notes |
-| ----------------- | ------------- | ------ | ----------- | ----------- |
-| Batch             | SquareRequest | POST   | !           |
+| Level Two Classes      | Super         | Method         | Implemented | Short Notes |
+| ---------------------- | ------------- | -------------- | ----------- | ----------- |
+| Catalog_Upsert         | SquareRequest | POST           | !           |
+| Catalog_List_Objects   | SquareRequest | GET            | !           |
+| Catalog_Delete         | SquareRequest | POST && DELETE | !           |
+| Catalog_Retrieve       | SquareRequest | POST && GET    | !           |
+| Catalog_Search_Items   | SquareRequest | POST           | !           |
+| Catalog_Search_Objects | SquareRequest | POST           | !           |
+| Catalog_Create_Image   | SquareRequest | GET            | !           |
+| Catalog_Info           | SquareRequest | GET            | !           |
 
 ### RETRIEVE - Batch vs One
 
