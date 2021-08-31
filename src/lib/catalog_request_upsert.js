@@ -38,7 +38,7 @@ class Catalog_Request_Upsert extends Catalog_Request {
   // todo tighten this up
   //  rename the method
   go(fardel) {
-    if (Array.isArray(fardel)) {
+    if (Object.prototype.hasOwnProperty.call(fardel, "objects")) {
       this.endpoint = this.configuration.batch.endpoint;
     } else {
       this.endpoint = this.configuration.one.endpoint;
