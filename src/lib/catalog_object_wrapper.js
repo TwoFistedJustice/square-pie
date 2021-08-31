@@ -37,12 +37,12 @@ class Catalog_Object_Wrapper {
       throw new TypeError("Parcel must be a curly brace Object.");
     }
     if (Object.prototype.hasOwnProperty.call(this._fardel, "objects")) {
-      // delete this._delivery.objects;
       this._fardel.objects = undefined;
     } else if (!Object.prototype.hasOwnProperty.call(this._fardel, "object")) {
       Object.defineProperty(this._fardel, "object", {
         value: parcel,
         writable: true,
+        enumerable: true,
       });
     } else {
       this._fardel.object = parcel;
@@ -60,6 +60,7 @@ class Catalog_Object_Wrapper {
       Object.defineProperty(this._fardel, "objects", {
         value: parcel,
         writable: true,
+        enumerable: true,
       });
     } else {
       this._fardel.objects = parcel;
