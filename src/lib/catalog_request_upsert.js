@@ -29,21 +29,19 @@ class Catalog_Request_Upsert extends Catalog_Request {
     return this._body;
   }
   set body(fardel) {
-    this._body = fardel;
+    if (Object.prototype.hasOwnProperty.call(fardel, "objects")) {
+      this.endpoint = this.configuration.batch.endpoint;
+      this._body = {
+        idempotency_key: this._idempotency_key,
+        batches: [fardel],
+      };
+    } else {
+      this.endpoint = this.configuration.one.endpoint;
+      this._body = fardel;
+    }
   }
   set endpoint(str) {
     this._endpoint = str;
-  }
-
-  // todo tighten this up
-  //  rename the method
-  go(fardel) {
-    if (Object.prototype.hasOwnProperty.call(fardel, "objects")) {
-      this.endpoint = this.configuration.batch.endpoint;
-    } else {
-      this.endpoint = this.configuration.one.endpoint;
-    }
-    this.body = fardel;
   }
 
   // METHODS
