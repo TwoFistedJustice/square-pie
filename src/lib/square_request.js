@@ -79,6 +79,7 @@ class Square_Request {
   // you have to get the secret before calling this method
   makeRequest() {
     let request = async (url, options) => {
+      debug(options);
       const httpResponse = await fetch(url, options);
       this.delivery = await httpResponse.json();
       if (!httpResponse.ok) {
@@ -102,5 +103,10 @@ class Square_Request {
     };
   }
 } // END class
+
+function debug(options) {
+  let body = JSON.parse(options.body);
+  console.log(body);
+}
 
 module.exports = Square_Request;
