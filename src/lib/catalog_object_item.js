@@ -2,10 +2,6 @@ const Catalog_Object_Super = require("./catalog_object_super");
 const { setter_chain_generator_config } = require("./utilities_curry");
 const { isHexColor } = require("validator");
 
-//todo 8/26 - change the super to Super, delete the helper class file entirely
-// add name property, getter, setter to item
-// update the docs and tests to reflect those changes
-
 class Catalog_Item extends Catalog_Object_Super {
   constructor() {
     super();
@@ -44,8 +40,6 @@ class Catalog_Item extends Catalog_Object_Super {
       },
     };
   }
-
-  // for bools have chain propName.yes, propName.no
 
   // GETTERS
   get fardel() {
