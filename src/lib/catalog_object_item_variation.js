@@ -30,7 +30,7 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
           inventory_alert_type_threshold: undefined,
           track_inventory: undefined,
           measurement_unit_id: undefined,
-          pricing_type: undefined,
+          pricing_type: undefined, // REQUIRED FIELD
           price_money: undefined,
           sku: undefined,
           stockable: undefined,

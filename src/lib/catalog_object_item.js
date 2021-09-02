@@ -2,10 +2,6 @@ const Catalog_Object_Super = require("./catalog_object_super");
 const { setter_chain_generator_config } = require("./utilities_curry");
 const { isHexColor } = require("validator");
 
-//todo 8/26 - change the super to Super, delete the helper class file entirely
-// add name property, getter, setter to item
-// update the docs and tests to reflect those changes
-
 class Catalog_Item extends Catalog_Object_Super {
   constructor() {
     super();
@@ -16,7 +12,7 @@ class Catalog_Item extends Catalog_Object_Super {
         abbreviation: 24,
       },
       defaults: {
-        auto_set_appointment_service: true,
+        auto_set_appointment_service: false,
       },
       keys: ["product_type"], // array of property names where Square expects specific values
       product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
@@ -44,8 +40,6 @@ class Catalog_Item extends Catalog_Object_Super {
       },
     };
   }
-
-  // for bools have chain propName.yes, propName.no
 
   // GETTERS
   get fardel() {
@@ -162,8 +156,15 @@ class Catalog_Item extends Catalog_Object_Super {
   }
 
   // todo this method seems to be a persistent source of bugs
+  // item_variation id should be "#item.name" + "item_variation.name"
+
   set variations(obj) {
     // An item must have at least one variation.
+    // If user didn't add an id, create an id for the variation by combining name fields
+    if (obj.id === undefined || obj.id === "") {
+      obj.id = `#${this.name}_${obj.item_variation_data.name}`;
+    }
+
     if (!Array.isArray(this._fardel.item_data.variations)) {
       this._fardel.item_data.variations = [];
     }

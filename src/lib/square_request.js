@@ -79,15 +79,18 @@ class Square_Request {
   // you have to get the secret before calling this method
   makeRequest() {
     let request = async (url, options) => {
+      debug(options);
       const httpResponse = await fetch(url, options);
+      this.delivery = await httpResponse.json();
       if (!httpResponse.ok) {
-        let message = `\ngenerated url: ${this.url}\nmethod: ${options.method}\n${httpResponse.status}: ${httpResponse.statusText}`;
+        let errors = this.delivery.errors[0];
+        let squareErrorMessage = `\n${errors.category}\n${errors.code}\n${errors.field}\n${errors.detail}`;
+        let apiErrorMessage = `\ngenerated url: ${this.url}\nmethod: ${options.method}\n${httpResponse.status}: ${httpResponse.statusText}/n`;
+        let message = squareErrorMessage + apiErrorMessage;
         throw new Error(message);
       }
       // let response = await httpResponse.json();
       // save the data returned from the server AND return it.
-      this.delivery = await httpResponse.json();
-      // return this._delivery;
       return this.delivery;
     };
     return request(this.url, this.options());
@@ -100,5 +103,10 @@ class Square_Request {
     };
   }
 } // END class
+
+function debug(options) {
+  let body = JSON.parse(options.body);
+  console.log(body);
+}
 
 module.exports = Square_Request;

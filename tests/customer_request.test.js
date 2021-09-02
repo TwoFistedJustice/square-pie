@@ -20,7 +20,7 @@ const mikey = customers.mikey;
 beforeAll(() => jest.setTimeout(10 * 1000));
 
 describe("Silence Async tests", () => {
-  test("Should silence async customer tests", () => {
+  test.only("Should silence async customer tests", () => {
     expect("a").toEqual("a");
   });
 });
