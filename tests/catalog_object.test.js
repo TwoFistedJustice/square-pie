@@ -325,10 +325,13 @@ describe("Item Variation pricing featues", () => {
     spawn.service_duration(timeInMinutes);
     expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
   });
+
+  // todo test that Item automatically sets variation name when one is not provided
+  // todo test that Item does not automatically set variation name when one IS provided
 });
 
 // --------------------------------------------------------------
-//                        INTERACTION BETWEEN ITEM && ITEM VARIATION
+//                        INTERACTION BETWEEN ITEM && ITEM VARIATION && WRAPPER
 // --------------------------------------------------------------
 
 describe("Item and Item Variation should interact correctly", () => {
@@ -365,5 +368,50 @@ describe("Item and Item Variation should interact correctly", () => {
     expect(fardel.item_data.variations[0]).toEqual(
       expect.objectContaining(expected_variation)
     );
+  });
+
+  test("Wrapper should contain an 'object' property when given one object", () => {
+    const variation = new Catalog_Item_Variation();
+    const item = new Catalog_Item();
+    const wrapper = new Catalog_Object_Wrapper();
+
+    const vari_config = variation.spawn();
+    const item_config = item.spawn();
+    item_config.id("some_item");
+    vari_config
+      .name("Classic")
+      .present_at_all_locations(true)
+      .price_money(1500)
+      .sku("12345")
+      .present_at_location_ids("Pieville USA");
+    item.variations = variation.fardel;
+    wrapper.attach(item.fardel);
+    wrapper.finalize();
+    expect(
+      Object.prototype.hasOwnProperty.call(wrapper.fardel, "object")
+    ).toEqual(true);
+  });
+
+  test("Wrapper should contain an 'objects' property when given more than one object", () => {
+    const variation = new Catalog_Item_Variation();
+    const item = new Catalog_Item();
+    const wrapper = new Catalog_Object_Wrapper();
+
+    const vari_config = variation.spawn();
+    const item_config = item.spawn();
+    item_config.id("some_item");
+    vari_config
+      .name("Classic")
+      .present_at_all_locations(true)
+      .price_money(1500)
+      .sku("12345")
+      .present_at_location_ids("Pieville USA");
+    item.variations = variation.fardel;
+    wrapper.attach(item.fardel);
+    wrapper.attach(item.fardel); // duplicate is for test
+    wrapper.finalize();
+    expect(
+      Object.prototype.hasOwnProperty.call(wrapper.fardel, "objects")
+    ).toEqual(true);
   });
 });

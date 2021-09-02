@@ -1,7 +1,7 @@
 const Catalog_Request = require("./catalog_request");
 const { v4: uuidv4 } = require("uuid");
 
-class Catalog_Request_Upsert extends Catalog_Request {
+class Catalog_Upsert extends Catalog_Request {
   constructor() {
     super();
     this._method = "post";
@@ -56,4 +56,4 @@ class Catalog_Request_Upsert extends Catalog_Request {
   }
 }
 
-module.exports = Catalog_Request_Upsert;
+module.exports = Catalog_Upsert;

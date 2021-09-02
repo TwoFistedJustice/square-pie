@@ -3,7 +3,7 @@ const should = require("chai").should();
 
 const sample_objects = require("./data_preparation/sample_catalog_data");
 
-const Catalog_Request_Upsert = require("../src/lib/catalog_request_upsert");
+const Catalog_Upsert = require("../src/lib/catalog_request_upsert");
 
 // tack on .only to this empty test to silence all other tests
 describe("Silence Async tests", () => {
@@ -14,7 +14,7 @@ describe("Silence Async tests", () => {
 
 describe("Catalog Request Upsert", () => {
   test("Should have a correctly populated batches array when upserting multiple documents", () => {
-    const upsert = new Catalog_Request_Upsert();
+    const upsert = new Catalog_Upsert();
     upsert.make().body(sample_objects.multiple);
     let received = upsert.body;
     // should have 'batches' property
@@ -28,7 +28,7 @@ describe("Catalog Request Upsert", () => {
   });
 
   test("Should have 'object' property when upserting a single document", () => {
-    const upsert = new Catalog_Request_Upsert();
+    const upsert = new Catalog_Upsert();
     upsert.make().body(sample_objects.single);
     let received = upsert.body;
 
