@@ -1,9 +1,6 @@
 const Catalog_Request = require("./catalog_request");
 const { v4: uuidv4 } = require("uuid");
 
-// todo this is where the error is happening
-// task: find a way to insert the wrapper into the appropriate property
-
 class Catalog_Request_Upsert extends Catalog_Request {
   constructor() {
     super();
@@ -21,7 +18,6 @@ class Catalog_Request_Upsert extends Catalog_Request {
       },
     };
   }
-
   get endpoint() {
     return this._endpoint;
   }
@@ -45,15 +41,19 @@ class Catalog_Request_Upsert extends Catalog_Request {
   }
 
   // METHODS
-
-  /*
-  var thing = create the catalog object(s)
-  
-  instantiate request class (thing)
-  class.makerequest
-  
-  
-  * */
+  make() {
+    const methods = () => {
+      const properties = {
+        self: this,
+        body: function (fardel) {
+          this.self.body = fardel;
+          return this;
+        },
+      };
+      return properties;
+    };
+    return methods();
+  }
 }
 
 module.exports = Catalog_Request_Upsert;
