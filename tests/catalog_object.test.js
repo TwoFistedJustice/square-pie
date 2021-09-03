@@ -135,7 +135,7 @@ describe("Catalog: Category", () => {
   };
   test("Should have the expected name and type.", () => {
     const category = new Catalog_Category();
-    const config = category.spawn();
+    const config = category.make();
     config
       .name(name)
       .present_at_all_locations(false)

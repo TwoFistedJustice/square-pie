@@ -52,7 +52,7 @@ class Catalog_Category extends Catalog_Object_Super {
   //todo document removal of parcel method
 
   //METHODS
-  spawn() {
+  make() {
     const methods = {
       self: this,
       name: function (str) {
