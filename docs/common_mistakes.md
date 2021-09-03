@@ -5,7 +5,7 @@ An easy mistake to make:
 
 ```js
 let item = new Catalog_Item();
-let itemConfig = item.spawn();
+let itemConfig = item.make();
 itemConfig.addSomeDetails("details");
 
 itemConfig.fardel;

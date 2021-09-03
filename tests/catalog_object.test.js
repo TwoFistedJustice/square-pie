@@ -166,7 +166,7 @@ describe("Catalog Item setters", () => {
   test("Should set the property product_type using the dynamic chain", () => {
     expect(item.product_type).toEqual("APPOINTMENTS_SERVICE");
   });
-  test("Should have properties set to correct values by hardcoded spawn methods.", () => {
+  test("Should have properties set to correct values by hardcoded make methods.", () => {
     item.name.should.equal(name);
     item.available_for_pickup.should.equal(false);
     item.tax_ids.should.be.an("array").lengthOf(2);
@@ -237,7 +237,7 @@ describe("Item Variation pricing featues", () => {
       currency: "USD",
     };
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.spawn();
+    const spawn = variation.make();
     spawn.price_money(expected.amount);
 
     expect(variation.pricing_type).toEqual("FIXED_PRICING");
@@ -250,7 +250,7 @@ describe("Item Variation pricing featues", () => {
 
   test("Service duration should throw unexpected argument types", () => {
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.spawn();
+    const spawn = variation.make();
 
     expect(() => {
       spawn.service_duration();
@@ -274,7 +274,7 @@ describe("Item Variation pricing featues", () => {
 
   test("Available for booking should throw on unexpected argument types", () => {
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.spawn();
+    const spawn = variation.make();
 
     expect(() => {
       spawn.available_for_booking();
@@ -295,7 +295,7 @@ describe("Item Variation pricing featues", () => {
 
   test("Available for booking have correct boolean value", () => {
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.spawn();
+    const spawn = variation.make();
     spawn.available_for_booking(true);
     expect(variation.available_for_booking).toEqual(true);
   });
@@ -304,14 +304,14 @@ describe("Item Variation pricing featues", () => {
     const timeInMinutes = 60;
     const timeInMilliseconds = timeInMinutes * 60 * 1000;
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.spawn();
+    const spawn = variation.make();
     spawn.service_duration(timeInMinutes);
     expect(variation.service_duration).toEqual(timeInMilliseconds);
   });
 
   test("Available for booking should reset pricing type to variable", () => {
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.spawn();
+    const spawn = variation.make();
     spawn.pricing_type().FIXED_PRICING();
     spawn.available_for_booking(true);
     expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
@@ -320,7 +320,7 @@ describe("Item Variation pricing featues", () => {
   test("Service duration should reset pricing type to variable", () => {
     const timeInMinutes = 60;
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.spawn();
+    const spawn = variation.make();
     spawn.pricing_type().FIXED_PRICING();
     spawn.service_duration(timeInMinutes);
     expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
@@ -354,7 +354,7 @@ describe("Item and Item Variation should interact correctly", () => {
   test("Item should contain one correctly formed item variation", () => {
     const variation = new Catalog_Item_Variation();
     const item = new Catalog_Item();
-    const vari_spawn = variation.spawn();
+    const vari_spawn = variation.make();
     const item_spawn = item.spawn();
     item_spawn.id("some_item");
     vari_spawn
@@ -375,7 +375,7 @@ describe("Item and Item Variation should interact correctly", () => {
     const item = new Catalog_Item();
     const wrapper = new Catalog_Object_Wrapper();
 
-    const vari_config = variation.spawn();
+    const vari_config = variation.make();
     const item_config = item.spawn();
     item_config.id("some_item");
     vari_config
@@ -397,7 +397,7 @@ describe("Item and Item Variation should interact correctly", () => {
     const item = new Catalog_Item();
     const wrapper = new Catalog_Object_Wrapper();
 
-    const vari_config = variation.spawn();
+    const vari_config = variation.make();
     const item_config = item.spawn();
     item_config.id("some_item");
     vari_config

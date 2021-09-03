@@ -7,7 +7,7 @@
 - It will be set automatically when you instantiate an item. The default is Regular. But you can change
   the default by changing configuration.auto_set_appointment_service to false.
 - You can use the old fashioned setter.
-- You can use the spawn method. Don't look for the methods in the code. They are built by javascript gnomes that live in the repo.
+- You can use the make method. Don't look for the methods in the code. They are built by javascript gnomes that live in the repo.
 
 ```js
 let somevar = item.spawn();
