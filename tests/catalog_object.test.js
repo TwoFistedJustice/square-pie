@@ -156,7 +156,7 @@ describe("Catalog: Category", () => {
 describe("Catalog Item setters", () => {
   const item = new Catalog_Item();
   let name = "SCEANCE";
-  let config = item.spawn();
+  let config = item.make();
   config.product_type().APPOINTMENTS_SERVICE();
   config
     .name(name)
@@ -180,7 +180,7 @@ describe("Catalog Item setters", () => {
 describe("Catalog Item string length validators", () => {
   test("Should throw errors when strings are too long.", () => {
     const item = new Catalog_Item();
-    let config = item.spawn();
+    let config = item.make();
     expect(() => {
       item.name = long_strings.len_513;
     }).toThrow();
@@ -213,7 +213,7 @@ describe("Catalog Item delivery arrays should be arrays containing the appropria
   const str = "somestring";
   const item = new Catalog_Item();
   test("Should be arrays containing appropriate type", () => {
-    let config = item.spawn();
+    let config = item.make();
     config
       .tax_ids(str)
       .modifier_list_info(obj)
@@ -355,7 +355,7 @@ describe("Item and Item Variation should interact correctly", () => {
     const variation = new Catalog_Item_Variation();
     const item = new Catalog_Item();
     const vari_spawn = variation.make();
-    const item_spawn = item.spawn();
+    const item_spawn = item.make();
     item_spawn.id("some_item");
     vari_spawn
       .name("Classic")
@@ -376,7 +376,7 @@ describe("Item and Item Variation should interact correctly", () => {
     const wrapper = new Catalog_Object_Wrapper();
 
     const vari_config = variation.make();
-    const item_config = item.spawn();
+    const item_config = item.make();
     item_config.id("some_item");
     vari_config
       .name("Classic")
@@ -398,7 +398,7 @@ describe("Item and Item Variation should interact correctly", () => {
     const wrapper = new Catalog_Object_Wrapper();
 
     const vari_config = variation.make();
-    const item_config = item.spawn();
+    const item_config = item.make();
     item_config.id("some_item");
     vari_config
       .name("Classic")
