@@ -4,6 +4,7 @@ const should = require("chai").should();
 const sample_objects = require("./data_preparation/sample_catalog_data");
 
 const Catalog_Upsert = require("../src/lib/catalog_request_upsert");
+const Catalog_List = require("../src/lib/catalog_request_list");
 
 // tack on .only to this empty test to silence all other tests
 describe("Silence Async tests", () => {
@@ -35,5 +36,13 @@ describe("Catalog Request Upsert", () => {
     expect(Object.prototype.hasOwnProperty.call(received, "object")).toEqual(
       true
     );
+  });
+});
+
+describe("Catalog Request List", () => {
+  test.only("Should fetch the list of Catalog Objects", async () => {
+    let list = new Catalog_List();
+    await list.makeRequest();
+    list.delivery.should.be.an("Array");
   });
 });

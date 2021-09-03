@@ -13,16 +13,16 @@ Argument against: They line up better on the response side by doing them by over
 | ----------------- | ----- | ----------- | ----------- |
 | Square_Request    | none  | !           |
 
-| Level Two Classes      | Super         | Method         | Implemented | Short Notes |
-| ---------------------- | ------------- | -------------- | ----------- | ----------- |
-| Catalog_Upsert         | SquareRequest | POST           |             |
-| Catalog_List_Objects   | SquareRequest | GET            | !           |
-| Catalog_Delete         | SquareRequest | POST && DELETE | !           |
-| Catalog_Retrieve       | SquareRequest | POST && GET    | !           |
-| Catalog_Search_Items   | SquareRequest | POST           | !           |
-| Catalog_Search_Objects | SquareRequest | POST           | !           |
-| Catalog_Create_Image   | SquareRequest | GET            | !           |
-| Catalog_Info           | SquareRequest | GET            | !           |
+| Level Two Classes      | Super           | Method         | Implemented | Short Notes |
+| ---------------------- | --------------- | -------------- | ----------- | ----------- |
+| Catalog_Upsert         | Catalog_Request | POST           |             |
+| Catalog_List_Objects   | Catalog_Request | GET            | !           |
+| Catalog_Delete         | Catalog_Request | POST && DELETE | !           |
+| Catalog_Retrieve       | Catalog_Request | POST && GET    | !           |
+| Catalog_Search_Items   | Catalog_Request | POST           | !           |
+| Catalog_Search_Objects | Catalog_Request | POST           | !           |
+| Catalog_Create_Image   | Catalog_Request | GET            | !           |
+| Catalog_Info           | Catalog_Request | GET            | !           |
 
 ### UPSERT - Batch vs One
 
