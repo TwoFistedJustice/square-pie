@@ -16,7 +16,7 @@ Argument against: They line up better on the response side by doing them by over
 | Level Two Classes      | Super           | Method         | Implemented | Short Notes |
 | ---------------------- | --------------- | -------------- | ----------- | ----------- |
 | Catalog_Upsert         | Catalog_Request | POST           |             |
-| Catalog_List_Objects   | Catalog_Request | GET            | !           |
+| Catalog_List           | Catalog_Request | GET            | !           |
 | Catalog_Delete         | Catalog_Request | POST && DELETE | !           |
 | Catalog_Retrieve       | Catalog_Request | POST && GET    | !           |
 | Catalog_Search_Items   | Catalog_Request | POST           | !           |

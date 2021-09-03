@@ -26,10 +26,10 @@ Solution: Use fewer classes and use mixins
 | Catalog_Object_Wrapper | none  | yes        |             |                     |                                                                                   | [CatalogObject](https://developer.squareup.com/reference/square/objects/CatalogObject) |
 | Catalog_Object_Super   | none  | no         |             |                     | Owns id property for setting temporary upser id, adds a hash mark if user doesn't |
 
-| Level Two Objects       | Super       | Idempotent | Implemented | Unit Tests in Place | Short Notes | Square Doc |
-| ----------------------- | ----------- | ---------- | ----------- | ------------------- | ----------- | ---------- |
-| Catalog_Object_Item     | Helper_Name | no         |             |                     |
-| Catalog_Object_Category | Helper_Name | no         |             |                     |
+| Level Two Objects       | Super                | Idempotent | Implemented | Unit Tests in Place | Short Notes | Square Doc |
+| ----------------------- | -------------------- | ---------- | ----------- | ------------------- | ----------- | ---------- |
+| Catalog_Object_Item     | Catalog_Object_Super | no         |             |                     |
+| Catalog_Object_Category | Catalog_Object_Super | no         |             |                     |
 
 | Level X Objects             | Priority  | Super                | Idempotent | Implemented | Unit Tests in Place | Square Doc                                                                                                         | Short Notes                     |
 | --------------------------- | --------- | -------------------- | ---------- | ----------- | ------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------- |
