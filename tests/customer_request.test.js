@@ -93,7 +93,7 @@ describe("Customer Request Classes", () => {
       let normalizedEmail = "buffy@scoobies.org";
       let phone = "1-800-668-2677";
       let update = new Customer_Update(dbBuffy.id);
-      update.chainSet().email(email).phone(phone);
+      update.make().email(email).phone(phone);
       await update.request();
       let updatedEmail = update.delivery.email_address;
       let updatedPhone = update.delivery.phone_number;

@@ -119,7 +119,7 @@ class Customer_Update extends Retrieve_Update_Delete {
 
   // METHODS
   // allows chaining
-  chainSet() {
+  make() {
     return {
       self: this,
       firstName: function (val) {
