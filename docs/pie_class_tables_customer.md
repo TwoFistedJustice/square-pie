@@ -95,7 +95,7 @@ Method |Type| Expected Argument | Short Notes |
 | reference_id|getter/setter | Non-Square ID - String | not validated, can be any string
 | note|getter/setter | - String
 | version|getter/setter | Integer - Number | Must first fetch it from Square- must match the version number in their database
-| ⋈ ♾ chainSet|method - chainer|-| beginning of chain
+| ⋈ ♾ make|method - chainer|-| beginning of chain
 |^ .firstName | method - chain link | String
 |^ .lastName | method - chain link | String
 |^ .company | method - chain link | String

@@ -20,7 +20,7 @@ const mikey = customers.mikey;
 beforeAll(() => jest.setTimeout(10 * 1000));
 
 describe("Silence Async tests", () => {
-  test("Should silence async customer tests", () => {
+  test.only("Should silence async customer tests", () => {
     expect("a").toEqual("a");
   });
 });
@@ -93,7 +93,7 @@ describe("Customer Request Classes", () => {
       let normalizedEmail = "buffy@scoobies.org";
       let phone = "1-800-668-2677";
       let update = new Customer_Update(dbBuffy.id);
-      update.chainSet().email(email).phone(phone);
+      update.make().email(email).phone(phone);
       await update.request();
       let updatedEmail = update.delivery.email_address;
       let updatedPhone = update.delivery.phone_number;

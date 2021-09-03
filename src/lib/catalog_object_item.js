@@ -199,7 +199,7 @@ class Catalog_Item extends Catalog_Object_Super {
     this._fardel.item_data.sort_name = str;
   }
   //METHODS
-  spawn() {
+  make() {
     const methods = () => {
       const properties = {
         self: this,

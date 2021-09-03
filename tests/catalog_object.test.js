@@ -135,7 +135,7 @@ describe("Catalog: Category", () => {
   };
   test("Should have the expected name and type.", () => {
     const category = new Catalog_Category();
-    const config = category.spawn();
+    const config = category.make();
     config
       .name(name)
       .present_at_all_locations(false)
@@ -156,7 +156,7 @@ describe("Catalog: Category", () => {
 describe("Catalog Item setters", () => {
   const item = new Catalog_Item();
   let name = "SCEANCE";
-  let config = item.spawn();
+  let config = item.make();
   config.product_type().APPOINTMENTS_SERVICE();
   config
     .name(name)
@@ -166,7 +166,7 @@ describe("Catalog Item setters", () => {
   test("Should set the property product_type using the dynamic chain", () => {
     expect(item.product_type).toEqual("APPOINTMENTS_SERVICE");
   });
-  test("Should have properties set to correct values by hardcoded spawn methods.", () => {
+  test("Should have properties set to correct values by hardcoded make methods.", () => {
     item.name.should.equal(name);
     item.available_for_pickup.should.equal(false);
     item.tax_ids.should.be.an("array").lengthOf(2);
@@ -180,7 +180,7 @@ describe("Catalog Item setters", () => {
 describe("Catalog Item string length validators", () => {
   test("Should throw errors when strings are too long.", () => {
     const item = new Catalog_Item();
-    let config = item.spawn();
+    let config = item.make();
     expect(() => {
       item.name = long_strings.len_513;
     }).toThrow();
@@ -213,7 +213,7 @@ describe("Catalog Item delivery arrays should be arrays containing the appropria
   const str = "somestring";
   const item = new Catalog_Item();
   test("Should be arrays containing appropriate type", () => {
-    let config = item.spawn();
+    let config = item.make();
     config
       .tax_ids(str)
       .modifier_list_info(obj)
@@ -237,7 +237,7 @@ describe("Item Variation pricing featues", () => {
       currency: "USD",
     };
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.spawn();
+    const spawn = variation.make();
     spawn.price_money(expected.amount);
 
     expect(variation.pricing_type).toEqual("FIXED_PRICING");
@@ -250,7 +250,7 @@ describe("Item Variation pricing featues", () => {
 
   test("Service duration should throw unexpected argument types", () => {
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.spawn();
+    const spawn = variation.make();
 
     expect(() => {
       spawn.service_duration();
@@ -274,7 +274,7 @@ describe("Item Variation pricing featues", () => {
 
   test("Available for booking should throw on unexpected argument types", () => {
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.spawn();
+    const spawn = variation.make();
 
     expect(() => {
       spawn.available_for_booking();
@@ -295,7 +295,7 @@ describe("Item Variation pricing featues", () => {
 
   test("Available for booking have correct boolean value", () => {
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.spawn();
+    const spawn = variation.make();
     spawn.available_for_booking(true);
     expect(variation.available_for_booking).toEqual(true);
   });
@@ -304,14 +304,14 @@ describe("Item Variation pricing featues", () => {
     const timeInMinutes = 60;
     const timeInMilliseconds = timeInMinutes * 60 * 1000;
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.spawn();
+    const spawn = variation.make();
     spawn.service_duration(timeInMinutes);
     expect(variation.service_duration).toEqual(timeInMilliseconds);
   });
 
   test("Available for booking should reset pricing type to variable", () => {
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.spawn();
+    const spawn = variation.make();
     spawn.pricing_type().FIXED_PRICING();
     spawn.available_for_booking(true);
     expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
@@ -320,7 +320,7 @@ describe("Item Variation pricing featues", () => {
   test("Service duration should reset pricing type to variable", () => {
     const timeInMinutes = 60;
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.spawn();
+    const spawn = variation.make();
     spawn.pricing_type().FIXED_PRICING();
     spawn.service_duration(timeInMinutes);
     expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
@@ -354,8 +354,8 @@ describe("Item and Item Variation should interact correctly", () => {
   test("Item should contain one correctly formed item variation", () => {
     const variation = new Catalog_Item_Variation();
     const item = new Catalog_Item();
-    const vari_spawn = variation.spawn();
-    const item_spawn = item.spawn();
+    const vari_spawn = variation.make();
+    const item_spawn = item.make();
     item_spawn.id("some_item");
     vari_spawn
       .name("Classic")
@@ -375,8 +375,8 @@ describe("Item and Item Variation should interact correctly", () => {
     const item = new Catalog_Item();
     const wrapper = new Catalog_Object_Wrapper();
 
-    const vari_config = variation.spawn();
-    const item_config = item.spawn();
+    const vari_config = variation.make();
+    const item_config = item.make();
     item_config.id("some_item");
     vari_config
       .name("Classic")
@@ -397,8 +397,8 @@ describe("Item and Item Variation should interact correctly", () => {
     const item = new Catalog_Item();
     const wrapper = new Catalog_Object_Wrapper();
 
-    const vari_config = variation.spawn();
-    const item_config = item.spawn();
+    const vari_config = variation.make();
+    const item_config = item.make();
     item_config.id("some_item");
     vari_config
       .name("Classic")

@@ -110,7 +110,7 @@ and for referencing that object within that upsert request. Square will replace 
 as you upsert it. It can be pretty much anything, a word, or the ID you use in your own db. The class will
 automatically prepend the required "#" character so you don't have to.
 
-Many classes have a 'spawn' method that allows you chain together properties you want to set so you can do most of
+Many classes have a 'make' method that allows you chain together properties you want to set so you can do most of
 that with one line of code. Anytime a Square property has specific expected string values there will be an automatic
 function generator that reads from the expected properties and creates a chainable function to quickly set the correct
 values without having to worry about typos.

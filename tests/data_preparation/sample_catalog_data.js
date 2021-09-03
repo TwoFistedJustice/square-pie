@@ -10,13 +10,13 @@ const category = new Catalog_Category();
 category.name = "Guitars";
 
 const item = new Catalog_Item();
-const itemConfig = item.spawn();
+const itemConfig = item.make();
 
 const large = new Catalog_Item_Variation();
-const lg_config = large.spawn();
+const lg_config = large.make();
 
 const small = new Catalog_Item_Variation();
-const sm_config = small.spawn();
+const sm_config = small.make();
 
 itemConfig
   .id("coffee")

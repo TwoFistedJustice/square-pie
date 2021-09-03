@@ -208,7 +208,7 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   }
 
   //METHODS
-  spawn() {
+  make() {
     const methods = () => {
       const properties = {
         self: this,
