@@ -17,7 +17,7 @@ const secret = process.env[`${config.secrets.sandbox_secret_name}`];
 -----------------------------------------------*/
 
 // instantiate the class with a boolean
-// before calling class.makeRequest(secret) you have to get the secret from wix
+// before calling class.request(secret) you have to get the secret from wix
 // by calling getSecret(class.secretName)
 
 class Square_Request {
@@ -77,8 +77,8 @@ class Square_Request {
     };
   }
   // you have to get the secret before calling this method
-  makeRequest() {
-    let request = async (url, options) => {
+  request() {
+    let http_request = async (url, options) => {
       const httpResponse = await fetch(url, options);
       this.delivery = await httpResponse.json();
       if (!httpResponse.ok) {
@@ -92,7 +92,7 @@ class Square_Request {
       // save the data returned from the server AND return it.
       return this.delivery;
     };
-    return request(this.url, this.options());
+    return http_request(this.url, this.options());
   }
   options() {
     return {

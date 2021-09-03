@@ -20,7 +20,7 @@ const mikey = customers.mikey;
 beforeAll(() => jest.setTimeout(10 * 1000));
 
 describe("Silence Async tests", () => {
-  test.only("Should silence async customer tests", () => {
+  test("Should silence async customer tests", () => {
     expect("a").toEqual("a");
   });
 });
@@ -32,8 +32,8 @@ describe("Customer Request Classes", () => {
   describe("Customer List", () => {
     test("Should fetch the list of customers", async () => {
       let customerList = new Customer_List();
-      // let response = await customerList.makeRequest();
-      await customerList.makeRequest();
+      // let response = await customerList.request();
+      await customerList.request();
       customerList.delivery.should.be.an("Array").that.has.lengthOf(4);
       expect(customerList.delivery[0]).toMatchObject(buffy);
       // Michael Myers is not invited but will show up later - at which time Buffy will deal with him, as she does.
@@ -48,7 +48,7 @@ describe("Customer Request Classes", () => {
     test("Should execute a fuzzy Search and sort the results in descending order.", async () => {
       let customers = new Customer_Search();
       customers.query().fuzzy().phone("555").sortDown();
-      await customers.makeRequest();
+      await customers.request();
       customers.delivery.should.be.an("Array").that.has.lengthOf(4);
       for (let i = 0; i < customers.delivery.length - 2; i++) {
         Date.parse(customers.delivery[i]["created_at"]).should.be.greaterThan(
@@ -61,7 +61,7 @@ describe("Customer Request Classes", () => {
       let param = "buffy@magicbox.com";
       let findBuffy = new Customer_Search();
       findBuffy.query().exact().email(param);
-      await findBuffy.makeRequest();
+      await findBuffy.request();
       let email = findBuffy.delivery[0].email_address;
       email.should.equal(param);
     });
@@ -71,7 +71,7 @@ describe("Customer Request Classes", () => {
   describe("Customer Retrieve", () => {
     test("Should Retrieve a customer by id", async () => {
       let rescueBuffy = new Customer_Retrieve(dbBuffy.id);
-      await rescueBuffy.makeRequest();
+      await rescueBuffy.request();
       expect(rescueBuffy.delivery).toMatchObject(dbBuffy);
     });
   });
@@ -82,7 +82,7 @@ describe("Customer Request Classes", () => {
       let email = "buffy@scooby.org";
       let update = new Customer_Update(dbBuffy.id);
       update.email_address = email;
-      await update.makeRequest();
+      await update.request();
       let updatedEmail = update.delivery.email_address;
       updatedEmail.should.equal(email);
     });
@@ -94,7 +94,7 @@ describe("Customer Request Classes", () => {
       let phone = "1-800-668-2677";
       let update = new Customer_Update(dbBuffy.id);
       update.chainSet().email(email).phone(phone);
-      await update.makeRequest();
+      await update.request();
       let updatedEmail = update.delivery.email_address;
       let updatedPhone = update.delivery.phone_number;
       updatedEmail.should.equal(normalizedEmail);
@@ -106,7 +106,7 @@ describe("Customer Request Classes", () => {
     test("Should create a new customer", async () => {
       // add mikey
       let punchingBagForBuffy = new Customer_Create(mikey);
-      await punchingBagForBuffy.makeRequest();
+      await punchingBagForBuffy.request();
       let email = punchingBagForBuffy.delivery.email_address;
       mikeId = punchingBagForBuffy.delivery.id;
       // if the email matches, the customer was created
@@ -119,7 +119,7 @@ describe("Customer Request Classes", () => {
     test("Should delete the specified customer", async () => {
       // What would happen if Buffy fought Michael Myers?
       let buffyVsMichaelMyers = new Customer_Delete(mikeId);
-      await buffyVsMichaelMyers.makeRequest();
+      await buffyVsMichaelMyers.request();
       expect(buffyVsMichaelMyers.delivery).toMatchObject({});
     });
   });

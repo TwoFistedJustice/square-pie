@@ -123,7 +123,7 @@ var daSlayer = {
 // TOP LEVEL CLASSES
 
 // instantiate the class with a boolean
-// before calling class.makeRequest(secret) you have to get the secret from wix
+// before calling class.request(secret) you have to get the secret from wix
 // by calling getSecret(class.secretName)
 class SquareRequest {
   constructor(isProduction = true) {

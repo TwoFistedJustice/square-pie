@@ -42,7 +42,7 @@ single.finalize();
 //   const upsert = new Catalog_Request_Upsert();
 //   upsert.make().body(wrapper.fardel);
 //
-//   let delivered = await upsert.makeRequest();
+//   let delivered = await upsert.request();
 //   console.log(delivered);
 // };
 // doit();

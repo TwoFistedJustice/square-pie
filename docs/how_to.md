@@ -5,13 +5,13 @@ Everything is a subclass of SqauareRequest class.
 Every call must receive a boolean argument. True makes it call the production api. False sandboxes it.
 You must provide your API key to the request call. It does not have the ability to get it for itself.
 You get the secret by calling getSecret(someclass.secretName)
-and passing that value to someclass.makeRequest(secretName)
+and passing that value to someclass.request(secretName)
 
 The simplest example is fetching a list of customers:
 
 ```let list = new Customer_List(false)
   let secret = await getSecret(list.secretName);
-  return await list.makeRequest(secret);
+  return await list.request(secret);
 ```
 
 ## Class Levels
