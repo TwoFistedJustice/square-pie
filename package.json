@@ -8,7 +8,7 @@
     "test": "jest",
     "s": "node tests/data_preparation/setup_test.js",
     "t": "jest",
-    "clunk": "nodemon tests/clunky_test.js",
+    "clunk": "nodemon tests/manual/catalog_test.js",
     "prettier:check": "prettier --ignore-path .prettierignore --check '**/*.{js,jsw,jsx, json,md}'",
     "prettier:fix": "prettier --ignore-path .prettierignore --write '**/*.{js,jsw,jsx,json,md}'",
     "prepare": "husky install"
