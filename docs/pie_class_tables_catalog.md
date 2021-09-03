@@ -35,20 +35,39 @@ method: get
 #create image
 method: get
 
-| Level Four Classes     | Super          | Implemented | Short Notes |
-| ---------------------- | -------------- | ----------- | ----------- |
-| Catalog_Upsert         | Catalog_URDU   | !           |
-| Catalog_Retrieve       | Catalog_URDU   | !           |
-| Catalog_Update         | Catalog_URDU   | !           |
-| Catalog_Delete         | Catalog_URDU   | !           |
-| Catalog_Search_Items   | Catalog_Search | !           |
-| Catalog_Search_Objects | Catalog_Search | !           |
+| Level Four Classes     | Super           | Implemented | Short Notes |
+| ---------------------- | --------------- | ----------- | ----------- |
+| Catalog_Upsert         | Catalog_Request |             |
+| Catalog_Retrieve       | Catalog_Request | !           |
+| Catalog_Update         | Catalog_Request | !           |
+| Catalog_Delete         | Catalog_Request |             |
+| Catalog_Search_Items   | Catalog_Search  | !           |
+| Catalog_Search_Objects | Catalog_Search  | !           |
 
 ##delete
-super: URDU
-method: multiple
-.batch (super)
-.one (delete) (override this.\_method)
+method: POST
+Nope, sorry, NOT DELETE. waaaaaahhhhhh?
+Square has TWO delete endpoints. One for single items and one for batches.
+The only functional difference between them is on takes a string, and one takes an array of strings.
+BUT the one that takes the array will accept an array of one. So we didn't see a point in writing
+two classes to do one thing when we could write one class to do one thing.
+
+A note on deleting objects from Square: as long as the request is correctly formatted Square will return a
+200 OKIEDOKE, meaning, that even if you send it gibberesh, as long as it is correctly formatted gibberish
+Square will not only accept it, but also confirm the delete that didn't even happen.
+
+```js
+const del = new Catalog_Delete();
+del.nix("not_even_a_real_id");
+await del.request();
+```
+
+begets
+
+```sh
+{"object_ids":["not_even_a_real_id"]}
+{ deleted_at: '2021-09-03T23:00:53.445Z' }
+```
 
 ##retrieve
 super: URDU

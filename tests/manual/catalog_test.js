@@ -1,5 +1,5 @@
 const Catalog_List = require("../../src/lib/catalog_request_list");
-const Catalog_Delete = require("../../src/lib/catalog_request_delete.stub");
+const Catalog_Delete = require("../../src/lib/catalog_request_delete");
 
 const list = new Catalog_List();
 const del = new Catalog_Delete();
