@@ -40,9 +40,9 @@ describe("Catalog Request Upsert", () => {
 });
 
 describe("Catalog Request List", () => {
-  test.only("Should fetch the list of Catalog Objects", async () => {
+  test("Should fetch the list of Catalog Objects", async () => {
     let list = new Catalog_List();
-    await list.makeRequest();
+    await list.request();
     list.delivery.should.be.an("Array");
   });
 });
