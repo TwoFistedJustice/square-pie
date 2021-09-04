@@ -54,7 +54,9 @@ two classes to do one thing when we could write one class to do one thing.
 
 A note on deleting objects from Square: as long as the request is correctly formatted Square will return a
 200 OKIEDOKE, meaning, that even if you send it gibberesh, as long as it is correctly formatted gibberish
-Square will not only accept it, but also confirm the delete that didn't even happen.
+Square will accept it, but also apparently confirm the delete that didn't even happen.
+
+If the response is missing the "deleted_object_ids" array, that means it didn't delete anything.
 
 ```js
 const del = new Catalog_Delete();
@@ -65,7 +67,6 @@ await del.request();
 begets
 
 ```sh
-{"object_ids":["not_even_a_real_id"]}
 { deleted_at: '2021-09-03T23:00:53.445Z' }
 ```
 
