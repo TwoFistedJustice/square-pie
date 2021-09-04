@@ -15,7 +15,7 @@ class Catalog_Delete extends Catalog_Request {
     };
   }
   get object_ids() {
-    return this._fardel.object_ids;
+    return this._body.object_ids;
   }
   get body() {
     return this._body;
@@ -27,10 +27,6 @@ class Catalog_Delete extends Catalog_Request {
       throw new TypeError("Object IDs must valid IDs. Received a " + typeof id);
     }
     this._body.object_ids.push(id);
-  }
-
-  set body(fardel) {
-    this._body = fardel;
   }
 
   //METHODS
@@ -53,7 +49,10 @@ class Catalog_Delete extends Catalog_Request {
     this.object_ids = id;
     return this;
   }
-
+  effacer(id) {
+    this.object_ids = id;
+    return this;
+  }
   nix(id) {
     this.object_ids = id;
     return this;
