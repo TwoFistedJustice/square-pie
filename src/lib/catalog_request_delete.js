@@ -23,9 +23,8 @@ class Catalog_Delete extends Catalog_Request {
 
   set object_ids(id) {
     if (typeof id !== "string") {
-      throw new TypeError(
-        `Object IDs must be strings. Received a ${typeof id}`
-      );
+      console.log(id);
+      throw new TypeError("Object IDs must valid IDs. Received a " + typeof id);
     }
     this._body.object_ids.push(id);
   }
