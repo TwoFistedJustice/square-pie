@@ -18,17 +18,11 @@ const lg_config = large.make();
 const small = new Catalog_Item_Variation();
 const sm_config = small.make();
 
-itemConfig
-  .id("coffee")
-  .name("FancyCoffee")
-  .description("Froufrou Coffee Drink")
-  .abbreviation("FC");
-lg_config.name("Large").price_money(675);
-lg_config.name("Large");
-sm_config.name("Small").price_money(550);
+itemConfig.id("coffee").name("pie").description("dessert").abbreviation("FC");
+lg_config.name("blue").price_money(675);
+sm_config.name("red").price_money(550);
 
 itemConfig.variations(large.fardel).variations(small.fardel);
-itemConfig.variations(large.fardel);
 
 multiple.attach(item.fardel);
 multiple.add(category.fardel);
