@@ -79,7 +79,7 @@ class Square_Request {
   // you have to get the secret before calling this method
   request() {
     let http_request = async (url, options) => {
-      console.log(options.body);
+      // console.log(options.body);
       const httpResponse = await fetch(url, options);
       this.delivery = await httpResponse.json();
       if (!httpResponse.ok) {
