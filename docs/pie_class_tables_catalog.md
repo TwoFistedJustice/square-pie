@@ -13,7 +13,6 @@ api_name: 'catalog
 
 | Level Three Classes | Super          | Implemented | Short Notes |
 | ------------------- | -------------- | ----------- | ----------- |
-| Catalog_URDU        | Square_Request | !           |
 | Catalog_Search      | Square_Request | !           |
 | Catalog_Info        | Square_Request | !           |
 | Catalog_list        | Square_Request | !           |
@@ -106,8 +105,7 @@ super: Search
 | Catalog | RETRIEVE many        | POST   | '/catalog/batch-retrieve'             | Catalog_Retrieve       | [RETRIEVE many](https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects)     |
 | Catalog | UPDATE modifer lists | POST   | '/catalog/update-item-modifier-lists' | Catalog_Update         | [UPDATE modifier lists](https://developer.squareup.com/reference/square/catalog-api/update-item-modifier-lists) |
 | Catalog | UPDATE item taxes    | POST   | '/catalog/update-item-taxes'          | Catalog_Update         | [UPDATE taxes](https://developer.squareup.com/reference/square/catalog-api/update-item-taxes)                   |
-| Catalog | DELETE one           | DELETE | '/catalog/object/{object_id}'         | Catalog_Delete         | [DELETE delete](https://developer.squareup.com/reference/square/catalog-api/delete-catalog-object)              |
-| Catalog | DELETE many          | POST   | '/catalog/batch-delete'               | Catalog_Delete         | [DELETE many](https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects)         |
+| Catalog | DELETE               | POST   | '/catalog/batch-delete'               | Catalog_Delete         | [DELETE many](https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects)         |
 | Catalog | SEARCH items         | POST   | '/catalog/search-catalog-items'       | Catalog_Search_Items   | [SEARCH Items](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items)                |
 | Catalog | SEARCH objects       | POST   | '/catalog/search'                     | Catalog_Search_Objects | [SEARCH Objects](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items)              |
 | Catalog | LIST                 | GET    | '/catalog/list'                       | Catalog_List           | [LIST](https://developer.squareup.com/reference/square/catalog-api/list-catalog)                                |
