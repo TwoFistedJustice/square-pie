@@ -20,9 +20,9 @@ Argument against: They line up better on the response side by doing them by over
 | Level Three Classes    | Super           | Method         | Implemented | Short Notes                                                                               |
 | ---------------------- | --------------- | -------------- | ----------- | ----------------------------------------------------------------------------------------- |
 | Catalog_Upsert         | Catalog_Request | POST           |             |
-| Catalog_List           | Catalog_Request | GET            | !           |
+| Catalog_List           | Catalog_Request | GET            |             |
 | Catalog_Delete         | Catalog_Request | POST && DELETE |             | Square has TWO, we have one that handles both because Square's are functional duplicates. |
-| Catalog_Retrieve       | Catalog_Request | POST && GET    | !           |
+| Catalog_Retrieve       | Catalog_Request | POST && GET    |             | Square has TWO, we have one that handles both because Square's are functional duplicates. |
 | Catalog_Search_Items   | Catalog_Request | POST           | !           |
 | Catalog_Search_Objects | Catalog_Request | POST           | !           |
 | Catalog_Create_Image   | Catalog_Request | GET            | !           |

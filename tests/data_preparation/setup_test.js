@@ -11,6 +11,7 @@ const set_up_customer_DB_for_tests = async function () {
     customer_add,
     customer_delete,
   } = require("./customer_prep");
+
   const { sampleCustomers } = require("./sample_customer_data");
   const customers = sampleCustomers();
   const buffy = customers.buffy;
@@ -41,9 +42,24 @@ const set_up_customer_DB_for_tests = async function () {
   return;
 }; // END fn
 
+const set_up_catalog_DB_for_tests = async function () {
+  console.log("Setting up catalog data");
+  const {
+    // catalog_list,
+    catalog_add,
+    // catalog_delete,
+  } = require("./catalog_prep");
+
+  await catalog_add();
+
+  console.log("Completed catalog data set up.");
+  return;
+};
+
 //
 (async () => {
   await set_up_customer_DB_for_tests();
+  await set_up_catalog_DB_for_tests();
 
   // this ties up the console so the user can't run the tests before the Square servers finish their internal operations.
   setTimeout(() => {

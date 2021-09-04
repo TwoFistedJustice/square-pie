@@ -5,6 +5,7 @@ const sample_objects = require("./data_preparation/sample_catalog_data");
 
 const Catalog_Upsert = require("../src/lib/catalog_request_upsert");
 const Catalog_List = require("../src/lib/catalog_request_list");
+const Catalog_Retreive = require("../src/lib/catalog_request_retrieve");
 const Catalog_Delete = require("../src/lib/catalog_request_delete");
 
 // tack on .only to this empty test to silence all other tests
@@ -45,6 +46,31 @@ describe("Catalog Request List", () => {
     let list = new Catalog_List();
     await list.request();
     list.delivery.should.be.an("Array");
+    // console.log(list.delivery);
+  });
+});
+
+describe("Catalog Request Retrieve", () => {
+  const cache = [];
+  test.only("Should retrieve a single object", async () => {
+    let list = new Catalog_List();
+    await list.request();
+    let arr = list.delivery;
+    // console.log(arr);
+    arr.forEach((doohickey) => {
+      cache.push(doohickey.id);
+    });
+    let retrieve = new Catalog_Retreive();
+    retrieve.fait().object_ids(cache[0]);
+    await retrieve.request();
+    expect(retrieve.delivery.objects[0].id).toEqual(cache[0]);
+  });
+  test("Should retrieve multiple objects", async () => {
+    let retrieve = new Catalog_Retreive();
+    retrieve.fait().object_ids(cache[0]);
+    retrieve.beam(cache[1]);
+    await retrieve.request();
+    expect(retrieve.delivery.objects[1].id).toEqual(cache[1]);
   });
 });
 
