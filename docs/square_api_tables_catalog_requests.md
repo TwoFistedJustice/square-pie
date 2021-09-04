@@ -88,10 +88,10 @@ upsert.one() and upsert.many() or upsert.alot()
 
 ### SEARCH - Items
 
-|     | Method | Resource Location              | Body Properties                   | Response Fields        | Square Docs                                                                                | Short notes |
-| --- | ------ | ------------------------------ | --------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------ | ----------- |
-|     | POST   | 'catalog/search-catalog-items' |                                   |                        | [Search](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items) |
-|     |        |                                | ^^^text_filter: Str               |                        |                                                                                            |
+|     | Method | Resource Location              | Body Properties                   | Response Fields        | Square Docs                                                                                      | Short notes |
+| --- | ------ | ------------------------------ | --------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------ | ----------- |
+|     | POST   | 'catalog/search-catalog-items' |                                   |                        | [Search Items](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items) |
+|     |        |                                | ^^^text_filter: Str               |                        |                                                                                                  |
 |     |        |                                | category_ids: ["id", ...]         |
 |     |        |                                | ^^^stock_levels: Str              |
 |     |        |                                | enabled_location_ids: ["id", ...] |
@@ -100,19 +100,19 @@ upsert.one() and upsert.many() or upsert.alot()
 |     |        |                                | ^^^sort_order: Str                |
 |     |        |                                | ^^^product_types: []              |
 |     |        |                                | ^^^custom_attribute_filters: []   |
-|     |        |                                |                                   | items: [cat-obj, ... ] |                                                                                            |             |
+|     |        |                                |                                   | items: [cat-obj, ... ] |                                                                                                  |             |
 
 ### SEARCH - Objects
 
-|     | Method | Resource Location | Body Properties                  | Response Fields      | Square Docs                                                                                  | Short notes |
-| --- | ------ | ----------------- | -------------------------------- | -------------------- | -------------------------------------------------------------------------------------------- | ----------- |
-|     | POST   | 'catalog/search'  |                                  |                      | [Search](https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects) |
+|     | Method | Resource Location | Body Properties                  | Response Fields      | Square Docs                                                                                          | Short notes |
+| --- | ------ | ----------------- | -------------------------------- | -------------------- | ---------------------------------------------------------------------------------------------------- | ----------- |
+|     | POST   | 'catalog/search'  |                                  |                      | [Search Objects](https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects) |
 |     |        |                   | cursor: str                      |
 |     |        |                   | ^^^object_types: [str, ...]      |
 |     |        |                   | include_deleted_objects: boolean |
 |     |        |                   | include_related_objects: boolean |
 |     |        |                   | begin_time: str                  |
-|     |        |                   | ^^^query: CatalogQuery           |                      | Might be complicated...                                                                      |
+|     |        |                   | ^^^query: CatalogQuery           |                      | Might be complicated...                                                                              |
 |     |        |                   | Limit: Number 1-100              |
 |     |        |                   |                                  | objects: [ ]         |
 |     |        |                   |                                  | related_objects: [ ] |
