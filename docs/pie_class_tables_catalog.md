@@ -11,11 +11,14 @@ api_name: 'catalog
 | ----------------- | ------------- | ----------- | ----------- |
 | Catalog_Request   | SquareRequest | !           |
 
-| Level Three Classes | Super          | Implemented | Short Notes |
-| ------------------- | -------------- | ----------- | ----------- |
+| Level Three Classes | Super          | Implemented | Short Notes                                                                                                                   |
+| ------------------- | -------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Catalog_list        | Square_Request |             |
+| Catalog_Upsert      | Square_Request |             | This class could probably be simplified like Delete and Retrieve, but maybe leave it in case we need a model to expand later? |
+| Catalog_Delete      | Square_Request |             |
+| Catalog_Retrieve    | Square_Request |             |
 | Catalog_Search      | Square_Request | !           |
 | Catalog_Info        | Square_Request | !           |
-| Catalog_list        | Square_Request | !           |
 | Catalog_Image       | Square_Request | !           |
 
 # Upsert_Retrieve_Update_Delete (URDU )
@@ -70,19 +73,16 @@ begets
 ```
 
 ##retrieve
-super: URDU
-method: super
-. batch
-.one
+method: POST
+Only used 'batch' since that can handle just one
 
 ##upsert
-super: URDU
-method: super
+This can probably be simplified the way Delete and Retrieve have been.
+method: POST
 . batch
 .one
 
 ##update
-super: URDU
 method: super
 .taxes
 .modifier_lists
