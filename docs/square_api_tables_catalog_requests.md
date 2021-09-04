@@ -13,11 +13,15 @@ Argument against: They line up better on the response side by doing them by over
 | ----------------- | ----- | ----------- | ----------- |
 | Square_Request    | none  | !           |
 
-| Level Two Classes      | Super           | Method         | Implemented | Short Notes |
-| ---------------------- | --------------- | -------------- | ----------- | ----------- |
+| Level Two Classes | Super          | Implemented | Short Notes |
+| ----------------- | -------------- | ----------- | ----------- |
+| Catalog_Request   | Square_Request |
+
+| Level Three Classes    | Super           | Method         | Implemented | Short Notes                                                                               |
+| ---------------------- | --------------- | -------------- | ----------- | ----------------------------------------------------------------------------------------- |
 | Catalog_Upsert         | Catalog_Request | POST           |             |
 | Catalog_List           | Catalog_Request | GET            | !           |
-| Catalog_Delete         | Catalog_Request | POST && DELETE | !           |
+| Catalog_Delete         | Catalog_Request | POST && DELETE |             | Square has TWO, we have one that handles both because Square's are functional duplicates. |
 | Catalog_Retrieve       | Catalog_Request | POST && GET    | !           |
 | Catalog_Search_Items   | Catalog_Request | POST           | !           |
 | Catalog_Search_Objects | Catalog_Request | POST           | !           |
@@ -59,6 +63,8 @@ upsert.one() and upsert.many() or upsert.alot()
 ### DELETE - Batch vs One
 
 < > These are basically the same except for the endpoint and method
+
+- the batch version can handle single deletes just fine. No reason to code both of them.
 
 |       | Method | Resource Location            | Body Properties         | Response Fields          | Square Docs                                                                                              | Short notes |
 | ----- | ------ | ---------------------------- | ----------------------- | ------------------------ | -------------------------------------------------------------------------------------------------------- | ----------- |
