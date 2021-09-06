@@ -14,25 +14,11 @@ class Catalog_Search_Items extends Catalog_Request {
     };
   }
 
-  get cursor() {
-    return this._body.cursor;
-  }
-
-  set cursor(token) {
-    // this is NOT fully implemented
-    // it should be handled in Square Request in the delivery setter
-    this._body.cursor = token;
-  }
-
   // METHODS
   make() {
     const methods = () => {
       const properties = {
         self: this,
-        cursor: function (token) {
-          this.cursor = token;
-          return this;
-        },
       };
       setter_chain_generator_config(this.configuration, properties, this);
       return properties;
