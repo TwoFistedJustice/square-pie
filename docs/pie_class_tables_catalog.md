@@ -4,53 +4,26 @@
 | ----------------- | ----- | ----------- | ----------- |
 | SquareRequest     | none  | yes         |
 
-#Catalog_Request
-api_name: 'catalog
-
 | Level Two Classes | Super         | Implemented | Short Notes |
 | ----------------- | ------------- | ----------- | ----------- |
 | Catalog_Request   | SquareRequest | !           |
 
-| Level Three Classes | Super          | Implemented | Short Notes                                                                                                                   |
-| ------------------- | -------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| Catalog_list        | Square_Request |             |
-| Catalog_Upsert      | Square_Request |             | This class could probably be simplified like Delete and Retrieve, but maybe leave it in case we need a model to expand later? |
-| Catalog_Delete      | Square_Request |             |
-| Catalog_Retrieve    | Square_Request |             |
-| Catalog_Search      | Square_Request | !           |
-| Catalog_Info        | Square_Request | !           |
-| Catalog_Image       | Square_Request | !           |
-
-# Upsert_Retrieve_Update_Delete (URDU )
-
-method: post
-
-#Search
-method: post
-
-#info
-method: get
-
-#list
-method: get
-
-#create image
-method: get
-
-| Level Four Classes     | Super           | Implemented | Short Notes |
-| ---------------------- | --------------- | ----------- | ----------- |
-| Catalog_Upsert         | Catalog_Request |             |
-| Catalog_Retrieve       | Catalog_Request | !           |
-| Catalog_Update         | Catalog_Request | !           |
+| Level Three Classes    | Super           | Implemented | Short Notes                                                                                                                   |
+| ---------------------- | --------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Catalog_list           | Catalog_Request |             |
+| Catalog_Upsert         | Catalog_Request |             | This class could probably be simplified like Delete and Retrieve, but maybe leave it in case we need a model to expand later? |
 | Catalog_Delete         | Catalog_Request |             |
-| Catalog_Search_Items   | Catalog_Search  | !           |
-| Catalog_Search_Objects | Catalog_Search  | !           |
+| Catalog_Retrieve       | Catalog_Request |             |
+| Catalog_Search_Items   | Catalog_Request | !           |
+| Catalog_Search_Objects | Catalog_Request | !           |
+| Catalog_Info           | Catalog_Request | !           |
+| Catalog_Image          | Catalog_Request | !           |
 
 ##delete
 method: POST
 Nope, sorry, NOT DELETE. waaaaaahhhhhh?
 Square has TWO delete endpoints. One for single items and one for batches.
-The only functional difference between them is on takes a string, and one takes an array of strings.
+The only functional difference between them is one takes a string, and one takes an array of strings.
 BUT the one that takes the array will accept an array of one. So we didn't see a point in writing
 two classes to do one thing when we could write one class to do one thing.
 
@@ -87,15 +60,15 @@ method: super
 .taxes
 .modifier_lists
 
-< > response fields are pretty different
-< > THESE NEED BETTER NAMES - TOO EASILY CONFUSED...
 ##search items can only search for items or item variations
-method: post
-super: Search
 
 #search objects can search for any type of catalog objects.
-method: post
-super: Search
+
+#info
+method: get
+
+#create image
+method: get
 
 | API     | Command              | Method | Resource Location                     | Class                  | Square Docs                                                                                                     | Additional Information |
 | ------- | -------------------- | ------ | ------------------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------- |
@@ -111,7 +84,3 @@ super: Search
 | Catalog | LIST                 | GET    | '/catalog/list'                       | Catalog_List           | [LIST](https://developer.squareup.com/reference/square/catalog-api/list-catalog)                                |
 | Catalog | INFO                 | GET    | '/catalog/info'                       | Catalog_Info           | [INFO](https://developer.squareup.com/reference/square/catalog-api/catalog-info)                                |
 | Catalog | CREATE image         | POST   | '/catalog/images'                     | Catalog_Image          | [CREATE image](https://developer.squareup.com/reference/square/catalog-api/create-catalog-image)                |
-
-| End User Classes | Constructor Arguments | Response Field | Short Notes |
-| ---------------- | --------------------- | -------------- | ----------- |
-|                  |                       |                |
