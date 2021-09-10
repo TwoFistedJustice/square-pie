@@ -3,14 +3,25 @@ To use this class you will need to conform to the data structures specified by S
 objects with two or three properties. Usually you specify the property name you want to search and an expected value.
 The property name has to be exactly the same, but the value can be exactly or partly the same.
 
-The Search Objects endpoint is NOT a pure search. It is a combination of Retrieve-Batch and Search.
-The Retrieve-Batch portion isn't called that. You just give it an array of Object IDs which all correspond
-to specific objects.
+Square provides two ways to search with a single endpoint. One way is to filter using different searchable properties and values. The other way
+is to provide it an array of IDs for specific modifiers such as taxes or modifier_lists. So if you want all objects that use a tax called "sales tax"
+you would find the Object ID of that tax and then put that ID into the array. It would then return all objects that use that tax. You cannot filter such a
+request. You must use one type or the other. Square will reject a request which has an array of IDs along with any kind of refining details.
 
-You can broadly divide the query-property into two categories, combinable searches, where you can layer on
-additional criteria, and the other is an array of specific object IDs. You must use one type or the other.
-Square will reject a request which has an array of IDs along with any kind of refining details.
-The kind which takes the array of IDs will have the word "for" in the property name (i.e. "items_for_item_options_query" )
+This is what a search objects request body may look like:
+
+```json
+{
+  "object_types": ["ITEM"],
+  "query": {
+    "prefix_query": {
+      "attribute_name": "name",
+      "attribute_prefix": "vista"
+    }
+  },
+  "limit": 100
+}
+```
 
 How to search:
 To restrict the type of object
@@ -31,38 +42,66 @@ search.variation;
 search.name;
 ```
 
-##methods
+##Catalog_Search_Filter
 
-### exact_query
+These are the methods you can use to build up a filter for your search. They correspond directly
+to the property names on the query property in the Square docs for [Search catalog objects](https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects)
+The outlines below show how the argument should be structured.
 
-make
+###exact_query(obj)
 
-- include_related_objects (bool)
-- begin_time (time) - time must be in RFC 3339 format
+```js
+obj = {
+  attribute_name: "some_property_name",
+  attribute_value: "some value",
+};
+```
 
-item
+###set_query(obj)
 
-- name
-- description
-- abbreviation
+```js
+obj = {
+  attribute_name: "some_property_name",
+  attribute_values: ["some value", "some other value"],
+};
+```
 
-variation
+###prefix_query(obj)
 
-- name
-- upc
-- sku
+```js
+obj = {
+  attribute_name: "some_property_name",
+  attribute_prefix: "some value",
+};
+```
 
-name
+###range_query(obj)
 
-- item
-- variation
-- category
-- tax
-- discount
-- modifier
+```js
+obj = {
+  attribute_name: "some_property_name",
+  attribute_max_value: number,
+  attribute_min_value: number,
+};
+```
 
-exact
-prefix
-range
-sorted
-text
+###text_query(arr)
+Takes an array of \_no more than\* three strings. Throws an error on an emptry array or if the array has a length greater than 3
+
+```js
+arr = ["word1", "word2", "word3"];
+```
+
+###text_query_add(word)
+Pushes a word onto the array, if the array already has three words, it throws an error.
+
+```js
+word = "some word";
+```
+
+###text_query_remove(word)
+If the word you pass it is in the text_query array, it removes that word.
+
+```js
+word = "some word";
+```
