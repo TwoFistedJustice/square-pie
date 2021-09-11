@@ -19,6 +19,7 @@ class Catalog_Search_Items extends Catalog_Request {
     const methods = () => {
       const properties = {
         self: this,
+        // todo grab like properties off the filter class
       };
       setter_chain_generator_config(this.configuration, properties, this);
       return properties;
