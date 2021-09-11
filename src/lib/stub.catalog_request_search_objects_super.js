@@ -72,16 +72,15 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     // RFC 3339 format
     this._body.begin_time = time;
   }
-  set object_types(str) {
-    let contains = (word) => word === str;
+  set object_types(type) {
+    let contains = (word) => word === type;
     if (!Array.isArray(this.object_types)) {
       this._body.object_types = [];
     }
-    // check if the array already contains the string, if it does, return, if not add it
     if (this.object_types.some(contains)) {
       return;
     }
-    this._body.object_types.push(str);
+    this._body.object_types.push(type);
   }
 } // END class
 
