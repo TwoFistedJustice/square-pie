@@ -38,6 +38,16 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         "The object provided for an exact search must have string values in both properties."
       );
     }
+    if (
+      !Object.prototype.hasOwnProperty.call(this._body.query, "exact_query")
+    ) {
+      // TODO replicate this pattern in the other setters
+      Object.defineProperty(this._body.query, "exact_query", {
+        value: undefined,
+        writable: true,
+        enumerable: true,
+      });
+    }
     this._body.query.exact_query = obj;
   }
 
@@ -154,7 +164,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
           return this;
         },
         exact_query: function (obj) {
-          this.self.query.exact_query = obj;
+          this.self.exact_query = obj;
           return this;
         },
         prefix_query: function (obj) {
