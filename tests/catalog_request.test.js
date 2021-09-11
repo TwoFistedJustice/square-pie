@@ -99,3 +99,30 @@ describe("Catalog Request Delete", () => {
     deleted.deleted_object_ids.should.be.an("Array").that.includes(list[1].id);
   });
 });
+
+describe("Catalog Request Search Filter", () => {
+  // set exact_query should throw on an incorrectly formatted input
+  // set exact_query should NOT throw on a correctly formatted input
+  //
+  // set set_query should throw on an incorrectly formatted input
+  // set set_query should NOT throw on a correctly formatted input
+  //
+  // set prefix_query should throw on an incorrectly formatted input
+  // set prefix_query should NOT throw on a correctly formatted input
+  //
+  // set range_query should throw on an incorrectly formatted input
+  // set range_query should NOT throw on a correctly formatted input
+  //
+  // set text_query should throw on an array longer than 3
+  // set text_query should NOT throw on an array with 1 - 3 elements
+  //
+  // set sorted_attribute_query should throw if 'attribute_name' prop missing from arg
+  // set sorted_attribute_query should throw if 'sort_order' contains wrong value
+  // set sorted_attribute_query should NOT throw if 'sort_order' contains "ASC"
+  //
+  // text_query_add should add a new element and remove the last element of query.text_area_keywords array it already has 3
+  //
+  // text_query_remove should remove the specified word from the query.text_area_keywords array
+  //
+  // set object_types should fail silently if user attempts to add a value that already exists
+});
