@@ -23,7 +23,7 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
       include_related_objects: undefined, // boolean
       begin_time: undefined, // RFC 3339 format
       object_types: undefined,
-      query: undefined,
+      query: {},
     };
     this.configuration = {
       keys: ["object_types"],
