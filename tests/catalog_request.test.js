@@ -7,6 +7,7 @@ const Catalog_Upsert = require("../src/lib/catalog_request_upsert");
 const Catalog_List = require("../src/lib/catalog_request_list");
 const Catalog_Retreive = require("../src/lib/catalog_request_retrieve");
 const Catalog_Delete = require("../src/lib/catalog_request_delete");
+const Catalog_Search_Filter = require("../src/lib/stub.catalog_request_search_objects_filter");
 
 // tack on .only to this empty test to silence all other tests
 describe("Silence Async tests", () => {
@@ -52,7 +53,7 @@ describe("Catalog Request List", () => {
 
 describe("Catalog Request Retrieve", () => {
   const cache = [];
-  test.only("Should retrieve a single object", async () => {
+  test("Should retrieve a single object", async () => {
     let list = new Catalog_List();
     await list.request();
     let arr = list.delivery;
@@ -103,9 +104,36 @@ describe("Catalog Request Delete", () => {
 describe("Catalog Request Search Filter", () => {
   test("set exact_query should throw on an incorrectly formatted input", async () => {});
 
-  test(" set exact_query should NOT throw on a correctly formatted input", async () => {});
+  test.only(" set exact_query should NOT throw on a correctly formatted input", async () => {
+    const filter = new Catalog_Search_Filter();
+    let obj = {
+      attribute_name: "this is correct",
+      attribute_value: "This should work",
+    };
 
-  test("set set_query should throw on an incorrectly formatted input", async () => {});
+    expect(() => {
+      filter.exact_query = obj;
+    }).not.toThrow();
+  });
+
+  test("set set_query should throw on an incorrectly formatted input", async () => {
+    const filter = new Catalog_Search_Filter();
+    let wrongProp = {
+      wrong_property_name: "this is a wrong property name",
+      attribute_value: "This is supposed to fail anyway",
+    };
+    let wrongType = {
+      attribute_name: "both should hold a string - oops",
+      attribute_value: 86,
+    };
+    expect(() => {
+      filter.exact_query = wrongProp;
+    }).toThrow();
+
+    expect(() => {
+      filter.exact_query = wrongType;
+    }).toThrow();
+  });
 
   test("set set_query should NOT throw on a correctly formatted input", async () => {});
 

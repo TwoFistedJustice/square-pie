@@ -21,7 +21,7 @@ const long_strings = {
 };
 
 describe("Empty block", () => {
-  test("Should pass because it is an empty test", () => {});
+  test.only("Should pass because it is an empty test", () => {});
 });
 
 // --------------------------------------------------------------
