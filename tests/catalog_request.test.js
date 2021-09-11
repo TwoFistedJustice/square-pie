@@ -101,28 +101,35 @@ describe("Catalog Request Delete", () => {
 });
 
 describe("Catalog Request Search Filter", () => {
-  // set exact_query should throw on an incorrectly formatted input
-  // set exact_query should NOT throw on a correctly formatted input
-  //
-  // set set_query should throw on an incorrectly formatted input
-  // set set_query should NOT throw on a correctly formatted input
-  //
-  // set prefix_query should throw on an incorrectly formatted input
-  // set prefix_query should NOT throw on a correctly formatted input
-  //
-  // set range_query should throw on an incorrectly formatted input
-  // set range_query should NOT throw on a correctly formatted input
-  //
-  // set text_query should throw on an array longer than 3
-  // set text_query should NOT throw on an array with 1 - 3 elements
-  //
-  // set sorted_attribute_query should throw if 'attribute_name' prop missing from arg
-  // set sorted_attribute_query should throw if 'sort_order' contains wrong value
-  // set sorted_attribute_query should NOT throw if 'sort_order' contains "ASC"
-  //
-  // text_query_add should add a new element and remove the last element of query.text_area_keywords array it already has 3
-  //
-  // text_query_remove should remove the specified word from the query.text_area_keywords array
-  //
-  // set object_types should fail silently if user attempts to add a value that already exists
+  test("set exact_query should throw on an incorrectly formatted input", async () => {});
+
+  test(" set exact_query should NOT throw on a correctly formatted input", async () => {});
+
+  test("set set_query should throw on an incorrectly formatted input", async () => {});
+
+  test("set set_query should NOT throw on a correctly formatted input", async () => {});
+
+  test("set prefix_query should throw on an incorrectly formatted input", async () => {});
+
+  test("set prefix_query should NOT throw on a correctly formatted input", async () => {});
+
+  test("set range_query should throw on an incorrectly formatted input", async () => {});
+
+  test("set range_query should NOT throw on a correctly formatted input", async () => {});
+
+  test("set text_query should throw on an array longer than 3", async () => {});
+
+  test("set text_query should NOT throw on an array with 1 - 3 elements", async () => {});
+
+  test("set sorted_attribute_query should throw if 'attribute_name' prop missing from arg", async () => {});
+
+  test("set sorted_attribute_query should throw if 'sort_order' contains wrong value", async () => {});
+
+  test("set sorted_attribute_query should NOT throw if 'sort_order' contains \"ASC\"", async () => {});
+
+  test("text_query_add should add a new element and remove the last element of query.text_area_keywords array it already has 3", async () => {});
+
+  test("text_query_remove should remove the specified word from the query.text_area_keywords array", async () => {});
+
+  test("set object_types should fail silently if user attempts to add a value that already exists", async () => {});
 });
