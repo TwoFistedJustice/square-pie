@@ -41,7 +41,6 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     if (
       !Object.prototype.hasOwnProperty.call(this._body.query, "exact_query")
     ) {
-      // TODO replicate this pattern in the other setters
       Object.defineProperty(this._body.query, "exact_query", {
         value: undefined,
         writable: true,
@@ -68,6 +67,15 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         "The object provided for an set_query search must have an array of string values."
       );
     }
+
+    if (!Object.prototype.hasOwnProperty.call(this._body.query, "set_query")) {
+      Object.defineProperty(this._body.query, "set_query", {
+        value: undefined,
+        writable: true,
+        enumerable: true,
+      });
+    }
+
     this._body.query.set_query = obj;
   }
 
@@ -87,6 +95,16 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         "The object provided for an exact search must have string values in both properties."
       );
     }
+    if (
+      !Object.prototype.hasOwnProperty.call(this._body.query, "prefix_query")
+    ) {
+      Object.defineProperty(this._body.query, "prefix_query", {
+        value: undefined,
+        writable: true,
+        enumerable: true,
+      });
+    }
+
     this._body.query.prefix_query = obj;
   }
 
@@ -100,6 +118,16 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         'The object "attribute_name" provided for an set_query search must have string value.'
       );
     }
+    if (
+      !Object.prototype.hasOwnProperty.call(this._body.query, "range_query")
+    ) {
+      Object.defineProperty(this._body.query, "range_query", {
+        value: undefined,
+        writable: true,
+        enumerable: true,
+      });
+    }
+
     this._body.query.range_query = obj;
   }
   set sorted_attribute_query(obj) {
@@ -117,6 +145,19 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         'range query sort order must be set to either "ASC" or "DESC"'
       );
     }
+
+    if (
+      !Object.prototype.hasOwnProperty.call(
+        this._body.query,
+        "sorted_attribute_query"
+      )
+    ) {
+      Object.defineProperty(this._body.query, "sorted_attribute_query", {
+        value: undefined,
+        writable: true,
+        enumerable: true,
+      });
+    }
     this._body.query.sorted_attribute_query = obj;
   }
 
@@ -125,6 +166,13 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
       throw new Error(
         "text_query requires an Array of no more than 3 strings."
       );
+    }
+    if (!Object.prototype.hasOwnProperty.call(this._body.query, "text_query")) {
+      Object.defineProperty(this._body.query, "text_query", {
+        value: undefined,
+        writable: true,
+        enumerable: true,
+      });
     }
     this._body.query.text_query = { keywords: arr };
   }
