@@ -162,7 +162,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   set text_query(arr) {
-    if (!Array.isArray(arr) || arr.length > 3 || arr.length < 1) {
+    if (!Array.isArray(arr) || arr.length > 3) {
       throw new Error(
         "text_query requires an Array of no more than 3 strings."
       );
@@ -182,7 +182,15 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   // METHODS
   text_query_add(word) {
     let arr = [];
+    if (!Object.prototype.hasOwnProperty.call(this._body.query, "text_query")) {
+      Object.defineProperty(this._body.query, "text_query", {
+        value: {},
+        writable: true,
+        enumerable: true,
+      });
+    }
     let textQuery = this.text_query;
+    console.log(textQuery);
     if (Object.prototype.hasOwnProperty.call(textQuery, "keywords")) {
       arr = textQuery.keywords;
     }
@@ -191,15 +199,22 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
       arr = arr.slice(0, 2);
     }
     arr.push(word);
-    this.exact_query = arr;
+    this.text_query = arr;
+    return this;
   }
 
   text_query_remove(word) {
-    if (!Array.isArray(this._body.query.text_query)) {
+    if (
+      !Array.isArray(this._body.query.text_query.keywords) ||
+      this._body.query.text_query.keywords.length === 0
+    ) {
       throw new Error("No words have been added to text_query yet.");
     }
-    let arr = this._body.query.text_query.filter((exclude) => exclude !== word);
+    let arr = this._body.query.text_query.keywords.filter(
+      (exclude) => exclude !== word
+    );
     this.text_query = arr;
+    return this;
   }
   make() {
     const methods = () => {
