@@ -7,7 +7,7 @@ const Catalog_Upsert = require("../src/lib/catalog_request_upsert");
 const Catalog_List = require("../src/lib/catalog_request_list");
 const Catalog_Retreive = require("../src/lib/catalog_request_retrieve");
 const Catalog_Delete = require("../src/lib/catalog_request_delete");
-const Catalog_Search_Filter = require("../src/lib/stub.catalog_request_search_objects_filter");
+const Catalog_Search_Filter = require("../src/lib/catalog_request_search_objects_filter");
 
 // tack on .only to this empty test to silence all other tests
 describe("Silence Async tests", () => {

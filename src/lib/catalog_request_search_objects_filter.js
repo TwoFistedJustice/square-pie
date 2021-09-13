@@ -1,4 +1,4 @@
-const Catalog_Search_Objects_Super = require("./stub.catalog_request_search_objects_super");
+const Catalog_Search_Objects_Super = require("./catalog_request_search_objects_super");
 const { setter_chain_generator_config } = require("./utilities_curry");
 
 class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
