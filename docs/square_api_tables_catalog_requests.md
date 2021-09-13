@@ -17,16 +17,17 @@ Argument against: They line up better on the response side by doing them by over
 | ----------------- | -------------- | ----------- | ----------- |
 | Catalog_Request   | Square_Request |
 
-| Level Three Classes    | Super           | Method         | Implemented | Short Notes                                                                               |
-| ---------------------- | --------------- | -------------- | ----------- | ----------------------------------------------------------------------------------------- |
-| Catalog_Upsert         | Catalog_Request | POST           |             |
-| Catalog_List           | Catalog_Request | GET            |             |
-| Catalog_Delete         | Catalog_Request | POST && DELETE |             | Square has TWO, we have one that handles both because Square's are functional duplicates. |
-| Catalog_Retrieve       | Catalog_Request | POST && GET    |             | Square has TWO, we have one that handles both because Square's are functional duplicates. |
-| Catalog_Search_Items   | Catalog_Request | POST           | !           |
-| Catalog_Search_Objects | Catalog_Request | POST           | !           |
-| Catalog_Create_Image   | Catalog_Request | GET            | !           |
-| Catalog_Info           | Catalog_Request | GET            | !           |
+| Level Three Classes                    | Super           | Method         | Implemented | Short Notes                                                                               |
+| -------------------------------------- | --------------- | -------------- | ----------- | ----------------------------------------------------------------------------------------- |
+| Catalog_Upsert                         | Catalog_Request | POST           |             |
+| Catalog_List                           | Catalog_Request | GET            |             |
+| Catalog_Delete                         | Catalog_Request | POST && DELETE |             | Square has TWO, we have one that handles both because Square's are functional duplicates. |
+| Catalog_Retrieve                       | Catalog_Request | POST && GET    |             | Square has TWO, we have one that handles both because Square's are functional duplicates. |
+| Catalog_Search_Items                   | Catalog_Request | POST           | !           |
+| Catalog_Search_Objects_Filter          | Catalog_Request | POST           |             |
+| Catalog_Search_Objects_Cross_Reference | Catalog_Request | POST           | !           |
+| Catalog_Create_Image                   | Catalog_Request | GET            | !           |
+| Catalog_Info                           | Catalog_Request | GET            | !           |
 
 ### UPSERT - Batch vs One
 
@@ -104,15 +105,20 @@ upsert.one() and upsert.many() or upsert.alot()
 
 ### SEARCH - Objects
 
-|     | Method | Resource Location | Body Properties                  | Response Fields      | Square Docs                                                                                          | Short notes |
-| --- | ------ | ----------------- | -------------------------------- | -------------------- | ---------------------------------------------------------------------------------------------------- | ----------- |
+We are treating this as TWO endpoints in one.
+
+1. a filter for layering on criteria
+2. a cross-reference for matching objects which contain references to other specific objects
+
+|     | Method | Resource Location | Body Properties                  | Response Fields      | Square Docs                                                                                          | Short notes                                                                                                              |
+| --- | ------ | ----------------- | -------------------------------- | -------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 |     | POST   | 'catalog/search'  |                                  |                      | [Search Objects](https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects) |
 |     |        |                   | cursor: str                      |
 |     |        |                   | ^^^object_types: [str, ...]      |
 |     |        |                   | include_deleted_objects: boolean |
 |     |        |                   | include_related_objects: boolean |
 |     |        |                   | begin_time: str                  |
-|     |        |                   | ^^^query: CatalogQuery           |                      | Might be complicated...                                                                              |
+|     |        |                   | ^^^query: CatalogQuery           |                      |                                                                                                      | has several stackable features and several non-stackable features. stackable and non-stackable will be separate classes. |
 |     |        |                   | Limit: Number 1-100              |
 |     |        |                   |                                  | objects: [ ]         |
 |     |        |                   |                                  | related_objects: [ ] |

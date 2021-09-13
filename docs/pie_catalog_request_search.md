@@ -79,9 +79,9 @@ You can access one of the auto generated chain setters on the make method:\
 Make sure that you use ALLCAPS to reference the type. Any Square Catalog Object type is valid.
 
 ###make()
-Chainable setter methods. Includes refernces to all the below methods plus one other.
-The extra on is `add_object_type`
-make.add_object_type(type): takes a Catablog Object TYPE name as an argument. Adds that type
+Chainable setter methods. Includes references to all the below methods plus one other.
+The extra one is `add_object_type`
+make.add_object_type(type): takes a Catalog Object TYPE name as an argument. Adds that type
 to the object_types array.
 
 ---
@@ -100,6 +100,10 @@ obj = {
 };
 ```
 
+Will throw errors on:\
+The input is incorrectly formatted.
+either property is not of type "string"
+
 ###set_query(obj)
 
 ```js
@@ -108,6 +112,11 @@ obj = {
   attribute_values: ["some value", "some other value"],
 };
 ```
+
+Will throw errors on:\
+The input is incorrectly formatted.
+attribute_name is not of type "string"
+attribute_values is not an array
 
 ###prefix_query(obj)
 
@@ -118,6 +127,10 @@ obj = {
 };
 ```
 
+Will throw errors on:\
+The input is incorrectly formatted.
+either property is not of type "string"
+
 ###range_query(obj)
 
 ```js
@@ -127,6 +140,10 @@ obj = {
   attribute_min_value: number, // OPTIONAL
 };
 ```
+
+Will throw errors on:\
+The input is incorrectly formatted.
+attribute_name is not of type "string"
 
 ###sorted_attribute_query(obj)
 
@@ -139,12 +156,19 @@ obj = {
 };
 ```
 
+Will throw errors on:\
+The input is incorrectly formatted.
+sort_order contains any value other than "ASC" or "DESC";
+
 ###text_query(arr)
 Takes an array of \_no more than\* three strings. Throws an error on an empty array or if the array has a length greater than 3
 
 ```js
 arr = ["word1", "word2", "word3"];
 ```
+
+Will throw errors on:\
+The array passed has more than 3 elements.
 
 ###text_query_add(word)
 
@@ -156,6 +180,9 @@ adding the new word.
 ```js
 word = "some word";
 ```
+
+Will throw errors on:\
+None. See setter.
 
 ###text_query_remove(word)
 If the word you pass it is in the text_query array, it removes that word.
@@ -171,3 +198,6 @@ keywords: {
   ["the", "values", "entered"];
 }
 ```
+
+Errors:\
+Will throw an error if there are no keywords or no keyword array.
