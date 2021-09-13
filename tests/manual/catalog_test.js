@@ -1,26 +1,24 @@
-const Catalog_Upsert = require("../../src/lib/catalog_request_upsert");
+// const Catalog_Upsert = require("../../src/lib/catalog_request_upsert");
+// const sample_objects = require("../data_preparation/sample_catalog_data");
 const Catalog_List = require("../../src/lib/catalog_request_list");
-
-const sample_objects = require("../data_preparation/sample_catalog_data");
-
-const upsert = new Catalog_Upsert();
-upsert.make().body(sample_objects.multiple);
+const Catalog_Search_Filter = require("../../src/lib/stub.catalog_request_search_objects_filter");
 
 const list = new Catalog_List();
 
-// const Catalog_Delete = require("../../src/lib/catalog_request_delete");
-// const del = new Catalog_Delete();
-
-// let deleteMe = "P2C2FR2MTJEHRSZ4J2HWY52N";
-// del.nix(deleteMe);
-
-// console.log(del.fardel);
+const filter = new Catalog_Search_Filter();
+const criteria = {
+  attribute_name: "amount",
+  // attribute_prefix: "Coffee",
+  attribute_min_value: 549,
+  attribute_max_value: 559,
+};
+filter.range_query = criteria;
 
 const log = async function () {
-  await upsert.request();
   await list.request();
-  console.log(list.fardel);
   console.log(list.delivery);
+  await filter.request();
+  console.log(filter.delivery);
 
   // await del.request();
   // console.log(del.delivery);
