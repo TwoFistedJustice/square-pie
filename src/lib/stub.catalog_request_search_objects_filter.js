@@ -62,7 +62,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
       throw new TypeError(
         'The object "attribute_name" provided for an set_query search must have string value.'
       );
-    } else if (!Array.isArray(obj.attribute.values)) {
+    } else if (!Array.isArray(obj.attribute_values)) {
       throw new TypeError(
         "The object provided for an set_query search must have an array of string values."
       );
@@ -177,6 +177,8 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     this._body.query.text_query = { keywords: arr };
   }
 
+  // TODO write a method for exact_query which takes two arguments (name, value) and parsest them into
+  //  a setter friendly format and calls the exact_query setter.
   // METHODS
   text_query_add(word) {
     let arr = [];
