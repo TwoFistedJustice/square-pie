@@ -20,6 +20,24 @@
 | Catalog_Info                           | Catalog_Request | !           |
 | Catalog_Image                          | Catalog_Request | !           |
 
+# Cross Reference: Pie and Square
+
+| API     | Command              | Method | Resource Location                     | Class                                  | Square Docs                                                                                                     | Additional Information |
+| ------- | -------------------- | ------ | ------------------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| Catalog | UPSERT one           | POST   | '/catalog/object'                     | Catalog_Upsert                         | [UPSERT one](https://developer.squareup.com/reference/square/catalog-api/upsert-catalog-object)                 |
+| Catalog | UPSERT many          | POST   | '/catalog/batch-upsert'               | Catalog_Upsert                         | [UPSERT many](https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects)         |
+| Catalog | RETRIEVE one         | POST   | '/catalog/object/{object_id}'         | Catalog_Retrieve                       | [RETRIEVE one](https://developer.squareup.com/reference/square/catalog-api/retrieve-catalog-object)             |
+| Catalog | RETRIEVE many        | POST   | '/catalog/batch-retrieve'             | Catalog_Retrieve                       | [RETRIEVE many](https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects)     |
+| Catalog | UPDATE modifer lists | POST   | '/catalog/update-item-modifier-lists' | Catalog_Update                         | [UPDATE modifier lists](https://developer.squareup.com/reference/square/catalog-api/update-item-modifier-lists) |
+| Catalog | UPDATE item taxes    | POST   | '/catalog/update-item-taxes'          | Catalog_Update                         | [UPDATE taxes](https://developer.squareup.com/reference/square/catalog-api/update-item-taxes)                   |
+| Catalog | DELETE               | POST   | '/catalog/batch-delete'               | Catalog_Delete                         | [DELETE many](https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects)         |
+| Catalog | SEARCH items         | POST   | '/catalog/search-catalog-items'       | Catalog_Search_Items                   | [SEARCH Items](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items)                |
+| Catalog | SEARCH objects       | POST   | '/catalog/search'                     | Catalog_Search_Objects_Filter          | [SEARCH Objects](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items)              |
+| Catalog | SEARCH objects       | POST   | '/catalog/search'                     | Catalog_Search_Objects_Cross_Reference | [SEARCH Objects](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items)              |
+| Catalog | LIST                 | GET    | '/catalog/list'                       | Catalog_List                           | [LIST](https://developer.squareup.com/reference/square/catalog-api/list-catalog)                                |
+| Catalog | INFO                 | GET    | '/catalog/info'                       | Catalog_Info                           | [INFO](https://developer.squareup.com/reference/square/catalog-api/catalog-info)                                |
+| Catalog | CREATE image         | POST   | '/catalog/images'                     | Catalog_Image                          | [CREATE image](https://developer.squareup.com/reference/square/catalog-api/create-catalog-image)                |
+
 ##delete
 method: POST
 Nope, sorry, NOT DELETE. waaaaaahhhhhh?
@@ -91,18 +109,3 @@ method: get
 
 #create image
 method: get
-
-| API     | Command              | Method | Resource Location                     | Class                  | Square Docs                                                                                                     | Additional Information |
-| ------- | -------------------- | ------ | ------------------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------- |
-| Catalog | UPSERT one           | POST   | '/catalog/object'                     | Catalog_Upsert         | [UPSERT one](https://developer.squareup.com/reference/square/catalog-api/upsert-catalog-object)                 |
-| Catalog | UPSERT many          | POST   | '/catalog/batch-upsert'               | Catalog_Upsert         | [UPSERT many](https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects)         |
-| Catalog | RETRIEVE one         | POST   | '/catalog/object/{object_id}'         | Catalog_Retrieve       | [RETRIEVE one](https://developer.squareup.com/reference/square/catalog-api/retrieve-catalog-object)             |
-| Catalog | RETRIEVE many        | POST   | '/catalog/batch-retrieve'             | Catalog_Retrieve       | [RETRIEVE many](https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects)     |
-| Catalog | UPDATE modifer lists | POST   | '/catalog/update-item-modifier-lists' | Catalog_Update         | [UPDATE modifier lists](https://developer.squareup.com/reference/square/catalog-api/update-item-modifier-lists) |
-| Catalog | UPDATE item taxes    | POST   | '/catalog/update-item-taxes'          | Catalog_Update         | [UPDATE taxes](https://developer.squareup.com/reference/square/catalog-api/update-item-taxes)                   |
-| Catalog | DELETE               | POST   | '/catalog/batch-delete'               | Catalog_Delete         | [DELETE many](https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects)         |
-| Catalog | SEARCH items         | POST   | '/catalog/search-catalog-items'       | Catalog_Search_Items   | [SEARCH Items](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items)                |
-| Catalog | SEARCH objects       | POST   | '/catalog/search'                     | Catalog_Search_Objects | [SEARCH Objects](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items)              |
-| Catalog | LIST                 | GET    | '/catalog/list'                       | Catalog_List           | [LIST](https://developer.squareup.com/reference/square/catalog-api/list-catalog)                                |
-| Catalog | INFO                 | GET    | '/catalog/info'                       | Catalog_Info           | [INFO](https://developer.squareup.com/reference/square/catalog-api/catalog-info)                                |
-| Catalog | CREATE image         | POST   | '/catalog/images'                     | Catalog_Image          | [CREATE image](https://developer.squareup.com/reference/square/catalog-api/create-catalog-image)                |
