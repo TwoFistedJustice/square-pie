@@ -1,5 +1,10 @@
 const Catalog_Request = require("./catalog_request");
-const { setter_chain_generator_config } = require("./utilities_curry");
+// const { setter_chain_generator_config } = require("./utilities_curry");
+// todo, this is getting bloated and ugly
+// split it up into three classes:
+// super: holds common elements that are presently in body
+// combinable i.e
+// list of ids
 
 /*
  *  The query feature is INCOMPLETE
@@ -8,7 +13,7 @@ const { setter_chain_generator_config } = require("./utilities_curry");
  *
  * */
 
-class Catalog_Search_Objects extends Catalog_Request {
+class Catalog_Search_Objects_Super extends Catalog_Request {
   constructor() {
     super();
     this._method = "post";
@@ -17,7 +22,8 @@ class Catalog_Search_Objects extends Catalog_Request {
       cursor: undefined,
       include_related_objects: undefined, // boolean
       begin_time: undefined, // RFC 3339 format
-      query: undefined,
+      object_types: undefined,
+      query: {},
     };
     this.configuration = {
       keys: ["object_types"],
@@ -43,13 +49,22 @@ class Catalog_Search_Objects extends Catalog_Request {
     };
   }
 
+  get cursor() {
+    return this._body.cursor;
+  }
   get include_related_objects() {
     return this._body.include_related_objects;
   }
   get begin_time() {
     return this._body.begin_time;
   }
+  get object_types() {
+    return this._body.object_types;
+  }
 
+  set cursor(token) {
+    this._body.cursor = token;
+  }
   set include_related_objects(bool) {
     this._body.include_related_objects = bool;
   }
@@ -57,25 +72,16 @@ class Catalog_Search_Objects extends Catalog_Request {
     // RFC 3339 format
     this._body.begin_time = time;
   }
-  // METHODS
-  make() {
-    const methods = () => {
-      const properties = {
-        self: this,
-        include_related_objects: function (bool) {
-          this.self.include_related_objects = bool;
-          return this;
-        },
-        begin_time: function (time) {
-          this.self.begin_time = time;
-          return this;
-        },
-      };
-      setter_chain_generator_config(this.configuration, properties, this);
-      return properties;
-    };
-    return methods();
+  set object_types(type) {
+    let contains = (word) => word === type;
+    if (!Array.isArray(this.object_types)) {
+      this._body.object_types = [];
+    }
+    if (this.object_types.some(contains)) {
+      return;
+    }
+    this._body.object_types.push(type);
   }
-}
+} // END class
 
-module.exports = Catalog_Search_Objects;
+module.exports = Catalog_Search_Objects_Super;
