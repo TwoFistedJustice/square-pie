@@ -219,22 +219,28 @@ How to USE:
 Details:
 
 1. `const xref = new Catalog_Search_Objects_Cross_Reference()`
-2. `xref.id("some id").id("some other id") ...`
+2. `xref.addId("some id").addId("some other id") ...`
 3. `xref.items()` // you can also chain this on to the previous step as long as it is last
 4. `await xref.request`
 5. `console.log(xref.delivery)`
 
-Item types:
-You can chain these, as many times as you like. But only the one at the very end of the whole chain will work.
+Adding IDs:\
+simply call .addId("the id you want toadd")
+You can chain on as many as you want or call it multiple times from different lines. It's all the same.
+
+Item types:\
+You can chain these, as many times as you like. But only the one at the very end of the whole chain will work. Which means
+that if you make a mistake and call the wrong one, just call the right one afterwards and all wil be good.
 
 Your options for step 3 in Details are:
+(these are called without arguments)
 
 - .items()
 - .variations
 - .modifiers()
 - .taxes()
 
-Fixing Mistakes:
+Removing IDs:\
 You can clear all your IDs by calling `.clearIds()`
 
-There is not a way presently to remove one id.
+There is not a way presently to remove just one id.
