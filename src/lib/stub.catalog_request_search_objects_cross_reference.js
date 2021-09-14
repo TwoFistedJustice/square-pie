@@ -6,11 +6,11 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
     super();
     this.#_ids = [];
   }
-  get #id() {
+  get ids() {
     return this.#_ids;
   }
 
-  set #id(id) {
+  set #ids(id) {
     this.#_ids.push(id);
   }
 
@@ -24,7 +24,7 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
       this._body,
       "item_variations_for_item_option_values_query",
       {
-        value: this.#id,
+        value: this.ids,
         writable: true,
         enumerable: true,
       }
@@ -34,7 +34,7 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   items() {
     this.queryRemove();
     Object.defineProperty(this._body, "items_for_item_options_query", {
-      value: this.#id,
+      value: this.ids,
       writable: true,
       enumerable: true,
     });
@@ -43,7 +43,7 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   modifiers() {
     this.queryRemove();
     Object.defineProperty(this._body, "items_for_modifier_list_query", {
-      value: this.#id,
+      value: this.ids,
       writable: true,
       enumerable: true,
     });
@@ -52,15 +52,15 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   taxes() {
     this.queryRemove();
     Object.defineProperty(this._body, "items_for_tax_query", {
-      value: this.#id,
+      value: this.ids,
       writable: true,
       enumerable: true,
     });
     return this;
   }
 
-  id(id) {
-    this.#id = id;
+  addId(id) {
+    this.#ids = id;
     return this;
   }
 
