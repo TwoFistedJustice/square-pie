@@ -201,3 +201,40 @@ keywords: {
 
 Errors:\
 Will throw an error if there are no keywords or no keyword array.
+
+## Catalog_Search_Objects_Cross_Reference
+
+Note: Square docs misrepresent the way the query property works.
+They say that cross reference properties sit on the query property. They do not.
+They replace it. This class takes care of that so you don't have to worry about it.
+
+How to USE:
+
+1. Instantiate the class, as usual.
+2. Add the IDs you want to cross reference.
+3. Tell it which type of object you want. This MUST be done AFTER step 2.
+4. Await the request.
+5. The data will be cached on the delivery property.
+
+Details:
+
+1. `const xref = new Catalog_Search_Objects_Cross_Reference()`
+2. `xref.id("some id").id("some other id") ...`
+3. `xref.items()` // you can also chain this on to the previous step as long as it is last
+4. `await xref.request`
+5. `console.log(xref.delivery)`
+
+Item types:
+You can chain these, as many times as you like. But only the one at the very end of the whole chain will work.
+
+Your options for step 3 in Details are:
+
+- .items()
+- .variations
+- .modifiers()
+- .taxes()
+
+Fixing Mistakes:
+You can clear all your IDs by calling `.clearIds()`
+
+There is not a way presently to remove one id.
