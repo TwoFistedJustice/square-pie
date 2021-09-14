@@ -216,8 +216,10 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     this.text_query = arr;
     return this;
   }
+
   make() {
     const methods = () => {
+      // any changes made to super modification methods should be replicated on Catalog_Search_Cross_Reference
       const properties = {
         self: this,
         include_related_objects: function (bool) {
