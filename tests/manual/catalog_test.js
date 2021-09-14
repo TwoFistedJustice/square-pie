@@ -2,7 +2,7 @@
 // const sample_objects = require("../data_preparation/sample_catalog_data");
 const Catalog_List = require("../../src/lib/catalog_request_list");
 const Catalog_Search_Filter = require("../../src/lib/catalog_request_search_objects_filter");
-const Catalog_Search_Cross_Reference = require("../../src/lib/stub.catalog_request_search_objects_cross_reference");
+const Catalog_Search_Cross_Reference = require("../../src/lib/catalog_request_search_objects_cross_reference");
 
 const list = new Catalog_List();
 

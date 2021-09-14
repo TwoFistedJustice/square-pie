@@ -315,7 +315,7 @@ describe("Catalog Request Search Filter", () => {
 });
 
 describe("Catalog_Search_Cross_Reference", () => {
-  const Catalog_Search_Cross_Reference = require("../src/lib/stub.catalog_request_search_objects_cross_reference");
+  const Catalog_Search_Cross_Reference = require("../src/lib/catalog_request_search_objects_cross_reference");
   let id1 = "HXUTLPOIUE3FZGSK4NBZGMZD";
   let id2 = "RJREZRB5H4RVFUMXB3R5V73Z";
   // test("", () => {});
