@@ -2,10 +2,7 @@
   "presets": [
     [
       "@babel/preset-env",
-      { "targets": { "node": "current" } },
-      {
-        "shippedProposals": true
-      }
+      { "targets": { "node": "current" }, "shippedProposals": true }
     ]
   ]
 }
