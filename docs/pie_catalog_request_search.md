@@ -213,7 +213,7 @@ How to USE:
 1. Instantiate the class, as usual.
 2. Add the IDs you want to cross reference.
 3. Tell it which type of object you want. This MUST be done AFTER step 2.
-4. Await the request.
+4. `await` the request.
 5. The data will be cached on the delivery property.
 
 Details:
