@@ -42,26 +42,28 @@ class Catalog_Search_Items extends Catalog_Request {
     return this._body.custom_attribute_filters;
   }
   // SETTERS
-  set sort_order(val) {
-    this._body.sort_order = val;
+  set sort_order(sort) {
+    this._body.sort_order = sort;
   }
-  set text_filter(val) {
-    this._body.text_filter = val;
+  set text_filter(str) {
+    this._body.text_filter = str;
   }
-  set product_types(val) {
-    this._body.product_types = val;
+  set product_types(type) {
+    // check values
+    this._body.product_types = type;
   }
-  set stock_levels(val) {
-    this._body.stock_levels = val;
+  set stock_levels(level) {
+    // check values
+    this._body.stock_levels = level;
   }
-  set category_ids(val) {
-    this._body.category_ids = val;
+  set category_ids(id) {
+    this._body.category_ids.push(id);
   }
-  set enabled_location_ids(val) {
-    this._body.enabled_location_ids = val;
+  set enabled_location_ids(id) {
+    this._body.enabled_location_ids.push(id);
   }
-  set custom_attribute_filters(val) {
-    this._body.custom_attribute_filters = val;
+  set custom_attribute_filters(obj) {
+    this._body.custom_attribute_filters.push(obj);
   }
 
   // METHODS
@@ -69,21 +71,29 @@ class Catalog_Search_Items extends Catalog_Request {
   sort() {
     /*curry*/
   }
-  filter() {}
+  filter() {
+    return this;
+  }
   type() {
     /*curry regular or appt*/
+    return this;
   }
   stock() {
     /*curry low or out */
+    return this;
   }
   catetory() {
     /*push ids*/
+    return this;
   }
   locations() {
     /*push ids*/
+    return this;
   }
+  // TODO this one is complex - do last
   custom() {
     /* ooooh boy */
+    return this;
   }
 
   make() {
@@ -91,12 +101,30 @@ class Catalog_Search_Items extends Catalog_Request {
       const properties = {
         self: this,
         // todo grab like properties off the filter class
-        sort_order: function () {},
-        text_filter: function () {},
-        product_types: function () {},
-        category_ids: function () {},
-        enabled_location_ids: function () {},
-        custom_attribute_filters: function () {},
+        sort_order: function (sort) {
+          this.sort_order = sort;
+          return this;
+        },
+        text_filter: function (str) {
+          this.text_filter = str;
+          return this;
+        },
+        product_types: function (type) {
+          this.product_types = type;
+          return this;
+        },
+        category_ids: function (id) {
+          this.category_ids = id;
+          return this;
+        },
+        enabled_location_ids: function (id) {
+          this.enabled_location_ids = id;
+          return this;
+        },
+        custom_attribute_filters: function (obj) {
+          this.custom_attribute_filters = obj;
+          return this;
+        },
       };
       return properties;
     };
