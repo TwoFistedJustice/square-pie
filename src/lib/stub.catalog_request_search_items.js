@@ -43,18 +43,28 @@ class Catalog_Search_Items extends Catalog_Request {
   }
   // SETTERS
   set sort_order(sort) {
+    if (sort !== "ASC" || sort !== "DESC") {
+      throw new Error('sort_order only accepts "ASC" or "DESC"');
+    }
     this._body.sort_order = sort;
   }
   set text_filter(str) {
     this._body.text_filter = str;
   }
   set product_types(type) {
-    // check values
+    // todo change to regexp so user can type in partial case insenstive
+    if (type !== "REGULAR" || type !== "APPOINTMENTS_SERVICE") {
+      throw new Error(
+        'product_types only accepts "APPOINTMENTS_SERVICE" or "REGULAR"'
+      );
+    }
     this._body.product_types = type;
   }
   set stock_levels(level) {
-    // check values
-    this._body.stock_levels = level;
+    if (level !== "OUT" || level !== "LOW") {
+      throw new Error('stock_levels only accepts "OUT" and "LOW"');
+    }
+    this._body.stock_levels.push(level);
   }
   set category_ids(id) {
     this._body.category_ids.push(id);
@@ -100,7 +110,6 @@ class Catalog_Search_Items extends Catalog_Request {
     const methods = () => {
       const properties = {
         self: this,
-        // todo grab like properties off the filter class
         sort_order: function (sort) {
           this.sort_order = sort;
           return this;
