@@ -225,7 +225,7 @@ Details:
 5. `console.log(xref.delivery)`
 
 Adding IDs:\
-simply call .addId("the id you want toadd")
+simply call `.addId("the id you want toadd")`
 You can chain on as many as you want or call it multiple times from different lines. It's all the same.
 
 Item types:\
@@ -235,10 +235,10 @@ that if you make a mistake and call the wrong one, just call the right one after
 Your options for step 3 in Details are:
 (these are called without arguments)
 
-- .items()
-- .variations
-- .modifiers()
-- .taxes()
+- `.items()`
+- `.variations()`
+- `.modifiers()`
+- `.taxes()`
 
 Removing IDs:\
 You can clear all your IDs by calling `.clearIds()`
