@@ -132,27 +132,27 @@ class Catalog_Search_Items extends Catalog_Request {
       const properties = {
         self: this,
         sort_order: function (sort) {
-          this.sort_order = sort;
+          this.self.sort_order = sort;
           return this;
         },
         text_filter: function (str) {
-          this.text_filter = str;
+          this.self.text_filter = str;
           return this;
         },
         product_types: function (type) {
-          this.product_types = type;
+          this.self.product_types = type;
           return this;
         },
         category_ids: function (id) {
-          this.category_ids = id;
+          this.self.category_ids = id;
           return this;
         },
         enabled_location_ids: function (id) {
-          this.enabled_location_ids = id;
+          this.self.enabled_location_ids = id;
           return this;
         },
         custom_attribute_filters: function (obj) {
-          this.custom_attribute_filters = obj;
+          this.self.custom_attribute_filters = obj;
           return this;
         },
       };
