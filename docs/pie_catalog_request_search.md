@@ -1,8 +1,3 @@
-To use this class you will need to conform to the data structures specified by Square [CatalogQuery](https://developer.squareup.com/reference/square/objects/CatalogQuery)
-. In general these are
-objects with two or three properties. Usually you specify the property name you want to search and an expected value.
-The property name has to be exactly the same, but the value can be exactly or partly the same.
-
 Square provides two ways to search with a single endpoint. One way is to filter using different searchable properties and values. The other way
 is to provide it an array of IDs for specific modifiers such as taxes or modifier_lists. So if you want all objects that use a tax called "sales tax"
 you would find the Object ID of that tax and then put that ID into the array. It would then return all objects that use that tax. You cannot filter such a
@@ -59,12 +54,21 @@ It holds the following properties on the `._body` property:
 
 ## Catalog_Search_Objects_Filter
 
+**What this class does:**\
+It lets you search for all objects that have certain values at certain keys. You can search just about any
+writable property.
+
 This class sets the `_body.query` property on Super.\
 This is the class to use if:
 
 - you want to **combine elements** to get a refined search. All the methods can be used
   to layer on additional criteria.
 - you want to search for **deleted** objects
+
+To use this class you will need to conform to the data structures specified by Square [CatalogQuery](https://developer.squareup.com/reference/square/objects/CatalogQuery)
+. In general these are
+objects with two or three properties. Usually you specify the property name you want to search and an expected value.
+The property name has to be exactly the same, but the value can be exactly or partly the same.
 
 ###Adding an object type
 You can directly access the setter:\
