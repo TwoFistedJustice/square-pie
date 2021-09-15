@@ -51,28 +51,49 @@ class Catalog_Search_Items extends Catalog_Request {
   set text_filter(str) {
     this._body.text_filter = str;
   }
+  // todo change to regexp so user can type in partial case insenstive
   set product_types(type) {
-    // todo change to regexp so user can type in partial case insenstive
     if (type !== "REGULAR" || type !== "APPOINTMENTS_SERVICE") {
       throw new Error(
         'product_types only accepts "APPOINTMENTS_SERVICE" or "REGULAR"'
       );
     }
+    if (!Array.isArray(this._body.product_types)) {
+      this._body.product_types = [];
+    }
+
     this._body.product_types = type;
   }
   set stock_levels(level) {
     if (level !== "OUT" || level !== "LOW") {
       throw new Error('stock_levels only accepts "OUT" and "LOW"');
     }
+    if (!Array.isArray(this._body.stock_levels)) {
+      this._body.stock_levels = [];
+    }
     this._body.stock_levels.push(level);
   }
   set category_ids(id) {
+    if (!Array.isArray(this._body.category_ids)) {
+      this._body.category_ids = [];
+    }
     this._body.category_ids.push(id);
   }
   set enabled_location_ids(id) {
+    if (!Array.isArray(this._body.enabled_location_ids)) {
+      this._body.enabled_location_ids = [];
+    }
     this._body.enabled_location_ids.push(id);
   }
   set custom_attribute_filters(obj) {
+    if (!Array.isArray(this._body.custom_attribute_filters)) {
+      this._body.custom_attribute_filters = [];
+    }
+    if (this._body.custom_attribute_filters >= 10) {
+      throw new Error(
+        "custom_attribute_filters can contain a maximum of 10 filters."
+      );
+    }
     this._body.custom_attribute_filters.push(obj);
   }
 
