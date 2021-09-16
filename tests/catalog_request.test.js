@@ -8,6 +8,8 @@ const Catalog_List = require("../src/lib/catalog_request_list");
 const Catalog_Retreive = require("../src/lib/catalog_request_retrieve");
 const Catalog_Delete = require("../src/lib/catalog_request_delete");
 const Catalog_Search_Filter = require("../src/lib/catalog_request_search_objects_filter");
+// const Catalog_Search_Items = require("../src/lib/stub.catalog_request_search_items");
+// const {expect} = require ("chai");
 
 // tack on .only to this empty test to silence all other tests
 describe("Silence Async tests", () => {
@@ -392,5 +394,96 @@ describe("Catalog_Search_Cross_Reference", () => {
     let xref = new Catalog_Search_Cross_Reference();
     xref.addId(id1).addId(id2).clearIds();
     expect(xref.ids).toMatchObject(expected);
+  });
+});
+
+describe.only("Catalog_Search_Items", () => {
+  const Catalog_Search_Items = require("../src/lib/stub.catalog_request_search_items");
+  test("sort_order should throw on wrong value", () => {
+    const search = new Catalog_Search_Items();
+    expect(() => {
+      search.sort_order = "ASCENDING";
+    }).toThrow();
+  });
+
+  test("sort_order should not throw on correct value", () => {
+    const search = new Catalog_Search_Items();
+    expect(() => {
+      search.sort_order = "ASC";
+    }).not.toThrow();
+  });
+
+  test("product_type should throw on wrong value", () => {
+    const search = new Catalog_Search_Items();
+    expect(() => {
+      search.product_types = "GIFT_CARD";
+    }).toThrow();
+  });
+
+  test("product_type should not throw on correct value", () => {
+    const search = new Catalog_Search_Items();
+    expect(() => {
+      search.product_types = "REGULAR";
+    }).not.toThrow();
+  });
+
+  test("product_type creates an array", () => {});
+
+  test("stock_levels should throw on wrong value", () => {
+    const search = new Catalog_Search_Items();
+    expect(() => {
+      search.stock_levels = "UP";
+    }).toThrow();
+  });
+
+  test("stock_levels should not throw on correct value", () => {
+    const search = new Catalog_Search_Items();
+    expect(() => {
+      search.stock_levels = "OUT";
+    }).not.toThrow();
+  });
+
+  test("stock_levels creates an array", () => {
+    const search = new Catalog_Search_Items();
+    search.stock_levels = "LOW";
+    search.stock_levels.should.be.an("array");
+  });
+
+  test("category_ids creates an array", () => {
+    const search = new Catalog_Search_Items();
+    search.category_ids = "some id";
+    search.category_ids.should.be.an("array");
+  });
+
+  test("enabled_location_ids creates an array", () => {
+    const search = new Catalog_Search_Items();
+    search.enabled_location_ids = "some id";
+    search.enabled_location_ids.should.be.an("array");
+  });
+
+  test("custom_attribute_filters creates an array", () => {
+    const search = new Catalog_Search_Items();
+    search.custom_attribute_filters = { a: 1 };
+    search.custom_attribute_filters.should.be.an("array");
+  });
+
+  test("custom_attribute_filters should throw on attempt to add 11th element", () => {
+    const search = new Catalog_Search_Items();
+    let a = { a: 1 };
+    let make = search.make();
+    make
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a);
+    expect(() => {
+      make.custom_attribute_filters(a);
+    }).toThrow();
   });
 });
