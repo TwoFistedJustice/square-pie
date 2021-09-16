@@ -102,32 +102,60 @@ class Catalog_Search_Items extends Catalog_Request {
   }
 
   // METHODS
+  // TODO unit tests for these
+  sortup() {
+    this.sort_order = "ASC";
+    return this;
+  }
+  sortdown() {
+    this.sort_order = "DESC";
+    return this;
+  }
+  text(str) {
+    this.text_filter = str;
+    return this;
+  }
+  regular() {
+    this.product_types = "REGULAR";
+    return this;
+  }
 
-  sort() {
-    /*curry*/
-  }
-  filter() {
+  appt() {
+    this.product_types = "APPOINTMENTS_SERVICE";
     return this;
   }
-  type() {
-    /*curry regular or appt*/
+
+  low() {
+    this.stock_levels = "LOW";
     return this;
   }
-  stock() {
-    /*curry low or out */
+  out() {
+    this.stock_levels = "OUT";
     return this;
   }
-  catetory() {
-    /*push ids*/
+
+  lowout() {
+    this.stock_levels = "LOW";
+    this.stock_levels = "OUT";
     return this;
   }
-  locations() {
-    /*push ids*/
+
+  outlow() {
+    this.stock_levels = "LOW";
+    this.stock_levels = "OUT";
     return this;
   }
-  // TODO this one is complex - do last
-  custom() {
-    /* ooooh boy */
+
+  category(id) {
+    this.category_ids = id;
+    return this;
+  }
+  location(id) {
+    this.enabled_location_ids = id;
+    return this;
+  }
+  custom(obj) {
+    this.custom_attribute_filters = obj;
     return this;
   }
 
@@ -137,6 +165,10 @@ class Catalog_Search_Items extends Catalog_Request {
         self: this,
         sort_order: function (sort) {
           this.self.sort_order = sort;
+          return this;
+        },
+        stock_levels: function (str) {
+          this.self.stock_levels = str;
           return this;
         },
         text_filter: function (str) {
