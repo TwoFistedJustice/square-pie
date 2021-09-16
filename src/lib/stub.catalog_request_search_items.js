@@ -43,7 +43,7 @@ class Catalog_Search_Items extends Catalog_Request {
   }
   // SETTERS
   set sort_order(sort) {
-    if (sort !== "ASC" || sort !== "DESC") {
+    if (sort !== "ASC" && sort !== "DESC") {
       throw new Error('sort_order only accepts "ASC" or "DESC"');
     }
     this._body.sort_order = sort;
@@ -53,7 +53,7 @@ class Catalog_Search_Items extends Catalog_Request {
   }
   // todo change to regexp so user can type in partial case insenstive
   set product_types(type) {
-    if (type !== "REGULAR" || type !== "APPOINTMENTS_SERVICE") {
+    if (type !== "REGULAR" && type !== "APPOINTMENTS_SERVICE") {
       throw new Error(
         'product_types only accepts "APPOINTMENTS_SERVICE" or "REGULAR"'
       );
@@ -65,8 +65,12 @@ class Catalog_Search_Items extends Catalog_Request {
     this._body.product_types = type;
   }
   set stock_levels(level) {
-    if (level !== "OUT" || level !== "LOW") {
+    //todo disallow duplicates
+    if (level !== "OUT" && level !== "LOW") {
       throw new Error('stock_levels only accepts "OUT" and "LOW"');
+    }
+    if (this._body.stock_levels >= 2) {
+      throw new Error("stock_levels can contain a maximum of 2 entries.");
     }
     if (!Array.isArray(this._body.stock_levels)) {
       this._body.stock_levels = [];
@@ -89,7 +93,7 @@ class Catalog_Search_Items extends Catalog_Request {
     if (!Array.isArray(this._body.custom_attribute_filters)) {
       this._body.custom_attribute_filters = [];
     }
-    if (this._body.custom_attribute_filters >= 10) {
+    if (this._body.custom_attribute_filters.length >= 10) {
       throw new Error(
         "custom_attribute_filters can contain a maximum of 10 filters."
       );
