@@ -27,7 +27,7 @@ Argument against: They line up better on the response side by doing them by over
 | Catalog_Search_Objects_Filter          | Catalog_Request | POST           |             |
 | Catalog_Search_Objects_Cross_Reference | Catalog_Request | POST           |             |
 | Catalog_Create_Image                   | Catalog_Request | GET            | !           |
-| Catalog_Info                           | Catalog_Request | GET            | !           |
+| Catalog_Info                           | Catalog_Request | GET            |             |
 
 ### UPSERT - Batch vs One
 
