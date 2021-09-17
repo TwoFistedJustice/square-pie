@@ -6,7 +6,7 @@
 
 | Level Two Classes | Super         | Implemented | Short Notes |
 | ----------------- | ------------- | ----------- | ----------- |
-| Catalog_Request   | SquareRequest | !           |
+| Catalog_Request   | SquareRequest |             |
 
 | Level Three Classes                    | Super           | Implemented | Short Notes                                                                                                                   |
 | -------------------------------------- | --------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -14,7 +14,7 @@
 | Catalog_Upsert                         | Catalog_Request |             | This class could probably be simplified like Delete and Retrieve, but maybe leave it in case we need a model to expand later? |
 | Catalog_Delete                         | Catalog_Request |             |
 | Catalog_Retrieve                       | Catalog_Request |             |
-| Catalog_Search_Items                   | Catalog_Request | !           |
+| Catalog_Search_Items                   | Catalog_Request |             |
 | Catalog_Search_Objects_Filter          | Catalog_Request |             | This is the stackable side of the Objects Search endpoint                                                                     |
 | Catalog_Search_Objects_Cross_Reference | Catalog_Request |             | This is the non-stackable side of the Objects Search endpoint                                                                 |
 | Catalog_Info                           | Catalog_Request | !           |
