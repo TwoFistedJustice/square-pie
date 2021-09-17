@@ -398,7 +398,7 @@ describe("Catalog_Search_Cross_Reference", () => {
 });
 
 describe.only("Catalog_Search_Items", () => {
-  const Catalog_Search_Items = require("../src/lib/stub.catalog_request_search_items");
+  const Catalog_Search_Items = require("../src/lib/catalog_request_search_items");
   test("sort_order should throw on wrong value", () => {
     const search = new Catalog_Search_Items();
     expect(() => {
