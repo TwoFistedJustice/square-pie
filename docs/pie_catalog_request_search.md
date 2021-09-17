@@ -256,3 +256,97 @@ Your options for step 3 in Details are:
 You can clear all your IDs by calling `.clearIds()`
 
 There is not a way presently to remove just one id. There is a feature request for this: see Issue #85
+
+##Catalog_Search_Items
+Use this class when you want to search only Items and Item-Variations
+It is analogous to Square's [Search catalog items](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items)
+
+**Sort Order**\
+Possible values are "ASC" _or_ "DESC". You can use one or the other.
+
+**To use:**
+
+- `.sort_order = "ASC";`
+- `.sort_order = "DESC";`
+- `.make().sort_order("ASC")`
+- `.make().sort_order("DESC")`
+- `.sortup()`
+- `.sortdown()`
+
+**Stock Levels**\
+Search by whether you are completely or amost out of something. If you don't have inventory enabled for the item, this wil fudge up your search.
+Can accept two values "OUT" and "LOW". You can use both at the same time.
+
+**To use:**
+
+- `.stock_levels = str;`
+- `.make().stock_levels(str)`
+- `.low()`
+- `.out()`
+- `.lowout()`
+- `.outlow()`
+
+`.lowout()` and `.outlow()` do exactly the same thing. They set the vaue to both "LOW" and "OUT".
+Whichever one sticks in your brain is the correct one to use.
+
+**Text Filter**\
+It's what it sounds like. You give it a string, it looks for that string.
+
+For items it searches the fields
+
+- `name`
+- `description`
+- `abbreviation`
+
+For item-variations it searches the fields
+
+- `name`
+- `sku`
+- `upc`
+
+**To use:**
+
+- `.text_filter = str`
+- `.make().text_filter(str)`
+- `.text(str)`
+
+**Product Types**\
+You can limit your search to either "REGULAR" or "APPOINTMENTS_SERVICE"
+
+It will only accept those two values. Any other input will throw an error.
+To make it easy you can just all `.regular` or `.appt()` without arguments and the exact
+value will be set.
+
+**To use:**
+
+- `.product_type = str`
+- `.make().product_type(str)`
+- `.regular()`
+- `.appt()`
+
+**Category IDs**\
+Feed it the object ID of the category you want to filter by. It would be nice if we could just use the category name, but we can't, not allowed.
+
+**To use:**
+
+- `.category_ids = id;`
+- `.make().category_ids(id)`
+- `.category(id)`
+
+**Enabled Location IDs**\
+Feed it the object ID of the category you want to filter by.
+
+**To use:**
+
+- `.enabled_location_ids = id;`
+- `.make().enabled_location_ids(id)`
+- `.location(id)`
+
+**Custom Attribute Filters**\
+Custom attributes are unsuppored. You can still use that feature, but you will have to carefully construct your own data structures. I chose not
+to support this feature in depth because [Pieville USA](https://www.pievilleusa.com/) does not and will not use it, and it would require
+substantial time and work to implement. If you like this feature of Square's API and would like to build it for this package please consider becoming a code contributor for this FOSS package.
+
+Pass your object as an argument to the methods `make().custom_attribute_filters` or `.custom()`.
+
+Other than enforcing the maximum array length, there is no error checking in these methods. So if you do it wrong, Square will reject your request.

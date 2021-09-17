@@ -8,6 +8,8 @@ const Catalog_List = require("../src/lib/catalog_request_list");
 const Catalog_Retreive = require("../src/lib/catalog_request_retrieve");
 const Catalog_Delete = require("../src/lib/catalog_request_delete");
 const Catalog_Search_Filter = require("../src/lib/catalog_request_search_objects_filter");
+// const Catalog_Search_Items = require("../src/lib/stub.catalog_request_search_items");
+// const {expect} = require ("chai");
 
 // tack on .only to this empty test to silence all other tests
 describe("Silence Async tests", () => {
@@ -392,5 +394,164 @@ describe("Catalog_Search_Cross_Reference", () => {
     let xref = new Catalog_Search_Cross_Reference();
     xref.addId(id1).addId(id2).clearIds();
     expect(xref.ids).toMatchObject(expected);
+  });
+});
+
+describe.only("Catalog_Search_Items", () => {
+  const Catalog_Search_Items = require("../src/lib/catalog_request_search_items");
+  test("sort_order should throw on wrong value", () => {
+    const search = new Catalog_Search_Items();
+    expect(() => {
+      search.sort_order = "ASCENDING";
+    }).toThrow();
+  });
+
+  test("sort_order should not throw on correct value", () => {
+    const search = new Catalog_Search_Items();
+    expect(() => {
+      search.sort_order = "ASC";
+    }).not.toThrow();
+  });
+
+  test("product_type should throw on wrong value", () => {
+    const search = new Catalog_Search_Items();
+    expect(() => {
+      search.product_types = "GIFT_CARD";
+    }).toThrow();
+  });
+
+  test("product_type should not throw on correct value", () => {
+    const search = new Catalog_Search_Items();
+    expect(() => {
+      search.product_types = "REGULAR";
+    }).not.toThrow();
+  });
+
+  test("product_type creates an array", () => {});
+
+  test("stock_levels should throw on wrong value", () => {
+    const search = new Catalog_Search_Items();
+    expect(() => {
+      search.stock_levels = "UP";
+    }).toThrow();
+  });
+
+  test("stock_levels should not throw on correct value", () => {
+    const search = new Catalog_Search_Items();
+    expect(() => {
+      search.stock_levels = "OUT";
+    }).not.toThrow();
+  });
+
+  test("stock_levels creates an array", () => {
+    const search = new Catalog_Search_Items();
+    search.stock_levels = "LOW";
+    search.stock_levels.should.be.an("array");
+  });
+
+  test("category_ids creates an array", () => {
+    const search = new Catalog_Search_Items();
+    search.category_ids = "some id";
+    search.category_ids.should.be.an("array");
+  });
+
+  test("enabled_location_ids creates an array", () => {
+    const search = new Catalog_Search_Items();
+    search.enabled_location_ids = "some id";
+    search.enabled_location_ids.should.be.an("array");
+  });
+
+  test("custom_attribute_filters creates an array", () => {
+    const search = new Catalog_Search_Items();
+    search.custom_attribute_filters = { a: 1 };
+    search.custom_attribute_filters.should.be.an("array");
+  });
+
+  test("custom_attribute_filters should throw on attempt to add 11th element", () => {
+    const search = new Catalog_Search_Items();
+    let a = { a: 1 };
+    let make = search.make();
+    make
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a)
+      .custom_attribute_filters(a);
+    expect(() => {
+      make.custom_attribute_filters(a);
+    }).toThrow();
+  });
+
+  test('sortup() should set sort_order to "ASC"', () => {
+    let search = new Catalog_Search_Items();
+    search.sortup();
+    expect(search.sort_order).toEqual("ASC");
+  });
+  test('sortdown() should set sort_order to "DESC"', () => {
+    let search = new Catalog_Search_Items();
+    search.sortdown();
+    expect(search.sort_order).toEqual("DESC");
+  });
+  test("text() should set text_filter", () => {
+    let search = new Catalog_Search_Items();
+    search.text("words on a page");
+    expect(search.text_filter).toEqual("words on a page");
+  });
+  test('regular() should set product_types to "REGULAR"', () => {
+    let search = new Catalog_Search_Items();
+    search.regular();
+    expect(search.product_types).toEqual("REGULAR");
+  });
+  test('appt() should set product_types to "APPOINTMENTS_SERVICE"', () => {
+    let search = new Catalog_Search_Items();
+    search.appt();
+    expect(search.product_types).toEqual("APPOINTMENTS_SERVICE");
+  });
+  test('low() should set stock_levels to ["LOW"]', () => {
+    let expected = ["LOW"];
+    let search = new Catalog_Search_Items();
+    search.low();
+    expect(search.stock_levels).toMatchObject(expected);
+  });
+  test('out() should set stock_levels to ["OUT"]', () => {
+    let expected = ["OUT"];
+    let search = new Catalog_Search_Items();
+    search.out();
+    expect(search.stock_levels).toMatchObject(expected);
+  });
+  test('outlow() should set stock_levels to ["LOW", "OUT"]', () => {
+    let expected = ["LOW", "OUT"];
+    let search = new Catalog_Search_Items();
+    search.outlow();
+    expect(search.stock_levels).toMatchObject(expected);
+  });
+  test('lowout() should set stock_levels to ["LOW", "OUT"]', () => {
+    let expected = ["LOW", "OUT"];
+    let search = new Catalog_Search_Items();
+    search.lowout();
+    expect(search.stock_levels).toMatchObject(expected);
+  });
+  test("category() should add to the category_ids array", () => {
+    let expected = ["id1", "id2", "id3"];
+    let search = new Catalog_Search_Items();
+    search.category("id1").category("id2").category("id3");
+    expect(search.category_ids).toMatchObject(expected);
+  });
+  test("location() should add to the enabled_location_ids array", () => {
+    let expected = ["id1", "id2", "id3"];
+    let search = new Catalog_Search_Items();
+    search.location("id1").location("id2").location("id3");
+    expect(search.enabled_location_ids).toMatchObject(expected);
+  });
+  test("custom() should add to the custom_attribute_filters array", () => {
+    let expected = [{ a: 1 }, { b: 2 }, { c: 3 }];
+    let search = new Catalog_Search_Items();
+    search.custom({ a: 1 }).custom({ b: 2 }).custom({ c: 3 });
+    expect(search.custom_attribute_filters).toMatchObject(expected);
   });
 });
