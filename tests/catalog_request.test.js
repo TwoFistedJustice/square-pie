@@ -486,4 +486,72 @@ describe.only("Catalog_Search_Items", () => {
       make.custom_attribute_filters(a);
     }).toThrow();
   });
+
+  test('sortup() should set sort_order to "ASC"', () => {
+    let search = new Catalog_Search_Items();
+    search.sortup();
+    expect(search.sort_order).toEqual("ASC");
+  });
+  test('sortdown() should set sort_order to "DESC"', () => {
+    let search = new Catalog_Search_Items();
+    search.sortdown();
+    expect(search.sort_order).toEqual("DESC");
+  });
+  test("text() should set text_filter", () => {
+    let search = new Catalog_Search_Items();
+    search.text("words on a page");
+    expect(search.text_filter).toEqual("words on a page");
+  });
+  test('regular() should set product_types to "REGULAR"', () => {
+    let search = new Catalog_Search_Items();
+    search.regular();
+    expect(search.product_types).toEqual("REGULAR");
+  });
+  test('appt() should set product_types to "APPOINTMENTS_SERVICE"', () => {
+    let search = new Catalog_Search_Items();
+    search.appt();
+    expect(search.product_types).toEqual("APPOINTMENTS_SERVICE");
+  });
+  test('low() should set stock_levels to ["LOW"]', () => {
+    let expected = ["LOW"];
+    let search = new Catalog_Search_Items();
+    search.low();
+    expect(search.stock_levels).toMatchObject(expected);
+  });
+  test('out() should set stock_levels to ["OUT"]', () => {
+    let expected = ["OUT"];
+    let search = new Catalog_Search_Items();
+    search.out();
+    expect(search.stock_levels).toMatchObject(expected);
+  });
+  test('outlow() should set stock_levels to ["LOW", "OUT"]', () => {
+    let expected = ["LOW", "OUT"];
+    let search = new Catalog_Search_Items();
+    search.outlow();
+    expect(search.stock_levels).toMatchObject(expected);
+  });
+  test('lowout() should set stock_levels to ["LOW", "OUT"]', () => {
+    let expected = ["LOW", "OUT"];
+    let search = new Catalog_Search_Items();
+    search.lowout();
+    expect(search.stock_levels).toMatchObject(expected);
+  });
+  test("category() should add to the category_ids array", () => {
+    let expected = ["id1", "id2", "id3"];
+    let search = new Catalog_Search_Items();
+    search.category("id1").category("id2").category("id3");
+    expect(search.category_ids).toMatchObject(expected);
+  });
+  test("location() should add to the enabled_location_ids array", () => {
+    let expected = ["id1", "id2", "id3"];
+    let search = new Catalog_Search_Items();
+    search.location("id1").location("id2").location("id3");
+    expect(search.enabled_location_ids).toMatchObject(expected);
+  });
+  test("custom() should add to the custom_attribute_filters array", () => {
+    let expected = [{ a: 1 }, { b: 2 }, { c: 3 }];
+    let search = new Catalog_Search_Items();
+    search.custom({ a: 1 }).custom({ b: 2 }).custom({ c: 3 });
+    expect(search.custom_attribute_filters).toMatchObject(expected);
+  });
 });
