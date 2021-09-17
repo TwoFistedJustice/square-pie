@@ -3,7 +3,7 @@
 // const Catalog_List = require("../../src/lib/catalog_request_list");
 // const Catalog_Search_Filter = require("../../src/lib/catalog_request_search_objects_filter");
 // const Catalog_Search_Cross_Reference = require("../../src/lib/catalog_request_search_objects_cross_reference");
-const Catalog_Info = require("../../src/lib/stub.catalog_request_info");
+const Catalog_Info = require("../../src/lib/catalog_request_info");
 // const list = new Catalog_List();
 
 // const filter = new Catalog_Search_Filter();
