@@ -18,7 +18,7 @@
 | Catalog_Search_Objects_Filter          | Catalog_Request |             | This is the stackable side of the Objects Search endpoint                                                                     |
 | Catalog_Search_Objects_Cross_Reference | Catalog_Request |             | This is the non-stackable side of the Objects Search endpoint                                                                 |
 | Catalog_Info                           | Catalog_Request |             |
-| Catalog_Image                          | Catalog_Request | !           |
+| Catalog_Image                          | Catalog_Request | !           | de-prioritized - will take a lot of time and isn't needed by Pieville USA                                                     |
 
 # Cross Reference: Pie and Square
 
