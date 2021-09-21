@@ -39,7 +39,23 @@ class Order_Object {
   _tenders; //`BETA` [] READ ONLY - complex
   _ticket_name; //`BETA`  str - this is persisted and gets displayed on any printouts
   constructor() {
-    this.configuration = {};
+    this._fardel = {};
+    this.configuration = {
+      lengthLimits: {
+        customer_id: 191,
+      },
+    };
+  }
+
+  // METHODS
+  make() {
+    const methods = function () {
+      const properties = {
+        self: this,
+      };
+      return properties;
+    };
+    return methods();
   }
 }
 module.exports = Order_Object;
