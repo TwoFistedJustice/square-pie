@@ -1,5 +1,11 @@
 ##[Square Order Objects](https://developer.squareup.com/docs/orders-api/how-it-works#orders-objects-and-datatypes)
 
+SQUARE DOCS
+[Create Order ENDPOINT](https://developer.squareup.com/reference/square/orders-api/create-order)
+[Create order how to ](https://developer.squareup.com/docs/orders-api/create-orders)
+[Square Order Objects](https://developer.squareup.com/docs/orders-api/how-it-works#orders-objects-and-datatypes)
+[READ ONLY properties are NOT request properties - no matter what the docs say](https://developer.squareup.com/forums/t/order-api-create-order-read-only-properties/3658)
+
 **Order Object Structure:**
 
 Whenever possible it is best to reference Catalog Object IDs to enable Square's automatic features.
@@ -45,6 +51,33 @@ Add fulfilment to create a pick up order.
 Fulfillment is a an object inside an array
 The response provides a UID which needs to be persisted in the application.
 
-SQUARE DOCS
-[Create Order ENDPOINT](https://developer.squareup.com/reference/square/orders-api/create-order)
-[Create order how to ](https://developer.squareup.com/docs/orders-api/create-orders)
+## Not to be supported in V1
+
+```
+_tenders; //`BETA` [] READ ONLY - complex
+_metadata; // `BETA` READ ONLY - limits on L and content
+```
+
+## Corrections to the Square Docs:
+
+The docs (current as of 9/23/21) state that there are a whole bunch of read only properties on the Request body. This is wrong. They are actually on the Response body.
+Square is aware of this issue and it is in queue for correction.
+
+Those properties ARE:
+
+```
+_closed_at;
+_created_at;
+_updated_at;
+_total_discount_money;
+_total_money;
+_total_service_charge_money;
+_total_tax_money;
+_total_tip_money;
+_net_amounts;
+_refunds;
+_returns;
+_return_amounts;
+_rewards;
+_rounding_adjustment;
+```
