@@ -7,10 +7,10 @@ class Order_Object {
 
   constructor() {
     this._fardel = {
+      version: undefined, //`BETA`
       id: undefined,
       location_id: undefined, // required
       reference_id: undefined, // backend ID or this order
-      version: undefined, //`BETA`
       customer_id: undefined, // `BETA`  MAX 191 -- make this required
       ticket_name: undefined, //`BETA`  str - this is persisted and gets displayed on any printouts
       state: undefined, //OPEN, COMPLETED, CANCELED, DRAFT
@@ -30,6 +30,9 @@ class Order_Object {
   }
 
   // GETTERS
+  get version() {
+    return this._fardel.version;
+  }
   get id() {
     return this._fardel.id;
   }
@@ -38,9 +41,6 @@ class Order_Object {
   }
   get reference_id() {
     return this._fardel.reference_id;
-  }
-  get version() {
-    return this._fardel.version;
   }
   get customer_id() {
     return this._fardel.customer_id;
@@ -74,6 +74,9 @@ class Order_Object {
   }
 
   // SETTERS
+  set version(ver) {
+    this._fardel.version = ver;
+  }
   set id(id) {
     this._fardel.id = id;
   }
@@ -82,9 +85,6 @@ class Order_Object {
   }
   set reference_id(id) {
     this._fardel.reference_id = id;
-  }
-  set version(ver) {
-    this._fardel.version = ver;
   }
   set customer_id(id) {
     this._fardel.customer_id = id;
@@ -122,6 +122,62 @@ class Order_Object {
     const methods = function () {
       const properties = {
         self: this,
+        version: function (ver) {
+          this.self.version = ver;
+          return this;
+        },
+        id: function (id) {
+          this.self.id = id;
+          return this;
+        },
+        location_id: function (id) {
+          this.self.location_id = id;
+          return this;
+        },
+        reference_id: function (id) {
+          this.self.reference_id = id;
+          return this;
+        },
+        customer_id: function (id) {
+          this.self.customer_id = id;
+          return this;
+        },
+        ticket_name: function (name) {
+          this.self.ticket_name = name;
+          return this;
+        },
+        state: function (val) {
+          this.self.state = val;
+          return this;
+        },
+        source: function (val) {
+          this.self.source = val;
+          return this;
+        },
+        pricing_options: function (obj) {
+          this.self.pricing_options = obj;
+          return this;
+        },
+        service_charges: function (obj) {
+          this.self.service_charges = obj;
+          return this;
+        },
+        discounts: function (obj) {
+          this.self.discounts = obj;
+          return this;
+        },
+        taxes: function (obj) {
+          this.self.taxes = obj;
+          return this;
+        },
+        fulfillments: function (obj) {
+          this.self.fulfillments = obj;
+          return this;
+        },
+        line_items: function (obj) {
+          this.self.line_items = obj;
+          return this;
+        },
       };
       return properties;
     };
