@@ -57,7 +57,19 @@ const setter_chain_generator_separate_arrays = function (
   });
 };
 
+/*
+Returns true if the string is less than or equal to the max length
+* */
+
+const maxLength = function (max, str = "") {
+  if (str.length > max) {
+    throw new Error(`Surpassed maximum character limit of ${max}.\n${str}`);
+  }
+  return true;
+};
+
 module.exports = {
   setter_chain_generator_config,
   setter_chain_generator_separate_arrays,
+  maxLength,
 };
