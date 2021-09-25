@@ -15,9 +15,9 @@ class Order_Object {
       ticket_name: undefined, //`BETA`  str - this is persisted and gets displayed on any printouts
       state: undefined, //OPEN, COMPLETED, CANCELED, DRAFT
       source: undefined, //probably easiest to automatically set this to location id and leave an option to change it
-      pricing_options: undefined, // {pricing_options: bool, auto_apply_taxes: bool}
+      pricing_options: undefined,
       service_charges: undefined, //[{amount_money: {amount: 1, currency: "USD"} }, {applied_money: {amount: 1, currency: "USD"}]
-      discounts: undefined, //[{amount_money: {amount: 1, currency: "USD"} }, {applied_money: {amount: 1, currency: "USD"}]
+      discounts: undefined,
       taxes: undefined, // [{applied_money: {amount: 1, currency: "USD"}] - complex: see JSON example in docs
       fulfillments: undefined, // [{complex objects}]
       line_items: undefined, // [{complex objects}]
