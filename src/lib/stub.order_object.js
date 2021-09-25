@@ -1,6 +1,6 @@
 // this is not a super of fulfillment
 
-// todo go onto the square forums and ask about those read only props...
+const { maxLength } = require("./utilities_curry");
 
 class Order_Object {
   // _idempotency_key;// set on the Request, NOT the object
@@ -25,6 +25,11 @@ class Order_Object {
     this.configuration = {
       lengthLimits: {
         customer_id: 191,
+        discount: {
+          name: 255,
+          percentage: 10,
+          catalog_object_id: 192,
+        },
       },
     };
   }
@@ -99,6 +104,21 @@ class Order_Object {
     this._fardel.source = val;
   }
   set pricing_options(obj) {
+    if (
+      !Object.prototype.hasOwnProperty.call(obj, "auto_apply_discounts") ||
+      !Object.prototype.hasOwnProperty.call(obj, "auto_apply_taxes")
+    ) {
+      throw new Error(
+        "pricing_options requires both auto_apply_discounts and auto_apply_taxes properties."
+      );
+    } else if (
+      typeof obj.auto_apply_discounts !== "boolean" ||
+      typeof obj.auto_apply_taxes !== "boolean"
+    ) {
+      throw new Error(
+        "pricing_options arguments must be and object containing two booleans."
+      );
+    }
     this._fardel.pricing_options.push(obj);
   }
   set service_charges(obj) {
@@ -118,6 +138,117 @@ class Order_Object {
   }
 
   // METHODS`
+
+  #amount_money(amount, currency) {
+    if (currency) {
+      if (typeof currency !== "string" || currency.length !== 3) {
+        throw new Error("Currency must be ISO 4217 compliant");
+      }
+    }
+    return {
+      amount_money: amount,
+      currency: currency,
+    };
+  }
+
+  #applied_money(amount, currency) {
+    if (currency) {
+      if (typeof currency !== "string" || currency.length !== 3) {
+        throw new Error("Currency must be ISO 4217 compliant");
+      }
+    }
+    return {
+      applied_money: amount,
+      currency: currency,
+    };
+  }
+
+  build_discount() {
+    let methods = function () {
+      let discount = {};
+      let define = (prop, val) => {
+        Object.defineProperty(discount, prop, {
+          value: val,
+          enumerable: true,
+        });
+      };
+      let properties = {
+        self: this,
+        uid: function (name) {
+          define("uid", name);
+          return this;
+        },
+        name: function (name) {
+          if (maxLength(this.self.configuration.discount.name)) {
+            define("catalog_object_id", name);
+          }
+          return this;
+        },
+        catalog_object_id: function (id) {
+          if (maxLength(this.self.configuration.discount.catalog_object_id)) {
+            define("catalog_object_id", id);
+          }
+          return this;
+        },
+        scope_line: function () {
+          define("scope", "LINE_ITEM");
+          return this;
+        },
+        scope_order: function () {
+          define("scope", "ORDER");
+          return this;
+        },
+        type_percentage: function () {
+          define("type", "FIXED_PERCENTAGE");
+          return this;
+        },
+        type_amount: function () {
+          define("type", "FIXED_AMOUNT");
+          return this;
+        },
+        amount_money: function (amount, currency) {
+          let obj = this.self.#amount_money(amount, currency);
+          define("amount_money", obj);
+          return this;
+        },
+        applied_money: function (amount, currency) {
+          let obj = this.self.#applied_money(amount, currency);
+          define("applied_money", obj);
+          return this;
+        },
+        add: function () {
+          if (
+            !!discount.name &&
+            !Object.prototype.hasOwnProperty.call(discount, "uid")
+          ) {
+            let uid = discount.name.toLowerCase();
+            define("uid", uid.replace(" ", "-"));
+          }
+          if (
+            !Object.prototype.hasOwnProperty.call(
+              discount,
+              "catalog_object_id"
+            ) &&
+            !Object.prototype.hasOwnProperty.call(discount, "type")
+          ) {
+            throw new Error(
+              "If discount does not have catalog_object_id then it MUST have a type of either FIXED_PERCENTAGE or FIXED_AMOUNT."
+            );
+          }
+
+          this.self.discounts = discount;
+        },
+      };
+      return properties;
+    };
+    return methods();
+  }
+
+  //todo make sure object destructuring syntax works
+  pricing(auto_apply_discounts, auto_apply_taxes) {
+    this.pricing_options = { auto_apply_discounts, auto_apply_taxes };
+  }
+
   make() {
     const methods = function () {
       const properties = {
