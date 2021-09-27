@@ -45,3 +45,13 @@ What happens when you call .add()
 `.build_discount().amount_money(amount, currency) => discount.amount_money: {amount_money: {amount, currency}}`\
 `.build_discount().applied_money(amount, currency) => discount.applied_money: {amount_money: {amount, currency}}`\
 `.build_discount().add() => passes the discount object to the setter.`\
+
+**build_service_charge_amount && build_service_charge_applied**\
+These are clones with the only difference being in the property name they pass. one passes "amount_money" and one passes "applied_money".
+They work exactly the same way.
+
+It takes two arguments: amount and currency.
+If you leave out the currency argument, it will automatically set the currency to "USD"
+
+.build_service_charge_amount(amount, currency) => service_charges : [{amount_money: {amount, currency}}]
+.build_service_charge_applied(amount, currency) => service_charges : [{applied_money: {amount, currency}}]
