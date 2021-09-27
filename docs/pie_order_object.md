@@ -1,10 +1,3 @@
-**Building a discount**
-
-For each discount you would like to add,call the build_discount method.
-
-.add() - pushes the discount you built onto the discounts array. This goes last. You will not
-be able to chain anything after this sub-method.
-
 ###METHODS
 **"build" methods**
 These are sort of like `make()` but with less room for error. Where `make()` directly accesses the setters and lets you pass whatever,
@@ -25,6 +18,8 @@ yourVar.build_state().someMethod()
 **build_discount**\
 It creates a discount object within its own scope that it then passes to the setter when you call .add().
 
+You can call the sub-methods individually or chain them together.
+
 It builds out the `discount` object by creating new properties. If you make a mistake and set an incorrect value, simply call the same
 sub-method again and pass a value of "undefined". It will get filtered out at when you call `.request()` later. Call .`add()` to finalize the build.
 
@@ -44,7 +39,7 @@ What happens when you call .add()
 `.build_discount().type_amount() => discount.type: "FIXED_AMOUNT"`\
 `.build_discount().amount_money(amount, currency) => discount.amount_money: {amount_money: {amount, currency}}`\
 `.build_discount().applied_money(amount, currency) => discount.applied_money: {amount_money: {amount, currency}}`\
-`.build_discount().add() => passes the discount object to the setter.`\
+`.build_discount().add() => passes the discount object to the setter.`
 
 **build_service_charge_amount && build_service_charge_applied**\
 These are clones with the only difference being in the property name they pass. one passes "amount_money" and one passes "applied_money".
@@ -53,5 +48,61 @@ They work exactly the same way.
 It takes two arguments: amount and currency.
 If you leave out the currency argument, it will automatically set the currency to "USD"
 
-.build_service_charge_amount(amount, currency) => service_charges : [{amount_money: {amount, currency}}]
-.build_service_charge_applied(amount, currency) => service_charges : [{applied_money: {amount, currency}}]
+`js .build_service_charge_amount(amount, currency) => service_charges : [{amount_money: {amount, currency}}]`\
+`.build_service_charge_applied(amount, currency) => service_charges : [{applied_money: {amount, currency}}]`\
+`.build_service_charge_amount(amount) => service_charges : [{amount_money: {amount, currency: "USD"}}]`\
+`.build_service_charge_applied(amount) => service_charges : [{applied_money: {amount, currency "USD"}}]`
+
+**[Fulfillments](https://developer.squareup.com/docs/orders-api/how-it-works#fulfillments)**
+Square docs explicityl state that all fulfillment orders must have `delay_capture` set to true. They do not mention it again in any context. So what does that mean? What do you get when you cross an elephant and a rhinoceros?
+
+**build_fulfillment_pickup**\
+type - PICKUP - set automatically
+metadata
+state - PROPOSED RESERVED PREPARED COMPLETED CANCELED
+uid - max: 60
+pickup_details
+
+- accepted_at
+  -auto_complete_duration
+  -cancel_reason - max 100
+- canceled_at
+- expired_at
+- is_curbside_pickup - boolean
+- note - max 500
+- pickup_at
+- pickup_window_duration
+- prep_time_duration
+- recipient
+- schedule_type
+- curbside_pickup_details
+  1.buyer_arrived_at
+
+2. curbside_details - max 250
+
+**build_fulfillment_shipment**\
+type - SHIPMENT - set automatically
+metadata
+state - PROPOSED RESERVED PREPARED COMPLETED CANCELED
+uid - max: 60
+
+.shipment_details
+-cancel_reason - max 100
+
+- canceled_at
+- carrier - max 50
+- expected_shipped_at
+- failure_reason - max 100
+- shipping_note - max 500
+  -shipping_type - max 50
+- tracking_number - max 100
+  -tracking_url - max 2000
+
+.recipient
+
+- customer_id
+- address : {address object} - create an actual #address method with .street1, .street2 etc
+- -display_name max 255
+  -email_address max 255
+  -phone_number -max 17
+-

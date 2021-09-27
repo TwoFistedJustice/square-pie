@@ -16,7 +16,7 @@ class Order_Object {
       state: undefined,
       source: undefined, //probably easiest to automatically set this to location id and leave an option to change it
       pricing_options: undefined,
-      service_charges: undefined, //[{amount_money: {amount: 1, currency: "USD"} }, {applied_money: {amount: 1, currency: "USD"}]
+      service_charges: undefined,
       discounts: undefined,
       taxes: undefined, // [{applied_money: {amount: 1, currency: "USD"}] - complex: see JSON example in docs
       fulfillments: undefined, // [{complex objects}]
@@ -29,6 +29,27 @@ class Order_Object {
           name: 255,
           percentage: 10,
           catalog_object_id: 192,
+        },
+        fulfillment: {
+          uid: 60,
+          cancel_reason: 100,
+          pickup_details: {
+            note: 500,
+            curbside_pickup_details: {
+              curbside_details: 250,
+            },
+          },
+          shipment_details: {
+            carrier: 50,
+            failure_reason: 100,
+            shipping_note: 500,
+            shipping_type: 50,
+            tracking_number: 100,
+            tracking_url: 2000,
+            display_name: 255,
+            email_address: 255,
+            phone_number: 17,
+          },
         },
       },
     };
