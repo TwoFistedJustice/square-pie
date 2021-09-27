@@ -7,7 +7,7 @@ class Order_Object {
 
   constructor() {
     this._fardel = {
-      version: undefined, //`BETA`
+      version: undefined, //`BETA` - only for updates
       id: undefined,
       location_id: undefined, // required
       reference_id: undefined, // backend ID or this order
@@ -163,6 +163,32 @@ class Order_Object {
     };
   }
 
+  build_state() {
+    let methods = function () {
+      let properties = {
+        self: this,
+        open: function () {
+          this.self.state = "OPEN";
+          return this;
+        },
+        completed: function () {
+          this.self.state = "COMPLETED";
+          return this;
+        },
+        canceled: function () {
+          this.self.state = "CANCELED";
+          return this;
+        },
+        draft: function () {
+          this.self.state = "DRAFT";
+          return this;
+        },
+      };
+      return properties;
+    };
+    return methods();
+  }
+
   build_discount() {
     let methods = function () {
       let discount = {};
@@ -242,7 +268,7 @@ class Order_Object {
       return properties;
     };
     return methods();
-  }
+  } // END build_discount()
 
   //todo make sure object destructuring syntax works
   pricing(auto_apply_discounts, auto_apply_taxes) {
