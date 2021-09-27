@@ -13,7 +13,7 @@ class Order_Object {
       reference_id: undefined, // backend ID or this order
       customer_id: undefined, // `BETA`  MAX 191 -- make this required
       ticket_name: undefined, //`BETA`  str - this is persisted and gets displayed on any printouts
-      state: undefined, //OPEN, COMPLETED, CANCELED, DRAFT
+      state: undefined,
       source: undefined, //probably easiest to automatically set this to location id and leave an option to change it
       pricing_options: undefined,
       service_charges: undefined, //[{amount_money: {amount: 1, currency: "USD"} }, {applied_money: {amount: 1, currency: "USD"}]
@@ -187,6 +187,22 @@ class Order_Object {
       return properties;
     };
     return methods();
+  }
+
+  build_service_charge_amount(amount, currency) {
+    if (!currency) {
+      currency = "USD";
+    }
+    let obj = this.#amount_money(amount, currency);
+    this.service_charges = obj;
+  }
+
+  build_service_charge_applied(amount, currency) {
+    if (!currency) {
+      currency = "USD";
+    }
+    let obj = this.#applied_money(amount, currency);
+    this.service_charges = obj;
   }
 
   build_discount() {
