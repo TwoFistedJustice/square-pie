@@ -140,6 +140,9 @@ class Order_Object {
         "pricing_options arguments must be and object containing two booleans."
       );
     }
+    if (!Array.isArray(this.pricing_options)) {
+      this._fardel.pricing_options = [];
+    }
     this._fardel.pricing_options.push(obj);
   }
   set service_charges(obj) {
@@ -259,6 +262,18 @@ class Order_Object {
         },
         scope_order: function () {
           define("scope", "ORDER");
+          return this;
+        },
+        percentage: function () {
+          // check if arg is a string
+          // if so convert it to a number
+          // if its NaN throw an error
+          // send it on
+
+          // if it's a number
+          // just pass it on
+
+          // define("percentage", percent);
           return this;
         },
         type_percentage: function () {
