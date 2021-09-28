@@ -35,6 +35,7 @@ What happens when you call .add()
 `.build_discount().catalog_object_id(id) => discount.catalog_object_id: id `\
 `.build_discount().scope_line() => discount.scope: "LINE_ITEM"`\
 `.build_discount().scope_order() => discount.scope: "ORDER"`\
+`.build_discount().percentage(7.25) -> discount.percentage: "7.25"`\
 `.build_discount().type_percentage() => discount.type: "FIXED_PERCENTAGE"`\
 `.build_discount().type_amount() => discount.type: "FIXED_AMOUNT"`\
 `.build_discount().amount_money(amount, currency) => discount.amount_money: {amount_money: {amount, currency}}`\
