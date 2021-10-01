@@ -264,16 +264,16 @@ class Order_Object {
           define("scope", "ORDER");
           return this;
         },
-        percentage: function () {
-          // check if arg is a string
-          // if so convert it to a number
-          // if its NaN throw an error
-          // send it on
-
-          // if it's a number
-          // just pass it on
-
-          // define("percentage", percent);
+        percentage: function (percent) {
+          if (
+            (!typeof percent === "string" && !typeof percent === "number") ||
+            Number.isNaN(Number(percent))
+          ) {
+            throw new Error(
+              '"build_discount.percentage() only accepts numbers and strings that can be converted to a number."'
+            );
+          }
+          define("percentage", percent);
           return this;
         },
         type_percentage: function () {
@@ -294,6 +294,19 @@ class Order_Object {
           define("applied_money", obj);
           return this;
         },
+        pricing_rule_id: function (id) {
+          define("pricing_rule_id", id);
+          return this;
+        },
+        reward_ids: function (id) {
+          // check if discount.reward_ids is an array
+          if (!Array.isArray(discount.reward_ids)) {
+            define("reward_ids", []);
+          }
+          discount.reward_ids.push(id);
+          return this;
+        },
+
         add: function () {
           if (
             !!discount.name &&
