@@ -40,6 +40,8 @@ What happens when you call .add()
 `.build_discount().type_amount() => discount.type: "FIXED_AMOUNT"`\
 `.build_discount().amount_money(amount, currency) => discount.amount_money: {amount_money: {amount, currency}}`\
 `.build_discount().applied_money(amount, currency) => discount.applied_money: {amount_money: {amount, currency}}`\
+`.build_discount().pricing_rule_id("someId") => discount.pricing_rule_id: "someId"`\
+`.build_discount().reward_ids("some id").reward_ids("some other id") => discount.reward_ids: ["some id", "some other id"]`\
 `.build_discount().add() => passes the discount object to the setter.`
 
 **build_service_charge_amount && build_service_charge_applied**\
