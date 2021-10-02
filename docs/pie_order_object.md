@@ -1,3 +1,31 @@
+## TO DO
+
+build_line_items
+
+- quantity: str
+- applied_discounts: []
+- applied_taxes: []
+- base_price_money: {money}
+- catalog_object_id: max 192
+- catalog_version
+- gross_sales_money: {money}
+- item_type: ITEM, CUSTOM_AMOUNT, GIFT_CARD
+- metadata
+- modifiers []
+- name
+- note
+- pricing_blocklists
+- quantity_unit
+- uid MAX 60
+- variation_name MAX 400
+-
+
+READ ONLY
+total_discount_money
+total_money
+total_tax_money
+variation_total_price_money
+
 ###METHODS
 **"build" methods**
 These are sort of like `make()` but with less room for error. Where `make()` directly accesses the setters and lets you pass whatever,
@@ -40,6 +68,8 @@ What happens when you call .add()
 `.build_discount().type_amount() => discount.type: "FIXED_AMOUNT"`\
 `.build_discount().amount_money(amount, currency) => discount.amount_money: {amount_money: {amount, currency}}`\
 `.build_discount().applied_money(amount, currency) => discount.applied_money: {amount_money: {amount, currency}}`\
+`.build_discount().pricing_rule_id("someId") => discount.pricing_rule_id: "someId"`\
+`.build_discount().reward_ids("some id").reward_ids("some other id") => discount.reward_ids: ["some id", "some other id"]`\
 `.build_discount().add() => passes the discount object to the setter.`
 
 **build_service_charge_amount && build_service_charge_applied**\
