@@ -334,6 +334,30 @@ class Order_Object {
     };
     return methods();
   } // END build_discount()
+  // TODO - see pie_order_object.md
+  build_fulfillment_pickup() {
+    let methods = function () {
+      const properties = { self: this };
+      return properties;
+    };
+    return methods();
+  }
+  // TODO - see pie_order_object.md
+  build_fulfillment_shipment() {
+    let methods = function () {
+      const properties = { self: this };
+      return properties;
+    };
+    return methods();
+  }
+  // TODO - see pie_order_object.md
+  build_line_item() {
+    let methods = function () {
+      const properties = { self: this };
+      return properties;
+    };
+    return methods();
+  }
 
   //todo make sure object destructuring syntax works
   pricing(auto_apply_discounts, auto_apply_taxes) {

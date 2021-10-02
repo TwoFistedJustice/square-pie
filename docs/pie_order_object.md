@@ -1,3 +1,31 @@
+## TO DO
+
+build_line_items
+
+- quantity: str
+- applied_discounts: []
+- applied_taxes: []
+- base_price_money: {money}
+- catalog_object_id: max 192
+- catalog_version
+- gross_sales_money: {money}
+- item_type: ITEM, CUSTOM_AMOUNT, GIFT_CARD
+- metadata
+- modifiers []
+- name
+- note
+- pricing_blocklists
+- quantity_unit
+- uid MAX 60
+- variation_name MAX 400
+-
+
+READ ONLY
+total_discount_money
+total_money
+total_tax_money
+variation_total_price_money
+
 ###METHODS
 **"build" methods**
 These are sort of like `make()` but with less room for error. Where `make()` directly accesses the setters and lets you pass whatever,
