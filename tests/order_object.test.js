@@ -24,7 +24,7 @@ describe.only('Order object build_discount method', () => {
 
 	// pricing_options setter should throw if object doesn't have two booleans
 	test("pricing_options setter should throw if object doesn't have two booleans", () => {
-		let order = Order_Object();
+		let order = new Order_Object();
 		expect(() => {
 			order.pricing('beavers', 42);
 		}).toThrow();
