@@ -188,7 +188,7 @@ class Order_Object {
   }
 
   build_state() {
-    let methods = function () {
+    let methods = () => {
       let properties = {
         self: this,
         open: function () {
@@ -230,7 +230,7 @@ class Order_Object {
   }
 
   build_discount() {
-    let methods = function () {
+    let methods = () => {
       let discount = {};
       let define = (prop, val) => {
         Object.defineProperty(discount, prop, {
@@ -336,7 +336,7 @@ class Order_Object {
   } // END build_discount()
   // TODO - see pie_order_object.md
   build_fulfillment_pickup() {
-    let methods = function () {
+    let methods = () => {
       const properties = { self: this };
       return properties;
     };
@@ -352,7 +352,7 @@ class Order_Object {
   }
   // TODO - see pie_order_object.md
   build_line_item() {
-    let methods = function () {
+    let methods = () => {
       const properties = { self: this };
       return properties;
     };
@@ -365,7 +365,7 @@ class Order_Object {
   }
 
   make() {
-    const methods = function () {
+    const methods = () => {
       const properties = {
         self: this,
         version: function (ver) {
