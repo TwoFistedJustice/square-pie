@@ -29,9 +29,44 @@ describe.only('Order object build_discount method', () => {
 			order.pricing('beavers', 42);
 		}).toThrow();
 	});
+
 	// pricing_options setter should NOT throw if object is correctly formatted
+	test('pricing_options setter should NOT throw if object is correctly formatted', () => {
+		let order = new Order_Object();
+		expect(() => {
+			order.pricing(false, true);
+		});
+	});
 
 	// build_state methods should set state property as expected - there are four of them
+
+	test('build_state open should equal "Open"', () => {
+		let order = new Order_Object();
+		expect(() => {
+			order.build_state().open();
+		}).toEqual('OPEN');
+	});
+
+	test('build_state canceled should equal "CANCELED"', () => {
+		let order = new Order_Object();
+		expect(() => {
+			order.build_state().canceled();
+		}).toEqual('CANCELED');
+	});
+
+	test('build_state completed should equal "COMPLETED"', () => {
+		let order = new Order_Object();
+		expect(() => {
+			order.build_state().completed();
+		}).toEqual('COMPLETED');
+	});
+
+	test('build_state draft should equal "DRAFT"', () => {
+		let order = new Order_Object();
+		expect(() => {
+			order.build_state().draft();
+		}).toEqual('DRAFT');
+	});
 
 	//build_service_charge_amount should correctly build an 'amount_money' object when given two args
 	//build_service_charge_amount should automatically set "USD" when given just amount

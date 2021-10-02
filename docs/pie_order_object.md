@@ -26,7 +26,8 @@ total_money
 total_tax_money
 variation_total_price_money
 
-###METHODS
+### METHODS
+
 **"build" methods**
 These are sort of like `make()` but with less room for error. Where `make()` directly accesses the setters and lets you pass whatever,
 build() does a lot to prevent you from passing incorrect structures or values. They will often simply set the correct value and structure for you.
@@ -38,9 +39,9 @@ You call a build method for each property you want to set.
 Sets the `state` property.
 yourVar.build_state().someMethod()
 
-`.build_state().open() => "OPEN"`
-`.build_state().completed() => "COMPLETED"`
-`.build_state().canceled() => "CANCELED"`
+`.build_state().open() => "OPEN"`\
+`.build_state().completed() => "COMPLETED"`\
+`.build_state().canceled() => "CANCELED"`\
 `.build_state().draft() => "DRAFT"`
 
 **build_discount**\
