@@ -198,17 +198,32 @@ class Order_Object {
     };
   }
 
-  #applied_money(amount, currency) {
+  #applied_money(amt, currency) {
+    let amount = Number(amt);
+    if (isNaN(amount) || typeof amt === "boolean") {
+      throw new TypeError(`'amount' must be a number. received: ${typeof amt}`);
+    }
     if (currency) {
       if (typeof currency !== "string" || currency.length !== 3) {
         throw new Error("Currency must be ISO 4217 compliant");
       }
     }
     return {
-      applied_money: amount,
-      currency: currency,
+      applied_money: { amount, currency },
     };
   }
+
+  // #applied_money(amount, currency) {
+  //   if (currency) {
+  //     if (typeof currency !== "string" || currency.length !== 3) {
+  //       throw new Error("Currency must be ISO 4217 compliant");
+  //     }
+  //   }
+  //   return {
+  //     applied_money: amount,
+  //     currency: currency,
+  //   };
+  // }
 
   build_state() {
     let methods = () => {
