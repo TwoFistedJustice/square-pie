@@ -271,7 +271,9 @@ class Order_Object {
           return this;
         },
         name: function (name) {
-          if (maxLength(this.self.configuration.lengthLimits.discount.name)) {
+          if (
+            maxLength(this.self.configuration.lengthLimits.discount.name, name)
+          ) {
             define("catalog_object_id", name);
           }
           return this;
@@ -279,7 +281,8 @@ class Order_Object {
         catalog_object_id: function (id) {
           if (
             maxLength(
-              this.self.configuration.lengthLimits.discount.catalog_object_id
+              this.self.configuration.lengthLimits.discount.catalog_object_id,
+              id
             )
           ) {
             define("catalog_object_id", id);
