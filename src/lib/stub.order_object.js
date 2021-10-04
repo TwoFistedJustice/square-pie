@@ -146,18 +146,23 @@ class Order_Object {
     this._fardel.pricing_options.push(obj);
   }
   set service_charges(obj) {
+    // TODO RUSS set it to array if it isn't already
     this._fardel.service_charges.push(obj);
   }
   set discounts(obj) {
+    // TODO RUSS set it to array if it isn't already
     this._fardel.discounts.push(obj);
   }
   set taxes(obj) {
+    // TODO RUSS set it to array if it isn't already
     this._fardel.taxes.push(obj);
   }
   set fulfillments(obj) {
+    // TODO RUSS set it to array if it isn't already
     this._fardel.fulfillments.push(obj);
   }
   set line_items(obj) {
+    // TODO RUSS set it to array if it isn't already
     this._fardel.line_items.push(obj);
   }
 
@@ -251,6 +256,7 @@ class Order_Object {
           return this;
         },
         catalog_object_id: function (id) {
+          // TODO RUSS - something funny going on in 'this'Land
           if (maxLength(this.self.configuration.discount.catalog_object_id)) {
             define("catalog_object_id", id);
           }
