@@ -87,9 +87,13 @@ describe("Order object build_discount method", () => {
     expect(order.state).toEqual("DRAFT");
   });
 
-  //build_service_charge_amount should correctly build an 'amount_money' object when given two args
   // NOTE - BG: Not sure if it's the expected object or if I need to dothe who .make() bit. :(
-  // todo: you got it right -- might be better to use a different currency tho since it default sets 'USD'
+  // todo: NOTE: RB- you got it right -- might be better to use a different currency tho since it default sets 'USD'
+  //  also, your string value "42" revealed a bug which is fixed but the fix now needs its own tests... :-P
+  //  also also -  Square money amounts are in cents. So 42 is really 42 cents.
+
+  // todo: TEST - build_service_amount should throw when the amount is a value that cannot be converted to a Number
+
   test('build_service_charge_amount should correctly build an "amount_money" object when given two args', () => {
     let expected = [
       {
@@ -103,7 +107,7 @@ describe("Order object build_discount method", () => {
     order.build_service_charge_amount("42", "USD");
     expect(order.service_charges).toMatchObject(expected);
   });
-  //build_service_charge_amount should automatically set "USD" when given just amount
+
   test('build_service_charge_amount should automatically set "USD" when given just amount', () => {
     let expected = [
       {
@@ -117,8 +121,10 @@ describe("Order object build_discount method", () => {
     order.build_service_charge_amount(42);
     expect(order.service_charges).toMatchObject(expected);
   });
+
   //build_service_charge_applied should correctly build an 'amount_money' object when given two args
   // NOTE: BG - Did you mean 'applied_money'?
+  // todo: NOTE: RB - when in doubt, check the source code...
   test('build_service_charge_applied should correctly build an "amount_money" object when given two args', () => {
     let expected = [
       {
@@ -148,7 +154,7 @@ describe("Order object build_discount method", () => {
   });
 
   // build_discount should do all the things - like 9 things minimum - have fun
-  // TODO this was meant to imply a separate test for each part
+  // TODO NOTE: RB- this was meant to imply a separate test for each part
   //  that way if one part breaks it will be immediately apparent
   //  sorry for not being clear...
   test("build_discount should do all the things", () => {
@@ -191,7 +197,7 @@ describe("Order object build_discount method", () => {
     }).toThrow();
   });
   // build_discount.name should respect length limit part 2
-  // todo test statements should explicitly state what is being tested.
+  // todo NOTE: RB-  test statements should explicitly state what is being tested.
   //  "build_discount.name" should not throw when given a name of an allowable length" -- or something similar
   test("build_discount.name should respect length limit part 2", () => {
     let order = new Order_Object();
