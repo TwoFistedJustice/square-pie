@@ -271,14 +271,17 @@ class Order_Object {
           return this;
         },
         name: function (name) {
-          if (maxLength(this.self.configuration.discount.name)) {
+          if (maxLength(this.self.configuration.lengthLimits.discount.name)) {
             define("catalog_object_id", name);
           }
           return this;
         },
         catalog_object_id: function (id) {
-          // TODO RUSS - something funny going on in 'this'Land
-          if (maxLength(this.self.configuration.discount.catalog_object_id)) {
+          if (
+            maxLength(
+              this.self.configuration.lengthLimits.discount.catalog_object_id
+            )
+          ) {
             define("catalog_object_id", id);
           }
           return this;
