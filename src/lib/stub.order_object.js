@@ -213,18 +213,6 @@ class Order_Object {
     };
   }
 
-  // #applied_money(amount, currency) {
-  //   if (currency) {
-  //     if (typeof currency !== "string" || currency.length !== 3) {
-  //       throw new Error("Currency must be ISO 4217 compliant");
-  //     }
-  //   }
-  //   return {
-  //     applied_money: amount,
-  //     currency: currency,
-  //   };
-  // }
-
   build_state() {
     let methods = () => {
       let properties = {
