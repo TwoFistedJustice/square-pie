@@ -183,15 +183,18 @@ class Order_Object {
 
   // METHODS`
 
-  #amount_money(amount, currency) {
+  #amount_money(amt, currency) {
+    let amount = Number(amt);
+    if (isNaN(amount) || typeof amt === "boolean") {
+      throw new TypeError(`'amount' must be a number. received: ${typeof amt}`);
+    }
     if (currency) {
       if (typeof currency !== "string" || currency.length !== 3) {
         throw new Error("Currency must be ISO 4217 compliant");
       }
     }
     return {
-      amount_money: amount,
-      currency: currency,
+      amount_money: { amount, currency },
     };
   }
 
