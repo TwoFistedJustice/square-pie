@@ -18,33 +18,43 @@ build_line_items
 - quantity_unit
 - uid MAX 60
 - variation_name MAX 400
--
 
-READ ONLY
-total_discount_money
-total_money
-total_tax_money
+<br/>
+
+## READ ONLY
+total_discount_money\
+total_money\
+total_tax_money\
 variation_total_price_money
 
-### METHODS
+<br/>
 
-**"build" methods**
+## METHODS
+### **"build" methods**
 These are sort of like `make()` but with less room for error. Where `make()` directly accesses the setters and lets you pass whatever,
 build() does a lot to prevent you from passing incorrect structures or values. They will often simply set the correct value and structure for you.
 You call a build method for each property you want to set.
 
-`yourVar.build_someproperty().someValue()`
+```js
+yourVar.build_someproperty().someValue()
+```
 
-**build_state**\
+<br/>
+
+### **build_state**
 Sets the `state` property.
 yourVar.build_state().someMethod()
 
-`.build_state().open() => "OPEN"`\
-`.build_state().completed() => "COMPLETED"`\
-`.build_state().canceled() => "CANCELED"`\
-`.build_state().draft() => "DRAFT"`
+```js
+.build_state().open() => "OPEN"
+.build_state().completed() => "COMPLETED"
+.build_state().canceled() => "CANCELED"
+.build_state().draft() => "DRAFT"
+```
 
-**build_discount**\
+<br/>
+
+### **build_discount**
 It creates a discount object within its own scope that it then passes to the setter when you call .add().
 
 You can call the sub-methods individually or chain them together.
@@ -59,41 +69,51 @@ What happens when you call .add()
   value for you.
 - It validates the object. It checks it for a `catalog_object_id` property and if one is not present, checks it for `type` property. Because Square requires that you have one or the other.
 
-`.build_discount().uid(name) => discount.uid: name`\
-`.build_discount().name(name) => discount.name: name`\
-`.build_discount().catalog_object_id(id) => discount.catalog_object_id: id `\
-`.build_discount().scope_line() => discount.scope: "LINE_ITEM"`\
-`.build_discount().scope_order() => discount.scope: "ORDER"`\
-`.build_discount().percentage(7.25) -> discount.percentage: "7.25"`\
-`.build_discount().type_percentage() => discount.type: "FIXED_PERCENTAGE"`\
-`.build_discount().type_amount() => discount.type: "FIXED_AMOUNT"`\
-`.build_discount().amount_money(amount, currency) => discount.amount_money: {amount_money: {amount, currency}}`\
-`.build_discount().applied_money(amount, currency) => discount.applied_money: {amount_money: {amount, currency}}`\
-`.build_discount().pricing_rule_id("someId") => discount.pricing_rule_id: "someId"`\
-`.build_discount().reward_ids("some id").reward_ids("some other id") => discount.reward_ids: ["some id", "some other id"]`\
-`.build_discount().add() => passes the discount object to the setter.`
+```js
+.build_discount().uid(name) => discount.uid: name
+.build_discount().name(name) => discount.name: name
+.build_discount().catalog_object_id(id) => discount.catalog_object_id: id 
+.build_discount().scope_line() => discount.scope: "LINE_ITEM"
+.build_discount().scope_order() => discount.scope: "ORDER"
+.build_discount().percentage(7.25) -> discount.percentage: "7.25"
+.build_discount().type_percentage() => discount.type: "FIXED_PERCENTAGE"
+.build_discount().type_amount() => discount.type: "FIXED_AMOUNT"
+.build_discount().amount_money(amount, currency) => discount.amount_money: {amount_money: {amount, currency}}
+.build_discount().applied_money(amount, currency) => discount.applied_money: {amount_money: {amount, currency}}
+.build_discount().pricing_rule_id("someId") => discount.pricing_rule_id: "someId"
+.build_discount().reward_ids("some id").reward_ids("some other id") => discount.reward_ids: ["some id", "some other id"]
+.build_discount().add() => passes the discount object to the setter.
+```
 
-**build_service_charge_amount && build_service_charge_applied**\
+<br/>
+
+### **build_service_charge_amount && build_service_charge_applied**
 These are clones with the only difference being in the property name they pass. one passes "amount_money" and one passes "applied_money".
 They work exactly the same way.
 
 It takes two arguments: amount and currency.
 If you leave out the currency argument, it will automatically set the currency to "USD"
 
-`js .build_service_charge_amount(amount, currency) => service_charges : [{amount_money: {amount, currency}}]`\
-`.build_service_charge_applied(amount, currency) => service_charges : [{applied_money: {amount, currency}}]`\
-`.build_service_charge_amount(amount) => service_charges : [{amount_money: {amount, currency: "USD"}}]`\
-`.build_service_charge_applied(amount) => service_charges : [{applied_money: {amount, currency "USD"}}]`
+```js 
+.build_service_charge_amount(amount, currency) => service_charges : [{amount_money: {amount, currency}}]
+.build_service_charge_applied(amount, currency) => service_charges : [{applied_money: {amount, currency}}]
+.build_service_charge_amount(amount) => service_charges : [{amount_money: {amount, currency: "USD"}}]
+.build_service_charge_applied(amount) => service_charges : [{applied_money: {amount, currency "USD"}}]
+```
 
-**[Fulfillments](https://developer.squareup.com/docs/orders-api/how-it-works#fulfillments)**
+<br/>
+
+### **[Fulfillments](https://developer.squareup.com/docs/orders-api/how-it-works#fulfillments)**
 Square docs explicityl state that all fulfillment orders must have `delay_capture` set to true. They do not mention it again in any context. So what does that mean? What do you get when you cross an elephant and a rhinoceros?
 
-**build_fulfillment_pickup**\
-type - PICKUP - set automatically
-metadata
-state - PROPOSED RESERVED PREPARED COMPLETED CANCELED
-uid - max: 60
-pickup_details
+<br/>
+
+### **build_fulfillment_pickup**
+type - PICKUP - set automatically\
+metadata\
+state - PROPOSED RESERVED PREPARED COMPLETED CANCELED\
+uid - max: 60\
+pickup_details\
 
 - accepted_at
   -auto_complete_duration
@@ -109,13 +129,14 @@ pickup_details
 - schedule_type
 - curbside_pickup_details
   1.buyer_arrived_at
+  2. curbside_details - max 250
 
-2. curbside_details - max 250
+<br/>
 
-**build_fulfillment_shipment**\
-type - SHIPMENT - set automatically
-metadata
-state - PROPOSED RESERVED PREPARED COMPLETED CANCELED
+### **build_fulfillment_shipment**
+type - SHIPMENT - set automatically\
+metadata\
+state - PROPOSED RESERVED PREPARED COMPLETED CANCELED\
 uid - max: 60
 
 .shipment_details
