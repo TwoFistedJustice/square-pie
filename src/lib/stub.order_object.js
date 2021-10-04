@@ -147,22 +147,37 @@ class Order_Object {
   }
   set service_charges(obj) {
     // TODO RUSS set it to array if it isn't already
+    if (!Array.isArray(this._fardel.service_charges)) {
+      this._fardel.service_charges = [];
+    }
     this._fardel.service_charges.push(obj);
   }
   set discounts(obj) {
     // TODO RUSS set it to array if it isn't already
+    if (!Array.isArray(this._fardel.discounts)) {
+      this._fardel.discounts = [];
+    }
     this._fardel.discounts.push(obj);
   }
   set taxes(obj) {
     // TODO RUSS set it to array if it isn't already
+    if (!Array.isArray(this._fardel.taxes)) {
+      this._fardel.taxes = [];
+    }
     this._fardel.taxes.push(obj);
   }
   set fulfillments(obj) {
     // TODO RUSS set it to array if it isn't already
+    if (!Array.isArray(this._fardel.fulfillments)) {
+      this._fardel.fulfillments = [];
+    }
     this._fardel.fulfillments.push(obj);
   }
   set line_items(obj) {
     // TODO RUSS set it to array if it isn't already
+    if (!Array.isArray(this._fardel.line_items)) {
+      this._fardel.line_items = [];
+    }
     this._fardel.line_items.push(obj);
   }
 
