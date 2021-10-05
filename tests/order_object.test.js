@@ -201,6 +201,19 @@ describe('Order object build_discount method', () => {
 		expect(order.discounts).toMatchObject(expected);
 	});
 
+	// build_discount scope_line should equal string
+	test('build_discount scope_line should equal expected', () => {
+		let expected = [
+			{
+				scope : 'LINE_ITEM',
+				type  : 'FIXED_AMOUNT'
+			}
+		];
+		let order = new Order_Object();
+		order.build_discount().type_amount().scope_line().add();
+		expect(order.discounts).toMatchObject(expected);
+	});
+
 	// build_discount.name should respect length limit
 	test('build_discount.name should respect length limit', () => {
 		let order = new Order_Object();
