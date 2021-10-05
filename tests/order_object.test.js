@@ -287,6 +287,19 @@ describe('Order object build_discount method', () => {
 		expect(order.discounts).toMatchObject(expected);
 	});
 
+	// build_discount reward_ids should equal expected
+	test('build_discount reward_ids with amount only should equal expected', () => {
+		let expected = [
+			{
+				reward_ids : ['someId', 'someOtherId'],
+				type       : 'FIXED_PERCENTAGE'
+			}
+		];
+		let order = new Order_Object();
+		order.build_discount().type_percentage().reward_ids('someId').reward_ids('someOtherId').add();
+		expect(order.discounts).toMatchObject(expected);
+	});
+
 	// build_discount.name should respect length limit
 	test('build_discount.name should respect length limit', () => {
 		let order = new Order_Object();
