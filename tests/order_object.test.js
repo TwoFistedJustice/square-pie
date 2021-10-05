@@ -158,38 +158,20 @@ describe('Order object build_discount method', () => {
 	// TODO NOTE: RB- this was meant to imply a separate test for each part
 	//  that way if one part breaks it will be immediately apparent
 	//  sorry for not being clear...
-	test('build_discount should do all the things', () => {
+
+	// build_discount id should equal name
+	test('build_discount uid should equal name', () => {
+		let name = 'Pieville USA';
 		let expected = [
 			{
-				uid               : 'Pieville USA',
-				name              : 'Pieville USA',
-				catalog_object_id : '913v1113',
-				scope             : 'LINE_ITEM',
-				percentage        : 7.25,
-				type              : 'FIXED_PERCENTAGE',
-				amount_money      : { amount: 42, currency: 'USD' },
-				applied_money     : { amount: 46, currency: 'USD' },
-				pricing_rule_id   : 'someId',
-				reward_ids        : 'rewardId'
+				uid : 'Pieville USA'
 			}
 		];
 		let order = new Order_Object();
-		order
-			.build_discount()
-			.uid('Pieville USA')
-			.name('Pieville USA')
-			.catalog_object_id('913v1113')
-			.scope_line()
-			.percentage(7.25)
-			.type_percentage()
-			.type_amount()
-			.amount_money(42, 'USD')
-			.applied_money(46, 'USD')
-			.pricing_rule_id('someId')
-			.reward_ids('some id')
-			.add();
-		expect(order.discount).ObjectContaining(expected);
+		order.build_discount().catalog_object_id('913v1113').uid(name).add();
+		expect(order.discounts.uid).toEqual(name);
 	});
+
 	// build_discount.name should respect length limit
 	test('build_discount.name should respect length limit', () => {
 		let order = new Order_Object();
@@ -206,6 +188,7 @@ describe('Order object build_discount method', () => {
 			order.build_discount().name(long_strings.len_25);
 		}).not.toThrow();
 	});
+
 	//build_discount.percentage should throw if fed a string arg that can't convert to a number
 	test("build_discount.percentage should throw if fed a string arg that can't convert to a number", () => {
 		let order = new Order_Object();
