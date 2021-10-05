@@ -168,7 +168,7 @@ describe('Order object build_discount method', () => {
 			}
 		];
 		let order = new Order_Object();
-		order.build_discount().uid(name).add();
+		order.build_discount().type_amount().uid(name).add();
 		expect(order.discounts.uid).toMatchObject(expected);
 	});
 
