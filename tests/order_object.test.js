@@ -159,7 +159,7 @@ describe('Order object build_discount method', () => {
 	//  that way if one part breaks it will be immediately apparent
 	//  sorry for not being clear...
 
-	// build_discount id should equal name
+	// build_discount uid should equal name
 	test('build_discount uid should equal name', () => {
 		let name = 'Pieville USA';
 		let expected = [
@@ -168,8 +168,8 @@ describe('Order object build_discount method', () => {
 			}
 		];
 		let order = new Order_Object();
-		order.build_discount().catalog_object_id('913v1113').uid(name).add();
-		expect(order.discounts.uid).toEqual(name);
+		order.build_discount().uid(name).add();
+		expect(order.discounts.uid).toMatchObject(expected);
 	});
 
 	// build_discount.name should respect length limit
