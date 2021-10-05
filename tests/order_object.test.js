@@ -173,6 +173,20 @@ describe('Order object build_discount method', () => {
 		expect(order.discounts).toMatchObject(expected);
 	});
 
+	// build_discount name should equal string
+	test('build_discount name should equal name', () => {
+		let rname = 'Pieville USA';
+		let expected = [
+			{
+				name : 'Pieville USA',
+				type : 'FIXED_AMOUNT'
+			}
+		];
+		let order = new Order_Object();
+		order.build_discount().type_amount().name(rname).add();
+		expect(order.discounts).toMatchObject(expected);
+	});
+
 	// build_discount.name should respect length limit
 	test('build_discount.name should respect length limit', () => {
 		let order = new Order_Object();
