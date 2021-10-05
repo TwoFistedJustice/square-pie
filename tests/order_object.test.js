@@ -164,12 +164,13 @@ describe('Order object build_discount method', () => {
 		let name = 'Pieville USA';
 		let expected = [
 			{
-				uid : 'Pieville USA'
+				type : 'FIXED_AMOUNT',
+				uid  : 'Pieville USA'
 			}
 		];
 		let order = new Order_Object();
 		order.build_discount().type_amount().uid(name).add();
-		expect(order.discounts.uid).toMatchObject(expected);
+		expect(order.discounts).toMatchObject(expected);
 	});
 
 	// build_discount.name should respect length limit
