@@ -146,49 +146,75 @@ class Order_Object {
     this._fardel.pricing_options.push(obj);
   }
   set service_charges(obj) {
+    // TODO RUSS set it to array if it isn't already
+    if (!Array.isArray(this._fardel.service_charges)) {
+      this._fardel.service_charges = [];
+    }
     this._fardel.service_charges.push(obj);
   }
   set discounts(obj) {
+    // TODO RUSS set it to array if it isn't already
+    if (!Array.isArray(this._fardel.discounts)) {
+      this._fardel.discounts = [];
+    }
     this._fardel.discounts.push(obj);
   }
   set taxes(obj) {
+    // TODO RUSS set it to array if it isn't already
+    if (!Array.isArray(this._fardel.taxes)) {
+      this._fardel.taxes = [];
+    }
     this._fardel.taxes.push(obj);
   }
   set fulfillments(obj) {
+    // TODO RUSS set it to array if it isn't already
+    if (!Array.isArray(this._fardel.fulfillments)) {
+      this._fardel.fulfillments = [];
+    }
     this._fardel.fulfillments.push(obj);
   }
   set line_items(obj) {
+    // TODO RUSS set it to array if it isn't already
+    if (!Array.isArray(this._fardel.line_items)) {
+      this._fardel.line_items = [];
+    }
     this._fardel.line_items.push(obj);
   }
 
   // METHODS`
 
-  #amount_money(amount, currency) {
+  #amount_money(amt, currency) {
+    let amount = Number(amt);
+    if (isNaN(amount) || typeof amt === "boolean") {
+      throw new TypeError(`'amount' must be a number. received: ${typeof amt}`);
+    }
     if (currency) {
       if (typeof currency !== "string" || currency.length !== 3) {
         throw new Error("Currency must be ISO 4217 compliant");
       }
     }
     return {
-      amount_money: amount,
-      currency: currency,
+      amount_money: { amount, currency },
     };
   }
 
-  #applied_money(amount, currency) {
+  #applied_money(amt, currency) {
+    let amount = Number(amt);
+    if (isNaN(amount) || typeof amt === "boolean") {
+      throw new TypeError(`'amount' must be a number. received: ${typeof amt}`);
+    }
     if (currency) {
       if (typeof currency !== "string" || currency.length !== 3) {
         throw new Error("Currency must be ISO 4217 compliant");
       }
     }
     return {
-      applied_money: amount,
-      currency: currency,
+      applied_money: { amount, currency },
     };
   }
 
   build_state() {
-    let methods = function () {
+    let methods = () => {
       let properties = {
         self: this,
         open: function () {
@@ -230,7 +256,7 @@ class Order_Object {
   }
 
   build_discount() {
-    let methods = function () {
+    let methods = () => {
       let discount = {};
       let define = (prop, val) => {
         Object.defineProperty(discount, prop, {
@@ -245,13 +271,20 @@ class Order_Object {
           return this;
         },
         name: function (name) {
-          if (maxLength(this.self.configuration.discount.name)) {
+          if (
+            maxLength(this.self.configuration.lengthLimits.discount.name, name)
+          ) {
             define("catalog_object_id", name);
           }
           return this;
         },
         catalog_object_id: function (id) {
-          if (maxLength(this.self.configuration.discount.catalog_object_id)) {
+          if (
+            maxLength(
+              this.self.configuration.lengthLimits.discount.catalog_object_id,
+              id
+            )
+          ) {
             define("catalog_object_id", id);
           }
           return this;
@@ -336,7 +369,7 @@ class Order_Object {
   } // END build_discount()
   // TODO - see pie_order_object.md
   build_fulfillment_pickup() {
-    let methods = function () {
+    let methods = () => {
       const properties = { self: this };
       return properties;
     };
@@ -352,7 +385,7 @@ class Order_Object {
   }
   // TODO - see pie_order_object.md
   build_line_item() {
-    let methods = function () {
+    let methods = () => {
       const properties = { self: this };
       return properties;
     };
@@ -365,7 +398,7 @@ class Order_Object {
   }
 
   make() {
-    const methods = function () {
+    const methods = () => {
       const properties = {
         self: this,
         version: function (ver) {
