@@ -258,6 +258,22 @@ describe('Order object build_discount method', () => {
 		expect(order.discounts).toMatchObject(expected);
 	});
 
+	// build_discount amount_money should equal expected
+	test('build_discount applied_money with amount only should equal expected', () => {
+		let expected = [
+			{
+				applied_money : {
+					amount   : 46,
+					currency : 'USD'
+				},
+				type          : 'FIXED_PERCENTAGE'
+			}
+		];
+		let order = new Order_Object();
+		order.build_discount().type_percentage().applied_money(46).add();
+		expect(order.discounts).toMatchObject(expected);
+	});
+
 	// build_discount.name should respect length limit
 	test('build_discount.name should respect length limit', () => {
 		let order = new Order_Object();
