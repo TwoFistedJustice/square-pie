@@ -187,6 +187,20 @@ describe('Order object build_discount method', () => {
 		expect(order.discounts).toMatchObject(expected);
 	});
 
+	// build_discount catalog_object_id should equal string
+	test('build_discount catalog_object_id should equal expected', () => {
+		let info = '913v1113';
+		let expected = [
+			{
+				catalog_object_id : '913v1113',
+				type              : 'FIXED_AMOUNT'
+			}
+		];
+		let order = new Order_Object();
+		order.build_discount().type_amount().catalog_object_id(info).add();
+		expect(order.discounts).toMatchObject(expected);
+	});
+
 	// build_discount.name should respect length limit
 	test('build_discount.name should respect length limit', () => {
 		let order = new Order_Object();
