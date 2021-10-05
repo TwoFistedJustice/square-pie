@@ -159,8 +159,20 @@ describe('Order object build_discount method', () => {
 	//  that way if one part breaks it will be immediately apparent
 	//  sorry for not being clear...
 
-	// build_discount uid should equal name
-	test('build_discount uid should equal name', () => {
+	// build_discount add should equal expected
+	test('build_discount add should equal expected', () => {
+		let expected = [
+			{
+				type : 'FIXED_AMOUNT'
+			}
+		];
+		let order = new Order_Object();
+		order.build_discount().type_amount().add();
+		expect(order.discounts).toMatchObject(expected);
+	});
+
+	// build_discount uid should equal expected
+	test('build_discount uid should equal expected', () => {
 		let name = 'Pieville USA';
 		let expected = [
 			{
