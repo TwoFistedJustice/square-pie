@@ -214,6 +214,7 @@ describe('Order object build_discount method', () => {
 		order.build_discount().type_amount().scope_line().add();
 		expect(order.discounts).toMatchObject(expected);
 	});
+
 	// build_discount type_percentage should equal expected
 	// NOTE: BG - both type_percentage and type_amount set the same key (type)
 	// but it's not stated in the docs.
@@ -225,6 +226,19 @@ describe('Order object build_discount method', () => {
 		];
 		let order = new Order_Object();
 		order.build_discount().type_percentage().add();
+		expect(order.discounts).toMatchObject(expected);
+	});
+
+	// build_discount percentage should equal expected
+	test('build_discount percentage should equal expected', () => {
+		let expected = [
+			{
+				percentage : 7.25,
+				type       : 'FIXED_PERCENTAGE'
+			}
+		];
+		let order = new Order_Object();
+		order.build_discount().type_percentage().percentage(7.25).add();
 		expect(order.discounts).toMatchObject(expected);
 	});
 
