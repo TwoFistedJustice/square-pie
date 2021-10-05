@@ -173,8 +173,9 @@ describe('Order object build_discount method', () => {
 		expect(order.discounts).toMatchObject(expected);
 	});
 
-	// build_discount name should equal string
-	test('build_discount name should equal name', () => {
+	// build_discount name should equal expected
+	// NOTE: BG - this is failing despite being exactly line the uid test
+	test('build_discount name should equal expected', () => {
 		let rname = 'Pieville USA';
 		let expected = [
 			{
@@ -187,7 +188,7 @@ describe('Order object build_discount method', () => {
 		expect(order.discounts).toMatchObject(expected);
 	});
 
-	// build_discount catalog_object_id should equal string
+	// build_discount catalog_object_id should equal expected
 	test('build_discount catalog_object_id should equal expected', () => {
 		let info = '913v1113';
 		let expected = [
@@ -201,7 +202,7 @@ describe('Order object build_discount method', () => {
 		expect(order.discounts).toMatchObject(expected);
 	});
 
-	// build_discount scope_line should equal string
+	// build_discount scope_line should equal expected
 	test('build_discount scope_line should equal expected', () => {
 		let expected = [
 			{
@@ -211,6 +212,19 @@ describe('Order object build_discount method', () => {
 		];
 		let order = new Order_Object();
 		order.build_discount().type_amount().scope_line().add();
+		expect(order.discounts).toMatchObject(expected);
+	});
+	// build_discount type_percentage should equal expected
+	// NOTE: BG - both type_percentage and type_amount set the same key (type)
+	// but it's not stated in the docs.
+	test('build_discount type_percentage should equal expected', () => {
+		let expected = [
+			{
+				type : 'FIXED_PERCENTAGE'
+			}
+		];
+		let order = new Order_Object();
+		order.build_discount().type_percentage().add();
 		expect(order.discounts).toMatchObject(expected);
 	});
 
