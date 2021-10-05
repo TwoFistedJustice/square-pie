@@ -258,7 +258,7 @@ describe('Order object build_discount method', () => {
 		expect(order.discounts).toMatchObject(expected);
 	});
 
-	// build_discount amount_money should equal expected
+	// build_discount applied_money should equal expected
 	test('build_discount applied_money with amount only should equal expected', () => {
 		let expected = [
 			{
@@ -271,6 +271,19 @@ describe('Order object build_discount method', () => {
 		];
 		let order = new Order_Object();
 		order.build_discount().type_percentage().applied_money(46).add();
+		expect(order.discounts).toMatchObject(expected);
+	});
+
+	// build_discount pricing_rule_id should equal expected
+	test('build_discount pricing_rule_id with amount only should equal expected', () => {
+		let expected = [
+			{
+				pricing_rule_id : 'someId',
+				type            : 'FIXED_PERCENTAGE'
+			}
+		];
+		let order = new Order_Object();
+		order.build_discount().type_percentage().pricing_rule_id('someId').add();
 		expect(order.discounts).toMatchObject(expected);
 	});
 
