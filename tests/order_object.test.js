@@ -121,12 +121,12 @@ describe("Order object build_discount method", () => {
       {
         applied_money: {
           amount: 46,
-          currency: "ASD",
+          currency: "AUD",
         },
       },
     ];
     let order = new Order_Object();
-    order.build_service_charge_applied(46, "ASD");
+    order.build_service_charge_applied(46, "AUD");
     expect(order.service_charges).toMatchObject(expected);
   });
   //build_service_charge_applied should automatically set "USD" when given just amount
