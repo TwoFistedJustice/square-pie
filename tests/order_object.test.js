@@ -144,11 +144,6 @@ describe("Order object build_discount method", () => {
     expect(order.service_charges).toMatchObject(expected);
   });
 
-  // build_discount should do all the things - like 9 things minimum - have fun
-  // TODO NOTE: RB- this was meant to imply a separate test for each part
-  //  that way if one part breaks it will be immediately apparent
-  //  sorry for not being clear...
-
   // build_discount add should equal expected
   test("build_discount add should equal expected", () => {
     let expected = [
@@ -161,7 +156,11 @@ describe("Order object build_discount method", () => {
     expect(order.discounts).toMatchObject(expected);
   });
 
-  // build_discount uid should equal expected
+  // todo NOTE: RB - test statements should state clearly what they are testing
+  //   "should equal expected" doesn't say anything useful
+  //  a more useful statement might be something like
+  //  build_discount().uid() should set discount.uid to the provided string value"
+  // todo: Restate test statements to be descriptive of what is actually under test
   test("build_discount uid should equal expected", () => {
     let name = "Pieville USA";
     let expected = [
@@ -177,6 +176,8 @@ describe("Order object build_discount method", () => {
 
   // build_discount name should equal expected
   // NOTE: BG - this is failing despite being exactly line the uid test
+  // NOTE: RB= it's failing bc I effed up the the arguments passed to define(). Err, I mean, WHAT? You must have done something to break it!
+  // NOTE: RB - fixed it. Err, I mean, I don't know what you are talking about. It always worked. Stop breaking stuff!
   test("build_discount name should equal expected", () => {
     let rname = "Pieville USA";
     let expected = [
