@@ -89,12 +89,12 @@ describe("Order object build_discount method", () => {
       {
         amount_money: {
           amount: 42,
-          currency: "ASD",
+          currency: "AUD",
         },
       },
     ];
     let order = new Order_Object();
-    order.build_service_charge_amount("42", "ASD");
+    order.build_service_charge_amount("42", "AUD");
     expect(order.service_charges).toMatchObject(expected);
   });
 
