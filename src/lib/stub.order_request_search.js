@@ -1,6 +1,6 @@
 const Order_Request = require("./order_request");
 
-class someClass extends Order_Request {
+class Order_Search extends Order_Request {
   constructor(props) {
     super(props);
     this._method = "post";
@@ -23,5 +23,4 @@ class someClass extends Order_Request {
   }
 }
 
-module.exports = someClass;
-7;
+module.exports = Order_Search;
