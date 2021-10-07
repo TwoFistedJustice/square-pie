@@ -270,11 +270,9 @@ class Order_Object {
   }
 
   build_service_charge_applied(amount, currency) {
-    if (!currency) {
-      currency = "USD";
-    }
-    let obj = this.#applied_money(amount, currency);
-    this.service_charges = obj;
+    let service_charge = {};
+    define(service_charge, "applied_money", this.#money(amount, currency));
+    this.service_charges = service_charge;
   }
 
   build_discount() {
