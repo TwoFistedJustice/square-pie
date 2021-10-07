@@ -31,8 +31,8 @@
 |                      | POST   | 'orders/clone '          | idempotency_key                  |
 |                      | POST   | 'orders/clone '          | order_id                         |
 |                      | POST   | 'orders/clone '          | version (useless do not support) |
-|                      | PUT    | 'orders/{object_id}'     |                                  |
-| Order_Update         |        |                          | fields_to_clear: []              | [Update Order](https://developer.squareup.com/reference/square/orders-api/update-order)            |
+| Order_Update         | PUT    | 'orders/{object_id}'     |                                  | [Update Order](https://developer.squareup.com/reference/square/orders-api/update-order)            |
+|                      |        |                          | fields_to_clear: []              |                                                                                                    |
 |                      |        |                          | idempotency_key                  |
 |                      |        |                          | order: (special)                 |
 |                      |        |                          | fields_to_clear: []              |
