@@ -3,7 +3,7 @@ const Order_Request = require("./order_request");
 class someClass extends Order_Request {
   constructor(props) {
     super(props);
-    this._method = "";
+    this._method = "post";
     this._endpoint = "";
     this._body = {};
   }
