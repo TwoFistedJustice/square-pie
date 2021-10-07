@@ -1,8 +1,13 @@
-##Catalog_Info class
+# Catalog_Info class
+
 The list endpoint sends back some data you can see, and some you have to parse yourself to see.
 This class parses it for you.
 
-**How to use:**
+<br/>
+
+## How to use
+
+---
 
 1. Instantiate the class to a variable.
 2. call `.request()`
@@ -25,7 +30,12 @@ Access parts:
 - `info.standard_units`
 - `info.standard_units_json`
 
-**Standard Units**\
+<br/>
+
+## Standard Units
+
+---
+
 These are units of measure.
 
 To view them as javascript objects access `.standard_units`. This will return an array of objects that look like:
@@ -41,24 +51,34 @@ To view them as javascript objects access `.standard_units`. This will return an
 To view them as JSON, access `.standard_unit_json`. This will return an array of objects that look like:
 
 ```json
-'{\n' +
-'  "unit": {\n' +
-'    "area_unit": "METRIC_SQUARE_CENTIMETER",\n' +
-'    "type": "TYPE_AREA"\n' +
-'  },\n' +
-'  "name": "Square Centimeter",\n' +
-'  "abbreviation": "sq cm"\n' +
-'}'
+{
+  "unit": {
+    "area_unit": "METRIC_SQUARE_CENTIMETER",
+    "type": "TYPE_AREA"
+  },
+  "name": "Square Centimeter",
+  "abbreviation": "sq cm"
+}'
 ```
 
-**Language Code**\
+<br/>
+
+## Language Code
+
+---
+
 Access the language code with `.language_code`. This will return a string that looks like:
 
 ```js
 "en-US";
 ```
 
-**Limits**\
+<br/>
+
+## Limits
+
+---
+
 Access only the limits with `.limits`. This will return an object that looks like:
 
 ```js
