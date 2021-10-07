@@ -1,6 +1,6 @@
 // this is not a super of fulfillment
 
-const { maxLength } = require("./utilities_curry");
+const { define, maxLength } = require("./utilities_curry");
 
 class Order_Object {
   // _idempotency_key;// set on the Request, NOT the object
@@ -183,8 +183,27 @@ class Order_Object {
 
   // METHODS`
 
+  #money(amt, currency) {
+    let amount = Number(amt);
+    if (!currency) {
+      currency = "USD";
+    }
+    if (isNaN(amount) || typeof amt === "boolean") {
+      throw new TypeError(`'amount' must be a number. received: ${typeof amt}`);
+    }
+    if (currency) {
+      if (typeof currency !== "string" || currency.length !== 3) {
+        throw new Error("Currency must be ISO 4217 compliant");
+      }
+    }
+    return { amount, currency };
+  }
+
   #amount_money(amt, currency) {
     let amount = Number(amt);
+    if (!currency) {
+      currency = "USD";
+    }
     if (isNaN(amount) || typeof amt === "boolean") {
       throw new TypeError(`'amount' must be a number. received: ${typeof amt}`);
     }
@@ -200,6 +219,9 @@ class Order_Object {
 
   #applied_money(amt, currency) {
     let amount = Number(amt);
+    if (!currency) {
+      currency = "USD";
+    }
     if (isNaN(amount) || typeof amt === "boolean") {
       throw new TypeError(`'amount' must be a number. received: ${typeof amt}`);
     }
@@ -258,23 +280,17 @@ class Order_Object {
   build_discount() {
     let methods = () => {
       let discount = {};
-      let define = (prop, val) => {
-        Object.defineProperty(discount, prop, {
-          value: val,
-          enumerable: true,
-        });
-      };
       let properties = {
         self: this,
         uid: function (name) {
-          define("uid", name);
+          define(discount, "uid", name);
           return this;
         },
         name: function (name) {
           if (
             maxLength(this.self.configuration.lengthLimits.discount.name, name)
           ) {
-            define("name", name);
+            define(discount, "name", name);
           }
           return this;
         },
@@ -285,16 +301,16 @@ class Order_Object {
               id
             )
           ) {
-            define("catalog_object_id", id);
+            define(discount, "catalog_object_id", id);
           }
           return this;
         },
         scope_line: function () {
-          define("scope", "LINE_ITEM");
+          define(discount, "scope", "LINE_ITEM");
           return this;
         },
         scope_order: function () {
-          define("scope", "ORDER");
+          define(discount, "scope", "ORDER");
           return this;
         },
         percentage: function (percent) {
@@ -306,35 +322,35 @@ class Order_Object {
               '"build_discount.percentage() only accepts numbers and strings that can be converted to a number."'
             );
           }
-          define("percentage", percent);
+          define(discount, "percentage", percent);
           return this;
         },
         type_percentage: function () {
-          define("type", "FIXED_PERCENTAGE");
+          define(discount, "type", "FIXED_PERCENTAGE");
           return this;
         },
         type_amount: function () {
-          define("type", "FIXED_AMOUNT");
+          define(discount, "type", "FIXED_AMOUNT");
           return this;
         },
         amount_money: function (amount, currency) {
-          let obj = this.self.#amount_money(amount, currency);
-          define("amount_money", obj);
+          let obj = this.self.#money(amount, currency);
+          define(discount, "amount_money", obj);
           return this;
         },
         applied_money: function (amount, currency) {
-          let obj = this.self.#applied_money(amount, currency);
-          define("applied_money", obj);
+          let obj = this.self.#money(amount, currency);
+          define(discount, "applied_money", obj);
           return this;
         },
         pricing_rule_id: function (id) {
-          define("pricing_rule_id", id);
+          define(discount, "pricing_rule_id", id);
           return this;
         },
         reward_ids: function (id) {
           // check if discount.reward_ids is an array
           if (!Array.isArray(discount.reward_ids)) {
-            define("reward_ids", []);
+            define(discount, "reward_ids", []);
           }
           discount.reward_ids.push(id);
           return this;
@@ -346,7 +362,7 @@ class Order_Object {
             !Object.prototype.hasOwnProperty.call(discount, "uid")
           ) {
             let uid = discount.name.toLowerCase();
-            define("uid", uid.replace(" ", "-"));
+            define(discount, "uid", uid.replace(" ", "-"));
           }
           if (
             !Object.prototype.hasOwnProperty.call(
