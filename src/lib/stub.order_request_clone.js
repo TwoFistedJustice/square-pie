@@ -4,7 +4,7 @@ class someClass extends Order_Request {
   constructor(props) {
     super(props);
     this._method = "post";
-    this._endpoint = "";
+    this._endpoint = "clone";
     this._body = {};
   }
 
