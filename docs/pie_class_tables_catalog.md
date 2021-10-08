@@ -1,5 +1,7 @@
 # Pie Class Tables: Catalog
 
+<br/>
+
 ## Structures
 
 | Level One Classes | Super | Implemented | Short Notes |
@@ -22,6 +24,8 @@
 | Catalog_Info                           | Catalog_Request |             |
 | Catalog_Image                          | Catalog_Request | !           | de-prioritized - will take a lot of time and isn't needed by Pieville USA                                                     |
 
+<br/>
+
 ## Cross Reference: Pie and Square
 
 | API     | Command              | Method | Resource Location                     | Class                                  | Square Docs                                                                                                     | Additional Information |
@@ -39,6 +43,8 @@
 | Catalog | LIST                 | GET    | '/catalog/list'                       | Catalog_List                           | [LIST](https://developer.squareup.com/reference/square/catalog-api/list-catalog)                                |
 | Catalog | INFO                 | GET    | '/catalog/info'                       | Catalog_Info                           | [INFO](https://developer.squareup.com/reference/square/catalog-api/catalog-info)                                |
 | Catalog | CREATE image         | POST   | '/catalog/images'                     | Catalog_Image                          | [CREATE image](https://developer.squareup.com/reference/square/catalog-api/create-catalog-image)                |
+
+<br/>
 
 ## Delete
 
@@ -71,6 +77,8 @@ begets
 { deleted_at: '2021-09-03T23:00:53.445Z' }
 ```
 
+<br/>
+
 ## retrieve
 
 ---
@@ -78,6 +86,8 @@ begets
 method: POST
 
 Only used 'batch' since that can handle just one
+
+<br/>
 
 ## upsert
 
@@ -88,6 +98,8 @@ method: POST
 . batch
 .one
 
+<br/>
+
 ## update
 
 ---
@@ -96,9 +108,13 @@ method: super\
 .taxes\
 .modifier_lists
 
+<br/>
+
 ## search items can only search for items or item variations
 
 ---
+
+<br/>
 
 ## search objects can search for any type of catalog objects
 
@@ -107,6 +123,8 @@ method: super\
 Square's endpoint does two mutually exclusive things. It allows you to stack criteria to create a filter. Or it allows you to
 cross reference objects that contain references to other objects of certain types. Therefore we breakt the functionality into
 two distince classes, both subs of Catalog_Request_Search
+
+<br/>
 
 ## Catalog_Request_Object_Search_Filter
 
@@ -125,6 +143,8 @@ will tell you what you did wrong.
 - _prefix_query_- as far as I can tell this may be the "fuzzy" version of exact_query. It does the basically same thing but allows partial values. for example: Find names that start with a given letter.
 - _range_query_- for finding numeric values. If searching by price, use "amount" for attribute_name.
 - _text_query_ - Indiscriminate property search. Pass it up to three string values. If any property has that value, the object is returned.
+
+<br/>
 
 ## Catalog_Request_Object_Search_Cross_Reference
 
