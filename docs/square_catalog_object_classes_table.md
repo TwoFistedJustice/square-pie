@@ -1,8 +1,10 @@
-#Square Catalog Items - current as of Version 2021-07-21
-###These tables are arranged to help us understand how to implement, NOT to model Square's data structure.
+# Square Catalog Items - current as of Version 2021-07-21
+
+## These tables are arranged to help us understand how to implement, NOT to model Square's data structure
+
 [Tables based on Square Docs for Catalog Object](https://developer.squareup.com/reference/square/enums/CatalogObjectType)
 
-###Observations
+### Observations
 
 - CatalogObjects get nested inside each other
 
@@ -34,7 +36,7 @@ Solution: Use fewer classes and use mixins
 | Level X Objects             | Priority  | Super                | Idempotent | Implemented | Unit Tests in Place | Square Doc                                                                                                         | Short Notes                     |
 | --------------------------- | --------- | -------------------- | ---------- | ----------- | ------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------- |
 | Category                    |           | Catalog_Object_Super | no         |             |                     | [CATEGORY](https://developer.squareup.com/reference/square/objects/CatalogCategory)                                |
-| Item                        |           | Catalog_Object_Super | no         |             |                     | [ITEM ](https://developer.squareup.com/reference/square/objects/CatalogItem)                                       |
+| Item                        |           | Catalog_Object_Super | no         |             |                     | [ITEM](https://developer.squareup.com/reference/square/objects/CatalogItem)                                       |
 | Item_Variation              |           | Catalog_Object_Super | no         |             |                     | [ITEM_VARIATION](https://developer.squareup.com/reference/square/objects/CatalogItemVariation)                     |
 | Tax                         | PRIORITY  | Catalog_Object_Super | no         | !           | !                   | [TAX](https://developer.squareup.com/reference/square/objects/CatalogTax)                                          |
 | Custom_Attribute_Definition |           | Catalog_Object_Super | no         | !           | !                   | [CUSTOM_ATTRIBUTE_DEFINITION](https://developer.squareup.com/reference/square/objects/CatalogCustomAttributeValue) |
@@ -48,14 +50,16 @@ Solution: Use fewer classes and use mixins
 | Quick_Amounts_Setting       | property? | ?                    | no         | !           | !                   | [QUICK_AMOUNT_SETTINGS](https://developer.squareup.com/reference/square/objects/CatalogQuickAmountsSettings)       |
 | Time_Period                 | property? | ?                    | no         | !           | !                   | [TIME_PERIOD]()                                                                                                    |
 
-###Catalog_Object class
+### Catalog_Object class
+
 |Property | Type | Char Limit
 
 - sets idempotency key
 - sets name
 
-###Catalog_Item_Variation
-.\_parent_id : id of the item it belongs to
+### Catalog_Item_Variation
+
+`._parent_id` : id of the item it belongs to
 
 ## CatalogObject
 
@@ -194,7 +198,7 @@ Solution: Use fewer classes and use mixins
 | Class | Method Name | Owns Properties | Sub Properties | Value Type | Short Notes | Implemented |
 | ----- | ----------- | --------------- | -------------- | ---------- | ----------- | ----------- |
 
-##These need to be tabled
+## These need to be tabled
 
 | Class | Super.propertyName               | Owns Properties | Read Only Properties | Value Type                       | Mutable | Short Notes |
 | ----- | -------------------------------- | --------------- | -------------------- | -------------------------------- | ------- | ----------- |
