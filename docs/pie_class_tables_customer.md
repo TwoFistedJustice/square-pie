@@ -4,8 +4,6 @@
 
 ## Structures
 
----
-
 ### Level One Classes
 
 | Level One Classes | Super | Implemented | Short Notes |
