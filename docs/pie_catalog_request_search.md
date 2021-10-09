@@ -24,18 +24,19 @@ This is what a search objects request body may look like:
 
 ## How to search
 
----
-
 To restrict the type of object
 
 - call the `yourVar.object_types().TYPE_OF_OBJECT()`\
 - use setter notation `yourVar.object_types = "ITEM"`
 
 If Square Catalog has the object as a type, add that type in ALL_CAPS as a method call.
-Your autocomplete will not recognize this. Some common calls look like"\
-`.object_types().ITEM_VARIATION()`\
-`.object_types().CATEGORY()`\
-`.object_types().ITEM()`\
+Your autocomplete will not recognize this. Some common calls look like"
+
+```js
+.object_types().ITEM_VARIATION()
+.object_types().CATEGORY()
+.object_types().ITEM()
+```
 
 You could also do something like below to get two types:
 `.object_types().CATEGORY().object_types().ITEM_VARIATION()`
@@ -51,8 +52,6 @@ search.name;
 
 ## Catalog_Search_Objects_Super
 
----
-
 The common elements between the two types of Catalog Object Search live here.
 This sets the endpoint and method and has the configuration property for the auto generator.
 It holds the following properties on the `._body` property:
@@ -66,8 +65,6 @@ It holds the following properties on the `._body` property:
 <br/>
 
 ## Catalog_Search_Objects_Filter
-
----
 
 ### What this class does
 
@@ -88,14 +85,23 @@ The property name has to be exactly the same, but the value can be exactly or pa
 
 ### Adding an object type
 
-You can directly access the setter:\
-`yourVar.object.type = "ITEM"`
+You can directly access the setter:
 
-You can access the alias on the make method:\
-`yourVar.make().add_object_type("ITEM")`
+```js
+yourVar.object.type = "ITEM"
+```
 
-You can access one of the auto generated chain setters on the make method:\
-`yourVar.make().object_type().ITEM();`
+You can access the alias on the make method:
+
+```js
+yourVar.make().add_object_type("ITEM")
+```
+
+You can access one of the auto generated chain setters on the make method:
+
+```js
+yourVar.make().object_type().ITEM();
+```
 
 Make sure that you use ALLCAPS to reference the type. Any Square Catalog Object type is valid.
 
@@ -110,8 +116,6 @@ to the object_types array.
 
 ## Chainable Methods
 
----
-
 These are the methods you can use to build up a filter for your search. Any method that ends in `_query` corresponds directly
 to the property names on the query property in the Square docs for [Search catalog objects](https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects)
 The outlines below show how the argument should be structured.
@@ -119,8 +123,6 @@ The outlines below show how the argument should be structured.
 <br/>
 
 > **NOTE:** if an arg property is not marked "// OPTIONAL" it is **REQUIRED**
-
-<br/>
 
 ### **exact_query(obj)**
 
@@ -135,8 +137,6 @@ Will throw errors on:\
 The input is incorrectly formatted.
 either property is not of type "string"
 
-<br/>
-
 ### **set_query(obj)**
 
 ```js
@@ -146,12 +146,11 @@ obj = {
 };
 ```
 
-Will throw errors on:\
-The input is incorrectly formatted.
-attribute_name is not of type "string"
-attribute_values is not an array
+#### :warning: Will throw errors on
 
-<br/>
+The input is incorrectly formatted.\
+attribute_name is not of type "string"\
+attribute_values is not an array
 
 ### **prefix_query(obj)**
 
@@ -166,8 +165,6 @@ Will throw errors on:\
 The input is incorrectly formatted.
 either property is not of type "string"
 
-<br/>
-
 ### **range_query(obj)**
 
 ```js
@@ -181,8 +178,6 @@ obj = {
 Will throw errors on:\
 The input is incorrectly formatted.
 attribute_name is not of type "string"
-
-<br/>
 
 ### **sorted_attribute_query(obj)**
 
@@ -199,8 +194,6 @@ Will throw errors on:\
 The input is incorrectly formatted.
 sort_order contains any value other than "ASC" or "DESC";
 
-<br/>
-
 ### **text_query(arr)**
 
 Takes an array of \_no more than\* three strings. Throws an error on an empty array or if the array has a length greater than 3
@@ -211,8 +204,6 @@ arr = ["word1", "word2", "word3"];
 
 Will throw errors on:\
 The array passed has more than 3 elements.
-
-<br/>
 
 ### **text_query_add(word)**
 
@@ -227,8 +218,6 @@ word = "some word";
 
 Will throw errors on:\
 None. See setter.
-
-<br/>
 
 ### **text_query_remove(word)**
 
@@ -253,13 +242,9 @@ Will throw an error if there are no keywords or no keyword array.
 
 ## Catalog_Search_Objects_Cross_Reference
 
----
-
 > **Note**: Square docs misrepresent the way the query property works.
 > They say that cross-reference properties sit on the query property. They do not.
 > They replace it. This class takes care of that so you don't have to worry about it.
-
-<br/>
 
 ### **What this class does**
 
@@ -290,14 +275,10 @@ types at a time.
 4. `await xref.request`
 5. `console.log(xref.delivery)`
 
-<br/>
-
 ### **Adding IDs**
 
 simply call `.addId("the id you want toadd")`
 You can chain on as many as you want or call it multiple times from different lines. It's all the same.
-
-<br/>
 
 ### **Item types**
 
@@ -312,8 +293,6 @@ Your options for step 3 in Details are:
 - `.modifiers()`
 - `.taxes()`
 
-<br/>
-
 ### **Removing IDs**
 
 You can clear all your IDs by calling `.clearIds()`
@@ -323,8 +302,6 @@ There is not a way presently to remove just one id. There is a feature request f
 <br/>
 
 ## Catalog_Search_Items
-
----
 
 Use this class when you want to search only Items and Item-Variations
 It is analogous to Square's [Search catalog items](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items)
@@ -342,8 +319,6 @@ Possible values are "ASC" _or_ "DESC". You can use one or the other.
 - `.sortup()`
 - `.sortdown()`
 
-<br/>
-
 ### **Stock Levels**
 
 Search by whether you are completely or amost out of something. If you don't have inventory enabled for the item, this wil fudge up your search.
@@ -360,8 +335,6 @@ Can accept two values "OUT" and "LOW". You can use both at the same time.
 
 `.lowout()` and `.outlow()` do exactly the same thing. They set the vaue to both "LOW" and "OUT".
 Whichever one sticks in your brain is the correct one to use.
-
-<br/>
 
 ### **Text Filter**
 
@@ -385,8 +358,6 @@ For item-variations it searches the fields
 - `.make().text_filter(str)`
 - `.text(str)`
 
-<br/>
-
 ### **Product Types**
 
 You can limit your search to either "REGULAR" or "APPOINTMENTS_SERVICE"
@@ -402,8 +373,6 @@ value will be set.
 - `.regular()`
 - `.appt()`
 
-<br/>
-
 ### **Category IDs**
 
 Feed it the object ID of the category you want to filter by. It would be nice if we could just use the category name, but we can't, not allowed.
@@ -414,8 +383,6 @@ Feed it the object ID of the category you want to filter by. It would be nice if
 - `.make().category_ids(id)`
 - `.category(id)`
 
-<br/>
-
 ### **Enabled Location IDs**
 
 Feed it the object ID of the category you want to filter by.
@@ -425,8 +392,6 @@ Feed it the object ID of the category you want to filter by.
 - `.enabled_location_ids = id;`
 - `.make().enabled_location_ids(id)`
 - `.location(id)`
-
-<br/>
 
 ### **Custom Attribute Filters**
 
