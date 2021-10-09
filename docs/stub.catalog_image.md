@@ -27,7 +27,9 @@ Call `.make()` to chain on setters. Since there are only two setters, this shoul
 
 The response data is stashed on the `.delivery` property.
 
-### **How to Use**
+<br/>
+
+## How to Use
 
 1. Instantiate the class.
 2. attach your object
