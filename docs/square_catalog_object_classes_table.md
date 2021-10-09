@@ -15,8 +15,7 @@ Do like we did with Customers api
 Have the top level class make the request and set certain properties
 Then have the lower level classes contribute the rest
 
-BECAUSE the upsert features are primarily designed to work with BATCHES\
-: we will have to create the Objects, add them to an array and send that array as a property on the upsert command
+BECAUSE the upsert features are primarily designed to work with BATCHES we will have to create the Objects, add them to an array and send that array as a property on the upsert command
 
 #### **Argument Against:**
 
@@ -25,10 +24,18 @@ Solution: Use fewer classes and use mixins
 
 ### Catalog_Object super should just be a WRAPPER - and not a super at all
 
+<br/>
+
+### Level One Objects
+
 | Level One Objects      | Super | Idempotent | Implemented | Unit Tests in Place | Short Notes                                                                       | Square Doc                                                                             |
 | ---------------------- | ----- | ---------- | ----------- | ------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | Catalog_Object_Wrapper | none  | yes        |             |                     |                                                                                   | [CatalogObject](https://developer.squareup.com/reference/square/objects/CatalogObject) |
 | Catalog_Object_Super   | none  | no         |             |                     | Owns id property for setting temporary upser id, adds a hash mark if user doesn't |
+
+<br/>
+
+### Level Two Objects
 
 | Level Two Objects       | Super                | Idempotent | Implemented | Unit Tests in Place | Short Notes | Square Doc |
 | ----------------------- | -------------------- | ---------- | ----------- | ------------------- | ----------- | ---------- |
@@ -36,6 +43,8 @@ Solution: Use fewer classes and use mixins
 | Catalog_Object_Category | Catalog_Object_Super | no         |             |                     |
 
  <br/>
+
+### Level X Objects
 
 | Level X Objects             | Priority  | Super                | Idempotent | Implemented | Unit Tests in Place | Square Doc                                                                                                         | Short Notes                     |
 | --------------------------- | --------- | -------------------- | ---------- | ----------- | ------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------- |
