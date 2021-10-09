@@ -26,7 +26,7 @@ This is what a search objects request body may look like:
 
 To restrict the type of object
 
-- call the `yourVar.object_types().TYPE_OF_OBJECT()`\
+- call the `yourVar.object_types().TYPE_OF_OBJECT()`
 - use setter notation `yourVar.object_types = "ITEM"`
 
 If Square Catalog has the object as a type, add that type in ALL_CAPS as a method call.
@@ -135,8 +135,8 @@ obj = {
 
 #### :warning: Will throw errors on
 
-The input is incorrectly formatted.
-either property is not of type "string"
+- The input is incorrectly formatted.
+- either property is not of type "string"
 
 ### **set_query(obj)**
 
@@ -149,9 +149,9 @@ obj = {
 
 #### :warning: Will throw errors on
 
-The input is incorrectly formatted.\
-attribute_name is not of type "string"\
-attribute_values is not an array
+- The input is incorrectly formatted.
+- attribute_name is not of type "string"
+- attribute_values is not an array
 
 ### **prefix_query(obj)**
 
@@ -164,8 +164,8 @@ obj = {
 
 #### :warning: Will throw errors on:
 
-The input is incorrectly formatted.
-either property is not of type "string"
+- The input is incorrectly formatted.
+- either property is not of type "string"
 
 ### **range_query(obj)**
 
@@ -179,8 +179,8 @@ obj = {
 
 #### :warning: Will throw errors on
 
-The input is incorrectly formatted.
-attribute_name is not of type "string"
+- The input is incorrectly formatted.
+- attribute_name is not of type "string"
 
 ### **sorted_attribute_query(obj)**
 
@@ -195,8 +195,8 @@ obj = {
 
 #### :warning: Will throw errors on
 
-The input is incorrectly formatted.
-sort_order contains any value other than "ASC" or "DESC";
+- The input is incorrectly formatted.
+- sort_order contains any value other than "ASC" or "DESC";
 
 ### **text_query(arr)**
 
@@ -208,7 +208,7 @@ arr = ["word1", "word2", "word3"];
 
 #### :warning: Will throw errors on
 
-The array passed has more than 3 elements.
+- The array passed has more than 3 elements.
 
 ### **text_query_add(word)**
 
@@ -223,7 +223,7 @@ word = "some word";
 
 #### :warning: Will throw errors on
 
-None. See setter.
+- None. See setter.
 
 ### **text_query_remove(word)**
 
@@ -243,7 +243,7 @@ keywords: {
 
 #### :no_entry: Errors
 
-Will throw an error if there are no keywords or no keyword array.
+- Will throw an error if there are no keywords or no keyword array.
 
 <br/>
 
