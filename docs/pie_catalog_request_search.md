@@ -133,7 +133,8 @@ obj = {
 };
 ```
 
-Will throw errors on:\
+#### :warning: Will throw errors on
+
 The input is incorrectly formatted.
 either property is not of type "string"
 
@@ -161,7 +162,8 @@ obj = {
 };
 ```
 
-Will throw errors on:\
+#### :warning: Will throw errors on:
+
 The input is incorrectly formatted.
 either property is not of type "string"
 
@@ -175,7 +177,8 @@ obj = {
 };
 ```
 
-Will throw errors on:\
+#### :warning: Will throw errors on
+
 The input is incorrectly formatted.
 attribute_name is not of type "string"
 
@@ -190,7 +193,8 @@ obj = {
 };
 ```
 
-Will throw errors on:\
+#### :warning: Will throw errors on
+
 The input is incorrectly formatted.
 sort_order contains any value other than "ASC" or "DESC";
 
@@ -202,7 +206,8 @@ Takes an array of \_no more than\* three strings. Throws an error on an empty ar
 arr = ["word1", "word2", "word3"];
 ```
 
-Will throw errors on:\
+#### :warning: Will throw errors on
+
 The array passed has more than 3 elements.
 
 ### **text_query_add(word)**
@@ -216,7 +221,8 @@ adding the new word.
 word = "some word";
 ```
 
-Will throw errors on:\
+#### :warning: Will throw errors on
+
 None. See setter.
 
 ### **text_query_remove(word)**
@@ -235,7 +241,8 @@ keywords: {
 }
 ```
 
-Errors:\
+#### :no_entry: Errors
+
 Will throw an error if there are no keywords or no keyword array.
 
 <br/>
@@ -255,8 +262,6 @@ that use it. This lets you find them.
 You can use it to cross-reference items, item-variations, modifier-lists, and taxes. You can only do it for one of those
 types at a time.
 
-<br/>
-
 #### **How to USE**
 
 1. Instantiate the class, as usual.
@@ -264,8 +269,6 @@ types at a time.
 3. Tell it which type of object you want. This MUST be done AFTER step 2.
 4. `await` the request.
 5. The data will be cached on the delivery property.
-
-<br/>
 
 #### **Details**
 
