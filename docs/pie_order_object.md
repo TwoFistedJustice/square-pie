@@ -2,8 +2,6 @@
 
 ## TO DO
 
----
-
 build_line_items
 
 - [ ] quantity: str
@@ -27,8 +25,6 @@ build_line_items
 
 ## READ ONLY
 
----
-
 total_discount_money\
 total_money\
 total_tax_money\
@@ -37,8 +33,6 @@ variation_total_price_money
 <br/>
 
 ## METHODS
-
----
 
 ### **"build" methods**
 
@@ -49,8 +43,6 @@ You call a build method for each property you want to set.
 ```js
 yourVar.build_someproperty().someValue()
 ```
-
-<br/>
 
 ### **build_state**
 
@@ -63,8 +55,6 @@ yourVar.build_state().someMethod()
 .build_state().canceled() => "CANCELED"
 .build_state().draft() => "DRAFT"
 ```
-
-<br/>
 
 ### **build_discount**
 
@@ -98,8 +88,6 @@ What happens when you call `.add()`
 .build_discount().add() => passes the discount object to the setter.
 ```
 
-<br/>
-
 ### **build_service_charge_amount && build_service_charge_applied**
 
 These are clones with the only difference being in the property name they pass. one passes "amount_money" and one passes "applied_money".
@@ -115,13 +103,9 @@ If you leave out the currency argument, it will automatically set the currency t
 .build_service_charge_applied(amount) => service_charges : [{applied_money: {amount, currency "USD"}}]
 ```
 
-<br/>
-
 ### **[Fulfillments](https://developer.squareup.com/docs/orders-api/how-it-works#fulfillments)**
 
 Square docs explicityl state that all fulfillment orders must have `delay_capture` set to true. They do not mention it again in any context. So what does that mean? What do you get when you cross an elephant and a rhinoceros?
-
-<br/>
 
 ### **build_fulfillment_pickup**
 
@@ -148,8 +132,6 @@ pickup_details
 - curbside_pickup_details
   1. buyer_arrived_at
   2. curbside_details - max 250
-
-<br/>
 
 ### **build_fulfillment_shipment**
 
