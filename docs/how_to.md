@@ -1,6 +1,6 @@
 # How to make an API call
 
-## Everything is a subclass of SqauareRequest class
+> Everything is a subclass of SqauareRequest class
 
 Every call must receive a boolean argument. True makes it call the production api. False sandboxes it.
 You must provide your API key to the request call. It does not have the ability to get it for itself.
@@ -18,8 +18,6 @@ The simplest example is fetching a list of customers:
 <br/>
 
 ## Class Levels
-
----
 
 ### Top Level Classes
 
@@ -56,8 +54,6 @@ The simplest example is fetching a list of customers:
 <br/>
 
 ## Class Breakdowns
-
----
 
 ### Square_Request
 
@@ -121,8 +117,6 @@ Subclass of Create
 
 ## Catalog Object Classes
 
----
-
 ### Catalog_Object classes in general
 
 Whenever you upsert a new object it MUST have a temporary ID that you give it. This is just for your own reference
@@ -162,16 +156,22 @@ Wrapper Class
 Usage:
 Instantiate the wrap
 
-`const foo = new Catalog_Object_Wrapper()`
+```js
+const foo = new Catalog_Object_Wrapper()
+```
 
 Cram in one or more Catalog Objects you created. Don't be gentle, it can eat as many as you serve up.
 
-`foo.attach(obj).attach(obj)`
-Or
-`foo.add(obj).add(obj)`
+`foo.attach(obj).attach(obj)` Or `foo.add(obj).add(obj)`
 
-Tell it when you are done adding objects.\
-`foo.finalize()`
+Tell it when you are done adding objects.
 
-The correctly formatted catalog object payload now sits on the fardel property.\
-`let payload = foo.fardel;`
+```js
+foo.finalize()
+```
+
+The correctly formatted catalog object payload now sits on the fardel property.
+
+```js
+let payload = foo.fardel;
+```
