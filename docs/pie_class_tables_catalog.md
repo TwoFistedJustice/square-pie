@@ -4,13 +4,25 @@
 
 ## Structures
 
+<br/>
+
+### Level One Classes
+
 | Level One Classes | Super | Implemented | Short Notes |
 | ----------------- | ----- | ----------- | ----------- |
 | SquareRequest     | none  | yes         |
 
+<br/>
+
+### Level Two Classes
+
 | Level Two Classes | Super         | Implemented | Short Notes |
 | ----------------- | ------------- | ----------- | ----------- |
 | Catalog_Request   | SquareRequest |             |
+
+<br/>
+
+### Level Three Classes
 
 | Level Three Classes                    | Super           | Implemented | Short Notes                                                                                                                   |
 | -------------------------------------- | --------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -48,8 +60,6 @@
 
 ## Delete
 
----
-
 method: POST
 
 Nope, sorry, NOT DELETE. waaaaaahhhhhh?
@@ -81,8 +91,6 @@ begets
 
 ## retrieve
 
----
-
 method: POST
 
 Only used 'batch' since that can handle just one
@@ -91,18 +99,15 @@ Only used 'batch' since that can handle just one
 
 ## upsert
 
----
-
 This can probably be simplified the way Delete and Retrieve have been.
-method: POST
-. batch
+
+method: POST\
+. batch\
 .one
 
 <br/>
 
 ## update
-
----
 
 method: super\
 .taxes\
@@ -112,13 +117,9 @@ method: super\
 
 ## search items can only search for items or item variations
 
----
-
 <br/>
 
 ## search objects can search for any type of catalog objects
-
----
 
 Square's endpoint does two mutually exclusive things. It allows you to stack criteria to create a filter. Or it allows you to
 cross reference objects that contain references to other objects of certain types. Therefore we breakt the functionality into
@@ -127,8 +128,6 @@ two distince classes, both subs of Catalog_Request_Search
 <br/>
 
 ## Catalog_Request_Object_Search_Filter
-
----
 
 With this class you can stack on all the allowable filters pretty much without limit. The class will correctly format the request.body
 at a high level. You must still pass arguments with specific structures, gernally an object with one to three properties. The setters
@@ -147,8 +146,6 @@ will tell you what you did wrong.
 <br/>
 
 ## Catalog_Request_Object_Search_Cross_Reference
-
----
 
 ### info
 
