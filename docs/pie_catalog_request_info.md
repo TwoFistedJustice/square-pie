@@ -7,8 +7,6 @@ This class parses it for you.
 
 ## How to use
 
----
-
 1. Instantiate the class to a variable.
 2. call `.request()`
 3. get the information you want.
@@ -33,8 +31,6 @@ Access parts:
 <br/>
 
 ## Standard Units
-
----
 
 These are units of measure.
 
@@ -65,8 +61,6 @@ To view them as JSON, access `.standard_unit_json`. This will return an array of
 
 ## Language Code
 
----
-
 Access the language code with `.language_code`. This will return a string that looks like:
 
 ```js
@@ -76,8 +70,6 @@ Access the language code with `.language_code`. This will return a string that l
 <br/>
 
 ## Limits
-
----
 
 Access only the limits with `.limits`. This will return an object that looks like:
 
