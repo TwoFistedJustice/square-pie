@@ -2,8 +2,7 @@
 
 ## TO DO
 
-build_line_items
-
+- [ ] build_line_items
 - [ ] quantity: str
 - [ ] applied_discounts: []
 - [ ] applied_taxes: []
