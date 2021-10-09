@@ -72,6 +72,8 @@ Subclass of SquareRequest
 
 - sets the endpoint to the value of the ID
 
+<br/>
+
 ## Customer Request Classes
 
 ### Customer_List
