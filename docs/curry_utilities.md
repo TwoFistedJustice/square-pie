@@ -1,6 +1,7 @@
 # Curry Utilities
 
-**Note about IDE and text editor auto-completion:**
+## **Note about IDE and text editor auto-completion:**
+
 They generally don't pick up on the named functions created these functions.
 The functions are dynamically created using nested for-loops.
 WebStorm has shown the ability to pick up on the functions generated in the outer loops only.
