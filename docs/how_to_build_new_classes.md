@@ -4,9 +4,9 @@
 
 Every Object that will be instantiated by an end user should have the following properties:
 
-### **.\_fardel**
+### **._fardel**
 
-a .\_fardel property to hold all the stuff that will get sent to square. It should conform to Square's expected structures.
+a ._fardel property to hold all the stuff that will get sent to square. It should conform to Square's expected structures.
 
 Properties on fardel generally conform to Square's expectations for the shape of a given object. If the property does not have a fixed
 value, set it to `undefined`. That way it is visible and more easily set. An undeclared property has to be created programatically and
@@ -113,16 +113,16 @@ Square Request automatically stashes the response.body on the delivery property.
 var somevar = yourClass.delivery;
 ```
 
-## Other Request Classes
+### Other Request Classes
 
 The very lowest level classes, those that have no sub-classes set several important properties which will bubble up
 to Square_Request
 
-### **.\_endpoint**
+#### **._endpoint**
 
 The final part of the Square API url you need to call. It must be preceded with a "/". For example, a create endpoint might be set to "/create"
 
-### **.\_method**
+#### **._method**
 
 This is the http request method used for the given endpoint and action.
 
