@@ -10,7 +10,6 @@ describe("Silence order object tests", () => {
 });
 
 describe("Order object build_discount method", () => {
-  // DONE pricing_options setter should throw if object not correctly formatted
   test("pricing_options setter should throw if object not correctly formatted", () => {
     let expected = [
       {
@@ -23,7 +22,6 @@ describe("Order object build_discount method", () => {
     expect(order.pricing_options).toMatchObject(expected);
   });
 
-  // pricing_options setter should throw if object doesn't have two booleans
   test("pricing_options setter should throw if object doesn't have two booleans", () => {
     let order = new Order_Object();
     expect(() => {
@@ -31,11 +29,6 @@ describe("Order object build_discount method", () => {
     }).toThrow();
   });
 
-  // pricing_options setter should NOT throw if object is correctly formatted
-  //todo
-  // this will always pass because it is not a complete test- you left out the part that checks
-  // whether or not it throws an error
-  // https://jestjs.io/docs/expect
   test("pricing_options setter should NOT throw if object is correctly formatted", () => {
     let order = new Order_Object();
     expect(() => {
@@ -43,10 +36,6 @@ describe("Order object build_discount method", () => {
     }).not.toThrow();
   });
 
-  // build_state methods should set state property as expected - there are four of them
-  // todo
-  //  this will never pass because you are checking the return value of the arrow function which
-  //  the arrow function will return 'undefined' because you are correctly setting a static value
   test('build_state open should equal "Open"', () => {
     let order = new Order_Object();
     order.build_state().open();
@@ -54,11 +43,6 @@ describe("Order object build_discount method", () => {
     expect(order.state).toEqual("OPEN");
   });
 
-  // todo
-  //  I corrected this one so you have a model to follow
-  //  since we are checking a static value and not a THROW
-  //  call the build methods outside of expect
-  //  call the class GETTER inside of expect
   test('build_state canceled should equal "CANCELED"', () => {
     let order = new Order_Object();
     order.build_state().canceled();
