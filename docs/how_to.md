@@ -1,6 +1,6 @@
-How to make an API call.
+# How to make an API call
 
-Everything is a subclass of SqauareRequest class.
+> Everything is a subclass of SqauareRequest class
 
 Every call must receive a boolean argument. True makes it call the production api. False sandboxes it.
 You must provide your API key to the request call. It does not have the ability to get it for itself.
@@ -9,10 +9,13 @@ and passing that value to someclass.request(secretName)
 
 The simplest example is fetching a list of customers:
 
-```let list = new Customer_List(false)
+```js
+  let list = new Customer_List(false)
   let secret = await getSecret(list.secretName);
   return await list.request(secret);
 ```
+
+<br/>
 
 ## Class Levels
 
@@ -48,9 +51,12 @@ The simplest example is fetching a list of customers:
 - Similar to a Mixin, but not a mixin
 - Carries common properties and methods for classes that do conform to something in Square's actual API
 
+<br/>
+
 ## Class Breakdowns
 
-**Square_Request**\
+### Square_Request
+
 Super of all request classes
 
 - takes a boolean argument which determines production or sandbox
@@ -59,42 +65,49 @@ Super of all request classes
 - normalizes email addresses
 - makes the actual http request
 
-**Retrieve_Update_Delete**\
+### Retrieve_Update_Delete
+
 Super of all classes that fetch with a document ID
 Subclass of SquareRequest
 
 - sets the endpoint to the value of the ID
 
+<br/>
+
 ## Customer Request Classes
 
-**Customer_List**\
+### Customer_List
+
 Super of classes that fetch lists
 Subclass of SquareRequest
 
 - sets the apiName to 'customers'
 - sets the method: GET
 
-**Customer_Search**\
+### Customer_Search
 
 - sets the apiName to 'customers'
 - sets the method: POST
-- Has a pre-established \_body structure
+- Has a pre-established `\_body` structure
 - Has a chainable 'query' method
   - call it with either 'fuzzy' or 'exact' method then chain on sub-methods to create a filter
 
-**Customer_Retrieve**\
+### Customer_Retrieve
+
 Subclass of RetrieveUpdateDelete
 
 - sets the apiName to 'customers'
 - sets the method: GET
 
-**Customer_Delete**\
+### Customer_Delete
+
 Subclass of RetrieveUpdateDelete
 
 - sets the apiName to 'customers'
 - sets the method: DELETE
 
-**Customer_Create**\
+### Customer_Create
+
 Subclass of Create
 
 - sets the apiName to 'customers'
@@ -102,9 +115,12 @@ Subclass of Create
 - adds idempotency_key to request body
 - normalizes the email address in the input
 
+<br/>
+
 ## Catalog Object Classes
 
-**Catalog_Object classes in general**\
+### Catalog_Object classes in general
+
 Whenever you upsert a new object it MUST have a temporary ID that you give it. This is just for your own reference
 and for referencing that object within that upsert request. Square will replace it with its own unique ID as soon
 as you upsert it. It can be pretty much anything, a word, or the ID you use in your own db. The class will
@@ -124,7 +140,7 @@ will tend to favor tangible, in-person products.
 Every mutable property (one Square wants you to set yourself) will also have an old fashioned getter and setter so you can change
 any values you want prior to upsert.
 
-Every object class except the Wrapper have a .\_fardel property. Oxford English Dictionary defines a "fardel" as "bundle". The fardel is what you pass to the next step in the process. You access it by calling
+Every object class except the Wrapper have a `.\_fardel` property. Oxford English Dictionary defines a "fardel" as "bundle". The fardel is what you pass to the next step in the process. You access it by calling
 
 ```js
 yourClass.fardel;
@@ -132,25 +148,32 @@ yourClass.fardel;
 
 The Wrapper class has TWO fardel methods because it can pass one or more than one bundles.
 
-**Catalog_Object_Wrapper**\
+### Catalog_Object_Wrapper
+
 Wrapper Class
 
 - Holds all the Catalog Objects that get upserted
 - Automatically adjusts it's payload form for one or many objects.
 
 Usage:
-Instantiate the wrap\
+Instantiate the wrap
 
-`const foo = new Catalog_Object_Wrapper()`
+```js
+const foo = new Catalog_Object_Wrapper()
+```
 
 Cram in one or more Catalog Objects you created. Don't be gentle, it can eat as many as you serve up.
 
-`foo.attach(obj).attach(obj)`
-Or
-`foo.add(obj).add(obj)`
+`foo.attach(obj).attach(obj)` Or `foo.add(obj).add(obj)`
 
-Tell it when you are done adding objects.\
-`foo.finalize()`
+Tell it when you are done adding objects.
 
-The correctly formatted catalog object payload now sits on the fardel property.\
-`let payload = foo.fardel;`
+```js
+foo.finalize()
+```
+
+The correctly formatted catalog object payload now sits on the fardel property.
+
+```js
+let payload = foo.fardel;
+```

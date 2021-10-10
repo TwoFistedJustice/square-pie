@@ -1,12 +1,28 @@
-**Structures**
+# Pie Class Tables: Catalog
+
+<br/>
+
+## Structures
+
+<br/>
+
+### Level One Classes
 
 | Level One Classes | Super | Implemented | Short Notes |
 | ----------------- | ----- | ----------- | ----------- |
 | SquareRequest     | none  | yes         |
 
+<br/>
+
+### Level Two Classes
+
 | Level Two Classes | Super         | Implemented | Short Notes |
 | ----------------- | ------------- | ----------- | ----------- |
 | Catalog_Request   | SquareRequest |             |
+
+<br/>
+
+### Level Three Classes
 
 | Level Three Classes                    | Super           | Implemented | Short Notes                                                                                                                   |
 | -------------------------------------- | --------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -20,7 +36,9 @@
 | Catalog_Info                           | Catalog_Request |             |
 | Catalog_Image                          | Catalog_Request | !           | de-prioritized - will take a lot of time and isn't needed by Pieville USA                                                     |
 
-# Cross Reference: Pie and Square
+<br/>
+
+## Cross Reference: Pie and Square
 
 | API     | Command              | Method | Resource Location                     | Class                                  | Square Docs                                                                                                     | Additional Information |
 | ------- | -------------------- | ------ | ------------------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------- |
@@ -38,9 +56,14 @@
 | Catalog | INFO                 | GET    | '/catalog/info'                       | Catalog_Info                           | [INFO](https://developer.squareup.com/reference/square/catalog-api/catalog-info)                                |
 | Catalog | CREATE image         | POST   | '/catalog/images'                     | Catalog_Image                          | [CREATE image](https://developer.squareup.com/reference/square/catalog-api/create-catalog-image)                |
 
-##delete
+<br/>
+
+## Delete
+
 method: POST
+
 Nope, sorry, NOT DELETE. waaaaaahhhhhh?
+
 Square has TWO delete endpoints. One for single items and one for batches.
 The only functional difference between them is one takes a string, and one takes an array of strings.
 BUT the one that takes the array will accept an array of one. So we didn't see a point in writing
@@ -64,27 +87,45 @@ begets
 { deleted_at: '2021-09-03T23:00:53.445Z' }
 ```
 
-##retrieve
+<br/>
+
+## retrieve
+
 method: POST
+
 Only used 'batch' since that can handle just one
 
-##upsert
+<br/>
+
+## upsert
+
 This can probably be simplified the way Delete and Retrieve have been.
-method: POST
-. batch
+
+method: POST\
+. batch\
 .one
 
-##update
-method: super
-.taxes
+<br/>
+
+## update
+
+method: super\
+.taxes\
 .modifier_lists
 
-##search items can only search for items or item variations
+<br/>
 
-#search objects can search for any type of catalog objects.
+## search items can only search for items or item variations
+
+<br/>
+
+## search objects can search for any type of catalog objects
+
 Square's endpoint does two mutually exclusive things. It allows you to stack criteria to create a filter. Or it allows you to
 cross reference objects that contain references to other objects of certain types. Therefore we breakt the functionality into
 two distince classes, both subs of Catalog_Request_Search
+
+<br/>
 
 ## Catalog_Request_Object_Search_Filter
 
@@ -93,19 +134,23 @@ at a high level. You must still pass arguments with specific structures, gernall
 enforce these structures so you can't accidentally pass in an incorrect structure, as the class will reject them. The error messages
 will tell you what you did wrong.
 
-**With the [Catalog_Search_Filter]("./pie_catalog_request_search.md") class you can:**
+### With the [Catalog_Search_Filter]("./pie_catalog_request_search.md") class you can
 
 - _exact_query_ - this one is not very forgiving. If you are even one letter off it won't return anything.
 - _set_query_ - Searches one property name and returns all matching objects. Pass it an array of string values. `["coffee", "tea"]`. There is no limit to how many values you can pass in.
   Values must be spelled exactly and are case insensitive.
-- _prefix_query_ - as far as I can tell this may be the "fuzzy" version of exact_query. It does the basically same thing but allows partial values. for example: Find names that start with a given letter.
-- _range_query_ - for finding numeric values. If searching by price, use "amount" for attribute_name.
+- _prefix_query_- as far as I can tell this may be the "fuzzy" version of exact_query. It does the basically same thing but allows partial values. for example: Find names that start with a given letter.
+- _range_query_- for finding numeric values. If searching by price, use "amount" for attribute_name.
 - _text_query_ - Indiscriminate property search. Pass it up to three string values. If any property has that value, the object is returned.
+
+<br/>
 
 ## Catalog_Request_Object_Search_Cross_Reference
 
-#info
+### info
+
 method: get
 
-#create image
+### create image
+
 method: get

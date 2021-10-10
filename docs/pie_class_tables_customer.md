@@ -1,4 +1,10 @@
-**Structures**
+# Pie Class Tables: Customer
+
+<br/>
+
+## Structures
+
+### Level One Classes
 
 | Level One Classes | Super | Implemented | Short Notes |
 | ----------------- | ----- | ----------- | ----------- |
@@ -7,6 +13,10 @@
 | Level Two Classes | Super          | Implemented | Short Notes |
 | ----------------- | -------------- | ----------- | ----------- |
 | Customer          | Square_Request | yes         |
+
+<br/>
+
+### Level Three Classes
 
 | Level Three Classes    | Super            | Implemented | Short Notes                |
 | ---------------------- | ---------------- | ----------- | -------------------------- |
@@ -17,11 +27,19 @@
 | Customer_Group         |                  | !           |
 | Customer_Ungroup       |                  | !           |
 
+<br/>
+
+### Level Four Classes
+
 | Level Four Classes | Super                  | Implemented | Short Notes                                 |
 | ------------------ | ---------------------- | ----------- | ------------------------------------------- |
 | Customer_Delete    | Retrieve_Update_Delete | yes         |
 | Customer_Retrieve  | Retrieve_Update_Delete | yes         |
 | Customer_Update    | Retrieve_Update_Delete | yes         | needs normalization for email and addresses |
+
+<br/>
+
+### API
 
 | API      | Command               | Method | Resource Location                            | Class             | Square Docs                                                                                              | Additional Information                                                                                                  |
 | -------- | --------------------- | ------ | -------------------------------------------- | ----------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
@@ -34,6 +52,10 @@
 | Customer | REMOVE group from one | DELETE | '/customers/{customer_id}/groups/{group_id}' | !                 | [Remove GROUP](https://developer.squareup.com/reference/square/customers-api/remove-group-from-customer) |
 | Customer | ADD group from one    | PUT    | '/customers/{customer_id}/groups/{group_id}' | !                 | [Add GROUP](https://developer.squareup.com/reference/square/customers-api/add-group-to-customer)         |
 
+<br/>
+
+### End User Classes
+
 | End User Classes  | Constructor Arguments | Response Field     | Short Notes     |
 | ----------------- | --------------------- | ------------------ | --------------- |
 | Customer_List     | none                  | customers: [ ]     |
@@ -45,19 +67,28 @@
 | CustomerGroup     |                       | empty or errors    | not implemented |
 | CustomerUngroup   |                       | empty or errors    | not implemented |
 
-###Customer_List
+<br/>
+
+### Customer_List
+
 Method | Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- |
 | none exist
 
-###Customer_Create
+<br/>
+
+### Customer_Create
+
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
 | getIdempotency_key | getter | -
 | customer | setter - computed | Customer - Object | sets idempotency key and normalizes email
 |super.normalizeEmail | email address - String
 
-###Customer_Search
+<br/>
+
+### Customer_Search
+
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
 | ⋈ ♾ query|method - chainer|-| beginning of chain - must call query.fuzzy() or query.exact()
@@ -73,13 +104,19 @@ Method |Type| Expected Argument | Short Notes |
 |^ .sortByDate |method - chain link | - | Sorts the results by creation date
 |^ .sortByMostRecent |method - chain link | - | Sorts the results by creation date with most recent first. (ascending)
 
-###Customer_Retrieve
+<br/>
+
+### Customer_Retrieve
+
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
 |super.id|getter
 |super.id|setter|square customer ID - String | sets the url endpoint and prepends '/'
 
-###Customer_Update
+<br/>
+
+### Customer_Update
+
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
 |super.normalizeEmail | email address - String
@@ -105,15 +142,25 @@ Method |Type| Expected Argument | Short Notes |
 |^ .note | method - chain link | String
 |^ .birthday | method - chain link | Date - String | YYYY-MM-DD format.
 
-###Customer_Delete
+<br/>
+
+### Customer_Delete
+
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
 |super.id|getter
 |super.id|setter|square customer ID - String | sets the url endpoint and prepends '/'
 
-###CustomerGroup
+<br/>
+
+### CustomerGroup
+
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
-###CustomerUngroup
+
+<br/>
+
+### CustomerUngroup
+
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
