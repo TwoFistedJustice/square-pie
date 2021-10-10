@@ -1,21 +1,41 @@
-quick notes: there are no PUTs for Catalog
-allowed methods are POST, GET, DELETE
+# Square API Tables: Catalog Requests
+
+> Quick Notes: there are no PUTs for Catalog
+
+Allowed methods are POST, GET, DELETE
+
 < > METHOD is probably not the best way to group these, since some GET and POST are nearly the same
+
 Batch actions are generally POST - even when POST isn't usual
+
 Single actions are generally the usual command
 
 Maybe group them by Batch or One since they seem to line up that way
 Argument against: They line up better on the response side by doing them by overall action type
 
-**Structures**
+<br/>
+
+## Structures
+
+<br/>
+
+### Level One Classes
 
 | Level One Classes | Super | Implemented | Short Notes |
 | ----------------- | ----- | ----------- | ----------- |
 | Square_Request    | none  | !           |
 
+<br/>
+
+### Level Two Classes
+
 | Level Two Classes | Super          | Implemented | Short Notes |
 | ----------------- | -------------- | ----------- | ----------- |
 | Catalog_Request   | Square_Request |
+
+<br/>
+
+### Level Three Classes
 
 | Level Three Classes                    | Super           | Method         | Implemented | Short Notes                                                                               |
 | -------------------------------------- | --------------- | -------------- | ----------- | ----------------------------------------------------------------------------------------- |
@@ -28,6 +48,8 @@ Argument against: They line up better on the response side by doing them by over
 | Catalog_Search_Objects_Cross_Reference | Catalog_Request | POST           |             |
 | Catalog_Create_Image                   | Catalog_Request | GET            | !           |
 | Catalog_Info                           | Catalog_Request | GET            |             |
+
+<br/>
 
 ### UPSERT - Batch vs One
 
@@ -46,7 +68,9 @@ Argument against: They line up better on the response side by doing them by over
 |       |        |                        |                     | id_mappings: [ ]        |                                                                                                          |             |
 
 < > I think I can make a single class that handles both with a simple chainer
-upsert.one() and upsert.many() or upsert.alot()
+`upsert.one()` and `upsert.many()` or `upsert.alot()`
+
+<br/>
 
 ### RETRIEVE - Batch vs One
 
@@ -61,6 +85,8 @@ upsert.one() and upsert.many() or upsert.alot()
 |       |        |                              |                         | object: cat-obj      |                                                                                                              |             |
 |       |        |                              |                         | related_objects: [ ] |                                                                                                              |             |
 
+<br/>
+
 ### DELETE - Batch vs One
 
 < > These are basically the same except for the endpoint and method
@@ -74,6 +100,8 @@ upsert.one() and upsert.many() or upsert.alot()
 |       |        |                              |                         | deleted_objects_ids: [ ] |                                                                                                          |
 |       |        |                              |                         | deleted_at: str          |                                                                                                          |
 
+<br/>
+
 ### UPDATE - Taxes - Modifier Lists
 
 |                | Method | Resource Location                    | Body Properties                        | Response Fields | Square Docs                                                                                                     | Short notes |
@@ -86,6 +114,8 @@ upsert.one() and upsert.many() or upsert.alot()
 |                |        |                                      | taxes_to_enable: ["id", ...]           |
 |                |        |                                      | taxes_to_disable: ["id", ...]          |
 |                |        |                                      |                                        | updated_at: str |
+
+<br/>
 
 ### SEARCH - Items
 
@@ -102,6 +132,8 @@ upsert.one() and upsert.many() or upsert.alot()
 |     |        |                                | ^^^product_types: []              |
 |     |        |                                | ^^^custom_attribute_filters: []   |
 |     |        |                                |                                   | items: [cat-obj, ... ] |                                                                                                  |             |
+
+<br/>
 
 ### SEARCH - Objects
 
@@ -123,6 +155,8 @@ We are treating this as TWO endpoints in one.
 |     |        |                   |                                  | objects: [ ]         |
 |     |        |                   |                                  | related_objects: [ ] |
 
+<br/>
+
 ### lIST - Objects
 
 |     | Method | Resource Location | Body Properties      | Response Fields | Square Docs                                                                      | Short notes |
@@ -132,6 +166,8 @@ We are treating this as TWO endpoints in one.
 |     |        |                   | ^^^types: str,csv    |                 |
 |     |        |                   | catalog_version: int |                 |
 |     |        |                   |                      | objects: [ ]    |
+
+<br/>
 
 ### CREATE IMAGE
 
@@ -148,7 +184,10 @@ Post 3: Create - upload an image -- CAREFUL - this one can cause DB bloat! it al
 |     |        |                   |                      |                 |
 |     |        |                   |                      | image: cat-obj  |
 
-###INFO
+<br/>
+
+### INFO
+
 | | Method | Resource Location | Body Properties | Response Fields | Square Docs | Short notes |
 | --- | ------ | ----------------- | -------------------- | --------------- | -------------------------------------------------------------------------------- | ----------- |
 | | GET | 'catalog/info' | empty | | [Info](https://developer.squareup.com/reference/square/catalog-api/catalog-info) |returns a set of parameters you must live by

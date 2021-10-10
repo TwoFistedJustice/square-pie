@@ -274,7 +274,7 @@ class Order_Object {
           if (
             maxLength(this.self.configuration.lengthLimits.discount.name, name)
           ) {
-            define("catalog_object_id", name);
+            define("name", name);
           }
           return this;
         },

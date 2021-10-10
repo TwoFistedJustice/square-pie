@@ -1,6 +1,7 @@
 # Top Level Classes
 
-###Square_Request
+## Square_Request
+
 Method |Type| Expected Argument | Short Notes |
 | -------------------- | --------------- | ----------- | ----------- |
 | secretName |computed| - | Gets the secret name based on value of NODE_ENV

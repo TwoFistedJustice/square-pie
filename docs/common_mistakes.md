@@ -1,6 +1,7 @@
-#Common Mistakes
+# Common Mistakes
 
-###Items and Variations
+## Items and Variations
+
 An easy mistake to make:
 
 ```js

@@ -1,13 +1,15 @@
-##[Square Order Objects](https://developer.squareup.com/docs/orders-api/how-it-works#orders-objects-and-datatypes)
+# [Square Order Objects](https://developer.squareup.com/docs/orders-api/how-it-works#orders-objects-and-datatypes)
 
-**SQUARE DOCS**\
+## SQUARE DOCS
 
 - [Create Order ENDPOINT](https://developer.squareup.com/reference/square/orders-api/create-order)
-- [Create order how to ](https://developer.squareup.com/docs/orders-api/create-orders)
+- [Create order how to](https://developer.squareup.com/docs/orders-api/create-orders)
 - [Square Order Objects](https://developer.squareup.com/docs/orders-api/how-it-works#orders-objects-and-datatypes)
 - [READ ONLY properties are NOT request properties - no matter what the docs say](https://developer.squareup.com/forums/t/order-api-create-order-read-only-properties/3658)
 
-**Order Object Structure:**
+<br/>
+
+## Order Object Structure
 
 Whenever possible it is best to reference Catalog Object IDs to enable Square's automatic features.
 
@@ -15,29 +17,44 @@ Whenever possible it is best to reference Catalog Object IDs to enable Square's 
 
 line_items: array of objects,which appear to or have data pulled from or be item_variations
 
-**Fullfillments**
+<br/>
+
+## Fullfillments
 
 - shipment
 - pickup
 
-**Prevent orders orphaning - copied from Square's docs**
-"A created order must be either paid (a successful payment attached to the order) or canceled (the order status set to CANCELED). Partner applications must ensure that there are no orphan orders."
+<br/>
 
-**Taxes and Discounts**
-Modifies order total.
+## Prevent orders orphaning - copied from Square's docs
+
+> "A created order must be either paid (a successful payment attached to the order) or canceled (the order status set to CANCELED). Partner applications must ensure that there are no orphan orders."
+<!-- TODO: cite? -->
+
+<br/>
+
+## Taxes and Discounts
+
+Modifies order total.\
 Best to use Object IDs
 
-**Versions**
+<br/>
+
+## Versions
+
 Same as version is Customer - Retrieve_Update_Delete
 
-**UIDs** <- only one "U"
-each object in an order requires some kind of identifier. Square isn't clear on how this works (surprise)
-I don't know yet if they require you to set a NEW ID on all object or if they just mean that if you
-are doing it ad-hoc you have to give it a new id or accept theirs.
+<br/>
 
-Types of Objects or sub-objects I need to define:
-Line item
-Order fullfillment
+## UIDs <- only one "U"
+
+each object in an order requires some kind of identifier. Square isn't clear on how this works (surprise).
+I don't know yet if they require you to set a NEW ID on all objects or if they just mean that if you are doing it ad-hoc you have to give it a new id or accept theirs.
+
+### Types of Objects or sub-objects I need to define
+
+- [ ] Line item
+- [ ] Order fullfillment
 
 | Level One Objects | Super | Idempotent | Implemented | Unit Tests in Place | Short Notes | Square Doc |
 | ----------------- | ----- | ---------- | ----------- | ------------------- | ----------- | ---------- |
@@ -52,21 +69,25 @@ Add fulfilment to create a pick up order.
 Fulfillment is a an object inside an array
 The response provides a UID which needs to be persisted in the application.
 
+<br/>
+
 ## Not to be supported in V1
 
-```
+```js
 _tenders; //`BETA` [] READ ONLY - complex
 _metadata; // `BETA` READ ONLY - limits on L and content
 ```
 
-## Corrections to the Square Docs:
+<br/>
+
+## Corrections to the Square Docs
 
 The docs (current as of 9/23/21) state that there are a whole bunch of read only properties on the Request body. This is wrong. They are actually on the Response body.
 Square is aware of this issue and it is in queue for correction.
 
 Those properties ARE:
 
-```
+```js
 _closed_at;
 _created_at;
 _updated_at;
@@ -82,6 +103,8 @@ _return_amounts;
 _rewards;
 _rounding_adjustment;
 ```
+
+<br/>
 
 ## Square Docs JSON: Request vs Response
 
@@ -407,7 +430,10 @@ var responseBody = {
 };
 ```
 
-**Version**\
+<br/>
+
+## Version
+
 This needs to be the same as whatever is currently in Square's database. You can ignore it when creating a new
 order. But to update an existing order, you must either fetch this from Square, or persist it in your own db and send
 the correct number with the update.

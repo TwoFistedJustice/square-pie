@@ -1,4 +1,4 @@
-#Catalog_Item and Catalog_Item_Variation classes
+# Catalog_Item and Catalog_Item_Variation classes
 
 1. Every Item must have at least one variation. Square's rules, not ours.
 2. Items come in two sub-types: Regular (stuff you sell), and Appointment Service (stuff you do)
@@ -23,7 +23,8 @@ In other words, you must not try to mix and match Regular and Appointment items.
 
 Note: This is for upserting a new object. It does not cover updating an existing one.
 
-###Pricing a new item:
+### Pricing a new item
+
 If you wish to set a fixed price, there is no need to set pricing type. This will be done automatically
 when you add a price.
 
@@ -48,14 +49,14 @@ set it manually, as long as you do it after the other stuff.
 These properties also will not allow you to feed them the wrong kind of food. They will cough up
 a TypeError if you do.
 
-### Incomplete Parts:
+### Incomplete Parts
 
 The following properties on the item variation object were not priorities and remain
 uncompleted. You can still pass in properly formatted data. But there is not auto formatting.
 You pretty much have to set it manually.
 
-**location_overrides**
+#### **location_overrides**
 
 - is quite complex, almost a class unto itself
 
-**stockable_conversion**
+#### **stockable_conversion**

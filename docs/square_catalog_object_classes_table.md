@@ -1,8 +1,10 @@
-#Square Catalog Items - current as of Version 2021-07-21
-###These tables are arranged to help us understand how to implement, NOT to model Square's data structure.
+# Square Catalog Items - current as of Version 2021-07-21
+
+## These tables are arranged to help us understand how to implement, NOT to model Square's data structure
+
 [Tables based on Square Docs for Catalog Object](https://developer.squareup.com/reference/square/enums/CatalogObjectType)
 
-###Observations
+### Observations
 
 - CatalogObjects get nested inside each other
 
@@ -13,28 +15,41 @@ Do like we did with Customers api
 Have the top level class make the request and set certain properties
 Then have the lower level classes contribute the rest
 
-BECAUSE the upsert features are primarily designed to work with BATCHES\
-: we will have to create the Objects, add them to an array and send that array as a property on the upsert command\
-**Argument Against:**\
+BECAUSE the upsert features are primarily designed to work with BATCHES we will have to create the Objects, add them to an array and send that array as a property on the upsert command
+
+#### **Argument Against:**
+
 Using discrete classes and subclasses prevents us from layering on more data to an item.
 Solution: Use fewer classes and use mixins
 
 ### Catalog_Object super should just be a WRAPPER - and not a super at all
+
+<br/>
+
+### Level One Objects
 
 | Level One Objects      | Super | Idempotent | Implemented | Unit Tests in Place | Short Notes                                                                       | Square Doc                                                                             |
 | ---------------------- | ----- | ---------- | ----------- | ------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | Catalog_Object_Wrapper | none  | yes        |             |                     |                                                                                   | [CatalogObject](https://developer.squareup.com/reference/square/objects/CatalogObject) |
 | Catalog_Object_Super   | none  | no         |             |                     | Owns id property for setting temporary upser id, adds a hash mark if user doesn't |
 
+<br/>
+
+### Level Two Objects
+
 | Level Two Objects       | Super                | Idempotent | Implemented | Unit Tests in Place | Short Notes | Square Doc |
 | ----------------------- | -------------------- | ---------- | ----------- | ------------------- | ----------- | ---------- |
 | Catalog_Object_Item     | Catalog_Object_Super | no         |             |                     |
 | Catalog_Object_Category | Catalog_Object_Super | no         |             |                     |
 
+ <br/>
+
+### Level X Objects
+
 | Level X Objects             | Priority  | Super                | Idempotent | Implemented | Unit Tests in Place | Square Doc                                                                                                         | Short Notes                     |
 | --------------------------- | --------- | -------------------- | ---------- | ----------- | ------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------- |
 | Category                    |           | Catalog_Object_Super | no         |             |                     | [CATEGORY](https://developer.squareup.com/reference/square/objects/CatalogCategory)                                |
-| Item                        |           | Catalog_Object_Super | no         |             |                     | [ITEM ](https://developer.squareup.com/reference/square/objects/CatalogItem)                                       |
+| Item                        |           | Catalog_Object_Super | no         |             |                     | [ITEM](https://developer.squareup.com/reference/square/objects/CatalogItem)                                       |
 | Item_Variation              |           | Catalog_Object_Super | no         |             |                     | [ITEM_VARIATION](https://developer.squareup.com/reference/square/objects/CatalogItemVariation)                     |
 | Tax                         | PRIORITY  | Catalog_Object_Super | no         | !           | !                   | [TAX](https://developer.squareup.com/reference/square/objects/CatalogTax)                                          |
 | Custom_Attribute_Definition |           | Catalog_Object_Super | no         | !           | !                   | [CUSTOM_ATTRIBUTE_DEFINITION](https://developer.squareup.com/reference/square/objects/CatalogCustomAttributeValue) |
@@ -48,14 +63,18 @@ Solution: Use fewer classes and use mixins
 | Quick_Amounts_Setting       | property? | ?                    | no         | !           | !                   | [QUICK_AMOUNT_SETTINGS](https://developer.squareup.com/reference/square/objects/CatalogQuickAmountsSettings)       |
 | Time_Period                 | property? | ?                    | no         | !           | !                   | [TIME_PERIOD]()                                                                                                    |
 
-###Catalog_Object class
+### Catalog_Object class
+
 |Property | Type | Char Limit
 
 - sets idempotency key
 - sets name
 
-###Catalog_Item_Variation
-.\_parent_id : id of the item it belongs to
+### Catalog_Item_Variation
+
+`._parent_id` : id of the item it belongs to
+
+ <br/>
 
 ## CatalogObject
 
@@ -85,6 +104,8 @@ Solution: Use fewer classes and use mixins
 |                   |             |                 | caption        | string       |
 |                   |             |                 | name           | string       |
 |                   |             |                 | url            | string       |             | generated by Square with CreateCatalogImage endpoint. |
+
+ <br/>
 
 ## Item Object
 
@@ -127,6 +148,8 @@ Solution: Use fewer classes and use mixins
 |          |                |                    | value: "REGULAR"              |
 |          |                |                    | value: "APPOINTMENTS_SERVICE" |
 
+ <br/>
+
 ## Catalog Object
 
 ### Body Properties
@@ -136,6 +159,8 @@ Solution: Use fewer classes and use mixins
 | **Catalog** |                    |                |                 |                                                         | !           |
 |             | category_data      |                | CatalogCategory | have it take the name as an argument to the constructor |
 |             |                    | name           | string          |
+
+ <br/>
 
 ## ItemVariation Object
 
@@ -164,6 +189,8 @@ Solution: Use fewer classes and use mixins
 |                   |                     | location_overrides^^^     | ItemVariationLocationOverrides [ ]         |
 |                   |                     | item_option_values^^^     | CatalogItemOptionValueForItemVariation [ ] |
 
+ <br/>
+
 ## Object
 
 ### Body Properties
@@ -181,6 +208,8 @@ Solution: Use fewer classes and use mixins
 
 ## copy these for new table headings
 
+ <br/>
+
 ## Object
 
 ### Body Properties
@@ -194,7 +223,9 @@ Solution: Use fewer classes and use mixins
 | Class | Method Name | Owns Properties | Sub Properties | Value Type | Short Notes | Implemented |
 | ----- | ----------- | --------------- | -------------- | ---------- | ----------- | ----------- |
 
-##These need to be tabled
+ <br/>
+
+## These need to be tabled
 
 | Class | Super.propertyName               | Owns Properties | Read Only Properties | Value Type                       | Mutable | Short Notes |
 | ----- | -------------------------------- | --------------- | -------------------- | -------------------------------- | ------- | ----------- |
