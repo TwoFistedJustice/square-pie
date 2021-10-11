@@ -40,7 +40,7 @@ build() does a lot to prevent you from passing incorrect structures or values. T
 You call a build method for each property you want to set.
 
 ```js
-yourVar.build_someproperty().someValue()
+yourVar.build_someproperty().someValue();
 ```
 
 ### **build_state**
@@ -74,7 +74,7 @@ What happens when you call `.add()`
 ```js
 .build_discount().uid(name) => discount.uid: name
 .build_discount().name(name) => discount.name: name
-.build_discount().catalog_object_id(id) => discount.catalog_object_id: id 
+.build_discount().catalog_object_id(id) => discount.catalog_object_id: id
 .build_discount().scope_line() => discount.scope: "LINE_ITEM"
 .build_discount().scope_order() => discount.scope: "ORDER"
 .build_discount().percentage(7.25) -> discount.percentage: "7.25"
@@ -86,6 +86,9 @@ What happens when you call `.add()`
 .build_discount().reward_ids("some id").reward_ids("some other id") => discount.reward_ids: ["some id", "some other id"]
 .build_discount().add() => passes the discount object to the setter.
 ```
+
+\*\* note:
+both .type_percentage and .type_amount set a key called "type". But they each set a different mutually exclusive value.
 
 ### **build_service_charge_amount && build_service_charge_applied**
 
