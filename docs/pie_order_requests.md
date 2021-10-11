@@ -4,13 +4,17 @@
 | ----------------- | ----- | ----------- | ----------- |
 | Square_Request    | none  | !           |
 
+<br/>
+
 | Level Two Classes | Super          | Implemented | Short Notes |
 | ----------------- | -------------- | ----------- | ----------- |
 | Order_Request     | Square_Request |
 
+<br/>
+
 | Level Three Classes  | Super         | Implemented | Short Notes |
 | -------------------- | ------------- | ----------- | ----------- |
-| Order_Create         | Order_Request | !           |
+| Order_Create         | Order_Request |             |
 | Order_Retrieve       | Order_Request | !           |
 | Order_Retrieve_Batch | Order_Request | !           |
 | Order_Calculate      | Order_Request | !           |
@@ -18,6 +22,8 @@
 | Order_Search         | Order_Request | !           |
 | Order_Update         | Order_Request | !           |
 | Order_Pay            | Order_Request | !           |
+
+<br/>
 
 | Class                | Method | Resource Location        | Body Properties                  | Square Docs                                                                                        |
 | -------------------- | ------ | ------------------------ | -------------------------------- | -------------------------------------------------------------------------------------------------- |
@@ -46,3 +52,5 @@
 |                      |        |                          | query: {} (complex)              |
 |                      |        |                          | limit: num                       |
 |                      |        |                          | return_entries: boolean          |
+
+<br/>
