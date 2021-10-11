@@ -178,10 +178,6 @@ describe("Order object build_discount method", () => {
     expect(order.discounts).toMatchObject(expected);
   });
 
-  // todo RB - look into BG's note
-  // build_discount type_percentage should equal an object with the key type equaling the string "FIXED_PERCENTAGE"
-  // NOTE: BG - both type_percentage and type_amount set the same key (type)
-  // but it's not stated in the docs.
   test('build_discount type_percentage should equal an object with the key "type" equaling the string "FIXED_PERCENTAGE"', () => {
     let expected = [
       {
