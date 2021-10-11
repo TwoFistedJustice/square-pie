@@ -39,31 +39,31 @@
 
 ## Cross Reference: Pie and Square
 
-| Class                | Method | Resource Location        | Body Properties                  | Square Docs                                                                                        |
-| -------------------- | ------ | ------------------------ | -------------------------------- | -------------------------------------------------------------------------------------------------- |
-| Order_Create         | POST   | 'orders'                 |                                  | [Create Order](https://developer.squareup.com/reference/square/orders-api/create-order)            |
-|                      |        |                          | idempotency_key                  |
-|                      |        |                          | order                            |
-| Order_Retrieve       | GET    | 'orders/{object_id}'     | NA                               |
-| Order_Retrieve_Batch | POST   | 'orders/batch-retrieve'  | order_ids: []                    | [Retrieve Batch](https://developer.squareup.com/reference/square/orders-api/batch-retrieve-orders) |
-| Order_Calculate      | POST   | 'orders/calculate'       | order                            | [Calculate Order](https://developer.squareup.com/reference/square/orders-api/calculate-order)      |
-| Order_Clone          | POST   | 'orders/clone '          |
-|                      | POST   | 'orders/clone '          | idempotency_key                  |
-|                      | POST   | 'orders/clone '          | order_id                         |
-|                      | POST   | 'orders/clone '          | version (useless do not support) |
-| Order_Update         | PUT    | 'orders/{object_id}'     |                                  | [Update Order](https://developer.squareup.com/reference/square/orders-api/update-order)            |
-|                      |        |                          | fields_to_clear: []              |                                                                                                    |
+| Class                | Method | Resource Location        | Body Properties                  | Response Payload Field | Square Docs                                                                                        |
+| -------------------- | ------ | ------------------------ | -------------------------------- | ---------------------- | -------------------------------------------------------------------------------------------------- |
+| Order_Create         | POST   | 'orders'                 |                                  | order                  | [Create Order](https://developer.squareup.com/reference/square/orders-api/create-order)            |
+|                      |        |                          | idempotency_key                  |                        |
+|                      |        |                          | order                            |                        |
+| Order_Retrieve       | GET    | 'orders/{object_id}'     | NA                               |                        |
+| Order_Retrieve_Batch | POST   | 'orders/batch-retrieve'  | order_ids: []                    | orders:[]              | [Retrieve Batch](https://developer.squareup.com/reference/square/orders-api/batch-retrieve-orders) |
+| Order_Calculate      | POST   | 'orders/calculate'       | order                            | order                  | [Calculate Order](https://developer.squareup.com/reference/square/orders-api/calculate-order)      |
+| Order_Clone          | POST   | 'orders/clone '          |                                  |
+|                      | POST   | 'orders/clone '          | idempotency_key                  |                        |
+|                      | POST   | 'orders/clone '          | order_id                         |                        |
+|                      | POST   | 'orders/clone '          | version (useless do not support) |                        |
+| Order_Update         | PUT    | 'orders/{object_id}'     |                                  | order                  | [Update Order](https://developer.squareup.com/reference/square/orders-api/update-order)            |
+|                      |        |                          | fields_to_clear: []              |                        |
 |                      |        |                          | idempotency_key                  |
 |                      |        |                          | order: (special)                 |
 |                      |        |                          | fields_to_clear: []              |
-| Order_Pay            | POST   | 'orders/{object_id}/pay' |                                  | [Pay Order](https://developer.squareup.com/reference/square/orders-api/pay-order)                  |
+| Order_Pay            | POST   | 'orders/{object_id}/pay' |                                  | order                  | [Pay Order](https://developer.squareup.com/reference/square/orders-api/pay-order)                  |
 |                      |        |                          | idempotency_key                  |
 |                      |        |                          | order_version                    |
 |                      |        |                          | payments_ids: []                 |
-| Order_Search         | POST   | 'orders/search'          |                                  | [Search Orders](https://developer.squareup.com/reference/square/orders-api/search-orders)          |
-|                      |        |                          | location_ids: []                 |
-|                      |        |                          | cursor: str                      |
-|                      |        |                          | query: {} (complex)              |
+| Order_Search         | POST   | 'orders/search'          |                                  |                        | [Search Orders](https://developer.squareup.com/reference/square/orders-api/search-orders)          |
+|                      |        |                          | location_ids: []                 | order_entries: []      |
+|                      |        |                          | cursor: str                      | orders:[]              |
+|                      |        |                          | query: {} (complex)              | cursor                 |
 |                      |        |                          | limit: num                       |
 |                      |        |                          | return_entries: boolean          |
 
