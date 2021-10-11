@@ -4,6 +4,15 @@ class Order_Request extends Square_Request {
   constructor() {
     super();
     this._apiName = "orders";
+    this._delivery;
+  }
+
+  get delivery() {
+    return this._delivery;
+  }
+
+  set delivery(parcel) {
+    this.delivery = parcel.order;
   }
 }
 
