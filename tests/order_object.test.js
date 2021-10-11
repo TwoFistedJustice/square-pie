@@ -10,7 +10,6 @@ describe("Silence order object tests", () => {
 });
 
 describe("Order object build_discount method", () => {
-  // DONE pricing_options setter should throw if object not correctly formatted
   test("pricing_options setter should throw if object not correctly formatted", () => {
     let expected = [
       {
@@ -23,7 +22,6 @@ describe("Order object build_discount method", () => {
     expect(order.pricing_options).toMatchObject(expected);
   });
 
-  // pricing_options setter should throw if object doesn't have two booleans
   test("pricing_options setter should throw if object doesn't have two booleans", () => {
     let order = new Order_Object();
     expect(() => {
@@ -31,11 +29,6 @@ describe("Order object build_discount method", () => {
     }).toThrow();
   });
 
-  // pricing_options setter should NOT throw if object is correctly formatted
-  //todo
-  // this will always pass because it is not a complete test- you left out the part that checks
-  // whether or not it throws an error
-  // https://jestjs.io/docs/expect
   test("pricing_options setter should NOT throw if object is correctly formatted", () => {
     let order = new Order_Object();
     expect(() => {
@@ -43,10 +36,6 @@ describe("Order object build_discount method", () => {
     }).not.toThrow();
   });
 
-  // build_state methods should set state property as expected - there are four of them
-  // todo
-  //  this will never pass because you are checking the return value of the arrow function which
-  //  the arrow function will return 'undefined' because you are correctly setting a static value
   test('build_state open should equal "Open"', () => {
     let order = new Order_Object();
     order.build_state().open();
@@ -54,11 +43,6 @@ describe("Order object build_discount method", () => {
     expect(order.state).toEqual("OPEN");
   });
 
-  // todo
-  //  I corrected this one so you have a model to follow
-  //  since we are checking a static value and not a THROW
-  //  call the build methods outside of expect
-  //  call the class GETTER inside of expect
   test('build_state canceled should equal "CANCELED"', () => {
     let order = new Order_Object();
     order.build_state().canceled();
@@ -77,13 +61,6 @@ describe("Order object build_discount method", () => {
     expect(order.state).toEqual("DRAFT");
   });
 
-  // NOTE - BG: Not sure if it's the expected object or if I need to dothe who .make() bit. :(
-  // todo: NOTE: RB- you got it right -- might be better to use a different currency tho since it default sets 'USD'
-  //  also, your string value "42" revealed a bug which is fixed but the fix now needs its own tests... :-P
-  //  also also -  Square money amounts are in cents. So 42 is really 42 cents.
-
-  // todo: TEST - build_service_amount should throw when the amount is a value that cannot be converted to a Number
-
   test('build_service_charge_amount should correctly build an "amount_money" object when given two args', () => {
     let expected = [
       {
@@ -98,7 +75,6 @@ describe("Order object build_discount method", () => {
     expect(order.service_charges).toMatchObject(expected);
   });
 
-  // build_service_charge_amount should automatically set "USD" when given just amount
   test('build_service_charge_amount should automatically set "USD" when given just amount', () => {
     let expected = [
       {
@@ -113,9 +89,6 @@ describe("Order object build_discount method", () => {
     expect(order.service_charges).toMatchObject(expected);
   });
 
-  //build_service_charge_applied should correctly build an 'amount_money' object when given two args
-  // NOTE: BG - Did you mean 'applied_money'?
-  // todo: NOTE: RB - when in doubt, check the source code...
   test('build_service_charge_applied should correctly build an "amount_money" object when given two args', () => {
     let expected = [
       {
@@ -130,6 +103,12 @@ describe("Order object build_discount method", () => {
     expect(order.service_charges).toMatchObject(expected);
   });
   //build_service_charge_applied should automatically set "USD" when given just amount
+  // TODO NOTE: RB - THIS TEST IS DEPRECATED
+  //  this feature has been extracted into the new #money method
+  //  and the define() method used in build_discount() has been extracted into a utility
+  //  together they are basically Batman and Robin
+  //  Now we need a test for the #money method
+  //  Conveniently, this one will do nicely. All you need to do is change the test statement.
   test('build_service_charge_applied should automatically set "USD" when given just amount', () => {
     let expected = [
       {

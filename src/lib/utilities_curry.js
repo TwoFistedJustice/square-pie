@@ -1,3 +1,20 @@
+/* defines a property on an object and makes it enumerable
+ * arg [object_to_modify]: the name of the object you want to modify
+ * art [prop]: the name of the property to be added
+ * arg [val]: the value to be set on the property. Can be pretty much anything.
+ *
+ * Use Case:
+ * Use this for building those lovely complex objects that Square likes in the request body.
+ *
+ * It's an arrow function on purpose
+ * */
+const define = (object_to_modify, prop, val) => {
+  Object.defineProperty(object_to_modify, prop, {
+    value: val,
+    enumerable: true,
+  });
+};
+
 /*
  *  may need to be refactored for 'this' inside the class
  * */
@@ -69,6 +86,7 @@ const maxLength = function (max, str = "") {
 };
 
 module.exports = {
+  define,
   setter_chain_generator_config,
   setter_chain_generator_separate_arrays,
   maxLength,
