@@ -1,16 +1,27 @@
-**Structures**
+# Pie Class Tables: Order Requests
+
+<br/>
+## Structures
+
+<br/>
+
+### Level One Classes
 
 | Level One Classes | Super | Implemented | Short Notes |
 | ----------------- | ----- | ----------- | ----------- |
-| Square_Request    | none  | !           |
+| SquareRequest     | none  | yes         |
 
 <br/>
+
+### Level Two Classes
 
 | Level Two Classes | Super          | Implemented | Short Notes |
 | ----------------- | -------------- | ----------- | ----------- |
 | Order_Request     | Square_Request |
 
 <br/>
+
+### Level Three Classes
 
 | Level Three Classes  | Super         | Implemented | Short Notes |
 | -------------------- | ------------- | ----------- | ----------- |
@@ -24,6 +35,8 @@
 | Order_Pay            | Order_Request | !           |
 
 <br/>
+
+## Cross Reference: Pie and Square
 
 | Class                | Method | Resource Location        | Body Properties                  | Square Docs                                                                                        |
 | -------------------- | ------ | ------------------------ | -------------------------------- | -------------------------------------------------------------------------------------------------- |
