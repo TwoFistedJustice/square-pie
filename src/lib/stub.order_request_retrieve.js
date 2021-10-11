@@ -9,10 +9,19 @@ class Order_Retrieve extends Order_Request {
     this._method = "post";
     this._endpoint = "batch-retrieve";
     this._body = {};
+    this._delivery;
   }
 
   get body() {
     return this._body;
+  }
+
+  get delivery() {
+    return this._delivery;
+  }
+
+  set delivery(parcel) {
+    this._delivery = parcel.orders;
   }
 
   make() {
