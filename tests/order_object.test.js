@@ -104,13 +104,13 @@ describe('Order object build_discount method', () => {
 	});
 
 	//build_service_charge_applied should automatically set "USD" when given just amount
-	// TODO NOTE: RB - THIS TEST IS DEPRECATED
+	// NOTE: RB - THIS TEST IS DEPRECATED
 	//  this feature has been extracted into the new #money method
 	//  and the define() method used in build_discount() has been extracted into a utility
 	//  together they are basically Batman and Robin
 	//  Now we need a test for the #money method
-	//  Conveniently, this one will do nicely. All you need to do is change the test statement.
-	test('build_service_charge_applied should automatically set "USD" when given just amount', () => {
+	//  TODO Conveniently, this one will do nicely. All you need to do is change the test statement.
+	test('#money method should automatically set "USD" when given just amount', () => {
 		let expected = [
 			{
 				applied_money : {
