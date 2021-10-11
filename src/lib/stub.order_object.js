@@ -56,6 +56,9 @@ class Order_Object {
   }
 
   // GETTERS
+  get fardel() {
+    return this._fardel;
+  }
   get version() {
     return this._fardel.version;
   }
