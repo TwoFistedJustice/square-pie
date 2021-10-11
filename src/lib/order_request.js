@@ -12,7 +12,7 @@ class Order_Request extends Square_Request {
   }
 
   set delivery(parcel) {
-    this.delivery = parcel.order;
+    this._delivery = parcel.order;
   }
 }
 
