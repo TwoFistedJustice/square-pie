@@ -1,5 +1,5 @@
 const should = require("chai").should();
-const Order_Create = require("../src/lib/stub.order_request_create");
+const Order_Create = require("../src/lib/order_request_create");
 const Order_Object = require("../src/lib/stub.order_object");
 
 describe("Silence order request tests", () => {
