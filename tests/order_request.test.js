@@ -1,5 +1,6 @@
 const should = require("chai").should();
 const Order_Create = require("../src/lib/order_request_create");
+const Order_Calculate = require("../src/lib/order_request_calculate");
 const Order_Object = require("../src/lib/stub.order_object");
 
 describe("Silence order request tests", () => {
@@ -35,6 +36,30 @@ describe("Order Request Body formatting", () => {
 
     Object.prototype.hasOwnProperty.call(body, "idempotency_key").should.be
       .true;
+    Object.prototype.hasOwnProperty.call(body, "order").should.be.true;
+    expect(create.body).toMatchObject(expected);
+  });
+
+  // test calculate order - pretty much same as Create except not idempotent
+  test("Create Order request should have properly formatted request.body", () => {
+    // todo add an order object and test that it is properly attached
+    let create = new Order_Calculate();
+    let order = new Order_Object();
+    order.build_discount().type_amount().uid("Pieville USA").add();
+    create.body = order.fardel;
+    let body = create.body;
+
+    let expected = {
+      order: {
+        discounts: [
+          {
+            type: "FIXED_AMOUNT",
+            uid: "Pieville USA",
+          },
+        ],
+      },
+    };
+
     Object.prototype.hasOwnProperty.call(body, "order").should.be.true;
     expect(create.body).toMatchObject(expected);
   });
