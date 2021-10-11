@@ -15,3 +15,11 @@ To actually make the request, you call the .request() method on the Request clas
 The Request class then sends your data and waits for response. If all goes well data comes back and is stored on the .delivery property of the Request class.
 
 If something goes wrong, the Request class will grab the error codes and log them to the console.
+
+### How does the returned data get stored on the .delivery property
+
+The top level .request() method (on the Square_Request class) calls the .delivery SETTER and passes it the stringified request.body via the Fetch API httpResponse.json() method
+
+The lower Request class, which will be a sub of Square_Request should have its own SETTER which picks the data off the request body. For example, when customer data is returned from Square,
+it sits on the request.body.customer. So that is what is passed to the setter so that the customer data will sit on the .delivery property. That way you don't have to memorize which of
+Square's 3 gazillion property names holds which data set. You only need to memorize one property: .delivery
