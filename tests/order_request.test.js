@@ -1,7 +1,7 @@
 const should = require("chai").should();
 const Order_Create = require("../src/lib/order_request_create");
 const Order_Calculate = require("../src/lib/order_request_calculate");
-// const Order_Retrieve = require("../src/lib/stub.order_request_retrieve");
+const Order_Retrieve = require("../src/lib/stub.order_request_retrieve");
 const Order_Object = require("../src/lib/stub.order_object");
 
 describe("Silence order request tests", () => {
@@ -62,4 +62,17 @@ describe("Order Request Body formatting", () => {
     Object.prototype.hasOwnProperty.call(body, "order").should.be.true;
     expect(calculate.body).toMatchObject(expected);
   });
+
+  test("Retrieve Orders request should have properly formatted request.body", () => {
+    let retrieve = new Order_Retrieve();
+
+    let body = retrieve.body;
+    let expected = {
+      location_id: "12345",
+      order_ids: ["ABCD", "EFGH", "JKelemenoP"],
+    };
+
+    expect(body).toMatchObject(expected);
+  });
+  // todo write tests for each of Retrieve Orders handy dandy methods
 });
