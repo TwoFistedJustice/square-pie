@@ -29,7 +29,7 @@
 | Order_Create         | Order_Request |             |
 | Order_Retrieve       | Order_Request | !           |
 | Order_Retrieve_Batch | Order_Request | !           |
-| Order_Calculate      | Order_Request | !           |
+| Order_Calculate      | Order_Request |             |
 | Order_Clone          | Order_Request | !           |
 | Order_Search         | Order_Request | !           |
 | Order_Update         | Order_Request | !           |
@@ -47,7 +47,7 @@
 | Order_Retrieve       | GET    | 'orders/{object_id}'     | NA                               |                        |
 | Order_Retrieve_Batch | POST   | 'orders/batch-retrieve'  | order_ids: []                    | orders:[]              | [Retrieve Batch](https://developer.squareup.com/reference/square/orders-api/batch-retrieve-orders) |
 | Order_Calculate      | POST   | 'orders/calculate'       | order                            | order (super)          | [Calculate Order](https://developer.squareup.com/reference/square/orders-api/calculate-order)      |
-| Order_Clone          | POST   | 'orders/clone '          |                                  |
+| Order_Clone          | POST   | 'orders/clone '          |                                  |                        | [Clone Order](https://developer.squareup.com/reference/square/orders-api/clone-order)              |
 |                      | POST   | 'orders/clone '          | idempotency_key                  |                        |
 |                      | POST   | 'orders/clone '          | order_id                         |                        |
 |                      | POST   | 'orders/clone '          | version (useless do not support) |                        |
