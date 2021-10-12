@@ -1,16 +1,25 @@
 const Order_Request = require("./order_request");
+const { v4: uuidv4 } = require("uuid");
 
 class Order_clone extends Order_Request {
   constructor(props) {
     super(props);
     this._method = "post";
     this._endpoint = "clone";
-    this._body = {};
+    this._body = {
+      idempotency_key: uuidv4(),
+      order_id: undefined,
+      version: undefined, // assume it works same as order_version in Clone
+    };
   }
 
   get body() {
     return this._body;
   }
+
+  // TODO --  HANDY DANDY METHODS
+  // merge array of fields
+  // remove a field to clear by name
 
   make() {
     const methods = () => {

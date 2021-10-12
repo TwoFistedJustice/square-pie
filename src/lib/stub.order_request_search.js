@@ -5,12 +5,36 @@ class Order_Search extends Order_Request {
     super(props);
     this._method = "post";
     this._endpoint = "search";
-    this._body = {};
+    this._body = {
+      location_ids: undefined, // []
+      cursor: undefined,
+      limit: undefined, // num
+      return_entries: undefined, //bool - if set to true returns only the object id,  location id, and version
+      query: undefined, // {} (complex)
+    };
+    this._delivery;
   }
 
   get body() {
     return this._body;
   }
+
+  get delivery() {
+    return this._delivery;
+  }
+
+  set delivery(parcel) {
+    this._body.return_entries === true
+      ? (this._delivery = parcel.order_entries)
+      : (this._delivery = parcel.orders);
+  }
+
+  // TODO --  HANDY DANDY METHODS
+  // location add
+  // location remove
+  // merge array of locations
+
+  // query - base on catalog search
 
   make() {
     const methods = () => {
