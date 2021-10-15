@@ -1,18 +1,20 @@
 # A Quick Guide On Documentation
 
-## TODO
-
-- [X] Summary of intention
-- [X] Tooling Used
-- [X] Rules Overview
-- [X] Rules used/not used
-- [X] Getting Around Rules and when
-- [ ] Style Rules not covered by Markdownlint (yet)
-- [X] Prettier and Markdownlint
+- [Overview](#overview)
+- [Rules Overview](#rules-overview)
+- [Adjusted Rules](#adjusted-rules)
+  - [MD013: line-length](#md013-line-length)
+  - [MD024: no-duplicate-heading/no-duplicate-header](#md024-no-duplicate-headingno-duplicate-header)
+  - [MD033: no-inline-html](#md033-no-inline-html)
+  - [Think we missed something?](#think-we-missed-something)
+- [Getting Around Rules And When](#getting-around-rules-and-when)
+- [Style Rules not covered by Markdownlint (Yet)](#style-rules-not-covered-by-markdownlint-yet)
+- [Prettier and Markdownlint](#prettier-and-markdownlint)
+- [Resources](#resources)
 
 <br/>
 
-## Summary
+## Overview
 
 > Markdown is a plain text format for writing structured documents, based on formatting conventions from email and usenet.
 
@@ -21,19 +23,11 @@ create consistant and readable documentation. Both linting and style guidelines 
 
 <br/>
 
-## Tools and Resources
-
-- [Markdownlint for Node.js]
-- [Markdownlint for Ruby]
-- [Markdownlint cli]
-- [Markdown Cheatsheet]
-- [CommonMark]
-
-<br/>
-
 ## Rules Overview
 
 [Markdownlint][Markdownlint for Node.js] rules are created based on the [CommonMark] specification which is as close to (project) language agnostic as possible. While we are sticking as closely to the default as possible a few rules have been adjusted to better fit our documentations style.
+
+[markdownlint.json with comments][example file]
 
 <br/>
 
@@ -43,47 +37,49 @@ This is a short list of rules that are changed for better flexability in case yo
 
 ### MD013: line-length
 
+#### All
+
 - **Default**: 80
 - **Changed**: false
 
-#### Why
+##### Why
 
 Adding spaces to any html paragraph has unexpected consequenses. leaving this off allows for the (usually) default word-wrap property to do it's thing.
 
 ### MD024: no-duplicate-heading/no-duplicate-header
 
-allow_different_nesting:
+#### allow_different_nesting
 
 - **Default**: false
 - **Changed**: true
 
-#### Why
+##### Why
 
 This was changed as there are several series of tables in the documentation that have the same name as they label properties for a specific object(?).
 
-siblings_only:
+#### siblings_only
 
 - **Default**: false
 - **Changed**: true
 
-#### Why
+##### Why
 
 This one states to only check on siblings. This would still be bad as you'd have two or more anchor links in same list with the same name.
 
 ### MD033: no-inline-html
 
-allowed_elements:
+#### allowed_elements
 
 - **Default**: []
 - **Changed**: ["br"]
 
-#### Why
+##### Why
 
 For better readability and strengthen the seperation of section I've added this to the allowed `<br/>` in our docs. Currently, these are *only* used for section breaks.
 
 ### Think we missed something?
 
-This is only the intial adjustment to the markdownlinting. if you have a suggestion please let us know by creating a ticket with the [markdown lint rule][rules] you'd like to change.
+This is only the initial adjustment to the markdownlinting. if you have a suggestion please let us know by creating a ticket with the [markdown lint rule][rules] you'd like to change.
 
 <br/>
 
@@ -98,6 +94,8 @@ Fastest options:
 - Disable all rules for the next line only: `<!-- markdownlint-disable-next-line -->`
 - Disable all rules: `<!-- markdownlint-disable -->`
 - Enable all rules: `<!-- markdownlint-enable -->`
+
+More options found [here][disable rules].
 
 <br/>
 
@@ -129,6 +127,16 @@ There is one known conflict between Prettier and Markdownlint regarding [list it
 }
 ```
 
+<br/>
+
+## Resources
+
+- [Markdownlint for Node.js]
+- [Markdownlint for Ruby]
+- [Markdownlint cli]
+- [Markdown Cheatsheet]
+- [CommonMark]
+
 values can be found starting on line 38 of markdownline.json
 
 [Markdownlint for Node.js]: https://github.com/DavidAnson/markdownlint "Markdownlint for Node.js"
@@ -138,3 +146,4 @@ values can be found starting on line 38 of markdownline.json
 [CommonMark]: https://commonmark.org/ "CommonMark"
 [rules]: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md "markdownlint rules documenation"
 [disable rules]: https://github.com/DavidAnson/markdownlint#configuration "list of inline disable tags"
+[example file]: https://github.com/TwoFistedJustice/square-pie/docs/examples/markdownlint_defaults.jsonc "json doc with comments"
