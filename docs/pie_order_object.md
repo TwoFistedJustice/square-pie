@@ -2,17 +2,20 @@
 
 # TO DO - Super Structure - property, getter, setter
 
+- [ ] version
+- [ ] id :str
 - [ ] location_id :str
+- [ ] reference_id : str
 - [ ] customer_id: str
+- [ ] ticket_name: str
+- [ ] state: str - fixed
+- [ ] source { simple }
+- [ ] pricing_options : { simple }
+- [ ] service_charges: []
 - [ ] discounts: []
+- [ ] taxes []
 - [ ] fulfillments: []
 - [ ] line_items: []
-- [ ] service_charges: []
-- [ ] taxes []
-- [ ] pricing_options : { simple }
-- [ ] reference_id : str
-- [ ] source { simple }
-- [ ] state: str - fixed
 - [ ] metadata: map - not supported in v1
 
 <br/>
