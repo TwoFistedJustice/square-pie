@@ -45,6 +45,6 @@
 		"**/*": "prettier --write --ignore-unknown",
 		"*.js": "eslint --cache --fix",
 		"*.{js,css,md}": "prettier --write",
-		"*.md": "markdownlint --fix"
+		"docs/*.md": "markdownlint --fix"
 	}
 }
