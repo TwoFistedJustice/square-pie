@@ -1,26 +1,61 @@
 # Pie Order Object
 
-## TO DO
+# TO DO - Super Structure - property, getter, setter
 
-- [ ] build_line_items
-- [ ] quantity: str
-- [ ] applied_discounts: []
-- [ ] applied_taxes: []
-- [ ] base_price_money: {money}
-- [ ] catalog_object_id: max 192
-- [ ] catalog_version
-- [ ] gross_sales_money: {money}
-- [ ] item_type: ITEM, CUSTOM_AMOUNT, GIFT_CARD
-- [ ] metadata
-- [ ] modifiers []
-- [ ] name
-- [ ] note
-- [ ] pricing_blocklists
-- [ ] quantity_unit
-- [ ] uid MAX 60
-- [ ] variation_name MAX 400
+- [ ] location_id :str
+- [ ] customer_id: str
+- [ ] discounts: []
+- [ ] fulfillments: []
+- [ ] line_items: []
+- [ ] service_charges: []
+- [ ] taxes []
+- [ ] pricing_options : { simple }
+- [ ] reference_id : str
+- [ ] source { simple }
+- [ ] state: str - fixed
+- [ ] metadata: map - not supported in v1
 
 <br/>
+
+# TO DO - BUILD METHODS
+
+- [ ] build_state
+- [ ] build_service_charge_amount
+- [ ] build_service_charge_applied
+- [ ] build_discount
+- [ ] build_fulfillment_pickup
+- [ ] build_fulfillment_shipping
+- [ ] build_line_item
+
+### TO DO - Length Limits
+
+- [ ] customer_id
+- [ ] discount.name 255
+- [ ] discount.percentage 10
+- [ ] discount.catalog_object_id 192
+- [ ]fulfillment.uid 60
+- [ ]fulfillment.cancel_reason 100
+- [ ]fulfillment.pickup_details.note 500
+- [ ]fulfillment.pickup_details.curbside_pickup_details.curbside_details 250
+- [ ] shipment_details.carrier 50
+- [ ] shipment_details.failure_reason 100
+- [ ] shipment_details.shipping_note 500
+- [ ] shipment_details.shipping_type 50
+- [ ] shipment_details.tracking_number 100
+- [ ] shipment_details.tracking_url 2000
+- [ ] shipment_details.display_name 255
+- [ ] shipment_details.email_address 255
+- [ ] shipment_details.phone_number 17
+
+<br/>
+
+## COMPLETE-ISH
+
+- [x] build state
+
+## TO DO in future versions
+
+- [ ] metadata
 
 ## READ ONLY
 
