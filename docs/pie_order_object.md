@@ -1,6 +1,46 @@
 # Pie Order Object
 
-# TO DO - Super Structure - property, getter, setter
+# TO DO - Super Structure - property
+
+- [x] version
+- [x] id :str
+- [x] location_id :str
+- [x] reference_id : str
+- [x] customer_id: str
+- [x] ticket_name: str
+- [x] state: str - fixed
+- [x] source { simple }
+- [x] pricing_options : { simple }
+- [x] service_charges: []
+- [x] discounts: []
+- [x] taxes []
+- [x] fulfillments: []
+- [x] line_items: []
+- [ ] metadata: map - not supported in v1
+
+<br/>
+
+# TO DO - Super Structure - getter
+
+- [ ] version
+- [ ] id :str
+- [ ] location_id :str
+- [ ] reference_id : str
+- [ ] customer_id: str
+- [ ] ticket_name: str
+- [ ] state: str - fixed
+- [ ] source { simple }
+- [ ] pricing_options : { simple }
+- [ ] service_charges: []
+- [ ] discounts: []
+- [ ] taxes []
+- [ ] fulfillments: []
+- [ ] line_items: []
+- [ ] metadata: map - not supported in v1
+
+<br/>
+
+# TO DO - Super Structure - setter
 
 - [ ] version
 - [ ] id :str
