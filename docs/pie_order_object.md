@@ -37,7 +37,7 @@ variation_total_price_money
 
 These are sort of like `make()` but with less room for error. Where `make()` directly accesses the setters and lets you pass whatever,
 build() does a lot to prevent you from passing incorrect structures or values. They will often simply set the correct value and structure for you.
-You call a build method for each property you want to set.
+In general you call a build method for a property you want to set.
 
 ```js
 yourVar.build_someproperty().someValue();
