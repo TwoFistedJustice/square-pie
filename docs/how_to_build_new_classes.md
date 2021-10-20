@@ -4,9 +4,9 @@
 
 Every Object that will be instantiated by an end user should have the following properties:
 
-### **._fardel**
+### **.\_fardel**
 
-a ._fardel property to hold all the stuff that will get sent to square. It should conform to Square's expected structures.
+a .\_fardel property to hold all the stuff that will get sent to square. It should conform to Square's expected structures.
 
 Properties on fardel generally conform to Square's expectations for the shape of a given object. If the property does not have a fixed
 value, set it to `undefined`. That way it is visible and more easily set. An undeclared property has to be created programatically and
@@ -43,12 +43,13 @@ this.configuration = {
 
 ## Handling Length Limits
 
-lengthLimits: set a key to the name of a property with a length limit and the value to the limit.
+Create a property on the class called `configuration` (no leading underbar).
+Create a sub-property called "lengthLimits".
+Create a key for each Square property that has a lengthlimit and set the value to a Number equal to that limit.
 
-Create a method called "maxLength" on the highest level super class in that class chain. You can just grab it off the
-catalog_object_super.js file. (see contribution_ideas.md to make it a utility).
+Require the "maxLength" utility from utilities.js. It returns true if the passed in value is within the assigned length limit.
 
-Use that method inside the setters to validate user input.
+In the Setter for the length limited property, use maxLength to check the length.
 
 ## The Auto Function Generator
 
@@ -118,11 +119,11 @@ var somevar = yourClass.delivery;
 The very lowest level classes, those that have no sub-classes set several important properties which will bubble up
 to Square_Request
 
-#### **._endpoint**
+#### **.\_endpoint**
 
 The final part of the Square API url you need to call. It must be preceded with a "/". For example, a create endpoint might be set to "/create"
 
-#### **._method**
+#### **.\_method**
 
 This is the http request method used for the given endpoint and action.
 
