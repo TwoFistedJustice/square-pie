@@ -270,6 +270,7 @@ class Order_Object {
           return this;
         },
         percentage: function (percent) {
+          //todo RUSS check max length
           if (
             (!typeof percent === "string" && !typeof percent === "number") ||
             Number.isNaN(Number(percent))
@@ -339,6 +340,7 @@ class Order_Object {
     };
     return methods();
   } // END build_discount()
+
   // TODO - see pie_order_object.md
   build_fulfillment_pickup() {
     let methods = () => {
@@ -347,6 +349,7 @@ class Order_Object {
     };
     return methods();
   }
+
   // TODO - see pie_order_object.md
   build_fulfillment_shipment() {
     let methods = function () {
@@ -355,6 +358,7 @@ class Order_Object {
     };
     return methods();
   }
+
   // TODO - see pie_order_object.md
   build_line_item() {
     let methods = () => {
