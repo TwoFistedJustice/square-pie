@@ -36,7 +36,7 @@
 - [x] taxes []
 - [x] fulfillments: []
 - [x] line_items: []
-- [] metadata: map - not supported in v1
+- [ ] metadata: map - not supported in v1
 
 <br/>
 
@@ -56,26 +56,34 @@
 - [x] taxes []
 - [x] fulfillments: []
 - [x] line_items: []
-- [] metadata: map - not supported in v1
+- [ ] metadata: map - not supported in v1
 
 <br/>
 
 # TO DO - BUILD METHODS
 
-- [ ] build_state
-- [ ] build_service_charge_amount
-- [ ] build_service_charge_applied
-- [ ] build_discount
+- [x] build_state
+- [x] build_service_charge_amount
+- [x] build_service_charge_applied
+- [x] build_discount
 - [ ] build_fulfillment_pickup
 - [ ] build_fulfillment_shipping
 - [ ] build_line_item
 
-### TO DO - Length Limits
+### TO DO - Length Limits - setters
 
-- [ ] customer_id
+- [ ] customer_id 191
 - [ ] discount.name 255
 - [ ] discount.percentage 10
 - [ ] discount.catalog_object_id 192
+
+<br/>
+
+### TO DO - Length Limits - build-methods
+
+- [x] discount.name 255
+- [ ] discount.percentage 10
+- [x] discount.catalog_object_id 192
 - [ ]fulfillment.uid 60
 - [ ]fulfillment.cancel_reason 100
 - [ ]fulfillment.pickup_details.note 500
@@ -89,23 +97,6 @@
 - [ ] shipment_details.display_name 255
 - [ ] shipment_details.email_address 255
 - [ ] shipment_details.phone_number 17
-
-<br/>
-
-## COMPLETE-ISH
-
-- [x] build state
-
-## TO DO in future versions
-
-- [ ] metadata
-
-## READ ONLY
-
-total_discount_money\
-total_money\
-total_tax_money\
-variation_total_price_money
 
 <br/>
 
