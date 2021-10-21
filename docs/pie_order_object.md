@@ -84,10 +84,10 @@
 - [x] discount.name 255
 - [ ] discount.percentage 10
 - [x] discount.catalog_object_id 192
-- [ ]fulfillment.uid 60
-- [ ]fulfillment.cancel_reason 100
-- [ ]fulfillment.pickup_details.note 500
-- [ ]fulfillment.pickup_details.curbside_pickup_details.curbside_details 250
+- [ ] fulfillment.uid 60
+- [ ] fulfillment.cancel_reason 100
+- [ ] fulfillment.pickup_details.note 500
+- [ ] fulfillment.pickup_details.curbside_pickup_details.curbside_details 250
 - [ ] shipment_details.carrier 50
 - [ ] shipment_details.failure_reason 100
 - [ ] shipment_details.shipping_note 500
