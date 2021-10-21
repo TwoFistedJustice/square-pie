@@ -72,7 +72,7 @@
 
 ### TO DO - Length Limits - setters
 
-- [ ] customer_id 191
+- [x] customer_id 191
 - [ ] discount.name 255
 - [ ] discount.percentage 10
 - [ ] discount.catalog_object_id 192

@@ -3,6 +3,13 @@ const Order_Object = require("../src/lib/stub.order_object");
 const should = require("chai").should();
 const { long_strings } = require("./helper_objects");
 
+/* New Tests to add
+ *
+ * customer_id setter should throw if length exceeds 191
+ *
+ *
+ * */
+
 describe("Silence order object tests", () => {
   test("Should silence tests", () => {
     expect("a").toEqual("a");

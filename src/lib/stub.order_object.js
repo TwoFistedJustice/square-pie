@@ -114,7 +114,9 @@ class Order_Object {
     this._fardel.reference_id = id;
   }
   set customer_id(id) {
-    this._fardel.customer_id = id;
+    if (maxLength(this.configuration.lengthLimits.customer_id, id)) {
+      this._fardel.customer_id = id;
+    }
   }
   set ticket_name(name) {
     this._fardel.ticket_name = name;
