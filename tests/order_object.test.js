@@ -5,7 +5,9 @@ const { long_strings } = require("./helper_objects");
 
 /* New Tests to add
  *
- * customer_id setter should throw if length exceeds 191
+ * customer_id setter should throw if length exceeds length 191
+ *
+ * build_discount.percent should throw if percent exceeds length 10
  *
  *
  * */

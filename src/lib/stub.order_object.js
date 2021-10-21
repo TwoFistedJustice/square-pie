@@ -272,7 +272,6 @@ class Order_Object {
           return this;
         },
         percentage: function (percent) {
-          //todo RUSS check max length
           if (
             (!typeof percent === "string" && !typeof percent === "number") ||
             Number.isNaN(Number(percent))
@@ -281,7 +280,14 @@ class Order_Object {
               '"build_discount.percentage() only accepts numbers and strings that can be converted to a number."'
             );
           }
-          define(discount, "percentage", percent);
+          if (
+            maxLength(
+              this.self.configuration.lengthLimits.discount.percentage,
+              percent
+            )
+          ) {
+            define(discount, "percentage", percent);
+          }
           return this;
         },
         type_percentage: function () {

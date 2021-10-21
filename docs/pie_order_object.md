@@ -73,16 +73,13 @@
 ### TO DO - Length Limits - setters
 
 - [x] customer_id 191
-- [ ] discount.name 255
-- [ ] discount.percentage 10
-- [ ] discount.catalog_object_id 192
 
 <br/>
 
 ### TO DO - Length Limits - build-methods
 
 - [x] discount.name 255
-- [ ] discount.percentage 10
+- [x] discount.percentage 10
 - [x] discount.catalog_object_id 192
 - [ ] fulfillment.uid 60
 - [ ] fulfillment.cancel_reason 100
