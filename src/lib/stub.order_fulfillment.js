@@ -1,4 +1,5 @@
 const Order_Object = require("./stub.order_object");
+const { nanoid } = require("nanoid");
 const { define } = require("./utilities_curry");
 
 class Order_Fulfillment extends Order_Object {
@@ -47,7 +48,7 @@ class Order_Fulfillment extends Order_Object {
   build_common() {
     let methods = function () {
       let fulfillment = {
-        uid: "set with nanoid to length of 10",
+        uid: nanoid(10),
         type: "PICKUP SHIPMENT", // there can be only one
       };
       const properties = {
