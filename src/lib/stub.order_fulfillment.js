@@ -74,7 +74,7 @@ class Order_Fulfillment extends Order_Object {
     }
   }
 
-  build_common() {
+  build_shipment() {
     let methods = function () {
       let fulfillment = {
         uid: nanoid(10),
@@ -83,27 +83,27 @@ class Order_Fulfillment extends Order_Object {
       const properties = {
         self: this,
 
-        proposed: function () {
+        state_propose: function () {
           this.self.#proposed_state(fulfillment);
           return this;
         },
-        reserved: function () {
+        state_reserve: function () {
           this.self.#reserved_state(fulfillment);
           return this;
         },
-        prepared: function () {
+        state_prepare: function () {
           this.self.#prepared_state(fulfillment);
           return this;
         },
-        completed: function () {
+        state_complete: function () {
           this.self.#completed_state(fulfillment);
           return this;
         },
-        canceled: function () {
+        state_cancel: function () {
           this.self.#canceled_state(fulfillment);
           return this;
         },
-        failed: function () {
+        state_fail: function () {
           this.self.#failed_state(fulfillment);
           return this;
         },
