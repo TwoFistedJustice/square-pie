@@ -74,6 +74,7 @@ class Order_Fulfillment extends Order_Object {
     }
   }
 
+  // TODO - see pie_order_object.md
   build_shipment() {
     let methods = function () {
       let fulfillment = {
@@ -107,6 +108,12 @@ class Order_Fulfillment extends Order_Object {
           this.self.#failed_state(fulfillment);
           return this;
         },
+
+        cancel_reason: function (str) {
+          let limit = this.self.fardel.lengthLimits.fulfillment.cancel_reason;
+          this.self.#note(fulfillment, "cancel_reason", str, limit);
+          return this;
+        },
       };
       return properties;
     };
@@ -114,18 +121,46 @@ class Order_Fulfillment extends Order_Object {
   }
 
   // TODO - see pie_order_object.md
-  build_fulfillment_shipment() {
+  build_pickup() {
     let methods = function () {
-      const properties = { self: this };
-      return properties;
-    };
-    return methods();
-  }
+      let fulfillment = {
+        uid: nanoid(10),
+        type: "PICKUP SHIPMENT", // there can be only one
+      };
+      const properties = {
+        self: this,
 
-  // TODO - see pie_order_object.md
-  build_fulfillment_pickup() {
-    let methods = () => {
-      const properties = { self: this };
+        state_propose: function () {
+          this.self.#proposed_state(fulfillment);
+          return this;
+        },
+        state_reserve: function () {
+          this.self.#reserved_state(fulfillment);
+          return this;
+        },
+        state_prepare: function () {
+          this.self.#prepared_state(fulfillment);
+          return this;
+        },
+        state_complete: function () {
+          this.self.#completed_state(fulfillment);
+          return this;
+        },
+        state_cancel: function () {
+          this.self.#canceled_state(fulfillment);
+          return this;
+        },
+        state_fail: function () {
+          this.self.#failed_state(fulfillment);
+          return this;
+        },
+
+        cancel_reason: function (str) {
+          let limit = this.self.fardel.lengthLimits.fulfillment.cancel_reason;
+          this.self.#note(fulfillment, "cancel_reason", str, limit);
+          return this;
+        },
+      };
       return properties;
     };
     return methods();
