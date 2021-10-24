@@ -7,42 +7,58 @@ class Order_Fulfillment extends Order_Object {
     super();
   }
 
-  #proposed(fulfillment) {
+  #proposed_state(fulfillment) {
     let state = "PROPOSED";
     !Object.prototype.hasOwnProperty.call("state")
       ? define(fulfillment, "state", state)
       : (fulfillment.state = state);
   }
 
-  #reserved(fulfillment) {
+  #reserved_state(fulfillment) {
     let state = "RESERVED";
     !Object.prototype.hasOwnProperty.call("state")
       ? define(fulfillment, "state", state)
       : (fulfillment.state = state);
   }
-  #prepared(fulfillment) {
+  #prepared_state(fulfillment) {
     let state = "PREPARED";
     !Object.prototype.hasOwnProperty.call("state")
       ? define(fulfillment, "state", state)
       : (fulfillment.state = state);
   }
-  #completed(fulfillment) {
+  #completed_state(fulfillment) {
     let state = "COMPLETED";
     !Object.prototype.hasOwnProperty.call("state")
       ? define(fulfillment, "state", state)
       : (fulfillment.state = state);
   }
-  #canceled(fulfillment) {
+  #canceled_state(fulfillment) {
     let state = "CANCELED";
     !Object.prototype.hasOwnProperty.call("state")
       ? define(fulfillment, "state", state)
       : (fulfillment.state = state);
   }
-  #failed(fulfillment) {
+  #failed_state(fulfillment) {
     let state = "FAILED";
     !Object.prototype.hasOwnProperty.call("state")
       ? define(fulfillment, "state", state)
       : (fulfillment.state = state);
+  }
+
+  #time_date() {
+    //args: fulfillment object, property key (key), time in RFC339 (time)
+    // call validator.isRFC3339(time)
+    // if it passes muster
+    // use ternary to
+    // call define() and pass it all three args - as in the build state methods
+  }
+
+  #note() {
+    //args: fulfillment object, property key, the note, the lengthlimter
+    // call maxlength on the note
+    // if it passes
+    // use ternary to
+    // call define() and pass it all three args - as in the build state methods
   }
 
   build_common() {
@@ -55,27 +71,27 @@ class Order_Fulfillment extends Order_Object {
         self: this,
 
         proposed: function () {
-          this.self.#proposed(fulfillment);
+          this.self.#proposed_state(fulfillment);
           return this;
         },
         reserved: function () {
-          this.self.#reserved(fulfillment);
+          this.self.#reserved_state(fulfillment);
           return this;
         },
         prepared: function () {
-          this.self.#prepared(fulfillment);
+          this.self.#prepared_state(fulfillment);
           return this;
         },
         completed: function () {
-          this.self.#completed(fulfillment);
+          this.self.#completed_state(fulfillment);
           return this;
         },
         canceled: function () {
-          this.self.#canceled(fulfillment);
+          this.self.#canceled_state(fulfillment);
           return this;
         },
         failed: function () {
-          this.self.#failed(fulfillment);
+          this.self.#failed_state(fulfillment);
           return this;
         },
       };
