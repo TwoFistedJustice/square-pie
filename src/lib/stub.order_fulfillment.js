@@ -1,6 +1,7 @@
 const Order_Object = require("./stub.order_object");
 const { nanoid } = require("nanoid");
-const { define } = require("./utilities_curry");
+const { isRFC3339 } = require("validator");
+const { define, maxLength } = require("./utilities_curry");
 
 class Order_Fulfillment extends Order_Object {
   constructor() {
@@ -45,20 +46,32 @@ class Order_Fulfillment extends Order_Object {
       : (fulfillment.state = state);
   }
 
-  #time_date() {
-    //args: fulfillment object, property key (key), time in RFC339 (time)
-    // call validator.isRFC3339(time)
-    // if it passes muster
-    // use ternary to
-    // call define() and pass it all three args - as in the build state methods
+  //args: fulfillment object, property key (key), time in RFC339 (time)
+  // call validator.isRFC3339(time)
+  // if it passes muster
+  // use ternary to
+  // call define() and pass it all three args - as in the build state methods
+
+  #time_date(fulfillment, key, value) {
+    if (!isRFC3339(value)) {
+      throw new Error("The time value provided must be in RFC 339 format.");
+    }
+    !Object.prototype.hasOwnProperty.call(key)
+      ? define(fulfillment, key, value)
+      : (fulfillment[key] = value);
   }
 
-  #note() {
-    //args: fulfillment object, property key, the note, the lengthlimter
-    // call maxlength on the note
-    // if it passes
-    // use ternary to
-    // call define() and pass it all three args - as in the build state methods
+  //args: fulfillment object, property key, the note, the lengthlimter
+  // call maxlength on the note
+  // if it passes
+  // use ternary to
+  // call define() and pass it all three args - as in the build state methods
+  #note(fulfillment, key, value, lengthlimiter) {
+    if (maxLength(value, lengthlimiter)) {
+      !Object.prototype.hasOwnProperty.call(key)
+        ? define(fulfillment, key, value)
+        : (fulfillment[key] = value);
+    }
   }
 
   build_common() {
