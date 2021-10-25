@@ -30,7 +30,18 @@
 	"MD012": {
 		"maximum": 1
 	},
-	"MD013": false,
+	"line-length": false,
+	"MD013": {
+		"line_length": 999999,
+		"heading_line_length": 999999,
+		"code_block_line_length": 999999,
+		"code_blocks": true,
+		"tables": true,
+		"headings": true,
+		"headers": true,
+		"strict": false,
+		"stern": false
+	},
 	"MD014": true,
 	"MD018": true,
 	"MD019": true,
