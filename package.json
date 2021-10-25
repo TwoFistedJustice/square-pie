@@ -5,6 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"settest": "node tests/data_preparation/setup_test.js",
+		"lint-staged": "lint-staged",
 		"test": "jest",
 		"s": "node tests/data_preparation/setup_test.js",
 		"t": "jest",
