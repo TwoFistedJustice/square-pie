@@ -115,7 +115,27 @@ class Order_Fulfillment extends Order_Object {
           return this;
         },
         auto_complete_duration: function (time) {
-          let key = "";
+          let key = "auto_complete_duration";
+          this.self.#time_date(fulfillment, key, time);
+          return this;
+        },
+        expires_at: function (time) {
+          let key = "expires_at";
+          this.self.#time_date(fulfillment, key, time);
+          return this;
+        },
+        pickup_at: function (time) {
+          let key = "pickup_at";
+          this.self.#time_date(fulfillment, key, time);
+          return this;
+        },
+        pickup_window_duration: function (time) {
+          let key = "pickup_window_duration";
+          this.self.#time_date(fulfillment, key, time);
+          return this;
+        },
+        prep_time_duration: function (time) {
+          let key = "prep_time_duration";
           this.self.#time_date(fulfillment, key, time);
           return this;
         },
@@ -163,6 +183,11 @@ class Order_Fulfillment extends Order_Object {
         cancel_reason: function (str) {
           let limit = this.self.fardel.lengthLimits.fulfillment.cancel_reason;
           this.self.#note(fulfillment, "cancel_reason", str, limit);
+          return this;
+        },
+        expected_shipped_at: function (time) {
+          let key = "expected_shipped_at";
+          this.self.#time_date(fulfillment, key, time);
           return this;
         },
       };
