@@ -163,6 +163,9 @@ class Order_Fulfillment extends Order_Object {
           this.self.#schedule_type(fulfillment, "schedule_type", value);
           return this;
         },
+        clear_curbside: function () {
+          fulfillment.is_curbside_pickup = false;
+        },
       };
       return properties;
     };
