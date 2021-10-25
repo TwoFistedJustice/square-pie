@@ -9,6 +9,7 @@
   - [Think we missed something?](#think-we-missed-something)
 - [Getting Around Rules And When](#getting-around-rules-and-when)
 - [Style Rules not covered by Markdownlint (Yet)](#style-rules-not-covered-by-markdownlint-yet)
+- [Some... Quirks](#some-quirks)
 - [Prettier and Markdownlint](#prettier-and-markdownlint)
 - [Resources](#resources)
 
@@ -19,7 +20,7 @@
 > Markdown is a plain text format for writing structured documents, based on formatting conventions from email and usenet.
 
 As our documentation is "living" documentation this guide will help contributors
-create consistant and readable documentation. Both linting and style guidelines are setup to best work with githubs markdown stylesheet.
+create consistent and readable documentation. Both linting and style guidelines are setup to best work with github's markdown stylesheet.
 
 <br/>
 
@@ -33,7 +34,7 @@ create consistant and readable documentation. Both linting and style guidelines 
 
 ## Adjusted Rules
 
-This is a short list of rules that are changed for better flexability in case you run into a conflict or want to suggest a change.
+This is a short list of rules that are changed for better flexibility in case you run into a conflict or want to suggest a change.
 
 ### MD013: line-length
 
@@ -44,7 +45,7 @@ This is a short list of rules that are changed for better flexability in case yo
 
 ##### Why
 
-Adding spaces to any html paragraph has unexpected consequenses. leaving this off allows for the (usually) default word-wrap property to do it's thing.
+Adding spaces to any html paragraph has unexpected consequences. leaving this off allows for the (usually) default word-wrap property to do it's thing.
 
 ### MD024: no-duplicate-heading/no-duplicate-header
 
@@ -75,7 +76,7 @@ This one states to only check on siblings. This would still be bad as you'd have
 
 ##### Why
 
-For better readability and strengthen the seperation of section I've added this to the allowed `<br/>` in our docs. Currently, these are *only* used for section breaks.
+For better readability and strengthen the separation of section I've added this to the allowed `<br/>` in our docs. Currently, these are *only* used for section breaks.
 
 ### Think we missed something?
 
@@ -87,7 +88,7 @@ This is only the initial adjustment to the markdownlinting. if you have a sugges
 
 On some occasions you may be paraphrasing, referencing, or attempting to affect a look for an example but a rule is in the way. For most situations it's best to stick with a blockquote (\>) or code fence (\`\`\`-language) for these situations.
 
-For the fringe case however you have a [couple of options][disable rules]. However, please note that these "fixes" will be judged and may be rejected if we feel they are eccessive or could be delt with another way.
+For the fringe case however you have a [couple of options][disable rules]. However, please note that these "fixes" will be judged and may be rejected if we feel they are excessive or could be dealt with another way.
 
 Fastest options:
 
@@ -103,10 +104,19 @@ More options found [here][disable rules].
 
 Markdownlint allows for custom rules but we don't have any setup yet
 
-- In regards to **MD033**, every section should have a `<br/>` at the end to help seperate sections.
+- In regards to **MD033**, every section should have a `<br/>` at the end to help separate sections.
 - Don't use a line break directly under a header 1 or 2. Github stylesheet already adds one.
 
 <br/>
+
+## Some... Quirks
+
+As of 10/25/2021 there are a few false positives we have noticed. Currently we are keeping an eye on them to see if it's us or markdownlint.
+
+- **MD013**: List items over 80 characters still trigger warning
+- **MD043**: **Some** top headings *may* trigger warning despite being correct visually
+
+If you notice a false trigger like this please put in an issue so we can either fix it, "fix" it, or send it to creator.
 
 ## Prettier and Markdownlint
 
@@ -131,19 +141,19 @@ There is one known conflict between Prettier and Markdownlint regarding [list it
 
 ## Resources
 
-- [Markdownlint for Node.js]
-- [Markdownlint for Ruby]
-- [Markdownlint cli]
-- [Markdown Cheatsheet]
+- [Markdownlint for Node.js][Markdownlint for Node.js]
+- [Markdownlint for Ruby][Markdownlint for Node.js]
+- [Markdownlint cli][Markdownlint cli]
+- [Markdown cheat sheet][Markdown Cheatsheet]
 - [CommonMark]
 
-values can be found starting on line 38 of markdownline.json
+values can be found starting on line 38 of markdownlint.json
 
 [Markdownlint for Node.js]: https://github.com/DavidAnson/markdownlint "Markdownlint for Node.js"
-[Markdownlint for Ruby]: https://github.com/markdownlint/markdownlint "Markdownlint for Ruby"
+[Markdownlint for Node.js]: https://github.com/markdownlint/markdownlint "Markdownlint for Ruby"
 [Markdownlint cli]: https://github.com/igorshubovych/markdownlint-cli "Markdownlint cli"
-[Markdown Cheatsheet]: https://www.markdownguide.org/cheat-sheet/ "Markdown Cheatsheet"
+[Markdown Cheatsheet]: https://www.markdownguide.org/cheat-sheet/ "Markdown Cheat sheet"
 [CommonMark]: https://commonmark.org/ "CommonMark"
-[rules]: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md "markdownlint rules documenation"
+[rules]: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md "markdownlint rules documentation"
 [disable rules]: https://github.com/DavidAnson/markdownlint#configuration "list of inline disable tags"
 [example file]: https://github.com/TwoFistedJustice/square-pie/docs/examples/markdownlint_defaults.jsonc "json doc with comments"
