@@ -1,7 +1,0 @@
-{
-	"line-length": false,
-	"no-inline-html": {
-		"allowed_elements": ["a", "br"]
-	},
-	"no-duplicate-heading": false
-}
