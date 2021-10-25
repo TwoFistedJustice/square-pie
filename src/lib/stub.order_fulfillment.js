@@ -74,7 +74,7 @@ class Order_Fulfillment extends Order_Object {
     }
   }
 
-  // TODO - see pie_order_object.md
+  // TODO - see pie_order_fulfillment.md
   build_shipment() {
     let methods = function () {
       let fulfillment = {
@@ -120,7 +120,7 @@ class Order_Fulfillment extends Order_Object {
     return methods();
   }
 
-  // TODO - see pie_order_object.md
+  // TODO - see pie_order_fulfillment.md
   build_pickup() {
     let methods = function () {
       let fulfillment = {
