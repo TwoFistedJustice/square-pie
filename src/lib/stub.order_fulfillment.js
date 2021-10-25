@@ -61,13 +61,15 @@ class Order_Fulfillment extends Order_Object {
       : (fulfillment[key] = time);
   }
 
-  //args: fulfillment object, property key, the note, the lengthlimter
+  //args: fulfillment object, property key, the note
   // call maxlength on the note
+  // the limit uses the key to look up the length limit in super.configuration
   // if it passes
   // use ternary to
   // call define() and pass it all three args - as in the build state methods
-  #note(fulfillment, key, note, lengthlimiter) {
-    if (maxLength(note, lengthlimiter)) {
+  #note(fulfillment, key, note) {
+    let limit = this.fardel.lengthLimits.fulfillment[key];
+    if (maxLength(note, limit)) {
       !Object.prototype.hasOwnProperty.call(key)
         ? define(fulfillment, key, note)
         : (fulfillment[key] = note);
@@ -75,11 +77,12 @@ class Order_Fulfillment extends Order_Object {
   }
 
   // TODO - see pie_order_fulfillment.md
+  //  remember to add an ADD() method
   build_shipment() {
     let methods = function () {
       let fulfillment = {
         uid: nanoid(10),
-        type: "PICKUP SHIPMENT", // there can be only one
+        type: "SHIPMENT",
       };
       const properties = {
         self: this,
@@ -110,8 +113,8 @@ class Order_Fulfillment extends Order_Object {
         },
 
         cancel_reason: function (str) {
-          let limit = this.self.fardel.lengthLimits.fulfillment.cancel_reason;
-          this.self.#note(fulfillment, "cancel_reason", str, limit);
+          let key = "cancel_reason";
+          this.self.#note(fulfillment, key, str);
           return this;
         },
         auto_complete_duration: function (time) {
@@ -139,6 +142,11 @@ class Order_Fulfillment extends Order_Object {
           this.self.#time_date(fulfillment, key, time);
           return this;
         },
+        note: function (str) {
+          let key = "note";
+          this.self.#note(fulfillment, key, str);
+          return this;
+        },
       };
       return properties;
     };
@@ -146,11 +154,12 @@ class Order_Fulfillment extends Order_Object {
   }
 
   // TODO - see pie_order_fulfillment.md
+  //  remember to add an ADD() method
   build_pickup() {
     let methods = function () {
       let fulfillment = {
         uid: nanoid(10),
-        type: "PICKUP SHIPMENT", // there can be only one
+        type: "PICKUP",
       };
       const properties = {
         self: this,
@@ -179,15 +188,44 @@ class Order_Fulfillment extends Order_Object {
           this.self.#failed_state(fulfillment);
           return this;
         },
-
-        cancel_reason: function (str) {
-          let limit = this.self.fardel.lengthLimits.fulfillment.cancel_reason;
-          this.self.#note(fulfillment, "cancel_reason", str, limit);
-          return this;
-        },
         expected_shipped_at: function (time) {
           let key = "expected_shipped_at";
           this.self.#time_date(fulfillment, key, time);
+          return this;
+        },
+        cancel_reason: function (str) {
+          let key = "cancel_reason";
+          this.self.#note(fulfillment, key, str);
+          return this;
+        },
+        failure_reason: function (str) {
+          let key = "failure_reason";
+          this.self.#note(fulfillment, key, str);
+          return this;
+        },
+        tracking_number: function (str) {
+          let key = "tracking_number";
+          this.self.#note(fulfillment, key, str);
+          return this;
+        },
+        shipping_note: function (str) {
+          let key = "shipping_note";
+          this.self.#note(fulfillment, key, str);
+          return this;
+        },
+        tracking_url: function (str) {
+          let key = "tracking_url";
+          this.self.#note(fulfillment, key, str);
+          return this;
+        },
+        shipping_type: function (str) {
+          let key = "shipping_type";
+          this.self.#note(fulfillment, key, str);
+          return this;
+        },
+        carrier: function (str) {
+          let key = "carrier";
+          this.self.#note(fulfillment, key, str);
           return this;
         },
       };
