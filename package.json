@@ -6,6 +6,7 @@
 	"scripts": {
 		"settest": "node tests/data_preparation/setup_test.js",
 		"lint-staged": "lint-staged",
+		"markdownlint": "markdownlint",
 		"test": "jest",
 		"s": "node tests/data_preparation/setup_test.js",
 		"t": "jest",
