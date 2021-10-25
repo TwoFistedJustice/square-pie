@@ -70,8 +70,26 @@
   },
 
   // MD013/line-length - Line length
-  "MD013": false,
-
+  "MD013": {
+    // Number of characters
+    "line_length": 80,
+    // Number of characters for headings
+    "heading_line_length": 80,
+    // Number of characters for code blocks
+    "code_block_line_length": 80,
+    // Include code blocks
+    "code_blocks": true,
+    // Include tables
+    "tables": true,
+    // Include headings
+    "headings": true,
+    // Include headings
+    "headers": true,
+    // Strict length checking
+    "strict": false,
+    // Stern length checking
+    "stern": false
+  },
 
   // MD014/commands-show-output - Dollar signs used before commands without showing output
   "MD014": true,
@@ -102,9 +120,9 @@
   // MD024/no-duplicate-heading/no-duplicate-header - Multiple headings with the same content
   "MD024": {
     // Only check sibling headings
-    "allow_different_nesting": true, // default is false
+    "allow_different_nesting": false,
     // Only check sibling headings
-    "siblings_only": true // default is false
+    "siblings_only": false
   },
 
   // MD025/single-title/single-h1 - Multiple top-level headings in the same document
@@ -157,9 +175,7 @@
   // MD033/no-inline-html - Inline HTML
   "MD033": {
     // Allowed elements
-    "allowed_elements": [
-			"br"
-		]
+    "allowed_elements": []
   },
 
   // MD034/no-bare-urls - Bare URL used
