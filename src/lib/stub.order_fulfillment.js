@@ -52,13 +52,13 @@ class Order_Fulfillment extends Order_Object {
   // use ternary to
   // call define() and pass it all three args - as in the build state methods
 
-  #time_date(fulfillment, key, value) {
-    if (!isRFC3339(value)) {
+  #time_date(fulfillment, key, time) {
+    if (!isRFC3339(time)) {
       throw new Error("The time value provided must be in RFC 339 format.");
     }
     !Object.prototype.hasOwnProperty.call(key)
-      ? define(fulfillment, key, value)
-      : (fulfillment[key] = value);
+      ? define(fulfillment, key, time)
+      : (fulfillment[key] = time);
   }
 
   //args: fulfillment object, property key, the note, the lengthlimter
@@ -66,11 +66,11 @@ class Order_Fulfillment extends Order_Object {
   // if it passes
   // use ternary to
   // call define() and pass it all three args - as in the build state methods
-  #note(fulfillment, key, value, lengthlimiter) {
-    if (maxLength(value, lengthlimiter)) {
+  #note(fulfillment, key, note, lengthlimiter) {
+    if (maxLength(note, lengthlimiter)) {
       !Object.prototype.hasOwnProperty.call(key)
-        ? define(fulfillment, key, value)
-        : (fulfillment[key] = value);
+        ? define(fulfillment, key, note)
+        : (fulfillment[key] = note);
     }
   }
 
@@ -112,6 +112,11 @@ class Order_Fulfillment extends Order_Object {
         cancel_reason: function (str) {
           let limit = this.self.fardel.lengthLimits.fulfillment.cancel_reason;
           this.self.#note(fulfillment, "cancel_reason", str, limit);
+          return this;
+        },
+        auto_complete_duration: function (time) {
+          let key = "";
+          this.self.#time_date(fulfillment, key, time);
           return this;
         },
       };
