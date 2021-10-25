@@ -34,16 +34,18 @@
 		"chai": "^4.3.4",
 		"eslint": "^7.32.0",
 		"eslint-config-prettier": "^8.3.0",
-		"markdownlint": "^0.24.0",
 		"husky": "^7.0.1",
 		"jest": "^27.0.6",
 		"lint-staged": "^11.1.1",
+		"markdownlint": "^0.24.0",
+		"markdownlint-cli": "^0.29.0",
 		"nodemon": "^2.0.12",
 		"prettier": "^2.3.2"
 	},
 	"lint-staged": {
 		"**/*": "prettier --write --ignore-unknown",
 		"*.js": "eslint --cache --fix",
-		"*.{js,css,md}": "prettier --write"
+		"*.{js,css,md}": "prettier --write",
+		"**/*.md": "markdownlint --fix"
 	}
 }
