@@ -97,10 +97,7 @@
 		"front_matter_title": "^\\s*title\\s*[:=]"
 	},
 	"MD042": true,
-	"MD043": {
-		"headings": [],
-		"headers": []
-	},
+	"MD043": false,
 	"MD044": {
 		"names": [],
 		"code_blocks": true
