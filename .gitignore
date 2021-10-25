@@ -40,6 +40,8 @@ src/fonts
 .env.development.local
 .env.test.local
 .env.production.local
+#IDE Settings
+.vscode/
 
 
 
