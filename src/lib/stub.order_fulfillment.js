@@ -76,6 +76,12 @@ class Order_Fulfillment extends Order_Object {
     }
   }
 
+  #schedule_type(fulfillment, key, value) {
+    !Object.prototype.hasOwnProperty.call(fulfillment, key)
+      ? define(fulfillment, key, value)
+      : (fulfillment[key] = value);
+  }
+
   // TODO - see pie_order_fulfillment.md
   //  remember to add an ADD() method
   build_shipment() {
@@ -145,6 +151,16 @@ class Order_Fulfillment extends Order_Object {
         note: function (str) {
           let key = "note";
           this.self.#note(fulfillment, key, str);
+          return this;
+        },
+        asap: function () {
+          let value = "ASAP";
+          this.self.#schedule_type(fulfillment, "schedule_type", value);
+          return this;
+        },
+        scheduled: function () {
+          let value = "SCHEDULED";
+          this.self.#schedule_type(fulfillment, "schedule_type", value);
           return this;
         },
       };
