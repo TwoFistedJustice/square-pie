@@ -1,5 +1,4 @@
-const { v4: uuid4 } = require("uuid");
-uuid4();
+const { nanoid } = require("nanoid/non-secure");
 const { test_data_prep } = require("./data_prep");
 
 const apiName = "customers";
@@ -10,7 +9,7 @@ const customer_list = async function () {
 }; // END fn
 
 const customer_add = async function (payload) {
-  payload.idempotency_key = uuid4();
+  payload.idempotency_key = nanoid();
   return await test_data_prep(apiName, "post", undefined, payload);
 }; // END fn
 
