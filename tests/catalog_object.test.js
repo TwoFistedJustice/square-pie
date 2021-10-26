@@ -1,8 +1,5 @@
 "use strict";
 const should = require("chai").should();
-const { v4: uuidv4 } = require("uuid");
-uuidv4();
-
 const { long_strings } = require("./helper_objects");
 const Catalog_Object_Wrapper = require("../src/lib/catalog_object_wrapper");
 const Catalog_Category = require("../src/lib/catalog_object_category");

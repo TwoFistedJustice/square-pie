@@ -1,5 +1,4 @@
-const { v4: uuid4 } = require("uuid");
-uuid4();
+const { nanoid } = require("nanoid/non-secure");
 const { test_data_prep } = require("./data_prep");
 
 const apiName = "catalog";
@@ -112,7 +111,7 @@ const catalog_list = async function () {
 
 const catalog_add = async function () {
   let endpoint = "batch-upsert";
-  payload.idempotency_key = uuid4();
+  payload.idempotency_key = nanoid();
   return await test_data_prep(apiName, "post", endpoint, payload);
 }; // END fn
 

@@ -1,11 +1,11 @@
 const Catalog_Request = require("./catalog_request");
-const { v4: uuidv4 } = require("uuid");
+const { nanoid } = require("nanoid/non-secure");
 
 class Catalog_Upsert extends Catalog_Request {
   constructor() {
     super();
     this._method = "post";
-    this._idempotency_key = uuidv4();
+    this._idempotency_key = nanoid();
     this._endpoint = "";
     this._delivery; // what comes back
     this._body;
