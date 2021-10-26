@@ -1,5 +1,4 @@
-const { v4: uuidv4 } = require("uuid");
-uuidv4();
+const { nanoid } = require("nanoid/non-secure");
 
 // instantiate class
 // class.attach(stuff).attach(stuff)
@@ -10,7 +9,7 @@ uuidv4();
 //ToDO add ability to remove an item from payload array
 class Catalog_Object_Wrapper {
   constructor() {
-    this._idempotency_key = uuidv4();
+    this._idempotency_key = nanoid();
     this._fardel = {
       idempotency_key: this._idempotency_key,
     };
@@ -30,7 +29,7 @@ class Catalog_Object_Wrapper {
   // SETTERS
   set idempotency_key(nothing) {
     // sets a new key, argument required but doesn't do anything
-    this._idempotency_key = uuidv4();
+    this._idempotency_key = nanoid();
   }
   set fardel_one(parcel) {
     if (typeof parcel !== "object" || Array.isArray(parcel)) {
