@@ -4,9 +4,9 @@
 
 Every Object that will be instantiated by an end user should have the following properties:
 
-### **._fardel**
+### **.\_fardel**
 
-a ._fardel property to hold all the stuff that will get sent to square. It should conform to Square's expected structures.
+a .\_fardel property to hold all the stuff that will get sent to square. It should conform to Square's expected structures.
 
 Properties on fardel generally conform to Square's expectations for the shape of a given object. If the property does not have a fixed
 value, set it to `undefined`. That way it is visible and more easily set. An undeclared property has to be created programatically and
@@ -118,11 +118,11 @@ var somevar = yourClass.delivery;
 The very lowest level classes, those that have no sub-classes set several important properties which will bubble up
 to Square_Request
 
-#### **._endpoint**
+#### **.\_endpoint**
 
 The final part of the Square API url you need to call. It must be preceded with a "/". For example, a create endpoint might be set to "/create"
 
-#### **._method**
+#### **.\_method**
 
 This is the http request method used for the given endpoint and action.
 
@@ -132,3 +132,31 @@ As a general rule try to extract away anything that requires very specific value
 generally requires either a value of "ASC" or "DESC". So we will often insert a method called
 `sortup()` or `sortdown()` which when called automatically sets those values. In those situations try to keep
 the names conversational, intuitive, easy to remember, and consistent across classes with similar functions.
+
+<br/>
+
+# Handling Square's Specific Requirements
+
+As a rule we try to extract away as much of this stuff as possible.
+
+## DRY (Don't Repeat Yourself)
+
+Square's API sometimes violates DRY. When we find an instance, we try to eliminate it by focusing on
+the part of Square's API that can handle all parts. For example in the Square Catalog API there are two Delete commands. One for batch deletes and one for single deletes.
+The only difference between them is that one sends on string and one sends an array of strings. So we simply ignore the single delete because the batch can send an array of one string.
+
+## Response Body Data Fields
+
+Square is inconsistent in the way they send data back. Different endpoints and http commands net different property names. It is time-consuming to look up each one. So every request
+class simply ports that data to the `.delivery` property so the end-coder need not care whether it comes back on the customer, customers, order, orders, etc, etc property.
+
+## Idempotency
+
+[Idempotency Keys](https://developer.squareup.com/docs/working-with-apis/idempotency) need to be unique within a given action. They need not be unique in all the world. These are not security keys to keep hackers at bay.
+So we use [nanoid non-secure](https://github.com/ai/nanoid#non-secure) to prioritize performance.
+
+## Names of Documents and Sub-documents
+
+Square often asks for a `name` or `uid` property. These are generally to identify a sub-document within a larger document. These are like mini-idempotency keys. They need only be unique within
+a given document. So we automatically set these using `uid: nanoid(12)` to limit the size of the key and allow for large quantities of sub-documents. We also provide a setter to allow the end-coder
+override and choose a name.

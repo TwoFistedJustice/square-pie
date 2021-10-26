@@ -1,12 +1,12 @@
 const Customer_Request = require("./customer_request");
-const { v4: uuidv4 } = require("uuid");
+const { nanoid } = require("nanoid/non-secure");
 
 // creates a new document in the db
 class Customer_Create extends Customer_Request {
   constructor(customer) {
     super();
     this._method = "post";
-    this.idempotency_key = uuidv4();
+    this.idempotency_key = nanoid();
     this.customer = customer;
     this._delivery;
   }
