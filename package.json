@@ -1,53 +1,54 @@
 {
-	"name": "square-pie",
-	"version": "1.0.0-alpha",
-	"description": "an easy to use class based chainable interface for accessing the Square API.",
-	"main": "index.js",
-	"scripts": {
-		"settest": "node tests/data_preparation/setup_test.js",
-		"lint-staged": "lint-staged",
-		"markdownlint": "markdownlint",
-		"test": "jest",
-		"s": "node tests/data_preparation/setup_test.js",
-		"t": "jest",
-		"clunk": "nodemon tests/manual/catalog_test.js",
-		"prettier:check": "prettier --ignore-path .prettierignore --check '**/*.{js,jsw,jsx, json,md}'",
-		"prettier:fix": "prettier --ignore-path .prettierignore --write '**/*.{js,jsw,jsx,json,md}'",
-		"prepare": "husky install"
-	},
-	"author": "Russ Bain",
-	"license": "ISC",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/TwoFistedJustice/square-pie"
-	},
-	"dependencies": {
-		"dotenv": "^10.0.0",
-		"node-fetch": "^2.6.1",
-		"uuid": "^8.3.2",
-		"validator": "^13.6.0"
-	},
-	"devDependencies": {
-		"@babel/core": "^7.15.0",
-		"@babel/eslint-parser": "^7.15.4",
-		"@babel/node": "^7.14.9",
-		"@babel/preset-env": "^7.15.0",
-		"@babel/register": "^7.14.5",
-		"chai": "^4.3.4",
-		"eslint": "^7.32.0",
-		"eslint-config-prettier": "^8.3.0",
-		"husky": "^7.0.1",
-		"jest": "^27.0.6",
-		"lint-staged": "^11.1.1",
-		"markdownlint": "^0.24.0",
-		"markdownlint-cli": "^0.29.0",
-		"nodemon": "^2.0.12",
-		"prettier": "^2.3.2"
-	},
-	"lint-staged": {
-		"**/*": "prettier --write --ignore-unknown",
-		"*.js": "eslint --cache --fix",
-		"*.{js,css,md}": "prettier --write",
-		"**/*.md": "markdownlint --fix"
-	}
+  "name": "square-pie",
+  "version": "1.0.0-alpha",
+  "description": "an easy to use class based chainable interface for accessing the Square API.",
+  "main": "index.js",
+  "scripts": {
+    "settest": "node tests/data_preparation/setup_test.js",
+    "lint-staged": "lint-staged",
+    "markdownlint": "markdownlint",
+    "test": "jest",
+    "s": "node tests/data_preparation/setup_test.js",
+    "t": "jest",
+    "clunk": "nodemon tests/manual/catalog_test.js",
+    "prettier:check": "prettier --ignore-path .prettierignore --check '**/*.{js,jsw,jsx, json,md}'",
+    "prettier:fix": "prettier --ignore-path .prettierignore --write '**/*.{js,jsw,jsx,json,md}'",
+    "prepare": "husky install"
+  },
+  "author": "Russ Bain",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TwoFistedJustice/square-pie"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "nanoid": "^3.1.30",
+    "node-fetch": "^2.6.1",
+    "uuid": "^8.3.2",
+    "validator": "^13.6.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/eslint-parser": "^7.15.4",
+    "@babel/node": "^7.14.9",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/register": "^7.14.5",
+    "chai": "^4.3.4",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "husky": "^7.0.1",
+    "jest": "^27.0.6",
+    "lint-staged": "^11.1.1",
+    "markdownlint": "^0.24.0",
+    "markdownlint-cli": "^0.29.0",
+    "nodemon": "^2.0.12",
+    "prettier": "^2.3.2"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown",
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write",
+    "**/*.md": "markdownlint --fix"
+  }
 }
