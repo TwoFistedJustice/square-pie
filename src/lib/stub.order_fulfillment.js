@@ -3,9 +3,28 @@ const { nanoid } = require("nanoid");
 const { isRFC3339 } = require("validator");
 const { define, maxLength } = require("./utilities_curry");
 
+//todo refactor this to be a free standing object taht gets added to an order
+
 class Order_Fulfillment extends Order_Object {
   constructor() {
     super();
+    this._fardel = {};
+    this.configuration = {
+      lengthLimits: {
+        uid: 60,
+        cancel_reason: 100,
+        note: 500,
+        curbside_details: 250,
+        carrier: 50,
+        failure_reason: 100,
+        shipping_type: 50,
+        tracking_number: 100,
+        tracking_url: 2000,
+        display_name: 255,
+        email_address: 255,
+        phone_number: 17,
+      },
+    };
   }
 
   #proposed_state(fulfillment) {
@@ -67,8 +86,9 @@ class Order_Fulfillment extends Order_Object {
   // if it passes
   // use ternary to
   // call define() and pass it all three args - as in the build state methods
+  // todo limit
   #note(fulfillment, key, note) {
-    let limit = this.fardel.lengthLimits.fulfillment[key];
+    let limit = this.fardel.lengthLimits[key];
     if (maxLength(note, limit)) {
       !Object.prototype.hasOwnProperty.call(key)
         ? define(fulfillment, key, note)
@@ -117,7 +137,7 @@ class Order_Fulfillment extends Order_Object {
           this.self.#failed_state(fulfillment);
           return this;
         },
-
+        // todo limit props
         cancel_reason: function (str) {
           let key = "cancel_reason";
           this.self.#note(fulfillment, key, str);
