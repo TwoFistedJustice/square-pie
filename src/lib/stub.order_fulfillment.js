@@ -4,11 +4,42 @@ const { isRFC3339 } = require("validator");
 const { define, maxLength } = require("./utilities_curry");
 
 //todo refactor this to be a free standing object taht gets added to an order
+// find the common props and put them in fardel
 
 class Order_Fulfillment extends Order_Object {
   constructor() {
     super();
-    this._fardel = {};
+    this._fardel = {
+      uid: nanoid(10),
+      state: undefined,
+      type: undefined,
+      // todo remove pickup details once constructor methods are built
+      pickup_details: {
+        cancel_reason: "", //limit 100
+        curbside_pickup_details: {
+          curbside_details: "", //limit
+        },
+      },
+      // todo remove shipment details once constructor methods are built
+      shipment_details: {
+        cancel_reason: "", //limit 100
+        failure_reason: "", //limit 100
+        carrier: "", // limit 50
+        expected_shipped_at: "time",
+
+        recipient: {
+          address: {
+            // standard address object same as customer
+            // todo build utility to create
+            // add the utilty to customer objects
+          },
+          customer_id: "", //limit 191
+          display_name: "", //limit 255
+          email_address: "", //limit 255
+          phone_number: "", //limit 17
+        },
+      },
+    };
     this.configuration = {
       lengthLimits: {
         uid: 60,
