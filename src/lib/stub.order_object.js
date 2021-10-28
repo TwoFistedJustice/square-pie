@@ -28,27 +28,6 @@ class Order_Object {
           percentage: 10,
           catalog_object_id: 192,
         },
-        fulfillment: {
-          uid: 60,
-          cancel_reason: 100,
-          pickup_details: {
-            note: 500,
-            curbside_pickup_details: {
-              curbside_details: 250,
-            },
-          },
-          shipment_details: {
-            carrier: 50,
-            failure_reason: 100,
-            shipping_note: 500,
-            shipping_type: 50,
-            tracking_number: 100,
-            tracking_url: 2000,
-            display_name: 255,
-            email_address: 255,
-            phone_number: 17,
-          },
-        },
       },
     };
   }
