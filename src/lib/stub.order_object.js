@@ -2,6 +2,11 @@
 
 const { define, maxLength } = require("./utilities_curry");
 
+// todo
+//  build add method(s) for fulfillment and line items
+//  make it similar to how Item adds Item Variations
+//  - then normalize them so they follow similar syntax
+
 class Order_Object {
   constructor() {
     this._fardel = {
