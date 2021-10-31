@@ -6,6 +6,12 @@ const { define, maxLength } = require("./utilities_curry");
 //todo refactor this to be a free standing object taht gets added to an order
 // find the common props and put them in fardel
 
+// todo - refactor so that instead of modifiying the fulfillment object
+// it modifies fardel
+
+// todo getters for fardel props
+//  setters for same
+
 class Order_Fulfillment extends Order_Object {
   constructor() {
     super();
@@ -57,6 +63,31 @@ class Order_Fulfillment extends Order_Object {
       },
     };
   }
+
+  // GETTERS
+  get uid() {
+    return this._fardel.uid;
+  }
+  get state() {
+    return this._fardel.state;
+  }
+  get type() {
+    return this._fardel.type;
+  }
+
+  // SETTERS
+  set uid(id) {
+    this._fardel.uid = id;
+  }
+  set state(str) {
+    this._fardel.state = str;
+  }
+  set type(str) {
+    this._fardel.type = str;
+  }
+
+  // todo should be able to just pass this._fardel to define...
+  // todo - I left out the first argument of .call() it needs the object to be acted upon
 
   #proposed_state(fulfillment) {
     let state = "PROPOSED";
