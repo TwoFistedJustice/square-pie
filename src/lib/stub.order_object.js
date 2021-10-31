@@ -180,6 +180,14 @@ class Order_Object {
     }
     return { amount, currency };
   }
+  // TODO
+  //  see catalog_object_wrapper.attach for example
+  //  the setter makes the array
+  //
+  add_fulfillment(fulfillment) {
+    this.fulfillments = fulfillment;
+    return this;
+  }
 
   build_state() {
     let methods = () => {
