@@ -6,12 +6,19 @@ Super_Object <|- Sub_Object
 Request_Super <|-  Sub_Request
 Square_Request <|-  Request_Super
 
+
+
 note "Set the api name as high as you can. \nThis is part of the resource address." as N_api
 N_api... Request_Super
 
 note "Method (post, put, get delete) usually ends up at the bottom" as N_method
 N_method... Sub_Request
 
+note "There are example classes in docs/examples" as N_alert
+
+
+
+together {
 abstract class Super_Object {
 constructor{}
 --
@@ -45,8 +52,10 @@ METHODS
 + builder  methods()
 + make()
 }
+}
 
 
+together {
 abstract class Square_Request {
 + constructor()
 --
@@ -113,11 +122,7 @@ simple and compex SETTERS
 ==
 Methods
 +make()
-
-
 }
-
-
-
+}
 
 @enduml
