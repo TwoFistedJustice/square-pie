@@ -62,13 +62,26 @@ simple SETTERS
 ==
 COMPUTED PROPERTIES
 + get secretName()
+- cached by npmjs: dotenv
+
 + get baseUrl()
+-  baseUrl = root + _apiName
+
 + get url()
+- url = baseUrl + endpoint
 ==
 METHODS
 + headers()
+- sets headers from config file
+
 + request()
+- makes the http request using npmjs: node-fetch
+
 + options()
+- sets http options
+- uses _method from sub class
+- JSON.stringifies this._body
+- calls this.headers method
 
 }
 abstract class Request_Super {
@@ -85,7 +98,8 @@ class Sub_Request{
 constructor{}
 --
 + super()
-+ _method: lowercase string, set here
++ _method: lowercase string
+ - put, post, get, or delete
 }
 
 
