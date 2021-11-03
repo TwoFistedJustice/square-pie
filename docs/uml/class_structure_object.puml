@@ -1,0 +1,94 @@
+@startuml
+'https://plantuml.com/class-diagram'
+
+Super_Object <|- Sub_Object
+
+Request_Super <|-  Sub_Request
+Square_Request <|-  Request_Super
+
+note "Set the api name as high as you can. \nThis is part of the resource address." as N_api
+N_api... Request_Super
+
+note "Method (post, put, get delete) usually ends up at the bottom" as N_method
+N_method... Sub_Request
+
+abstract class Super_Object {
+constructor{}
+--
+this._fardel
+..
++common_properties
+==
+simple GETTERS
+==
+SETTERS
+}
+class Sub_Object {
++ constructor()
+--
+# this._fardel
+..
++id: undefined
++someNote: undefined
++someCollection: created later
+
+# this._configuration
+..
++lengthlimits: collection of limits
+==
+simple GETTERS
+==
+simple and complex SETTERS
+==
+METHODS
++ private methods()
++ builder  methods()
++ make()
+}
+
+
+abstract class Square_Request {
++ constructor()
+--
++ _method: empty string
++ _endpoint: empty string
++ _secret: value cached in .dotenv
++ _body; do not set here
++ _delivery; do not set here
+==
+simple GETTERS
+==
+simple SETTERS
+==
+COMPUTED PROPERTIES
++ get secretName()
++ get baseUrl()
++ get url()
+==
+METHODS
++ headers()
++ request()
++ options()
+
+}
+abstract class Request_Super {
+constructor{}
+--
++ super()
++ _endpoint:
++ _delivery
++ _apiName: set here - string, no back\slashes
+==
+simple SETTERS
+}
+class Sub_Request{
+constructor{}
+--
++ super()
++ _method: lowercase string, set here
+}
+
+
+
+
+@enduml
