@@ -1,5 +1,5 @@
 const Catalog_Request = require("./catalog_request");
-const { setter_chain_generator_config } = require("./utilities_curry");
+const { setter_chain_generator_config } = require("./utilities");
 
 class Catalog_List extends Catalog_Request {
   constructor() {

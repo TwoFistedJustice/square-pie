@@ -1,0 +1,128 @@
+@startuml
+'https://plantuml.com/class-diagram'
+
+Super_Object <|- Sub_Object
+
+Request_Super <|-  Sub_Request
+Square_Request <|-  Request_Super
+
+
+
+note "Set the api name as high as you can. \nThis is part of the resource address." as N_api
+N_api... Request_Super
+
+note "Method (post, put, get delete) usually ends up at the bottom" as N_method
+N_method... Sub_Request
+
+note "There are example classes in docs/examples" as N_alert
+
+
+
+together {
+abstract class Super_Object {
+constructor{}
+--
+this._fardel
+..
++common_properties
+==
+simple GETTERS
+==
+SETTERS
+}
+class Sub_Object {
++ constructor()
+--
+# this._fardel
+..
++id: undefined
++someNote: undefined
++someCollection: created later
+
+# this._configuration
+..
++lengthlimits: collection of limits
+==
+simple GETTERS
+==
+simple and complex SETTERS
+==
+METHODS
++ private methods()
++ builder  methods()
++ make()
+}
+}
+
+
+together {
+abstract class Square_Request {
++ constructor()
+--
++ _method: empty string
++ _endpoint: empty string
++ _secret: value cached in .dotenv
++ _body; do not set here
++ _delivery; do not set here
+==
+simple GETTERS
+==
+simple SETTERS
+==
+COMPUTED PROPERTIES
++ get secretName()
+- cached by npmjs: dotenv
+
++ get baseUrl()
+-  baseUrl = root + _apiName
+
++ get url()
+- url = baseUrl + endpoint
+==
+METHODS
++ headers()
+- sets headers from config file
+
++ request()
+- makes the http request using npmjs: node-fetch
+
++ options()
+- sets http options
+- uses _method from sub class
+- JSON.stringifies this._body
+- calls this.headers method
+
+}
+abstract class Request_Super {
+constructor{}
+--
++ super()
++ _endpoint:
++ _apiName: set here - string, no back\slashes
+==
+simple SETTERS
+}
+class Sub_Request{
+constructor{}
+--
++ super()
++ _method: lowercase string
+ - put, post, get, or delete
+
++_body
+- this is where _fardel goes
+
+ + _delivery
+ - extract response data to here
+==
+simple GETTERS
+==
+simple and compex SETTERS
+- if a property expects an array, this is where you create the array
+==
+Methods
++make()
+}
+}
+
+@enduml

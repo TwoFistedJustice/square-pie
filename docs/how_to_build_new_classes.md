@@ -43,12 +43,13 @@ this.configuration = {
 
 ## Handling Length Limits
 
-lengthLimits: set a key to the name of a property with a length limit and the value to the limit.
+Create a property on the class called `configuration` (no leading underbar).
+Create a sub-property called "lengthLimits".
+Create a key for each Square property that has a lengthlimit and set the value to a Number equal to that limit.
 
-Create a method called "maxLength" on the highest level super class in that class chain. You can just grab it off the
-catalog_object_super.js file. (see contribution_ideas.md to make it a utility).
+Require the "maxLength" utility from utilities.js. It returns true if the passed in value is within the assigned length limit.
 
-Use that method inside the setters to validate user input.
+In the Setter for the length limited property, use maxLength to check the length.
 
 ## The Auto Function Generator
 
