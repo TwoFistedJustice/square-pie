@@ -1,6 +1,6 @@
 // this is not a super of fulfillment
 
-const { define, maxLength } = require("./utilities_curry");
+const { define, maxLength } = require("./utilities");
 
 // todo
 //  build add method(s) for fulfillment and line items

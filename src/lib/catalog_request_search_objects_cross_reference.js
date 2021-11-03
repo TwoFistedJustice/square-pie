@@ -1,5 +1,5 @@
 const Catalog_Search_Objects_Super = require("./catalog_request_search_objects_super");
-const { setter_chain_generator_config } = require("./utilities_curry");
+const { setter_chain_generator_config } = require("./utilities");
 class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   #_ids;
   constructor() {

@@ -7,8 +7,10 @@ const { nanoid } = require("nanoid/non-secure");
 // class.finalize() // todo extract this step out
 // send out class.delivery
 //ToDO add ability to remove an item from payload array
+// todo consider renaming Wrapper to Container because that is more clear
 class Catalog_Object_Wrapper {
   constructor() {
+    // todo refactor - DRY-out the idempotency key
     this._idempotency_key = nanoid();
     this._fardel = {
       idempotency_key: this._idempotency_key,
@@ -47,7 +49,8 @@ class Catalog_Object_Wrapper {
       this._fardel.object = parcel;
     }
   }
-
+  // todo refactor - see if it works to just use the many
+  //   if it does, refactor to eliminate the single-upsert
   set fardel_many(parcel) {
     if (!Array.isArray(parcel)) {
       throw new TypeError("Parcel must be an array.");

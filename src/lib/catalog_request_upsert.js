@@ -9,6 +9,7 @@ class Catalog_Upsert extends Catalog_Request {
     this._endpoint = "";
     this._delivery; // what comes back
     this._body;
+    //todo refactor-part of the one or many refactor
     this.configuration = {
       batch: {
         endpoint: "/batch-upsert",
