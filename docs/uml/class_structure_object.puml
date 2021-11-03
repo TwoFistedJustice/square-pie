@@ -89,7 +89,6 @@ constructor{}
 --
 + super()
 + _endpoint:
-+ _delivery
 + _apiName: set here - string, no back\slashes
 ==
 simple SETTERS
@@ -100,6 +99,22 @@ constructor{}
 + super()
 + _method: lowercase string
  - put, post, get, or delete
+
++_body
+- this is where _fardel goes
+
+ + _delivery
+ - extract response data to here
+==
+simple GETTERS
+==
+simple and compex SETTERS
+- if a property expects an array, this is where you create the array
+==
+Methods
++make()
+
+
 }
 
 
