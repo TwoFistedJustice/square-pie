@@ -1,4 +1,4 @@
-const { setter_chain_generator_config } = require("./utilities_curry");
+const { setter_chain_generator_config } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_super");
 // // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
 class Catalog_Object_Item_Variation extends Catalog_Object_Super {

@@ -1,5 +1,5 @@
 const Catalog_Object_Super = require("./catalog_object_super");
-const { setter_chain_generator_config } = require("./utilities_curry");
+const { setter_chain_generator_config } = require("./utilities");
 const { isHexColor } = require("validator");
 
 class Catalog_Item extends Catalog_Object_Super {

@@ -1,6 +1,6 @@
 // this is not a super of fulfillment
 
-const { define, maxLength } = require("./utilities_curry");
+const { define, maxLength } = require("./utilities");
 
 class Order_Object {
   // _idempotency_key;// set on the Request, NOT the object

@@ -20,8 +20,6 @@ class Retrieve_Update_Delete extends Customer_Request {
   set delivery(parcel) {
     this._delivery = parcel.customer;
   }
-
-  // METHODS
   set id(someId) {
     this._endpoint = `/${someId}`;
   }

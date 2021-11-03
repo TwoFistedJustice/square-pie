@@ -13,6 +13,7 @@ class Customer_Update extends Retrieve_Update_Delete {
     this._method = "put";
     // the props on _body aren't necessary, at this point they are just here for reference
     // the curly braces are necessary
+    // todo- refactor- move into new cusomer object classes as fardel
     this._body = {
       given_name: undefined,
       family_name: undefined,
