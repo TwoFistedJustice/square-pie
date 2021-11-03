@@ -23,17 +23,17 @@ class Super_Object {
       // whenever a prop is a simple type (booleans, string, number) we set it to `undefined`
       // The Request classes all use JSON.stringify to convert _fardel to request.body. Properties
       // set to `undefined` will be automatically discarded.
-      common_prop: undefined,
+      common_properties: undefined,
     };
   }
   // GETTERS
   get prop1() {
-    return this._fardel.common_prop;
+    return this._fardel.common_properties;
   }
   // SETTERS
   set prop1(value) {
     // do some error checking
-    this._fardel.common_prop = value;
+    this._fardel.common_properties = value;
   }
 } // END Super_Object
 
