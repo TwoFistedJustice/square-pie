@@ -1,0 +1,113 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Order_Fulfillment.build_shipment
+Order_Fulfillment.build_pickup
+
+class Order_Object{
+this._fardel
+this.configuration
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters
++ pricing_options
++ service_charges
++ discounts
++ taxes
++ fulfillments
++ line_items
+==
+Private METHODS
+- #money()
+==
+BUILDER METHODS
++ build_state()
++ build_service_charge_amount()
++ build_service_charge_applied()
++ build_discount()
+
+==
+STANDARD METHODS
++ make()
+==
+STUB METHODS
++ build_line_item()
++ pricing()
+}
+
+class Order_Fulfillment {
+this._fardel
+this.configuration
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (none))
+==
+Private METHODS
+- #proposed_state()
+- #reserved_state()
+- #prepared_state()
+- #completed_state()
+- #canceled_state()
+- #failed_state()
+- #time_date()
+- #note()
+- #schedule_type()
+==
+BUILDER METHODS
++ build_shipment()
++ build_pickup()
+==
+STANDARD METHODS
++ make() - TODO
+==
+STUB METHODS
+cancel_order()
+
+}
+
+
+object build_shipment {
++ state_propose
++ state_reserve
++ state_prepare
++ state_complete
++ state_cancel
++ state_fail
++ cancel_reason | string |
++ auto_complete_duration |time |
++ expires_at |time |
++ pickup_at |time |
++ pickup_window_duration |time |
++ prep_time_duration |time |
++ note |string |
++ asap
++ scheduled
++ clear_curbside
+
+}
+
+object build_pickup {
++ state_propose
++ state_reserve
++ state_prepare
++ state_complete
++ state_cancel
++ state_fail
++ expected_shipped_at | time |
++ cancel_reason | string |
++ failure_reason | string |
++ tracking_number | string |
++ shipping_note | string |
++ tracking_url | string |
++ shipping_type | string |
++ carrier | string |
+}
+
+
+@enduml
