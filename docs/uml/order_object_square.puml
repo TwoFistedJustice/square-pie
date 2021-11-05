@@ -1,0 +1,224 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+/'dot.syntax for grouping does NOT work with "object" so use "class" instead'/
+
+interface endpoint.Create {
+method: POST
+URL:  /v2/orders
+idempotency_key
+}
+
+class endpoint.Square_Order_Object {
++ version: number, - only used for updates
++ id: string: 191,
++ location_id: string, // required
++ reference_id: string, // backend ID or this order
++ customer_id: string: 191
++ ticket_name: string- this is persisted and gets displayed on any printouts
++ state: FIXED,
++ source: OBJECT -- set automatically to location id and leave an option to change it
++ pricing_options: OBJECT
++ service_charges: ARRAY of OBJECTS
++ discounts: undefined,
++ taxes: ARRAY of OBJECTS  // [{applied_money: {amount: 1, currency: "USD"}] - complex: see JSON example in docs
++ fulfillments: ARRAY of OBJECTS
++ line_items: ARRAY of OBJECTS
+}
+
+class order.discounts {
++ uid
++ name
++ amount_money: MONEY - ARCHETYPE
++ applied_money: MONEY - ARCHETYPE
++ catalog_object_id
++ catalog_version
++ metadata
++ percentage
++ scope: FIXED
++ type: FIXED
+}
+
+enum discount.state {
++ OPEN
++ COMPLETED
++ CANCELED
++ DRAFT
+}
+
+enum discount.scope {
++ OTHER_DISCOUNT_SCOPE
++ LINE_ITEM
++ ORDER
+}
+enum discount.type {
++ FIXED_PERCENTAGE : !catalog_object_id = REQUIRED
++ FIXED_AMOUNT : !catalog_object_id = REQUIRED
++ LINE_ITEM
++ VARIABLE_PERCENTAGE
++ VARIABLE_AMOUNT
+}
+
+
+class order.fulfillment {
++ uid: string : 60
++ state : FIXED
++ pickup_details : OBJECT
++ shipment_details : OBJECT
++ metadata: MAP
+
+}
+class order.line_item {
+quantity : string : 1 - 12 : REQUIRED
+name: string : 512
+note: string : 2000
+uid: string : 60
+variation_name : string : 400
+catalog_object_id : string : 192
+catalog_version : integer
+item_type : FIXED
+base_price_money: MONEY - ARCHETYPE
+gross_sales_money: MONEY - ARCHETYPE
+applied_discounts: ARRAY of OBJECTS
+applied_taxes: ARRAY of OBJECTS
+modifiers: ARRAY of OBJECTS
+pricing_blocklists: ARRAY of OBJECTS
+quantity_unit: ARRAY of OBJECTS
+metadata: MAP
+}
+
+
+class line_item.quantity_unit {
+catalog_object_id: string : 192
+catalog_version : integer-64
+measurement_unit: ARCHETYPE: MeasurementUnit
+precision : integer-32
+}
+class line_item.modifiers{
+base_price_money : ARCHETYPE : Money
+catalog_object_id: string : 192
+catalog_version : integer-64
+name : string : 255
+uid: string : 60
+
+
+}
+
+
+class line_item.applied_discounts{
+BETA
+}
+
+class line_item.applied_taxes{
+BETA
+}
+
+class line_item.pricing_blocklists{
+BETA
+}
+
+enum line_item.item_type {
++ ITEM
++ CUSTOM_AMOUNT
++ GIFT_CARD
+}
+
+
+
+class order.source {
++ name
+}
+
+class fulfillment.pickup_details {
++ is_curbside_pickup : boolean
++ cancel_reason : string : 100
++ schedule_type: FIXED
++ note : str : 500
++ curbside_pickup_details : OBJECT
++ recipient: OBJECT
++ auto_complete_duration : time RFC 3339
++ pickup_window_duration : time RFC 3339
++ prep_time_duration : time RFC 3339
++ expires_at : time RFC 3339
++ pickup_at : time RFC 3339
+}
+
+class fulfillment.curbside_pickup_details {
++ curbside_details : string : 250
++ buyer_arrived_at : time RFC 3339
+}
+
+
+
+class fulfillment.shipment_details {
+uid : string : 60
+cancel_reason : string : 100
+failure_reason : string : 100
+tracking_number : string : 100
+shipping_note : string : 500
+carrier : string : 50
+shipping_type : string : 50
+tracking_url : string : 2000
+expected_shipped_at :
+recipient : OBJECT
+state: FIXED
+type: FIXED
+}
+
+class fulfillment.recipient {
+customer_id : string : 191
+display_name : string : 255
+email_address : string : 255
+phone_number : string : 17
+address : ADDRESS - ARCHETYPE
+}
+
+abstract fulfillment.ADDRESS {
+standard address object
+}
+
+
+enum fulfillment.state {
++ PROPOSED
++ RESERVED
++ PREPARED
++ COMPLETED
++ CANCELED
++ FAILED
+}
+
+
+
+enum fulfillment.type {
++ PICKUP
++ SHIPMENT
+}
+
+enum fulfillment.schedule_type {
++ SCHEDULED - default
++ ASAP
+}
+
+
+abstract money.MONEY {
++ amount: integer
++ currency: FIXED
+}
+
+
+enum money.currency{
+ISO 4217 format
+}
+
+
+fulfillment.pickup_details <|- fulfillment.curbside_pickup_details
+fulfillment.pickup_details <|- fulfillment.schedule_type
+fulfillment.pickup_details <|- fulfillment.type
+fulfillment.shipment_details <|- fulfillment.type
+fulfillment.pickup_details <|- fulfillment.state
+fulfillment.shipment_details <|- fulfillment.state
+fulfillment.recipient <|- fulfillment.ADDRESS
+
+
+
+@enduml
