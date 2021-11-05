@@ -4,9 +4,9 @@
 /'dot.syntax for grouping does NOT work with "object" so use "class" instead'/
 
 interface endpoint.Create {
-method: POST
-URL:  /v2/orders
-idempotency_key
++ method: POST
++ URL:  /v2/orders
++ idempotency_key
 }
 
 class endpoint.Square_Order_Object {
@@ -21,7 +21,7 @@ class endpoint.Square_Order_Object {
 + pricing_options: OBJECT
 + service_charges: ARRAY of OBJECTS
 + discounts: undefined,
-+ taxes: ARRAY of OBJECTS  // [{applied_money: {amount: 1, currency: "USD"}] - complex: see JSON example in docs
++ taxes: ARRAY of OBJECTS
 + fulfillments: ARRAY of OBJECTS
 + line_items: ARRAY of OBJECTS
 }
@@ -29,8 +29,8 @@ class endpoint.Square_Order_Object {
 class order.discounts {
 + uid
 + name
-+ amount_money: MONEY - ARCHETYPE
-+ applied_money: MONEY - ARCHETYPE
++ amount_money:  ARCHETYPE : money
++ applied_money:  ARCHETYPE : money
 + catalog_object_id
 + catalog_version
 + metadata
@@ -69,37 +69,37 @@ class order.fulfillment {
 
 }
 class order.line_item {
-quantity : string : 1 - 12 : REQUIRED
-name: string : 512
-note: string : 2000
-uid: string : 60
-variation_name : string : 400
-catalog_object_id : string : 192
-catalog_version : integer
-item_type : FIXED
-base_price_money: MONEY - ARCHETYPE
-gross_sales_money: MONEY - ARCHETYPE
-applied_discounts: ARRAY of OBJECTS
-applied_taxes: ARRAY of OBJECTS
-modifiers: ARRAY of OBJECTS
-pricing_blocklists: ARRAY of OBJECTS
-quantity_unit: ARRAY of OBJECTS
-metadata: MAP
++ quantity : string : 1 - 12 : REQUIRED
++ name: string : 512
++ note: string : 2000
++ uid: string : 60
++ variation_name : string : 400
++ catalog_object_id : string : 192
++ catalog_version : integer
++ item_type : FIXED
++ base_price_money: ARCHETYPE : money
++ gross_sales_money: ARCHETYPE : money
++ applied_discounts: ARRAY of OBJECTS
++ applied_taxes: ARRAY of OBJECTS
++ modifiers: ARRAY of OBJECTS
++ pricing_blocklists: ARRAY of OBJECTS
++ quantity_unit: ARRAY of OBJECTS
++ metadata: MAP
 }
 
 
 class line_item.quantity_unit {
-catalog_object_id: string : 192
-catalog_version : integer-64
-measurement_unit: ARCHETYPE: MeasurementUnit
-precision : integer-32
++ catalog_object_id: string : 192
++ catalog_version : integer-64
++ measurement_unit: ARCHETYPE: MeasurementUnit
++ precision : integer-32
 }
 class line_item.modifiers{
-base_price_money : ARCHETYPE : Money
-catalog_object_id: string : 192
-catalog_version : integer-64
-name : string : 255
-uid: string : 60
++ base_price_money : ARCHETYPE : Money
++ catalog_object_id: string : 192
++ catalog_version : integer-64
++ name : string : 255
++ uid: string : 60
 
 
 }
@@ -151,30 +151,26 @@ class fulfillment.curbside_pickup_details {
 
 
 class fulfillment.shipment_details {
-uid : string : 60
-cancel_reason : string : 100
-failure_reason : string : 100
-tracking_number : string : 100
-shipping_note : string : 500
-carrier : string : 50
-shipping_type : string : 50
-tracking_url : string : 2000
-expected_shipped_at :
-recipient : OBJECT
-state: FIXED
-type: FIXED
++ uid : string : 60
++ cancel_reason : string : 100
++ failure_reason : string : 100
++ tracking_number : string : 100
++ shipping_note : string : 500
++ carrier : string : 50
++ shipping_type : string : 50
++ tracking_url : string : 2000
++ expected_shipped_at :
++ recipient : OBJECT
++ state: FIXED
++ type: FIXED
 }
 
 class fulfillment.recipient {
-customer_id : string : 191
-display_name : string : 255
-email_address : string : 255
-phone_number : string : 17
-address : ADDRESS - ARCHETYPE
-}
-
-abstract fulfillment.ADDRESS {
-standard address object
++ customer_id : string : 191
++ display_name : string : 255
++ email_address : string : 255
++ phone_number : string : 17
++ address :  ARCHETYPE : address
 }
 
 
@@ -200,15 +196,6 @@ enum fulfillment.schedule_type {
 }
 
 
-abstract money.MONEY {
-+ amount: integer
-+ currency: FIXED
-}
-
-
-enum money.currency{
-ISO 4217 format
-}
 
 
 fulfillment.pickup_details <|- fulfillment.curbside_pickup_details
@@ -217,7 +204,6 @@ fulfillment.pickup_details <|- fulfillment.type
 fulfillment.shipment_details <|- fulfillment.type
 fulfillment.pickup_details <|- fulfillment.state
 fulfillment.shipment_details <|- fulfillment.state
-fulfillment.recipient <|- fulfillment.ADDRESS
 
 
 
