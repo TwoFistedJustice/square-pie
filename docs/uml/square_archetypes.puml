@@ -1,0 +1,130 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+/'Archetypes are small reusable object types commonly used throughout the Square API'/
+
+abstract MONEY.money {
++ amount: integer
++ currency: FIXED
+}
+
+enum MONEY.currency{
+ISO 4217 format
+}
+MONEY.money <|- MONEY.currency
+
+
+
+
+abstract ADDRESS.address {
++ address_line_1
++ address_line_2
++ address_line_3
++ administrative_district_level_1
++ administrative_district_level_2
++ administrative_district_level_3
++ country: FIXED
++ first_name
++ last_name
++ locality
++ organization
++ postal_code
++ sublocality
++ sublocality_2
++ sublocality_3
+
+}
+
+enum ADDRESS.country{
++ ISO 3166-1-alpha-2 format
+}
+
+
+abstract MEASURE.MeasurementUnitCustom {
+abbreviation : string
+name : string
+}
+
+
+abstract MEASURE.measurement{
+custom_unit: ARCHETYPE : MeasurementUnitCustom
+area_unit : FIXED
+generic_unit : FIXED
+length_unit : FIXED
+time_unit : FIXED
+type : FIXED
+volume_unit : FIXED
+weight_unit : FIXED
+
+}
+
+
+enum MEASURE.area_unit {
+IMPERIAL_ACRE
+IMPERIAL_SQUARE_INCH
+IMPERIAL_SQUARE_FOOT
+IMPERIAL_SQUARE_YARD
+IMPERIAL_SQUARE_MILE
+METRIC_SQUARE_CENTIMETER
+METRIC_SQUARE_METER
+METRIC_SQUARE_KILOMETER
+}
+
+enum MEASURE.generic_unit {
+UNIT
+}
+
+enum MEASURE.length_unit {
+IMPERIAL_INCH
+IMPERIAL_FOOT
+IMPERIAL_YARD
+IMPERIAL_MILE
+METRIC_MILLIMETER
+METRIC_CENTIMETER
+METRIC_METER
+METRIC_KILOMETER
+}
+
+enum MEASURE.time_unit {
+GENERIC_MILLISECOND
+GENERIC_SECOND
+GENERIC_MINUTE
+GENERIC_HOUR
+GENERIC_DAY
+}
+
+enum MEASURE.type {
+TYPE_CUSTOM
+TYPE_AREA
+TYPE_LENGTH
+TYPE_VOLUME
+TYPE_WEIGHT
+TYPE_GENERIC
+
+}
+
+enum MEASURE.volume_unit {
+GENERIC_FLUID_OUNCE
+GENERIC_SHOT
+GENERIC_CUP
+GENERIC_PINT
+GENERIC_QUART
+GENERIC_GALLON
+IMPERIAL_CUBIC_INCH
+IMPERIAL_CUBIC_FOOT
+IMPERIAL_CUBIC_YARD
+METRIC_MILLILITER
+METRIC_LITER
+}
+
+enum MEASURE.weight_unit {
+IMPERIAL_WEIGHT_OUNCE
+IMPERIAL_POUND
+IMPERIAL_STONE
+METRIC_MILLIGRAM
+METRIC_GRAM
+METRIC_KILOGRAM
+}
+
+
+@enduml
