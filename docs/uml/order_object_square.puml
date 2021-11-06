@@ -4,9 +4,6 @@
 /'dot.syntax for grouping does NOT work with "object" so use "class" instead'/
 
 
-
-
-
 namespace endpoint  {
 .Create <|-- .Square_Order_Object
 }
@@ -17,11 +14,11 @@ namespace source {
 
 
 namespace discount {
+.discounts --o .Square_Order_Object
+
 state --o .discounts
 .scope --o .discounts
 .type  --o .discounts
-
-.discounts --o .Square_Order_Object
 
 enum state {
 + OPEN
@@ -31,9 +28,9 @@ enum state {
 }
 }
 
-
-
 namespace line_items {
+.line_item --o .Square_Order_Object
+
 .quantity_unit --o .line_item
 .applied_discounts --o .line_item
 .modifiers --o .line_item
@@ -41,11 +38,11 @@ namespace line_items {
 .applied_taxes --o .line_item
 .pricing_blocklists --o .line_item
 .item_type --o .line_item
-
-.line_item --o .Square_Order_Object
 }
 
 namespace fulfillment {
+.fulfillment --o .Square_Order_Object
+
 .schedule_type --o .fulfillment
 .type --o .fulfillment
 .state --o .fulfillment
@@ -53,11 +50,7 @@ namespace fulfillment {
 .shipment_details --o .fulfillment
 .curbside_pickup_details --o .fulfillment
 .pickup_details --o .fulfillment
-
-.fulfillment --o .Square_Order_Object
 }
-
-
 
 interface Create {
 + method: POST
