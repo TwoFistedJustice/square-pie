@@ -3,30 +3,86 @@
 
 /'dot.syntax for grouping does NOT work with "object" so use "class" instead'/
 
-interface endpoint.Create {
+
+
+
+
+namespace endpoint  {
+.Create <|-- .Square_Order_Object
+}
+
+namespace source {
+.source --o .Square_Order_Object
+}
+
+
+namespace discount {
+state --o .discounts
+.scope --o .discounts
+.type  --o .discounts
+
+.discounts --o .Square_Order_Object
+
+enum state {
++ OPEN
++ COMPLETED
++ CANCELED
++ DRAFT
+}
+}
+
+
+
+namespace line_items {
+.quantity_unit --o .line_item
+.applied_discounts --o .line_item
+.modifiers --o .line_item
+.applied_discounts --o .line_item
+.applied_taxes --o .line_item
+.pricing_blocklists --o .line_item
+.item_type --o .line_item
+
+.line_item --o .Square_Order_Object
+}
+
+namespace fulfillment {
+.schedule_type --o .fulfillment
+.type --o .fulfillment
+.state --o .fulfillment
+.recipient --o .fulfillment
+.shipment_details --o .fulfillment
+.curbside_pickup_details --o .fulfillment
+.pickup_details --o .fulfillment
+
+.fulfillment --o .Square_Order_Object
+}
+
+
+
+interface Create {
 + method: POST
 + URL:  /v2/orders
 + idempotency_key
 }
 
-class endpoint.Square_Order_Object {
-+ version: number, - only used for updates
-+ id: string: 191,
-+ location_id: string, // required
-+ reference_id: string, // backend ID or this order
-+ customer_id: string: 191
-+ ticket_name: string- this is persisted and gets displayed on any printouts
+class Square_Order_Object {
++ version : number, - only used for updates
++ id: string : 191,
++ location_id : string, // required
++ reference_id : string, // backend ID or this order
++ customer_id : string: 191
++ ticket_name : string- this is persisted and gets displayed on any printouts
 + state: FIXED,
 + source: OBJECT -- set automatically to location id and leave an option to change it
-+ pricing_options: OBJECT
-+ service_charges: ARRAY of OBJECTS
-+ discounts: undefined,
-+ taxes: ARRAY of OBJECTS
-+ fulfillments: ARRAY of OBJECTS
-+ line_items: ARRAY of OBJECTS
++ pricing_options : OBJECT
++ service_charges : ARRAY of OBJECTS
++ discounts : ARRAY of OBJECTS
++ taxes : ARRAY of OBJECTS
++ fulfillments : ARRAY of OBJECTS
++ line_items : ARRAY of OBJECTS
 }
 
-class order.discounts {
+class discounts <<{, cyan)>> {
 + uid
 + name
 + amount_money:  ARCHETYPE : money
@@ -39,19 +95,13 @@ class order.discounts {
 + type: FIXED
 }
 
-enum discount.state {
-+ OPEN
-+ COMPLETED
-+ CANCELED
-+ DRAFT
-}
 
-enum discount.scope {
+enum scope {
 + OTHER_DISCOUNT_SCOPE
 + LINE_ITEM
 + ORDER
 }
-enum discount.type {
+enum type <<{, cyan)>> {
 + FIXED_PERCENTAGE : !catalog_object_id = REQUIRED
 + FIXED_AMOUNT : !catalog_object_id = REQUIRED
 + LINE_ITEM
@@ -60,7 +110,7 @@ enum discount.type {
 }
 
 
-class order.fulfillment {
+class fulfillment <<{, cyan)>> {
 + uid: string : 60
 + state : FIXED
 + pickup_details : OBJECT
@@ -68,7 +118,7 @@ class order.fulfillment {
 + metadata: MAP
 
 }
-class order.line_item {
+class line_item <<{, cyan)>> {
 + quantity : string : 1 - 12 : REQUIRED
 + name: string : 512
 + note: string : 2000
@@ -88,48 +138,43 @@ class order.line_item {
 }
 
 
-class line_item.quantity_unit {
+class quantity_unit <<{, cyan)>> {
 + catalog_object_id: string : 192
 + catalog_version : integer-64
 + measurement_unit: ARCHETYPE: MeasurementUnit
 + precision : integer-32
 }
-class line_item.modifiers{
+class modifiers <<{, cyan)>> {
 + base_price_money : ARCHETYPE : Money
 + catalog_object_id: string : 192
 + catalog_version : integer-64
 + name : string : 255
 + uid: string : 60
-
-
 }
 
-
-class line_item.applied_discounts{
+class applied_discounts <<{, cyan)>> {
 BETA
 }
 
-class line_item.applied_taxes{
+class applied_taxes <<{, cyan)>> {
 BETA
 }
 
-class line_item.pricing_blocklists{
+class pricing_blocklists <<{, cyan)>> {
 BETA
 }
 
-enum line_item.item_type {
+enum item_type {
 + ITEM
 + CUSTOM_AMOUNT
 + GIFT_CARD
 }
 
-
-
-class order.source {
+class source <<{, cyan)>> {
 + name
 }
 
-class fulfillment.pickup_details {
+class pickup_details <<{, cyan)>> {
 + is_curbside_pickup : boolean
 + cancel_reason : string : 100
 + schedule_type: FIXED
@@ -143,14 +188,12 @@ class fulfillment.pickup_details {
 + pickup_at : time RFC 3339
 }
 
-class fulfillment.curbside_pickup_details {
+class curbside_pickup_details <<{, cyan)>> {
 + curbside_details : string : 250
 + buyer_arrived_at : time RFC 3339
 }
 
-
-
-class fulfillment.shipment_details {
+class shipment_details <<{, cyan)>> {
 + uid : string : 60
 + cancel_reason : string : 100
 + failure_reason : string : 100
@@ -165,7 +208,7 @@ class fulfillment.shipment_details {
 + type: FIXED
 }
 
-class fulfillment.recipient {
+class recipient <<{, cyan)>> {
 + customer_id : string : 191
 + display_name : string : 255
 + email_address : string : 255
@@ -173,8 +216,8 @@ class fulfillment.recipient {
 + address :  ARCHETYPE : address
 }
 
-
-enum fulfillment.state {
+'fulfillment state
+enum state  {
 + PROPOSED
 + RESERVED
 + PREPARED
@@ -183,28 +226,14 @@ enum fulfillment.state {
 + FAILED
 }
 
-
-
-enum fulfillment.type {
+enum type {
 + PICKUP
 + SHIPMENT
 }
 
-enum fulfillment.schedule_type {
+enum schedule_type {
 + SCHEDULED - default
 + ASAP
 }
-
-
-
-
-fulfillment.pickup_details <|- fulfillment.curbside_pickup_details
-fulfillment.pickup_details <|- fulfillment.schedule_type
-fulfillment.pickup_details <|- fulfillment.type
-fulfillment.shipment_details <|- fulfillment.type
-fulfillment.pickup_details <|- fulfillment.state
-fulfillment.shipment_details <|- fulfillment.state
-
-
 
 @enduml
