@@ -1,8 +1,26 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-Order_Fulfillment.build_shipment
-Order_Fulfillment.build_pickup
+
+namespace fulfillment {
+.Order_Fulfillment .. .build_shipment
+.Order_Fulfillment .. .build_pickup
+}
+
+namespace order {
+.Order_Object o.. fardelCollections
+
+object fardelCollections{
+  + fulfillments
+  + discounts
+  + pricing_options
+  + service_charges
+  + taxes
+  + line_items
+}
+
+}
+
 
 class Order_Object{
 this._fardel
@@ -12,22 +30,48 @@ Simple Getters
 ==
 Simple Setters
 ==
-Complex Setters
-+ pricing_options
+Complex Setters (Computed Properties)
+..
+
++ pricing_options (obj)
+..
+- verify ARG and fardel structure
+- push ARG onto array
+--
 + service_charges
 + discounts
 + taxes
 + fulfillments
 + line_items
+..
+- verify fardel structure
+- push ARG onto array
+
+
 ==
 Private METHODS
-- #money()
+- #money(amt, currency)
+..
+-convert amt to number
+- verify ARG structures
+- RETURN compliant object
 ==
 BUILDER METHODS
+
 + build_state()
-+ build_service_charge_amount()
-+ build_service_charge_applied()
+..
+- call state setter with FIXED values
+
++ build_service_charge_amount(amount, currency)
++ build_service_charge_applied(amount, currency)
+- build compliant object
+- call setter
+..
+
+..
 + build_discount()
+..
+This may merit its own class ...
 
 ==
 STANDARD METHODS
@@ -35,7 +79,9 @@ STANDARD METHODS
 ==
 STUB METHODS
 + build_line_item()
+..
 + pricing()
+..
 }
 
 class Order_Fulfillment {
