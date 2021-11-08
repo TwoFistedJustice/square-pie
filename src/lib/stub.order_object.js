@@ -219,12 +219,14 @@ class Order_Object {
     let service_charge = {};
     define(service_charge, "amount_money", this.#money(amount, currency));
     this.service_charges = service_charge;
+    return this;
   }
 
   build_service_charge_applied(amount, currency) {
     let service_charge = {};
     define(service_charge, "applied_money", this.#money(amount, currency));
     this.service_charges = service_charge;
+    return this;
   }
 
   build_discount() {
