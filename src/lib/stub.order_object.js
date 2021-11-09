@@ -229,6 +229,7 @@ class Order_Object {
     return this;
   }
 
+  // todo - extract into own class???
   build_discount() {
     let methods = () => {
       let discount = {};

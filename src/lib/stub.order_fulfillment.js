@@ -166,6 +166,7 @@ class Order_Fulfillment extends Order_Object {
 
   // TODO - see pie_order_fulfillment.md
   //  remember to add an ADD() method
+  //  ORRRR just have it access FARDEL directly...
   build_shipment() {
     let methods = function () {
       let fulfillment = {
