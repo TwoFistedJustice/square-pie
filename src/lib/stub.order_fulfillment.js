@@ -55,6 +55,7 @@ class Order_Fulfillment extends Order_Object {
         carrier: 50,
         shipping_type: 50,
         curbside_details: 250,
+        customer_id: 191,
         display_name: 255,
         email_address: 255,
         tracking_number: 100,
@@ -147,9 +148,26 @@ class Order_Fulfillment extends Order_Object {
       : (fulfillment[key] = value);
   }
 
-  build_shipment() {
-    this.type = "SHIPMENT";
-    let fulfillment = this._fardel.shipment_details;
+  #recipient(address, customer_id, display_name, email_address, phone_number) {
+    if (
+      maxLength(this.configuration.customer_id, customer_id) &&
+      maxLength(this.configuration.display_name, display_name) &&
+      maxLength(this.configuration.email_address, email_address) &&
+      maxLength(this.configuration.phone_number, phone_number)
+    ) {
+      return {
+        address,
+        customer_id,
+        display_name,
+        email_address,
+        phone_number,
+      };
+    }
+  }
+
+  build_pickup() {
+    this.type = "PICKUP";
+    let fulfillment = this._fardel.pickup_details;
 
     let methods = () => {
       const properties = {
@@ -233,9 +251,9 @@ class Order_Fulfillment extends Order_Object {
     return methods();
   }
 
-  build_pickup() {
-    this.type = "PICKUP";
-    let fulfillment = this._fardel.pickup_details;
+  build_shipment() {
+    this.type = "SHIPMENT";
+    let fulfillment = this._fardel.shipment_details;
     let methods = () => {
       const properties = {
         self: this,
@@ -311,9 +329,9 @@ class Order_Fulfillment extends Order_Object {
   }
 
   cancel_order() {
-    // this handles cancel fulfilment props
-    // sends uid and state: "CANCELED"
-    // takes uid as argument
+    // UID
+    // takes uid and reason as argument
+    // set state to  "CANCELED"
     // fills out all fields for cancellation
   }
 }
