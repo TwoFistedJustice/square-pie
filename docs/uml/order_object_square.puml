@@ -169,16 +169,18 @@ class source <<{, cyan)>> {
 
 class pickup_details <<{, cyan)>> {
 + is_curbside_pickup : boolean
-+ cancel_reason : string : 100
 + schedule_type: FIXED
-+ note : str : 500
 + curbside_pickup_details : OBJECT
-+ recipient: OBJECT
 + auto_complete_duration : time RFC 3339
 + pickup_window_duration : time RFC 3339
 + prep_time_duration : time RFC 3339
 + expires_at : time RFC 3339
 + pickup_at : time RFC 3339
+
+-- Common with shipment_details
++ cancel_reason : string : 100
++ note : str : 500
++ recipient: OBJECT
 }
 
 class curbside_pickup_details <<{, cyan)>> {
@@ -187,18 +189,19 @@ class curbside_pickup_details <<{, cyan)>> {
 }
 
 class shipment_details <<{, cyan)>> {
-+ uid : string : 60
-+ cancel_reason : string : 100
 + failure_reason : string : 100
 + tracking_number : string : 100
-+ shipping_note : string : 500
 + carrier : string : 50
 + shipping_type : string : 50
 + tracking_url : string : 2000
 + expected_shipped_at :
-+ recipient : OBJECT
 + state: FIXED
 + type: FIXED
+
+-- Common with pickup_details
++ cancel_reason : string : 100
++ shipping_note : string : 500
++ recipient: OBJECT
 }
 
 class recipient <<{, cyan)>> {
