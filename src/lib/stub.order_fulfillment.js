@@ -3,14 +3,8 @@ const { nanoid } = require("nanoid");
 const { isRFC3339 } = require("validator");
 const { define, maxLength } = require("./utilities");
 
-//todo refactor this to be a free standing object taht gets added to an order
-// find the common props and put them in fardel
-
-// todo - refactor so that instead of modifiying the fulfillment object
-// it modifies fardel
-
-// todo getters for fardel props
-//  setters for same
+// todo still todo: recipient
+// todo still todo: cancel
 
 class Order_Fulfillment extends Order_Object {
   constructor() {
@@ -307,6 +301,7 @@ class Order_Fulfillment extends Order_Object {
           this.self.#note(fulfillment, key, str);
           return this;
         },
+        note: this.shipping_note,
         tracking_url: function (str) {
           let key = "tracking_url";
           this.self.#note(fulfillment, key, str);
