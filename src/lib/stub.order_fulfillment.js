@@ -75,6 +75,10 @@ class Order_Fulfillment extends Order_Object {
     return this._fardel.type;
   }
 
+  get fardel() {
+    return this._fardel;
+  }
+
   // SETTERS
   set uid(id) {
     this._fardel.uid = id;
@@ -86,43 +90,52 @@ class Order_Fulfillment extends Order_Object {
     this._fardel.type = str;
   }
 
+  // set shipment_details(obj) {
+  //   if (!Object.prototype.hasOwnProperty.call())
+  //   this._fardel.shipment_details = obj;
+  // }
+  // set pickup_details() {
+  //   return this._fardel.pickup_details;
+  // }
+  //
+
   // todo should be able to just pass this._fardel to define...
   // todo - I left out the first argument of .call() it needs the object to be acted upon
 
   #proposed_state(fulfillment) {
     let state = "PROPOSED";
-    !Object.prototype.hasOwnProperty.call("state")
+    !Object.prototype.hasOwnProperty.call(fulfillment, "state")
       ? define(fulfillment, "state", state)
       : (fulfillment.state = state);
   }
 
   #reserved_state(fulfillment) {
     let state = "RESERVED";
-    !Object.prototype.hasOwnProperty.call("state")
+    !Object.prototype.hasOwnProperty.call(fulfillment, "state")
       ? define(fulfillment, "state", state)
       : (fulfillment.state = state);
   }
   #prepared_state(fulfillment) {
     let state = "PREPARED";
-    !Object.prototype.hasOwnProperty.call("state")
+    !Object.prototype.hasOwnProperty.call(fulfillment, "state")
       ? define(fulfillment, "state", state)
       : (fulfillment.state = state);
   }
   #completed_state(fulfillment) {
     let state = "COMPLETED";
-    !Object.prototype.hasOwnProperty.call("state")
+    !Object.prototype.hasOwnProperty.call(fulfillment, "state")
       ? define(fulfillment, "state", state)
       : (fulfillment.state = state);
   }
   #canceled_state(fulfillment) {
     let state = "CANCELED";
-    !Object.prototype.hasOwnProperty.call("state")
+    !Object.prototype.hasOwnProperty.call(fulfillment, "state")
       ? define(fulfillment, "state", state)
       : (fulfillment.state = state);
   }
   #failed_state(fulfillment) {
     let state = "FAILED";
-    !Object.prototype.hasOwnProperty.call("state")
+    !Object.prototype.hasOwnProperty.call(fulfillment, "state")
       ? define(fulfillment, "state", state)
       : (fulfillment.state = state);
   }
@@ -137,7 +150,7 @@ class Order_Fulfillment extends Order_Object {
     if (!isRFC3339(time)) {
       throw new Error("The time value provided must be in RFC 339 format.");
     }
-    !Object.prototype.hasOwnProperty.call(key)
+    !Object.prototype.hasOwnProperty.call(fulfillment, key)
       ? define(fulfillment, key, time)
       : (fulfillment[key] = time);
   }
@@ -152,7 +165,7 @@ class Order_Fulfillment extends Order_Object {
   #note(fulfillment, key, note) {
     let limit = this.fardel.lengthLimits[key];
     if (maxLength(note, limit)) {
-      !Object.prototype.hasOwnProperty.call(key)
+      !Object.prototype.hasOwnProperty.call(fulfillment, key)
         ? define(fulfillment, key, note)
         : (fulfillment[key] = note);
     }
