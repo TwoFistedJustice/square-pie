@@ -8,6 +8,9 @@ const { nanoid } = require("nanoid/non-secure");
 // send out class.delivery
 //ToDO add ability to remove an item from payload array
 // todo consider renaming Wrapper to Container because that is more clear
+
+// todo REFACTOR all  Object.defineProperty calls, replace with `define` utility
+
 class Catalog_Object_Wrapper {
   constructor() {
     // todo refactor - DRY-out the idempotency key
