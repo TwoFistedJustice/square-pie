@@ -1,7 +1,7 @@
 const Order_Object = require("./stub.order_object");
 const { nanoid } = require("nanoid");
 const { isRFC3339 } = require("validator");
-const { define, maxLength } = require("./utilities_curry");
+const { define, maxLength } = require("./utilities");
 
 //todo refactor this to be a free standing object taht gets added to an order
 // find the common props and put them in fardel
@@ -19,14 +19,14 @@ class Order_Fulfillment extends Order_Object {
       uid: nanoid(10),
       state: undefined,
       type: undefined,
-      // todo remove pickup details once constructor methods are built
+      // todo set pickup_details to undefined once constructor methods are built
       pickup_details: {
         cancel_reason: "", //limit 100
         curbside_pickup_details: {
           curbside_details: "", //limit
         },
       },
-      // todo remove shipment details once constructor methods are built
+      // todo set shipment_details to undefined once constructor methods are built
       shipment_details: {
         cancel_reason: "", //limit 100
         failure_reason: "", //limit 100
@@ -90,54 +90,24 @@ class Order_Fulfillment extends Order_Object {
     this._fardel.type = str;
   }
 
-  // set shipment_details(obj) {
-  //   if (!Object.prototype.hasOwnProperty.call())
-  //   this._fardel.shipment_details = obj;
-  // }
-  // set pickup_details() {
-  //   return this._fardel.pickup_details;
-  // }
-  //
-
-  // todo should be able to just pass this._fardel to define...
-  // todo - I left out the first argument of .call() it needs the object to be acted upon
-
-  #proposed_state(fulfillment) {
-    let state = "PROPOSED";
-    !Object.prototype.hasOwnProperty.call(fulfillment, "state")
-      ? define(fulfillment, "state", state)
-      : (fulfillment.state = state);
+  // PRIVATE METHODS
+  #proposed_state() {
+    this.state = "PROPOSED";
   }
-
-  #reserved_state(fulfillment) {
-    let state = "RESERVED";
-    !Object.prototype.hasOwnProperty.call(fulfillment, "state")
-      ? define(fulfillment, "state", state)
-      : (fulfillment.state = state);
+  #reserved_state() {
+    this.state = "RESERVED";
   }
-  #prepared_state(fulfillment) {
-    let state = "PREPARED";
-    !Object.prototype.hasOwnProperty.call(fulfillment, "state")
-      ? define(fulfillment, "state", state)
-      : (fulfillment.state = state);
+  #prepared_state() {
+    this.state = "PREPARED";
   }
-  #completed_state(fulfillment) {
-    let state = "COMPLETED";
-    !Object.prototype.hasOwnProperty.call(fulfillment, "state")
-      ? define(fulfillment, "state", state)
-      : (fulfillment.state = state);
+  #completed_state() {
+    this.state = "COMPLETED";
   }
-  #canceled_state(fulfillment) {
-    let state = "CANCELED";
-    !Object.prototype.hasOwnProperty.call(fulfillment, "state")
-      ? define(fulfillment, "state", state)
-      : (fulfillment.state = state);
+  #canceled_state() {
+    this.state = "CANCELED";
   }
-  #failed_state(fulfillment) {
-    let state = "FAILED";
-    !Object.prototype.hasOwnProperty.call(fulfillment, "state")
-      ? define(fulfillment, "state", state)
-      : (fulfillment.state = state);
+  #failed_state() {
+    this.state = "FAILED";
   }
 
   //args: fulfillment object, property key (key), time in RFC339 (time)
@@ -177,40 +147,35 @@ class Order_Fulfillment extends Order_Object {
       : (fulfillment[key] = value);
   }
 
-  // TODO - see pie_order_fulfillment.md
-  //  remember to add an ADD() method
-  //  ORRRR just have it access FARDEL directly...
   build_shipment() {
-    let methods = function () {
-      let fulfillment = {
-        uid: nanoid(10),
-        type: "SHIPMENT",
-      };
+    this.type = "SHIPMENT";
+    let fulfillment = this._fardel.shipment_details;
+
+    let methods = () => {
       const properties = {
         self: this,
-
         state_propose: function () {
-          this.self.#proposed_state(fulfillment);
+          this.self.#proposed_state();
           return this;
         },
         state_reserve: function () {
-          this.self.#reserved_state(fulfillment);
+          this.self.#reserved_state();
           return this;
         },
         state_prepare: function () {
-          this.self.#prepared_state(fulfillment);
+          this.self.#prepared_state();
           return this;
         },
         state_complete: function () {
-          this.self.#completed_state(fulfillment);
+          this.self.#completed_state();
           return this;
         },
         state_cancel: function () {
-          this.self.#canceled_state(fulfillment);
+          this.self.#canceled_state();
           return this;
         },
         state_fail: function () {
-          this.self.#failed_state(fulfillment);
+          this.self.#failed_state();
           return this;
         },
         // todo limit props
@@ -268,39 +233,35 @@ class Order_Fulfillment extends Order_Object {
     return methods();
   }
 
-  // TODO - see pie_order_fulfillment.md
-  //  remember to add an ADD() method
   build_pickup() {
-    let methods = function () {
-      let fulfillment = {
-        uid: nanoid(10),
-        type: "PICKUP",
-      };
+    this.type = "PICKUP";
+    let fulfillment = this._fardel.pickup_details;
+    let methods = () => {
       const properties = {
         self: this,
 
         state_propose: function () {
-          this.self.#proposed_state(fulfillment);
+          this.self.#proposed_state();
           return this;
         },
         state_reserve: function () {
-          this.self.#reserved_state(fulfillment);
+          this.self.#reserved_state();
           return this;
         },
         state_prepare: function () {
-          this.self.#prepared_state(fulfillment);
+          this.self.#prepared_state();
           return this;
         },
         state_complete: function () {
-          this.self.#completed_state(fulfillment);
+          this.self.#completed_state();
           return this;
         },
         state_cancel: function () {
-          this.self.#canceled_state(fulfillment);
+          this.self.#canceled_state();
           return this;
         },
         state_fail: function () {
-          this.self.#failed_state(fulfillment);
+          this.self.#failed_state();
           return this;
         },
         expected_shipped_at: function (time) {
