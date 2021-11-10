@@ -81,6 +81,10 @@ class Order_Fulfillment extends Order_Object {
     return this._fardel.shipment_details;
   }
 
+  get limts() {
+    return this.configuration.lengthLimits;
+  }
+
   // SETTERS
   set uid(id) {
     this._fardel.uid = id;
@@ -205,6 +209,7 @@ class Order_Fulfillment extends Order_Object {
         // todo limit props
         cancel_reason: function (str) {
           let key = "cancel_reason";
+          this.self.#canceled_state();
           this.self.#note(fulfillment, key, str);
           return this;
         },
