@@ -11,7 +11,9 @@
 const define = (object_to_modify, prop, val) => {
   Object.defineProperty(object_to_modify, prop, {
     value: val,
+    configurable: true,
     enumerable: true,
+    writable: true,
   });
 };
 
