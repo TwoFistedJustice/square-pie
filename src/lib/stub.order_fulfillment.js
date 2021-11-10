@@ -13,15 +13,15 @@ class Order_Fulfillment extends Order_Object {
       uid: nanoid(10),
       state: undefined,
       type: undefined,
-      // todo set pickup_details to undefined once constructor methods are built
-      pickup_details: {
+      pickup_details: undefined,
+      shipment_details: undefined,
+      schmickup_details: {
         cancel_reason: "", //limit 100
         curbside_pickup_details: {
           curbside_details: "", //limit
         },
       },
-      // todo set shipment_details to undefined once constructor methods are built
-      shipment_details: {
+      schmipment_details: {
         cancel_reason: "", //limit 100
         failure_reason: "", //limit 100
         carrier: "", // limit 50
@@ -74,6 +74,13 @@ class Order_Fulfillment extends Order_Object {
     return this._fardel;
   }
 
+  get pickup_details() {
+    return this._fardel.pickup_details;
+  }
+  get shipment_details() {
+    return this._fardel.shipment_details;
+  }
+
   // SETTERS
   set uid(id) {
     this._fardel.uid = id;
@@ -83,6 +90,10 @@ class Order_Fulfillment extends Order_Object {
   }
   set type(str) {
     this._fardel.type = str;
+  }
+
+  set pickup_details(obj) {
+    this._fardel.pickup_details = obj;
   }
 
   // PRIVATE METHODS
@@ -128,7 +139,7 @@ class Order_Fulfillment extends Order_Object {
   // call define() and pass it all three args - as in the build state methods
   // todo limit
   #note(fulfillment, key, note) {
-    let limit = this.fardel.lengthLimits[key];
+    let limit = this.configuration.lengthLimits[key];
     if (maxLength(note, limit)) {
       !Object.prototype.hasOwnProperty.call(fulfillment, key)
         ? define(fulfillment, key, note)
@@ -137,6 +148,7 @@ class Order_Fulfillment extends Order_Object {
   }
 
   #schedule_type(fulfillment, key, value) {
+    console.log(fulfillment[key]);
     !Object.prototype.hasOwnProperty.call(fulfillment, key)
       ? define(fulfillment, key, value)
       : (fulfillment[key] = value);
@@ -161,8 +173,8 @@ class Order_Fulfillment extends Order_Object {
 
   build_pickup() {
     this.type = "PICKUP";
+    this.pickup_details = {};
     let fulfillment = this._fardel.pickup_details;
-
     let methods = () => {
       const properties = {
         self: this,
