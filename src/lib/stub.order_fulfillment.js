@@ -81,7 +81,7 @@ class Order_Fulfillment extends Order_Object {
     return this._fardel.shipment_details;
   }
 
-  get limts() {
+  get limits() {
     return this.configuration.lengthLimits;
   }
 
@@ -144,7 +144,7 @@ class Order_Fulfillment extends Order_Object {
   // todo limit
   #note(fulfillment, key, note) {
     let limit = this.configuration.lengthLimits[key];
-    if (maxLength(note, limit)) {
+    if (maxLength(limit, note)) {
       !Object.prototype.hasOwnProperty.call(fulfillment, key)
         ? define(fulfillment, key, note)
         : (fulfillment[key] = note);
