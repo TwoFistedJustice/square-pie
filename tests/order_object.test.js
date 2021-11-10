@@ -13,7 +13,7 @@ const { long_strings } = require("./helper_objects");
  * */
 
 describe("Silence order object tests", () => {
-  test("Should silence tests", () => {
+  test.only("Should silence tests", () => {
     expect("a").toEqual("a");
   });
 });
