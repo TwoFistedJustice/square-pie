@@ -152,7 +152,6 @@ class Order_Fulfillment extends Order_Object {
   }
 
   #schedule_type(fulfillment, key, value) {
-    console.log(fulfillment[key]);
     !Object.prototype.hasOwnProperty.call(fulfillment, key)
       ? define(fulfillment, key, value)
       : (fulfillment[key] = value);
