@@ -276,4 +276,24 @@ describe("build_shipment() strings should be set correctly.", () => {
     expect(ful.shipment_details).toMatchObject(expected);
   });
 });
-// describe("build_pickup() should handle time entries correctly", () => {});
+
+describe("build_shipment should handle time formats correctly", () => {
+  test("expected_shipped_at  should throw when fed non RFC339 time.", () => {
+    let fulfillment = new Order_Fulfillment();
+    let shipment = fulfillment.build_shipment();
+
+    expect(() => {
+      shipment.expected_shipped_at(nonCompliantTime);
+    }).toThrow();
+  });
+
+  test(`expected_shipped_at should be ${RFC339}`, () => {
+    let expected = {
+      pickup_at: RFC339,
+    };
+    let fulfillment = new Order_Fulfillment();
+    fulfillment.build_shipment().expected_shipped_at(RFC339);
+
+    expect(fulfillment.expected_shipped_at).toMatchObject(expected);
+  });
+});
