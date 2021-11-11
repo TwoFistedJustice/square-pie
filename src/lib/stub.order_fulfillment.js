@@ -100,6 +100,10 @@ class Order_Fulfillment extends Order_Object {
     this._fardel.pickup_details = obj;
   }
 
+  set shipment_details(obj) {
+    this._fardel.shipment_details = obj;
+  }
+
   // PRIVATE METHODS
   #proposed_state() {
     this.state = "PROPOSED";
@@ -157,27 +161,62 @@ class Order_Fulfillment extends Order_Object {
       : (fulfillment[key] = value);
   }
 
-  #recipient(address, customer_id, display_name, email_address, phone_number) {
-    if (
-      maxLength(this.configuration.customer_id, customer_id) &&
-      maxLength(this.configuration.display_name, display_name) &&
-      maxLength(this.configuration.email_address, email_address) &&
-      maxLength(this.configuration.phone_number, phone_number)
-    ) {
-      return {
-        address,
-        customer_id,
-        display_name,
-        email_address,
-        phone_number,
+  #recipient(fulfillment) {
+    let key = "recipient";
+    let recipient = {
+      customer_id: undefined,
+      display_name: undefined,
+      email_address: undefined,
+      phone_number: undefined,
+      address: undefined,
+    };
+    !Object.prototype.hasOwnProperty.call(fulfillment, key)
+      ? define(fulfillment, key, recipient)
+      : (fulfillment[key] = recipient);
+    let methods = () => {
+      const properties = {
+        self: this,
+        customer_id: function (val) {
+          if (maxLength(this.self.configuration.customer_id, val)) {
+            fulfillment.recipient.customer_id = val;
+            return this;
+          }
+        },
+        display_name: function (val) {
+          if (maxLength(this.self.configuration.display_name, val)) {
+            fulfillment.recipient.display_name = val;
+            return this;
+          }
+        },
+        email: function (val) {
+          if (maxLength(this.self.configuration.email_address, val)) {
+            fulfillment.recipient.email_address = val;
+            return this;
+          }
+        },
+        phone: function (val) {
+          if (maxLength(this.self.configuration.phone_number, val)) {
+            fulfillment.recipient.phone_number = val;
+            return this;
+          }
+        },
+        address: function (val) {
+          if (maxLength(this.self.configuration.address, val)) {
+            fulfillment.recipient.address = val;
+            return this;
+          }
+        },
       };
-    }
+      return properties;
+    };
+    return methods();
   }
 
   build_pickup() {
     this.type = "PICKUP";
     this.pickup_details = {};
     let fulfillment = this._fardel.pickup_details;
+
     let methods = () => {
       const properties = {
         self: this,
@@ -256,6 +295,9 @@ class Order_Fulfillment extends Order_Object {
         clear_curbside: function () {
           fulfillment.is_curbside_pickup = false;
         },
+        recipient: function () {
+          return this.self.#recipient(fulfillment);
+        },
       };
       return properties;
     };
@@ -264,6 +306,7 @@ class Order_Fulfillment extends Order_Object {
 
   build_shipment() {
     this.type = "SHIPMENT";
+    this.shipment_details = {};
     let fulfillment = this._fardel.shipment_details;
     let methods = () => {
       const properties = {
@@ -335,6 +378,9 @@ class Order_Fulfillment extends Order_Object {
           let key = "carrier";
           this.self.#note(fulfillment, key, str);
           return this;
+        },
+        recipient: function () {
+          return this.self.#recipient(fulfillment);
         },
       };
       return properties;
