@@ -299,7 +299,7 @@ describe("build_shipment should handle time formats correctly", () => {
 });
 
 describe("Compliant recipient objects should be added to shipment and pickups.", () => {
-  test.only("", () => {
+  test.only("build_pickup should accept a properly formatted recipient object", () => {
     let fulfillment = new Order_Fulfillment();
     let customer_id = "some id";
     let display_name = "Josephine";
@@ -333,5 +333,41 @@ describe("Compliant recipient objects should be added to shipment and pickups.",
       .address(address);
 
     expect(fulfillment.pickup_details).toMatchObject(expected);
+  });
+
+  test.only("build_shipment should accept a properly formatted recipient object", () => {
+    let fulfillment = new Order_Fulfillment();
+    let customer_id = "some id";
+    let display_name = "Josephine";
+    let email_address = "josie@firstempire.fr";
+    let phone_number = "+33144423877";
+    let address = {
+      first_name: "Josephine",
+      last_name: "Bonaparte",
+      address_line_1: "Av. du Château de la Malmaison",
+      locality: "Rueil-Malmaison",
+      postal_code: "92500",
+      country: "FR",
+    };
+
+    let expected = {
+      recipient: {
+        customer_id: customer_id,
+        display_name: display_name,
+        email_address: email_address,
+        phone_number: phone_number,
+        address: address,
+      },
+    };
+    fulfillment
+      .build_shipment()
+      .recipient()
+      .customer_id(customer_id)
+      .display_name(display_name)
+      .email(email_address)
+      .phone(phone_number)
+      .address(address);
+
+    expect(fulfillment.shipment_details).toMatchObject(expected);
   });
 });
