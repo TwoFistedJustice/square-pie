@@ -3,9 +3,6 @@ const { nanoid } = require("nanoid");
 const { isRFC3339 } = require("validator");
 const { define, maxLength } = require("./utilities");
 
-// todo still todo: recipient
-// todo still todo: cancel
-
 class Order_Fulfillment extends Order_Object {
   constructor() {
     super();
@@ -15,30 +12,6 @@ class Order_Fulfillment extends Order_Object {
       type: undefined,
       pickup_details: undefined,
       shipment_details: undefined,
-      schmickup_details: {
-        cancel_reason: "", //limit 100
-        curbside_pickup_details: {
-          curbside_details: "", //limit
-        },
-      },
-      schmipment_details: {
-        cancel_reason: "", //limit 100
-        failure_reason: "", //limit 100
-        carrier: "", // limit 50
-        expected_shipped_at: "time",
-
-        recipient: {
-          address: {
-            // standard address object same as customer
-            // todo build utility to create
-            // add the utilty to customer objects
-          },
-          customer_id: "", //limit 191
-          display_name: "", //limit 255
-          email_address: "", //limit 255
-          phone_number: "", //limit 17
-        },
-      },
     };
     this.configuration = {
       lengthLimits: {
@@ -142,10 +115,9 @@ class Order_Fulfillment extends Order_Object {
   //args: fulfillment object, property key, the note
   // call maxlength on the note
   // the limit uses the key to look up the length limit in super.configuration
-  // if it passes
+  // if it passes muster
   // use ternary to
   // call define() and pass it all three args - as in the build state methods
-  // todo limit
   #note(fulfillment, key, note) {
     let limit = this.configuration.lengthLimits[key];
     if (maxLength(limit, note)) {
@@ -244,14 +216,17 @@ class Order_Fulfillment extends Order_Object {
           this.self.#failed_state();
           return this;
         },
-        // todo limit props
+
         cancel_reason: function (str) {
           let key = "cancel_reason";
           this.self.#canceled_state();
           this.self.#note(fulfillment, key, str);
           return this;
         },
-        cancel: this.cancel_reason,
+        cancel: function (str) {
+          this.cancel_reason(str);
+          return this;
+        },
         auto_complete_duration: function (time) {
           let key = "auto_complete_duration";
           this.self.#time_date(fulfillment, key, time);
@@ -292,13 +267,22 @@ class Order_Fulfillment extends Order_Object {
           this.self.#schedule_type(fulfillment, "schedule_type", value);
           return this;
         },
-        clear_curbside: function () {
-          fulfillment.is_curbside_pickup = false;
-        },
         recipient: function () {
           return this.self.#recipient(fulfillment);
         },
+        curbside_details: function (str) {
+          let key = "curbside_details";
+          this.self.#note(fulfillment, key, str);
+          this.self._fardel.pickup_details.is_curbside_pickup = true;
+          return this;
+        },
+        buyer_arrived_at: function (time) {
+          let key = "buyer_arrived_at";
+          this.self.#time_date(fulfillment, key, time);
+          return this;
+        },
       };
+
       return properties;
     };
     return methods();
@@ -347,7 +331,10 @@ class Order_Fulfillment extends Order_Object {
           this.self.#note(fulfillment, key, str);
           return this;
         },
-        cancel: this.cancel_reason,
+        cancel: function (str) {
+          this.cancel_reason(str);
+          return this;
+        },
         failure_reason: function (str) {
           let key = "failure_reason";
           this.self.#note(fulfillment, key, str);
@@ -363,7 +350,11 @@ class Order_Fulfillment extends Order_Object {
           this.self.#note(fulfillment, key, str);
           return this;
         },
-        note: this.shipping_note,
+
+        note: function (str) {
+          this.shipping_note(str);
+          return this;
+        },
         tracking_url: function (str) {
           let key = "tracking_url";
           this.self.#note(fulfillment, key, str);
