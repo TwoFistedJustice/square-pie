@@ -12,9 +12,6 @@ describe("Silence Order Fulfillment tests", () => {
   });
 });
 
-// test each value for state
-// test pickup details first bc that's easier
-
 describe("build_pickup() strings should be set correctly.", () => {
   // +PROPOSED + RESERVED + PREPARED + COMPLETED + CANCELED + FAILED;
 
@@ -82,22 +79,32 @@ describe("build_pickup() strings should be set correctly.", () => {
     expect(fulfillment.pickup_details).toMatchObject(expected);
   });
 
-  test("cancel_reason shoudl set all cancellation properties", () => {
+  test("cancel_reason should set all cancellation properties", () => {
     let ful = new Order_Fulfillment();
     let note = "This is a note.";
-    ful.build_pickup().cancel_reason(note);
-
     let expected_pickup_details = {
       cancel_reason: note,
     };
+    ful.build_pickup().cancel_reason(note);
+    expect(ful.state).toEqual("CANCELED");
+    expect(ful.pickup_details).toMatchObject(expected_pickup_details);
+  });
+
+  test("cancel should set all cancellation properties", () => {
+    let ful = new Order_Fulfillment();
+    let note = "This is a note.";
+    let expected_pickup_details = {
+      cancel_reason: note,
+    };
+    ful.build_pickup().cancel(note);
 
     expect(ful.state).toEqual("CANCELED");
     expect(ful.pickup_details).toMatchObject(expected_pickup_details);
   });
 });
 
-describe("build_pickup() should handle time entries correctly", () => {
-  test("pickup_details should throw when fed non RFC339 time.", () => {
+describe("#time_date should reject non RFC339 time formats.", () => {
+  test("#time_date  should throw when fed non RFC339 time.", () => {
     let fulfillment = new Order_Fulfillment();
     let pickup = fulfillment.build_pickup();
 
@@ -122,7 +129,6 @@ describe("build_pickup() should handle time entries correctly", () => {
     };
     let fulfillment = new Order_Fulfillment();
     fulfillment.build_pickup().expires_at(RFC339);
-
     expect(fulfillment.pickup_details).toMatchObject(expected);
   });
 
@@ -132,7 +138,6 @@ describe("build_pickup() should handle time entries correctly", () => {
     };
     let fulfillment = new Order_Fulfillment();
     fulfillment.build_pickup().pickup_window_duration(RFC339);
-
     expect(fulfillment.pickup_details).toMatchObject(expected);
   });
 
@@ -142,16 +147,15 @@ describe("build_pickup() should handle time entries correctly", () => {
     };
     let fulfillment = new Order_Fulfillment();
     fulfillment.build_pickup().prep_time_duration(RFC339);
-
     expect(fulfillment.pickup_details).toMatchObject(expected);
   });
 });
 
-describe("fulfillments should respect length limits", () => {
-  // cancel_reason uses same private function as note - no test needed
+describe("Private functions Type and Conformity checking", () => {
+  // private functions only need to be tested once each.
   // note 500
 
-  test.only("notes should thow when they exceed the limit", () => {
+  test.only("#note should throw when they exceed the character limit", () => {
     let fulfillment = new Order_Fulfillment();
     let limit = fulfillment.limits.note + 1;
     let len = `len_${limit}`;
@@ -161,7 +165,115 @@ describe("fulfillments should respect length limits", () => {
       pickup.note(long_strings[len]);
     }).toThrow();
   });
+
+  test("#time_date  should throw when fed non RFC339 time.", () => {
+    let fulfillment = new Order_Fulfillment();
+    let pickup = fulfillment.build_pickup();
+
+    expect(() => {
+      pickup.pickup_at(nonCompliantTime);
+    }).toThrow();
+  });
 });
 
-// create a shipment and test output
-// do same for pickup
+describe("build_shipment() strings should be set correctly.", () => {
+  const fulfillment = new Order_Fulfillment();
+  let shipment = fulfillment.build_shipment();
+
+  test("type should be set to 'SHIPMENT' ", () => {
+    expect(fulfillment.type).toEqual("SHIPMENT");
+  });
+
+  test("state should be set to PROPOSED", () => {
+    let expected = "PROPOSED";
+    shipment.state_propose();
+    expect(fulfillment.state).toEqual(expected);
+  });
+  test("state should be set to RESERVED", () => {
+    let expected = "RESERVED";
+    shipment.state_reserve();
+    expect(fulfillment.state).toEqual(expected);
+  });
+
+  test("state should be set to PREPARED", () => {
+    let expected = "PREPARED";
+    shipment.state_prepare();
+    expect(fulfillment.state).toEqual(expected);
+  });
+  test("state should be set to COMPLETED", () => {
+    let expected = "COMPLETED";
+    shipment.state_complete();
+    expect(fulfillment.state).toEqual(expected);
+  });
+  test("state should be set to CANCELED", () => {
+    let expected = "CANCELED";
+    shipment.state_cancel();
+    expect(fulfillment.state).toEqual(expected);
+  });
+  test("state should be set to FAILED", () => {
+    let expected = "FAILED";
+    shipment.state_fail();
+    expect(fulfillment.state).toEqual(expected);
+  });
+
+  test("Note should be set", () => {
+    let note = "This is a note.";
+    let expected = {
+      shipping_note: note,
+    };
+    shipment.note(note);
+    expect(fulfillment.shipment_details).toMatchObject(expected);
+  });
+
+  test("Note should be set", () => {
+    let note = "This is a note.";
+    let expected = {
+      shipping_note: note,
+    };
+    shipment.shipping_note(note);
+    expect(fulfillment.shipment_details).toMatchObject(expected);
+  });
+
+  test("cancel_reason should set all cancellation properties", () => {
+    let ful = new Order_Fulfillment();
+    let reason = "This is a reason.";
+    let expected = {
+      cancel_reason: reason,
+    };
+    ful.build_pickup().cancel_reason(reason);
+    expect(ful.state).toEqual("CANCELED");
+    expect(ful.shipment_details).toMatchObject(expected);
+  });
+
+  test("cancel should set all cancellation properties", () => {
+    let ful = new Order_Fulfillment();
+    let reason = "This is a reason.";
+    let expected = {
+      cancel_reason: reason,
+    };
+    ful.build_pickup().cancel(reason);
+    expect(ful.state).toEqual("CANCELED");
+    expect(ful.shipment_details).toMatchObject(expected);
+  });
+
+  test("shipping_type should be set to PRIORITY ", () => {
+    let ful = new Order_Fulfillment();
+    let type = "PRIORITY";
+    let expected = {
+      shipping_type: type,
+    };
+    ful.build_shipment().shipping_type(type);
+    expect(ful.shipment_details).toMatchObject(expected);
+  });
+
+  test("carrier should be set to USPS ", () => {
+    let ful = new Order_Fulfillment();
+    let type = "USPS";
+    let expected = {
+      carrier: type,
+    };
+    ful.build_shipment().carrier(type);
+    expect(ful.shipment_details).toMatchObject(expected);
+  });
+});
+// describe("build_pickup() should handle time entries correctly", () => {});
