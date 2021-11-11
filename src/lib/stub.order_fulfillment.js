@@ -212,6 +212,7 @@ class Order_Fulfillment extends Order_Object {
           this.self.#note(fulfillment, key, str);
           return this;
         },
+        cancel: this.cancel_reason,
         auto_complete_duration: function (time) {
           let key = "auto_complete_duration";
           this.self.#time_date(fulfillment, key, time);
@@ -299,9 +300,11 @@ class Order_Fulfillment extends Order_Object {
         },
         cancel_reason: function (str) {
           let key = "cancel_reason";
+          this.self.#canceled_state();
           this.self.#note(fulfillment, key, str);
           return this;
         },
+        cancel: this.cancel_reason,
         failure_reason: function (str) {
           let key = "failure_reason";
           this.self.#note(fulfillment, key, str);
@@ -337,13 +340,6 @@ class Order_Fulfillment extends Order_Object {
       return properties;
     };
     return methods();
-  }
-
-  cancel_order() {
-    // UID
-    // takes uid and reason as argument
-    // set state to  "CANCELED"
-    // fills out all fields for cancellation
   }
 }
 
