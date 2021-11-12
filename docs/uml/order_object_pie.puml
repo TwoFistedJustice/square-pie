@@ -101,6 +101,7 @@ Private METHODS
 + #completed_state()
 + #canceled_state()
 + #failed_state()
+
 ..
 - verify and set fardel structure
 - calls state setter with FIXED value
@@ -118,6 +119,11 @@ Private METHODS
 + #schedule_type(fulfillment, key, value)
 - verify and set `fulfillment` structure
 - `key` defines a property on `fulfillment`, `value` is the value
+
++ #recipient(fulfillment)
+- create a set of undefined recipient properties on the pickup or shipment details property of fardel
+- adds a set of curried setters for recipient properties to the shipment and pickup builder mehtods
+
 ==
 BUILDER METHODS
 + build_shipment()
