@@ -118,10 +118,10 @@ class fulfillment <<{, cyan)>> {
 
 }
 class line_item <<{, cyan)>> {
++ uid: string : 60
 + quantity : string : 1 - 12 : REQUIRED
 + name: string : 512
 + note: string : 2000
-+ uid: string : 60
 + variation_name : string : 400
 + catalog_object_id : string : 192
 + catalog_version : integer
@@ -144,11 +144,11 @@ class quantity_unit <<{, cyan)>> {
 + precision : integer-32
 }
 class modifiers <<{, cyan)>> {
++ uid: string : 60
 + base_price_money : ARCHETYPE : Money
 + catalog_object_id: string : 192
 + catalog_version : integer-64
 + name : string : 255
-+ uid: string : 60
 }
 
 class applied_discounts <<{, cyan)>> {
