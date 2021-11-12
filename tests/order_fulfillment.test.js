@@ -12,6 +12,47 @@ describe("Silence Order Fulfillment tests", () => {
   });
 });
 
+describe("make method ", () => {
+  test("make().uid() should set property", () => {
+    let ful = new Order_Fulfillment();
+    let expected = "some id";
+    ful.make().uid(expected);
+    expect(ful.uid).toEqual(expected);
+  });
+
+  test("make().state() should set property", () => {
+    let ful = new Order_Fulfillment();
+    let expected = "PROPOSED";
+    ful.make().state(expected);
+    expect(ful.state).toEqual(expected);
+  });
+
+  test("make().type() should set property", () => {
+    let ful = new Order_Fulfillment();
+    let expected = "awesome";
+    ful.make().type(expected);
+    expect(ful.type).toEqual(expected);
+  });
+
+  test("make().shipment_details() should set property", () => {
+    let ful = new Order_Fulfillment();
+    let expected = {
+      cancel_reason: "some reason",
+    };
+    ful.make().shipment_details(expected);
+    expect(ful.shipment_details).toMatchObject(expected);
+  });
+
+  test("make().pickup_details() should set property", () => {
+    let ful = new Order_Fulfillment();
+    let expected = {
+      cancel_reason: "some reason",
+    };
+    ful.make().pickup_details(expected);
+    expect(ful.pickup_details).toMatchObject(expected);
+  });
+});
+
 describe("build_pickup() strings should be set correctly.", () => {
   // +PROPOSED + RESERVED + PREPARED + COMPLETED + CANCELED + FAILED;
 

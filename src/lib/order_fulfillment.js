@@ -2,7 +2,8 @@ const { nanoid } = require("nanoid");
 const { isRFC3339 } = require("validator");
 const { define, maxLength } = require("./utilities");
 
-//todo standalong class, does NOT extend
+//TODO - Add a MAKE mehtod!!!
+
 class Order_Fulfillment {
   constructor() {
     this._fardel = {
@@ -371,6 +372,37 @@ class Order_Fulfillment {
         },
         recipient: function () {
           return this.self.#recipient(fulfillment);
+        },
+      };
+      return properties;
+    };
+    return methods();
+  }
+  // VANILLA METHODS
+
+  make() {
+    let methods = () => {
+      const properties = {
+        self: this,
+        uid: function (val) {
+          this.self.uid = val;
+          return this;
+        },
+        state: function (val) {
+          this.self.state = val;
+          return this;
+        },
+        type: function (val) {
+          this.self.type = val;
+          return this;
+        },
+        pickup_details: function (val) {
+          this.self.pickup_details = val;
+          return this;
+        },
+        shipment_details: function (val) {
+          this.self.shipment_details = val;
+          return this;
         },
       };
       return properties;
