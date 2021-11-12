@@ -3,6 +3,11 @@
 
 /'dot.syntax for grouping does NOT work with "object" so use "class" instead'/
 
+note "Needs to be built" as TODO
+note "Render into own class" as EXTRACT
+TODO... source
+TODO... line_items
+EXTRACT... discount
 
 namespace endpoint  {
 .Create <|-- .Square_Order_Object
@@ -21,6 +26,7 @@ state --o .discounts
 .type  --o .discounts
 
 enum state {
+
 + OPEN
 + COMPLETED
 + CANCELED
