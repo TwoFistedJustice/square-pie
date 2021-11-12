@@ -1,11 +1,10 @@
-const Order_Object = require("./stub.order_object");
 const { nanoid } = require("nanoid");
 const { isRFC3339 } = require("validator");
 const { define, maxLength } = require("./utilities");
 
-class Order_Fulfillment extends Order_Object {
+//todo standalong class, does NOT extend
+class Order_Fulfillment {
   constructor() {
-    super();
     this._fardel = {
       uid: nanoid(10),
       state: undefined,
