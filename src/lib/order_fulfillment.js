@@ -14,7 +14,7 @@ class Order_Fulfillment {
       shipment_details: undefined,
     };
     this.configuration = {
-      lengthLimits: {
+      maximums: {
         uid: 60,
         cancel_reason: 100,
         failure_reason: 100,
@@ -55,7 +55,7 @@ class Order_Fulfillment {
   }
 
   get limits() {
-    return this.configuration.lengthLimits;
+    return this.configuration.maximums;
   }
 
   // SETTERS
@@ -119,7 +119,7 @@ class Order_Fulfillment {
   // use ternary to
   // call define() and pass it all three args - as in the build state methods
   #note(fulfillment, key, note) {
-    let limit = this.configuration.lengthLimits[key];
+    let limit = this.configuration.maximums[key];
     if (maxLength(limit, note)) {
       !Object.prototype.hasOwnProperty.call(fulfillment, key)
         ? define(fulfillment, key, note)
