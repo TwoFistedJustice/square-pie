@@ -87,9 +87,31 @@ const maxLength = function (max, str = "") {
   return true;
 };
 
+/*
+ *  checks if a property holds an array
+ *  if not, sets it and returns true
+ *  if it does have an array, returns false
+ *  usage: if arrayify(args) do something
+ *
+ * We use [bracket] notation in order to enable to error message
+ * to explicity state where the problem originated from
+ *
+ * */
+
+const arrayify = function (object_to_check, property_name) {
+  if (!Array.isArray(object_to_check[property_name])) {
+    object_to_check[property_name] = [];
+  }
+  if (!Array.isArray(object_to_check[property_name])) {
+    throw new Error(`Unable to set array at ${property_name}`);
+  }
+  return true;
+};
+
 module.exports = {
   define,
   setter_chain_generator_config,
   setter_chain_generator_separate_arrays,
   maxLength,
+  arrayify,
 };
