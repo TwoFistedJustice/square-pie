@@ -13,7 +13,7 @@ const { long_strings } = require("./helper_objects");
  * */
 
 describe("Silence order object tests", () => {
-  test.only("Should silence tests", () => {
+  test("Should silence tests", () => {
     expect("a").toEqual("a");
   });
 });
@@ -303,5 +303,16 @@ describe("Order object build_discount method", () => {
     expect(() => {
       order.build_discount().percentage(7.25);
     }).not.toThrow();
+  });
+});
+
+describe("Testing array properties", () => {
+  test("fulfillments should be an array with an object", () => {
+    let o = new Order_Object();
+    let expected = [{ thing: 1 }];
+
+    o.make().fulfillments({ thing: 1 });
+    console.log(o.fulfillments);
+    expect(o.fulfillments).toMatchObject(expected);
   });
 });
