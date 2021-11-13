@@ -1,5 +1,10 @@
 const { nanoid } = require("nanoid");
-// const { define, maxLength } = require("./utilities");
+const {
+  // define,
+  minLength,
+  maxLength,
+  arrayify,
+} = require("./utilities");
 
 class Order_Line_Item {
   constructor() {
@@ -12,22 +17,26 @@ class Order_Line_Item {
       catalog_object_id: undefined,
       catalog_version: undefined, // integer
       item_type: undefined, // FIXED
-      base_price_money: undefined, // ARCHETYPE MONEY
-      gross_sales_money: undefined, // ARCHETYPE MONEY
+      base_price_money: undefined, // HELPER MONEY
+      gross_sales_money: undefined, // HELPER MONEY
       applied_discounts: undefined, // ARRAY
       applied_taxes: undefined, // ARRAY
       modifiers: undefined, // ARRAY
       pricing_blocklists: undefined, // ARRAY
-      quanity_unit: undefined, // ARRAY
+      quantity_unit: undefined, // ARRAY
       metadata: undefined, // do not implement in v1
     };
     this.configuration = {
-      lengthLimits: {
+      maximums: {
+        quantity: 12,
         uid: 60,
         note: 2000,
         name: 512,
         variation_name: 400,
         catalog_object_id: 192,
+      },
+      minimums: {
+        quantity: 1,
       },
     };
   }
@@ -41,6 +50,9 @@ class Order_Line_Item {
   }
   get name() {
     return this._fardel.name;
+  }
+  get note() {
+    return this._fardel.note;
   }
   get variation_name() {
     return this._fardel.variation_name;
@@ -72,67 +84,80 @@ class Order_Line_Item {
   get pricing_blocklists() {
     return this._fardel.pricing_blocklists;
   }
-  get quanity_unit() {
-    return this._fardel.quanity_unit;
+  get quantity_unit() {
+    return this._fardel.quantity_unit;
   }
 
   // SETTERS
-  set uid(val) {
-    this._fardel.uid = val;
+  set uid(str) {
+    if (maxLength(this.configuration.maximums.uid, str)) {
+      this._fardel.uid = str;
+    }
   }
-  set quantity(val) {
-    this._fardel.quantity = val;
+  set quantity(str) {
+    if (
+      maxLength(this.configuration.maximums.quantity, str) &&
+      minLength(this.configuration.minimums.quantity, str)
+    ) {
+      this._fardel.quantity = str;
+    }
   }
-  set name(val) {
-    this._fardel.name = val;
+  set name(str) {
+    if (maxLength(this.configuration.maximums.name, str)) {
+      this._fardel.name = str;
+    }
   }
-  set variation_name(val) {
-    this._fardel.variation_name = val;
+  set note(str) {
+    if (maxLength(this.configuration.maximums.note, str)) {
+      this._fardel.note = str;
+    }
   }
-  set catalog_object_id(val) {
-    this._fardel.catalog_object_id = val;
+  set variation_name(str) {
+    if (maxLength(this.configuration.maximums.variation_name, str)) {
+      this._fardel.variation_name = str;
+    }
   }
-  set catalog_version(val) {
-    this._fardel.catalog_version = val;
+  set catalog_object_id(id) {
+    if (maxLength(this.configuration.maximums.catalog_object_id, id)) {
+      this._fardel.catalog_object_id = id;
+    }
   }
-  set item_type(val) {
-    this._fardel.item_type = val;
+  set catalog_version(int) {
+    this._fardel.catalog_version = int;
   }
-  set base_price_money(val) {
-    this._fardel.base_price_money = val;
+  set item_type(fixed) {
+    this._fardel.item_type = fixed;
   }
-  set gross_sales_money(val) {
-    this._fardel.gross_sales_money = val;
+  set base_price_money(money) {
+    this._fardel.base_price_money = money;
+  }
+  set gross_sales_money(money) {
+    this._fardel.gross_sales_money = money;
   }
   set applied_discounts(obj) {
-    // check if array exists on property
-    // if not, then create it
-    // push object onto array
-    this._fardel.applied_discounts.push(obj);
+    if (arrayify(this._fardel, "applied_discounts")) {
+      this._fardel.applied_discounts.push(obj);
+    }
   }
   set applied_taxes(obj) {
-    // check if array exists on property
-    // if not, then create it
-    // push object onto array
-    this._fardel.applied_taxes.push(obj);
+    if (arrayify(this._fardel, "applied_taxes")) {
+      this._fardel.applied_taxes.push(obj);
+    }
   }
   set modifiers(obj) {
-    // check if array exists on property
-    // if not, then create it
-    // push object onto array
-    this._fardel.modifiers.push(obj);
+    if (arrayify(this._fardel, "modifiers")) {
+      this._fardel.modifiers.push(obj);
+    }
   }
   set pricing_blocklists(obj) {
-    // check if array exists on property
-    // if not, then create it
-    // push object onto array
-    this._fardel.pricing_blocklists.push(obj);
+    if (arrayify(this._fardel, "pricing_blocklist")) {
+      this._fardel.pricing_blocklists.push(obj);
+    }
   }
-  set quanity_unit(obj) {
-    // check if array exists on property
-    // if not, then create it
-    // push object onto array
-    this._fardel.quanity_unit.push(obj);
+  set quantity_unit(obj) {
+    if (arrayify(this._fardel, "quanity_unit")) {
+      this._fardel.quantity_unit.push(obj);
+    }
   }
 
   //PRIVATE METHODS
@@ -143,6 +168,66 @@ class Order_Line_Item {
     let methods = () => {
       const properties = {
         self: this,
+        uid: function (val) {
+          this.self.function = val;
+          return this;
+        },
+        quantity: function (val) {
+          this.self.function = val;
+          return this;
+        },
+        name: function (val) {
+          this.self.function = val;
+          return this;
+        },
+        note: function (val) {
+          this.self.function = val;
+          return this;
+        },
+        variation_name: function (val) {
+          this.self.variation_name = val;
+          return this;
+        },
+        catalog_object_id: function (val) {
+          this.self.catalog_object_id = val;
+          return this;
+        },
+        catalog_version: function (val) {
+          this.self.catalog_version = val;
+          return this;
+        },
+        item_type: function (val) {
+          this.self.function = val;
+          return this;
+        },
+        base_price_money: function (val) {
+          this.self.base_price_money = val;
+          return this;
+        },
+        gross_sales_money: function (val) {
+          this.self.gross_sales_money = val;
+          return this;
+        },
+        applied_discounts: function (obj) {
+          this.self.applied_discounts = obj;
+          return this;
+        },
+        applied_taxes: function (obj) {
+          this.self.applied_taxes = obj;
+          return this;
+        },
+        modifiers: function (obj) {
+          this.self.function = obj;
+          return this;
+        },
+        pricing_blocklists: function (obj) {
+          this.self.pricing_blocklists = obj;
+          return this;
+        },
+        quantity_unit: function (obj) {
+          this.self.quanity_unit = obj;
+          return this;
+        },
       };
       return properties;
     };
