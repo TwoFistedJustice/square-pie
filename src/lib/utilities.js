@@ -76,7 +76,7 @@ const setter_chain_generator_separate_arrays = function (
   });
 };
 
-/*
+/* Returns true = good
 Returns true if the string is less than or equal to the max length
 * */
 
@@ -87,14 +87,27 @@ const maxLength = function (max, str = "") {
   return true;
 };
 
-/*
+/* Returns true = good
+Returns true if the string is greater than or equal to the min length
+* */
+
+const minLength = function (min, str = "") {
+  if (str.length < min) {
+    throw new Error(
+      `Failed to meet minimum character count of ${min}.\n${str}`
+    );
+  }
+  return true;
+};
+
+/* Returns true = good
  *  checks if a property holds an array
  *  if not, sets it and returns true
  *  if it does have an array, returns false
  *  usage: if arrayify(args) do something
  *
  * We use [bracket] notation in order to enable to error message
- * to explicity state where the problem originated from
+ * to explicitly state whence the problem originated
  *
  * */
 
@@ -112,6 +125,7 @@ module.exports = {
   define,
   setter_chain_generator_config,
   setter_chain_generator_separate_arrays,
+  minLength,
   maxLength,
   arrayify,
 };
