@@ -50,11 +50,7 @@ Complex Setters (Computed Properties)
 
 ==
 Private METHODS
-- #money(amt, currency)
-..
--convert amt to number
-- verify ARG structures
-- RETURN compliant object
+
 ==
 BUILDER METHODS
 

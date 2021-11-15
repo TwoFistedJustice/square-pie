@@ -1,6 +1,6 @@
 // this is not a super of fulfillment
 
-const { define, maxLength, arrayify } = require("./utilities");
+const { define, maxLength, arrayify, money_helper } = require("./utilities");
 
 // todo
 //  build add method(s) for fulfillment and line items
@@ -162,25 +162,10 @@ class Order_Object {
 
   // METHODS`
 
-  #money(amt, currency) {
-    let amount = Number(amt);
-    if (!currency) {
-      currency = "USD";
-    }
-    if (isNaN(amount) || typeof amt === "boolean") {
-      throw new TypeError(`'amount' must be a number. received: ${typeof amt}`);
-    }
-    if (currency) {
-      if (typeof currency !== "string" || currency.length !== 3) {
-        throw new Error("Currency must be ISO 4217 compliant");
-      }
-    }
-    return { amount, currency };
-  }
-  // TODO
-  //  see catalog_object_wrapper.attach for example
-  //  the setter makes the array
-  //
+  /*
+   * This method allows you to simply replace fardel with a pre-built fulfilment.
+   * Just remember that just because you can does not mean you should.
+   * */
   add_fulfillment(fulfillment) {
     this.fulfillments = fulfillment;
     return this;
@@ -214,14 +199,16 @@ class Order_Object {
 
   build_service_charge_amount(amount, currency) {
     let service_charge = {};
-    define(service_charge, "amount_money", this.#money(amount, currency));
+    let money = money_helper(amount, currency);
+    define(service_charge, "amount_money", money);
     this.service_charges = service_charge;
     return this;
   }
 
   build_service_charge_applied(amount, currency) {
     let service_charge = {};
-    define(service_charge, "applied_money", this.#money(amount, currency));
+    let money = money_helper(amount, currency);
+    define(service_charge, "applied_money", money);
     this.service_charges = service_charge;
     return this;
   }
@@ -291,13 +278,13 @@ class Order_Object {
           return this;
         },
         amount_money: function (amount, currency) {
-          let obj = this.self.#money(amount, currency);
-          define(discount, "amount_money", obj);
+          let money = money_helper(amount, currency);
+          define(discount, "amount_money", money);
           return this;
         },
         applied_money: function (amount, currency) {
-          let obj = this.self.#money(amount, currency);
-          define(discount, "applied_money", obj);
+          let money = money_helper(amount, currency);
+          define(discount, "applied_money", money);
           return this;
         },
         pricing_rule_id: function (id) {
