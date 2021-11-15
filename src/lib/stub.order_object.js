@@ -1,6 +1,6 @@
 // this is not a super of fulfillment
 
-const { define, maxLength } = require("./utilities");
+const { define, maxLength, arrayify } = require("./utilities");
 
 // todo
 //  build add method(s) for fulfillment and line items
@@ -130,40 +130,34 @@ class Order_Object {
         "pricing_options arguments must be and object containing two booleans."
       );
     }
-    if (!Array.isArray(this.pricing_options)) {
-      this._fardel.pricing_options = [];
+    if (arrayify(this._fardel, "pricing_options")) {
+      this._fardel.pricing_options.push(obj);
     }
-    this._fardel.pricing_options.push(obj);
   }
   set service_charges(obj) {
-    if (!Array.isArray(this._fardel.service_charges)) {
-      this._fardel.service_charges = [];
+    if (arrayify(this._fardel, "service_charges")) {
+      this._fardel.service_charges.push(obj);
     }
-    this._fardel.service_charges.push(obj);
   }
   set discounts(obj) {
-    if (!Array.isArray(this._fardel.discounts)) {
-      this._fardel.discounts = [];
+    if (arrayify(this._fardel, "discounts")) {
+      this._fardel.discounts.push(obj);
     }
-    this._fardel.discounts.push(obj);
   }
   set taxes(obj) {
-    if (!Array.isArray(this._fardel.taxes)) {
-      this._fardel.taxes = [];
+    if (arrayify(this._fardel, "taxes")) {
+      this._fardel.taxes.push(obj);
     }
-    this._fardel.taxes.push(obj);
   }
   set fulfillments(obj) {
-    if (!Array.isArray(this._fardel.fulfillments)) {
-      this._fardel.fulfillments = [];
+    if (arrayify(this._fardel, "fulfillments")) {
+      this._fardel.fulfillments.push(obj);
     }
-    this._fardel.fulfillments.push(obj);
   }
   set line_items(obj) {
-    if (!Array.isArray(this._fardel.line_items)) {
-      this._fardel.line_items = [];
+    if (arrayify(this._fardel, "line_items")) {
+      this._fardel.line_items.push(obj);
     }
-    this._fardel.line_items.push(obj);
   }
 
   // METHODS`
