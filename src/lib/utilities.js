@@ -1,3 +1,6 @@
+const { isISO4217 } = require("validator");
+// const validator = require('validator');
+
 /* defines a property on an object and makes it enumerable
  * arg [object_to_modify]: the name of the object you want to modify
  * art [prop]: the name of the property to be added
@@ -121,6 +124,19 @@ const arrayify = function (object_to_check, property_name) {
   return true;
 };
 
+const money_helper = function (amt, currency = "USD") {
+  let amount = Number(amt);
+  if (isNaN(amount) || typeof amt === "boolean") {
+    throw new TypeError(`'amount' must be a number. received: ${typeof amt}`);
+  }
+  if (!isISO4217(currency)) {
+    throw new Error(
+      `Received ${currency} --  money_helper currency arg must be ISO 4217 compliant.`
+    );
+  }
+  return { amount, currency };
+};
+
 module.exports = {
   define,
   setter_chain_generator_config,
@@ -128,4 +144,5 @@ module.exports = {
   minLength,
   maxLength,
   arrayify,
+  money_helper,
 };
