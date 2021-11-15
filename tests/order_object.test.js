@@ -312,7 +312,6 @@ describe("Testing array properties", () => {
     let expected = [{ thing: 1 }];
 
     o.make().fulfillments({ thing: 1 });
-    console.log(o.fulfillments);
     expect(o.fulfillments).toMatchObject(expected);
   });
 });
