@@ -5,6 +5,7 @@ const {
   // setter_chain_generator_separate_arrays,
   // maxLength,
   arrayify,
+  money_helper,
 } = require("../src/lib/utilities");
 // const should = require("chai").should();
 // const { long_strings } = require("./helper_objects");
@@ -19,7 +20,7 @@ describe("maxLength", () => {
   test("", () => {});
 });
 
-describe.only("arrayify", () => {
+describe("arrayify", () => {
   test("arrayify should set an array on an arrayless property", () => {
     let obj = {
       prop: undefined,
@@ -48,5 +49,50 @@ describe.only("arrayify", () => {
     };
     arrayify(obj, "prop");
     expect(obj).toMatchObject(expected);
+  });
+
+  describe.only("money_helper", () => {
+    test("money_helper utility should throw when fed a non-coercible to number amount", () => {
+      let amt = "CAD";
+      let currency = "CAD";
+
+      expect(() => {
+        money_helper(amt, currency);
+      }).toThrow();
+    });
+
+    test("money_helper utility should  throw when fed a non-ISO 4217 compliant currency", () => {
+      let amt = "2195";
+      let currency = "CD";
+
+      expect(() => {
+        money_helper(amt, currency);
+      }).toThrow();
+    });
+
+    test('money_helper utility should return a compliant object with "USD" when not fed a currency argument', () => {
+      let amt = "2195";
+      let expected = {
+        amount: 2195,
+        currency: "USD",
+      };
+
+      let received = money_helper(amt);
+
+      expect(received).toMatchObject(expected);
+    });
+
+    test('money_helper utility should return a compliant object with "CAD"', () => {
+      let amt = "2195";
+      let currency = "CAD";
+      let expected = {
+        amount: 2195,
+        currency: "CAD",
+      };
+
+      let received = money_helper(amt, currency);
+
+      expect(received).toMatchObject(expected);
+    });
   });
 });
