@@ -3,7 +3,7 @@ const Order_Fulfillment = require("../src/lib/order_fulfillment");
 const should = require("chai").should();
 const { long_strings } = require("./helper_objects");
 
-const RFC339 = " 2019-10-12T07:20:50.52Z";
+const RFC339 = "2019-10-12T07:20:50.52Z";
 const nonCompliantTime = Date.now();
 
 describe("Silence Order Fulfillment tests", () => {
