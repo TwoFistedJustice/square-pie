@@ -1,15 +1,17 @@
 const { nanoid } = require("nanoid");
+const { pie_defaults } = require("./pie_defaults");
 const {
   // define,
   minLength,
   maxLength,
   arrayify,
+  money_helper,
 } = require("./utilities");
 
 class Order_Line_Item {
   constructor() {
     this._fardel = {
-      uid: nanoid(10),
+      uid: nanoid(pie_defaults.uid_length),
       quantity: undefined, // 1-12 REQUIRED set auto min of 1
       name: undefined,
       note: undefined,
@@ -200,12 +202,12 @@ class Order_Line_Item {
           this.self.function = val;
           return this;
         },
-        base_price_money: function (val) {
-          this.self.base_price_money = val;
+        base_price_money: function (amount, currency) {
+          this.self.base_price_money = money_helper(amount, currency);
           return this;
         },
-        gross_sales_money: function (val) {
-          this.self.gross_sales_money = val;
+        gross_sales_money: function (amount, currency) {
+          this.self.gross_sales_money = money_helper(amount, currency);
           return this;
         },
         applied_discounts: function (obj) {
