@@ -142,6 +142,27 @@ describe("build_pickup() strings should be set correctly.", () => {
     expect(ful.state).toEqual("CANCELED");
     expect(ful.pickup_details).toMatchObject(expected_pickup_details);
   });
+
+  test("setting shipment details should set pickup details to undefined", () => {
+    let ful = new Order_Fulfillment();
+    let note = "This is a note.";
+    let expected_pickup_details = {
+      cancel_reason: note,
+    };
+    ful.build_pickup().cancel(note);
+    ful.build_shipment().cancel(note);
+    expect(ful.pickup_details).toBeUndefined();
+  });
+  test("setting pickup details should set shipment details to undefined", () => {
+    let ful = new Order_Fulfillment();
+    let note = "This is a note.";
+    let expected_pickup_details = {
+      cancel_reason: note,
+    };
+    ful.build_shipment().cancel(note);
+    ful.build_pickup().cancel(note);
+    expect(ful.shipment_details).toBeUndefined();
+  });
 });
 
 describe("#time_date should reject non RFC339 time formats.", () => {

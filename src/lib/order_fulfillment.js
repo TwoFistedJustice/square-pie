@@ -70,10 +70,14 @@ class Order_Fulfillment {
   }
 
   set pickup_details(obj) {
+    // do not call a setter from another setter - bad things happen
+    this._fardel.shipment_details = undefined;
     this._fardel.pickup_details = obj;
   }
 
   set shipment_details(obj) {
+    // do not call a setter from another setter - bad things happen
+    this._fardel.pickup_details = undefined;
     this._fardel.shipment_details = obj;
   }
 
