@@ -6,6 +6,7 @@
 - [Create order how to](https://developer.squareup.com/docs/orders-api/create-orders)
 - [Square Order Objects](https://developer.squareup.com/docs/orders-api/how-it-works#orders-objects-and-datatypes)
 - [READ ONLY properties are NOT request properties - no matter what the docs say](https://developer.squareup.com/forums/t/order-api-create-order-read-only-properties/3658)
+- [OrderLineItem](https://developer.squareup.com/reference/square/objects/OrderLineItem)
 
 <br/>
 
@@ -29,6 +30,7 @@ line_items: array of objects,which appear to or have data pulled from or be item
 ## Prevent orders orphaning - copied from Square's docs
 
 > "A created order must be either paid (a successful payment attached to the order) or canceled (the order status set to CANCELED). Partner applications must ensure that there are no orphan orders."
+
 <!-- TODO: cite? -->
 
 <br/>
