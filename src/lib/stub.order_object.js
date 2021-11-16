@@ -2,14 +2,6 @@
 
 const { define, maxLength, arrayify, money_helper } = require("./utilities");
 
-// todo
-//  build add method(s) for fulfillment and line items
-//  make it similar to how Item adds Item Variations
-//  - then normalize them so they follow similar syntax
-
-//  todo Make sure when the Order Object adds a fulfillment that it
-//   reads the TYPE field and only plucks the data from the appropriate section.
-
 class Order_Object {
   constructor() {
     this._fardel = {
