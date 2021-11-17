@@ -83,9 +83,11 @@ const setter_chain_generator_separate_arrays = function (
 Returns true if the string is less than or equal to the max length
 * */
 
-const maxLength = function (max, str = "") {
+const maxLength = function (max, str = "", caller = "not specified") {
   if (str.length > max) {
-    throw new Error(`Surpassed maximum character limit of ${max}.\n${str}`);
+    throw new Error(
+      `- ${caller} - surpassed maximum character limit of ${max}.\n${str}`
+    );
   }
   return true;
 };
@@ -94,10 +96,10 @@ const maxLength = function (max, str = "") {
 Returns true if the string is greater than or equal to the min length
 * */
 
-const minLength = function (min, str = "") {
+const minLength = function (min, str = "", caller = "not specified") {
   if (str.length < min) {
     throw new Error(
-      `Failed to meet minimum character count of ${min}.\n${str}`
+      `- ${caller} - failed to meet minimum character count of ${min}.\n${str}`
     );
   }
   return true;
