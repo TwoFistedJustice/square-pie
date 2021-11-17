@@ -20,7 +20,6 @@ class Order_Line_Item {
       catalog_version: undefined, // integer
       item_type: undefined, // FIXED
       base_price_money: undefined, // HELPER MONEY
-      gross_sales_money: undefined, // HELPER MONEY
       applied_discounts: undefined, // ARRAY
       applied_taxes: undefined, // ARRAY
       modifiers: undefined, // ARRAY
@@ -204,10 +203,6 @@ class Order_Line_Item {
         },
         base_price_money: function (amount, currency) {
           this.self.base_price_money = money_helper(amount, currency);
-          return this;
-        },
-        gross_sales_money: function (amount, currency) {
-          this.self.gross_sales_money = money_helper(amount, currency);
           return this;
         },
         applied_discounts: function (obj) {
