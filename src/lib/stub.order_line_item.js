@@ -216,11 +216,23 @@ class Order_Line_Item {
   build_applied_tax(id) {
     let type = "tax";
     let obj = this.#applied_tax_or_discount(type, id);
-    this.applied_taxes(obj);
     return obj;
   }
 
   build_applied_discount(id) {
+    let type = "discount";
+    let obj = this.#applied_tax_or_discount(type, id);
+    return obj;
+  }
+
+  add_applied_tax(id) {
+    let type = "tax";
+    let obj = this.#applied_tax_or_discount(type, id);
+    this.applied_taxes(obj);
+    return obj;
+  }
+
+  add_applied_discount(id) {
     let type = "discount";
     let obj = this.#applied_tax_or_discount(type, id);
     this.applied_taxes(obj);
@@ -229,14 +241,26 @@ class Order_Line_Item {
 
   // TODO *********************************
   build_modifier() {
-    let format = {
-      uid: "str 60",
-      base_price_money: "Money",
-      catalog_object_id: "str 192",
-      catalog_version: "int-64",
-      name: "str 255",
-    };
-    return format;
+    // amount, currency, cat_id, catalog_version, name
+    // let format = {
+    //   uid: "str 60",
+    //   base_price_money: "Money",
+    //   catalog_object_id: "str 192",
+    //   catalog_version: "int-64",
+    //   name: "str 255",
+    // };
+    // return format;
+    //
+    // let methods = () => {
+    //   const properties = {
+    //     self: this,
+    //
+    //   };
+    //   return properties;
+    // }
+    //
+    // return methods();
+    //
   }
   // TODO *********************************
 
