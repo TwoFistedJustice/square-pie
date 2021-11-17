@@ -6,6 +6,7 @@ const {
   // maxLength,
   arrayify,
   money_helper,
+  generate_error_message,
 } = require("../src/lib/utilities");
 // const should = require("chai").should();
 // const { long_strings } = require("./helper_objects");
@@ -51,7 +52,7 @@ describe("arrayify", () => {
     expect(obj).toMatchObject(expected);
   });
 
-  describe.only("money_helper", () => {
+  describe("money_helper", () => {
     test("money_helper utility should throw when fed a non-coercible to number amount", () => {
       let amt = "CAD";
       let currency = "CAD";
@@ -94,5 +95,18 @@ describe("arrayify", () => {
 
       expect(received).toMatchObject(expected);
     });
+  });
+});
+
+describe.only("generate_error_message", () => {
+  test("generate_error_message should generate the correct string", () => {
+    let key = "some_key";
+    let expected_type = "number";
+    let received = true;
+    let expected = `${key}\n expected type: ${expected_type}\n received type: boolean\nvalue received: ${received} `;
+
+    expect(generate_error_message(key, expected_type, received)).toEqual(
+      expected
+    );
   });
 });
