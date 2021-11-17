@@ -38,8 +38,17 @@ class Order_Line_Item {
       },
       minimums: {
         quantity: 1,
+        uid: 1,
       },
     };
+  }
+
+  // ERROR CHECKING METHODS
+  #uid_length(uid) {
+    return minLength(this.configuration.minimums.uid, uid) &&
+      maxLength(this.configuration.uid, uid)
+      ? true
+      : false;
   }
 
   // GETTERS
@@ -124,6 +133,9 @@ class Order_Line_Item {
     }
   }
   set catalog_version(int) {
+    if (!Number.isInteger(int)) {
+      throw new TypeError("catalog_version expects an integer.");
+    }
     this._fardel.catalog_version = int;
   }
   set item_type(fixed) {
@@ -162,7 +174,72 @@ class Order_Line_Item {
   }
 
   //PRIVATE METHODS
+  // TODO *********************************
+  #quantity_unit() {
+    let format = {
+      catalog_object_id: "str",
+      catalog_version: "int",
+      measurement_unit: "Archetype - complex", //https://developer.squareup.com/reference/square/objects/MeasurementUnit
+      precision: "int between 0 and 5",
+    };
+    return format;
+  }
+
+  #applied_tax_or_discount(type, tax_or_discount_uid) {
+    let caller = `#applied_tax_or_discount - ${type}`;
+    if (
+      minLength(this.configuration.minimums.uid, tax_or_discount_uid, caller) &&
+      maxLength(this.configuration.maximums.uid, tax_or_discount_uid, caller)
+    ) {
+      let key;
+      if (type === "discount" || type === "d") {
+        key = "discount_uid";
+      } else if (type === "tax" || type === "t") {
+        key = "tax_id";
+      }
+      return {
+        [key]: tax_or_discount_uid,
+        uid: nanoid(pie_defaults.uid),
+      };
+    }
+  }
+
+  // TODO *********************************
+  #enum_item_type() {
+    // ITEM
+    // CUSTOM_AMOUNT
+    // GIFT_CARD
+  }
+
   // BUILDER METHODS
+
+  build_applied_tax(id) {
+    let type = "tax";
+    let obj = this.#applied_tax_or_discount(type, id);
+    this.applied_taxes(obj);
+    return obj;
+  }
+
+  build_applied_discount(id) {
+    let type = "discount";
+    let obj = this.#applied_tax_or_discount(type, id);
+    this.applied_taxes(obj);
+    return obj;
+  }
+
+  // TODO *********************************
+  build_modifier() {
+    let format = {
+      uid: "str 60",
+      base_price_money: "Money",
+      catalog_object_id: "str 192",
+      catalog_version: "int-64",
+      name: "str 255",
+    };
+    return format;
+  }
+  // TODO *********************************
+
   // VANILLA METHODS
 
   make() {
@@ -205,11 +282,17 @@ class Order_Line_Item {
           this.self.base_price_money = money_helper(amount, currency);
           return this;
         },
-        applied_discounts: function (obj) {
+        /* make() applied taxes and discounts makes it
+         * easy to put the info in, but hard to reference it after
+         * Use the Build methods if you need to reference it afterwards
+         * */
+        applied_discounts: function (id) {
+          let obj = this.self.#applied_tax_or_discount("discount", id);
           this.self.applied_discounts = obj;
           return this;
         },
-        applied_taxes: function (obj) {
+        applied_taxes: function (id) {
+          let obj = this.self.#applied_tax_or_discount("tax", id);
           this.self.applied_taxes = obj;
           return this;
         },
