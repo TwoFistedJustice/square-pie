@@ -139,6 +139,11 @@ const money_helper = function (amt, currency = "USD") {
   return { amount, currency };
 };
 
+const generate_error_message = function (key, expected_type, received) {
+  let type_received = typeof received;
+  return `${key}\n expected type: ${expected_type}\n received type: ${type_received}\nvalue received: ${received} `;
+};
+
 module.exports = {
   define,
   setter_chain_generator_config,
@@ -147,4 +152,5 @@ module.exports = {
   maxLength,
   arrayify,
   money_helper,
+  generate_error_message,
 };
