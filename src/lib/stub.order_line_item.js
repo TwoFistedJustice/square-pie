@@ -328,19 +328,19 @@ class Order_Line_Item {
       const properties = {
         self: this,
         uid: function (val) {
-          this.self.function = val;
+          this.self.uid = val;
           return this;
         },
         quantity: function (val) {
-          this.self.function = val;
+          this.self.quantity = val;
           return this;
         },
         name: function (val) {
-          this.self.function = val;
+          this.self.name = val;
           return this;
         },
         note: function (val) {
-          this.self.function = val;
+          this.self.note = val;
           return this;
         },
         variation_name: function (val) {
@@ -378,7 +378,7 @@ class Order_Line_Item {
           return this;
         },
         modifiers: function (obj) {
-          this.self.function = obj;
+          this.self.modifiers = obj;
           return this;
         },
         pricing_blocklists: function (obj) {
