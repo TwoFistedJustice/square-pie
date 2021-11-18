@@ -1,6 +1,5 @@
 const { nanoid } = require("nanoid");
-const { pie_defaults } = require("./pie_defaults");
-const complexity = 10;
+const { uid_length } = require("./pie_defaults");
 const {
   // define,
   minLength,
@@ -14,7 +13,7 @@ const {
 class Order_Line_Item {
   constructor() {
     this._fardel = {
-      uid: nanoid(complexity),
+      uid: nanoid(uid_length),
       quantity: undefined, // 1-12 REQUIRED set auto min of 1
       name: undefined,
       note: undefined,
@@ -73,7 +72,7 @@ class Order_Line_Item {
       }
       return {
         [key]: tax_or_discount_uid,
-        uid: nanoid(pie_defaults.uid_length),
+        uid: nanoid(uid_length),
       };
     }
   }
@@ -94,7 +93,7 @@ class Order_Line_Item {
 
   #init_modifier() {
     this.modifier = {
-      uid: nanoid(complexity),
+      uid: nanoid(uid_length),
     };
   }
 

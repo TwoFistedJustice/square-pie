@@ -1,14 +1,12 @@
 const { nanoid } = require("nanoid");
 const { isRFC3339 } = require("validator");
 const { define, maxLength } = require("./utilities");
-const { pie_defaults } = require("./pie_defaults");
-
-//TODO - Add a MAKE mehtod!!!
+const { uid_length } = require("./pie_defaults");
 
 class Order_Fulfillment {
   constructor() {
     this._fardel = {
-      uid: nanoid(pie_defaults.uid_length),
+      uid: nanoid(uid_length),
       state: undefined,
       type: undefined,
       pickup_details: undefined,
