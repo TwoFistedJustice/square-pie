@@ -143,15 +143,19 @@ this.configuration
 ==
 PRIVATE METHODS
 #quantity_unit
-#enums-item_type
+
++#enums-item_type()
+...
+- sets fardel.item_type with fixed values.
+- referenced in make.item_type
 
 +uid_length()
 ...
-validates min and max length for tax and discount uid
+- validates min and max length for tax and discount uid
 
 +#init_modifier()
 ...
- clears and initializes this._modifier with a new 'uid'
+ - clears and initializes this._modifier with a new 'uid'
 
 ==
 Simple Getters

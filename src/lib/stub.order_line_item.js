@@ -77,11 +77,26 @@ class Order_Line_Item {
     }
   }
 
-  // TODO *********************************
   #enum_item_type() {
-    // ITEM
-    // CUSTOM_AMOUNT
-    // GIFT_CARD
+    let methods = () => {
+      const properties = {
+        self: this,
+        item: function () {
+          this.self.item_type = "ITEM";
+          return this;
+        },
+        custom: function () {
+          this.self.item_type = "CUSTOM_AMOUNT";
+          return this;
+        },
+        gift: function () {
+          this.self.item_type = "GIFT_CARD";
+          return this;
+        },
+      };
+      return properties;
+    };
+    return methods();
   }
 
   #uid_length(uid) {
@@ -340,8 +355,8 @@ class Order_Line_Item {
           this.self.catalog_version = val;
           return this;
         },
-        item_type: function (val) {
-          this.self.function = val;
+        item_type: function () {
+          this.self.#enum_item_type();
           return this;
         },
         base_price_money: function (amount, currency) {
