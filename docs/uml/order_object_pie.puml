@@ -142,7 +142,11 @@ this._modifier
 this.configuration
 ==
 PRIVATE METHODS
-#quantity_unit
+#bake_quantity_unit
+...
+- curried
+- initializes an empty object at fardel.quantity_unit
+- defines properties and values on fardel.quantity_unit
 
 +#enums-item_type()
 ...
