@@ -26,7 +26,7 @@ class Order_Line_Item {
       applied_taxes: undefined, // ARRAY
       modifiers: undefined, // ARRAY
       pricing_blocklists: undefined, // ARRAY
-      quantity_unit: undefined, // ARRAY
+      quantity_unit: undefined, // OBJECT
       metadata: undefined, // do not implement in v1
     };
     this._modifier = {}; // this will get cleared when it is added to the modifiers array
@@ -47,15 +47,61 @@ class Order_Line_Item {
   }
 
   //PRIVATE METHODS
-  // TODO *********************************
-  #quantity_unit() {
-    let format = {
-      catalog_object_id: "str",
-      catalog_version: "int",
-      measurement_unit: "Archetype - complex", //https://developer.squareup.com/reference/square/objects/MeasurementUnit
-      precision: "int between 0 and 5",
+  #init_modifier() {
+    this.modifier = {
+      uid: nanoid(uid_length),
     };
-    return format;
+  }
+
+  #init_quantity_unit() {
+    this._fardel.quantity_unit = {};
+  }
+
+  // TODO *********************************
+  #bake_quantity_unit() {
+    this._fardel.quantity_unit = {};
+    let obj = this._fardel.quantity_unit;
+
+    let methods = () => {
+      let properties = {
+        // The catalog object ID referencing the CatalogMeasurementUnit when the unit already exists in the db
+        catalog_object_id: function (val) {
+          let key = "catalog_object_id";
+          define(obj, key, val);
+          return this;
+        },
+        // int64"
+        catalog_version: function (int) {
+          if (!Number.isInteger(int)) {
+            throw new TypeError(
+              generate_error_message("catalog_version", "integer 64", int)
+            );
+          }
+          let key = "catalog_version";
+          define(obj, key, int);
+          return this;
+        },
+        // Archetype https://developer.squareup.com/reference/square/objects/MeasurementUnit
+        measurement_unit: function (archetype) {
+          let key = "measurement_unit";
+          define(obj, key, archetype);
+          return this;
+        },
+        // int between 0 and 5
+        precision: function (int) {
+          if (!Number.isInteger(int) || int < 0 || int > 5) {
+            throw new TypeError(
+              generate_error_message("precision", "integer 0-5", int)
+            );
+          }
+          let key = "precision";
+          define(obj, key, int);
+          return this;
+        },
+      };
+      return properties;
+    };
+    return methods();
   }
 
   #applied_tax_or_discount(type, tax_or_discount_uid) {
@@ -104,12 +150,6 @@ class Order_Line_Item {
       maxLength(this.configuration.uid, uid)
       ? true
       : false;
-  }
-
-  #init_modifier() {
-    this.modifier = {
-      uid: nanoid(uid_length),
-    };
   }
 
   // GETTERS
@@ -244,9 +284,7 @@ class Order_Line_Item {
     }
   }
   set quantity_unit(obj) {
-    if (arrayify(this._fardel, "quanity_unit")) {
-      this._fardel.quantity_unit.push(obj);
-    }
+    this._fardel.quantity_unit = obj;
   }
 
   // BUILDER METHODS
@@ -274,6 +312,13 @@ class Order_Line_Item {
     this.applied_taxes(obj);
     return obj;
   }
+  /*
+   *  To add a modifier
+   * first BUILD the modifier
+   * then add it to the modifiers array
+   * yourVar.modifiers(yourVar.modifier)
+   * - first with an 's', then without it
+   * */
 
   build_modifier() {
     this.#init_modifier();
@@ -385,9 +430,8 @@ class Order_Line_Item {
           this.self.pricing_blocklists = obj;
           return this;
         },
-        quantity_unit: function (obj) {
-          this.self.quanity_unit = obj;
-          return this;
+        quantity_unit: function () {
+          return this.self.#bake_quantity_unit();
         },
       };
       return properties;
