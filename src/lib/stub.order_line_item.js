@@ -1,17 +1,20 @@
 const { nanoid } = require("nanoid");
 const { pie_defaults } = require("./pie_defaults");
+const complexity = 10;
 const {
   // define,
   minLength,
   maxLength,
   arrayify,
   money_helper,
+  generate_error_message,
+  define,
 } = require("./utilities");
 
 class Order_Line_Item {
   constructor() {
     this._fardel = {
-      uid: nanoid(pie_defaults.uid_length),
+      uid: nanoid(complexity),
       quantity: undefined, // 1-12 REQUIRED set auto min of 1
       name: undefined,
       note: undefined,
@@ -27,6 +30,7 @@ class Order_Line_Item {
       quantity_unit: undefined, // ARRAY
       metadata: undefined, // do not implement in v1
     };
+    this._modifier = {}; // this will get cleared when it is added to the modifiers array
     this.configuration = {
       maximums: {
         quantity: 12,
@@ -43,12 +47,55 @@ class Order_Line_Item {
     };
   }
 
-  // ERROR CHECKING METHODS
+  //PRIVATE METHODS
+  // TODO *********************************
+  #quantity_unit() {
+    let format = {
+      catalog_object_id: "str",
+      catalog_version: "int",
+      measurement_unit: "Archetype - complex", //https://developer.squareup.com/reference/square/objects/MeasurementUnit
+      precision: "int between 0 and 5",
+    };
+    return format;
+  }
+
+  #applied_tax_or_discount(type, tax_or_discount_uid) {
+    let caller = `#applied_tax_or_discount - ${type}`;
+    if (
+      minLength(this.configuration.minimums.uid, tax_or_discount_uid, caller) &&
+      maxLength(this.configuration.maximums.uid, tax_or_discount_uid, caller)
+    ) {
+      let key;
+      if (type === "discount" || type === "d") {
+        key = "discount_uid";
+      } else if (type === "tax" || type === "t") {
+        key = "tax_id";
+      }
+      return {
+        [key]: tax_or_discount_uid,
+        uid: nanoid(pie_defaults.uid_length),
+      };
+    }
+  }
+
+  // TODO *********************************
+  #enum_item_type() {
+    // ITEM
+    // CUSTOM_AMOUNT
+    // GIFT_CARD
+  }
+
   #uid_length(uid) {
     return minLength(this.configuration.minimums.uid, uid) &&
       maxLength(this.configuration.uid, uid)
       ? true
       : false;
+  }
+
+  #init_modifier() {
+    this.modifier = {
+      uid: nanoid(complexity),
+    };
   }
 
   // GETTERS
@@ -89,8 +136,15 @@ class Order_Line_Item {
     return this._fardel.applied_taxes;
   }
   get modifiers() {
+    // the array where modifiers are put
     return this._fardel.modifiers;
   }
+
+  get modifier() {
+    // gets the individual modifier object property which is a cache used to build the modifiers array
+    return this._modifier;
+  }
+
   get pricing_blocklists() {
     return this._fardel.pricing_blocklists;
   }
@@ -157,11 +211,19 @@ class Order_Line_Item {
       this._fardel.applied_taxes.push(obj);
     }
   }
+
+  set modifier(obj) {
+    this._modifier = obj;
+  }
+
   set modifiers(obj) {
     if (arrayify(this._fardel, "modifiers")) {
       this._fardel.modifiers.push(obj);
     }
+    // clear the modifier property after adding it the array
+    this.#init_modifier();
   }
+
   set pricing_blocklists(obj) {
     if (arrayify(this._fardel, "pricing_blocklist")) {
       this._fardel.pricing_blocklists.push(obj);
@@ -171,44 +233,6 @@ class Order_Line_Item {
     if (arrayify(this._fardel, "quanity_unit")) {
       this._fardel.quantity_unit.push(obj);
     }
-  }
-
-  //PRIVATE METHODS
-  // TODO *********************************
-  #quantity_unit() {
-    let format = {
-      catalog_object_id: "str",
-      catalog_version: "int",
-      measurement_unit: "Archetype - complex", //https://developer.squareup.com/reference/square/objects/MeasurementUnit
-      precision: "int between 0 and 5",
-    };
-    return format;
-  }
-
-  #applied_tax_or_discount(type, tax_or_discount_uid) {
-    let caller = `#applied_tax_or_discount - ${type}`;
-    if (
-      minLength(this.configuration.minimums.uid, tax_or_discount_uid, caller) &&
-      maxLength(this.configuration.maximums.uid, tax_or_discount_uid, caller)
-    ) {
-      let key;
-      if (type === "discount" || type === "d") {
-        key = "discount_uid";
-      } else if (type === "tax" || type === "t") {
-        key = "tax_id";
-      }
-      return {
-        [key]: tax_or_discount_uid,
-        uid: nanoid(pie_defaults.uid),
-      };
-    }
-  }
-
-  // TODO *********************************
-  #enum_item_type() {
-    // ITEM
-    // CUSTOM_AMOUNT
-    // GIFT_CARD
   }
 
   // BUILDER METHODS
@@ -226,43 +250,62 @@ class Order_Line_Item {
   }
 
   add_applied_tax(id) {
-    let type = "tax";
-    let obj = this.#applied_tax_or_discount(type, id);
+    let obj = this.build_applied_tax(id);
     this.applied_taxes(obj);
     return obj;
   }
 
   add_applied_discount(id) {
-    let type = "discount";
-    let obj = this.#applied_tax_or_discount(type, id);
+    let obj = this.build_applied_discount(id);
     this.applied_taxes(obj);
     return obj;
   }
 
-  // TODO *********************************
   build_modifier() {
-    // amount, currency, cat_id, catalog_version, name
-    // let format = {
-    //   uid: "str 60",
-    //   base_price_money: "Money",
-    //   catalog_object_id: "str 192",
-    //   catalog_version: "int-64",
-    //   name: "str 255",
-    // };
-    // return format;
-    //
-    // let methods = () => {
-    //   const properties = {
-    //     self: this,
-    //
-    //   };
-    //   return properties;
-    // }
-    //
-    // return methods();
-    //
+    this.#init_modifier();
+    let caller = "order_line_item.build_modifier()";
+    let modifier = this._modifier;
+    let methods = () => {
+      const properties = {
+        self: this,
+        price: function (amount, currency) {
+          let key = "base_price_money";
+          let value = money_helper(amount, currency);
+          define(modifier, key, value);
+          return this;
+        },
+        catalog_object_id: function (id) {
+          if (
+            maxLength(this.self.configuration.catalog_object_id, id, caller)
+          ) {
+            let key = "catalog_object_id";
+            define(modifier, key, id);
+          }
+          return this;
+        },
+        catalog_version: function (int64) {
+          let key = "catalog_version";
+          if (!Number.isInteger(int64)) {
+            throw new TypeError(generate_error_message(key, "integer", int64));
+          }
+          define(modifier, key, int64);
+          return this;
+        },
+        name: function (val) {
+          if (
+            maxLength(this.self.configuration.catalog_object_id, val, caller)
+          ) {
+            let key = "name";
+            define(modifier, key, val);
+          }
+          return this;
+        },
+      };
+      return properties;
+    };
+
+    return methods();
   }
-  // TODO *********************************
 
   // VANILLA METHODS
 
