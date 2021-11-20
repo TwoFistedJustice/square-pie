@@ -1,5 +1,4 @@
-// todo pricing method
-// todo
+// todo implement BETA ticket_name
 // todo
 
 const { define, maxLength, arrayify, money_helper } = require("./utilities");
@@ -207,11 +206,6 @@ class Order_Object {
     return methods();
   }
 
-  //todo make sure object destructuring syntax works
-  pricing(auto_apply_discounts, auto_apply_taxes) {
-    this.pricing_options = { auto_apply_discounts, auto_apply_taxes };
-  }
-
   make() {
     const methods = () => {
       const properties = {
@@ -247,8 +241,11 @@ class Order_Object {
           this.self.source = val;
           return this;
         },
-        pricing_options: function (obj) {
-          this.self.pricing_options = obj;
+        pricing_options: function (auto_apply_discounts, auto_apply_taxes) {
+          this.self.pricing_options = {
+            auto_apply_discounts,
+            auto_apply_taxes,
+          };
           return this;
         },
         service_charges: function (obj) {
