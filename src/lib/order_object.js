@@ -15,8 +15,8 @@ class Order_Object {
       state: undefined,
       source: undefined, //probably easiest to automatically set this to location id and leave an option to change it
       pricing_options: undefined,
-      service_charges: undefined,
-      discounts: undefined,
+      service_charges: undefined, // [{complex objects}]
+      discounts: undefined, // [{complex objects}]
       taxes: undefined, // [{applied_money: {amount: 1, currency: "USD"}] - complex: see JSON example in docs
       fulfillments: undefined, // [{complex objects}]
       line_items: undefined, // [{complex objects}]
