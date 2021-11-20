@@ -22,13 +22,9 @@ class Order_Object {
       line_items: undefined, // [{complex objects}]
     };
     this.configuration = {
-      lengthLimits: {
+      maximums: {
         customer_id: 191,
-        discount: {
-          name: 255,
-          percentage: 10,
-          catalog_object_id: 192,
-        },
+        ticket_name: 30,
       },
     };
   }
@@ -94,12 +90,16 @@ class Order_Object {
     this._fardel.reference_id = id;
   }
   set customer_id(id) {
-    if (maxLength(this.configuration.lengthLimits.customer_id, id)) {
+    let caller = "customer_id";
+    if (maxLength(this.configuration.maximums.customer_id, id, caller)) {
       this._fardel.customer_id = id;
     }
   }
   set ticket_name(name) {
-    this._fardel.ticket_name = name;
+    let caller = "ticket_name";
+    if (maxLength(this.configuration.maximums.ticket_name, name, caller)) {
+      this._fardel.ticket_name = name;
+    }
   }
   set state(val) {
     this._fardel.state = val;
@@ -195,15 +195,6 @@ class Order_Object {
     define(service_charge, "applied_money", money);
     this.service_charges = service_charge;
     return this;
-  }
-
-  // TODO - see pie_order_object.md
-  build_line_item() {
-    let methods = () => {
-      const properties = { self: this };
-      return properties;
-    };
-    return methods();
   }
 
   make() {
