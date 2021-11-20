@@ -155,7 +155,7 @@ class Order_Object {
 
   // METHODS
 
-  #bake_state() {
+  #enum_state() {
     let methods = () => {
       let properties = {
         self: this,
@@ -226,7 +226,7 @@ class Order_Object {
           return this;
         },
         state: function () {
-          return this.self.#bake_state();
+          return this.self.#enum_state();
         },
         source: function (val) {
           this.self.source = val;
