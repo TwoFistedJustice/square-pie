@@ -1,5 +1,5 @@
 "use strict";
-const Order_Object = require("../src/lib/stub.order_object");
+const Order_Object = require("../src/lib/order_object");
 const should = require("chai").should();
 const { long_strings } = require("./helper_objects");
 
