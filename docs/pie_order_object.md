@@ -109,16 +109,16 @@ In general you call a build method for a property you want to set.
 yourVar.build_someproperty().someValue();
 ```
 
-### **build_state**
+### **#spawn_state**
 
-Sets the `state` property.
-yourVar.build_state().someMethod()
+Private methods that sets the `state` property. Referenced inside the make() method.
+yourVar.make().state().desired-value()
 
 ```js
-.build_state().open() => "OPEN"
-.build_state().completed() => "COMPLETED"
-.build_state().canceled() => "CANCELED"
-.build_state().draft() => "DRAFT"
+.make().state().open() => "OPEN"
+.make().state().completed() => "COMPLETED"
+.make().state().canceled() => "CANCELED"
+.make().state().draft() => "DRAFT"
 ```
 
 ### **build_discount**

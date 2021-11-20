@@ -1,4 +1,8 @@
 // this is not a super of fulfillment
+// todo extract discounts into own class
+// todo
+// todo
+// todo
 
 const { define, maxLength, arrayify, money_helper } = require("./utilities");
 
@@ -163,7 +167,7 @@ class Order_Object {
     return this;
   }
 
-  build_state() {
+  #spawn_state() {
     let methods = () => {
       let properties = {
         self: this,
@@ -362,9 +366,8 @@ class Order_Object {
           this.self.ticket_name = name;
           return this;
         },
-        state: function (val) {
-          this.self.state = val;
-          return this;
+        state: function () {
+          return this.self.#spawn_state();
         },
         source: function (val) {
           this.self.source = val;
