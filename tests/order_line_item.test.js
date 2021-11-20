@@ -1,5 +1,5 @@
 // test modifier - prop on the class
-const Order_Line_Item = require("../src/lib/stub.order_line_item");
+const Order_Line_Item = require("../src/lib/order_line_item");
 const should = require("chai").should();
 // const { long_strings } = require("./helper_objects");
 const { uid_length } = require("../src/lib/pie_defaults");
