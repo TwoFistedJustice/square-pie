@@ -1,6 +1,4 @@
-// this is not a super of fulfillment
-// todo extract discounts into own class
-// todo
+// todo pricing method
 // todo
 // todo
 
@@ -156,18 +154,9 @@ class Order_Object {
     }
   }
 
-  // METHODS`
+  // METHODS
 
-  /*
-   * This method allows you to simply replace fardel with a pre-built fulfilment.
-   * Just remember that just because you can does not mean you should.
-   * */
-  add_fulfillment(fulfillment) {
-    this.fulfillments = fulfillment;
-    return this;
-  }
-
-  #spawn_state() {
+  #bake_state() {
     let methods = () => {
       let properties = {
         self: this,
@@ -208,121 +197,6 @@ class Order_Object {
     this.service_charges = service_charge;
     return this;
   }
-
-  // todo - extract into own class???
-  build_discount() {
-    let methods = () => {
-      let discount = {};
-      let properties = {
-        self: this,
-        uid: function (name) {
-          define(discount, "uid", name);
-          return this;
-        },
-        name: function (name) {
-          if (
-            maxLength(this.self.configuration.lengthLimits.discount.name, name)
-          ) {
-            define(discount, "name", name);
-          }
-          return this;
-        },
-        catalog_object_id: function (id) {
-          if (
-            maxLength(
-              this.self.configuration.lengthLimits.discount.catalog_object_id,
-              id
-            )
-          ) {
-            define(discount, "catalog_object_id", id);
-          }
-          return this;
-        },
-        scope_line: function () {
-          define(discount, "scope", "LINE_ITEM");
-          return this;
-        },
-        scope_order: function () {
-          define(discount, "scope", "ORDER");
-          return this;
-        },
-        percentage: function (percent) {
-          if (
-            (!typeof percent === "string" && !typeof percent === "number") ||
-            Number.isNaN(Number(percent))
-          ) {
-            throw new Error(
-              '"build_discount.percentage() only accepts numbers and strings that can be converted to a number."'
-            );
-          }
-          if (
-            maxLength(
-              this.self.configuration.lengthLimits.discount.percentage,
-              percent
-            )
-          ) {
-            define(discount, "percentage", percent);
-          }
-          return this;
-        },
-        type_percentage: function () {
-          define(discount, "type", "FIXED_PERCENTAGE");
-          return this;
-        },
-        type_amount: function () {
-          define(discount, "type", "FIXED_AMOUNT");
-          return this;
-        },
-        amount_money: function (amount, currency) {
-          let money = money_helper(amount, currency);
-          define(discount, "amount_money", money);
-          return this;
-        },
-        applied_money: function (amount, currency) {
-          let money = money_helper(amount, currency);
-          define(discount, "applied_money", money);
-          return this;
-        },
-        pricing_rule_id: function (id) {
-          define(discount, "pricing_rule_id", id);
-          return this;
-        },
-        reward_ids: function (id) {
-          // check if discount.reward_ids is an array
-          if (!Array.isArray(discount.reward_ids)) {
-            define(discount, "reward_ids", []);
-          }
-          discount.reward_ids.push(id);
-          return this;
-        },
-
-        add: function () {
-          if (
-            !!discount.name &&
-            !Object.prototype.hasOwnProperty.call(discount, "uid")
-          ) {
-            let uid = discount.name.toLowerCase();
-            define(discount, "uid", uid.replace(" ", "-"));
-          }
-          if (
-            !Object.prototype.hasOwnProperty.call(
-              discount,
-              "catalog_object_id"
-            ) &&
-            !Object.prototype.hasOwnProperty.call(discount, "type")
-          ) {
-            throw new Error(
-              "If discount does not have catalog_object_id then it MUST have a type of either FIXED_PERCENTAGE or FIXED_AMOUNT."
-            );
-          }
-
-          this.self.discounts = discount;
-        },
-      };
-      return properties;
-    };
-    return methods();
-  } // END build_discount()
 
   // TODO - see pie_order_object.md
   build_line_item() {
@@ -367,7 +241,7 @@ class Order_Object {
           return this;
         },
         state: function () {
-          return this.self.#spawn_state();
+          return this.self.#bake_state();
         },
         source: function (val) {
           this.self.source = val;
