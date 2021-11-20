@@ -153,7 +153,7 @@ PRIVATE METHODS
 - sets fardel.item_type with fixed values.
 - referenced in make.item_type
 
-+uid_length()
++#uid_length()
 ...
 - validates min and max length for tax and discount uid
 
