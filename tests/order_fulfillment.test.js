@@ -23,7 +23,7 @@ describe("make method ", () => {
   test("make().state() should set property", () => {
     let ful = new Order_Fulfillment();
     let expected = "PROPOSED";
-    ful.make().state(expected);
+    ful.make().state().proposed();
     expect(ful.state).toEqual(expected);
   });
 
@@ -51,6 +51,17 @@ describe("make method ", () => {
     ful.make().pickup_details(expected);
     expect(ful.pickup_details).toMatchObject(expected);
   });
+
+  test("cancel_reason should set all cancellation properties", () => {
+    let ful = new Order_Fulfillment();
+    let note = "This is a note.";
+    let expected_shipment_details = {
+      cancel_reason: note,
+    };
+    ful.build_shipment().cancel_reason(note);
+    expect(ful.state).toEqual("CANCELED");
+    expect(ful.shipment_details).toMatchObject(expected_shipment_details);
+  });
 });
 
 describe("build_pickup() strings should be set correctly.", () => {
@@ -65,33 +76,33 @@ describe("build_pickup() strings should be set correctly.", () => {
 
   test("state should be set to PROPOSED", () => {
     let expected = "PROPOSED";
-    pickup.state_propose();
+    pickup.state().proposed();
     expect(fulfillment.state).toEqual(expected);
   });
   test("state should be set to RESERVED", () => {
     let expected = "RESERVED";
-    pickup.state_reserve();
+    pickup.state().reserved();
     expect(fulfillment.state).toEqual(expected);
   });
 
   test("state should be set to PREPARED", () => {
     let expected = "PREPARED";
-    pickup.state_prepare();
+    pickup.state().prepared();
     expect(fulfillment.state).toEqual(expected);
   });
   test("state should be set to COMPLETED", () => {
     let expected = "COMPLETED";
-    pickup.state_complete();
+    pickup.state().completed();
     expect(fulfillment.state).toEqual(expected);
   });
   test("state should be set to CANCELED", () => {
     let expected = "CANCELED";
-    pickup.state_cancel();
+    pickup.state().canceled();
     expect(fulfillment.state).toEqual(expected);
   });
   test("state should be set to FAILED", () => {
     let expected = "FAILED";
-    pickup.state_fail();
+    pickup.state().failed();
     expect(fulfillment.state).toEqual(expected);
   });
 
@@ -249,33 +260,33 @@ describe("build_shipment() strings should be set correctly.", () => {
 
   test("state should be set to PROPOSED", () => {
     let expected = "PROPOSED";
-    shipment.state_propose();
+    shipment.state().proposed();
     expect(fulfillment.state).toEqual(expected);
   });
   test("state should be set to RESERVED", () => {
     let expected = "RESERVED";
-    shipment.state_reserve();
+    shipment.state().reserved();
     expect(fulfillment.state).toEqual(expected);
   });
 
   test("state should be set to PREPARED", () => {
     let expected = "PREPARED";
-    shipment.state_prepare();
+    shipment.state().prepared();
     expect(fulfillment.state).toEqual(expected);
   });
   test("state should be set to COMPLETED", () => {
     let expected = "COMPLETED";
-    shipment.state_complete();
+    shipment.state().completed();
     expect(fulfillment.state).toEqual(expected);
   });
   test("state should be set to CANCELED", () => {
     let expected = "CANCELED";
-    shipment.state_cancel();
+    shipment.state().canceled();
     expect(fulfillment.state).toEqual(expected);
   });
   test("state should be set to FAILED", () => {
     let expected = "FAILED";
-    shipment.state_fail();
+    shipment.state().failed();
     expect(fulfillment.state).toEqual(expected);
   });
 

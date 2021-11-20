@@ -81,23 +81,39 @@ class Order_Fulfillment {
   }
 
   // PRIVATE METHODS
-  #proposed_state() {
-    this.state = "PROPOSED";
-  }
-  #reserved_state() {
-    this.state = "RESERVED";
-  }
-  #prepared_state() {
-    this.state = "PREPARED";
-  }
-  #completed_state() {
-    this.state = "COMPLETED";
-  }
-  #canceled_state() {
-    this.state = "CANCELED";
-  }
-  #failed_state() {
-    this.state = "FAILED";
+
+  #enum_state() {
+    let methods = () => {
+      let properties = {
+        self: this,
+        proposed: function () {
+          this.self.state = "PROPOSED";
+          return this;
+        },
+        reserved: function () {
+          this.self.state = "RESERVED";
+          return this;
+        },
+        prepared: function () {
+          this.self.state = "PREPARED";
+          return this;
+        },
+        completed: function () {
+          this.self.state = "COMPLETED";
+          return this;
+        },
+        canceled: function () {
+          this.self.state = "CANCELED";
+          return this;
+        },
+        failed: function () {
+          this.self.state = "FAILED";
+          return this;
+        },
+      };
+      return properties;
+    };
+    return methods();
   }
 
   //args: fulfillment object, property key (key), time in RFC339 (time)
@@ -195,34 +211,12 @@ class Order_Fulfillment {
     let methods = () => {
       const properties = {
         self: this,
-        state_propose: function () {
-          this.self.#proposed_state();
-          return this;
+        state: function () {
+          return this.self.#enum_state();
         },
-        state_reserve: function () {
-          this.self.#reserved_state();
-          return this;
-        },
-        state_prepare: function () {
-          this.self.#prepared_state();
-          return this;
-        },
-        state_complete: function () {
-          this.self.#completed_state();
-          return this;
-        },
-        state_cancel: function () {
-          this.self.#canceled_state();
-          return this;
-        },
-        state_fail: function () {
-          this.self.#failed_state();
-          return this;
-        },
-
         cancel_reason: function (str) {
           let key = "cancel_reason";
-          this.self.#canceled_state();
+          this.self.#enum_state().canceled();
           this.self.#note(fulfillment, key, str);
           return this;
         },
@@ -298,30 +292,8 @@ class Order_Fulfillment {
     let methods = () => {
       const properties = {
         self: this,
-
-        state_propose: function () {
-          this.self.#proposed_state();
-          return this;
-        },
-        state_reserve: function () {
-          this.self.#reserved_state();
-          return this;
-        },
-        state_prepare: function () {
-          this.self.#prepared_state();
-          return this;
-        },
-        state_complete: function () {
-          this.self.#completed_state();
-          return this;
-        },
-        state_cancel: function () {
-          this.self.#canceled_state();
-          return this;
-        },
-        state_fail: function () {
-          this.self.#failed_state();
-          return this;
+        state: function () {
+          return this.self.#enum_state();
         },
         expected_shipped_at: function (time) {
           let key = "expected_shipped_at";
@@ -330,7 +302,7 @@ class Order_Fulfillment {
         },
         cancel_reason: function (str) {
           let key = "cancel_reason";
-          this.self.#canceled_state();
+          this.self.#enum_state().canceled();
           this.self.#note(fulfillment, key, str);
           return this;
         },
@@ -391,9 +363,8 @@ class Order_Fulfillment {
           this.self.uid = val;
           return this;
         },
-        state: function (val) {
-          this.self.state = val;
-          return this;
+        state: function () {
+          return this.self.#enum_state();
         },
         type: function (val) {
           this.self.type = val;
