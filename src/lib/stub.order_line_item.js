@@ -114,7 +114,7 @@ class Order_Line_Item {
       if (type === "discount" || type === "d") {
         key = "discount_uid";
       } else if (type === "tax" || type === "t") {
-        key = "tax_id";
+        key = "tax_uid";
       }
       return {
         [key]: tax_or_discount_uid,
@@ -303,13 +303,13 @@ class Order_Line_Item {
 
   add_applied_tax(id) {
     let obj = this.build_applied_tax(id);
-    this.applied_taxes(obj);
+    this.applied_taxes = obj;
     return obj;
   }
 
   add_applied_discount(id) {
     let obj = this.build_applied_discount(id);
-    this.applied_taxes(obj);
+    this.applied_discounts = obj;
     return obj;
   }
   /*
@@ -401,8 +401,7 @@ class Order_Line_Item {
           return this;
         },
         item_type: function () {
-          this.self.#enum_item_type();
-          return this;
+          return this.self.#enum_item_type();
         },
         base_price_money: function (amount, currency) {
           this.self.base_price_money = money_helper(amount, currency);
