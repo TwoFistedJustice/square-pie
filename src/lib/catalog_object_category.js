@@ -1,20 +1,20 @@
 const Catalog_Object_Super = require("./catalog_object_super");
-// todo restructure and simplify configuration
 class Catalog_Category extends Catalog_Object_Super {
   constructor() {
     super();
-    (this.configuration = {
+    this._fardel = {
+      type: "CATEGORY",
+      id: undefined,
+      category_data: {
+        name: undefined,
+      },
+    };
+
+    this.configuration = {
       maximums: {
         name: 255,
       },
-    }),
-      (this._fardel = {
-        type: "CATEGORY",
-        id: undefined,
-        category_data: {
-          name: undefined,
-        },
-      });
+    };
   }
   get type() {
     return this._fardel.type;
