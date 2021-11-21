@@ -1,6 +1,14 @@
 const { setter_chain_generator_config } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_super");
 // // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
+// todo restructure and simplify configuration
+// todo remove chain setter
+// todo add enum methods
+// todo call enums from make()
+// todo arrayifiy
+// todo remove parens from constructor props
+// todo relabel section comments
+
 class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   constructor() {
     super();

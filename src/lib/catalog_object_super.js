@@ -6,6 +6,8 @@
  * This class should own the "ID" value and automatically insert the required '#' character if the user does not provide it.
  * (check if the first character is a hash, and insert one if it's not there)
  */
+//todo replace own maxlength method with utility
+
 class Catalog_Object_Super {
   /**
    * Create a catalog object

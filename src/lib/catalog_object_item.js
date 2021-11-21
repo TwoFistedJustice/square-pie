@@ -2,6 +2,14 @@ const Catalog_Object_Super = require("./catalog_object_super");
 const { setter_chain_generator_config } = require("./utilities");
 const { isHexColor } = require("validator");
 
+// todo restructure and simplify configuration
+// todo remove chain setter
+// todo add enum methods
+// todo call enums from make()
+// todo arrayifiy
+// todo remove parens from constructor props
+// todo relabel section comments
+
 class Catalog_Item extends Catalog_Object_Super {
   constructor() {
     super();

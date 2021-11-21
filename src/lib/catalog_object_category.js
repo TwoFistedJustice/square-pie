@@ -1,5 +1,5 @@
 const Catalog_Object_Super = require("./catalog_object_super");
-
+// todo restructure and simplify configuration
 class Catalog_Category extends Catalog_Object_Super {
   constructor() {
     super();
@@ -51,7 +51,7 @@ class Catalog_Category extends Catalog_Object_Super {
 
   //todo document removal of parcel method
 
-  //METHODS
+  //MAKER METHODS
   make() {
     const methods = {
       self: this,
