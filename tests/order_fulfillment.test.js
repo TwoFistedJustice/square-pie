@@ -58,17 +58,17 @@ describe("make method ", () => {
     let expected_shipment_details = {
       cancel_reason: note,
     };
-    ful.build_shipment().cancel_reason(note);
+    ful.make_shipment().cancel_reason(note);
     expect(ful.state).toEqual("CANCELED");
     expect(ful.shipment_details).toMatchObject(expected_shipment_details);
   });
 });
 
-describe("build_pickup() strings should be set correctly.", () => {
+describe("make_pickup() strings should be set correctly.", () => {
   // +PROPOSED + RESERVED + PREPARED + COMPLETED + CANCELED + FAILED;
 
   const fulfillment = new Order_Fulfillment();
-  let pickup = fulfillment.build_pickup();
+  let pickup = fulfillment.make_pickup();
 
   test("type should be set to 'PICKUP' ", () => {
     expect(fulfillment.type).toEqual("PICKUP");
@@ -137,7 +137,7 @@ describe("build_pickup() strings should be set correctly.", () => {
     let expected_pickup_details = {
       cancel_reason: note,
     };
-    ful.build_pickup().cancel_reason(note);
+    ful.make_pickup().cancel_reason(note);
     expect(ful.state).toEqual("CANCELED");
     expect(ful.pickup_details).toMatchObject(expected_pickup_details);
   });
@@ -148,7 +148,7 @@ describe("build_pickup() strings should be set correctly.", () => {
     let expected_pickup_details = {
       cancel_reason: note,
     };
-    ful.build_pickup().cancel(note);
+    ful.make_pickup().cancel(note);
 
     expect(ful.state).toEqual("CANCELED");
     expect(ful.pickup_details).toMatchObject(expected_pickup_details);
@@ -160,8 +160,8 @@ describe("build_pickup() strings should be set correctly.", () => {
     let expected_pickup_details = {
       cancel_reason: note,
     };
-    ful.build_pickup().cancel(note);
-    ful.build_shipment().cancel(note);
+    ful.make_pickup().cancel(note);
+    ful.make_shipment().cancel(note);
     expect(ful.pickup_details).toBeUndefined();
   });
   test("setting pickup details should set shipment details to undefined", () => {
@@ -170,8 +170,8 @@ describe("build_pickup() strings should be set correctly.", () => {
     let expected_pickup_details = {
       cancel_reason: note,
     };
-    ful.build_shipment().cancel(note);
-    ful.build_pickup().cancel(note);
+    ful.make_shipment().cancel(note);
+    ful.make_pickup().cancel(note);
     expect(ful.shipment_details).toBeUndefined();
   });
 });
@@ -179,7 +179,7 @@ describe("build_pickup() strings should be set correctly.", () => {
 describe("#time_date should reject non RFC339 time formats.", () => {
   test("#time_date  should throw when fed non RFC339 time.", () => {
     let fulfillment = new Order_Fulfillment();
-    let pickup = fulfillment.build_pickup();
+    let pickup = fulfillment.make_pickup();
 
     expect(() => {
       pickup.pickup_at(nonCompliantTime);
@@ -191,7 +191,7 @@ describe("#time_date should reject non RFC339 time formats.", () => {
       pickup_at: RFC339,
     };
     let fulfillment = new Order_Fulfillment();
-    fulfillment.build_pickup().pickup_at(RFC339);
+    fulfillment.make_pickup().pickup_at(RFC339);
 
     expect(fulfillment.pickup_details).toMatchObject(expected);
   });
@@ -201,7 +201,7 @@ describe("#time_date should reject non RFC339 time formats.", () => {
       expires_at: RFC339,
     };
     let fulfillment = new Order_Fulfillment();
-    fulfillment.build_pickup().expires_at(RFC339);
+    fulfillment.make_pickup().expires_at(RFC339);
     expect(fulfillment.pickup_details).toMatchObject(expected);
   });
 
@@ -210,7 +210,7 @@ describe("#time_date should reject non RFC339 time formats.", () => {
       pickup_window_duration: RFC339,
     };
     let fulfillment = new Order_Fulfillment();
-    fulfillment.build_pickup().pickup_window_duration(RFC339);
+    fulfillment.make_pickup().pickup_window_duration(RFC339);
     expect(fulfillment.pickup_details).toMatchObject(expected);
   });
 
@@ -219,7 +219,7 @@ describe("#time_date should reject non RFC339 time formats.", () => {
       prep_time_duration: RFC339,
     };
     let fulfillment = new Order_Fulfillment();
-    fulfillment.build_pickup().prep_time_duration(RFC339);
+    fulfillment.make_pickup().prep_time_duration(RFC339);
     expect(fulfillment.pickup_details).toMatchObject(expected);
   });
 });
@@ -233,7 +233,7 @@ describe("Private functions Type and Conformity checking", () => {
     let fulfillment = new Order_Fulfillment();
     let limit = fulfillment.limits.note + 1;
     let len = `len_${limit}`;
-    let pickup = fulfillment.build_pickup();
+    let pickup = fulfillment.make_pickup();
 
     expect(() => {
       pickup.note(long_strings[len]);
@@ -242,7 +242,7 @@ describe("Private functions Type and Conformity checking", () => {
 
   test("#time_date  should throw when fed non RFC339 time.", () => {
     let fulfillment = new Order_Fulfillment();
-    let pickup = fulfillment.build_pickup();
+    let pickup = fulfillment.make_pickup();
 
     expect(() => {
       pickup.pickup_at(nonCompliantTime);
@@ -250,9 +250,9 @@ describe("Private functions Type and Conformity checking", () => {
   });
 });
 
-describe("build_shipment() strings should be set correctly.", () => {
+describe("make_shipment() strings should be set correctly.", () => {
   const fulfillment = new Order_Fulfillment();
-  let shipment = fulfillment.build_shipment();
+  let shipment = fulfillment.make_shipment();
 
   test("type should be set to 'SHIPMENT' ", () => {
     expect(fulfillment.type).toEqual("SHIPMENT");
@@ -314,7 +314,7 @@ describe("build_shipment() strings should be set correctly.", () => {
     let expected = {
       cancel_reason: reason,
     };
-    ful.build_shipment().cancel_reason(reason);
+    ful.make_shipment().cancel_reason(reason);
     expect(ful.state).toEqual("CANCELED");
     expect(ful.shipment_details).toMatchObject(expected);
   });
@@ -325,7 +325,7 @@ describe("build_shipment() strings should be set correctly.", () => {
     let expected = {
       cancel_reason: reason,
     };
-    ful.build_shipment().cancel(reason);
+    ful.make_shipment().cancel(reason);
     expect(ful.state).toEqual("CANCELED");
     expect(ful.shipment_details).toMatchObject(expected);
   });
@@ -336,7 +336,7 @@ describe("build_shipment() strings should be set correctly.", () => {
     let expected = {
       shipping_type: type,
     };
-    ful.build_shipment().shipping_type(type);
+    ful.make_shipment().shipping_type(type);
     expect(ful.shipment_details).toMatchObject(expected);
   });
 
@@ -346,15 +346,15 @@ describe("build_shipment() strings should be set correctly.", () => {
     let expected = {
       carrier: type,
     };
-    ful.build_shipment().carrier(type);
+    ful.make_shipment().carrier(type);
     expect(ful.shipment_details).toMatchObject(expected);
   });
 });
 
-describe("build_shipment should handle time formats correctly", () => {
+describe("make_shipment should handle time formats correctly", () => {
   test("expected_shipped_at  should throw when fed non RFC339 time.", () => {
     let fulfillment = new Order_Fulfillment();
-    let shipment = fulfillment.build_shipment();
+    let shipment = fulfillment.make_shipment();
 
     expect(() => {
       shipment.expected_shipped_at(nonCompliantTime);
@@ -366,14 +366,14 @@ describe("build_shipment should handle time formats correctly", () => {
       expected_shipped_at: RFC339,
     };
     let fulfillment = new Order_Fulfillment();
-    fulfillment.build_shipment().expected_shipped_at(RFC339);
+    fulfillment.make_shipment().expected_shipped_at(RFC339);
 
     expect(fulfillment.shipment_details).toMatchObject(expected);
   });
 });
 
 describe("Compliant recipient objects should be added to shipment and pickups.", () => {
-  test("build_pickup should accept a properly formatted recipient object", () => {
+  test("make_pickup should accept a properly formatted recipient object", () => {
     let fulfillment = new Order_Fulfillment();
     let customer_id = "some id";
     let display_name = "Josephine";
@@ -398,7 +398,7 @@ describe("Compliant recipient objects should be added to shipment and pickups.",
       },
     };
     fulfillment
-      .build_pickup()
+      .make_pickup()
       .recipient()
       .customer_id(customer_id)
       .display_name(display_name)
@@ -409,7 +409,7 @@ describe("Compliant recipient objects should be added to shipment and pickups.",
     expect(fulfillment.pickup_details).toMatchObject(expected);
   });
 
-  test("build_shipment should accept a properly formatted recipient object", () => {
+  test("make_shipment should accept a properly formatted recipient object", () => {
     let fulfillment = new Order_Fulfillment();
     let customer_id = "some id";
     let display_name = "Josephine";
@@ -434,7 +434,7 @@ describe("Compliant recipient objects should be added to shipment and pickups.",
       },
     };
     fulfillment
-      .build_shipment()
+      .make_shipment()
       .recipient()
       .customer_id(customer_id)
       .display_name(display_name)
@@ -455,7 +455,7 @@ describe("curbside pickups", () => {
       curbside_details: detail,
       is_curbside_pickup: true,
     };
-    fulfillment.build_pickup().curbside_details(detail);
+    fulfillment.make_pickup().curbside_details(detail);
     expect(fulfillment.pickup_details).toMatchObject(expected);
   });
 
@@ -464,14 +464,14 @@ describe("curbside pickups", () => {
     let expected = {
       buyer_arrived_at: RFC339,
     };
-    fulfillment.build_pickup().buyer_arrived_at(RFC339);
+    fulfillment.make_pickup().buyer_arrived_at(RFC339);
     expect(fulfillment.pickup_details).toMatchObject(expected);
   });
 
   test(`buyer_arrived_at should throw when fed a non RFC339 date format`, () => {
     let fulfillment = new Order_Fulfillment();
     expect(() => {
-      fulfillment.build_pickup().buyer_arrived_at(nonCompliantTime);
+      fulfillment.make_pickup().buyer_arrived_at(nonCompliantTime);
     }).toThrow();
   });
 });

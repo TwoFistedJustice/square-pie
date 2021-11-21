@@ -203,7 +203,9 @@ class Order_Fulfillment {
     return methods();
   }
 
-  build_pickup() {
+  // MAKER METHODS
+
+  make_pickup() {
     this.type = "PICKUP";
     this.pickup_details = {};
     let fulfillment = this._fardel.pickup_details;
@@ -285,7 +287,7 @@ class Order_Fulfillment {
     return methods();
   }
 
-  build_shipment() {
+  make_shipment() {
     this.type = "SHIPMENT";
     this.shipment_details = {};
     let fulfillment = this._fardel.shipment_details;
@@ -353,7 +355,6 @@ class Order_Fulfillment {
     };
     return methods();
   }
-  // VANILLA METHODS
 
   make() {
     let methods = () => {
