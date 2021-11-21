@@ -1,0 +1,276 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+namespace fulfillment {
+.Order_Fulfillment .. .build_shipment
+.Order_Fulfillment .. .build_pickup
+}
+
+namespace order {
+.Order_Object o.. fardelCollections
+
+object fardelCollections{
+  + fulfillments
+  + discounts
+  + pricing_options
+  + service_charges
+  + taxes
+  + line_items
+}
+
+}
+
+class Order_Object{
+this._fardel
+this.configuration
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
+..
+
++ pricing_options (obj)
+..
+- verify ARG and fardel structure
+- push ARG onto array
+--
++ service_charges
++ discounts
++ taxes
++ fulfillments
++ line_items
+..
+- verify fardel structure
+- push ARG onto array
+
+==
+Private METHODS
++ #enum_state()
+..
+- call state setter with FIXED values
+
+==
+BUILDER METHODS
++ build_service_charge_amount(amount, currency)
++ build_service_charge_applied(amount, currency)
+- build compliant object
+- return object
+
++ add_service_charge_amount(amount, currency)
++ add_service_charge_applied(amount, currency)
+- same as the 'build' version but in addition it calls the setter
+- build compliant object
+- call setter
+- return object
+
+
+==
+MAKER METHODS
++ make()
+
+==
+}
+
+class Order_Fulfillment {
+this._fardel
+this.configuration
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (none))
+==
+Private METHODS
++#enum_state()
+- calls state setter with FIXED values
+
++ #time_date(fulfillment, key, time)
+- verify RFC3399 format of `time`
+- verify and set `fulfillment` structure
+- `key` defines a property on `fulfillment`, `time` is the value
+
++ #note(fulfillment, key, note)
+- verify length of `key`
+- verify and set `fulfillment` structure
+- `key` defines a property on `fulfillment`, `note` is the value
+
++ #schedule_type(fulfillment, key, value)
+- verify and set `fulfillment` structure
+- `key` defines a property on `fulfillment`, `value` is the value
+
++ #recipient(fulfillment)
+- create a set of undefined recipient properties on the pickup or shipment details property of fardel
+- adds a set of curried setters for recipient properties to the shipment and pickup builder mehtods
+
+==
+MAKER METHODS
++ make()
+
++ make_shipment()
+- constructs a shipment object at _fardel.shipment_details
+
++ make_pickup()
+- constructs a pickup object at _fardel.pickup_details
+==
+}
+
+class Order_Line_Item {
+this._fardel
+this._modifier
+this.configuration
+==
+PRIVATE METHODS
++#bake_quantity_unit()
+...
+- curried
+- initializes an empty object at fardel.quantity_unit
+- defines properties and values on fardel.quantity_unit
+
++#uid_length()
+...
+- validates min and max length for tax and discount uid
+
++#init_modifier()
+...
+ - clears and initializes this._modifier with a new 'uid'
+
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters
+==
+Private METHODS
+==
+BUILDER METHODS
+
++build_applied_tax(id)
++build_applied_discount(id)
+...
+- feeds ARG to private method to get compliant object
+- returns compliant object to coder
+
+ADD METHODS
+
++add_applied_tax(id)
++add_applied_discount(id)
+...
+- Same as Builders but in addition it adds the compliant object to fardel
+==
+MAKER METHODS
++ make()
+
++make_modifier()
+..
+- curried
+- builds out this._modifier
+- use before pushing this._modifier to modifiers array
+- re-initializes this._modifier when called
+
+==
+}
+
+
+
+class Order_Discount {
+this._fardel
+this.configuration
+==
+PRIVATE METHODS
++#enums_item_type()
+...
+- sets fardel.item_type with fixed values.
+- referenced in make.item_type
+
++#uid_length()
+...
+- validates min and max length for tax and discount uid
+
++#init_modifier()
+...
+ - clears and initializes this._modifier with a new 'uid'
+
+Complex Getters
+fardel
+...
+error checks for compliant fields
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters
+percentage
+...
+type checking
+==
+Private METHODS
++#enum_type()
+..
+- curried
+- sets type property with restricted values
+
++#enum_scope()
+..
+- curried
+- sets scope property with restricted values
+==
+MAKER METHODS
++ make()
+
+==
+}
+
+
+
+object build_shipment {
+=
+(RENAME make_*)
+=
++ state_propose
++ state_reserve
++ state_prepare
++ state_complete
++ state_cancel
++ state_fail
++ cancel_reason | string |
++ auto_complete_duration |time |
++ expires_at |time |
++ pickup_at |time |
++ pickup_window_duration |time |
++ prep_time_duration |time |
++ note |string |
++ asap
++ scheduled
++ clear_curbside
+
+}
+
+object build_pickup {
+=
+(RENAME make_*)
+=
+
++ state_propose
++ state_reserve
++ state_prepare
++ state_complete
++ state_cancel
++ state_fail
++ expected_shipped_at | time |
++ cancel_reason | string |
++ failure_reason | string |
++ tracking_number | string |
++ shipping_note | string |
++ tracking_url | string |
++ shipping_type | string |
++ carrier | string |
+}
+
+
+@enduml

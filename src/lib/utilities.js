@@ -1,3 +1,6 @@
+const { isISO4217 } = require("validator");
+// const validator = require('validator');
+
 /* defines a property on an object and makes it enumerable
  * arg [object_to_modify]: the name of the object you want to modify
  * art [prop]: the name of the property to be added
@@ -11,7 +14,9 @@
 const define = (object_to_modify, prop, val) => {
   Object.defineProperty(object_to_modify, prop, {
     value: val,
+    configurable: true,
     enumerable: true,
+    writable: true,
   });
 };
 
@@ -74,20 +79,78 @@ const setter_chain_generator_separate_arrays = function (
   });
 };
 
-/*
+/* Returns true = good
 Returns true if the string is less than or equal to the max length
 * */
 
-const maxLength = function (max, str = "") {
+const maxLength = function (max, str = "", caller = "not specified") {
   if (str.length > max) {
-    throw new Error(`Surpassed maximum character limit of ${max}.\n${str}`);
+    throw new Error(
+      `- ${caller} - surpassed maximum character limit of ${max}.\n${str}`
+    );
   }
   return true;
+};
+
+/* Returns true = good
+Returns true if the string is greater than or equal to the min length
+* */
+
+const minLength = function (min, str = "", caller = "not specified") {
+  if (str.length < min) {
+    throw new Error(
+      `- ${caller} - failed to meet minimum character count of ${min}.\n${str}`
+    );
+  }
+  return true;
+};
+
+/* Returns true = good
+ *  checks if a property holds an array
+ *  if not, sets it and returns true
+ *  if it does have an array, returns false
+ *  usage: if arrayify(args) do something
+ *
+ * We use [bracket] notation in order to enable to error message
+ * to explicitly state whence the problem originated
+ *
+ * */
+
+const arrayify = function (object_to_check, property_name) {
+  if (!Array.isArray(object_to_check[property_name])) {
+    object_to_check[property_name] = [];
+  }
+  if (!Array.isArray(object_to_check[property_name])) {
+    throw new Error(`Unable to set array at ${property_name}`);
+  }
+  return true;
+};
+
+const money_helper = function (amt, currency = "USD") {
+  let amount = Number(amt);
+  if (isNaN(amount) || typeof amt === "boolean") {
+    throw new TypeError(`'amount' must be a number. received: ${typeof amt}`);
+  }
+  if (!isISO4217(currency)) {
+    throw new Error(
+      `Received ${currency} --  money_helper currency arg must be ISO 4217 compliant.`
+    );
+  }
+  return { amount, currency };
+};
+
+const generate_error_message = function (key, expected_type, received) {
+  let type_received = typeof received;
+  return `${key}\n expected type: ${expected_type}\n received type: ${type_received}\nvalue received: ${received} `;
 };
 
 module.exports = {
   define,
   setter_chain_generator_config,
   setter_chain_generator_separate_arrays,
+  minLength,
   maxLength,
+  arrayify,
+  money_helper,
+  generate_error_message,
 };

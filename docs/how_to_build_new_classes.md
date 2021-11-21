@@ -28,7 +28,7 @@ Follow this model extracted from the Catalog_Item class.
 
 ```js
 this.configuration = {
-  lengthLimits: {
+  maximums: {
     name: 512,
     description: 4096,
     abbreviation: 24,
@@ -44,7 +44,7 @@ this.configuration = {
 ## Handling Length Limits
 
 Create a property on the class called `configuration` (no leading underbar).
-Create a sub-property called "lengthLimits".
+Create a sub-property called "maximums".
 Create a key for each Square property that has a lengthlimit and set the value to a Number equal to that limit.
 
 Require the "maxLength" utility from utilities.js. It returns true if the passed in value is within the assigned length limit.
