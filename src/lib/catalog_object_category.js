@@ -4,7 +4,7 @@ class Catalog_Category extends Catalog_Object_Super {
   constructor() {
     super();
     (this.configuration = {
-      lengthLimits: {
+      maximums: {
         name: 255,
       },
     }),
@@ -44,7 +44,7 @@ class Catalog_Category extends Catalog_Object_Super {
     str[0] !== "#" ? (this._fardel.id = "#" + str) : (this._fardel.id = str);
   }
   set name(str) {
-    if (this.maxLength(this.configuration.lengthLimits.name, str)) {
+    if (this.maxLength(this.configuration.maximums.name, str)) {
       this._fardel.category_data.name = str;
     }
   }

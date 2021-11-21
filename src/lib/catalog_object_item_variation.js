@@ -13,7 +13,7 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   constructor() {
     super();
     (this.configuration = {
-      lengthLimits: {
+      maximums: {
         name: 255,
         user_data: 255,
       },
@@ -114,7 +114,7 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   }
   // overrides super
   set name(str) {
-    if (this.maxLength(this.configuration.lengthLimits.name, str)) {
+    if (this.maxLength(this.configuration.maximums.name, str)) {
       this._fardel.item_variation_data.name = str;
     }
   }

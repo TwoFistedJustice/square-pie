@@ -19,7 +19,7 @@ const Catalog_Item_Variation = require("../src/lib/catalog_object_item_variation
 // };
 
 describe("Empty block", () => {
-  test.only("Should pass because it is an empty test", () => {});
+  test("Should pass because it is an empty test", () => {});
 });
 
 // --------------------------------------------------------------
@@ -84,14 +84,6 @@ describe("Catalog Object Wrapper", () => {
     let thing = new Catalog_Object_Wrapper();
     thing.add(arr[0]).attach(arr[1]).add(arr[2]).attach(arr[3]).add(arr[4]);
     expect(thing.payload).toMatchObject(arr);
-  });
-
-  test("Idempotency key should be a proper UUID", () => {
-    const { validate } = require("uuid");
-    let thing = new Catalog_Object_Wrapper();
-    thing.add(arr[0]);
-    thing.finalize();
-    validate(thing.fardel.idempotency_key).should.be.true;
   });
 
   test("Fardel should be in correct form with one object", () => {

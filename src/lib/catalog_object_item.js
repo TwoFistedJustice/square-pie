@@ -14,7 +14,7 @@ class Catalog_Item extends Catalog_Object_Super {
   constructor() {
     super();
     this.configuration = {
-      lengthLimits: {
+      maximums: {
         name: 512,
         description: 4096,
         abbreviation: 24,
@@ -115,17 +115,17 @@ class Catalog_Item extends Catalog_Object_Super {
     this._fardel.type = "ITEM";
   }
   set name(str) {
-    if (this.maxLength(this.configuration.lengthLimits.name, str)) {
+    if (this.maxLength(this.configuration.maximums.name, str)) {
       this._fardel.item_data.name = str;
     }
   }
   set description(str) {
-    if (this.maxLength(this.configuration.lengthLimits.description, str)) {
+    if (this.maxLength(this.configuration.maximums.description, str)) {
       this._fardel.item_data.description = str;
     }
   }
   set abbreviation(str) {
-    if (this.maxLength(this.configuration.lengthLimits.abbreviation, str)) {
+    if (this.maxLength(this.configuration.maximums.abbreviation, str)) {
       this._fardel.item_data.abbreviation = str;
     }
   }
