@@ -25,6 +25,7 @@ class Catalog_Item extends Catalog_Object_Super {
       keys: ["product_type"], // array of property names where Square expects specific values
       product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
     };
+
     this._fardel = {
       type: "ITEM",
       item_data: {

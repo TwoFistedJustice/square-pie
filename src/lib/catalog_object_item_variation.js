@@ -12,7 +12,32 @@ const Catalog_Object_Super = require("./catalog_object_super");
 class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   constructor() {
     super();
-    (this.configuration = {
+    this._fardel = {
+      type: "ITEM_VARIATION",
+      item_variation_data: {
+        name: undefined,
+        type: undefined,
+        available_for_booking: undefined,
+        service_duration: undefined,
+        item_id: "", // empty string to aid next step
+        item_options_values: undefined, // ARRAY of ids
+        location_overrides: undefined, // [ CHAIN ]
+        inventory_alert_type: undefined,
+        inventory_alert_type_threshold: undefined,
+        track_inventory: undefined,
+        measurement_unit_id: undefined,
+        pricing_type: undefined, // REQUIRED FIELD
+        price_money: undefined,
+        sku: undefined,
+        stockable: undefined,
+        stockable_conversion: undefined,
+        team_member_ids: undefined,
+        upc: undefined,
+        user_data: undefined,
+      },
+    };
+
+    this.configuration = {
       maximums: {
         name: 255,
         user_data: 255,
@@ -23,31 +48,7 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
       keys: ["pricing_type", "inventory_alert_type"],
       pricing_type: ["FIXED_PRICING", "VARIABLE_PRICING"],
       inventory_alert_type: ["NONE", "LOW_QUANTITY"],
-    }),
-      (this._fardel = {
-        type: "ITEM_VARIATION",
-        item_variation_data: {
-          name: undefined,
-          type: undefined,
-          available_for_booking: undefined,
-          service_duration: undefined,
-          item_id: "", // empty string to aid next step
-          item_options_values: undefined, // ARRAY of ids
-          location_overrides: undefined, // [ CHAIN ]
-          inventory_alert_type: undefined,
-          inventory_alert_type_threshold: undefined,
-          track_inventory: undefined,
-          measurement_unit_id: undefined,
-          pricing_type: undefined, // REQUIRED FIELD
-          price_money: undefined,
-          sku: undefined,
-          stockable: undefined,
-          stockable_conversion: undefined,
-          team_member_ids: undefined,
-          upc: undefined,
-          user_data: undefined,
-        },
-      });
+    };
   }
 
   get fardel() {
