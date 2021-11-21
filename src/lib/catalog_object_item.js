@@ -1,5 +1,5 @@
 const Catalog_Object_Super = require("./catalog_object_super");
-const { setter_chain_generator_config } = require("./utilities");
+const { setter_chain_generator_config, maxLength } = require("./utilities");
 const { isHexColor } = require("validator");
 
 // todo restructure and simplify configuration
@@ -116,17 +116,20 @@ class Catalog_Item extends Catalog_Object_Super {
     this._fardel.type = "ITEM";
   }
   set name(str) {
-    if (this.maxLength(this.configuration.maximums.name, str)) {
+    let caller = "name";
+    if (maxLength(this.configuration.maximums.name, str, caller)) {
       this._fardel.item_data.name = str;
     }
   }
   set description(str) {
-    if (this.maxLength(this.configuration.maximums.description, str)) {
+    let caller = "description";
+    if (maxLength(this.configuration.maximums.description, str, caller)) {
       this._fardel.item_data.description = str;
     }
   }
   set abbreviation(str) {
-    if (this.maxLength(this.configuration.maximums.abbreviation, str)) {
+    let caller = "abbreviation";
+    if (maxLength(this.configuration.maximums.abbreviation, str, caller)) {
       this._fardel.item_data.abbreviation = str;
     }
   }

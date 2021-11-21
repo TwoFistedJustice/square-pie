@@ -1,4 +1,4 @@
-const { setter_chain_generator_config } = require("./utilities");
+const { setter_chain_generator_config, maxLength } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_super");
 // // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
 // todo restructure and simplify configuration
@@ -115,7 +115,8 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   }
   // overrides super
   set name(str) {
-    if (this.maxLength(this.configuration.maximums.name, str)) {
+    let caller = "name";
+    if (maxLength(this.configuration.maximums.name, str, caller)) {
       this._fardel.item_variation_data.name = str;
     }
   }
@@ -212,8 +213,10 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.upc = upc;
   }
   set user_data(str) {
-    // todo validate
-    this._fardel.item_variation_data.user_data = str;
+    let caller = "user_data";
+    if (maxLength(this.configuration.maximums.user_data, str, caller)) {
+      this._fardel.item_variation_data.user_data = str;
+    }
   }
 
   //METHODS

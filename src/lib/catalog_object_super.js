@@ -6,7 +6,6 @@
  * This class should own the "ID" value and automatically insert the required '#' character if the user does not provide it.
  * (check if the first character is a hash, and insert one if it's not there)
  */
-//todo replace own maxlength method with utility
 
 class Catalog_Object_Super {
   /**
@@ -88,15 +87,6 @@ class Catalog_Object_Super {
    * @param {string} [str=''] - string to be tested. default is ''
    * @returns {boolean} if string is under max length
    */
-
-  // todo refactor this to use the utility
-  //  require it at the top and remove this method
-  maxLength(max, str = "") {
-    if (str.length > max) {
-      throw new Error(`Surpassed maximum character limit of ${max}.\n${str}`);
-    }
-    return true;
-  }
 } // END class
 
 module.exports = Catalog_Object_Super;

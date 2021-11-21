@@ -1,3 +1,4 @@
+const { maxLength } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_super");
 class Catalog_Category extends Catalog_Object_Super {
   constructor() {
@@ -44,7 +45,8 @@ class Catalog_Category extends Catalog_Object_Super {
     str[0] !== "#" ? (this._fardel.id = "#" + str) : (this._fardel.id = str);
   }
   set name(str) {
-    if (this.maxLength(this.configuration.maximums.name, str)) {
+    let caller = "name";
+    if (maxLength(this.configuration.maximums.name, str, caller)) {
       this._fardel.category_data.name = str;
     }
   }
