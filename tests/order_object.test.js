@@ -9,6 +9,63 @@ describe("Silence order object tests", () => {
   });
 });
 
+describe("service charges", () => {
+  test('build_service_charge_amount return a compliant "amount_money" object when given two args', () => {
+    let o = new Order_Object();
+    let expected = {
+      amount_money: {
+        amount: 42,
+        currency: "AUD",
+      },
+    };
+    let received = o.build_service_charge_amount("42", "AUD");
+    expect(received).toMatchObject(expected);
+  });
+
+  test('build_service_charge_applied should build a compliant "applied_money" object when given two args', () => {
+    let o = new Order_Object();
+    let expected = {
+      applied_money: {
+        amount: 46,
+        currency: "AUD",
+      },
+    };
+
+    let received = o.build_service_charge_applied(46, "AUD");
+    expect(received).toMatchObject(expected);
+  });
+
+  test('add_service_charge_amount return a compliant "amount_money" object and add it to the array on fardel.', () => {
+    let o = new Order_Object();
+    let expected = {
+      amount_money: {
+        amount: 42,
+        currency: "AUD",
+      },
+    };
+    let arr = [expected];
+    let received = o.add_service_charge_amount("42", "AUD");
+
+    expect(received).toMatchObject(expected);
+    expect(o.service_charges).toMatchObject(arr);
+  });
+
+  test('add_service_charge_applied return a compliant "amount_money" object and add it to the array on fardel.', () => {
+    let o = new Order_Object();
+    let expected = {
+      applied_money: {
+        amount: 42,
+        currency: "AUD",
+      },
+    };
+    let arr = [expected];
+    let received = o.add_service_charge_applied("42", "AUD");
+
+    expect(received).toMatchObject(expected);
+    expect(o.service_charges).toMatchObject(arr);
+  });
+});
+
 describe("Error checkers", () => {
   test("customer_id should respect limit 191", () => {
     let o = new Order_Object();
