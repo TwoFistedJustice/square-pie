@@ -68,8 +68,9 @@ BUILDER METHODS
 
 
 ==
-STANDARD METHODS
+MAKER METHODS
 + make()
+
 ==
 }
 
@@ -84,7 +85,7 @@ Simple Setters
 Complex Setters (none))
 ==
 Private METHODS
-#bake_state
++#enum_state()
 - calls state setter with FIXED values
 
 + #time_date(fulfillment, key, time)
@@ -106,18 +107,14 @@ Private METHODS
 - adds a set of curried setters for recipient properties to the shipment and pickup builder mehtods
 
 ==
-BUILDER METHODS
-+ build_shipment()
-- too complicated. Can be simplified.
-- REFACTOR
-- Have it access FARDEL directly mitigate need for `add` method
-
-+ build_pickup()
-- same problem as build_shipment
-
-==
-STANDARD METHODS
+MAKER METHODS
 + make()
+
++ make_shipment()
+- constructs a shipment object at _fardel.shipment_details
+
++ make_pickup()
+- constructs a pickup object at _fardel.pickup_details
 ==
 }
 
@@ -127,7 +124,7 @@ this._modifier
 this.configuration
 ==
 PRIVATE METHODS
-#bake_quantity_unit
++#bake_quantity_unit()
 ...
 - curried
 - initializes an empty object at fardel.quantity_unit
@@ -151,12 +148,6 @@ Complex Setters
 Private METHODS
 ==
 BUILDER METHODS
-+build_modifier()
-..
-- curried
-- builds out this._modifier
-- use before pushing this._modifier to modifiers array
-- re-initializes this._modifier when called
 
 +build_applied_tax(id)
 +build_applied_discount(id)
@@ -171,8 +162,17 @@ ADD METHODS
 ...
 - Same as Builders but in addition it adds the compliant object to fardel
 ==
-STANDARD METHODS
+MAKER METHODS
 + make()
+
++make_modifier()
+..
+- curried
+- builds out this._modifier
+- use before pushing this._modifier to modifiers array
+- re-initializes this._modifier when called
+
+==
 }
 
 
@@ -182,12 +182,6 @@ this._fardel
 this.configuration
 ==
 PRIVATE METHODS
-#bake_quantity_unit
-...
-- curried
-- initializes an empty object at fardel.quantity_unit
-- defines properties and values on fardel.quantity_unit
-
 +#enums_item_type()
 ...
 - sets fardel.item_type with fixed values.
@@ -226,13 +220,18 @@ Private METHODS
 - curried
 - sets scope property with restricted values
 ==
-STANDARD METHODS
+MAKER METHODS
 + make()
+
+==
 }
 
 
 
 object build_shipment {
+=
+(RENAME make_*)
+=
 + state_propose
 + state_reserve
 + state_prepare
@@ -253,6 +252,10 @@ object build_shipment {
 }
 
 object build_pickup {
+=
+(RENAME make_*)
+=
+
 + state_propose
 + state_reserve
 + state_prepare
