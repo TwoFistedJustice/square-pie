@@ -1,11 +1,13 @@
-const { setter_chain_generator_config, maxLength } = require("./utilities");
+const {
+  setter_chain_generator_config,
+  maxLength,
+  arrayify,
+} = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_super");
 // // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
-// todo restructure and simplify configuration
 // todo remove chain setter
 // todo add enum methods
 // todo call enums from make()
-// todo arrayifiy
 // todo remove parens from constructor props
 // todo relabel section comments
 
@@ -146,10 +148,9 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   }
   set item_options_values(str) {
     // todo Square docs are unclear about this - figurretowt
-    if (!Array.isArray(this._fardel.item_variation_data.item_options_values)) {
-      this._fardel.item_variation_data.item_options_values = [];
+    if (arrayify(this._fardel.item_variation_data, "item_options_values")) {
+      this._fardel.item_variation_data.item_options_values.push(str);
     }
-    this._fardel.item_variation_data.item_options_values.push(str);
   }
   set location_overrides(obj) {
     // todo practically a subclass unto itself...
@@ -204,10 +205,9 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.stockable_conversion = obj;
   }
   set team_member_ids(str) {
-    if (!Array.isArray(this._fardel.item_variation_data.team_member_ids)) {
-      this._fardel.item_variation_data.team_member_ids = [];
+    if (arrayify(this._fardel.item_variation_data, "team_member_ids")) {
+      this._fardel.item_variation_data.team_member_ids.push(str);
     }
-    this._fardel.item_variation_data.team_member_ids.push(str);
   }
   set upc(upc) {
     this._fardel.item_variation_data.upc = upc;

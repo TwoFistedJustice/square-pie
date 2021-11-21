@@ -1,6 +1,6 @@
 // This class should own the "ID" value and automatically insert the required '#' character if the user does not provide it.
 // (check if the first character is a hash, and insert one if it's not there)
-
+const { arrayify } = require("./utilities");
 /** Base class for the Square catalog API
  *
  * This class should own the "ID" value and automatically insert the required '#' character if the user does not provide it.
@@ -73,10 +73,9 @@ class Catalog_Object_Super {
    * @returns {string[]} list of location ids
    */
   set present_at_location_ids(id) {
-    if (!Array.isArray(this.present_at_location_ids)) {
-      this._fardel.present_at_location_ids = [];
+    if (arrayify(this._fardel, "present_at_location_ids")) {
+      this._fardel.present_at_location_ids.push(id);
     }
-    this._fardel.present_at_location_ids.push(id);
   }
 
   // METHODS

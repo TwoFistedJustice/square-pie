@@ -1,12 +1,14 @@
 const Catalog_Object_Super = require("./catalog_object_super");
-const { setter_chain_generator_config, maxLength } = require("./utilities");
+const {
+  setter_chain_generator_config,
+  maxLength,
+  arrayify,
+} = require("./utilities");
 const { isHexColor } = require("validator");
 
-// todo restructure and simplify configuration
 // todo remove chain setter
 // todo add enum methods
 // todo call enums from make()
-// todo arrayifiy
 // todo remove parens from constructor props
 // todo relabel section comments
 
@@ -154,17 +156,15 @@ class Catalog_Item extends Catalog_Object_Super {
     this._fardel.item_data.category_id = id;
   }
   set tax_ids(id) {
-    if (!Array.isArray(this.tax_ids)) {
-      this._fardel.item_data.tax_ids = [];
+    if (arrayify(this._fardel.item_data, "tax_ids")) {
+      this._fardel.item_data.tax_ids.push(id);
     }
-    this._fardel.item_data.tax_ids.push(id);
   }
   set modifier_list_info(obj) {
     // has one required value -- the subproperty modifier_overrides also has one required value
-    if (!Array.isArray(this.modifier_list_info)) {
-      this._fardel.item_data.modifier_list_info = [];
+    if (arrayify(this._fardel.item_data, "modifier_list_info")) {
+      this._fardel.item_data.modifier_list_info.push(obj);
     }
-    this._fardel.item_data.modifier_list_info.push(obj);
   }
 
   // todo this method seems to be a persistent source of bugs
