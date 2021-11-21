@@ -21,7 +21,6 @@ object fardelCollections{
 
 }
 
-
 class Order_Object{
 this._fardel
 this.configuration
@@ -47,37 +46,31 @@ Complex Setters (Computed Properties)
 - verify fardel structure
 - push ARG onto array
 
-
 ==
 Private METHODS
-
-==
-BUILDER METHODS
-
-+ build_state()
++ #enum_state()
 ..
 - call state setter with FIXED values
 
+==
+BUILDER METHODS
 + build_service_charge_amount(amount, currency)
 + build_service_charge_applied(amount, currency)
 - build compliant object
-- call setter
-..
+- return object
 
-..
-+ build_discount()
-..
-This may merit its own class ...
++ add_service_charge_amount(amount, currency)
++ add_service_charge_applied(amount, currency)
+- same as the 'build' version but in addition it calls the setter
+- build compliant object
+- call setter
+- return object
+
 
 ==
 STANDARD METHODS
 + make()
 ==
-STUB METHODS
-+ build_line_item()
-..
-+ pricing()
-..
 }
 
 class Order_Fulfillment {
@@ -91,16 +84,8 @@ Simple Setters
 Complex Setters (none))
 ==
 Private METHODS
-+ #proposed_state()
-+ #reserved_state()
-+ #prepared_state()
-+ #completed_state()
-+ #canceled_state()
-+ #failed_state()
-
-..
-- verify and set fardel structure
-- calls state setter with FIXED value
+#bake_state
+- calls state setter with FIXED values
 
 + #time_date(fulfillment, key, time)
 - verify RFC3399 format of `time`
@@ -148,11 +133,6 @@ PRIVATE METHODS
 - initializes an empty object at fardel.quantity_unit
 - defines properties and values on fardel.quantity_unit
 
-+#enums-item_type()
-...
-- sets fardel.item_type with fixed values.
-- referenced in make.item_type
-
 +#uid_length()
 ...
 - validates min and max length for tax and discount uid
@@ -163,16 +143,12 @@ PRIVATE METHODS
 
 ==
 Simple Getters
-
 ==
 Simple Setters
 ==
 Complex Setters
-
 ==
 Private METHODS
-..
-
 ==
 BUILDER METHODS
 +build_modifier()
@@ -194,11 +170,6 @@ ADD METHODS
 +add_applied_discount(id)
 ...
 - Same as Builders but in addition it adds the compliant object to fardel
-
-
-
-
-
 ==
 STANDARD METHODS
 + make()
@@ -206,7 +177,58 @@ STANDARD METHODS
 
 
 
+class Order_Discount {
+this._fardel
+this.configuration
+==
+PRIVATE METHODS
+#bake_quantity_unit
+...
+- curried
+- initializes an empty object at fardel.quantity_unit
+- defines properties and values on fardel.quantity_unit
 
++#enums_item_type()
+...
+- sets fardel.item_type with fixed values.
+- referenced in make.item_type
+
++#uid_length()
+...
+- validates min and max length for tax and discount uid
+
++#init_modifier()
+...
+ - clears and initializes this._modifier with a new 'uid'
+
+Complex Getters
+fardel
+...
+error checks for compliant fields
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters
+percentage
+...
+type checking
+==
+Private METHODS
++#enum_type()
+..
+- curried
+- sets type property with restricted values
+
++#enum_scope()
+..
+- curried
+- sets scope property with restricted values
+==
+STANDARD METHODS
++ make()
+}
 
 
 
