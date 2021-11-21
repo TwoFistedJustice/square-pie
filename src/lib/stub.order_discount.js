@@ -4,7 +4,7 @@ class Order_Discount {
   constructor() {
     this._fardel = {
       uid: undefined, // str60
-      catalog_object_id: undefined, // str192
+      catalog_object_id: undefined, // str192  Discounts that do not reference a catalog object ID must have a type of FIXED_PERCENTAGE or FIXED_AMOUNT.
       catalog_version: undefined, // int64
       name: undefined, // str255
       percentage: undefined, // str10
@@ -25,6 +25,16 @@ class Order_Discount {
 
   // GETTERS
   get fardel() {
+    if (this._fardel.catalog_object_id == undefined) {
+      if (
+        this._fardel.type !== "FIXED_PERCENTAGE" &&
+        this._fardel.type !== "FIXED_AMOUNT"
+      ) {
+        let message =
+          "Discounts that do not reference a catalog object ID must have a type of FIXED_PERCENTAGE or FIXED_AMOUNT.";
+        throw new Error(message);
+      }
+    }
     return this._fardel;
   }
   get uid() {
@@ -181,9 +191,8 @@ class Order_Discount {
           this.self.name = val;
           return this;
         },
-        type: function (val) {
-          this.self.type = val;
-          return this;
+        type: function () {
+          return this.self.#enum_type();
         },
         percentage: function (val) {
           this.self.percentage = val;
@@ -197,9 +206,8 @@ class Order_Discount {
           this.self.applied_money = money_helper(amount, currency);
           return this;
         },
-        scope: function (val) {
-          this.self.scope = val;
-          return this;
+        scope: function () {
+          return this.self.#enum_scope();
         },
       };
       return properties;
