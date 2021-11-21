@@ -1,6 +1,3 @@
-// todo implement BETA ticket_name
-// todo
-
 const { define, maxLength, arrayify, money_helper } = require("./utilities");
 
 class Order_Object {
