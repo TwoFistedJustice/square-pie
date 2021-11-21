@@ -312,61 +312,8 @@ class Order_Line_Item {
     this.applied_discounts = obj;
     return obj;
   }
-  /*
-   *  To add a modifier
-   * first BUILD the modifier
-   * then add it to the modifiers array
-   * yourVar.modifiers(yourVar.modifier)
-   * - first with an 's', then without it
-   * */
 
-  build_modifier() {
-    this.#init_modifier();
-    let caller = "order_line_item.build_modifier()";
-    let modifier = this._modifier;
-    let methods = () => {
-      const properties = {
-        self: this,
-        price: function (amount, currency) {
-          let key = "base_price_money";
-          let value = money_helper(amount, currency);
-          define(modifier, key, value);
-          return this;
-        },
-        catalog_object_id: function (id) {
-          if (
-            maxLength(this.self.configuration.catalog_object_id, id, caller)
-          ) {
-            let key = "catalog_object_id";
-            define(modifier, key, id);
-          }
-          return this;
-        },
-        catalog_version: function (int64) {
-          let key = "catalog_version";
-          if (!Number.isInteger(int64)) {
-            throw new TypeError(generate_error_message(key, "integer", int64));
-          }
-          define(modifier, key, int64);
-          return this;
-        },
-        name: function (val) {
-          if (
-            maxLength(this.self.configuration.catalog_object_id, val, caller)
-          ) {
-            let key = "name";
-            define(modifier, key, val);
-          }
-          return this;
-        },
-      };
-      return properties;
-    };
-
-    return methods();
-  }
-
-  // VANILLA METHODS
+  // MAKER METHODS
 
   make() {
     let methods = () => {
@@ -435,6 +382,60 @@ class Order_Line_Item {
       };
       return properties;
     };
+    return methods();
+  }
+
+  /*
+   *  To add a modifier
+   * first BUILD the modifier
+   * then add it to the modifiers array
+   * yourVar.modifiers(yourVar.modifier)
+   * - first with an 's', then without it
+   * */
+
+  make_modifier() {
+    this.#init_modifier();
+    let caller = "order_line_item.make_modifier()";
+    let modifier = this._modifier;
+    let methods = () => {
+      const properties = {
+        self: this,
+        price: function (amount, currency) {
+          let key = "base_price_money";
+          let value = money_helper(amount, currency);
+          define(modifier, key, value);
+          return this;
+        },
+        catalog_object_id: function (id) {
+          if (
+            maxLength(this.self.configuration.catalog_object_id, id, caller)
+          ) {
+            let key = "catalog_object_id";
+            define(modifier, key, id);
+          }
+          return this;
+        },
+        catalog_version: function (int64) {
+          let key = "catalog_version";
+          if (!Number.isInteger(int64)) {
+            throw new TypeError(generate_error_message(key, "integer", int64));
+          }
+          define(modifier, key, int64);
+          return this;
+        },
+        name: function (val) {
+          if (
+            maxLength(this.self.configuration.catalog_object_id, val, caller)
+          ) {
+            let key = "name";
+            define(modifier, key, val);
+          }
+          return this;
+        },
+      };
+      return properties;
+    };
+
     return methods();
   }
 }

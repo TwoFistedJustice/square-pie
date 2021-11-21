@@ -62,8 +62,8 @@ describe("add_applied_tax() and add_applied_discount() should add a compliant ob
   });
 });
 
-describe("build_modifier should build a compliant object", () => {
-  test("build_modifier() should build a compliant object at this._modifier", () => {
+describe("make_modifier should build a compliant object", () => {
+  test("make_modifier() should build a compliant object at this._modifier", () => {
     let line = new Order_Line_Item();
     let id = "someID";
     let price = {
@@ -73,7 +73,7 @@ describe("build_modifier should build a compliant object", () => {
     let name = "fred";
     let ver = 2345;
     line
-      .build_modifier()
+      .make_modifier()
       .catalog_object_id(id)
       .price(2100, "EUR")
       .catalog_version(ver)
