@@ -6,7 +6,8 @@
 - [Create order how to](https://developer.squareup.com/docs/orders-api/create-orders)
 - [Square Order Objects](https://developer.squareup.com/docs/orders-api/how-it-works#orders-objects-and-datatypes)
 - [READ ONLY properties are NOT request properties - no matter what the docs say](https://developer.squareup.com/forums/t/order-api-create-order-read-only-properties/3658)
-- [OrderLineItem](https://developer.squareup.com/reference/square/objects/OrderLineItem)
+- [Order Object](https://developer.squareup.com/reference/square/objects/Order)
+- [Order Line Item](https://developer.squareup.com/reference/square/objects/OrderLineItem)
 
 <br/>
 
