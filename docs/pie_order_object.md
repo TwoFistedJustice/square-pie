@@ -1,101 +1,65 @@
 # Pie Order Object
 
-# TO DO - Super Structure - property
+To add Fulfillments, Discounts, or Line Items you need to create a new instance of those classes and pass their .fardel property
+to the appropriate Order setter. There is no limit to how many or what types you can add to any given Order.
 
-- [x] version
-- [x] id :str
-- [x] location_id :str
-- [x] reference_id : str
-- [x] customer_id: str
-- [x] ticket_name: str
-- [x] state: str - fixed
-- [x] source { simple }
-- [x] pricing_options : { simple }
-- [x] service_charges: []
-- [x] discounts: []
-- [x] taxes []
-- [x] fulfillments: []
-- [x] line_items: []
-- [ ] metadata: map - not supported in v1
+They all have a standard make() method to let you quickly populate the class using chain syntax.
 
-<br/>
+Some have other make-type functions to help you create complex compliant objects. These follow the exact same chaining pattern as the standard
+make() method.
 
-# TO DO - Super Structure - getter
+Some have specific "Build" methods to help you build a less complex compliant object quickly and easily. Build methods
+may have an analogous "Add" method. Generally these are standard functions that take arguments and return something.
 
-- [x] version
-- [x] id :str
-- [x] location_id :str
-- [x] reference_id : str
-- [x] customer_id: str
-- [x] ticket_name: str
-- [x] state: str - fixed
-- [x] source { simple }
-- [x] pricing_options : { simple }
-- [x] service_charges: []
-- [x] discounts: []
-- [x] taxes []
-- [x] fulfillments: []
-- [x] line_items: []
-- [ ] metadata: map - not supported in v1
+A method name starting with "Build" indicates that it creates the object and returns it so you can do something with it.
+A method name starting with "Add" behaves exactly as its "Build" counterpart, but in addition adds the object to the appropriate array, saving you a step.
 
-<br/>
+Build methods come in two types depending on the sophistication of the returned . A curried version
 
-# TO DO - Super Structure - setter
+Order - methods
+make()
+make_shipment()
+make_pickup()
+build_service_charge_amount(amount, currency)
+build_service_charge_applied(amount, currency)
+add_service_charge_amount(amount, currency)
+add_service_charge_applied(amount, currency)
 
-- [x] version
-- [x] id :str
-- [x] location_id :str
-- [x] reference_id : str
-- [x] customer_id: str
-- [x] ticket_name: str
-- [x] state: str - fixed
-- [x] source { simple }
-- [x] pricing_options : { simple }
-- [x] service_charges: []
-- [x] discounts: []
-- [x] taxes []
-- [x] fulfillments: []
-- [x] line_items: []
-- [ ] metadata: map - not supported in v1
+Order_Fulfillment methods
+make()
+make_shipment()
+make_pickup()
 
-<br/>
+Order_Discount methods
+make()
 
-# TO DO - BUILD METHODS
+Order_Line_Itme methods
+make()
+build_applied_tax(id)
+build_applied_discount(id)
+add_applied_tax(id)
+add_applied_discount(id)
 
-- [x] build_state
-- [x] build_service_charge_amount
-- [x] build_service_charge_applied
-- [x] build_discount
-- [ ] build_fulfillment_pickup
-- [ ] build_fulfillment_shipping
-- [ ] build_line_item
+Order_Object is what you send to Square.
 
-### TO DO - Length Limits - setters
+You can add the following other object types to an Order_Object
+Order_Discount
+Order_Line_Item
+Order_Fulfillment
 
-- [x] customer_id 191
+You can add multiple of each, but they must each be a NEW instance of their class. You add them to the order object by calling the setter (or make()) and passing them as arguments.
+Super basic, totally unrealistic example: (ignores the adding of details)
 
-<br/>
+````js
+var order = new Order_Object();
+var discount = new Order_Discount();
+order.discounts = discount.fardel;
+``
 
-### TO DO - Length Limits - build-methods
 
-- [x] discount.name 255
-- [x] discount.percentage 10
-- [x] discount.catalog_object_id 192
-- [ ] fulfillment.uid 60
-- [ ] fulfillment.cancel_reason 100
-- [ ] fulfillment.pickup_details.note 500
-- [ ] fulfillment.pickup_details.curbside_pickup_details.curbside_details 250
-- [ ] shipment_details.carrier 50
-- [ ] shipment_details.failure_reason 100
-- [ ] shipment_details.shipping_note 500
-- [ ] shipment_details.shipping_type 50
-- [ ] shipment_details.tracking_number 100
-- [ ] shipment_details.tracking_url 2000
-- [ ] shipment_details.display_name 255
-- [ ] shipment_details.email_address 255
-- [ ] shipment_details.phone_number 17
 
-<br/>
+
+
 
 ## METHODS
 
@@ -107,9 +71,9 @@ In general you call a build method for a property you want to set.
 
 ```js
 yourVar.build_someproperty().someValue();
-```
+````
 
-### **#spawn_state**
+### **#enum_state**
 
 Private methods that sets the `state` property. Referenced inside the make() method.
 yourVar.make().state().desired-value()
