@@ -77,15 +77,6 @@ class Catalog_Object_Super {
       this._fardel.present_at_location_ids.push(id);
     }
   }
-
-  // METHODS
-  /**
-   * Sets max character length and throws error if surpassed
-   *
-   * @param {number} max - max character length
-   * @param {string} [str=''] - string to be tested. default is ''
-   * @returns {boolean} if string is under max length
-   */
 } // END class
 
 module.exports = Catalog_Object_Super;

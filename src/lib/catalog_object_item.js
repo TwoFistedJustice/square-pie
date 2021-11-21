@@ -10,7 +10,6 @@ const { isHexColor } = require("validator");
 // todo add enum methods
 // todo call enums from make()
 // todo remove parens from constructor props
-// todo relabel section comments
 
 class Catalog_Item extends Catalog_Object_Super {
   constructor() {
@@ -167,7 +166,6 @@ class Catalog_Item extends Catalog_Object_Super {
     }
   }
 
-  // todo this method seems to be a persistent source of bugs
   // item_variation id should be "#item.name" + "item_variation.name"
 
   set variations(obj) {
@@ -210,7 +208,7 @@ class Catalog_Item extends Catalog_Object_Super {
     // Square uses the regular name field as default
     this._fardel.item_data.sort_name = str;
   }
-  //METHODS
+  //MAKER METHODS
   make() {
     const methods = () => {
       const properties = {

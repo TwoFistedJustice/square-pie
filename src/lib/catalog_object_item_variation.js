@@ -9,7 +9,6 @@ const Catalog_Object_Super = require("./catalog_object_super");
 // todo add enum methods
 // todo call enums from make()
 // todo remove parens from constructor props
-// todo relabel section comments
 
 class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   constructor() {
