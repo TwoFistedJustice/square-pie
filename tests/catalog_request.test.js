@@ -13,7 +13,7 @@ const Catalog_Search_Filter = require("../src/lib/catalog_request_search_objects
 
 // tack on .only to this empty test to silence all other tests
 describe("Silence Async tests", () => {
-  test("Should silence async customer tests", () => {
+  test.only("Should silence async customer tests", () => {
     expect("a").toEqual("a");
   });
 });
@@ -397,7 +397,7 @@ describe("Catalog_Search_Cross_Reference", () => {
   });
 });
 
-describe.only("Catalog_Search_Items", () => {
+describe("Catalog_Search_Items", () => {
   const Catalog_Search_Items = require("../src/lib/catalog_request_search_items");
   test("sort_order should throw on wrong value", () => {
     const search = new Catalog_Search_Items();

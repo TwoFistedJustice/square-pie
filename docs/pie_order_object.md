@@ -1,35 +1,65 @@
 # Pie Order Object
 
-## TO DO
+To add Fulfillments, Discounts, or Line Items you need to create a new instance of those classes and pass their .fardel property
+to the appropriate Order setter. There is no limit to how many or what types you can add to any given Order.
 
-- [ ] build_line_items
-- [ ] quantity: str
-- [ ] applied_discounts: []
-- [ ] applied_taxes: []
-- [ ] base_price_money: {money}
-- [ ] catalog_object_id: max 192
-- [ ] catalog_version
-- [ ] gross_sales_money: {money}
-- [ ] item_type: ITEM, CUSTOM_AMOUNT, GIFT_CARD
-- [ ] metadata
-- [ ] modifiers []
-- [ ] name
-- [ ] note
-- [ ] pricing_blocklists
-- [ ] quantity_unit
-- [ ] uid MAX 60
-- [ ] variation_name MAX 400
+They all have a standard make() method to let you quickly populate the class using chain syntax.
 
-<br/>
+Some have other make-type functions to help you create complex compliant objects. These follow the exact same chaining pattern as the standard
+make() method.
 
-## READ ONLY
+Some have specific "Build" methods to help you build a less complex compliant object quickly and easily. Build methods
+may have an analogous "Add" method. Generally these are standard functions that take arguments and return something.
 
-total_discount_money\
-total_money\
-total_tax_money\
-variation_total_price_money
+A method name starting with "Build" indicates that it creates the object and returns it so you can do something with it.
+A method name starting with "Add" behaves exactly as its "Build" counterpart, but in addition adds the object to the appropriate array, saving you a step.
 
-<br/>
+Build methods come in two types depending on the sophistication of the returned . A curried version
+
+Order - methods
+make()
+make_shipment()
+make_pickup()
+build_service_charge_amount(amount, currency)
+build_service_charge_applied(amount, currency)
+add_service_charge_amount(amount, currency)
+add_service_charge_applied(amount, currency)
+
+Order_Fulfillment methods
+make()
+make_shipment()
+make_pickup()
+
+Order_Discount methods
+make()
+
+Order_Line_Itme methods
+make()
+build_applied_tax(id)
+build_applied_discount(id)
+add_applied_tax(id)
+add_applied_discount(id)
+
+Order_Object is what you send to Square.
+
+You can add the following other object types to an Order_Object
+Order_Discount
+Order_Line_Item
+Order_Fulfillment
+
+You can add multiple of each, but they must each be a NEW instance of their class. You add them to the order object by calling the setter (or make()) and passing them as arguments.
+Super basic, totally unrealistic example: (ignores the adding of details)
+
+````js
+var order = new Order_Object();
+var discount = new Order_Discount();
+order.discounts = discount.fardel;
+``
+
+
+
+
+
 
 ## METHODS
 
@@ -37,22 +67,22 @@ variation_total_price_money
 
 These are sort of like `make()` but with less room for error. Where `make()` directly accesses the setters and lets you pass whatever,
 build() does a lot to prevent you from passing incorrect structures or values. They will often simply set the correct value and structure for you.
-You call a build method for each property you want to set.
+In general you call a build method for a property you want to set.
 
 ```js
 yourVar.build_someproperty().someValue();
-```
+````
 
-### **build_state**
+### **#enum_state**
 
-Sets the `state` property.
-yourVar.build_state().someMethod()
+Private methods that sets the `state` property. Referenced inside the make() method.
+yourVar.make().state().desired-value()
 
 ```js
-.build_state().open() => "OPEN"
-.build_state().completed() => "COMPLETED"
-.build_state().canceled() => "CANCELED"
-.build_state().draft() => "DRAFT"
+.make().state().open() => "OPEN"
+.make().state().completed() => "COMPLETED"
+.make().state().canceled() => "CANCELED"
+.make().state().draft() => "DRAFT"
 ```
 
 ### **build_discount**
