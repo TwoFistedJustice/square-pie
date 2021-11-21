@@ -185,16 +185,30 @@ class Order_Object {
     let service_charge = {};
     let money = money_helper(amount, currency);
     define(service_charge, "amount_money", money);
-    this.service_charges = service_charge;
-    return this;
+    return service_charge;
   }
 
   build_service_charge_applied(amount, currency) {
     let service_charge = {};
     let money = money_helper(amount, currency);
     define(service_charge, "applied_money", money);
+    return service_charge;
+  }
+
+  add_service_charge_amount(amount, currency) {
+    let service_charge = {};
+    let money = money_helper(amount, currency);
+    define(service_charge, "amount_money", money);
     this.service_charges = service_charge;
-    return this;
+    return service_charge;
+  }
+
+  add_service_charge_applied(amount, currency) {
+    let service_charge = {};
+    let money = money_helper(amount, currency);
+    define(service_charge, "applied_money", money);
+    this.service_charges = service_charge;
+    return service_charge;
   }
 
   make() {
