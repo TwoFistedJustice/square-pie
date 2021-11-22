@@ -13,7 +13,7 @@ const Catalog_Search_Filter = require("../src/lib/catalog_request_search_objects
 
 // tack on .only to this empty test to silence all other tests
 describe("Silence Async tests", () => {
-  test.only("Should silence async customer tests", () => {
+  test("Should silence async customer tests", () => {
     expect("a").toEqual("a");
   });
 });
@@ -64,14 +64,15 @@ describe("Catalog Request Retrieve", () => {
       cache.push(doohickey.id);
     });
     let retrieve = new Catalog_Retreive();
-    retrieve.fait().object_ids(cache[0]);
+    retrieve.make().object_ids(cache[0]);
     await retrieve.request();
     expect(retrieve.delivery.objects[0].id).toEqual(cache[0]);
   });
+
   test("Should retrieve multiple objects", async () => {
     let retrieve = new Catalog_Retreive();
-    retrieve.fait().object_ids(cache[0]);
-    retrieve.beam(cache[1]);
+    retrieve.make().object_ids(cache[0]);
+    retrieve.get(cache[1]);
     await retrieve.request();
     expect(retrieve.delivery.objects[1].id).toEqual(cache[1]);
   });
@@ -96,7 +97,7 @@ describe("Catalog Request Delete", () => {
     del.nix(ids[0]).disintegrate(ids[1]);
     await del.request();
     let deleted = del.delivery;
-    console.log(deleted);
+    // console.log(deleted);
     // deleted.deleted_object_ids.should.be.an("Array").that.has.lengthOf(2);
     deleted.deleted_object_ids.should.be.an("Array").that.includes(list[0].id);
     deleted.deleted_object_ids.should.be.an("Array").that.includes(list[1].id);
