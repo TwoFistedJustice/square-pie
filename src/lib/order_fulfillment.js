@@ -83,37 +83,33 @@ class Order_Fulfillment {
   // PRIVATE METHODS
 
   #enum_state() {
-    let methods = () => {
-      let properties = {
-        self: this,
-        proposed: function () {
-          this.self.state = "PROPOSED";
-          return this;
-        },
-        reserved: function () {
-          this.self.state = "RESERVED";
-          return this;
-        },
-        prepared: function () {
-          this.self.state = "PREPARED";
-          return this;
-        },
-        completed: function () {
-          this.self.state = "COMPLETED";
-          return this;
-        },
-        canceled: function () {
-          this.self.state = "CANCELED";
-          return this;
-        },
-        failed: function () {
-          this.self.state = "FAILED";
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      proposed: function () {
+        this.self.state = "PROPOSED";
+        return this;
+      },
+      reserved: function () {
+        this.self.state = "RESERVED";
+        return this;
+      },
+      prepared: function () {
+        this.self.state = "PREPARED";
+        return this;
+      },
+      completed: function () {
+        this.self.state = "COMPLETED";
+        return this;
+      },
+      canceled: function () {
+        this.self.state = "CANCELED";
+        return this;
+      },
+      failed: function () {
+        this.self.state = "FAILED";
+        return this;
+      },
     };
-    return methods();
   }
 
   //args: fulfillment object, property key (key), time in RFC339 (time)
@@ -164,43 +160,40 @@ class Order_Fulfillment {
     !Object.prototype.hasOwnProperty.call(fulfillment, key)
       ? define(fulfillment, key, recipient)
       : (fulfillment[key] = recipient);
-    let methods = () => {
-      const properties = {
-        self: this,
-        customer_id: function (val) {
-          if (maxLength(this.self.configuration.customer_id, val)) {
-            fulfillment.recipient.customer_id = val;
-            return this;
-          }
-        },
-        display_name: function (val) {
-          if (maxLength(this.self.configuration.display_name, val)) {
-            fulfillment.recipient.display_name = val;
-            return this;
-          }
-        },
-        email: function (val) {
-          if (maxLength(this.self.configuration.email_address, val)) {
-            fulfillment.recipient.email_address = val;
-            return this;
-          }
-        },
-        phone: function (val) {
-          if (maxLength(this.self.configuration.phone_number, val)) {
-            fulfillment.recipient.phone_number = val;
-            return this;
-          }
-        },
-        address: function (val) {
-          if (maxLength(this.self.configuration.address, val)) {
-            fulfillment.recipient.address = val;
-            return this;
-          }
-        },
-      };
-      return properties;
+
+    return {
+      self: this,
+      customer_id: function (val) {
+        if (maxLength(this.self.configuration.customer_id, val)) {
+          fulfillment.recipient.customer_id = val;
+          return this;
+        }
+      },
+      display_name: function (val) {
+        if (maxLength(this.self.configuration.display_name, val)) {
+          fulfillment.recipient.display_name = val;
+          return this;
+        }
+      },
+      email: function (val) {
+        if (maxLength(this.self.configuration.email_address, val)) {
+          fulfillment.recipient.email_address = val;
+          return this;
+        }
+      },
+      phone: function (val) {
+        if (maxLength(this.self.configuration.phone_number, val)) {
+          fulfillment.recipient.phone_number = val;
+          return this;
+        }
+      },
+      address: function (val) {
+        if (maxLength(this.self.configuration.address, val)) {
+          fulfillment.recipient.address = val;
+          return this;
+        }
+      },
     };
-    return methods();
   }
 
   // MAKER METHODS
@@ -210,179 +203,167 @@ class Order_Fulfillment {
     this.pickup_details = {};
     let fulfillment = this._fardel.pickup_details;
 
-    let methods = () => {
-      const properties = {
-        self: this,
-        state: function () {
-          return this.self.#enum_state();
-        },
-        cancel_reason: function (str) {
-          let key = "cancel_reason";
-          this.self.#enum_state().canceled();
-          this.self.#note(fulfillment, key, str);
-          return this;
-        },
-        cancel: function (str) {
-          this.cancel_reason(str);
-          return this;
-        },
-        auto_complete_duration: function (time) {
-          let key = "auto_complete_duration";
-          this.self.#time_date(fulfillment, key, time);
-          return this;
-        },
-        expires_at: function (time) {
-          let key = "expires_at";
-          this.self.#time_date(fulfillment, key, time);
-          return this;
-        },
-        pickup_at: function (time) {
-          let key = "pickup_at";
-          this.self.#time_date(fulfillment, key, time);
-          return this;
-        },
-        pickup_window_duration: function (time) {
-          let key = "pickup_window_duration";
-          this.self.#time_date(fulfillment, key, time);
-          return this;
-        },
-        prep_time_duration: function (time) {
-          let key = "prep_time_duration";
-          this.self.#time_date(fulfillment, key, time);
-          return this;
-        },
-        note: function (str) {
-          let key = "note";
-          this.self.#note(fulfillment, key, str);
-          return this;
-        },
-        asap: function () {
-          let value = "ASAP";
-          this.self.#schedule_type(fulfillment, "schedule_type", value);
-          return this;
-        },
-        scheduled: function () {
-          let value = "SCHEDULED";
-          this.self.#schedule_type(fulfillment, "schedule_type", value);
-          return this;
-        },
-        recipient: function () {
-          return this.self.#recipient(fulfillment);
-        },
-        curbside_details: function (str) {
-          let key = "curbside_details";
-          this.self.#note(fulfillment, key, str);
-          this.self._fardel.pickup_details.is_curbside_pickup = true;
-          return this;
-        },
-        buyer_arrived_at: function (time) {
-          let key = "buyer_arrived_at";
-          this.self.#time_date(fulfillment, key, time);
-          return this;
-        },
-      };
-
-      return properties;
+    return {
+      self: this,
+      state: function () {
+        return this.self.#enum_state();
+      },
+      cancel_reason: function (str) {
+        let key = "cancel_reason";
+        this.self.#enum_state().canceled();
+        this.self.#note(fulfillment, key, str);
+        return this;
+      },
+      cancel: function (str) {
+        this.cancel_reason(str);
+        return this;
+      },
+      auto_complete_duration: function (time) {
+        let key = "auto_complete_duration";
+        this.self.#time_date(fulfillment, key, time);
+        return this;
+      },
+      expires_at: function (time) {
+        let key = "expires_at";
+        this.self.#time_date(fulfillment, key, time);
+        return this;
+      },
+      pickup_at: function (time) {
+        let key = "pickup_at";
+        this.self.#time_date(fulfillment, key, time);
+        return this;
+      },
+      pickup_window_duration: function (time) {
+        let key = "pickup_window_duration";
+        this.self.#time_date(fulfillment, key, time);
+        return this;
+      },
+      prep_time_duration: function (time) {
+        let key = "prep_time_duration";
+        this.self.#time_date(fulfillment, key, time);
+        return this;
+      },
+      note: function (str) {
+        let key = "note";
+        this.self.#note(fulfillment, key, str);
+        return this;
+      },
+      asap: function () {
+        let value = "ASAP";
+        this.self.#schedule_type(fulfillment, "schedule_type", value);
+        return this;
+      },
+      scheduled: function () {
+        let value = "SCHEDULED";
+        this.self.#schedule_type(fulfillment, "schedule_type", value);
+        return this;
+      },
+      recipient: function () {
+        return this.self.#recipient(fulfillment);
+      },
+      curbside_details: function (str) {
+        let key = "curbside_details";
+        this.self.#note(fulfillment, key, str);
+        this.self._fardel.pickup_details.is_curbside_pickup = true;
+        return this;
+      },
+      buyer_arrived_at: function (time) {
+        let key = "buyer_arrived_at";
+        this.self.#time_date(fulfillment, key, time);
+        return this;
+      },
     };
-    return methods();
   }
 
   make_shipment() {
     this.type = "SHIPMENT";
     this.shipment_details = {};
     let fulfillment = this._fardel.shipment_details;
-    let methods = () => {
-      const properties = {
-        self: this,
-        state: function () {
-          return this.self.#enum_state();
-        },
-        expected_shipped_at: function (time) {
-          let key = "expected_shipped_at";
-          this.self.#time_date(fulfillment, key, time);
-          return this;
-        },
-        cancel_reason: function (str) {
-          let key = "cancel_reason";
-          this.self.#enum_state().canceled();
-          this.self.#note(fulfillment, key, str);
-          return this;
-        },
-        cancel: function (str) {
-          this.cancel_reason(str);
-          return this;
-        },
-        failure_reason: function (str) {
-          let key = "failure_reason";
-          this.self.#note(fulfillment, key, str);
-          return this;
-        },
-        tracking_number: function (str) {
-          let key = "tracking_number";
-          this.self.#note(fulfillment, key, str);
-          return this;
-        },
-        shipping_note: function (str) {
-          let key = "shipping_note";
-          this.self.#note(fulfillment, key, str);
-          return this;
-        },
 
-        note: function (str) {
-          this.shipping_note(str);
-          return this;
-        },
-        tracking_url: function (str) {
-          let key = "tracking_url";
-          this.self.#note(fulfillment, key, str);
-          return this;
-        },
-        shipping_type: function (str) {
-          let key = "shipping_type";
-          this.self.#note(fulfillment, key, str);
-          return this;
-        },
-        carrier: function (str) {
-          let key = "carrier";
-          this.self.#note(fulfillment, key, str);
-          return this;
-        },
-        recipient: function () {
-          return this.self.#recipient(fulfillment);
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      state: function () {
+        return this.self.#enum_state();
+      },
+      expected_shipped_at: function (time) {
+        let key = "expected_shipped_at";
+        this.self.#time_date(fulfillment, key, time);
+        return this;
+      },
+      cancel_reason: function (str) {
+        let key = "cancel_reason";
+        this.self.#enum_state().canceled();
+        this.self.#note(fulfillment, key, str);
+        return this;
+      },
+      cancel: function (str) {
+        this.cancel_reason(str);
+        return this;
+      },
+      failure_reason: function (str) {
+        let key = "failure_reason";
+        this.self.#note(fulfillment, key, str);
+        return this;
+      },
+      tracking_number: function (str) {
+        let key = "tracking_number";
+        this.self.#note(fulfillment, key, str);
+        return this;
+      },
+      shipping_note: function (str) {
+        let key = "shipping_note";
+        this.self.#note(fulfillment, key, str);
+        return this;
+      },
+
+      note: function (str) {
+        this.shipping_note(str);
+        return this;
+      },
+      tracking_url: function (str) {
+        let key = "tracking_url";
+        this.self.#note(fulfillment, key, str);
+        return this;
+      },
+      shipping_type: function (str) {
+        let key = "shipping_type";
+        this.self.#note(fulfillment, key, str);
+        return this;
+      },
+      carrier: function (str) {
+        let key = "carrier";
+        this.self.#note(fulfillment, key, str);
+        return this;
+      },
+      recipient: function () {
+        return this.self.#recipient(fulfillment);
+      },
     };
-    return methods();
   }
 
   make() {
-    let methods = () => {
-      const properties = {
-        self: this,
-        uid: function (val) {
-          this.self.uid = val;
-          return this;
-        },
-        state: function () {
-          return this.self.#enum_state();
-        },
-        type: function (val) {
-          this.self.type = val;
-          return this;
-        },
-        pickup_details: function (val) {
-          this.self.pickup_details = val;
-          return this;
-        },
-        shipment_details: function (val) {
-          this.self.shipment_details = val;
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      uid: function (val) {
+        this.self.uid = val;
+        return this;
+      },
+      state: function () {
+        return this.self.#enum_state();
+      },
+      type: function (val) {
+        this.self.type = val;
+        return this;
+      },
+      pickup_details: function (val) {
+        this.self.pickup_details = val;
+        return this;
+      },
+      shipment_details: function (val) {
+        this.self.shipment_details = val;
+        return this;
+      },
     };
-    return methods();
   }
 }
 

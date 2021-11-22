@@ -62,46 +62,42 @@ class Order_Line_Item {
     this._fardel.quantity_unit = {};
     let obj = this._fardel.quantity_unit;
 
-    let methods = () => {
-      let properties = {
-        // The catalog object ID referencing the CatalogMeasurementUnit when the unit already exists in the db
-        catalog_object_id: function (val) {
-          let key = "catalog_object_id";
-          define(obj, key, val);
-          return this;
-        },
-        // int64"
-        catalog_version: function (int) {
-          if (!Number.isInteger(int)) {
-            throw new TypeError(
-              generate_error_message("catalog_version", "integer 64", int)
-            );
-          }
-          let key = "catalog_version";
-          define(obj, key, int);
-          return this;
-        },
-        // Archetype https://developer.squareup.com/reference/square/objects/MeasurementUnit
-        measurement_unit: function (archetype) {
-          let key = "measurement_unit";
-          define(obj, key, archetype);
-          return this;
-        },
-        // int between 0 and 5
-        precision: function (int) {
-          if (!Number.isInteger(int) || int < 0 || int > 5) {
-            throw new TypeError(
-              generate_error_message("precision", "integer 0-5", int)
-            );
-          }
-          let key = "precision";
-          define(obj, key, int);
-          return this;
-        },
-      };
-      return properties;
+    return {
+      // The catalog object ID referencing the CatalogMeasurementUnit when the unit already exists in the db
+      catalog_object_id: function (val) {
+        let key = "catalog_object_id";
+        define(obj, key, val);
+        return this;
+      },
+      // int64"
+      catalog_version: function (int) {
+        if (!Number.isInteger(int)) {
+          throw new TypeError(
+            generate_error_message("catalog_version", "integer 64", int)
+          );
+        }
+        let key = "catalog_version";
+        define(obj, key, int);
+        return this;
+      },
+      // Archetype https://developer.squareup.com/reference/square/objects/MeasurementUnit
+      measurement_unit: function (archetype) {
+        let key = "measurement_unit";
+        define(obj, key, archetype);
+        return this;
+      },
+      // int between 0 and 5
+      precision: function (int) {
+        if (!Number.isInteger(int) || int < 0 || int > 5) {
+          throw new TypeError(
+            generate_error_message("precision", "integer 0-5", int)
+          );
+        }
+        let key = "precision";
+        define(obj, key, int);
+        return this;
+      },
     };
-    return methods();
   }
 
   #applied_tax_or_discount(type, tax_or_discount_uid) {
@@ -316,73 +312,74 @@ class Order_Line_Item {
   // MAKER METHODS
 
   make() {
-    let methods = () => {
-      const properties = {
-        self: this,
-        uid: function (val) {
-          this.self.uid = val;
-          return this;
-        },
-        quantity: function (val) {
-          this.self.quantity = val;
-          return this;
-        },
-        name: function (val) {
-          this.self.name = val;
-          return this;
-        },
-        note: function (val) {
-          this.self.note = val;
-          return this;
-        },
-        variation_name: function (val) {
-          this.self.variation_name = val;
-          return this;
-        },
-        catalog_object_id: function (val) {
-          this.self.catalog_object_id = val;
-          return this;
-        },
-        catalog_version: function (val) {
-          this.self.catalog_version = val;
-          return this;
-        },
-        item_type: function () {
-          return this.self.#enum_item_type();
-        },
-        base_price_money: function (amount, currency) {
-          this.self.base_price_money = money_helper(amount, currency);
-          return this;
-        },
-        /* make() applied taxes and discounts makes it
-         * easy to put the info in, but hard to reference it after
-         * Use the Build methods if you need to reference it afterwards
-         * */
-        applied_discounts: function (id) {
-          let obj = this.self.#applied_tax_or_discount("discount", id);
-          this.self.applied_discounts = obj;
-          return this;
-        },
-        applied_taxes: function (id) {
-          let obj = this.self.#applied_tax_or_discount("tax", id);
-          this.self.applied_taxes = obj;
-          return this;
-        },
-        modifiers: function (obj) {
-          this.self.modifiers = obj;
-          return this;
-        },
-        pricing_blocklists: function (obj) {
-          this.self.pricing_blocklists = obj;
-          return this;
-        },
-        quantity_unit: function () {
-          return this.self.#bake_quantity_unit();
-        },
-      };
-      return properties;
+    // let methods = () => {
+    //   const properties = {
+    return {
+      self: this,
+      uid: function (val) {
+        this.self.uid = val;
+        return this;
+      },
+      quantity: function (val) {
+        this.self.quantity = val;
+        return this;
+      },
+      name: function (val) {
+        this.self.name = val;
+        return this;
+      },
+      note: function (val) {
+        this.self.note = val;
+        return this;
+      },
+      variation_name: function (val) {
+        this.self.variation_name = val;
+        return this;
+      },
+      catalog_object_id: function (val) {
+        this.self.catalog_object_id = val;
+        return this;
+      },
+      catalog_version: function (val) {
+        this.self.catalog_version = val;
+        return this;
+      },
+      item_type: function () {
+        return this.self.#enum_item_type();
+      },
+      base_price_money: function (amount, currency) {
+        this.self.base_price_money = money_helper(amount, currency);
+        return this;
+      },
+      /* make() applied taxes and discounts makes it
+       * easy to put the info in, but hard to reference it after
+       * Use the Build methods if you need to reference it afterwards
+       * */
+      applied_discounts: function (id) {
+        let obj = this.self.#applied_tax_or_discount("discount", id);
+        this.self.applied_discounts = obj;
+        return this;
+      },
+      applied_taxes: function (id) {
+        let obj = this.self.#applied_tax_or_discount("tax", id);
+        this.self.applied_taxes = obj;
+        return this;
+      },
+      modifiers: function (obj) {
+        this.self.modifiers = obj;
+        return this;
+      },
+      pricing_blocklists: function (obj) {
+        this.self.pricing_blocklists = obj;
+        return this;
+      },
+      quantity_unit: function () {
+        return this.self.#bake_quantity_unit();
+      },
     };
-    return methods();
+    // return properties;
+    // };
+    // return methods();
   }
 
   /*
