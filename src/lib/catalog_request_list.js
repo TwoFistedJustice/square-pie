@@ -1,5 +1,4 @@
 const Catalog_Request = require("./catalog_request");
-const { setter_chain_generator_config } = require("./utilities");
 
 class Catalog_List extends Catalog_Request {
   constructor() {
@@ -7,18 +6,6 @@ class Catalog_List extends Catalog_Request {
     this._method = "get";
     this._endpoint = "/list";
 
-    this.configuration = {
-      keys: ["types"],
-      types: [
-        "ITEM_VARIATION",
-        "CATEGORY",
-        "DISCOUNT",
-        "TAX",
-        "MODIFIER",
-        "MODIFIER_LIST",
-        "IMAGE",
-      ],
-    };
     this._fardel = {
       catalog_version: undefined,
     };
@@ -39,26 +26,60 @@ class Catalog_List extends Catalog_Request {
     this._delivery = parcel.objects;
   }
   // /* catalog version
-  //  * Square uses ISO date format :  str "YYYY-MM-DD"
+  //  * Square uses ISO date format to define catalog versions:  str "YYYY-MM-DD"
   //  * go to their docs to see what their versions are.
   //  * */
   set catalog_version(version) {
     this._fardel.catalog_version = version;
   }
 
-  // METHODS
-  make() {
-    const methods = () => {
-      const properties = {
-        self: this,
-        catalog_version: function (version) {
-          this.self.catalog_version = version;
-        },
-      };
-      setter_chain_generator_config(this.configuration, properties, this);
-      return properties;
+  // PRIVATE METHODS
+
+  #enum_types() {
+    return {
+      self: this,
+      item_variation: function () {
+        this.self.types = "ITEM_VARIATION";
+        return this;
+      },
+      category: function () {
+        this.self.types = "CATEGORY";
+        return this;
+      },
+      discount: function () {
+        this.self.types = "DISCOUNT";
+        return this;
+      },
+      tax: function () {
+        this.self.types = "TAX";
+        return this;
+      },
+      modifier: function () {
+        this.self.types = "MODIFIER";
+        return this;
+      },
+      modifier_list: function () {
+        this.self.types = "MODIFIER_LIST";
+        return this;
+      },
+      image: function () {
+        this.self.types = "IMAGE";
+        return this;
+      },
     };
-    return methods();
+  }
+
+  // MAKER METHODS
+  make() {
+    return {
+      self: this,
+      catalog_version: function (version) {
+        this.self.catalog_version = version;
+      },
+      types: function () {
+        return this.self.#enum_types();
+      },
+    };
   }
 }
 
