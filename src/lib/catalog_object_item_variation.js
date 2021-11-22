@@ -203,137 +203,124 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   // PRIVATE METHODS
 
   #enum_inventory_alert_type() {
-    let methods = () => {
-      let properties = {
-        self: this,
-        none: function () {
-          this.self.inventory_alert_type = "NONE";
-          return this;
-        },
-        low_quantity: function () {
-          this.self.inventory_alert_type = "LOW_QUANTITY";
-          return this;
-        },
-        low: function () {
-          return this.low_quantity();
-        },
-        out: function () {
-          return this.none();
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      none: function () {
+        this.self.inventory_alert_type = "NONE";
+        return this;
+      },
+      low_quantity: function () {
+        this.self.inventory_alert_type = "LOW_QUANTITY";
+        return this;
+      },
+      low: function () {
+        return this.low_quantity();
+      },
+      out: function () {
+        return this.none();
+      },
     };
-    return methods();
   }
 
   #enum_pricing_type() {
-    let methods = () => {
-      let properties = {
-        self: this,
-        fixed_pricing: function () {
-          this.self.pricing_type = "FIXED_PRICING";
-          return this;
-        },
-        variable_pricing: function () {
-          this.self.pricing_type = "VARIABLE_PRICING";
-          return this;
-        },
-        fixed: function () {
-          return this.fixed_pricing();
-        },
-        variable: function () {
-          return this.variable_pricing();
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      fixed_pricing: function () {
+        this.self.pricing_type = "FIXED_PRICING";
+        return this;
+      },
+      variable_pricing: function () {
+        this.self.pricing_type = "VARIABLE_PRICING";
+        return this;
+      },
+      fixed: function () {
+        return this.fixed_pricing();
+      },
+      variable: function () {
+        return this.variable_pricing();
+      },
     };
-    return methods();
   }
 
   //METHODS
   make() {
-    const methods = () => {
-      const properties = {
-        self: this,
-        name: function (str) {
-          this.self.name = str;
-          return this;
-        },
-        present_at_all_locations: function (bool) {
-          this.self.present_at_all_locations = bool;
-          return this;
-        },
-        present_at_location_ids: function (id) {
-          this.self.present_at_location_ids = id;
-          return this;
-        },
-        available_for_booking: function (bool) {
-          this.self.available_for_booking = bool;
-          return this;
-        },
-        service_duration: function (num) {
-          this.self.service_duration = num;
-          return this;
-        },
-        item_options_values: function (str) {
-          this.self.item_options_values = str;
-          return this;
-        },
-        location_overrides: function (obj) {
-          this.self.location_overrides = obj;
-          return this;
-        },
-        inventory_alert_type_threshold: function (str) {
-          this.self.inventory_alert_type_threshold = str;
-          return this;
-        },
-        track_inventory: function (bool) {
-          this.self.track_inventory = bool;
-          return this;
-        },
-        measurement_unit_id: function (str) {
-          this.self.measurement_unit_id = str;
-          return this;
-        },
-        price_money: function (amount, currency) {
-          this.self.price_money = money_helper(amount, currency);
-          return this;
-        },
-        sku: function (str) {
-          this.self.sku = str;
-          return this;
-        },
-        stockable: function (bool) {
-          this.self.stockable = bool;
-          return this;
-        },
-        stockable_conversion: function (obj) {
-          this.self.stockable_conversion = obj;
-          return this;
-        },
-        team_member_ids: function (str) {
-          this.self.team_member_ids = str;
-          return this;
-        },
-        upc: function (upc) {
-          this.self.upc = upc;
-          return this;
-        },
-        user_data: function (str) {
-          this.self.user_data = str;
-          return this;
-        },
-        inventory_alert_type: function () {
-          return this.self.#enum_inventory_alert_type();
-        },
-        pricing_type: function () {
-          return this.self.#enum_pricing_type();
-        },
-      };
-
-      return properties;
+    return {
+      self: this,
+      name: function (str) {
+        this.self.name = str;
+        return this;
+      },
+      present_at_all_locations: function (bool) {
+        this.self.present_at_all_locations = bool;
+        return this;
+      },
+      present_at_location_ids: function (id) {
+        this.self.present_at_location_ids = id;
+        return this;
+      },
+      available_for_booking: function (bool) {
+        this.self.available_for_booking = bool;
+        return this;
+      },
+      service_duration: function (num) {
+        this.self.service_duration = num;
+        return this;
+      },
+      item_options_values: function (str) {
+        this.self.item_options_values = str;
+        return this;
+      },
+      location_overrides: function (obj) {
+        this.self.location_overrides = obj;
+        return this;
+      },
+      inventory_alert_type_threshold: function (str) {
+        this.self.inventory_alert_type_threshold = str;
+        return this;
+      },
+      track_inventory: function (bool) {
+        this.self.track_inventory = bool;
+        return this;
+      },
+      measurement_unit_id: function (str) {
+        this.self.measurement_unit_id = str;
+        return this;
+      },
+      price_money: function (amount, currency) {
+        this.self.price_money = money_helper(amount, currency);
+        return this;
+      },
+      sku: function (str) {
+        this.self.sku = str;
+        return this;
+      },
+      stockable: function (bool) {
+        this.self.stockable = bool;
+        return this;
+      },
+      stockable_conversion: function (obj) {
+        this.self.stockable_conversion = obj;
+        return this;
+      },
+      team_member_ids: function (str) {
+        this.self.team_member_ids = str;
+        return this;
+      },
+      upc: function (upc) {
+        this.self.upc = upc;
+        return this;
+      },
+      user_data: function (str) {
+        this.self.user_data = str;
+        return this;
+      },
+      inventory_alert_type: function () {
+        return this.self.#enum_inventory_alert_type();
+      },
+      pricing_type: function () {
+        return this.self.#enum_pricing_type();
+      },
     };
-    return methods();
   }
 }
 

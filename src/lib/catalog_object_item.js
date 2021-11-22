@@ -223,82 +223,78 @@ class Catalog_Item extends Catalog_Object_Super {
 
   //MAKER METHODS
   make() {
-    const methods = () => {
-      const properties = {
-        self: this,
-        name: function (str) {
-          this.self.name = str;
-          return this;
-        },
-        present_at_all_locations: function (bool) {
-          this.self.present_at_all_locations = bool;
-          return this;
-        },
-        present_at_all_locations_ids: function (id) {
-          this.self.present_at_locations_ids = id;
-          return this;
-        },
-        id: function (tempId) {
-          this.self.id = tempId;
-          return this;
-        },
-        description: function (str) {
-          this.self.description = str;
-          return this;
-        },
-        abbreviation: function (str) {
-          this.self.abbreviation = str;
-          return this;
-        },
-        label_color: function (hex) {
-          this.self.label_color = hex;
-          return this;
-        },
-        available_online: function (bool) {
-          // if arg is defined, set
-          //otherwise .yes and .no
-          this.self.available_online = bool;
-          return this;
-        },
-        available_for_pickup: function (bool) {
-          this.self.available_for_pickup = bool;
-          return this;
-        },
-        available_electronically: function (bool) {
-          this.self.available_electronically = bool;
-          return this;
-        },
-        category_id: function (id) {
-          this.self.category_id = id;
-          return this;
-        },
-        tax_ids: function (id) {
-          this.self.tax_ids = id;
-          return this;
-        },
-        modifier_list_info: function (obj) {
-          this.self.modifier_list_info = obj;
-          return this;
-        },
-        variations: function (obj) {
-          this.self.variations = obj;
-          return this;
-        },
-        item_options: function (id) {
-          this.self.item_options = id;
-          return this;
-        },
-        sort_name: function (str) {
-          this.self.sort_name = str;
-          return this;
-        },
-        product_type: function () {
-          return this.self.#enum_product_type();
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      name: function (str) {
+        this.self.name = str;
+        return this;
+      },
+      present_at_all_locations: function (bool) {
+        this.self.present_at_all_locations = bool;
+        return this;
+      },
+      present_at_all_locations_ids: function (id) {
+        this.self.present_at_locations_ids = id;
+        return this;
+      },
+      id: function (tempId) {
+        this.self.id = tempId;
+        return this;
+      },
+      description: function (str) {
+        this.self.description = str;
+        return this;
+      },
+      abbreviation: function (str) {
+        this.self.abbreviation = str;
+        return this;
+      },
+      label_color: function (hex) {
+        this.self.label_color = hex;
+        return this;
+      },
+      available_online: function (bool) {
+        // if arg is defined, set
+        //otherwise .yes and .no
+        this.self.available_online = bool;
+        return this;
+      },
+      available_for_pickup: function (bool) {
+        this.self.available_for_pickup = bool;
+        return this;
+      },
+      available_electronically: function (bool) {
+        this.self.available_electronically = bool;
+        return this;
+      },
+      category_id: function (id) {
+        this.self.category_id = id;
+        return this;
+      },
+      tax_ids: function (id) {
+        this.self.tax_ids = id;
+        return this;
+      },
+      modifier_list_info: function (obj) {
+        this.self.modifier_list_info = obj;
+        return this;
+      },
+      variations: function (obj) {
+        this.self.variations = obj;
+        return this;
+      },
+      item_options: function (id) {
+        this.self.item_options = id;
+        return this;
+      },
+      sort_name: function (str) {
+        this.self.sort_name = str;
+        return this;
+      },
+      product_type: function () {
+        return this.self.#enum_product_type();
+      },
     };
-    return methods();
   }
 }
 
