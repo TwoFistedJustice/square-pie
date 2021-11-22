@@ -1,5 +1,8 @@
 const Catalog_Request = require("./catalog_request");
 
+// todo remove oddball function dupes
+// todo simplify makers
+
 class Catalog_Retrieve extends Catalog_Request {
   constructor() {
     super();
@@ -26,17 +29,13 @@ class Catalog_Retrieve extends Catalog_Request {
 
   //METHODS
   make() {
-    const methods = () => {
-      const properties = {
-        self: this,
-        object_ids: function (id) {
-          this.self.object_ids = id;
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      object_ids: function (id) {
+        this.self.object_ids = id;
+        return this;
+      },
     };
-    return methods();
   }
   fait() {
     return this.make();

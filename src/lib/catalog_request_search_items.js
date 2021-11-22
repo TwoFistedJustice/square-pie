@@ -1,5 +1,9 @@
 const Catalog_Request = require("./catalog_request");
 
+// todo arrayifiy
+// todo replace oddball functions wtih #enum fns
+// todo simplify makers
+
 class Catalog_Search_Items extends Catalog_Request {
   constructor() {
     super();
@@ -160,41 +164,37 @@ class Catalog_Search_Items extends Catalog_Request {
   }
 
   make() {
-    const methods = () => {
-      const properties = {
-        self: this,
-        sort_order: function (sort) {
-          this.self.sort_order = sort;
-          return this;
-        },
-        stock_levels: function (str) {
-          this.self.stock_levels = str;
-          return this;
-        },
-        text_filter: function (str) {
-          this.self.text_filter = str;
-          return this;
-        },
-        product_types: function (type) {
-          this.self.product_types = type;
-          return this;
-        },
-        category_ids: function (id) {
-          this.self.category_ids = id;
-          return this;
-        },
-        enabled_location_ids: function (id) {
-          this.self.enabled_location_ids = id;
-          return this;
-        },
-        custom_attribute_filters: function (obj) {
-          this.self.custom_attribute_filters = obj;
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      sort_order: function (sort) {
+        this.self.sort_order = sort;
+        return this;
+      },
+      stock_levels: function (str) {
+        this.self.stock_levels = str;
+        return this;
+      },
+      text_filter: function (str) {
+        this.self.text_filter = str;
+        return this;
+      },
+      product_types: function (type) {
+        this.self.product_types = type;
+        return this;
+      },
+      category_ids: function (id) {
+        this.self.category_ids = id;
+        return this;
+      },
+      enabled_location_ids: function (id) {
+        this.self.enabled_location_ids = id;
+        return this;
+      },
+      custom_attribute_filters: function (obj) {
+        this.self.custom_attribute_filters = obj;
+        return this;
+      },
     };
-    return methods();
   }
 }
 

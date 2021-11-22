@@ -1,6 +1,8 @@
 const Catalog_Request = require("./catalog_request");
 const { nanoid } = require("nanoid/non-secure");
 
+// todo change const to let in make()
+
 class Catalog_Upsert extends Catalog_Request {
   constructor() {
     super();
@@ -41,19 +43,15 @@ class Catalog_Upsert extends Catalog_Request {
     this._endpoint = str;
   }
 
-  // METHODS
+  // MAKER METHODS
   make() {
-    const methods = () => {
-      const properties = {
-        self: this,
-        body: function (fardel) {
-          this.self.body = fardel;
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      body: function (fardel) {
+        this.self.body = fardel;
+        return this;
+      },
     };
-    return methods();
   }
 }
 
