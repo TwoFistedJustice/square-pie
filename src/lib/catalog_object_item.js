@@ -1,12 +1,12 @@
 const Catalog_Object_Super = require("./catalog_object_super");
-const { setter_chain_generator_config } = require("./utilities");
+const { maxLength, arrayify } = require("./utilities");
 const { isHexColor } = require("validator");
 
 class Catalog_Item extends Catalog_Object_Super {
   constructor() {
     super();
     this.configuration = {
-      lengthLimits: {
+      maximums: {
         name: 512,
         description: 4096,
         abbreviation: 24,
@@ -14,9 +14,8 @@ class Catalog_Item extends Catalog_Object_Super {
       defaults: {
         auto_set_appointment_service: false,
       },
-      keys: ["product_type"], // array of property names where Square expects specific values
-      product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
     };
+
     this._fardel = {
       type: "ITEM",
       item_data: {
@@ -107,17 +106,20 @@ class Catalog_Item extends Catalog_Object_Super {
     this._fardel.type = "ITEM";
   }
   set name(str) {
-    if (this.maxLength(this.configuration.lengthLimits.name, str)) {
+    let caller = "name";
+    if (maxLength(this.configuration.maximums.name, str, caller)) {
       this._fardel.item_data.name = str;
     }
   }
   set description(str) {
-    if (this.maxLength(this.configuration.lengthLimits.description, str)) {
+    let caller = "description";
+    if (maxLength(this.configuration.maximums.description, str, caller)) {
       this._fardel.item_data.description = str;
     }
   }
   set abbreviation(str) {
-    if (this.maxLength(this.configuration.lengthLimits.abbreviation, str)) {
+    let caller = "abbreviation";
+    if (maxLength(this.configuration.maximums.abbreviation, str, caller)) {
       this._fardel.item_data.abbreviation = str;
     }
   }
@@ -142,20 +144,17 @@ class Catalog_Item extends Catalog_Object_Super {
     this._fardel.item_data.category_id = id;
   }
   set tax_ids(id) {
-    if (!Array.isArray(this.tax_ids)) {
-      this._fardel.item_data.tax_ids = [];
+    if (arrayify(this._fardel.item_data, "tax_ids")) {
+      this._fardel.item_data.tax_ids.push(id);
     }
-    this._fardel.item_data.tax_ids.push(id);
   }
   set modifier_list_info(obj) {
     // has one required value -- the subproperty modifier_overrides also has one required value
-    if (!Array.isArray(this.modifier_list_info)) {
-      this._fardel.item_data.modifier_list_info = [];
+    if (arrayify(this._fardel.item_data, "modifier_list_info")) {
+      this._fardel.item_data.modifier_list_info.push(obj);
     }
-    this._fardel.item_data.modifier_list_info.push(obj);
   }
 
-  // todo this method seems to be a persistent source of bugs
   // item_variation id should be "#item.name" + "item_variation.name"
 
   set variations(obj) {
@@ -198,7 +197,31 @@ class Catalog_Item extends Catalog_Object_Super {
     // Square uses the regular name field as default
     this._fardel.item_data.sort_name = str;
   }
-  //METHODS
+
+  // PRIVATE METHODS
+
+  #enum_product_type() {
+    let methods = () => {
+      let properties = {
+        self: this,
+        regular: function () {
+          this.self.product_type = "REGULAR";
+          return this;
+        },
+        appointments_service: function () {
+          this.self.product_type = "APPOINTMENTS_SERVICE";
+          return this;
+        },
+        appointment: function () {
+          return this.appointments_service();
+        },
+      };
+      return properties;
+    };
+    return methods();
+  }
+
+  //MAKER METHODS
   make() {
     const methods = () => {
       const properties = {
@@ -269,8 +292,10 @@ class Catalog_Item extends Catalog_Object_Super {
           this.self.sort_name = str;
           return this;
         },
+        product_type: function () {
+          return this.self.#enum_product_type();
+        },
       };
-      setter_chain_generator_config(this.configuration, properties, this);
       return properties;
     };
     return methods();

@@ -1,11 +1,12 @@
 // This class should own the "ID" value and automatically insert the required '#' character if the user does not provide it.
 // (check if the first character is a hash, and insert one if it's not there)
-
+const { arrayify } = require("./utilities");
 /** Base class for the Square catalog API
  *
  * This class should own the "ID" value and automatically insert the required '#' character if the user does not provide it.
  * (check if the first character is a hash, and insert one if it's not there)
  */
+
 class Catalog_Object_Super {
   /**
    * Create a catalog object
@@ -72,28 +73,9 @@ class Catalog_Object_Super {
    * @returns {string[]} list of location ids
    */
   set present_at_location_ids(id) {
-    if (!Array.isArray(this.present_at_location_ids)) {
-      this._fardel.present_at_location_ids = [];
+    if (arrayify(this._fardel, "present_at_location_ids")) {
+      this._fardel.present_at_location_ids.push(id);
     }
-    this._fardel.present_at_location_ids.push(id);
-  }
-
-  // METHODS
-  /**
-   * Sets max character length and throws error if surpassed
-   *
-   * @param {number} max - max character length
-   * @param {string} [str=''] - string to be tested. default is ''
-   * @returns {boolean} if string is under max length
-   */
-
-  // todo refactor this to use the utility
-  //  require it at the top and remove this method
-  maxLength(max, str = "") {
-    if (str.length > max) {
-      throw new Error(`Surpassed maximum character limit of ${max}.\n${str}`);
-    }
-    return true;
   }
 } // END class
 

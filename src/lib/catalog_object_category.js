@@ -1,20 +1,21 @@
+const { maxLength } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_super");
-
 class Catalog_Category extends Catalog_Object_Super {
   constructor() {
     super();
-    (this.configuration = {
-      lengthLimits: {
+    this._fardel = {
+      type: "CATEGORY",
+      id: undefined,
+      category_data: {
+        name: undefined,
+      },
+    };
+
+    this.configuration = {
+      maximums: {
         name: 255,
       },
-    }),
-      (this._fardel = {
-        type: "CATEGORY",
-        id: undefined,
-        category_data: {
-          name: undefined,
-        },
-      });
+    };
   }
   get type() {
     return this._fardel.type;
@@ -44,14 +45,15 @@ class Catalog_Category extends Catalog_Object_Super {
     str[0] !== "#" ? (this._fardel.id = "#" + str) : (this._fardel.id = str);
   }
   set name(str) {
-    if (this.maxLength(this.configuration.lengthLimits.name, str)) {
+    let caller = "name";
+    if (maxLength(this.configuration.maximums.name, str, caller)) {
       this._fardel.category_data.name = str;
     }
   }
 
   //todo document removal of parcel method
 
-  //METHODS
+  //MAKER METHODS
   make() {
     const methods = {
       self: this,
