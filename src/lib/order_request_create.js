@@ -1,5 +1,8 @@
 const Order_Request = require("./order_request");
-const { v4: uuidv4 } = require("uuid");
+const { nanoid } = require("nanoid");
+
+// todo swap in nanoid
+// todo simplify MAKERS
 
 class Order_Create extends Order_Request {
   constructor(props) {
@@ -8,7 +11,7 @@ class Order_Create extends Order_Request {
     this._endpoint = "";
 
     this._body = {
-      idempotency_key: uuidv4(),
+      idempotency_key: nanoid(),
       order: undefined,
     };
   }

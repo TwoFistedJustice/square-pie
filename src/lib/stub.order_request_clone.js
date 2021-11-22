@@ -1,5 +1,8 @@
 const Order_Request = require("./order_request");
-const { v4: uuidv4 } = require("uuid");
+const { nanoid } = require("nanoid");
+
+// todo simplify MAKERS
+//todo swap in nanoid
 
 class Order_clone extends Order_Request {
   constructor(props) {
@@ -7,7 +10,7 @@ class Order_clone extends Order_Request {
     this._method = "post";
     this._endpoint = "clone";
     this._body = {
-      idempotency_key: uuidv4(),
+      idempotency_key: nanoid(),
       order_id: undefined,
       version: undefined, // assume it works same as order_version in Clone
     };

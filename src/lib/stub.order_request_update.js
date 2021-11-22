@@ -1,5 +1,9 @@
 const Order_Request = require("./order_request");
-const { v4: uuidv4 } = require("uuid");
+const { nanoid } = require("nanoid");
+
+// todo simplify MAKERS
+// arrayify
+//todo swap in nanoid
 
 class Order_Update extends Order_Request {
   constructor(props) {
@@ -7,7 +11,7 @@ class Order_Update extends Order_Request {
     this._method = "put";
     this._endpoint = "";
     this._body = {
-      idempotency_key: uuidv4(),
+      idempotency_key: nanoid(),
       fields_to_clear: undefined,
       order: undefined,
     };
@@ -21,8 +25,6 @@ class Order_Update extends Order_Request {
     // todo - make sure is array before adding val
   }
 
-  // TODO --  HANDY DANDY METHODS
-  //
   // add a field to clear
   // order - requires a 'sparse' order - just the fields to update
   // may be able to just take a regular order object
