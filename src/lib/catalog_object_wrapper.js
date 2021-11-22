@@ -1,4 +1,5 @@
 const { nanoid } = require("nanoid/non-secure");
+const { define } = require("./utilities");
 
 // instantiate class
 // class.attach(stuff).attach(stuff)
@@ -9,14 +10,10 @@ const { nanoid } = require("nanoid/non-secure");
 //ToDO add ability to remove an item from payload array
 // todo consider renaming Wrapper to Container because that is more clear
 
-// todo REFACTOR all  Object.defineProperty calls, replace with `define` utility
-
 class Catalog_Object_Wrapper {
   constructor() {
-    // todo refactor - DRY-out the idempotency key
-    this._idempotency_key = nanoid();
     this._fardel = {
-      idempotency_key: this._idempotency_key,
+      idempotency_key: nanoid(),
     };
     this._payload;
   }
@@ -43,11 +40,7 @@ class Catalog_Object_Wrapper {
     if (Object.prototype.hasOwnProperty.call(this._fardel, "objects")) {
       this._fardel.objects = undefined;
     } else if (!Object.prototype.hasOwnProperty.call(this._fardel, "object")) {
-      Object.defineProperty(this._fardel, "object", {
-        value: parcel,
-        writable: true,
-        enumerable: true,
-      });
+      define(this._fardel, "object", parcel);
     } else {
       this._fardel.object = parcel;
     }
@@ -62,11 +55,7 @@ class Catalog_Object_Wrapper {
       // delete this._delivery.object;
       this._fardel.object = undefined;
     } else if (!Object.prototype.hasOwnProperty.call(this._fardel, "objects")) {
-      Object.defineProperty(this._fardel, "objects", {
-        value: parcel,
-        writable: true,
-        enumerable: true,
-      });
+      define(this._fardel, "objects", parcel);
     } else {
       this._fardel.objects = parcel;
     }

@@ -1,45 +1,41 @@
-const { setter_chain_generator_config } = require("./utilities");
+const { money_helper, maxLength, arrayify } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_super");
 // // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
+
 class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   constructor() {
     super();
-    (this.configuration = {
-      lengthLimits: {
+    this._fardel = {
+      type: "ITEM_VARIATION",
+      item_variation_data: {
+        name: undefined,
+        type: undefined,
+        available_for_booking: undefined,
+        service_duration: undefined,
+        item_id: "", // empty string to aid next step
+        item_options_values: undefined, // ARRAY of ids
+        location_overrides: undefined, // [ CHAIN ]
+        inventory_alert_type: undefined,
+        inventory_alert_type_threshold: undefined,
+        track_inventory: undefined,
+        measurement_unit_id: undefined,
+        pricing_type: undefined, // REQUIRED FIELD
+        price_money: undefined,
+        sku: undefined,
+        stockable: undefined,
+        stockable_conversion: undefined,
+        team_member_ids: undefined,
+        upc: undefined,
+        user_data: undefined,
+      },
+    };
+
+    this.configuration = {
+      maximums: {
         name: 255,
         user_data: 255,
       },
-      defaults: {
-        currency: "USD", // set to undefined or "none" to have no default currency - see Square docs for other values
-      },
-      keys: ["pricing_type", "inventory_alert_type"],
-      pricing_type: ["FIXED_PRICING", "VARIABLE_PRICING"],
-      inventory_alert_type: ["NONE", "LOW_QUANTITY"],
-    }),
-      (this._fardel = {
-        type: "ITEM_VARIATION",
-        item_variation_data: {
-          name: undefined,
-          type: undefined,
-          available_for_booking: undefined,
-          service_duration: undefined,
-          item_id: "", // empty string to aid next step
-          item_options_values: undefined, // ARRAY of ids
-          location_overrides: undefined, // [ CHAIN ]
-          inventory_alert_type: undefined,
-          inventory_alert_type_threshold: undefined,
-          track_inventory: undefined,
-          measurement_unit_id: undefined,
-          pricing_type: undefined, // REQUIRED FIELD
-          price_money: undefined,
-          sku: undefined,
-          stockable: undefined,
-          stockable_conversion: undefined,
-          team_member_ids: undefined,
-          upc: undefined,
-          user_data: undefined,
-        },
-      });
+    };
   }
 
   get fardel() {
@@ -106,7 +102,8 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   }
   // overrides super
   set name(str) {
-    if (this.maxLength(this.configuration.lengthLimits.name, str)) {
+    let caller = "name";
+    if (maxLength(this.configuration.maximums.name, str, caller)) {
       this._fardel.item_variation_data.name = str;
     }
   }
@@ -136,10 +133,9 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   }
   set item_options_values(str) {
     // todo Square docs are unclear about this - figurretowt
-    if (!Array.isArray(this._fardel.item_variation_data.item_options_values)) {
-      this._fardel.item_variation_data.item_options_values = [];
+    if (arrayify(this._fardel.item_variation_data, "item_options_values")) {
+      this._fardel.item_variation_data.item_options_values.push(str);
     }
-    this._fardel.item_variation_data.item_options_values.push(str);
   }
   set location_overrides(obj) {
     // todo practically a subclass unto itself...
@@ -152,13 +148,9 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.pricing_type = str;
   }
   // price_money is only used if pricing type is fixed. So set it to fixed and save a step.
-  set price_money(val) {
-    let moneyIsTooAnObject = {
-      amount: val,
-      currency: this.configuration.defaults.currency,
-    };
+  set price_money(money) {
     this._fardel.item_variation_data.pricing_type = "FIXED_PRICING";
-    this._fardel.item_variation_data.price_money = moneyIsTooAnObject;
+    this._fardel.item_variation_data.price_money = money;
   }
   set inventory_alert_type(str) {
     this._fardel.item_variation_data.inventory_alert_type = str;
@@ -194,17 +186,68 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.stockable_conversion = obj;
   }
   set team_member_ids(str) {
-    if (!Array.isArray(this._fardel.item_variation_data.team_member_ids)) {
-      this._fardel.item_variation_data.team_member_ids = [];
+    if (arrayify(this._fardel.item_variation_data, "team_member_ids")) {
+      this._fardel.item_variation_data.team_member_ids.push(str);
     }
-    this._fardel.item_variation_data.team_member_ids.push(str);
   }
   set upc(upc) {
     this._fardel.item_variation_data.upc = upc;
   }
   set user_data(str) {
-    // todo validate
-    this._fardel.item_variation_data.user_data = str;
+    let caller = "user_data";
+    if (maxLength(this.configuration.maximums.user_data, str, caller)) {
+      this._fardel.item_variation_data.user_data = str;
+    }
+  }
+
+  // PRIVATE METHODS
+
+  #enum_inventory_alert_type() {
+    let methods = () => {
+      let properties = {
+        self: this,
+        none: function () {
+          this.self.inventory_alert_type = "NONE";
+          return this;
+        },
+        low_quantity: function () {
+          this.self.inventory_alert_type = "LOW_QUANTITY";
+          return this;
+        },
+        low: function () {
+          return this.low_quantity();
+        },
+        out: function () {
+          return this.none();
+        },
+      };
+      return properties;
+    };
+    return methods();
+  }
+
+  #enum_pricing_type() {
+    let methods = () => {
+      let properties = {
+        self: this,
+        fixed_pricing: function () {
+          this.self.pricing_type = "FIXED_PRICING";
+          return this;
+        },
+        variable_pricing: function () {
+          this.self.pricing_type = "VARIABLE_PRICING";
+          return this;
+        },
+        fixed: function () {
+          return this.fixed_pricing();
+        },
+        variable: function () {
+          return this.variable_pricing();
+        },
+      };
+      return properties;
+    };
+    return methods();
   }
 
   //METHODS
@@ -252,8 +295,8 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
           this.self.measurement_unit_id = str;
           return this;
         },
-        price_money: function (val) {
-          this.self.price_money = val;
+        price_money: function (amount, currency) {
+          this.self.price_money = money_helper(amount, currency);
           return this;
         },
         sku: function (str) {
@@ -280,9 +323,14 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
           this.self.user_data = str;
           return this;
         },
+        inventory_alert_type: function () {
+          return this.self.#enum_inventory_alert_type();
+        },
+        pricing_type: function () {
+          return this.self.#enum_pricing_type();
+        },
       };
 
-      setter_chain_generator_config(this.configuration, properties, this);
       return properties;
     };
     return methods();
