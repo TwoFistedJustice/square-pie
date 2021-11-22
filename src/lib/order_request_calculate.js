@@ -23,17 +23,13 @@ class Order_Calculate extends Order_Request {
   }
 
   make() {
-    const methods = () => {
-      let properties = {
-        self: this,
-        body: function (fardel) {
-          this.body = fardel;
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      body: function (fardel) {
+        this.body = fardel;
+        return this;
+      },
     };
-    return methods();
   }
 }
 

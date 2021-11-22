@@ -1,9 +1,6 @@
 const Order_Request = require("./order_request");
 const { nanoid } = require("nanoid");
 
-// todo swap in nanoid
-// todo simplify MAKERS
-
 class Order_Create extends Order_Request {
   constructor(props) {
     super(props);
@@ -28,17 +25,13 @@ class Order_Create extends Order_Request {
   }
 
   make() {
-    const methods = () => {
-      let properties = {
-        self: this,
-        body: function (fardel) {
-          this.body = fardel;
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      body: function (fardel) {
+        this.body = fardel;
+        return this;
+      },
     };
-    return methods();
   }
 }
 
