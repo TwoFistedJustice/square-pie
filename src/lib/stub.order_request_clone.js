@@ -1,9 +1,6 @@
 const Order_Request = require("./order_request");
 const { nanoid } = require("nanoid");
 
-// todo simplify MAKERS
-//todo swap in nanoid
-
 class Order_clone extends Order_Request {
   constructor(props) {
     super(props);
@@ -20,18 +17,14 @@ class Order_clone extends Order_Request {
     return this._body;
   }
 
-  // TODO --  HANDY DANDY METHODS
+  // TODO --  MAKER METHODS
   // merge array of fields
   // remove a field to clear by name
 
   make() {
-    const methods = () => {
-      let properties = {
-        self: this,
-      };
-      return properties;
+    return {
+      self: this,
     };
-    return methods();
   }
 }
 

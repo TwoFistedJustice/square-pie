@@ -55,21 +55,17 @@ class Order_Retrieve extends Order_Request {
   }
 
   make() {
-    const methods = () => {
-      let properties = {
-        self: this,
-        location_id: function (id) {
-          this.location_id = id;
-          return this;
-        },
-        order_ids: function (id) {
-          this.order_ids = id;
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      location_id: function (id) {
+        this.location_id = id;
+        return this;
+      },
+      order_ids: function (id) {
+        this.order_ids = id;
+        return this;
+      },
     };
-    return methods();
   }
 }
 

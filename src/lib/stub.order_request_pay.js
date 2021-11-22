@@ -1,9 +1,6 @@
 const Order_Request = require("./order_request");
 const { nanoid } = require("nanoid");
 
-// todo simplify MAKERS
-//todo swap in nanoid
-
 class Order_Pay extends Order_Request {
   constructor(props) {
     super(props);
@@ -22,7 +19,7 @@ class Order_Pay extends Order_Request {
 
   // SETTERS
 
-  // TODO --  HANDY DANDY METHODS
+  // TODO --  MAKER METHODS
   // add payment id
   // remove payment id by id
   // add array of payment ids
@@ -30,13 +27,9 @@ class Order_Pay extends Order_Request {
   //version
 
   make() {
-    const methods = () => {
-      let properties = {
-        self: this,
-      };
-      return properties;
+    return {
+      self: this,
     };
-    return methods();
   }
 }
 

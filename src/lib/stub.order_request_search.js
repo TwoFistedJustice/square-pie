@@ -37,13 +37,9 @@ class Order_Search extends Order_Request {
   // query - base on catalog search
 
   make() {
-    const methods = () => {
-      let properties = {
-        self: this,
-      };
-      return properties;
+    return {
+      self: this,
     };
-    return methods();
   }
 }
 
