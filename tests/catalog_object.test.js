@@ -147,7 +147,7 @@ describe("Catalog Item setters", () => {
   const item = new Catalog_Item();
   let name = "SCEANCE";
   let config = item.make();
-  config.product_type().APPOINTMENTS_SERVICE();
+  config.product_type().appointment();
   config
     .name(name)
     .available_for_pickup(false)
@@ -233,7 +233,7 @@ describe("Item Variation pricing featues", () => {
     expect(variation.pricing_type).toEqual("FIXED_PRICING");
     expect(variation.price_money).toMatchObject(expected);
 
-    spawn.pricing_type().VARIABLE_PRICING();
+    spawn.pricing_type().variable();
     expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
     expect(variation.price_money).toBeUndefined();
   });
@@ -302,7 +302,7 @@ describe("Item Variation pricing featues", () => {
   test("Available for booking should reset pricing type to variable", () => {
     const variation = new Catalog_Item_Variation();
     const spawn = variation.make();
-    spawn.pricing_type().FIXED_PRICING();
+    spawn.pricing_type().fixed_pricing();
     spawn.available_for_booking(true);
     expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
   });
@@ -311,7 +311,7 @@ describe("Item Variation pricing featues", () => {
     const timeInMinutes = 60;
     const variation = new Catalog_Item_Variation();
     const spawn = variation.make();
-    spawn.pricing_type().FIXED_PRICING();
+    spawn.pricing_type().fixed();
     spawn.service_duration(timeInMinutes);
     expect(variation.pricing_type).toEqual("VARIABLE_PRICING");
   });

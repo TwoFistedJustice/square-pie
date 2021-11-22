@@ -1,15 +1,6 @@
 const Catalog_Object_Super = require("./catalog_object_super");
-const {
-  setter_chain_generator_config,
-  maxLength,
-  arrayify,
-} = require("./utilities");
+const { maxLength, arrayify } = require("./utilities");
 const { isHexColor } = require("validator");
-
-// todo remove chain setter
-// todo add enum methods
-// todo call enums from make()
-// todo remove parens from constructor props
 
 class Catalog_Item extends Catalog_Object_Super {
   constructor() {
@@ -23,8 +14,6 @@ class Catalog_Item extends Catalog_Object_Super {
       defaults: {
         auto_set_appointment_service: false,
       },
-      keys: ["product_type"], // array of property names where Square expects specific values
-      product_type: ["REGULAR", "APPOINTMENTS_SERVICE"],
     };
 
     this._fardel = {
@@ -208,6 +197,30 @@ class Catalog_Item extends Catalog_Object_Super {
     // Square uses the regular name field as default
     this._fardel.item_data.sort_name = str;
   }
+
+  // PRIVATE METHODS
+
+  #enum_product_type() {
+    let methods = () => {
+      let properties = {
+        self: this,
+        regular: function () {
+          this.self.product_type = "REGULAR";
+          return this;
+        },
+        appointments_service: function () {
+          this.self.product_type = "APPOINTMENTS_SERVICE";
+          return this;
+        },
+        appointment: function () {
+          return this.appointments_service();
+        },
+      };
+      return properties;
+    };
+    return methods();
+  }
+
   //MAKER METHODS
   make() {
     const methods = () => {
@@ -279,8 +292,10 @@ class Catalog_Item extends Catalog_Object_Super {
           this.self.sort_name = str;
           return this;
         },
+        product_type: function () {
+          return this.self.#enum_product_type();
+        },
       };
-      setter_chain_generator_config(this.configuration, properties, this);
       return properties;
     };
     return methods();
