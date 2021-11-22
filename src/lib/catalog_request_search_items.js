@@ -1,8 +1,5 @@
 const Catalog_Request = require("./catalog_request");
-
-// todo arrayifiy
-// todo replace oddball functions wtih #enum fns
-// todo simplify makers
+const { arrayify } = require("./utilities");
 
 class Catalog_Search_Items extends Catalog_Request {
   constructor() {
@@ -62,11 +59,9 @@ class Catalog_Search_Items extends Catalog_Request {
         'product_types only accepts "APPOINTMENTS_SERVICE" or "REGULAR"'
       );
     }
-    if (!Array.isArray(this._body.product_types)) {
-      this._body.product_types = [];
+    if (arrayify(this._body, "product_types")) {
+      this._body.product_types = type;
     }
-
-    this._body.product_types = type;
   }
   set stock_levels(level) {
     //todo disallow duplicates
@@ -76,23 +71,24 @@ class Catalog_Search_Items extends Catalog_Request {
     if (this._body.stock_levels >= 2) {
       throw new Error("stock_levels can contain a maximum of 2 entries.");
     }
-    if (!Array.isArray(this._body.stock_levels)) {
-      this._body.stock_levels = [];
+    if (arrayify(this._body, "stock_levels")) {
+      this._body.stock_levels.push(level);
     }
-    this._body.stock_levels.push(level);
   }
+
   set category_ids(id) {
-    if (!Array.isArray(this._body.category_ids)) {
-      this._body.category_ids = [];
+    if (arrayify(this._body, "category_ids")) {
+      this._body.category_ids.push(id);
     }
-    this._body.category_ids.push(id);
   }
+
   set enabled_location_ids(id) {
-    if (!Array.isArray(this._body.enabled_location_ids)) {
-      this._body.enabled_location_ids = [];
+    if (arrayify(this._body, "enabled_location_ids")) {
+      this._body.enabled_location_ids.push(id);
     }
-    this._body.enabled_location_ids.push(id);
   }
+  // arrayify is not appropriate here bc of the additional error checking
+  // the length check MUST follow or it will crash on first use.
   set custom_attribute_filters(obj) {
     if (!Array.isArray(this._body.custom_attribute_filters)) {
       this._body.custom_attribute_filters = [];
@@ -105,82 +101,80 @@ class Catalog_Search_Items extends Catalog_Request {
     this._body.custom_attribute_filters.push(obj);
   }
 
-  // METHODS
-  // TODO unit tests for these
-  sortup() {
-    this.sort_order = "ASC";
-    return this;
-  }
-  sortdown() {
-    this.sort_order = "DESC";
-    return this;
-  }
-  text(str) {
-    this.text_filter = str;
-    return this;
-  }
-  regular() {
-    this.product_types = "REGULAR";
-    return this;
+  // PRIVATE METHODS
+
+  #enum_sort_order() {
+    return {
+      self: this,
+      asc: function () {
+        this.self.sort_order = "ASC";
+        return this;
+      },
+      desc: function () {
+        this.self.sort_order = "DESC";
+        return this;
+      },
+      up: function () {
+        return this.asc();
+      },
+      down: function () {
+        return this.desc();
+      },
+    };
   }
 
-  appt() {
-    this.product_types = "APPOINTMENTS_SERVICE";
-    return this;
+  #enum_product_type() {
+    return {
+      self: this,
+      regular: function () {
+        this.self.product_types = "REGULAR";
+        return this;
+      },
+      appointments_service: function () {
+        this.self.product_types = "APPOINTMENTS_SERVICE";
+        return this;
+      },
+      appt: function () {
+        return this.appointments_service();
+      },
+    };
   }
 
-  low() {
-    this.stock_levels = "LOW";
-    return this;
-  }
-  out() {
-    this.stock_levels = "OUT";
-    return this;
-  }
-
-  lowout() {
-    this.stock_levels = "LOW";
-    this.stock_levels = "OUT";
-    return this;
-  }
-
-  outlow() {
-    this.stock_levels = "LOW";
-    this.stock_levels = "OUT";
-    return this;
-  }
-
-  category(id) {
-    this.category_ids = id;
-    return this;
-  }
-  location(id) {
-    this.enabled_location_ids = id;
-    return this;
-  }
-  custom(obj) {
-    this.custom_attribute_filters = obj;
-    return this;
+  // stock_levels is an ARRAY. It can take multiple values.
+  #enum_stock_levels() {
+    return {
+      self: this,
+      low: function () {
+        this.self.stock_levels = "LOW";
+        return this;
+      },
+      out: function () {
+        this.self.stock_levels = "OUT";
+        return this;
+      },
+      any: function () {
+        this.self.stock_levels = "LOW";
+        this.self.stock_levels = "OUT";
+        return this;
+      },
+    };
   }
 
   make() {
     return {
       self: this,
-      sort_order: function (sort) {
-        this.self.sort_order = sort;
-        return this;
+      sort_order: function () {
+        return this.self.#enum_sort_order();
       },
-      stock_levels: function (str) {
-        this.self.stock_levels = str;
-        return this;
+      stock_levels: function () {
+        return this.self.#enum_stock_levels();
       },
       text_filter: function (str) {
         this.self.text_filter = str;
         return this;
       },
-      product_types: function (type) {
-        this.self.product_types = type;
-        return this;
+      product_types: function () {
+        return this.self.#enum_product_type();
       },
       category_ids: function (id) {
         this.self.category_ids = id;
@@ -193,6 +187,27 @@ class Catalog_Search_Items extends Catalog_Request {
       custom_attribute_filters: function (obj) {
         this.self.custom_attribute_filters = obj;
         return this;
+      },
+      sort: function () {
+        return this.sort_order();
+      },
+      product() {
+        return this.product_types();
+      },
+      stock() {
+        return this.stock_levels();
+      },
+      text(str) {
+        return this.text_filter(str);
+      },
+      custom(obj) {
+        return this.custom_attribute_filters(obj);
+      },
+      category(id) {
+        return this.category_ids(id);
+      },
+      location(id) {
+        return this.enabled_location_ids(id);
       },
     };
   }
