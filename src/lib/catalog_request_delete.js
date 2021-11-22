@@ -1,9 +1,5 @@
 const Catalog_Request = require("./catalog_request");
 
-// todo change out contents of delete aliases to just return delete()
-
-// todo simplify makers
-
 // I don't see a reason to write TWO ways of deleting just because Square did
 // if their batch delete will accept an array with a single element then that's
 // what I should adhere to. Especially because the return json comes back in
@@ -27,13 +23,12 @@ class Catalog_Delete extends Catalog_Request {
 
   set object_ids(id) {
     if (typeof id !== "string") {
-      console.log(id);
       throw new TypeError("Object IDs must valid IDs. Received a " + typeof id);
     }
     this._body.object_ids.push(id);
   }
 
-  //METHODS
+  //MAKER METHODS
 
   make() {
     return {
@@ -50,17 +45,14 @@ class Catalog_Delete extends Catalog_Request {
     return this;
   }
   effacer(id) {
-    this.object_ids = id;
-    return this;
+    return this.delete(id);
   }
   nix(id) {
-    this.object_ids = id;
-    return this;
+    return this.delete(id);
   }
 
   disintegrate(id) {
-    this.object_ids = id;
-    return this;
+    return this.delete(id);
   }
 }
 
