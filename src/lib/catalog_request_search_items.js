@@ -1,5 +1,5 @@
 const Catalog_Request = require("./catalog_request");
-const { arrayify } = require("./utilities");
+const { arrayify, generate_error_message } = require("./utilities");
 
 // TODO lookup custom_attribute_filters obj
 // https://developer.squareup.com/reference/square/objects/CustomAttributeFilter
@@ -20,6 +20,7 @@ class Catalog_Search_Items extends Catalog_Request {
       enabled_location_ids: undefined, // [ ids ]
       custom_attribute_filters: undefined, //[ {}, {}] max 10
     };
+    this._attribute_filter = {};
   }
   // GETTERS
   get sort_order() {
@@ -43,6 +44,10 @@ class Catalog_Search_Items extends Catalog_Request {
   get custom_attribute_filters() {
     return this._body.custom_attribute_filters;
   }
+  get attribute_filter() {
+    return this._attribute_filter;
+  }
+
   // SETTERS
   set sort_order(sort) {
     if (sort !== "ASC" && sort !== "DESC") {
@@ -105,8 +110,22 @@ class Catalog_Search_Items extends Catalog_Request {
       this._body.custom_attribute_filters.push(obj);
     }
   }
+  set attribute_filter(obj) {
+    this._attribute_filter = obj;
+  }
 
   // PRIVATE METHODS
+
+  #init_filter() {
+    this.attribute_filter = {
+      custom_attribute_definition_id: undefined,
+      key: undefined,
+      string_filter: undefined,
+      number_filter: undefined,
+      selection_uids_filter: [],
+      bool_filter: undefined,
+    };
+  }
 
   #enum_sort_order() {
     return {
@@ -165,8 +184,6 @@ class Catalog_Search_Items extends Catalog_Request {
     };
   }
 
-  // BUILDER METHODS
-
   // MAKER METHODS
   make() {
     return {
@@ -216,6 +233,50 @@ class Catalog_Search_Items extends Catalog_Request {
       },
       location(id) {
         return this.enabled_location_ids(id);
+      },
+    };
+  }
+
+  make_custom_attribute_filter() {
+    this.#init_filter();
+    let filter = this._attribute_filter;
+    return {
+      self: this,
+      custom_attribute_definition_id: function (id) {
+        filter.custom_attribute_definition_id = id;
+        return this;
+      },
+      key: function (str) {
+        filter.key = str;
+        return this;
+      },
+      string_filter: function (str) {
+        filter.string_filter = str;
+        return this;
+      },
+      number_filter: function (num1, num2 = 0) {
+        // set min and max, if they are same, set them to same
+        let min = num1 >= num2 ? num2 : num1;
+        let max = num1 <= num2 ? num2 : num1;
+        filter.number_filter = { min, max };
+        return this;
+      },
+      selection_uids_filter: function (str) {
+        filter.selection_uids_filter.push(str);
+        return this;
+      },
+      bool_filter: function (bool) {
+        if (typeof bool !== "boolean") {
+          throw new Error(
+            generate_error_message(
+              "custom attribute filter bool_filter",
+              "boolean",
+              bool
+            )
+          );
+        }
+        filter.bool_filter = bool;
+        return this;
       },
     };
   }

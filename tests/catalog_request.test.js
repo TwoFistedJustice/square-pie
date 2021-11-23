@@ -9,6 +9,7 @@ const Catalog_Retreive = require("../src/lib/catalog_request_retrieve");
 const Catalog_Delete = require("../src/lib/catalog_request_delete");
 const Catalog_Search_Filter = require("../src/lib/catalog_request_search_objects_filter");
 const Catalog_Search_Items = require("../src/lib/catalog_request_search_items");
+// const {expect} = require ("chai");
 
 // tack on .only to this empty test to silence all other tests
 describe("Silence Async tests", () => {
@@ -371,6 +372,7 @@ describe("Catalog_Search_Items", () => {
   beforeEach(() => {
     search = new Catalog_Search_Items();
   });
+
   test("sort_order should throw on wrong value", () => {
     expect(() => {
       search.sort_order = "ASCENDING";
@@ -504,5 +506,86 @@ describe("Catalog_Search_Items", () => {
     let expected = [{ a: 1 }, { b: 2 }, { c: 3 }];
     search.make().custom({ a: 1 }).custom({ b: 2 }).custom({ c: 3 });
     expect(search.custom_attribute_filters).toMatchObject(expected);
+  });
+});
+
+describe.only("Catalog_Search_Items make_custom_attribute_filter()", () => {
+  let search;
+  let make;
+  beforeEach(() => {
+    search = new Catalog_Search_Items();
+    make = search.make_custom_attribute_filter();
+  });
+
+  test("#init_filter() should create base object", () => {
+    let expected = {
+      custom_attribute_definition_id: undefined,
+      key: undefined,
+      string_filter: undefined,
+      number_filter: undefined,
+      selection_uids_filter: [],
+      bool_filter: undefined,
+    };
+    expect(search.attribute_filter).toMatchObject(expected);
+  });
+
+  test("make_custom_attribute_filter() should make a compliant object", () => {
+    let id = "someid";
+    let key = "someKey";
+    let string_filter = "some text I want to find";
+    let min = 1;
+    let max = 5;
+
+    let expected = {
+      custom_attribute_definition_id: id,
+      key: key,
+      string_filter: string_filter,
+      number_filter: { min, max },
+      selection_uids_filter: [key, id],
+      bool_filter: true,
+    };
+
+    make
+      .custom_attribute_definition_id(id)
+      .key(key)
+      .string_filter(string_filter)
+      .number_filter(min, max)
+      .selection_uids_filter(key)
+      .selection_uids_filter(id)
+      .bool_filter(true);
+    expect(search.attribute_filter).toMatchObject(expected);
+  });
+
+  test("make_custom_attribute_filter() error checking", () => {
+    expect(() => {
+      make.bool_filter(50);
+    }).toThrow();
+  });
+
+  test("number_filter should correctly set min and max regardless of order", () => {
+    let expected = {
+      min: 5,
+      max: 100,
+    };
+    make.number_filter(expected.max, expected.min);
+    expect(search.attribute_filter.number_filter).toMatchObject(expected);
+  });
+
+  test("number_filter should set one number to zero when fed only one argument. ", () => {
+    let expected = {
+      min: 0,
+      max: 100,
+    };
+    make.number_filter(expected.max);
+    expect(search.attribute_filter.number_filter).toMatchObject(expected);
+  });
+
+  test("number_filter should set number to same when fed duplicates ", () => {
+    let expected = {
+      min: 100,
+      max: 100,
+    };
+    make.number_filter(expected.min, expected.min);
+    expect(search.attribute_filter.number_filter).toMatchObject(expected);
   });
 });
