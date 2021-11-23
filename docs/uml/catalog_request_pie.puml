@@ -208,7 +208,6 @@ if one, sets body to equal argument
 if many, sets 'batches' property and puts argument there.
 ==
 ==
-==
 MAKER METHODS
 + make()
 ==
