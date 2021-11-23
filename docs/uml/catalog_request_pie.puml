@@ -237,17 +237,28 @@ MAKER METHODS
 
 
 class Catalog_Search_Items{
-super
+super: Catalog_Request
 this._method: "POST"
-this._endpoint
+this._endpoint: "/search-catalog-items"
+this._attribute_filter: {}
 this._body
-this._attribute_filter
+cursor: undefined,
+body.limit: 100,
+body.sort_order: str "ASC" or "DESC" - steal
+body.text_filter: str
+body.product_types:  ["REGULAR", "APPOINTMENTS_SERVICE"]
+body.stock_levels:  ["OUT", "LOW"]
+body.category_ids:  [ ids ]
+body.enabled_location_ids:  [ ids ]
+body.custom_attribute_filters: [ {}, {}] max 10
+
 ==
 Simple Getters
 ==
 Simple Setters
 ==
 Complex Setters (Computed Properties)
++ stock_levels(level)
 ==
 Private METHODS
 +#init_filter()
