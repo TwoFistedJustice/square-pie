@@ -130,47 +130,75 @@ MAKER METHODS
 
 
 class Catalog_Search_Objects_Super {
-super
+super: Catalog_Request
 this._method: "POST"
-this._endpoint
+this._endpoint: "/search"
 this._body
+body.cursor:
+body.include_related_objects: boolean
+body.begin_time:RFC 3339
+body.object_types:
+body.query: {},
 ==
 Simple Getters
 ==
 Simple Setters
 ==
 Complex Setters (Computed Properties)
++ object_types()
 ==
-Private METHODS
+METHODS
++queryReset()
+..
+sets body.query to empty object
 
-+#enum_()
++queryRemove()
+sets body.query to undefined
+
++enum_object_types()
 ...
 set respective properties with FIXED values
-
-==
-==
-MAKER METHODS
-+ make()
+called from sub classes
 ==
 }
 
 class Catalog_Search_Cross_Reference{
-super
-this._method: "POST"
-this._endpoint
+#_ids: []
+super: Catalog_Search_Objects_Super
 this._body
 ==
 Simple Getters
 ==
 Simple Setters
 ==
-Complex Setters (Computed Properties)
-==
-Private METHODS
+METHODS
++variations()
+..
+call queryRemove()
+create and set property: item_variations_for_item_option_values_query
 
-+#enum_()
-...
-set respective properties with FIXED values
++items()
+..
+call queryRemove()
+create and set property: items_for_item_options_query
+
++modifiers()
+..
+call queryRemove()
+create and set property: items_for_modifier_list_query
+
++taxes()
+..
+call queryRemove()
+create and set property: items_for_tax_query
+
++addId(id)
+..
+adds an id to the #id array
+
++clearIds()
+..
+sets #clearIds to true
 
 ==
 ==
