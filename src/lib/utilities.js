@@ -139,6 +139,12 @@ const money_helper = function (amt, currency = "USD") {
   return { amount, currency };
 };
 
+/*
+ * key is the property name you are adding the time to
+ * expected_type is the type of value you expect
+ * type_received is what it actually is
+ * */
+
 const generate_error_message = function (key, expected_type, received) {
   let type_received = typeof received;
   return `${key}\n expected type: ${expected_type}\n received type: ${type_received}\nvalue received: ${received} `;
