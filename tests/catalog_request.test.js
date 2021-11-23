@@ -8,6 +8,7 @@ const Catalog_List = require("../src/lib/catalog_request_list");
 const Catalog_Retreive = require("../src/lib/catalog_request_retrieve");
 const Catalog_Delete = require("../src/lib/catalog_request_delete");
 const Catalog_Search_Filter = require("../src/lib/catalog_request_search_objects_filter");
+const Catalog_Search_Items = require("../src/lib/catalog_request_search_items");
 
 // tack on .only to this empty test to silence all other tests
 describe("Silence Async tests", () => {
@@ -280,15 +281,10 @@ describe("Catalog Request Search Filter", () => {
     }).toThrow();
   });
 
-  test("set object_types should fail silently if user attempts to add a value that already exists", async () => {
-    let expected = ["ITEM", "CATEGORY", "ITEM_VARIATION"];
-    filter
-      .make()
-      .add_object_type("ITEM")
-      .add_object_type("ITEM")
-      .add_object_type("CATEGORY")
-      .add_object_type("ITEM_VARIATION");
-    expect(filter.object_types).toEqual(expected);
+  test("set object_types should throw if user attempts to add a value that already exists", () => {
+    expect(() => {
+      filter.make().object_type().category().item().item();
+    }).toThrow();
   });
 });
 
@@ -371,7 +367,6 @@ describe("Catalog_Search_Cross_Reference", () => {
 });
 
 describe("Catalog_Search_Items", () => {
-  const Catalog_Search_Items = require("../src/lib/catalog_request_search_items");
   let search;
   beforeEach(() => {
     search = new Catalog_Search_Items();
@@ -412,6 +407,12 @@ describe("Catalog_Search_Items", () => {
     expect(() => {
       search.stock_levels = "OUT";
     }).not.toThrow();
+  });
+
+  test.only("stock_levels should throw if given duplicate entries", () => {
+    expect(() => {
+      search.make().stock_levels().low().low();
+    }).toThrow();
   });
 
   test("stock_levels creates an array", () => {

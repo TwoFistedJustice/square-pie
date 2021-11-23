@@ -1,6 +1,9 @@
 const Catalog_Request = require("./catalog_request");
 const { arrayify } = require("./utilities");
 
+// TODO lookup custom_attribute_filters obj
+// https://developer.squareup.com/reference/square/objects/CustomAttributeFilter
+
 class Catalog_Search_Items extends Catalog_Request {
   constructor() {
     super();
@@ -13,10 +16,8 @@ class Catalog_Search_Items extends Catalog_Request {
       text_filter: undefined, //str
       product_types: undefined, // ["REGULAR", "APPOINTMENTS_SERVICE"]
       stock_levels: undefined, // ["OUT", "LOW"]
-
       category_ids: undefined, // [ ids ]
       enabled_location_ids: undefined, // [ ids ]
-
       custom_attribute_filters: undefined, //[ {}, {}] max 10
     };
   }
@@ -64,14 +65,21 @@ class Catalog_Search_Items extends Catalog_Request {
     }
   }
   set stock_levels(level) {
-    //todo disallow duplicates
     if (level !== "OUT" && level !== "LOW") {
       throw new Error('stock_levels only accepts "OUT" and "LOW"');
     }
-    if (this._body.stock_levels >= 2) {
-      throw new Error("stock_levels can contain a maximum of 2 entries.");
-    }
     if (arrayify(this._body, "stock_levels")) {
+      // prevent more than two
+      if (this._body.stock_levels.length >= 2) {
+        throw new Error("stock_levels can contain a maximum of 2 entries.");
+      }
+      // disallow duplicates
+      if (
+        this._body.stock_levels.length === 1 &&
+        this.stock_levels[0] === level
+      ) {
+        throw new Error(`stock levels already contain ${level}`);
+      }
       this._body.stock_levels.push(level);
     }
   }
@@ -160,6 +168,9 @@ class Catalog_Search_Items extends Catalog_Request {
     };
   }
 
+  // BUILDER METHODS
+
+  // MAKER METHODS
   make() {
     return {
       self: this,
