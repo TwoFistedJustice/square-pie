@@ -282,23 +282,27 @@ MAKER METHODS
 
 
 class Catalog_Upsert {
-super
+super: Catalog_Request
 this._method: "POST"
-this._endpoint
+this._endpoint: "" //empty
+this._idempotency_key
+this._delivery
 this._body
+this.configuration
+configuration.batch.endpoint: "/batch-upsert"
+configuration.one.endpoint: "/object"
 ==
 Simple Getters
 ==
 Simple Setters
 ==
 Complex Setters (Computed Properties)
++body(fardel)
+..
+determines whether argument is one or many
+if one, sets body to equal argument
+if many, sets 'batches' property and puts argument there.
 ==
-Private METHODS
-
-+#enum_()
-...
-set respective properties with FIXED values
-
 ==
 ==
 MAKER METHODS
