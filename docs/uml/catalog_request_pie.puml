@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+
+class Catalog_Search_Items{
+super
+this._method: post
+this._endpoint
+this._body
+this._attribute_filter
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
+==
+Private METHODS
++#init_filter()
+...
+initializes this._attribute_filter
+
++#enum_sort_order()
++#enum_product_type()
++#enum_stock_levels()
+...
+set respective properties with FIXED values
+
+==
+==
+MAKER METHODS
++ make()
++ make_custom_attribute_filter()
+==
+}
+
+
+
+class Catalog_Search_Objects_Super {
+
+}
+
+
+class Catalog_Search_Filter{
+
+}
+
+
+class Catalog_Request {
+
+}
+
+
+
+@enduml
