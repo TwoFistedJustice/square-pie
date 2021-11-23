@@ -2,9 +2,9 @@ const should = require("chai").should();
 const Order_Create = require("../src/lib/order_request_create");
 const Order_Calculate = require("../src/lib/order_request_calculate");
 const Order_Retrieve = require("../src/lib/stub.order_request_retrieve");
-const Order_Object = require("../src/lib/stub.order_object");
+const Order_Object = require("../src/lib/order_object");
 
-describe("Silence order request tests", () => {
+describe.only("Silence order request tests", () => {
   test("Should silence tests", () => {
     expect("a").toEqual("a");
   });
