@@ -1,5 +1,8 @@
 const Catalog_Search_Objects_Super = require("./catalog_request_search_objects_super");
-const { setter_chain_generator_config } = require("./utilities");
+const { define } = require("./utilities");
+
+// todo arrayify
+// todo simplify makers
 
 class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   constructor() {
@@ -41,11 +44,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     if (
       !Object.prototype.hasOwnProperty.call(this._body.query, "exact_query")
     ) {
-      Object.defineProperty(this._body.query, "exact_query", {
-        value: undefined,
-        writable: true,
-        enumerable: true,
-      });
+      define(this._body.query, "exact_query", undefined);
     }
     this._body.query.exact_query = obj;
   }
@@ -69,11 +68,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     }
 
     if (!Object.prototype.hasOwnProperty.call(this._body.query, "set_query")) {
-      Object.defineProperty(this._body.query, "set_query", {
-        value: undefined,
-        writable: true,
-        enumerable: true,
-      });
+      define(this._body.query, "set_query", undefined);
     }
 
     this._body.query.set_query = obj;
@@ -98,11 +93,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     if (
       !Object.prototype.hasOwnProperty.call(this._body.query, "prefix_query")
     ) {
-      Object.defineProperty(this._body.query, "prefix_query", {
-        value: undefined,
-        writable: true,
-        enumerable: true,
-      });
+      define(this._body.query, "prefix_query", undefined);
     }
 
     this._body.query.prefix_query = obj;
@@ -121,11 +112,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     if (
       !Object.prototype.hasOwnProperty.call(this._body.query, "range_query")
     ) {
-      Object.defineProperty(this._body.query, "range_query", {
-        value: undefined,
-        writable: true,
-        enumerable: true,
-      });
+      define(this._body.query, "range_query", undefined);
     }
 
     this._body.query.range_query = obj;
@@ -152,11 +139,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         "sorted_attribute_query"
       )
     ) {
-      Object.defineProperty(this._body.query, "sorted_attribute_query", {
-        value: undefined,
-        writable: true,
-        enumerable: true,
-      });
+      define(this._body.query, "sorted_attribute_query", undefined);
     }
     this._body.query.sorted_attribute_query = obj;
   }
@@ -168,34 +151,25 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
       );
     }
     if (!Object.prototype.hasOwnProperty.call(this._body.query, "text_query")) {
-      Object.defineProperty(this._body.query, "text_query", {
-        value: undefined,
-        writable: true,
-        enumerable: true,
-      });
+      define(this._body.query, "text_query", undefined);
     }
     this._body.query.text_query = { keywords: arr };
   }
 
-  // TODO write a method for exact_query which takes two arguments (name, value) and parsest them into
+  // TODO write a method for exact_query which takes two arguments (name, value) and parses them into
   //  a setter friendly format and calls the exact_query setter.
   // METHODS
   text_query_add(word) {
     let arr = [];
     if (!Object.prototype.hasOwnProperty.call(this._body.query, "text_query")) {
-      Object.defineProperty(this._body.query, "text_query", {
-        value: {},
-        writable: true,
-        enumerable: true,
-      });
+      define(this._body.query, "text_query", {});
     }
     let textQuery = this.text_query;
-    console.log(textQuery);
     if (Object.prototype.hasOwnProperty.call(textQuery, "keywords")) {
       arr = textQuery.keywords;
     }
     if (arr.length > 2) {
-      console.log(`Removing ${arr[2]} from text_query array.`);
+      // console.log(`Removing ${arr[2]} from text_query array.`);
       arr = arr.slice(0, 2);
     }
     arr.push(word);
@@ -250,6 +224,9 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
           this.self.object_types = type;
           return this;
         },
+        object_type: function () {
+          return this.self.enum_object_types();
+        },
         text_query: function (arr) {
           this.self.text_query = arr;
           return this;
@@ -263,7 +240,6 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
           return this;
         },
       };
-      setter_chain_generator_config(this.configuration, properties, this);
       return properties;
     };
     return methods();
