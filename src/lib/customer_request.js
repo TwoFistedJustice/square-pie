@@ -4,7 +4,6 @@ const validator = require("validator");
 class Customer_Request extends Square_Request {
   constructor() {
     super();
-    // todo refactor - this is not mutable - remove the underscore
     this._apiName = "customers";
   }
   // METHODS
