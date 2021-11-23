@@ -26,21 +26,17 @@ class Create_Catalog_Image extends Catalog_Request {
   }
 
   make() {
-    const methods = function () {
-      const properties = {
-        self: this,
-        image: (catalogImage) => {
-          this.self.image = catalogImage;
-          return this;
-        },
-        object_id: (id) => {
-          this.self.object_id = id;
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      image: (catalogImage) => {
+        this.self.image = catalogImage;
+        return this;
+      },
+      object_id: (id) => {
+        this.self.object_id = id;
+        return this;
+      },
     };
-    return methods();
   }
 }
 

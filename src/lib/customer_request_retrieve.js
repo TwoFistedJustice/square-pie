@@ -4,6 +4,7 @@ class Customer_Retrieve extends Retrieve_Update_Delete {
   constructor(id) {
     super(id);
     this._method = "get";
+    this._delivery;
   }
 }
 

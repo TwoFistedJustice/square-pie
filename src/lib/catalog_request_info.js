@@ -59,7 +59,12 @@ class Catalog_Info extends Catalog_Request {
   set standard_units(arr) {
     this._standard_unit_descriptions = arr;
   }
-
+  /*
+   * Standard Units are included in Response.
+   * They are converted into an array in set-delivery
+   * stringifies incoming data
+   * pushes the
+   * */
   #convertToJson() {
     if (!Array.isArray(this._standard_unit_descriptions)) {
       throw new Error("standard unit descriptions not included in response.");

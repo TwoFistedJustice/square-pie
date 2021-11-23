@@ -119,100 +119,88 @@ class Order_Discount {
   // PRIVATE METHODS
 
   #enum_type() {
-    let methods = () => {
-      let properties = {
-        self: this,
-        unknown: function () {
-          this.self.type = "UNKNOWN_DISCOUNT";
-          return this;
-        },
-        fixed_percentage: function () {
-          this.self.type = "FIXED_PERCENTAGE";
-          return this;
-        },
-        fixed_amount: function () {
-          this.self.type = "FIXED_AMOUNT";
-          return this;
-        },
-        variable_percentage: function () {
-          this.self.type = "VARIABLE_PERCENTAGE";
-          return this;
-        },
-        variable_amount: function () {
-          this.self.type = "VARIABLE_AMOUNT";
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      unknown: function () {
+        this.self.type = "UNKNOWN_DISCOUNT";
+        return this;
+      },
+      fixed_percentage: function () {
+        this.self.type = "FIXED_PERCENTAGE";
+        return this;
+      },
+      fixed_amount: function () {
+        this.self.type = "FIXED_AMOUNT";
+        return this;
+      },
+      variable_percentage: function () {
+        this.self.type = "VARIABLE_PERCENTAGE";
+        return this;
+      },
+      variable_amount: function () {
+        this.self.type = "VARIABLE_AMOUNT";
+        return this;
+      },
     };
-    return methods();
   }
 
   #enum_scope() {
-    let methods = () => {
-      let properties = {
-        self: this,
-        other: function () {
-          this.self.scope = "OTHER_DISCOUNT_SCOPE";
-          return this;
-        },
-        line_item: function () {
-          this.self.scope = "LINE_ITEM";
-          return this;
-        },
-        order: function () {
-          this.self.scope = "ORDER";
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      other: function () {
+        this.self.scope = "OTHER_DISCOUNT_SCOPE";
+        return this;
+      },
+      line_item: function () {
+        this.self.scope = "LINE_ITEM";
+        return this;
+      },
+      order: function () {
+        this.self.scope = "ORDER";
+        return this;
+      },
     };
-    return methods();
   }
 
-  // VANILLA METHODS
+  // MAKER METHODS
   make() {
-    let methods = () => {
-      let properties = {
-        self: this,
-        uid: function (val) {
-          this.self.uid = val;
-          return this;
-        },
-        catalog_object_id: function (val) {
-          this.self.catalog_object_id = val;
-          return this;
-        },
-        catalog_version: function (val) {
-          this.self.catalog_version = val;
-          return this;
-        },
-        name: function (val) {
-          this.self.name = val;
-          return this;
-        },
-        type: function () {
-          return this.self.#enum_type();
-        },
-        percentage: function (val) {
-          this.self.percentage = val;
-          return this;
-        },
-        amount_money: function (amount, currency) {
-          this.self.amount_money = money_helper(amount, currency);
-          return this;
-        },
-        applied_money: function (amount, currency) {
-          this.self.applied_money = money_helper(amount, currency);
-          return this;
-        },
-        scope: function () {
-          return this.self.#enum_scope();
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      uid: function (val) {
+        this.self.uid = val;
+        return this;
+      },
+      catalog_object_id: function (val) {
+        this.self.catalog_object_id = val;
+        return this;
+      },
+      catalog_version: function (val) {
+        this.self.catalog_version = val;
+        return this;
+      },
+      name: function (val) {
+        this.self.name = val;
+        return this;
+      },
+      type: function () {
+        return this.self.#enum_type();
+      },
+      percentage: function (val) {
+        this.self.percentage = val;
+        return this;
+      },
+      amount_money: function (amount, currency) {
+        this.self.amount_money = money_helper(amount, currency);
+        return this;
+      },
+      applied_money: function (amount, currency) {
+        this.self.applied_money = money_helper(amount, currency);
+        return this;
+      },
+      scope: function () {
+        return this.self.#enum_scope();
+      },
     };
-    return methods();
   }
 }
 

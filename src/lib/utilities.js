@@ -1,6 +1,9 @@
 const { isISO4217 } = require("validator");
 // const validator = require('validator');
 
+// TODO a CSV string builder that takes one string and adds it to an existing
+//   string such that every entry except the last on is followed by a comma
+//  use in Catalog_Request_List for the types
 /* defines a property on an object and makes it enumerable
  * arg [object_to_modify]: the name of the object you want to modify
  * art [prop]: the name of the property to be added
@@ -138,6 +141,12 @@ const money_helper = function (amt, currency = "USD") {
   }
   return { amount, currency };
 };
+
+/*
+ * key is the property name you are adding the time to
+ * expected_type is the type of value you expect
+ * type_received is what it actually is
+ * */
 
 const generate_error_message = function (key, expected_type, received) {
   let type_received = typeof received;

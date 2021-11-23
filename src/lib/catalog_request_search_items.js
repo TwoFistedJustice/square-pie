@@ -1,4 +1,8 @@
 const Catalog_Request = require("./catalog_request");
+const { arrayify, generate_error_message } = require("./utilities");
+
+// TODO lookup custom_attribute_filters obj
+// https://developer.squareup.com/reference/square/objects/CustomAttributeFilter
 
 class Catalog_Search_Items extends Catalog_Request {
   constructor() {
@@ -12,12 +16,11 @@ class Catalog_Search_Items extends Catalog_Request {
       text_filter: undefined, //str
       product_types: undefined, // ["REGULAR", "APPOINTMENTS_SERVICE"]
       stock_levels: undefined, // ["OUT", "LOW"]
-
       category_ids: undefined, // [ ids ]
       enabled_location_ids: undefined, // [ ids ]
-
       custom_attribute_filters: undefined, //[ {}, {}] max 10
     };
+    this._attribute_filter = {};
   }
   // GETTERS
   get sort_order() {
@@ -41,6 +44,10 @@ class Catalog_Search_Items extends Catalog_Request {
   get custom_attribute_filters() {
     return this._body.custom_attribute_filters;
   }
+  get attribute_filter() {
+    return this._attribute_filter;
+  }
+
   // SETTERS
   set sort_order(sort) {
     if (sort !== "ASC" && sort !== "DESC") {
@@ -58,143 +65,220 @@ class Catalog_Search_Items extends Catalog_Request {
         'product_types only accepts "APPOINTMENTS_SERVICE" or "REGULAR"'
       );
     }
-    if (!Array.isArray(this._body.product_types)) {
-      this._body.product_types = [];
+    if (arrayify(this._body, "product_types")) {
+      this._body.product_types = type;
     }
-
-    this._body.product_types = type;
   }
   set stock_levels(level) {
-    //todo disallow duplicates
     if (level !== "OUT" && level !== "LOW") {
       throw new Error('stock_levels only accepts "OUT" and "LOW"');
     }
-    if (this._body.stock_levels >= 2) {
-      throw new Error("stock_levels can contain a maximum of 2 entries.");
+    if (arrayify(this._body, "stock_levels")) {
+      // prevent more than two
+      if (this._body.stock_levels.length >= 2) {
+        throw new Error("stock_levels can contain a maximum of 2 entries.");
+      }
+      // disallow duplicates
+      if (
+        this._body.stock_levels.length === 1 &&
+        this.stock_levels[0] === level
+      ) {
+        throw new Error(`stock levels already contain ${level}`);
+      }
+      this._body.stock_levels.push(level);
     }
-    if (!Array.isArray(this._body.stock_levels)) {
-      this._body.stock_levels = [];
-    }
-    this._body.stock_levels.push(level);
   }
+
   set category_ids(id) {
-    if (!Array.isArray(this._body.category_ids)) {
-      this._body.category_ids = [];
+    if (arrayify(this._body, "category_ids")) {
+      this._body.category_ids.push(id);
     }
-    this._body.category_ids.push(id);
   }
+
   set enabled_location_ids(id) {
-    if (!Array.isArray(this._body.enabled_location_ids)) {
-      this._body.enabled_location_ids = [];
+    if (arrayify(this._body, "enabled_location_ids")) {
+      this._body.enabled_location_ids.push(id);
     }
-    this._body.enabled_location_ids.push(id);
   }
   set custom_attribute_filters(obj) {
-    if (!Array.isArray(this._body.custom_attribute_filters)) {
-      this._body.custom_attribute_filters = [];
+    if (arrayify(this._body, "custom_attribute_filters")) {
+      if (this._body.custom_attribute_filters.length >= 10) {
+        throw new Error(
+          "custom_attribute_filters can contain a maximum of 10 filters."
+        );
+      }
+      this._body.custom_attribute_filters.push(obj);
     }
-    if (this._body.custom_attribute_filters.length >= 10) {
-      throw new Error(
-        "custom_attribute_filters can contain a maximum of 10 filters."
-      );
-    }
-    this._body.custom_attribute_filters.push(obj);
+  }
+  set attribute_filter(obj) {
+    this._attribute_filter = obj;
   }
 
-  // METHODS
-  // TODO unit tests for these
-  sortup() {
-    this.sort_order = "ASC";
-    return this;
-  }
-  sortdown() {
-    this.sort_order = "DESC";
-    return this;
-  }
-  text(str) {
-    this.text_filter = str;
-    return this;
-  }
-  regular() {
-    this.product_types = "REGULAR";
-    return this;
-  }
+  // PRIVATE METHODS
 
-  appt() {
-    this.product_types = "APPOINTMENTS_SERVICE";
-    return this;
-  }
-
-  low() {
-    this.stock_levels = "LOW";
-    return this;
-  }
-  out() {
-    this.stock_levels = "OUT";
-    return this;
-  }
-
-  lowout() {
-    this.stock_levels = "LOW";
-    this.stock_levels = "OUT";
-    return this;
-  }
-
-  outlow() {
-    this.stock_levels = "LOW";
-    this.stock_levels = "OUT";
-    return this;
-  }
-
-  category(id) {
-    this.category_ids = id;
-    return this;
-  }
-  location(id) {
-    this.enabled_location_ids = id;
-    return this;
-  }
-  custom(obj) {
-    this.custom_attribute_filters = obj;
-    return this;
-  }
-
-  make() {
-    const methods = () => {
-      const properties = {
-        self: this,
-        sort_order: function (sort) {
-          this.self.sort_order = sort;
-          return this;
-        },
-        stock_levels: function (str) {
-          this.self.stock_levels = str;
-          return this;
-        },
-        text_filter: function (str) {
-          this.self.text_filter = str;
-          return this;
-        },
-        product_types: function (type) {
-          this.self.product_types = type;
-          return this;
-        },
-        category_ids: function (id) {
-          this.self.category_ids = id;
-          return this;
-        },
-        enabled_location_ids: function (id) {
-          this.self.enabled_location_ids = id;
-          return this;
-        },
-        custom_attribute_filters: function (obj) {
-          this.self.custom_attribute_filters = obj;
-          return this;
-        },
-      };
-      return properties;
+  #init_filter() {
+    this.attribute_filter = {
+      custom_attribute_definition_id: undefined,
+      key: undefined,
+      string_filter: undefined,
+      number_filter: undefined,
+      selection_uids_filter: [],
+      bool_filter: undefined,
     };
-    return methods();
+  }
+
+  #enum_sort_order() {
+    return {
+      self: this,
+      asc: function () {
+        this.self.sort_order = "ASC";
+        return this;
+      },
+      desc: function () {
+        this.self.sort_order = "DESC";
+        return this;
+      },
+      up: function () {
+        return this.asc();
+      },
+      down: function () {
+        return this.desc();
+      },
+    };
+  }
+
+  #enum_product_type() {
+    return {
+      self: this,
+      regular: function () {
+        this.self.product_types = "REGULAR";
+        return this;
+      },
+      appointments_service: function () {
+        this.self.product_types = "APPOINTMENTS_SERVICE";
+        return this;
+      },
+      appt: function () {
+        return this.appointments_service();
+      },
+    };
+  }
+
+  // stock_levels is an ARRAY. It can take multiple values.
+  #enum_stock_levels() {
+    return {
+      self: this,
+      low: function () {
+        this.self.stock_levels = "LOW";
+        return this;
+      },
+      out: function () {
+        this.self.stock_levels = "OUT";
+        return this;
+      },
+      any: function () {
+        this.self.stock_levels = "LOW";
+        this.self.stock_levels = "OUT";
+        return this;
+      },
+    };
+  }
+
+  // MAKER METHODS
+  make() {
+    return {
+      self: this,
+      sort_order: function () {
+        return this.self.#enum_sort_order();
+      },
+      stock_levels: function () {
+        return this.self.#enum_stock_levels();
+      },
+      text_filter: function (str) {
+        this.self.text_filter = str;
+        return this;
+      },
+      product_types: function () {
+        return this.self.#enum_product_type();
+      },
+      category_ids: function (id) {
+        this.self.category_ids = id;
+        return this;
+      },
+      enabled_location_ids: function (id) {
+        this.self.enabled_location_ids = id;
+        return this;
+      },
+      custom_attribute_filters: function (obj) {
+        this.self.custom_attribute_filters = obj;
+        return this;
+      },
+      sort: function () {
+        return this.sort_order();
+      },
+      product() {
+        return this.product_types();
+      },
+      stock() {
+        return this.stock_levels();
+      },
+      text(str) {
+        return this.text_filter(str);
+      },
+      custom(obj) {
+        return this.custom_attribute_filters(obj);
+      },
+      category(id) {
+        return this.category_ids(id);
+      },
+      location(id) {
+        return this.enabled_location_ids(id);
+      },
+    };
+  }
+
+  make_custom_attribute_filter() {
+    this.#init_filter();
+    let filter = this._attribute_filter;
+    return {
+      self: this,
+      custom_attribute_definition_id: function (id) {
+        filter.custom_attribute_definition_id = id;
+        return this;
+      },
+      key: function (str) {
+        filter.key = str;
+        return this;
+      },
+      string_filter: function (str) {
+        filter.string_filter = str;
+        return this;
+      },
+      number_filter: function (num1, num2 = 0) {
+        // set min and max, if they are same, set them to same
+        let min = num1 >= num2 ? num2 : num1;
+        let max = num1 <= num2 ? num2 : num1;
+        filter.number_filter = { min, max };
+        return this;
+      },
+      selection_uids_filter: function (str) {
+        filter.selection_uids_filter.push(str);
+        return this;
+      },
+      bool_filter: function (bool) {
+        if (typeof bool !== "boolean") {
+          throw new Error(
+            generate_error_message(
+              "custom attribute filter bool_filter",
+              "boolean",
+              bool
+            )
+          );
+        }
+        filter.bool_filter = bool;
+        return this;
+      },
+    };
   }
 }
 

@@ -41,19 +41,15 @@ class Catalog_Upsert extends Catalog_Request {
     this._endpoint = str;
   }
 
-  // METHODS
+  // MAKER METHODS
   make() {
-    const methods = () => {
-      const properties = {
-        self: this,
-        body: function (fardel) {
-          this.self.body = fardel;
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      body: function (fardel) {
+        this.self.body = fardel;
+        return this;
+      },
     };
-    return methods();
   }
 }
 

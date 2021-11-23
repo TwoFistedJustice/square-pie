@@ -1,0 +1,327 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+Square_Request <|-- Catalog_Request
+Catalog_Request <|-- Catalog_Delete
+Catalog_Request <|-- Catalog_Info
+Catalog_Request <|-- Catalog_List
+Catalog_Request <|-- Catalog_Retrieve
+Catalog_Request <|-- Catalog_Upsert
+Catalog_Request <|-- Catalog_Search_Items
+Catalog_Request <|-- Catalog_Upsert
+Catalog_Request <|-- Catalog_Search_Objects_Super
+Catalog_Search_Objects_Super <|-- Catalog_Search_Cross_Reference
+Catalog_Search_Objects_Super <|-- Catalog_Search_Filter
+
+class Square_Request{
+super of ALL other Request classes.
+}
+
+class Catalog_Request {
+super: Square_Request
+this._apiName: "catalog"
+}
+
+class Catalog_Delete {
+super: Catalog_Request
+this._method: "POST"
+this._endpoint: "/batch-delete"
+this._body.object_ids: []
+==
+Simple Getters
+==
+Simple Setters
+==
+METHODS
+
++delete(id)
+..
+adds id to object_ids array
+
++effacer(id)
++nix(id)
++disintigrate(id)
+ ..
+ Aliases of delete()
+
+==
+MAKER METHODS
++ make()
+==
+}
+
+class Catalog_Info {
+super: Catalog_Request
+this._method: "GET"
+this._endpoint: "/info"
+this._standard_unit_descriptions;
+this._standard_unit_json = [];
+this._language_code;
+this._limits;
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
+
++ delivery()
+..
+Checks for presence of standard units
+Adds them to their own array if present
+Sets other properties as well.
+
+==
+Private METHODS
+#convertToJson()
+...
+Stringifies standard unit description in Response
+
+==
+==
+MAKER METHODS
++ make()
+==
+}
+
+
+class Catalog_List {
+super : Catalog_Request
+this._method: "GET"
+this._endpoint: "/list"
+this._query_params
+_query_params.catalog_version
+_query_params.types
+this._delivery
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
+
++types(str)
+..
+concatenates types into a CSV list
+==
+Private METHODS
++#enum_types()
+==
+==
+MAKER METHODS
++ make()
+==
+}
+
+class Catalog_Retrieve {
+super: Catalog_Request
+this._method: "POST"
+this._endpoint: "/batch-retrieve"
+this._body
+body.object_ids: []
+==
+Simple Getters
+==
+Simple Setters
+==
+METHODS
+
++retrieve(id)
+..
+sets an object_id to be retrieved
+
++get(id)
+..
+alias of retrieve()
+
+==
+==
+MAKER METHODS
++ make()
+==
+}
+
+class Catalog_Search_Items{
+super: Catalog_Request
+this._method: "POST"
+this._endpoint: "/search-catalog-items"
+this._attribute_filter: {}
+this._body
+cursor: undefined,
+body.limit: 100,
+body.sort_order: str "ASC" or "DESC"
+body.text_filter: str
+body.product_types:  ["REGULAR", "APPOINTMENTS_SERVICE"]
+body.stock_levels:  ["OUT", "LOW"]
+body.category_ids:  [ ids ]
+body.enabled_location_ids:  [ ids ]
+body.custom_attribute_filters: [ {}, {}] max 10
+
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
++ stock_levels(level)
+==
+Private METHODS
++#init_filter()
+...
+initializes this._attribute_filter
+
++#enum_sort_order()
++#enum_product_type()
++#enum_stock_levels()
+...
+set respective properties with FIXED values
+
+==
+==
+MAKER METHODS
++ make()
++ make_custom_attribute_filter()
+==
+}
+
+
+
+class Catalog_Upsert {
+super: Catalog_Request
+this._method: "POST"
+this._endpoint: "" //empty
+this._idempotency_key
+this._delivery
+this._body
+this.configuration
+configuration.batch.endpoint: "/batch-upsert"
+configuration.one.endpoint: "/object"
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
++body(fardel)
+..
+determines whether argument is one or many
+if one, sets body to equal argument
+if many, sets 'batches' property and puts argument there.
+==
+==
+MAKER METHODS
++ make()
+==
+}
+
+
+
+
+
+
+
+class Catalog_Search_Objects_Super {
+super: Catalog_Request
+this._method: "POST"
+this._endpoint: "/search"
+this._body
+body.cursor:
+body.include_related_objects: boolean
+body.begin_time:RFC 3339
+body.object_types:
+body.query: {},
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
++ object_types()
+==
+METHODS
++queryReset()
+..
+sets body.query to empty object
+
++queryRemove()
+sets body.query to undefined
+
++enum_object_types()
+...
+set respective properties with FIXED values
+called from sub classes
+==
+}
+
+class Catalog_Search_Cross_Reference{
+#_ids: []
+super: Catalog_Search_Objects_Super
+this._body
+==
+Simple Getters
+==
+Simple Setters
+==
+METHODS
++variations()
+..
+call queryRemove()
+create and set property: item_variations_for_item_option_values_query
+
++items()
+..
+call queryRemove()
+create and set property: items_for_item_options_query
+
++modifiers()
+..
+call queryRemove()
+create and set property: items_for_modifier_list_query
+
++taxes()
+..
+call queryRemove()
+create and set property: items_for_tax_query
+
++addId(id)
+..
+adds an id to the #id array
+
++clearIds()
+..
+sets #clearIds to true
+
+==
+==
+MAKER METHODS
++ make()
+==
+}
+
+
+class Catalog_Search_Filter {
+super: Catalog_Search_Objects_Super
+this._method: "POST"
+this._endpoint
+this._body
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
+==
+Private METHODS
+
++#enum_()
+...
+set respective properties with FIXED values
+
+==
+==
+MAKER METHODS
++ make()
+==
+}
+
+
+@enduml

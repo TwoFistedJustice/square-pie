@@ -23,26 +23,21 @@ class Catalog_Delete extends Catalog_Request {
 
   set object_ids(id) {
     if (typeof id !== "string") {
-      console.log(id);
       throw new TypeError("Object IDs must valid IDs. Received a " + typeof id);
     }
     this._body.object_ids.push(id);
   }
 
-  //METHODS
+  //MAKER METHODS
 
   make() {
-    const methods = () => {
-      const properties = {
-        self: this,
-        object_ids: function (id) {
-          this.self.object_ids = id;
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      object_ids: function (id) {
+        this.self.object_ids = id;
+        return this;
+      },
     };
-    return methods();
   }
 
   delete(id) {
@@ -50,17 +45,14 @@ class Catalog_Delete extends Catalog_Request {
     return this;
   }
   effacer(id) {
-    this.object_ids = id;
-    return this;
+    return this.delete(id);
   }
   nix(id) {
-    this.object_ids = id;
-    return this;
+    return this.delete(id);
   }
 
   disintegrate(id) {
-    this.object_ids = id;
-    return this;
+    return this.delete(id);
   }
 }
 

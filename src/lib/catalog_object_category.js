@@ -55,7 +55,7 @@ class Catalog_Category extends Catalog_Object_Super {
 
   //MAKER METHODS
   make() {
-    const methods = {
+    return {
       self: this,
       name: function (str) {
         this.self.name = str;
@@ -74,7 +74,6 @@ class Catalog_Category extends Catalog_Object_Super {
         return this;
       },
     };
-    return methods;
   }
 }
 

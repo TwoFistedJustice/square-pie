@@ -153,29 +153,25 @@ class Order_Object {
   // METHODS
 
   #enum_state() {
-    let methods = () => {
-      let properties = {
-        self: this,
-        open: function () {
-          this.self.state = "OPEN";
-          return this;
-        },
-        completed: function () {
-          this.self.state = "COMPLETED";
-          return this;
-        },
-        canceled: function () {
-          this.self.state = "CANCELED";
-          return this;
-        },
-        draft: function () {
-          this.self.state = "DRAFT";
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      open: function () {
+        this.self.state = "OPEN";
+        return this;
+      },
+      completed: function () {
+        this.self.state = "COMPLETED";
+        return this;
+      },
+      canceled: function () {
+        this.self.state = "CANCELED";
+        return this;
+      },
+      draft: function () {
+        this.self.state = "DRAFT";
+        return this;
+      },
     };
-    return methods();
   }
 
   build_service_charge_amount(amount, currency) {
@@ -209,71 +205,67 @@ class Order_Object {
   }
 
   make() {
-    const methods = () => {
-      const properties = {
-        self: this,
-        version: function (ver) {
-          this.self.version = ver;
-          return this;
-        },
-        id: function (id) {
-          this.self.id = id;
-          return this;
-        },
-        location_id: function (id) {
-          this.self.location_id = id;
-          return this;
-        },
-        reference_id: function (id) {
-          this.self.reference_id = id;
-          return this;
-        },
-        customer_id: function (id) {
-          this.self.customer_id = id;
-          return this;
-        },
-        ticket_name: function (name) {
-          this.self.ticket_name = name;
-          return this;
-        },
-        state: function () {
-          return this.self.#enum_state();
-        },
-        source: function (val) {
-          this.self.source = val;
-          return this;
-        },
-        pricing_options: function (auto_apply_discounts, auto_apply_taxes) {
-          this.self.pricing_options = {
-            auto_apply_discounts,
-            auto_apply_taxes,
-          };
-          return this;
-        },
-        service_charges: function (obj) {
-          this.self.service_charges = obj;
-          return this;
-        },
-        discounts: function (obj) {
-          this.self.discounts = obj;
-          return this;
-        },
-        taxes: function (obj) {
-          this.self.taxes = obj;
-          return this;
-        },
-        fulfillments: function (obj) {
-          this.self.fulfillments = obj;
-          return this;
-        },
-        line_items: function (obj) {
-          this.self.line_items = obj;
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      version: function (ver) {
+        this.self.version = ver;
+        return this;
+      },
+      id: function (id) {
+        this.self.id = id;
+        return this;
+      },
+      location_id: function (id) {
+        this.self.location_id = id;
+        return this;
+      },
+      reference_id: function (id) {
+        this.self.reference_id = id;
+        return this;
+      },
+      customer_id: function (id) {
+        this.self.customer_id = id;
+        return this;
+      },
+      ticket_name: function (name) {
+        this.self.ticket_name = name;
+        return this;
+      },
+      state: function () {
+        return this.self.#enum_state();
+      },
+      source: function (val) {
+        this.self.source = val;
+        return this;
+      },
+      pricing_options: function (auto_apply_discounts, auto_apply_taxes) {
+        this.self.pricing_options = {
+          auto_apply_discounts,
+          auto_apply_taxes,
+        };
+        return this;
+      },
+      service_charges: function (obj) {
+        this.self.service_charges = obj;
+        return this;
+      },
+      discounts: function (obj) {
+        this.self.discounts = obj;
+        return this;
+      },
+      taxes: function (obj) {
+        this.self.taxes = obj;
+        return this;
+      },
+      fulfillments: function (obj) {
+        this.self.fulfillments = obj;
+        return this;
+      },
+      line_items: function (obj) {
+        this.self.line_items = obj;
+        return this;
+      },
     };
-    return methods();
   }
 }
 module.exports = Order_Object;
