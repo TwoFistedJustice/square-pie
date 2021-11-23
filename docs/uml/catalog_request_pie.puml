@@ -1,11 +1,235 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+class Square_Request{
+super of ALL other Request classes.
+}
+
+class Catalog_Request {
+
+}
+
+class Catalog_Request_Delete {
+super
+this._method: "POST"
+this._endpoint: "/batch-delete"
+this._body.object_ids: []
+==
+Simple Getters
+==
+Simple Setters
+==
+METHODS
+==
++delete(id)
+..
+adds id to object_ids array
+
++effacer(id)
++nix(id)
++disintigrate(id)
+ ..
+ Aliases of delete()
+
+==
+MAKER METHODS
++ make()
+==
+}
+
+class Catalog_Request_Info {
+super
+this._method: "GET"
+this._endpoint: "/info"
+this._standard_unit_descriptions;
+this._standard_unit_json = [];
+this._language_code;
+this._limits;
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
+
++ delivery()
+..
+Checks for presence of standard units
+Adds them to their own array if present
+Sets other properties as well.
+
+==
+Private METHODS
+#convertToJson()
+...
+Stringifies standard unit description in Response
+
+==
+==
+MAKER METHODS
++ make()
+==
+}
+
+
+class Catalog_Request_List {
+super
+this._method: "POST"
+this._endpoint
+this._body
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
+==
+Private METHODS
+
++#enum_()
+...
+set respective properties with FIXED values
+
+==
+==
+MAKER METHODS
++ make()
+==
+}
+
+class Catalog_ {
+super
+this._method: "POST"
+this._endpoint
+this._body
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
+==
+Private METHODS
+
++#enum_()
+...
+set respective properties with FIXED values
+
+==
+==
+MAKER METHODS
++ make()
+==
+}
+
+class Catalog_Retrieve {
+super
+this._method: "POST"
+this._endpoint
+this._body
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
+==
+Private METHODS
+
++#enum_()
+...
+set respective properties with FIXED values
+
+==
+==
+MAKER METHODS
++ make()
+==
+}
+
+
+class Catalog_Search_Objects_Super {
+super
+this._method: "POST"
+this._endpoint
+this._body
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
+==
+Private METHODS
+
++#enum_()
+...
+set respective properties with FIXED values
+
+==
+==
+MAKER METHODS
++ make()
+==
+}
+
+class Catalog_Search_Cross_Reference{
+super
+this._method: "POST"
+this._endpoint
+this._body
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
+==
+Private METHODS
+
++#enum_()
+...
+set respective properties with FIXED values
+
+==
+==
+MAKER METHODS
++ make()
+==
+}
+
+
+class Catalog_Search_Filter{
+super
+this._method: "POST"
+this._endpoint
+this._body
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
+==
+Private METHODS
+
++#enum_()
+...
+set respective properties with FIXED values
+
+==
+==
+MAKER METHODS
++ make()
+==
+}
+
+
 
 
 class Catalog_Search_Items{
 super
-this._method: post
+this._method: "POST"
 this._endpoint
 this._body
 this._attribute_filter
@@ -37,19 +261,32 @@ MAKER METHODS
 
 
 
-class Catalog_Search_Objects_Super {
+class Catalog_Upsert {
+super
+this._method: "POST"
+this._endpoint
+this._body
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters (Computed Properties)
+==
+Private METHODS
 
++#enum_()
+...
+set respective properties with FIXED values
+
+==
+==
+MAKER METHODS
++ make()
+==
 }
 
 
-class Catalog_Search_Filter{
-
-}
-
-
-class Catalog_Request {
-
-}
 
 
 
