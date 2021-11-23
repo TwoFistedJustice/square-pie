@@ -1,4 +1,7 @@
 const Catalog_Request = require("./catalog_request");
+// todo change fardel to body ?? Why should it be one or the other?
+// todo types expects a CSV list - build a utility for this and use it here
+// https://developer.squareup.com/reference/square/catalog-api/list-catalog
 
 class Catalog_List extends Catalog_Request {
   constructor() {
@@ -8,6 +11,7 @@ class Catalog_List extends Catalog_Request {
 
     this._fardel = {
       catalog_version: undefined,
+      types: undefined,
     };
     this._delivery;
   }
@@ -20,6 +24,9 @@ class Catalog_List extends Catalog_Request {
   get delivery() {
     return this._delivery;
   }
+  get types() {
+    return this._fardel.types;
+  }
 
   // SETTERS
   set delivery(parcel) {
@@ -31,6 +38,17 @@ class Catalog_List extends Catalog_Request {
   //  * */
   set catalog_version(version) {
     this._fardel.catalog_version = version;
+  }
+  set types(str) {
+    // todo replace this crappy version with a purpose made utility see issue #116
+    //  this is just a holdover, it adds the first intance twice,
+    //  which shouldn't harm anything but it's sloppy
+    if (typeof this._fardel.types !== "string") {
+      this._fardel.types = str;
+    }
+    let csv = this.types;
+    csv += ", " + str;
+    this._fardel.types = csv;
   }
 
   // PRIVATE METHODS

@@ -1,6 +1,9 @@
 const { isISO4217 } = require("validator");
 // const validator = require('validator');
 
+// TODO a CSV string builder that takes one string and adds it to an existing
+//   string such that every entry except the last on is followed by a comma
+//  use in Catalog_Request_List for the types
 /* defines a property on an object and makes it enumerable
  * arg [object_to_modify]: the name of the object you want to modify
  * art [prop]: the name of the property to be added

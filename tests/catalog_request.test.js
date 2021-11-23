@@ -11,6 +11,8 @@ const Catalog_Search_Filter = require("../src/lib/catalog_request_search_objects
 const Catalog_Search_Items = require("../src/lib/catalog_request_search_items");
 // const {expect} = require ("chai");
 
+// TODO tests for Catalog_List enum
+
 // tack on .only to this empty test to silence all other tests
 describe("Silence Async tests", () => {
   test("Should silence async customer tests", () => {
@@ -47,6 +49,19 @@ describe("Catalog Request List", () => {
     let list = new Catalog_List();
     await list.request();
     list.delivery.should.be.an("Array");
+  });
+
+  test("#enum_types should set types property", () => {
+    // todo - this test will fail until the CSV string utility
+    //   is built and used in Catalog_request_List.js
+    let list = new Catalog_List();
+    // let expected = "TAX, MODIFIER_LIST, DISCOUNT";
+    let noteToSelf =
+      "Note to self: You still need to build the string concatenator utility";
+    list.make().types().tax().modifier_list().discount();
+
+    // expect(list.types).toEqual(expected);
+    expect(list.types).toEqual(noteToSelf);
   });
 });
 
@@ -411,7 +426,7 @@ describe("Catalog_Search_Items", () => {
     }).not.toThrow();
   });
 
-  test.only("stock_levels should throw if given duplicate entries", () => {
+  test("stock_levels should throw if given duplicate entries", () => {
     expect(() => {
       search.make().stock_levels().low().low();
     }).toThrow();
@@ -509,7 +524,7 @@ describe("Catalog_Search_Items", () => {
   });
 });
 
-describe.only("Catalog_Search_Items make_custom_attribute_filter()", () => {
+describe("Catalog_Search_Items make_custom_attribute_filter()", () => {
   let search;
   let make;
   beforeEach(() => {
