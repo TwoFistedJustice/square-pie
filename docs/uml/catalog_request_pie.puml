@@ -6,7 +6,8 @@ super of ALL other Request classes.
 }
 
 class Catalog_Request {
-
+super: Square_Request
+this._apiName: "catalog"
 }
 
 class Catalog_Delete {
