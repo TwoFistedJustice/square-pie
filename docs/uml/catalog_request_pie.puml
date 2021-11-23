@@ -11,7 +11,7 @@ this._apiName: "catalog"
 }
 
 class Catalog_Delete {
-super
+super: Catalog_Request
 this._method: "POST"
 this._endpoint: "/batch-delete"
 this._body.object_ids: []
@@ -103,20 +103,23 @@ MAKER METHODS
 class Catalog_Retrieve {
 super: Catalog_Request
 this._method: "POST"
-this._endpoint
+this._endpoint: "/batch-retrieve"
 this._body
+body.object_ids: []
 ==
 Simple Getters
 ==
 Simple Setters
 ==
-Complex Setters (Computed Properties)
-==
-Private METHODS
+METHODS
 
-+#enum_()
-...
-set respective properties with FIXED values
++retrieve(id)
+..
+sets an object_id to be retrieved
+
++get(id)
+..
+alias of retrieve()
 
 ==
 ==
