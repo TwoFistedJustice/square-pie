@@ -1,6 +1,5 @@
 const Catalog_Request = require("./catalog_request");
-// const { setter_chain_generator_config } = require("./utilities_curry");
-// todo, this is getting bloated and ugly
+const { isRFC339 } = require("validator");
 // split it up into three classes:
 // super: holds common elements that are presently in body
 // combinable i.e
@@ -24,28 +23,6 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
       begin_time: undefined, // RFC 3339 format
       object_types: undefined,
       query: {},
-    };
-    this.configuration = {
-      keys: ["object_types"],
-      object_types: [
-        "ITEM",
-        "IMAGE",
-        "CATEGORY",
-        "ITEM_VARIATION",
-        "TAX",
-        "DISCOUNT",
-        "MODIFIER_LIST",
-        "MODIFIER",
-        "PRICING_RULE",
-        "PRODUCT_SET",
-        "TIME_PERIOD",
-        "MEASUREMENT_UNIT",
-        "SUBSCRIPTION_PLAN",
-        "ITEM_OPTION",
-        "ITEM_OPTION_VAL",
-        "CUSTOM_ATTRIBUTE_DEFINITION",
-        "QUICK_AMOUNTS_SETTINGS",
-      ],
     };
   }
 
@@ -81,16 +58,19 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     this._body.include_related_objects = bool;
   }
   set begin_time(time) {
-    // RFC 3339 format
+    if (!isRFC339(time)) {
+      throw new Error("begin_time expects an RFC339 compliant time");
+    }
     this._body.begin_time = time;
   }
   set object_types(type) {
-    let contains = (word) => word === type;
+    let callback = (word) => word === type;
     if (!Array.isArray(this.object_types)) {
       this._body.object_types = [];
     }
-    if (this.object_types.some(contains)) {
-      return;
+
+    if (this.object_types.some(callback)) {
+      throw new Error(`object_types array already contains ${type}`);
     }
     this._body.object_types.push(type);
   }
@@ -99,6 +79,82 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
   }
   queryRemove() {
     this.#removeQuery = true;
+  }
+
+  // NOT PRIVATE METHODS = because you can't reference private functions from subclasses
+
+  enum_object_types() {
+    return {
+      self: this,
+      item: function () {
+        this.self.object_types = "ITEM";
+        return this;
+      },
+      item_variation: function () {
+        this.self.object_types = "ITEM_VARIATION";
+        return this;
+      },
+      item_option: function () {
+        this.self.object_types = "ITEM_OPTION";
+        return this;
+      },
+      item_option_val: function () {
+        this.self.object_types = "ITEM_OPTION_VAL";
+        return this;
+      },
+      image: function () {
+        this.self.object_types = "IMAGE";
+        return this;
+      },
+      category: function () {
+        this.self.object_types = "CATEGORY";
+        return this;
+      },
+      tax: function () {
+        this.self.object_types = "TAX";
+        return this;
+      },
+      discount: function () {
+        this.self.object_types = "DISCOUNT";
+        return this;
+      },
+      modifier: function () {
+        this.self.object_types = "MODIFIER";
+        return this;
+      },
+      modifier_list: function () {
+        this.self.object_types = "MODIFIER_LIST";
+        return this;
+      },
+      pricing_rule: function () {
+        this.self.object_types = "PRICING_RULE";
+        return this;
+      },
+      product_set: function () {
+        this.self.object_types = "PRODUCT_SET";
+        return this;
+      },
+      time_period: function () {
+        this.self.object_types = "TIME_PERIOD";
+        return this;
+      },
+      measurement_unit: function () {
+        this.self.object_types = "MEASUREMENT_UNIT";
+        return this;
+      },
+      subscription_plan: function () {
+        this.self.object_types = "SUBSCRIPTION_PLAN";
+        return this;
+      },
+      custom_attribute_definition: function () {
+        this.self.object_types = "CUSTOM_ATTRIBUTE_DEFINITION";
+        return this;
+      },
+      quick_amounts_setting: function () {
+        this.self.object_types = "QUICK_AMOUNTS_SETTINGS";
+        return this;
+      },
+    };
   }
 } // END class
 
