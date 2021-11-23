@@ -1,5 +1,5 @@
 const Catalog_Request = require("./catalog_request");
-// todo change fardel to body ?? Why should it be one or the other?
+// TODO create a way to extract query parameters and add automagically them to the endpoint
 // todo types expects a CSV list - build a utility for this and use it here
 // https://developer.squareup.com/reference/square/catalog-api/list-catalog
 
@@ -8,24 +8,23 @@ class Catalog_List extends Catalog_Request {
     super();
     this._method = "get";
     this._endpoint = "/list";
-
-    this._fardel = {
+    this._query_params = {
       catalog_version: undefined,
       types: undefined,
     };
     this._delivery;
   }
-  get fardel() {
-    return this._fardel;
+  get query_params() {
+    return this._query_params;
   }
   get catalog_version() {
-    return this._fardel.catalog_version;
+    return this._query_params.catalog_version;
   }
   get delivery() {
     return this._delivery;
   }
   get types() {
-    return this._fardel.types;
+    return this._query_params.types;
   }
 
   // SETTERS
@@ -37,18 +36,18 @@ class Catalog_List extends Catalog_Request {
   //  * go to their docs to see what their versions are.
   //  * */
   set catalog_version(version) {
-    this._fardel.catalog_version = version;
+    this._query_params.catalog_version = version;
   }
   set types(str) {
     // todo replace this crappy version with a purpose made utility see issue #116
     //  this is just a holdover, it adds the first intance twice,
     //  which shouldn't harm anything but it's sloppy
-    if (typeof this._fardel.types !== "string") {
-      this._fardel.types = str;
+    if (typeof this._query_params.types !== "string") {
+      this._query_params.types = str;
     }
     let csv = this.types;
     csv += ", " + str;
-    this._fardel.types = csv;
+    this._query_params.types = csv;
   }
 
   // PRIVATE METHODS

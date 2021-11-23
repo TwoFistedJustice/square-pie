@@ -88,8 +88,9 @@ class Catalog_List {
 super : Catalog_Request
 this._method: "GET"
 this._endpoint: "/list"
-this._fardel
-fardel.catalog_version
+this._query_params
+_query_params.catalog_version
+_query_params.types
 this._delivery
 ==
 Simple Getters
