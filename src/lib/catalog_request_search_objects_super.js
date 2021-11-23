@@ -1,5 +1,6 @@
 const Catalog_Request = require("./catalog_request");
 const { isRFC339 } = require("validator");
+// https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects
 // split it up into three classes:
 // super: holds common elements that are presently in body
 // combinable i.e
