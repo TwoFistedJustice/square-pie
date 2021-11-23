@@ -9,7 +9,7 @@ class Catalog_Request {
 
 }
 
-class Catalog_Request_Delete {
+class Catalog_Delete {
 super
 this._method: "POST"
 this._endpoint: "/batch-delete"
@@ -37,7 +37,7 @@ MAKER METHODS
 ==
 }
 
-class Catalog_Request_Info {
+class Catalog_Info {
 super
 this._method: "GET"
 this._endpoint: "/info"
@@ -72,49 +72,26 @@ MAKER METHODS
 }
 
 
-class Catalog_Request_List {
-super
-this._method: "POST"
-this._endpoint
-this._body
+class Catalog_List {
+super : Catalog_Request
+this._method: "GET"
+this._endpoint: "/list"
+this._fardel
+fardel.catalog_version
+this._delivery
 ==
 Simple Getters
 ==
 Simple Setters
 ==
 Complex Setters (Computed Properties)
+
++types(str)
+..
+concatenates types into a CSV list
 ==
 Private METHODS
-
-+#enum_()
-...
-set respective properties with FIXED values
-
-==
-==
-MAKER METHODS
-+ make()
-==
-}
-
-class Catalog_ {
-super
-this._method: "POST"
-this._endpoint
-this._body
-==
-Simple Getters
-==
-Simple Setters
-==
-Complex Setters (Computed Properties)
-==
-Private METHODS
-
-+#enum_()
-...
-set respective properties with FIXED values
-
++#enum_types()
 ==
 ==
 MAKER METHODS
@@ -123,7 +100,7 @@ MAKER METHODS
 }
 
 class Catalog_Retrieve {
-super
+super: Catalog_Request
 this._method: "POST"
 this._endpoint
 this._body
