@@ -147,7 +147,7 @@ this._attribute_filter: {}
 this._body
 cursor: undefined,
 body.limit: 100,
-body.sort_order: str "ASC" or "DESC" - steal
+body.sort_order: str "ASC" or "DESC"
 body.text_filter: str
 body.product_types:  ["REGULAR", "APPOINTMENTS_SERVICE"]
 body.stock_levels:  ["OUT", "LOW"]
