@@ -95,18 +95,15 @@ class Catalog_Search_Items extends Catalog_Request {
       this._body.enabled_location_ids.push(id);
     }
   }
-  // arrayify is not appropriate here bc of the additional error checking
-  // the length check MUST follow or it will crash on first use.
   set custom_attribute_filters(obj) {
-    if (!Array.isArray(this._body.custom_attribute_filters)) {
-      this._body.custom_attribute_filters = [];
+    if (arrayify(this._body, "custom_attribute_filters")) {
+      if (this._body.custom_attribute_filters.length >= 10) {
+        throw new Error(
+          "custom_attribute_filters can contain a maximum of 10 filters."
+        );
+      }
+      this._body.custom_attribute_filters.push(obj);
     }
-    if (this._body.custom_attribute_filters.length >= 10) {
-      throw new Error(
-        "custom_attribute_filters can contain a maximum of 10 filters."
-      );
-    }
-    this._body.custom_attribute_filters.push(obj);
   }
 
   // PRIVATE METHODS
