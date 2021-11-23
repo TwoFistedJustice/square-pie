@@ -1,9 +1,6 @@
 const Catalog_Search_Objects_Super = require("./catalog_request_search_objects_super");
 const { define } = require("./utilities");
 
-// todo arrayify
-// todo simplify makers
-
 class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   constructor() {
     super();
@@ -192,57 +189,49 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   make() {
-    const methods = () => {
-      // any changes made to super modification methods should be replicated on Catalog_Search_Cross_Reference
-      const properties = {
-        self: this,
-        include_related_objects: function (bool) {
-          this.self.include_related_objects = bool;
-          return this;
-        },
-        begin_time: function (time) {
-          this.self.begin_time = time;
-          return this;
-        },
-        exact_query: function (obj) {
-          this.self.exact_query = obj;
-          return this;
-        },
-        prefix_query: function (obj) {
-          this.self.query.prefix_query = obj;
-          return this;
-        },
-        range_query: function (obj) {
-          this.self.query.range_query = obj;
-          return this;
-        },
-        sorted_attribute_query: function (obj) {
-          this.self.query.sorted_attribute_query = obj;
-          return this;
-        },
-        add_object_type: function (type) {
-          this.self.object_types = type;
-          return this;
-        },
-        object_type: function () {
-          return this.self.enum_object_types();
-        },
-        text_query: function (arr) {
-          this.self.text_query = arr;
-          return this;
-        },
-        text_query_add: function (word) {
-          this.self.text_query_add(word);
-          return this;
-        },
-        text_query_remove: function (word) {
-          this.self.text_query_remove(word);
-          return this;
-        },
-      };
-      return properties;
+    // any changes made to super modification methods should be replicated on Catalog_Search_Cross_Reference
+    return {
+      self: this,
+      include_related_objects: function (bool) {
+        this.self.include_related_objects = bool;
+        return this;
+      },
+      begin_time: function (time) {
+        this.self.begin_time = time;
+        return this;
+      },
+      exact_query: function (obj) {
+        this.self.exact_query = obj;
+        return this;
+      },
+      prefix_query: function (obj) {
+        this.self.query.prefix_query = obj;
+        return this;
+      },
+      range_query: function (obj) {
+        this.self.query.range_query = obj;
+        return this;
+      },
+      sorted_attribute_query: function (obj) {
+        this.self.query.sorted_attribute_query = obj;
+        return this;
+      },
+      object_type: function () {
+        return this.self.enum_object_types();
+      },
+      text_query: function (arr) {
+        this.self.text_query = arr;
+        return this;
+      },
+      text_query_add: function (word) {
+        this.self.text_query_add(word);
+        return this;
+      },
+      text_query_remove: function (word) {
+        this.self.text_query_remove(word);
+        return this;
+      },
     };
-    return methods();
   }
 }
 module.exports = Catalog_Search_Filter;
