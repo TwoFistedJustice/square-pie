@@ -1,8 +1,6 @@
 const Catalog_Request = require("./catalog_request");
 const { nanoid } = require("nanoid/non-secure");
 
-// todo change const to let in make()
-
 class Catalog_Upsert extends Catalog_Request {
   constructor() {
     super();
