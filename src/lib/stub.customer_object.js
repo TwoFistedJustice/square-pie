@@ -1,7 +1,12 @@
 // TODO normalize email utility
 //    pie defaults for email normalize
-
+/** @class Customer_object representing a Customer
+ *  @author: Russ Bain
+ * */
 class Customer_object {
+  /**
+   * Creates an instance of a customer
+   *  */
   constructor() {
     this._fardel = {
       id: undefined,
@@ -24,6 +29,10 @@ class Customer_object {
     };
   }
   // ENUMS
+  /**
+   *  @private
+   *  Sets fixed string values on fardel.creation_source
+   */
   #enum_creation_source() {
     return {
       self: this,
@@ -31,6 +40,9 @@ class Customer_object {
     };
   }
   // GETTERS
+  get fardel() {
+    return this._fardel;
+  }
   get id() {
     return this._fardel.id;
   }
@@ -139,76 +151,81 @@ class Customer_object {
   }
 
   // MAKER METHODS
-
+  /** Standard Square Pie Make method*/
   make() {
     return {
       self: this,
       id: function (val) {
-        this.id = val;
+        this.self.id = val;
         return this;
       },
       given_name: function (val) {
-        this.given_name = val;
+        this.self.given_name = val;
         return this;
       },
       family_name: function (val) {
-        this.family_name = val;
+        this.self.family_name = val;
         return this;
       },
       company_name: function (val) {
-        this.company_name = val;
+        this.self.company_name = val;
         return this;
       },
       nickname: function (val) {
-        this.nickname = val;
+        this.self.nickname = val;
         return this;
       },
       email_address: function (val) {
-        this.email_address = val;
+        this.self.email_address = val;
         return this;
       },
       phone_number: function (val) {
-        this.phone_number = val;
+        this.self.phone_number = val;
         return this;
       },
       address: function (val) {
-        this.address = val;
+        this.self.address = val;
         return this;
       },
       birthday: function (val) {
-        this.birthday = val;
+        this.self.birthday = val;
         return this;
       },
       reference_id: function (val) {
-        this.reference_id = val;
+        this.self.reference_id = val;
         return this;
       },
       note: function (val) {
-        this.note = val;
+        this.self.note = val;
         return this;
       },
       group_ids: function (val) {
-        this.group_ids = val;
+        this.self.group_ids = val;
         return this;
       },
       segment_ids: function (val) {
-        this.segment_ids = val;
+        this.self.segment_ids = val;
         return this;
       },
       version: function (val) {
-        this.version = val;
+        this.self.version = val;
         return this;
       },
-      creation_source: function (val) {
-        this.creation_source = val;
-        return this;
+      /**
+       *
+       * Returns a set of curried functions that set the value of creation_source such that the name
+       * of the function is the lowercase analog of the value set.
+       * @see this.#enum_creation_source()
+       * */
+      creation_source: function () {
+        return this.self.#enum_creation_source();
       },
       preferences: function (val) {
-        this.preferences = val;
+        this.self.preferences = val;
         return this;
       },
       tax_ids: function (val) {
-        this.tax_ids = val;
+        this.self.tax_ids = val;
         return this;
       },
     };
