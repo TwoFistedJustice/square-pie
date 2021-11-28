@@ -1,13 +1,17 @@
 const Square_Request = require("./square_request");
 const validator = require("validator");
 
+/** @class Customer_Request super class of Customer API Request classes
+ *  @author Russ Bain
+ *  */
 class Customer_Request extends Square_Request {
   constructor() {
     super();
     this._apiName = "customers";
   }
   // METHODS
-  // todo REFACTOR -move this into new Customer Objects
+  // todo REFACTOR -extract into utility
+  //  have the yahoo thing pull from pie_defaults
   normalizeEmail(email) {
     let normalizeOptions = {
       yahoo_remove_subaddress: false,

@@ -1,7 +1,10 @@
 const Customer_Request = require("./customer_request");
 const { nanoid } = require("nanoid/non-secure");
 
-// creates a new document in the db
+/** @class Customer_Create representing an http request to create a customer record
+ *  @see Customer_Request
+ *  @author Russ Bain
+ *  */
 class Customer_Create extends Customer_Request {
   constructor(customer) {
     super();

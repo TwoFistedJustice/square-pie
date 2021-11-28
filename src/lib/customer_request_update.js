@@ -7,6 +7,13 @@ const Retrieve_Update_Delete = require("./customer_request_R_U_D");
 // to acitvate it call the .id(id) method which exists on the super
 
 //ToDO normalize all incoming email via super method
+// Todo extract customer out to own class
+// change constructor arg to bec customer object and extract id
+
+/** @class Customer_Update representing an http request to update a customer record
+ *  @see Retrieve_Update_Delete
+ *  @author Russ Bain
+ *  */
 class Customer_Update extends Retrieve_Update_Delete {
   constructor(id) {
     super(id);
@@ -89,6 +96,7 @@ class Customer_Update extends Retrieve_Update_Delete {
   }
 
   //TODO normalize addresses
+  // todo archetype address
   set address(preFormattedAddressObject) {
     this._body.address = preFormattedAddressObject;
   }

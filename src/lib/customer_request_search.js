@@ -2,6 +2,11 @@ const Customer_Request = require("./customer_request");
 
 // THREE props on body: query, limit, cursor - these are same as for Invoices
 // differentiation begins inside the query object
+
+/** @class Customer_Search representing an http request to retrieve to search customer records
+ *  @see Customer_Request
+ *  @author Russ Bain
+ *  */
 class Customer_Search extends Customer_Request {
   constructor() {
     super();
