@@ -6,7 +6,7 @@ const { uid_length } = require("../src/lib/pie_defaults");
 
 const tax_discount_uid = "someId";
 
-describe("should silence tests when .only is added after describe", () => {
+describe.only("should silence test suite", () => {
   test("", () => {});
 });
 describe("#enum_item_type()", () => {
