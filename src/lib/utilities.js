@@ -85,10 +85,15 @@ const setter_chain_generator_separate_arrays = function (
 Returns true if the string is less than or equal to the max length
 * */
 
-const maxLength = function (max, str = "", caller = "not specified") {
+const maxLength = function (
+  max,
+  str = "",
+  displayName = "unspecified class",
+  caller = "unspecified class setter"
+) {
   if (str.length > max) {
     throw new Error(
-      `- ${caller} - surpassed maximum character limit of ${max}.\n${str}`
+      `${displayName}.${caller} - surpassed maximum character limit of ${max}.\nReceived: ${str}`
     );
   }
   return true;
@@ -98,10 +103,15 @@ const maxLength = function (max, str = "", caller = "not specified") {
 Returns true if the string is greater than or equal to the min length
 * */
 
-const minLength = function (min, str = "", caller = "not specified") {
+const minLength = function (
+  min,
+  str = "",
+  displayName = "unspecified class",
+  caller = "unspecified class setter"
+) {
   if (str.length < min) {
     throw new Error(
-      `- ${caller} - failed to meet minimum character count of ${min}.\n${str}`
+      `${displayName}.${caller} - failed to meet minimum character count of ${min}.\n${str}`
     );
   }
   return true;
