@@ -1,9 +1,12 @@
+const { shazam_RFC3339 } = require("./utilities");
+
 // TODO normalize email utility
 //    pie defaults for email normalize
-/** @class Customer_object representing a Customer
+/** @class Customer_Object representing a Customer
  *  @author: Russ Bain
  * */
-class Customer_object {
+class Customer_Object {
+  _displayName = "Customer_Object";
   /**
    * Creates an instance of a customer
    *  */
@@ -40,6 +43,9 @@ class Customer_object {
     };
   }
   // GETTERS
+  get displayName() {
+    return this._displayName;
+  }
   get fardel() {
     return this._fardel;
   }
@@ -121,8 +127,14 @@ class Customer_object {
   set address(val) {
     this._fardel.address = val;
   }
-  set birthday(val) {
-    this._fardel.birthday = val;
+  /* sets Customer_Object.birthday
+   * @param {string} time a date in RFC3339 format
+   * * @throws Will throw and error if argument is not a valid RFC3339 date code
+   * */
+  set birthday(time) {
+    if (shazam_RFC3339(time, this._displayName, "birthday")) {
+      this._fardel.birthday = time;
+    }
   }
   set reference_id(val) {
     this._fardel.reference_id = val;
@@ -232,4 +244,4 @@ class Customer_object {
   }
 }
 
-module.exports = Customer_object;
+module.exports = Customer_Object;
