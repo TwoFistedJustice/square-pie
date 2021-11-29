@@ -10,14 +10,18 @@ const Customer_Request = require("./customer_request");
  *  @see Customer_Request
  *  @author Russ Bain
  *  */
-
+// todo rename add Customer_
 class Retrieve_Update_Delete extends Customer_Request {
+  _displayName = "Customer_Retrieve_Update_Delete";
   constructor(id = "you_still_need_to_set_the _id") {
     super();
     this._endpoint = `/${id}`;
     this._delivery;
   }
   // GETTERS
+  get displayName() {
+    return this._displayName;
+  }
   get id() {
     return this._endpoint;
   }
