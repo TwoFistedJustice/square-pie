@@ -8,6 +8,7 @@ const {
   money_helper,
   generate_error_message,
   shazam_RFC3339,
+  shazam_integer,
 } = require("../src/lib/utilities");
 
 const { dateCodes } = require("./helper_objects");
@@ -116,7 +117,7 @@ describe("generate_error_message", () => {
   });
 });
 
-describe.only("shazam_33339 date code verification utility", () => {
+describe("shazam_33339 date code verification utility", () => {
   test("should throw when fed a non-RFC3339 date code", () => {
     expect(() => {
       shazam_RFC3339(
@@ -144,6 +145,26 @@ describe.only("shazam_33339 date code verification utility", () => {
         "utilities test suite",
         "should return true"
       )
+    ).toEqual(true);
+  });
+});
+
+describe.only("shazam_integer integer verification utility", () => {
+  test("should throw when fed a non-integer string", () => {
+    expect(() => {
+      shazam_integer("95.5", "utilities test suite", "should throw");
+    }).toThrow();
+  });
+
+  test("should NOT throw when fed an integer string", () => {
+    expect(() => {
+      shazam_integer("42", "utilities test suite", "should NOT throw");
+    }).not.toThrow();
+  });
+
+  test("should return true when fed an integer string", () => {
+    expect(
+      shazam_integer("42", "utilities test suite", "should return true")
     ).toEqual(true);
   });
 });

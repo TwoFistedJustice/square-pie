@@ -1,4 +1,4 @@
-const { isISO4217, isRFC3339 } = require("validator");
+const { isISO4217, isRFC3339, isInt } = require("validator");
 
 // TODO a CSV string builder that takes one string and adds it to an existing
 //   string such that every entry except the last on is followed by a comma
@@ -168,6 +168,22 @@ const shazam_RFC3339 = function (time, displayName, caller) {
   return true;
 };
 
+/**
+ * @param {string} num - expects a string that can be converted to an integer
+ * @param {string} displayName - the _displayName static from the calling class
+ * @param {string} caller - the name variable from the calling function
+ * @throws throws and error if the `num` argument cannot be coerced to an integer
+ * @return {boolean} returns true if the `num` argument can be coerced to an integer
+ * */
+const shazam_integer = function (num, displayName, caller) {
+  if (!isInt(num)) {
+    throw new Error(
+      `${displayName}.${caller} expects a string that can be coerced to an integer. Received: ${num}`
+    );
+  }
+  return true;
+};
+
 module.exports = {
   define,
   setter_chain_generator_config,
@@ -178,4 +194,5 @@ module.exports = {
   money_helper,
   generate_error_message,
   shazam_RFC3339,
+  shazam_integer,
 };
