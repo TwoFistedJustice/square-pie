@@ -1,4 +1,4 @@
-const { shazam_RFC3339 } = require("./utilities");
+const { maxLength, shazam_RFC3339, shazam_integer } = require("./utilities");
 
 // TODO normalize email utility
 //    pie defaults for email normalize
@@ -29,6 +29,12 @@ class Customer_Object {
       creation_source: undefined, // ENUM
       preferences: undefined, // {boolean}
       tax_ids: undefined, // {str20}
+    };
+    this.configuration = {
+      maximums: {
+        phone_number: 11,
+        tax_ids: 20,
+      },
     };
   }
   // ENUMS
@@ -121,8 +127,20 @@ class Customer_Object {
   set email_address(val) {
     this._fardel.email_address = val;
   }
-  set phone_number(val) {
-    this._fardel.phone_number = val;
+  /** sets Customer_Object.phone_number
+   * @param {string }phone should be a phone number of no more than 11 characters
+   * @throws Throws an error is `phone` is longer than 11 characters
+   * */
+  set phone_number(phone) {
+    if (
+      maxLength(
+        this.configuration.maximums.phone_number,
+        phone,
+        this.displayName,
+        "phone_number"
+      )
+    )
+      this._fardel.phone_number = phone;
   }
   set address(val) {
     this._fardel.address = val;
@@ -148,18 +166,38 @@ class Customer_Object {
   set segment_ids(val) {
     this._fardel.segment_ids = val;
   }
-  set version(val) {
-    this._fardel.version = val;
+  /* sets Customer_Object.version
+   * @param {string} int a string that can be coerced to integer
+   * * @throws Will throw and error if argument  cannot be coerced to integer
+   * */
+  set version(int) {
+    if (shazam_integer(int)) {
+      this._fardel.version = int;
+    }
   }
 
   set preferences(bool) {
     // check if object and property
     // set to object, define property with bool
   }
-
+  /** sets Customer_Object.tax_ids - only for UK, Ireland, et la France. Vive la Republique! Vive Marieanne!
+   *
+   * @param id - a European Union VAT ID of no more than 20 characters
+   * @throws throws an error if the length is greater than 20
+   * */
   set tax_ids(id) {
-    // check if object and property
-    // set to object, define prop with id
+    if (
+      maxLength(
+        this.configuration.maximums.tax_ids,
+        id,
+        this.displayName,
+        "tax_ids"
+      )
+    ) {
+      this._fardel.tax_ids = {
+        eu_vat: id,
+      };
+    }
   }
 
   // MAKER METHODS
