@@ -1,5 +1,4 @@
-const { isISO4217 } = require("validator");
-// const validator = require('validator');
+const { isISO4217, isRFC3339 } = require("validator");
 
 // TODO a CSV string builder that takes one string and adds it to an existing
 //   string such that every entry except the last on is followed by a comma
@@ -153,6 +152,22 @@ const generate_error_message = function (key, expected_type, received) {
   return `${key}\n expected type: ${expected_type}\n received type: ${type_received}\nvalue received: ${received} `;
 };
 
+/**
+ * @param {string} time - expects a date code in RFC3339 format
+ * @param {string} displayName - the _displayName static from the calling class
+ * @param {string} caller - the name variable from the calling function
+ * @throws throws and error if the `time` argument is not in RFC3339 format
+ * @return {boolean} returns true if `time` argument is a valid RFC3339 date code
+ * */
+const shazam_RFC3339 = function (time, displayName, caller) {
+  if (!isRFC3339(time)) {
+    throw new Error(
+      `${displayName}.${caller} expects RFC3339 date code. Received: ${time}`
+    );
+  }
+  return true;
+};
+
 module.exports = {
   define,
   setter_chain_generator_config,
@@ -162,4 +177,5 @@ module.exports = {
   arrayify,
   money_helper,
   generate_error_message,
+  shazam_RFC3339,
 };

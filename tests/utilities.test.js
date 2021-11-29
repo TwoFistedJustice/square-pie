@@ -7,7 +7,12 @@ const {
   arrayify,
   money_helper,
   generate_error_message,
+  shazam_RFC3339,
 } = require("../src/lib/utilities");
+
+const { dateCodes } = require("./helper_objects");
+// const {expect} = require ("chai");
+
 // const should = require("chai").should();
 // const { long_strings } = require("./helper_objects");
 
@@ -98,7 +103,7 @@ describe("arrayify", () => {
   });
 });
 
-describe.only("generate_error_message", () => {
+describe("generate_error_message", () => {
   test("generate_error_message should generate the correct string", () => {
     let key = "some_key";
     let expected_type = "number";
@@ -108,5 +113,37 @@ describe.only("generate_error_message", () => {
     expect(generate_error_message(key, expected_type, received)).toEqual(
       expected
     );
+  });
+});
+
+describe.only("shazam_33339 date code verification utility", () => {
+  test("should throw when fed a non-RFC3339 date code", () => {
+    expect(() => {
+      shazam_RFC3339(
+        dateCodes.notRFC3339,
+        "utilities test suite",
+        "should throw"
+      );
+    }).toThrow();
+  });
+
+  test("should NOT throw when fed an RFC3339 date code", () => {
+    expect(() => {
+      shazam_RFC3339(
+        dateCodes.RFC3339,
+        "utilities test suite",
+        "should NOT throw"
+      );
+    }).not.toThrow();
+  });
+
+  test("should return true when fed an RFC3339 date code", () => {
+    expect(
+      shazam_RFC3339(
+        dateCodes.RFC3339,
+        "utilities test suite",
+        "should return true"
+      )
+    ).toEqual(true);
   });
 });
