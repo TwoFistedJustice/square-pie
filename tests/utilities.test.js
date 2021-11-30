@@ -9,6 +9,7 @@ const {
   generate_error_message,
   shazam_RFC3339,
   shazam_integer,
+  shazam_boolean,
 } = require("../src/lib/utilities");
 
 const { dateCodes } = require("./helper_objects");
@@ -149,7 +150,7 @@ describe("shazam_33339 date code verification utility", () => {
   });
 });
 
-describe.only("shazam_integer integer verification utility", () => {
+describe("shazam_integer integer verification utility", () => {
   test("should throw when fed a non-integer string", () => {
     expect(() => {
       shazam_integer("95.5", "utilities test suite", "should throw");
@@ -165,6 +166,36 @@ describe.only("shazam_integer integer verification utility", () => {
   test("should return true when fed an integer string", () => {
     expect(
       shazam_integer("42", "utilities test suite", "should return true")
+    ).toEqual(true);
+  });
+});
+
+describe.only("shazam_boolean boolean verification utility", () => {
+  test("should throw when fed a non-boolean", () => {
+    expect(() => {
+      shazam_boolean("true", "utilities test suite", "should throw");
+    }).toThrow();
+  });
+
+  test("should throw when fed a 1 or a 0", () => {
+    expect(() => {
+      shazam_boolean(1, "utilities test suite", "should throw");
+    }).toThrow();
+
+    expect(() => {
+      shazam_boolean(0, "utilities test suite", "should throw");
+    }).toThrow();
+  });
+
+  test("should NOT throw when fed a boolean", () => {
+    expect(() => {
+      shazam_boolean(true, "utilities test suite", "should NOT throw");
+    }).not.toThrow();
+  });
+
+  test("should return true when fed a boolean", () => {
+    expect(
+      shazam_boolean(false, "utilities test suite", "should return true")
     ).toEqual(true);
   });
 });

@@ -194,6 +194,24 @@ const shazam_integer = function (num, displayName, caller) {
   return true;
 };
 
+/** shazam_boolean strictly verifies argument is a boolean. Does not allow for type coercion.
+ * Will throw an error on every value except true and false.
+ *
+ * @param {boolean} bool - expects a boolean
+ * @param {string} displayName - the _displayName static from the calling class
+ * @param {string} caller - the name variable from the calling function
+ * @throws throws and error if the `bool` argument is not a boolean.
+ * @return {boolean} returns true  if the `bool` argument is a boolean.
+ * */
+const shazam_boolean = function (bool, displayName, caller) {
+  if (typeof bool !== "boolean") {
+    throw new Error(
+      `${displayName}.${caller} expects a boolean. Received: ${bool}`
+    );
+  }
+  return true;
+};
+
 module.exports = {
   define,
   setter_chain_generator_config,
@@ -205,4 +223,5 @@ module.exports = {
   generate_error_message,
   shazam_RFC3339,
   shazam_integer,
+  shazam_boolean,
 };
