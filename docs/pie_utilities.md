@@ -1,6 +1,19 @@
-# Curry Utilities
+# Pie Utilities
 
-## **Note about IDE and text editor auto-completion:**
+#SHAZAM UTILITIES
+These are generally used for checking argument quality. Some check for a value type, some for length, some for compliance with a specification. All either throw and error, or return true.
+All are used in the exact same way. They follow the pattern:
+
+shazam_check_something(thing_to_check, class_display_name_property, calling_function_name).
+
+If the test is passed it returns true. If it fails it throws an error message that tells what was expected, where the error originated from, and what the passed in value was. It may also suggest
+a troubleshooting tip.
+
+`if shazam_check_something returns true, do the thing(s)`
+
+## setter_chain_generator_config
+
+### **Note about IDE and text editor auto-completion:**
 
 They generally don't pick up on the named functions created these functions.
 The functions are dynamically created using nested for-loops.
@@ -10,7 +23,7 @@ What this means is that you still need to read square's actual docs as well as o
 names of the functions manually. You can also just use the setters for the given class. But you will still have to pass
 them the expected value (which would be the name of the generated function.)
 
-## setter_chain_generator_config
+[This is a really neat function that we don't use anymore. It is the precursor the #enum functions]
 
 When to use this function: When you are interfacing with an API that expects certain
 properties to contain explicit values:
@@ -22,8 +35,8 @@ Example: Dr. Evil's API has the property:
 You would feed it:
 
 ```js
-keys: ["ransomDemand"]
-ransomDemand: ["OneMillionDollars", "OneHundredMillionDollars", "AustinPowers"]
+keys: ["ransomDemand"];
+ransomDemand: ["OneMillionDollars", "OneHundredMillionDollars", "AustinPowers"];
 ```
 
 This will create the chainable methods:
