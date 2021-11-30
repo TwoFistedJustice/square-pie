@@ -86,20 +86,6 @@ describe("Customer Request Classes", () => {
       let updatedEmail = update.delivery.email_address;
       updatedEmail.should.equal(email);
     });
-
-    // oops the last update put in the wrong email and didn't change her phone number to her new number
-    test("Should update a customer using chain setter", async () => {
-      let email = "buFFy@scoobies.org";
-      let normalizedEmail = "buffy@scoobies.org";
-      let phone = "1-800-668-2677";
-      let update = new Customer_Update(dbBuffy.id);
-      update.make().email(email).phone(phone);
-      await update.request();
-      let updatedEmail = update.delivery.email_address;
-      let updatedPhone = update.delivery.phone_number;
-      updatedEmail.should.equal(normalizedEmail);
-      updatedPhone.should.equal(phone);
-    });
   });
 
   describe("Customer Create", () => {
