@@ -11,7 +11,8 @@ const {
 //   string such that every entry except the last on is followed by a comma
 //  use in Catalog_Request_List for the types
 
-/**
+/** normalize_email validates an email address and removes any nonsense that can clutter up
+ *  the database or cause sending errors.
  * @param {string} email - an email address
  * @throws Throws an error if argument is not a valid email
  * @returns a normalized email address
@@ -32,15 +33,16 @@ const normalize_email = function (
   return normalizeEmail(email, normalizeOptions);
 };
 
-/* defines a property on an object and makes it enumerable
- * arg [object_to_modify]: the name of the object you want to modify
- * art [prop]: the name of the property to be added
- * arg [val]: the value to be set on the property. Can be pretty much anything.
+/** Use define() for building those lovely complex objects that Square likes in the request body.
  *
- * Use Case:
- * Use this for building those lovely complex objects that Square likes in the request body.
+ *  creates new properties that are configurable, enumerable, and writable.
  *
- * It's an arrow function on purpose
+ * @param {object} object_to_modify is a reference to the object you want to modify
+ * @param {string} prop is the name of the property you want to add
+ * @param {any} val can be pretty much any valid javascript value
+ * @return mutates the object you pass in as the first argument
+ *
+ * (It's an arrow function on purpose - don't change it)
  * */
 const define = (object_to_modify, prop, val) => {
   Object.defineProperty(object_to_modify, prop, {
@@ -113,7 +115,22 @@ const setter_chain_generator_separate_arrays = function (
 /* Returns true = good
 Returns true if the string is less than or equal to the max length
 * */
-
+/** maxLength validates string length, returning true if the string is equal to or less than
+ * the maximum allowable length and otherwise throwing an error.
+ *
+ * * usage:
+ *  `if( maxLength(...) { do stuff }`
+ *
+ * @param {number} max is the upper limit of allowable string length
+ * @param {string} str is the string you want to validate
+ * @param {string} displayName is the name of the class making the function call
+ * @param {string} caller  is the name of the method making the function call
+ * @throws Throws and error is the string is longer than allowed
+ * @returns {boolean} Returns `true` of the string is less than or equal to the allowed limit
+ *
+ *  To check for minimum length use minLength
+ * */
+// todo refactor to a shazam function
 const maxLength = function (
   max,
   str = "",
@@ -132,6 +149,22 @@ const maxLength = function (
 Returns true if the string is greater than or equal to the min length
 * */
 
+/** minLength validates string length, returning true if the string is equal to or greater than
+ * the minimum allowable length and otherwise throwing an error.
+ *
+ * usage:
+ *  `if( minLength(...) { do stuff }`
+ *
+ * @param {number} min is the lower limit of allowable string length
+ * @param {string} str is the string you want to validate
+ * @param {string} displayName is the name of the class making the function call
+ * @param {string} caller  is the name of the method making the function call
+ * @throws Throws and error is the string is shorter than allowed
+ * @returns {boolean} Returns `true` of the string is less than or equal to the allowed limit
+ *
+ *  To check for maximum length use maxLength
+ * */
+// todo refactor to a shazam function
 const minLength = function (
   min,
   str = "",
