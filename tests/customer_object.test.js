@@ -1,5 +1,10 @@
-const Customer_Object = require("../src/lib/stub.customer_object");
-const { long_strings, dateCodes } = require("./helper_objects");
+const Customer_Object = require("../src/lib/customer_object");
+const {
+  long_strings,
+  dateCodes,
+  sampleCustomers,
+} = require("./helper_objects");
+// const {expect} = require ("chai");
 
 describe("Silence test suite", () => {
   test("", () => {});
@@ -82,5 +87,24 @@ describe("Object form compliance", () => {
     };
     Customer.make().tax_ids(long_strings.len_20);
     expect(Customer.tax_ids).toMatchObject(expected);
+  });
+});
+
+describe.only("Customer_Object should build a compliant Customer Object", () => {
+  test("Customer Object should create a compliant customer object", () => {
+    let buffy = sampleCustomers.buffy;
+    let customer = new Customer_Object();
+    customer
+      .make()
+      .first_name(buffy.given_name)
+      .last_name(buffy.family_name)
+      .email(buffy.email_address)
+      .address(buffy.address)
+      .phone(buffy.phone_number)
+      .reference_id(buffy.reference_id)
+      .note(buffy.note)
+      .preferences(true);
+
+    expect(customer.fardel).toMatchObject(buffy);
   });
 });
