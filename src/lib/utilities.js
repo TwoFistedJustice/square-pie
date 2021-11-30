@@ -206,7 +206,7 @@ const shazam_integer = function (num, displayName, caller) {
 const shazam_boolean = function (bool, displayName, caller) {
   if (typeof bool !== "boolean") {
     throw new Error(
-      `${displayName}.${caller} expects a boolean. Received: ${bool}`
+      `${displayName}.${caller} expects a boolean. Received: ${bool}\nMake sure you didn't pass a string that looks like a boolean.`
     );
   }
   return true;
