@@ -1,12 +1,11 @@
 const {
   maxLength,
+  normalize_email,
   shazam_RFC3339,
   shazam_integer,
   shazam_boolean,
 } = require("./utilities");
 
-// TODO normalize email utility
-//    pie defaults for email normalize
 /** @class Customer_Object representing a Customer
  *  @author: Russ Bain
  * */
@@ -23,17 +22,17 @@ class Customer_Object {
       company_name: undefined,
       nickname: undefined,
       email_address: undefined,
-      phone_number: undefined, //str 11//todo test
-      address: undefined, // archtype
-      birthday: undefined, //  RFC 3339 //todo test
+      phone_number: undefined, //str 11
+      address: undefined, // archetype
+      birthday: undefined, //  RFC 3339
       reference_id: undefined,
       note: undefined,
-      group_ids: undefined, //[str]
-      segment_ids: undefined, //[str]
+      group_ids: undefined, //[str] //todo build
+      segment_ids: undefined, //[str] //todo build
       version: undefined, // int64 //todo test
       creation_source: undefined, // ENUM //todo test
       preferences: undefined, // {boolean}//todo test
-      tax_ids: undefined, // {str20}//todo test
+      tax_ids: undefined, // {str20}
     };
     this.configuration = {
       maximums: {
@@ -213,8 +212,14 @@ class Customer_Object {
   set nickname(val) {
     this._fardel.nickname = val;
   }
-  set email_address(val) {
-    this._fardel.email_address = val;
+  /** sets Customer_Object.email_address
+   * @param {string} email expects a valid email address
+   * @throws Throws an error if email is not valid
+   * */
+  set email_address(email) {
+    let caller = "email_address";
+    let shazam = normalize_email(email, this.displayName, caller);
+    this._fardel.email_address = shazam;
   }
   /** sets Customer_Object.phone_number
    * @param {string }phone should be a phone number of no more than 11 characters
@@ -365,12 +370,12 @@ class Customer_Object {
       creation_source: function () {
         return this.self.#enum_creation_source();
       },
-      preferences: function (val) {
-        this.self.preferences = val;
+      preferences: function (bool) {
+        this.self.preferences = bool;
         return this;
       },
-      tax_ids: function (val) {
-        this.self.tax_ids = val;
+      tax_ids: function (eu_vat) {
+        this.self.tax_ids = eu_vat;
         return this;
       },
     };
