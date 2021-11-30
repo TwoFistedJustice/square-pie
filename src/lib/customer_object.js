@@ -27,9 +27,9 @@ class Customer_Object {
       birthday: undefined, //  RFC 3339
       reference_id: undefined,
       note: undefined,
-      version: undefined, // int64 //todo test
-      creation_source: undefined, // ENUM //todo test
-      preferences: undefined, // {boolean}//todo test
+      version: undefined, // int64
+      creation_source: undefined, // ENUM
+      preferences: undefined, // {boolean} // Square defaults this to `false` even if you tell it not to.
       tax_ids: undefined, // {str20}
     };
     this.configuration = {
