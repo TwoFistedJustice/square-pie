@@ -3,7 +3,10 @@
 const long_strings = {
   len_10: "izkyrcrxzh",
   len_11: "vizkyrcrxzh",
+  len_12: "avizkyrcrxzh",
   len_18: "eakamljbqgzdfurrrk",
+  len_20: "dqhbknslbltllxzgzixa",
+  len_21: "adqhbknslbltllxzgzixa",
   len_25: "tdiqxhdarmjybdajemybgunom",
   len_30: "eimgzpcjdzzokqwenrpfiqeahfseaa",
   len_31: "ceimgzpcjdzzokqwenrpfiqeahfseaa",
