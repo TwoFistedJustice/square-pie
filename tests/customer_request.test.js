@@ -6,8 +6,8 @@ const Customer_Create = require("../src/lib/customer_request_create");
 const Customer_Retrieve = require("../src/lib/customer_request_retrieve");
 const Customer_Update = require("../src/lib/customer_request_update");
 const Customer_Delete = require("../src/lib/customer_request_delete");
-const { sampleCustomers } = require("./data_preparation/sample_customer_data");
-const customers = sampleCustomers();
+const { sampleCustomers } = require("./helper_objects");
+const customers = sampleCustomers;
 const buffy = customers.buffy;
 const mikey = customers.mikey;
 
@@ -15,12 +15,12 @@ const mikey = customers.mikey;
 // Hardcoded http requests for the hooks
 // Do not use the request classes to test themselves!
 // ---------------------------------------------------
-// setting new timeout bc terrible rural internet keeps causing the test to time out and fail.
+// setting new timeout bc terrible rural internet keeps causing then test to time out and fail.
 // despite whatever Jest docs say, this timer thing does not work AT. ALL.
 beforeAll(() => jest.setTimeout(10 * 1000));
 
 describe("Silence Async tests", () => {
-  test.only("Should silence async customer tests", () => {
+  test("Should silence async customer tests", () => {
     expect("a").toEqual("a");
   });
 });
@@ -32,9 +32,9 @@ describe("Customer Request Classes", () => {
   describe("Customer List", () => {
     test("Should fetch the list of customers", async () => {
       let customerList = new Customer_List();
-      // let response = await customerList.request();
       await customerList.request();
       customerList.delivery.should.be.an("Array").that.has.lengthOf(4);
+      // console.log(customerList.delivery)
       expect(customerList.delivery[0]).toMatchObject(buffy);
       // Michael Myers is not invited but will show up later - at which time Buffy will deal with him, as she does.
       for (let i = 0; i < customers.length; i++) {
