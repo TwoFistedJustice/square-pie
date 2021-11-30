@@ -27,8 +27,6 @@ class Customer_Object {
       birthday: undefined, //  RFC 3339
       reference_id: undefined,
       note: undefined,
-      group_ids: undefined, //[str] //todo build
-      segment_ids: undefined, //[str] //todo build
       version: undefined, // int64 //todo test
       creation_source: undefined, // ENUM //todo test
       preferences: undefined, // {boolean}//todo test
@@ -176,12 +174,6 @@ class Customer_Object {
   get note() {
     return this._fardel.note;
   }
-  get group_ids() {
-    return this._fardel.group_ids;
-  }
-  get segment_ids() {
-    return this._fardel.segment_ids;
-  }
   get version() {
     return this._fardel.version;
   }
@@ -253,12 +245,6 @@ class Customer_Object {
   }
   set note(val) {
     this._fardel.note = val;
-  }
-  set group_ids(val) {
-    this._fardel.group_ids = val;
-  }
-  set segment_ids(val) {
-    this._fardel.segment_ids = val;
   }
   /* sets Customer_Object.version
    * @param {string} int a string that can be coerced to integer
@@ -347,14 +333,6 @@ class Customer_Object {
       },
       note: function (val) {
         this.self.note = val;
-        return this;
-      },
-      group_ids: function (val) {
-        this.self.group_ids = val;
-        return this;
-      },
-      segment_ids: function (val) {
-        this.self.segment_ids = val;
         return this;
       },
       version: function (val) {
