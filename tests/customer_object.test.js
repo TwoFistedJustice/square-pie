@@ -90,7 +90,7 @@ describe("Object form compliance", () => {
   });
 });
 
-describe.only("Customer_Object should build a compliant Customer Object", () => {
+describe("Customer_Object should build a compliant Customer Object", () => {
   test("Customer Object should create a compliant customer object", () => {
     let buffy = sampleCustomers.buffy;
     let customer = new Customer_Object();
@@ -103,7 +103,7 @@ describe.only("Customer_Object should build a compliant Customer Object", () => 
       .phone(buffy.phone_number)
       .reference_id(buffy.reference_id)
       .note(buffy.note)
-      .preferences(true);
+      .preferences(false);
 
     expect(customer.fardel).toMatchObject(buffy);
   });
