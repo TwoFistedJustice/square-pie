@@ -357,19 +357,24 @@ class Customer_Object {
         return this;
       },
       first_name: function (val) {
-        return this.given_name(val);
+        this.given_name(val);
+        return this;
       },
       last_name: function (val) {
-        return this.family_name(val);
+        this.family_name(val);
+        return this;
       },
       company: function (val) {
-        return this.company_name(val);
+        this.company_name(val);
+        return this;
       },
       email: function (val) {
-        return this.email_address(val);
+        this.email_address(val);
+        return this;
       },
       phone: function (val) {
-        return this.phone_number(val);
+        this.phone_number(val);
+        return this;
       },
     };
   }
