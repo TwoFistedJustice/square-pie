@@ -356,6 +356,21 @@ class Customer_Object {
         this.self.tax_ids = eu_vat;
         return this;
       },
+      first_name: function (val) {
+        return this.given_name(val);
+      },
+      last_name: function (val) {
+        return this.family_name(val);
+      },
+      company: function (val) {
+        return this.company_name(val);
+      },
+      email: function (val) {
+        return this.email_address(val);
+      },
+      phone: function (val) {
+        return this.phone_number(val);
+      },
     };
   }
 }
