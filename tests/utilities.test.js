@@ -4,6 +4,7 @@ const {
   // setter_chain_generator_config,
   // setter_chain_generator_separate_arrays,
   // maxLength,
+  normalize_email,
   arrayify,
   money_helper,
   generate_error_message,
@@ -170,7 +171,7 @@ describe("shazam_integer integer verification utility", () => {
   });
 });
 
-describe.only("shazam_boolean boolean verification utility", () => {
+describe("shazam_boolean boolean verification utility", () => {
   test("should throw when fed a non-boolean", () => {
     expect(() => {
       shazam_boolean("true", "utilities test suite", "should throw");
@@ -197,5 +198,38 @@ describe.only("shazam_boolean boolean verification utility", () => {
     expect(
       shazam_boolean(false, "utilities test suite", "should return true")
     ).toEqual(true);
+  });
+});
+
+describe.only("normalize_email utility", () => {
+  test("should not reject a yahoo -whatev address", () => {
+    expect(() => {
+      normalize_email("foo-bar@yahoo.com", "test", "yahoo address");
+    }).not.toThrow();
+  });
+
+  test("should throw if missing @", () => {
+    expect(() => {
+      normalize_email("buffyscoobies.org", "test", "missing @");
+    }).toThrow();
+  });
+
+  test("should throw if missing .whatever", () => {
+    expect(() => {
+      normalize_email("buffy@scoobiesorg", "test", "missing dot");
+    }).toThrow();
+  });
+
+  test("should not throw if fed valid email", () => {
+    expect(() => {
+      normalize_email("buffy@scoobies.org", "test", "missing @");
+    }).not.toThrow();
+  });
+
+  test("should return a normalized email", () => {
+    let email = "buFFy@scoobies.org";
+    let received = normalize_email(email, "test", "return value");
+    let expected = "buffy@scoobies.org";
+    expect(received).toEqual(expected);
   });
 });

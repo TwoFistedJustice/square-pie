@@ -1,8 +1,37 @@
-const { isISO4217, isRFC3339, isInt } = require("validator");
+const {
+  isEmail,
+  normalizeEmail,
+  isISO4217,
+  isRFC3339,
+  isInt,
+} = require("validator");
+// const validator = require ("validator");
 
 // TODO a CSV string builder that takes one string and adds it to an existing
 //   string such that every entry except the last on is followed by a comma
 //  use in Catalog_Request_List for the types
+
+/**
+ * @param {string} email - an email address
+ * @throws Throws an error if argument is not a valid email
+ * @returns a normalized email address
+ * */
+const normalize_email = function (
+  email,
+  displayName = "unspecified class",
+  caller = "unspecified function"
+) {
+  let normalizeOptions = {
+    yahoo_remove_subaddress: false,
+  };
+  if (!isEmail(email)) {
+    throw new Error(
+      `${displayName}.${caller} expects a valid email address.\nReceived: ${email}`
+    );
+  }
+  return normalizeEmail(email, normalizeOptions);
+};
+
 /* defines a property on an object and makes it enumerable
  * arg [object_to_modify]: the name of the object you want to modify
  * art [prop]: the name of the property to be added
@@ -213,6 +242,7 @@ const shazam_boolean = function (bool, displayName, caller) {
 };
 
 module.exports = {
+  normalize_email,
   define,
   setter_chain_generator_config,
   setter_chain_generator_separate_arrays,
