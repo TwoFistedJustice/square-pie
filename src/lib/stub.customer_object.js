@@ -1,4 +1,9 @@
-const { maxLength, shazam_RFC3339, shazam_integer } = require("./utilities");
+const {
+  maxLength,
+  shazam_RFC3339,
+  shazam_integer,
+  shazam_boolean,
+} = require("./utilities");
 
 // TODO normalize email utility
 //    pie defaults for email normalize
@@ -6,7 +11,7 @@ const { maxLength, shazam_RFC3339, shazam_integer } = require("./utilities");
  *  @author: Russ Bain
  * */
 class Customer_Object {
-  _displayName = "Customer_Object";
+  _displayName = "Customer_Object"; //todo test
   /**
    * Creates an instance of a customer
    *  */
@@ -18,17 +23,17 @@ class Customer_Object {
       company_name: undefined,
       nickname: undefined,
       email_address: undefined,
-      phone_number: undefined, //str 11
+      phone_number: undefined, //str 11//todo test
       address: undefined, // archtype
-      birthday: undefined, //  RFC 3339
+      birthday: undefined, //  RFC 3339 //todo test
       reference_id: undefined,
       note: undefined,
       group_ids: undefined, //[str]
       segment_ids: undefined, //[str]
-      version: undefined, // int64
-      creation_source: undefined, // ENUM
-      preferences: undefined, // {boolean}
-      tax_ids: undefined, // {str20}
+      version: undefined, // int64 //todo test
+      creation_source: undefined, // ENUM //todo test
+      preferences: undefined, // {boolean}//todo test
+      tax_ids: undefined, // {str20}//todo test
     };
     this.configuration = {
       maximums: {
@@ -45,7 +50,91 @@ class Customer_Object {
   #enum_creation_source() {
     return {
       self: this,
-      // 12 or so
+      other: function () {
+        this.self.creation_source = "OTHER";
+        return this;
+      },
+      appointments: function () {
+        this.self.creation_source = "APPOINTMENTS";
+        return this;
+      },
+      coupon: function () {
+        this.self.creation_source = "COUPON";
+        return this;
+      },
+      deletion_recovery: function () {
+        this.self.creation_source = "DELETION_RECOVERY";
+        return this;
+      },
+      directory: function () {
+        this.self.creation_source = "DIRECTORY";
+        return this;
+      },
+      egifting: function () {
+        this.self.creation_source = "EGIFTING";
+        return this;
+      },
+      email_collection: function () {
+        this.self.creation_source = "EMAIL_COLLECTION";
+        return this;
+      },
+      feedback: function () {
+        this.self.creation_source = "FEEDBACK";
+        return this;
+      },
+      import: function () {
+        this.self.creation_source = "IMPORT";
+        return this;
+      },
+      invoices: function () {
+        this.self.creation_source = "INVOICES";
+        return this;
+      },
+      loyalty: function () {
+        this.self.creation_source = "LOYALTY";
+        return this;
+      },
+      marketing: function () {
+        this.self.creation_source = "MARKETING";
+        return this;
+      },
+      merge: function () {
+        this.self.creation_source = "MERGE";
+        return this;
+      },
+      online_store: function () {
+        this.self.creation_source = "ONLINE_STORE";
+        return this;
+      },
+      instant_profile: function () {
+        this.self.creation_source = "INSTANT_PROFILE";
+        return this;
+      },
+      terminal: function () {
+        this.self.creation_source = "TERMINAL";
+        return this;
+      },
+      third_party: function () {
+        this.self.creation_source = "THIRD_PARTY";
+        return this;
+      },
+      third_party_import: function () {
+        this.self.creation_source = "THIRD_PARTY_IMPORT";
+        return this;
+      },
+      unmerge_recovery: function () {
+        this.self.creation_source = "UNMERGE_RECOVERY";
+        return this;
+      },
+      appt: function () {
+        return this.appointments();
+      },
+      unmerge: function () {
+        return this.unmerge_recovery();
+      },
+      undelete: function () {
+        return this.deletion_recovery();
+      },
     };
   }
   // GETTERS
@@ -177,6 +266,12 @@ class Customer_Object {
   }
 
   set preferences(bool) {
+    if (shazam_boolean(bool, this.displayName, "preferences")) {
+      this._fardel.preferences = {
+        email_unsubscribed: bool,
+      };
+    }
+
     // check if object and property
     // set to object, define property with bool
   }
