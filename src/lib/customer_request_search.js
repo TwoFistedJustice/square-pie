@@ -8,7 +8,7 @@ const Customer_Request = require("./customer_request");
  *  @author Russ Bain
  *  */
 class Customer_Search extends Customer_Request {
-  _displayName = "Customer_Search";
+  _displayName = "Customer_Search"; //todo test
   constructor() {
     super();
     this._method = "post";

@@ -12,7 +12,7 @@ const Customer_Request = require("./customer_request");
  *  */
 // todo rename add Customer_
 class Retrieve_Update_Delete extends Customer_Request {
-  _displayName = "Customer_Retrieve_Update_Delete";
+  _displayName = "Customer_Retrieve_Update_Delete"; //todo test
   constructor(id = "you_still_need_to_set_the _id") {
     super();
     this._endpoint = `/${id}`;
