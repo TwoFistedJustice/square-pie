@@ -19,7 +19,9 @@ const { dateCodes } = require("./helper_objects");
 // const should = require("chai").should();
 // const { long_strings } = require("./helper_objects");
 
-describe("should silence tests by tacking .only to describe", () => {});
+describe.only("Silence test suite", () => {
+  test("", () => {});
+});
 
 describe("define", () => {
   test("", () => {});
@@ -201,7 +203,7 @@ describe("shazam_boolean boolean verification utility", () => {
   });
 });
 
-describe.only("normalize_email utility", () => {
+describe("normalize_email utility", () => {
   test("should not reject a yahoo -whatev address", () => {
     expect(() => {
       normalize_email("foo-bar@yahoo.com", "test", "yahoo address");

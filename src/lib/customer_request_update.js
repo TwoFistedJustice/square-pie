@@ -1,4 +1,5 @@
 const Retrieve_Update_Delete = require("./customer_request_R_U_D");
+const { normalize_email } = require("./utilities");
 
 // update needs to be flexible in structure so it can be used for single fields or multiple fields
 // json stringfify ignores props set to undefined, so build a _body structure that mimics
@@ -15,7 +16,7 @@ const Retrieve_Update_Delete = require("./customer_request_R_U_D");
  *  @author Russ Bain
  *  */
 class Customer_Update extends Retrieve_Update_Delete {
-  _displayName = "Customer_Update";
+  _displayName = "Customer_Update"; //todo test
   constructor(id) {
     super(id);
     this._method = "put";
@@ -95,7 +96,7 @@ class Customer_Update extends Retrieve_Update_Delete {
     this._body.nickname = val;
   }
   set email_address(val) {
-    this._body.email_address = super.normalizeEmail(val);
+    this._body.email_address = normalize_email(val);
   }
 
   //TODO normalize addresses
