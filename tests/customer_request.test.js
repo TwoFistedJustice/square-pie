@@ -22,7 +22,7 @@ const mikey = customers.mikey;
 // despite whatever Jest docs say, this timer thing does not work AT. ALL.
 beforeAll(() => jest.setTimeout(10 * 1000));
 
-describe("Silence Async tests", () => {
+describe.only("Silence Async tests", () => {
   test("Should silence async customer tests", () => {
     expect("a").toEqual("a");
   });
@@ -114,7 +114,7 @@ describe("Customer Request Classes", () => {
   });
 });
 
-describe.only("Display Names", () => {
+describe("Display Names", () => {
   test("Customer_Search should have displayName property", () => {
     let val = new Customer_Search();
     expect(val.displayName).toEqual("Customer_Search");
