@@ -22,35 +22,21 @@ constructor(id)
 _displayName
 this._endpoint:  `/${id}`
 this._delivery
-
+==
 Simple Getters
 ==
 Simple Setters
 ==
 Complex Setters
 
-id (id)
++id (id)
 ..
 adds the id to the URL endpoint
 ==
 ==
 Maker Methods
 +make()
-}
-class Customer_Update {
-super: Customer_R_U_D
-_displayName
-this._method: ""
-this._endpoint:
-this.configuration
-
-Simple Getters
 ==
-Simple Setters
-==
-==
-Maker Methods
-+make()
 }
 class Customer_Retrieve {
 super: Customer_R_U_D
@@ -58,7 +44,7 @@ constructor(id)
 _displayName
 this._method: "GET"
 this._delivery
-
+==
 Simple Getters
 ==
 Simple Setters
@@ -71,7 +57,7 @@ _displayName
 this._method: "DELETE"
 this._endpoint:
 this._delivery
-
+==
 Simple Getters
 ==
 Simple Setters
@@ -85,15 +71,15 @@ _displayName
 this._method: "POST"
 this.idempotency_key
 this._delivery
-
+==
 Simple Getters
 ==
 Simple Setters
 ==
 Complex Setters
 
-customers(customer)
-
++customers(customer)
+..
 sets this.customer
 ==
 }
@@ -102,14 +88,11 @@ super: Customer_Request
 _displayName
 this._method: "GET"
 this._delivery
-
+==
 Simple Getters
 ==
 Simple Setters
 ==
-==
-Maker Methods
-+make()
 }
 class Customer_Search {
 super: Customer_Request
@@ -117,7 +100,31 @@ _displayName
 this._method: "POST"
 this._endpoint:
 this._delivery
+==
+Simple Getters
+==
+Simple Setters
+==
+==
+Methods
++query()
+..
+-Fuzzy
+-Exact
+==
+}
 
+
+
+
+
+class Customer_Update {
+super: Customer_R_U_D
+constructor(id)
+_displayName
+this._method: "PUT"
+this._body
+==
 Simple Getters
 ==
 Simple Setters
@@ -125,12 +132,10 @@ Simple Setters
 ==
 Maker Methods
 +make()
+..
+- constructs a Customer Object in this._body
+==
 }
-
-
-
-
-
 
 
 
