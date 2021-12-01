@@ -1,9 +1,22 @@
 const Retrieve_Update_Delete = require("./customer_request_R_U_D");
-const { normalize_email } = require("./utilities");
+const {
+  maxLength,
+  normalize_email,
+  shazam_RFC3339,
+  shazam_integer,
+} = require("./utilities");
 
 // change constructor arg to bec customer object and extract id
 
 /** @class Customer_Update representing an http request to update a customer record
+ * Some fields that are available on Customer_Object are not updatable. This class has its own
+ * make() method which omits those fields.
+ *
+ * You do not need to use the Customer_Object class to send and update. You can. But you don't have to.
+ *
+ * To use the Customer_Object class simply call the body setter and set it equal to the object.
+ *  yourUpdate.body = yourCustomer.fardel
+ *
  *  @see Retrieve_Update_Delete
  *  @param {customer id} pass the Square id of the customer you want ot update to the class on instantiation
  *  @author Russ Bain
@@ -13,9 +26,6 @@ class Customer_Update extends Retrieve_Update_Delete {
   constructor(id) {
     super(id);
     this._method = "put";
-    // the props on _body aren't necessary, at this point they are just here for reference
-    // the curly braces are necessary
-    // todo- refactor- move into new cusomer object classes as fardel
     this._body = {
       given_name: undefined,
       family_name: undefined,
@@ -30,11 +40,11 @@ class Customer_Update extends Retrieve_Update_Delete {
         postal_code: undefined,
         country: undefined,
       },
-      phone_number: undefined,
+      phone_number: undefined, // str11
       reference_id: undefined,
       note: undefined,
-      birthday: undefined, // specify this value in YYYY-MM-DD format.
-      version: undefined, // Square will automatically increment this on their end when update is made
+      birthday: undefined, // RFC3339
+      version: undefined, // int64 Square will automatically increment this on their end when update is made
     };
   }
 
@@ -69,7 +79,9 @@ class Customer_Update extends Retrieve_Update_Delete {
   get note() {
     return this._body.note;
   }
-
+  get birthday() {
+    return this._body.birthday;
+  }
   get version() {
     return this._body.version;
   }
@@ -93,14 +105,33 @@ class Customer_Update extends Retrieve_Update_Delete {
   set nickname(val) {
     this._body.nickname = val;
   }
-  set email_address(val) {
-    this._body.email_address = normalize_email(val);
+  /** sets Customer_Update.email_address
+   * @param {string} email expects a valid email address
+   * @throws Throws an error if email is not valid
+   * */
+  set email_address(email) {
+    let caller = "email_address";
+    let shazam = normalize_email(email, this.displayName, caller);
+    this._body.email_address = shazam;
+  }
+  /** sets Customer_Update.phone_number
+   * @param {string }phone should be a phone number of no more than 11 characters
+   * @throws Throws an error is `phone` is longer than 11 characters
+   * */
+  set phone_number(phone) {
+    if (
+      maxLength(
+        this.configuration.maximums.phone_number,
+        phone,
+        this.displayName,
+        "phone_number"
+      )
+    )
+      this._body.phone_number = phone;
   }
 
-  //TODO normalize addresses
-  // todo archetype address
-  set address(preFormattedAddressObject) {
-    this._body.address = preFormattedAddressObject;
+  set address(address) {
+    this._body.address = address;
   }
   set city(city) {
     this._body.address.locality = city;
@@ -112,24 +143,33 @@ class Customer_Update extends Retrieve_Update_Delete {
   set state(province) {
     this.body.administrative_district_level_1 = province;
   }
-
-  // TODO provide localized normalizer for phone numbers
-  set phone_number(val) {
-    this._body.phone_number = val;
+  /* sets Customer_Update.birthday
+   * @param {string} time a date in RFC3339 format
+   * * @throws Will throw and error if argument is not a valid RFC3339 date code
+   * */
+  set birthday(time) {
+    if (shazam_RFC3339(time, this._displayName, "birthday")) {
+      this._body.birthday = time;
+    }
   }
+
   set reference_id(val) {
     this._body.reference_id = val;
   }
   set note(val) {
     this._body.note = val;
   }
-
-  set version(val) {
-    this._body.version = val;
+  /* sets Customer_Update.version
+   * @param {string} int a string that can be coerced to integer
+   * * @throws Will throw and error if argument  cannot be coerced to integer
+   * */
+  set version(int) {
+    if (shazam_integer(int)) {
+      this._body.version = int;
+    }
   }
 
-  // METHODS
-  // allows chaining
+  // MAKER METHODS
   make() {
     return {
       self: this,
@@ -161,10 +201,8 @@ class Customer_Update extends Retrieve_Update_Delete {
         this.self.note = val;
         return this;
       },
-      //TODO normalize birthday input with dayjs
       birthday: function (val) {
-        //specify val in YYYY-MM-DD format.
-        this.self._body.birthday = val;
+        this.self.birthday = val;
         return this;
       },
       first_name: function (val) {
