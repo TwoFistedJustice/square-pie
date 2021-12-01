@@ -1,6 +1,7 @@
 const { maxLength, money_helper } = require("./utilities");
 
 class Order_Discount {
+  _display_name = "Order_Discount";
   constructor() {
     this._fardel = {
       uid: undefined, // str60

@@ -6,6 +6,7 @@ const Catalog_Request = require("./catalog_request");
 // exactly the same format
 
 class Catalog_Delete extends Catalog_Request {
+  _display_name = "Catalog_Delete";
   constructor() {
     super();
     this._method = "post";
@@ -13,6 +14,9 @@ class Catalog_Delete extends Catalog_Request {
     this._body = {
       object_ids: [],
     };
+  }
+  get display_name() {
+    return this._display_name;
   }
   get object_ids() {
     return this._body.object_ids;

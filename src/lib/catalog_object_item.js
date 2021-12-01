@@ -3,6 +3,7 @@ const { maxLength, arrayify } = require("./utilities");
 const { isHexColor } = require("validator");
 
 class Catalog_Item extends Catalog_Object_Super {
+  _display_name = "Catalog_Item";
   constructor() {
     super();
     this.configuration = {

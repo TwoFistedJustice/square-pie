@@ -11,6 +11,7 @@ const { define } = require("./utilities");
 // todo consider renaming Wrapper to Container because that is more clear
 
 class Catalog_Object_Wrapper {
+  _display_name = "Catalog_Object_Wrapper";
   constructor() {
     this._fardel = {
       idempotency_key: nanoid(),

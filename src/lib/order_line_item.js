@@ -11,6 +11,7 @@ const {
 } = require("./utilities");
 
 class Order_Line_Item {
+  _display_name = "Order_Line_Item";
   constructor() {
     this._fardel = {
       uid: nanoid(uid_length),
@@ -149,6 +150,9 @@ class Order_Line_Item {
   }
 
   // GETTERS
+  get display_name() {
+    return this._display_name;
+  }
   get uid() {
     return this._fardel.uid;
   }

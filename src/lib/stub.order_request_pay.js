@@ -2,6 +2,7 @@ const Order_Request = require("./order_request");
 const { nanoid } = require("nanoid");
 
 class Order_Pay extends Order_Request {
+  _display_name = "Order_Pay";
   constructor(props) {
     super(props);
     this._method = "post";
@@ -13,6 +14,9 @@ class Order_Pay extends Order_Request {
     };
   }
   // GETTERS
+  get display_name() {
+    return this._display_name;
+  }
   get body() {
     return this._body;
   }

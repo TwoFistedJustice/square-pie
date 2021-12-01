@@ -8,6 +8,7 @@ const { arrayify } = require("./utilities");
  */
 
 class Catalog_Object_Super {
+  _display_name = "Catalog_Object_Super";
   /**
    * Create a catalog object
    */

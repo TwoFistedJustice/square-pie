@@ -1,6 +1,7 @@
 const Catalog_Request = require("./catalog_request");
 
 class Catalog_Retrieve extends Catalog_Request {
+  _display_name = "Catalog_Retrieve";
   constructor() {
     super();
     this._method = "post";
@@ -8,6 +9,9 @@ class Catalog_Retrieve extends Catalog_Request {
     this._body = {
       object_ids: [],
     };
+  }
+  get display_name() {
+    return this._display_name;
   }
   get object_ids() {
     return this._body.object_ids;

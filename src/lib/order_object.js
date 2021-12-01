@@ -1,6 +1,7 @@
 const { define, maxLength, arrayify, money_helper } = require("./utilities");
 
 class Order_Object {
+  _display_name = "Order_Object";
   constructor() {
     this._fardel = {
       version: undefined, //`BETA` - only for updates

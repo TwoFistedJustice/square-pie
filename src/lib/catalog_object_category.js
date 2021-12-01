@@ -1,6 +1,7 @@
 const { maxLength } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_super");
 class Catalog_Category extends Catalog_Object_Super {
+  _display_name = "Catalog_Category";
   constructor() {
     super();
     this._fardel = {

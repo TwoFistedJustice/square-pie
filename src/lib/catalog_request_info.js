@@ -1,7 +1,7 @@
 const Catalog_Request = require("./catalog_request");
 
 class Catalog_Info extends Catalog_Request {
-  // #standard_unit_json;
+  _display_name = "Catalog_Info";
   constructor() {
     super();
     this._method = "get";
@@ -11,11 +11,12 @@ class Catalog_Info extends Catalog_Request {
     this._language_code;
     this._limits;
   }
-
+  get display_name() {
+    return this._display_name;
+  }
   get delivery() {
     return this._delivery;
   }
-
   get language_code() {
     return this._language_code;
   }

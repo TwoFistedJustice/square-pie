@@ -2,10 +2,14 @@ const Catalog_Search_Objects_Super = require("./catalog_request_search_objects_s
 const { define } = require("./utilities");
 
 class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
+  _display_name = "Catalog_Search_Filter";
   constructor() {
     super();
   }
 
+  get display_name() {
+    return this._display_name;
+  }
   get exact_query() {
     return this._body.query.exact_query;
   }

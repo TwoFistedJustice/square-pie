@@ -21,6 +21,7 @@ const secret = process.env[`${config.secrets.sandbox_secret_name}`];
 // by calling getSecret(class.secretName)
 
 class Square_Request {
+  _display_name = "Square_Request";
   constructor() {
     this._method = "";
     this._body;
@@ -30,6 +31,9 @@ class Square_Request {
   }
 
   // GETTERS
+  get display_name() {
+    return this._display_name;
+  }
   get method() {
     return this._method;
   }

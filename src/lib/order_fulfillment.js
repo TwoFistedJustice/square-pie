@@ -4,6 +4,7 @@ const { define, maxLength } = require("./utilities");
 const { uid_length } = require("./pie_defaults");
 
 class Order_Fulfillment {
+  _display_name = "Order_Fulfillment";
   constructor() {
     this._fardel = {
       uid: nanoid(uid_length),

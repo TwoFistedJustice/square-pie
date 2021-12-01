@@ -1,6 +1,7 @@
 const Catalog_Request = require("./catalog_request");
 
 class Create_Catalog_Image extends Catalog_Request {
+  _display_name = "Create_Catalog_Image";
   constructor() {
     super();
     this._method = "post";
@@ -9,6 +10,9 @@ class Create_Catalog_Image extends Catalog_Request {
       image: undefined,
       object_id: undefined,
     };
+  }
+  get display_name() {
+    return this._display_name;
   }
   get image() {
     return this._body.image;

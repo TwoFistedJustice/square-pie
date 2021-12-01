@@ -2,6 +2,7 @@ const Order_Request = require("./order_request");
 const { nanoid } = require("nanoid");
 
 class Order_clone extends Order_Request {
+  _display_name = "Order_clone";
   constructor(props) {
     super(props);
     this._method = "post";
@@ -12,7 +13,9 @@ class Order_clone extends Order_Request {
       version: undefined, // assume it works same as order_version in Clone
     };
   }
-
+  get display_name() {
+    return this._display_name;
+  }
   get body() {
     return this._body;
   }

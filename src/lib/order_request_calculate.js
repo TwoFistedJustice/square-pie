@@ -1,6 +1,7 @@
 const Order_Request = require("./order_request");
 
 class Order_Calculate extends Order_Request {
+  _display_name = "Order_Calculate";
   constructor(props) {
     super(props);
     this._method = "post";

@@ -1,6 +1,7 @@
 const Order_Request = require("./order_request");
 
 class Order_Search extends Order_Request {
+  _display_name = "Order_Search";
   constructor(props) {
     super(props);
     this._method = "post";
@@ -14,7 +15,9 @@ class Order_Search extends Order_Request {
     };
     this._delivery;
   }
-
+  get display_name() {
+    return this._display_name;
+  }
   get body() {
     return this._body;
   }

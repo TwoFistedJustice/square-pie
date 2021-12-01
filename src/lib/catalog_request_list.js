@@ -4,6 +4,7 @@ const Catalog_Request = require("./catalog_request");
 // https://developer.squareup.com/reference/square/catalog-api/list-catalog
 
 class Catalog_List extends Catalog_Request {
+  _display_name = "Catalog_List";
   constructor() {
     super();
     this._method = "get";
@@ -13,6 +14,9 @@ class Catalog_List extends Catalog_Request {
       types: undefined,
     };
     this._delivery;
+  }
+  get display_name() {
+    return this._display_name;
   }
   get query_params() {
     return this._query_params;

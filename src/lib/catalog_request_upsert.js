@@ -2,6 +2,7 @@ const Catalog_Request = require("./catalog_request");
 const { nanoid } = require("nanoid/non-secure");
 
 class Catalog_Upsert extends Catalog_Request {
+  _display_name = "Catalog_Upsert";
   constructor() {
     super();
     this._method = "post";
@@ -18,6 +19,9 @@ class Catalog_Upsert extends Catalog_Request {
         endpoint: "/object",
       },
     };
+  }
+  get display_name() {
+    return this._display_name;
   }
   get endpoint() {
     return this._endpoint;

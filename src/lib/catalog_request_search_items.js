@@ -5,6 +5,7 @@ const { arrayify, generate_error_message } = require("./utilities");
 // https://developer.squareup.com/reference/square/objects/CustomAttributeFilter
 
 class Catalog_Search_Items extends Catalog_Request {
+  _display_name = "Catalog_Search_Items";
   constructor() {
     super();
     this._method = "post";
@@ -23,6 +24,9 @@ class Catalog_Search_Items extends Catalog_Request {
     this._attribute_filter = {};
   }
   // GETTERS
+  get display_name() {
+    return this._display_name;
+  }
   get sort_order() {
     return this._body.sort_order;
   }

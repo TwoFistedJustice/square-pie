@@ -3,6 +3,7 @@ const Catalog_Object_Super = require("./catalog_object_super");
 // // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
 
 class Catalog_Object_Item_Variation extends Catalog_Object_Super {
+  _display_name = "Catalog_Object_Item_Variation";
   constructor() {
     super();
     this._fardel = {
@@ -37,7 +38,9 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
       },
     };
   }
-
+  get display_name() {
+    return this._display_name;
+  }
   get fardel() {
     return this._fardel;
   }

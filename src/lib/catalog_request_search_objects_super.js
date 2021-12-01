@@ -14,6 +14,7 @@ const { isRFC339 } = require("validator");
  * */
 
 class Catalog_Search_Objects_Super extends Catalog_Request {
+  _display_name = "Catalog_Search_Objects_Super";
   constructor() {
     super();
     this._method = "post";
@@ -25,6 +26,9 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
       object_types: undefined,
       query: {},
     };
+  }
+  get display_name() {
+    return this._display_name;
   }
 
   get cursor() {

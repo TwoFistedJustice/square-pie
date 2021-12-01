@@ -2,6 +2,7 @@ const Order_Request = require("./order_request");
 const { nanoid } = require("nanoid");
 
 class Order_Update extends Order_Request {
+  _display_name = "Order_Update";
   constructor(props) {
     super(props);
     this._method = "put";
@@ -12,7 +13,9 @@ class Order_Update extends Order_Request {
       order: undefined,
     };
   }
-
+  get display_name() {
+    return this._display_name;
+  }
   get body() {
     return this._body;
   }
