@@ -84,18 +84,22 @@ Simple Setters
 
 class Customer_Create {
 super: Customer_Request
+constructor(customer)
 _displayName
-this._method: ""
-this._endpoint:
+this._method: "POST"
+this.idempotency_key
 this._delivery
 
-Simple Setters
-==
 Simple Getters
 ==
+Simple Setters
 ==
-Maker Methods
-+make()
+Complex Setters
+
+customers(customer)
+
+sets this.customer
+==
 }
 class Customer_List {
 super: Customer_Request
@@ -114,7 +118,7 @@ Maker Methods
 class Customer_Search {
 super: Customer_Request
 _displayName
-this._method: ""
+this._method: "POST"
 this._endpoint:
 this._delivery
 
