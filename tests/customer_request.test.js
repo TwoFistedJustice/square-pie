@@ -6,7 +6,10 @@ const Customer_Create = require("../src/lib/customer_request_create");
 const Customer_Retrieve = require("../src/lib/customer_request_retrieve");
 const Customer_Update = require("../src/lib/customer_request_update");
 const Customer_Delete = require("../src/lib/customer_request_delete");
+const Customer_Retrieve_Update_Delete = require("../src/lib/customer_request_R_U_D");
+const Customer_Object = require("../src/lib/customer_object");
 const { sampleCustomers } = require("./helper_objects");
+// const {expect} = require ("chai");
 const customers = sampleCustomers;
 const buffy = customers.buffy;
 const mikey = customers.mikey;
@@ -108,5 +111,44 @@ describe("Customer Request Classes", () => {
       await buffyVsMichaelMyers.request();
       expect(buffyVsMichaelMyers.delivery).toMatchObject({});
     });
+  });
+});
+
+describe.only("Display Names", () => {
+  test("Customer_Search should have displayName property", () => {
+    let val = new Customer_Search();
+    expect(val.displayName).toEqual("Customer_Search");
+  });
+
+  test("Customer_Retrieve should have displayName property", () => {
+    let val = new Customer_Retrieve();
+    expect(val.displayName).toEqual("Customer_Retrieve");
+  });
+
+  test("Customer_Retrieve_Update_Delete should have displayName property", () => {
+    let val = new Customer_Retrieve_Update_Delete();
+    expect(val.displayName).toEqual("Customer_Retrieve_Update_Delete");
+  });
+
+  test("should have displayName property", () => {
+    let customer = new Customer_Object();
+    customer
+      .make()
+      .first_name("Buffy")
+      .last_name("Summers")
+      .email("buffy@magicbox.com");
+
+    let val = new Customer_Create(customer.fardel);
+    expect(val.displayName).toEqual("Customer_Create");
+  });
+
+  test("should have displayName property", () => {
+    let val = new Customer_Delete();
+    expect(val.displayName).toEqual("Customer_Delete");
+  });
+
+  test("should have displayName property", () => {
+    let val = new Customer_List();
+    expect(val.displayName).toEqual("Customer_List");
   });
 });

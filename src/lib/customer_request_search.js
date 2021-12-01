@@ -8,7 +8,7 @@ const Customer_Request = require("./customer_request");
  *  @author Russ Bain
  *  */
 class Customer_Search extends Customer_Request {
-  _displayName = "Customer_Search"; //todo test
+  _displayName = "Customer_Search";
   constructor() {
     super();
     this._method = "post";
@@ -43,6 +43,11 @@ class Customer_Search extends Customer_Request {
   // the 'this' inside  query() is the class
   // call Search.query.fuzzy.the-method-you-want
   // call Search.query.exact.the-method-you-want
+  /**
+   * @param {}
+   * @throws
+   * @return
+   * */
   query() {
     const methods = (fuzzacto) => {
       return {

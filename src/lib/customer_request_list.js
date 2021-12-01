@@ -5,12 +5,16 @@ const Customer_Request = require("./customer_request");
  *  @author Russ Bain
  *  */
 class Customer_List extends Customer_Request {
+  _displayName = "Customer_List";
   constructor() {
     super();
     this._method = "get";
     this._delivery;
   }
   //GETTERS
+  get displayName() {
+    return this._displayName;
+  }
   get delivery() {
     return this._delivery;
   }
