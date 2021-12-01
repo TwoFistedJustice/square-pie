@@ -1,0 +1,135 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+Square_Request <|- Customer_Request
+Customer_Request <|- Customer_R_U_D
+Customer_R_U_D <|- Customer_Update
+Customer_R_U_D <|- Customer_Retrieve
+Customer_R_U_D <|- Customer_Delete
+Customer_Request <|- Customer_Create
+Customer_Request <|- Customer_List
+Customer_Request <|- Customer_Search
+
+abstract class Square_Request {}
+abstract class Customer_Request {
+super: Square_Request
+this._apiName = "customers";
+}
+
+abstract class Customer_R_U_D {
+super: Customer_Request
+this._method: ""
+this._endpoint:
+this.configuration
+
+Simple Setters
+==
+Simple Getters
+==
+==
+Maker Methods
++make()
+}
+class Customer_Update {
+super: Customer_R_U_D
+this._method: ""
+this._endpoint:
+this.configuration
+
+Simple Setters
+==
+Simple Getters
+==
+==
+Maker Methods
++make()
+}
+class Customer_Retrieve {
+super: Customer_R_U_D
+this._method: ""
+this._endpoint:
+this.configuration
+
+Simple Setters
+==
+Simple Getters
+==
+==
+Maker Methods
++make()
+}
+class Customer_Delete {
+super: Customer_R_U_D
+this._method: ""
+this._endpoint:
+this.configuration
+
+Simple Setters
+==
+Simple Getters
+==
+==
+Maker Methods
++make()
+}
+
+class Customer_Create {
+super: Customer_Request
+this._method: ""
+this._endpoint:
+this.configuration
+
+Simple Setters
+==
+Simple Getters
+==
+==
+Maker Methods
++make()
+}
+class Customer_List {
+super: Customer_Request
+this._method: ""
+this._endpoint:
+this.configuration
+
+Simple Setters
+==
+Simple Getters
+==
+==
+Maker Methods
++make()
+}
+class Customer_Search {
+super: Customer_Request
+this._method: ""
+this._endpoint:
+this.configuration
+
+Simple Setters
+==
+Simple Getters
+==
+==
+Maker Methods
++make()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@enduml
