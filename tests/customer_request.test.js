@@ -6,8 +6,11 @@ const Customer_Create = require("../src/lib/customer_request_create");
 const Customer_Retrieve = require("../src/lib/customer_request_retrieve");
 const Customer_Update = require("../src/lib/customer_request_update");
 const Customer_Delete = require("../src/lib/customer_request_delete");
-const { sampleCustomers } = require("./data_preparation/sample_customer_data");
-const customers = sampleCustomers();
+const Customer_Retrieve_Update_Delete = require("../src/lib/customer_request_R_U_D");
+const Customer_Object = require("../src/lib/customer_object");
+const { sampleCustomers } = require("./helper_objects");
+// const {expect} = require ("chai");
+const customers = sampleCustomers;
 const buffy = customers.buffy;
 const mikey = customers.mikey;
 
@@ -15,12 +18,12 @@ const mikey = customers.mikey;
 // Hardcoded http requests for the hooks
 // Do not use the request classes to test themselves!
 // ---------------------------------------------------
-// setting new timeout bc terrible rural internet keeps causing the test to time out and fail.
+// setting new timeout bc terrible rural internet keeps causing then test to time out and fail.
 // despite whatever Jest docs say, this timer thing does not work AT. ALL.
 beforeAll(() => jest.setTimeout(10 * 1000));
 
-describe("Silence Async tests", () => {
-  test.only("Should silence async customer tests", () => {
+describe.only("Silence Async tests", () => {
+  test("Should silence async customer tests", () => {
     expect("a").toEqual("a");
   });
 });
@@ -32,9 +35,9 @@ describe("Customer Request Classes", () => {
   describe("Customer List", () => {
     test("Should fetch the list of customers", async () => {
       let customerList = new Customer_List();
-      // let response = await customerList.request();
       await customerList.request();
       customerList.delivery.should.be.an("Array").that.has.lengthOf(4);
+      // console.log(customerList.delivery)
       expect(customerList.delivery[0]).toMatchObject(buffy);
       // Michael Myers is not invited but will show up later - at which time Buffy will deal with him, as she does.
       for (let i = 0; i < customers.length; i++) {
@@ -86,20 +89,6 @@ describe("Customer Request Classes", () => {
       let updatedEmail = update.delivery.email_address;
       updatedEmail.should.equal(email);
     });
-
-    // oops the last update put in the wrong email and didn't change her phone number to her new number
-    test("Should update a customer using chain setter", async () => {
-      let email = "buFFy@scoobies.org";
-      let normalizedEmail = "buffy@scoobies.org";
-      let phone = "1-800-668-2677";
-      let update = new Customer_Update(dbBuffy.id);
-      update.make().email(email).phone(phone);
-      await update.request();
-      let updatedEmail = update.delivery.email_address;
-      let updatedPhone = update.delivery.phone_number;
-      updatedEmail.should.equal(normalizedEmail);
-      updatedPhone.should.equal(phone);
-    });
   });
 
   describe("Customer Create", () => {
@@ -122,5 +111,44 @@ describe("Customer Request Classes", () => {
       await buffyVsMichaelMyers.request();
       expect(buffyVsMichaelMyers.delivery).toMatchObject({});
     });
+  });
+});
+
+describe("Display Names", () => {
+  test("Customer_Search should have displayName property", () => {
+    let val = new Customer_Search();
+    expect(val.displayName).toEqual("Customer_Search");
+  });
+
+  test("Customer_Retrieve should have displayName property", () => {
+    let val = new Customer_Retrieve();
+    expect(val.displayName).toEqual("Customer_Retrieve");
+  });
+
+  test("Customer_Retrieve_Update_Delete should have displayName property", () => {
+    let val = new Customer_Retrieve_Update_Delete();
+    expect(val.displayName).toEqual("Customer_Retrieve_Update_Delete");
+  });
+
+  test("should have displayName property", () => {
+    let customer = new Customer_Object();
+    customer
+      .make()
+      .first_name("Buffy")
+      .last_name("Summers")
+      .email("buffy@magicbox.com");
+
+    let val = new Customer_Create(customer.fardel);
+    expect(val.displayName).toEqual("Customer_Create");
+  });
+
+  test("should have displayName property", () => {
+    let val = new Customer_Delete();
+    expect(val.displayName).toEqual("Customer_Delete");
+  });
+
+  test("should have displayName property", () => {
+    let val = new Customer_List();
+    expect(val.displayName).toEqual("Customer_List");
   });
 });

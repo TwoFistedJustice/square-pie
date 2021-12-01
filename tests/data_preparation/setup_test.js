@@ -12,8 +12,12 @@ const set_up_customer_DB_for_tests = async function () {
     customer_delete,
   } = require("./customer_prep");
 
-  const { sampleCustomers } = require("./sample_customer_data");
-  const customers = sampleCustomers();
+  // todo deprecate sample customer data dot js
+  // const { sampleCustomers } = require("./sample_customer_data");
+  // const customers = sampleCustomers();
+
+  const { sampleCustomers } = require("../helper_objects");
+  const customers = sampleCustomers;
   const buffy = customers.buffy;
   const jason = customers.jason;
   const fred = customers.fred;

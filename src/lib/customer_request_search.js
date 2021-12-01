@@ -2,7 +2,13 @@ const Customer_Request = require("./customer_request");
 
 // THREE props on body: query, limit, cursor - these are same as for Invoices
 // differentiation begins inside the query object
+
+/** @class Customer_Search representing an http request to retrieve to search customer records
+ *  @see Customer_Request
+ *  @author Russ Bain
+ *  */
 class Customer_Search extends Customer_Request {
+  _displayName = "Customer_Search";
   constructor() {
     super();
     this._method = "post";
@@ -21,6 +27,9 @@ class Customer_Search extends Customer_Request {
   }
 
   // GETTERS
+  get displayName() {
+    return this._displayName;
+  }
   get delivery() {
     return this._delivery;
   }
@@ -34,6 +43,11 @@ class Customer_Search extends Customer_Request {
   // the 'this' inside  query() is the class
   // call Search.query.fuzzy.the-method-you-want
   // call Search.query.exact.the-method-you-want
+  /**
+   * @param {}
+   * @throws
+   * @return
+   * */
   query() {
     const methods = (fuzzacto) => {
       return {
