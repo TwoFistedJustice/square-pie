@@ -18,13 +18,20 @@ this._apiName = "customers";
 
 abstract class Customer_R_U_D {
 super: Customer_Request
-this._method: ""
-this._endpoint:
-this.configuration
+constructor(id)
+_displayName
+this._endpoint:  `/${id}`
+this._delivery
 
+Simple Getters
+==
 Simple Setters
 ==
-Simple Getters
+Complex Setters
+
+id (id)
+..
+adds the id to the URL endpoint
 ==
 ==
 Maker Methods
@@ -32,13 +39,14 @@ Maker Methods
 }
 class Customer_Update {
 super: Customer_R_U_D
+_displayName
 this._method: ""
 this._endpoint:
 this.configuration
 
-Simple Setters
-==
 Simple Getters
+==
+Simple Setters
 ==
 ==
 Maker Methods
@@ -46,13 +54,15 @@ Maker Methods
 }
 class Customer_Retrieve {
 super: Customer_R_U_D
+constructor(id)
+_displayName
 this._method: ""
 this._endpoint:
 this.configuration
 
-Simple Setters
-==
 Simple Getters
+==
+Simple Setters
 ==
 ==
 Maker Methods
@@ -60,13 +70,14 @@ Maker Methods
 }
 class Customer_Delete {
 super: Customer_R_U_D
-this._method: ""
+constructor(id)
+_displayName
 this._endpoint:
-this.configuration
+this._delivery
 
-Simple Setters
-==
 Simple Getters
+==
+Simple Setters
 ==
 ==
 Maker Methods
@@ -75,6 +86,7 @@ Maker Methods
 
 class Customer_Create {
 super: Customer_Request
+_displayName
 this._method: ""
 this._endpoint:
 this.configuration
@@ -89,13 +101,14 @@ Maker Methods
 }
 class Customer_List {
 super: Customer_Request
+_displayName
 this._method: ""
 this._endpoint:
 this.configuration
 
-Simple Setters
-==
 Simple Getters
+==
+Simple Setters
 ==
 ==
 Maker Methods
@@ -103,13 +116,14 @@ Maker Methods
 }
 class Customer_Search {
 super: Customer_Request
+_displayName
 this._method: ""
 this._endpoint:
 this.configuration
 
-Simple Setters
-==
 Simple Getters
+==
+Simple Setters
 ==
 ==
 Maker Methods
