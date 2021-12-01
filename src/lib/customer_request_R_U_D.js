@@ -6,12 +6,12 @@ const Customer_Request = require("./customer_request");
 /* id is fed in via the sub class constructor argument
  *
  * */
-/** @class Retrieve_Update_Delete super class of Customer API request classes to retrieve, update, and delete customer records
+/** @class Customer_Retrieve_Update_Delete super class of Customer API request classes to retrieve, update, and delete customer records
  *  @see Customer_Request
  *  @author Russ Bain
  *  */
-// todo rename add Customer_
-class Retrieve_Update_Delete extends Customer_Request {
+
+class Customer_Retrieve_Update_Delete extends Customer_Request {
   _displayName = "Customer_Retrieve_Update_Delete"; //todo test
   constructor(id = "you_still_need_to_set_the _id") {
     super();
@@ -38,4 +38,4 @@ class Retrieve_Update_Delete extends Customer_Request {
   }
 }
 
-module.exports = Retrieve_Update_Delete;
+module.exports = Customer_Retrieve_Update_Delete;

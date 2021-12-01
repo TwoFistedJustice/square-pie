@@ -45,7 +45,7 @@ Best to use Object IDs
 
 ## Versions
 
-Same as version is Customer - Retrieve_Update_Delete
+Same as version is Customer - Customer_Retrieve_Update_Delete
 
 <br/>
 

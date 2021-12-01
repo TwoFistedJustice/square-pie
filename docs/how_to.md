@@ -10,9 +10,9 @@ and passing that value to someclass.request(secretName)
 The simplest example is fetching a list of customers:
 
 ```js
-  let list = new Customer_List(false)
-  let secret = await getSecret(list.secretName);
-  return await list.request(secret);
+let list = new Customer_List(false);
+let secret = await getSecret(list.secretName);
+return await list.request(secret);
 ```
 
 <br/>
@@ -65,7 +65,7 @@ Super of all request classes
 - normalizes email addresses
 - makes the actual http request
 
-### Retrieve_Update_Delete
+### Customer_Retrieve_Update_Delete
 
 Super of all classes that fetch with a document ID
 Subclass of SquareRequest
@@ -159,7 +159,7 @@ Usage:
 Instantiate the wrap
 
 ```js
-const foo = new Catalog_Object_Wrapper()
+const foo = new Catalog_Object_Wrapper();
 ```
 
 Cram in one or more Catalog Objects you created. Don't be gentle, it can eat as many as you serve up.
@@ -169,7 +169,7 @@ Cram in one or more Catalog Objects you created. Don't be gentle, it can eat as 
 Tell it when you are done adding objects.
 
 ```js
-foo.finalize()
+foo.finalize();
 ```
 
 The correctly formatted catalog object payload now sits on the fardel property.

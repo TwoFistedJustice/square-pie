@@ -18,24 +18,24 @@
 
 ### Level Three Classes
 
-| Level Three Classes    | Super            | Implemented | Short Notes                |
-| ---------------------- | ---------------- | ----------- | -------------------------- |
-| Customer_List          | Customer_Request | yes         |
-| Customer_Create        | Customer_Request | yes         | needs duplicate prevention |
-| Customer_Search        | Customer_Request | yes         |
-| Retrieve_Update_Delete | Customer_Request | yes         |
-| Customer_Group         |                  | !           |
-| Customer_Ungroup       |                  | !           |
+| Level Three Classes             | Super            | Implemented | Short Notes                |
+| ------------------------------- | ---------------- | ----------- | -------------------------- |
+| Customer_List                   | Customer_Request | yes         |
+| Customer_Create                 | Customer_Request | yes         | needs duplicate prevention |
+| Customer_Search                 | Customer_Request | yes         |
+| Customer_Retrieve_Update_Delete | Customer_Request | yes         |
+| Customer_Group                  |                  | !           |
+| Customer_Ungroup                |                  | !           |
 
 <br/>
 
 ### Level Four Classes
 
-| Level Four Classes | Super                  | Implemented | Short Notes                                         |
-| ------------------ | ---------------------- | ----------- | --------------------------------------------------- |
-| Customer_Delete    | Retrieve_Update_Delete | yes         |
-| Customer_Retrieve  | Retrieve_Update_Delete | yes         |
-| Customer_Update    | Retrieve_Update_Delete | yes         | needs normalization for email_address and addresses |
+| Level Four Classes | Super                           | Implemented | Short Notes                                         |
+| ------------------ | ------------------------------- | ----------- | --------------------------------------------------- |
+| Customer_Delete    | Customer_Retrieve_Update_Delete | yes         |
+| Customer_Retrieve  | Customer_Retrieve_Update_Delete | yes         |
+| Customer_Update    | Customer_Retrieve_Update_Delete | yes         | needs normalization for email_address and addresses |
 
 <br/>
 
