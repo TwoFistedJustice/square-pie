@@ -1,18 +1,11 @@
 const Retrieve_Update_Delete = require("./customer_request_R_U_D");
 const { normalize_email } = require("./utilities");
 
-// update needs to be flexible in structure so it can be used for single fields or multiple fields
-// json stringfify ignores props set to undefined, so build a _body structure that mimics
-//  a Square customer doc, but set everything to undefined so the chainer won't blow out
-// on an undeclared sub-property
-// to acitvate it call the .id(id) method which exists on the super
-
-//ToDO normalize all incoming email_address via super method
-// Todo extract customer out to own class
 // change constructor arg to bec customer object and extract id
 
 /** @class Customer_Update representing an http request to update a customer record
  *  @see Retrieve_Update_Delete
+ *  @param {customer id} pass the Square id of the customer you want ot update to the class on instantiation
  *  @author Russ Bain
  *  */
 class Customer_Update extends Retrieve_Update_Delete {
