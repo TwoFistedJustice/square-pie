@@ -82,7 +82,12 @@ class Customer_Update extends Retrieve_Update_Delete {
   }
 
   // SETTERS
-  // make setters for each customer field
+  /** If you already have a compliant customer object you can just call the body setter
+   * @param {customer object} add the Customer_Object fardel
+   * */
+  set body(fardel) {
+    this._body = fardel;
+  }
   set given_name(val) {
     this._body.given_name = val;
   }
