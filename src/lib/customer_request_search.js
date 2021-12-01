@@ -8,7 +8,7 @@ const Customer_Request = require("./customer_request");
  *  @author Russ Bain
  *  */
 class Customer_Search extends Customer_Request {
-  _displayName = "Customer_Search";
+  _display_name = "Customer_Search";
   constructor() {
     super();
     this._method = "post";
@@ -27,8 +27,8 @@ class Customer_Search extends Customer_Request {
   }
 
   // GETTERS
-  get displayName() {
-    return this._displayName;
+  get display_name() {
+    return this._display_name;
   }
   get delivery() {
     return this._delivery;

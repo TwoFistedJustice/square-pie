@@ -10,7 +10,7 @@ const { normalize_email } = require("./utilities");
  *  @author Russ Bain
  *  */
 class Customer_Create extends Customer_Request {
-  _displayName = "Customer_Create";
+  _display_name = "Customer_Create";
   constructor(customer) {
     super();
     this._method = "post";
@@ -19,8 +19,8 @@ class Customer_Create extends Customer_Request {
     this._delivery;
   }
   // GETTERS
-  get displayName() {
-    return this._displayName;
+  get display_name() {
+    return this._display_name;
   }
   get getIdempotency_key() {
     return this.idempotency_key;

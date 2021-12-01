@@ -115,22 +115,22 @@ describe("Customer Request Classes", () => {
 });
 
 describe("Display Names", () => {
-  test("Customer_Search should have displayName property", () => {
+  test("Customer_Search should have display_name property", () => {
     let val = new Customer_Search();
-    expect(val.displayName).toEqual("Customer_Search");
+    expect(val.display_name).toEqual("Customer_Search");
   });
 
-  test("Customer_Retrieve should have displayName property", () => {
+  test("Customer_Retrieve should have display_name property", () => {
     let val = new Customer_Retrieve();
-    expect(val.displayName).toEqual("Customer_Retrieve");
+    expect(val.display_name).toEqual("Customer_Retrieve");
   });
 
-  test("Customer_Retrieve_Update_Delete should have displayName property", () => {
+  test("Customer_Retrieve_Update_Delete should have display_name property", () => {
     let val = new Customer_Retrieve_Update_Delete();
-    expect(val.displayName).toEqual("Customer_Retrieve_Update_Delete");
+    expect(val.display_name).toEqual("Customer_Retrieve_Update_Delete");
   });
 
-  test("should have displayName property", () => {
+  test("should have display_name property", () => {
     let customer = new Customer_Object();
     customer
       .make()
@@ -139,16 +139,16 @@ describe("Display Names", () => {
       .email("buffy@magicbox.com");
 
     let val = new Customer_Create(customer.fardel);
-    expect(val.displayName).toEqual("Customer_Create");
+    expect(val.display_name).toEqual("Customer_Create");
   });
 
-  test("should have displayName property", () => {
+  test("should have display_name property", () => {
     let val = new Customer_Delete();
-    expect(val.displayName).toEqual("Customer_Delete");
+    expect(val.display_name).toEqual("Customer_Delete");
   });
 
-  test("should have displayName property", () => {
+  test("should have display_name property", () => {
     let val = new Customer_List();
-    expect(val.displayName).toEqual("Customer_List");
+    expect(val.display_name).toEqual("Customer_List");
   });
 });

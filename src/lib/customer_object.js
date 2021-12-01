@@ -10,7 +10,7 @@ const {
  *  @author: Russ Bain
  * */
 class Customer_Object {
-  _displayName = "Customer_Object"; //todo test
+  _display_name = "Customer_Object"; //todo test
   /**
    * Creates an instance of a customer
    *  */
@@ -135,8 +135,8 @@ class Customer_Object {
     };
   }
   // GETTERS
-  get displayName() {
-    return this._displayName;
+  get display_name() {
+    return this._display_name;
   }
   get fardel() {
     return this._fardel;
@@ -210,7 +210,7 @@ class Customer_Object {
    * */
   set email_address(email) {
     let caller = "email_address";
-    let shazam = normalize_email(email, this.displayName, caller);
+    let shazam = normalize_email(email, this.display_name, caller);
     this._fardel.email_address = shazam;
   }
   /** sets Customer_Object.phone_number
@@ -222,7 +222,7 @@ class Customer_Object {
       maxLength(
         this.configuration.maximums.phone_number,
         phone,
-        this.displayName,
+        this.display_name,
         "phone_number"
       )
     )
@@ -236,7 +236,7 @@ class Customer_Object {
    * * @throws Will throw and error if argument is not a valid RFC3339 date code
    * */
   set birthday(time) {
-    if (shazam_RFC3339(time, this._displayName, "birthday")) {
+    if (shazam_RFC3339(time, this._display_name, "birthday")) {
       this._fardel.birthday = time;
     }
   }
@@ -257,7 +257,7 @@ class Customer_Object {
   }
 
   set preferences(bool) {
-    if (shazam_boolean(bool, this.displayName, "preferences")) {
+    if (shazam_boolean(bool, this.display_name, "preferences")) {
       this._fardel.preferences = {
         email_unsubscribed: bool,
       };
@@ -276,7 +276,7 @@ class Customer_Object {
       maxLength(
         this.configuration.maximums.tax_ids,
         id,
-        this.displayName,
+        this.display_name,
         "tax_ids"
       )
     ) {

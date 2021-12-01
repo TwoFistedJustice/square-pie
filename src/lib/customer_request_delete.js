@@ -5,15 +5,15 @@ const Retrieve_Update_Delete = require("./customer_request_R_U_D");
  *  @author Russ Bain
  *  */
 class Customer_Delete extends Retrieve_Update_Delete {
-  _displayName = "Customer_Delete";
+  _display_name = "Customer_Delete";
   constructor(id) {
     super(id);
     this._method = "delete";
     this._delivery;
   }
   // GETTERS
-  get displayName() {
-    return this._displayName;
+  get display_name() {
+    return this._display_name;
   }
   get delivery() {
     return this._delivery;

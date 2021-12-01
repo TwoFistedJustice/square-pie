@@ -226,7 +226,7 @@ const generate_error_message = function (key, expected_type, received) {
 
 /**
  * @param {string} time - expects a date code in RFC3339 format
- * @param {string} displayName - the _displayName static from the calling class
+ * @param {string} displayName - the _display_name static from the calling class
  * @param {string} caller - the name variable from the calling function
  * @throws throws and error if the `time` argument is not in RFC3339 format
  * @return {boolean} returns true if `time` argument is a valid RFC3339 date code
@@ -242,7 +242,7 @@ const shazam_RFC3339 = function (time, displayName, caller) {
 
 /**
  * @param {string} num - expects a string that can be converted to an integer
- * @param {string} displayName - the _displayName static from the calling class
+ * @param {string} displayName - the _display_name static from the calling class
  * @param {string} caller - the name variable from the calling function
  * @throws throws and error if the `num` argument cannot be coerced to an integer
  * @return {boolean} returns true if the `num` argument can be coerced to an integer
@@ -260,7 +260,7 @@ const shazam_integer = function (num, displayName, caller) {
  * Will throw an error on every value except true and false.
  *
  * @param {boolean} bool - expects a boolean
- * @param {string} displayName - the _displayName static from the calling class
+ * @param {string} displayName - the _display_name static from the calling class
  * @param {string} caller - the name variable from the calling function
  * @throws throws and error if the `bool` argument is not a boolean.
  * @return {boolean} returns true  if the `bool` argument is a boolean.

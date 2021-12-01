@@ -22,7 +22,7 @@ const {
  *  @author Russ Bain
  *  */
 class Customer_Update extends Retrieve_Update_Delete {
-  _displayName = "Customer_Update"; //todo test
+  _display_name = "Customer_Update"; //todo test
   constructor(id) {
     super(id);
     this._method = "put";
@@ -49,8 +49,8 @@ class Customer_Update extends Retrieve_Update_Delete {
   }
 
   //GETTERS
-  get displayName() {
-    return this._displayName;
+  get display_name() {
+    return this._display_name;
   }
   get given_name() {
     return this._body.given_name;
@@ -111,7 +111,7 @@ class Customer_Update extends Retrieve_Update_Delete {
    * */
   set email_address(email) {
     let caller = "email_address";
-    let shazam = normalize_email(email, this.displayName, caller);
+    let shazam = normalize_email(email, this.display_name, caller);
     this._body.email_address = shazam;
   }
   /** sets Customer_Update.phone_number
@@ -123,7 +123,7 @@ class Customer_Update extends Retrieve_Update_Delete {
       maxLength(
         this.configuration.maximums.phone_number,
         phone,
-        this.displayName,
+        this.display_name,
         "phone_number"
       )
     )
@@ -148,7 +148,7 @@ class Customer_Update extends Retrieve_Update_Delete {
    * * @throws Will throw and error if argument is not a valid RFC3339 date code
    * */
   set birthday(time) {
-    if (shazam_RFC3339(time, this._displayName, "birthday")) {
+    if (shazam_RFC3339(time, this._display_name, "birthday")) {
       this._body.birthday = time;
     }
   }

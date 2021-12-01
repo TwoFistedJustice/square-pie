@@ -12,15 +12,15 @@ const Customer_Request = require("./customer_request");
  *  */
 
 class Customer_Retrieve_Update_Delete extends Customer_Request {
-  _displayName = "Customer_Retrieve_Update_Delete"; //todo test
+  _display_name = "Customer_Retrieve_Update_Delete"; //todo test
   constructor(id = "you_still_need_to_set_the _id") {
     super();
     this._endpoint = `/${id}`;
     this._delivery;
   }
   // GETTERS
-  get displayName() {
-    return this._displayName;
+  get display_name() {
+    return this._display_name;
   }
   get id() {
     return this._endpoint;
