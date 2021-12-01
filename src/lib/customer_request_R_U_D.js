@@ -12,7 +12,8 @@ const Customer_Request = require("./customer_request");
  *  */
 
 class Customer_Retrieve_Update_Delete extends Customer_Request {
-  _display_name = "Customer_Retrieve_Update_Delete"; //todo test
+  _display_name = "Customer_Retrieve_Update_Delete";
+  _last_verified_square_api_version = "2021-07-21";
   constructor(id = "you_still_need_to_set_the _id") {
     super();
     this._endpoint = `/${id}`;
@@ -21,6 +22,9 @@ class Customer_Retrieve_Update_Delete extends Customer_Request {
   // GETTERS
   get display_name() {
     return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   get id() {
     return this._endpoint;

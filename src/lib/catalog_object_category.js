@@ -2,6 +2,7 @@ const { maxLength } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_super");
 class Catalog_Category extends Catalog_Object_Super {
   _display_name = "Catalog_Category";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     super();
     this._fardel = {
@@ -17,6 +18,12 @@ class Catalog_Category extends Catalog_Object_Super {
         name: 255,
       },
     };
+  }
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   get type() {
     return this._fardel.type;

@@ -6,7 +6,7 @@
 - [ ] [Add links to square docs on UML](https://plantuml.com/link)
 - [ ] Add a property to track which was last version of Square it is compliant with
 - [x] Go over example js and make sure it represents current pattern
-- [ ] Add display_name prop and getter to each class
+- [x] Add display_name prop and getter to each class
 
 ## Medium
 

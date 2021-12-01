@@ -2,6 +2,7 @@ const { define, maxLength, arrayify, money_helper } = require("./utilities");
 
 class Order_Object {
   _display_name = "Order_Object";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     this._fardel = {
       version: undefined, //`BETA` - only for updates
@@ -28,6 +29,12 @@ class Order_Object {
   }
 
   // GETTERS
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
   get fardel() {
     return this._fardel;
   }

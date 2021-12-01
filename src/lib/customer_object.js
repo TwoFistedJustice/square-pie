@@ -10,7 +10,8 @@ const {
  *  @author: Russ Bain
  * */
 class Customer_Object {
-  _display_name = "Customer_Object"; //todo test
+  _display_name = "Customer_Object";
+  _last_verified_square_api_version = "2021-11-17";
   /**
    * Creates an instance of a customer
    *  */
@@ -137,6 +138,9 @@ class Customer_Object {
   // GETTERS
   get display_name() {
     return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   get fardel() {
     return this._fardel;

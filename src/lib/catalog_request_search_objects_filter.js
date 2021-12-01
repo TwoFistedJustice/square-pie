@@ -3,12 +3,16 @@ const { define } = require("./utilities");
 
 class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   _display_name = "Catalog_Search_Filter";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     super();
   }
 
   get display_name() {
     return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   get exact_query() {
     return this._body.query.exact_query;

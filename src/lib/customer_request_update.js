@@ -22,7 +22,8 @@ const {
  *  @author Russ Bain
  *  */
 class Customer_Update extends Retrieve_Update_Delete {
-  _display_name = "Customer_Update"; //todo test
+  _display_name = "Customer_Update";
+  _last_verified_square_api_version = "2021-07-21";
   constructor(id) {
     super(id);
     this._method = "put";
@@ -51,6 +52,9 @@ class Customer_Update extends Retrieve_Update_Delete {
   //GETTERS
   get display_name() {
     return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   get given_name() {
     return this._body.given_name;

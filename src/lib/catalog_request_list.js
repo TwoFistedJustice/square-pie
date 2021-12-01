@@ -5,6 +5,7 @@ const Catalog_Request = require("./catalog_request");
 
 class Catalog_List extends Catalog_Request {
   _display_name = "Catalog_List";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     super();
     this._method = "get";
@@ -17,6 +18,9 @@ class Catalog_List extends Catalog_Request {
   }
   get display_name() {
     return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   get query_params() {
     return this._query_params;

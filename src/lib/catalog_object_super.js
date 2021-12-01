@@ -9,6 +9,7 @@ const { arrayify } = require("./utilities");
 
 class Catalog_Object_Super {
   _display_name = "Catalog_Object_Super";
+  _last_verified_square_api_version = "2021-07-21";
   /**
    * Create a catalog object
    */
@@ -19,6 +20,12 @@ class Catalog_Object_Super {
       present_at_all_locations: undefined, // bool
       present_at_location_ids: undefined, //[str]
     };
+  }
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   /**
    * Gets catalog object id

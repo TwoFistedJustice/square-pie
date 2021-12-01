@@ -5,6 +5,7 @@ const { uid_length } = require("./pie_defaults");
 
 class Order_Fulfillment {
   _display_name = "Order_Fulfillment";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     this._fardel = {
       uid: nanoid(uid_length),
@@ -33,6 +34,12 @@ class Order_Fulfillment {
   }
 
   // GETTERS
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
   get uid() {
     return this._fardel.uid;
   }

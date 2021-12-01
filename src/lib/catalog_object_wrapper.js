@@ -12,6 +12,7 @@ const { define } = require("./utilities");
 
 class Catalog_Object_Wrapper {
   _display_name = "Catalog_Object_Wrapper";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     this._fardel = {
       idempotency_key: nanoid(),
@@ -19,6 +20,12 @@ class Catalog_Object_Wrapper {
     this._payload;
   }
   // GETTERS
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
   get idempotency_key() {
     return this._idempotency_key;
   }

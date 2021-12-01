@@ -6,6 +6,7 @@ const Customer_Request = require("./customer_request");
  *  */
 class Customer_List extends Customer_Request {
   _display_name = "Customer_List";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     super();
     this._method = "get";
@@ -14,6 +15,9 @@ class Customer_List extends Customer_Request {
   //GETTERS
   get display_name() {
     return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   get delivery() {
     return this._delivery;
