@@ -58,7 +58,7 @@ constructor(id)
 _displayName
 this._method: ""
 this._endpoint:
-this.configuration
+this._delivery
 
 Simple Getters
 ==
@@ -89,7 +89,7 @@ super: Customer_Request
 _displayName
 this._method: ""
 this._endpoint:
-this.configuration
+this._delivery
 
 Simple Setters
 ==
@@ -102,9 +102,8 @@ Maker Methods
 class Customer_List {
 super: Customer_Request
 _displayName
-this._method: ""
-this._endpoint:
-this.configuration
+this._method: "GET"
+this._delivery
 
 Simple Getters
 ==
@@ -119,7 +118,7 @@ super: Customer_Request
 _displayName
 this._method: ""
 this._endpoint:
-this.configuration
+this._delivery
 
 Simple Getters
 ==
