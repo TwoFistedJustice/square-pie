@@ -4,7 +4,7 @@ const Order_Calculate = require("../src/lib/order_request_calculate");
 const Order_Retrieve = require("../src/lib/stub.order_request_retrieve");
 const Order_Object = require("../src/lib/order_object");
 
-describe.only("Silence order request tests", () => {
+describe("Silence order request tests", () => {
   test("Should silence tests", () => {
     expect("a").toEqual("a");
   });

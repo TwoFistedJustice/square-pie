@@ -3,7 +3,7 @@ const Order_Object = require("../src/lib/order_object");
 const should = require("chai").should();
 const { long_strings } = require("./helper_objects");
 
-describe.only("Silence order object tests", () => {
+describe("Silence order object tests", () => {
   test("Should silence tests", () => {
     expect("a").toEqual("a");
   });
