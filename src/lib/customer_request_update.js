@@ -7,7 +7,7 @@ const { normalize_email } = require("./utilities");
 // on an undeclared sub-property
 // to acitvate it call the .id(id) method which exists on the super
 
-//ToDO normalize all incoming email via super method
+//ToDO normalize all incoming email_address via super method
 // Todo extract customer out to own class
 // change constructor arg to bec customer object and extract id
 
@@ -135,15 +135,15 @@ class Customer_Update extends Retrieve_Update_Delete {
   make() {
     return {
       self: this,
-      firstName: function (val) {
+      given_name: function (val) {
         this.self.given_name = val;
         return this;
       },
-      lastName: function (val) {
+      family_name: function (val) {
         this.self.family_name = val;
         return this;
       },
-      company: function (val) {
+      company_name: function (val) {
         this.self._body.company_name = val;
         return this;
       },
@@ -151,11 +151,11 @@ class Customer_Update extends Retrieve_Update_Delete {
         this.self._body.nickname = val;
         return this;
       },
-      email: function (val) {
+      email_address: function (val) {
         this.self.email_address = val;
         return this;
       },
-      phone: function (val) {
+      phone_number: function (val) {
         this.self.phone_number = val;
         return this;
       },
@@ -167,6 +167,26 @@ class Customer_Update extends Retrieve_Update_Delete {
       birthday: function (val) {
         //specify val in YYYY-MM-DD format.
         this.self._body.birthday = val;
+        return this;
+      },
+      first_name: function (val) {
+        this.given_name(val);
+        return this;
+      },
+      last_name: function (val) {
+        this.family_name(val);
+        return this;
+      },
+      company: function (val) {
+        this.company_name(val);
+        return this;
+      },
+      email: function (val) {
+        this.email_address(val);
+        return this;
+      },
+      phone: function (val) {
+        this.phone_number(val);
         return this;
       },
     };
