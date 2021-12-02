@@ -20,7 +20,7 @@
 
 <br/>
 
-## Class Features
+## Common Features
 
 ### Fardel
 
