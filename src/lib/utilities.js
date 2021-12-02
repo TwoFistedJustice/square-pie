@@ -128,7 +128,7 @@ const shazam_maxLength = function (
   max,
   str = "",
   displayName = "unspecified class",
-  caller = "unspecified class setter"
+  caller = "- unspecified class setter"
 ) {
   if (str.length > max) {
     throw new Error(
@@ -157,7 +157,7 @@ const shazam_minLength = function (
   min,
   str = "",
   displayName = "unspecified class",
-  caller = "unspecified class setter"
+  caller = "- unspecified class setter"
 ) {
   if (str.length < min) {
     throw new Error(
@@ -244,7 +244,11 @@ const shazam_RFC3339 = function (time, displayName, caller) {
  * @throws throws and error if the `num` argument cannot be coerced to an integer
  * @return {boolean} returns true if the `num` argument can be coerced to an integer
  * */
-const shazam_integer = function (num, displayName, caller) {
+const shazam_integer = function (
+  num,
+  displayName = "unspecified class",
+  caller = "- unspecified class setter"
+) {
   let parsed = parseInt(num);
   if (isNaN(parsed) || num != parsed) {
     throw new TypeError(
@@ -263,7 +267,11 @@ const shazam_integer = function (num, displayName, caller) {
  * @throws throws and error if the `bool` argument is not a boolean.
  * @return {boolean} returns true  if the `bool` argument is a boolean.
  * */
-const shazam_boolean = function (bool, displayName, caller) {
+const shazam_boolean = function (
+  bool,
+  displayName = "unspecified class",
+  caller = "- unspecified class setter"
+) {
   if (typeof bool !== "boolean") {
     throw new Error(
       `${displayName}.${caller} expects a boolean. Received: ${bool}\nMake sure you didn't pass a string that looks like a boolean.`
