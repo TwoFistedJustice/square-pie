@@ -69,13 +69,14 @@ class Square_Request {
   }
   request() {
     let http_request = async (url, options) => {
-      // console.log(options.body);
+      console.log(options.body);
+      console.log(options);
       const httpResponse = await fetch(url, options);
       this.delivery = await httpResponse.json();
       if (!httpResponse.ok) {
         let errors = this.delivery.errors[0];
         let squareErrorMessage = `\n${errors.category}\n${errors.code}\n${errors.field}\n${errors.detail}`;
-        let apiErrorMessage = `\ngenerated url: ${this.url}\nmethod: ${options.method}\n${httpResponse.status}: ${httpResponse.statusText}/n`;
+        let apiErrorMessage = `\ngenerated url: ${this.url}\nmethod: ${options.method}\n${httpResponse.status}: ${httpResponse.statusText}`;
         let message = squareErrorMessage + apiErrorMessage;
         throw new Error(message);
       }
