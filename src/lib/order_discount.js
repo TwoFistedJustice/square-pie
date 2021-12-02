@@ -1,4 +1,4 @@
-const { shazam_maxLength, money_helper } = require("./utilities");
+const { shazam_maxLength, arche_money } = require("./utilities");
 
 class Order_Discount {
   _display_name = "Order_Discount";
@@ -206,11 +206,11 @@ class Order_Discount {
         return this;
       },
       amount_money: function (amount, currency) {
-        this.self.amount_money = money_helper(amount, currency);
+        this.self.amount_money = arche_money(amount, currency);
         return this;
       },
       applied_money: function (amount, currency) {
-        this.self.applied_money = money_helper(amount, currency);
+        this.self.applied_money = arche_money(amount, currency);
         return this;
       },
       scope: function () {

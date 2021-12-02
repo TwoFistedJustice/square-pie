@@ -11,7 +11,7 @@ configuration.lengthlimit should be
 
 #money from order_fulfillment should be extracted into a helper
 
-- it has been added to `utilities.js` as "money_helper"
+- it has been added to `utilities.js` as "arche_money"
 
 make()
 method should be a let

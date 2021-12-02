@@ -5,7 +5,7 @@ const {
   shazam_minLength,
   shazam_maxLength,
   arrayify,
-  money_helper,
+  arche_money,
   generate_error_message,
   define,
 } = require("./utilities");
@@ -363,7 +363,7 @@ class Order_Line_Item {
         return this.self.#enum_item_type();
       },
       base_price_money: function (amount, currency) {
-        this.self.base_price_money = money_helper(amount, currency);
+        this.self.base_price_money = arche_money(amount, currency);
         return this;
       },
       /* make() applied taxes and discounts makes it
@@ -414,7 +414,7 @@ class Order_Line_Item {
         self: this,
         price: function (amount, currency) {
           let key = "base_price_money";
-          let value = money_helper(amount, currency);
+          let value = arche_money(amount, currency);
           define(modifier, key, value);
           return this;
         },

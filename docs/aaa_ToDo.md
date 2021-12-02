@@ -11,7 +11,7 @@
 ## Medium
 
 - [x] Refactor max and min len utils to shazam fns
-- [ ] Refactor money_helper - rename to arche_money
+- [x] Refactor money_helper - rename to arche_money
 - [ ] Refactor all classes to use shazam functions where appropriate
 - [x] Go through all js files and remove dead todos and comments
 - [ ] Refactor all variables to snake_case

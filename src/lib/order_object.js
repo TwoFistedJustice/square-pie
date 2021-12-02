@@ -2,7 +2,7 @@ const {
   define,
   shazam_maxLength,
   arrayify,
-  money_helper,
+  arche_money,
 } = require("./utilities");
 
 class Order_Object {
@@ -191,21 +191,21 @@ class Order_Object {
 
   build_service_charge_amount(amount, currency) {
     let service_charge = {};
-    let money = money_helper(amount, currency);
+    let money = arche_money(amount, currency);
     define(service_charge, "amount_money", money);
     return service_charge;
   }
 
   build_service_charge_applied(amount, currency) {
     let service_charge = {};
-    let money = money_helper(amount, currency);
+    let money = arche_money(amount, currency);
     define(service_charge, "applied_money", money);
     return service_charge;
   }
 
   add_service_charge_amount(amount, currency) {
     let service_charge = {};
-    let money = money_helper(amount, currency);
+    let money = arche_money(amount, currency);
     define(service_charge, "amount_money", money);
     this.service_charges = service_charge;
     return service_charge;
@@ -213,7 +213,7 @@ class Order_Object {
 
   add_service_charge_applied(amount, currency) {
     let service_charge = {};
-    let money = money_helper(amount, currency);
+    let money = arche_money(amount, currency);
     define(service_charge, "applied_money", money);
     this.service_charges = service_charge;
     return service_charge;

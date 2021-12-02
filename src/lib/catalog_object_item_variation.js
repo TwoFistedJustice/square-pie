@@ -1,4 +1,4 @@
-const { money_helper, shazam_maxLength, arrayify } = require("./utilities");
+const { arche_money, shazam_maxLength, arrayify } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_super");
 // // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
 
@@ -294,7 +294,7 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
         return this;
       },
       price_money: function (amount, currency) {
-        this.self.price_money = money_helper(amount, currency);
+        this.self.price_money = arche_money(amount, currency);
         return this;
       },
       sku: function (str) {
