@@ -6,14 +6,14 @@
 
 /*
  *  We often need to check that a string doesn't exceed a length determined by Square.
- *  We use the `maxLength` utility for this.
+ *  We use the `shazam_maxLength` utility for this.
  *
  *  We also often need to add a property to an object. We use the `define` (not shown)
  *  utility for that. `define` is written such that it won't cause linting errors
  *  when using sugary ES6 Classes. It also makes the property enumerable.
  *
  * */
-const { maxLength } = require("../../src/lib/utilities");
+const { shazam_maxLength } = require("../../src/lib/utilities");
 
 class Super_Object {
   constructor() {
@@ -65,7 +65,7 @@ class Sub_Object extends Super_Object {
   // SETTERS - ALWAYS build setters for ALL mutable properties
   // when naming arguments, the name should clearly indicate what kind of value is expected
   set id(id) {
-    if (maxLength(this.configuration.id, id)) {
+    if (shazam_maxLength(this.configuration.id, id)) {
       this._fardel.id = id;
     }
   }
@@ -77,7 +77,7 @@ class Sub_Object extends Super_Object {
    *
    * */
   set some_note(note) {
-    if (maxLength(this.configuration.note, note)) {
+    if (shazam_maxLength(this.configuration.note, note)) {
       this._fardel.some_note = note;
     }
   }

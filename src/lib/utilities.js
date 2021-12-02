@@ -115,11 +115,11 @@ const setter_chain_generator_separate_arrays = function (
 /* Returns true = good
 Returns true if the string is less than or equal to the max length
 * */
-/** maxLength validates string length, returning true if the string is equal to or less than
+/** shazam_maxLength validates string length, returning true if the string is equal to or less than
  * the maximum allowable length and otherwise throwing an error.
  *
  * * usage:
- *  `if( maxLength(...) { do stuff }`
+ *  `if( shazam_maxLength(...) { do stuff }`
  *
  * @param {number} max is the upper limit of allowable string length
  * @param {string} str is the string you want to validate
@@ -128,10 +128,9 @@ Returns true if the string is less than or equal to the max length
  * @throws Throws and error is the string is longer than allowed
  * @returns {boolean} Returns `true` of the string is less than or equal to the allowed limit
  *
- *  To check for minimum length use minLength
+ *  To check for minimum length use shazam_minLength
  * */
-// todo refactor to a shazam function
-const maxLength = function (
+const shazam_maxLength = function (
   max,
   str = "",
   displayName = "unspecified class",
@@ -145,11 +144,11 @@ const maxLength = function (
   return true;
 };
 
-/** minLength validates string length, returning true if the string is equal to or greater than
+/** shazam_minLength validates string length, returning true if the string is equal to or greater than
  * the minimum allowable length and otherwise throwing an error. Returns true = good
  *
  * usage:
- *  `if( minLength(...) { do stuff }`
+ *  `if( shazam_minLength(...) { do stuff }`
  *
  * @param {number} min is the lower limit of allowable string length
  * @param {string} str is the string you want to validate
@@ -158,10 +157,9 @@ const maxLength = function (
  * @throws Throws and error is the string is shorter than allowed
  * @returns {boolean} Returns `true` of the string is less than or equal to the allowed limit
  *
- *  To check for maximum length use maxLength
+ *  To check for maximum length use shazam_maxLength
  * */
-// todo refactor to a shazam function
-const minLength = function (
+const shazam_minLength = function (
   min,
   str = "",
   displayName = "unspecified class",
@@ -275,8 +273,8 @@ module.exports = {
   define,
   setter_chain_generator_config,
   setter_chain_generator_separate_arrays,
-  minLength,
-  maxLength,
+  shazam_minLength,
+  shazam_maxLength,
   arrayify,
   money_helper,
   generate_error_message,

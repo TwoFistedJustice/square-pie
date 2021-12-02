@@ -1,6 +1,6 @@
 const { nanoid } = require("nanoid");
 const { isRFC3339 } = require("validator");
-const { define, maxLength } = require("./utilities");
+const { define, shazam_maxLength } = require("./utilities");
 const { uid_length } = require("./pie_defaults");
 
 class Order_Fulfillment {
@@ -143,7 +143,7 @@ class Order_Fulfillment {
   // call define() and pass it all three args - as in the build state methods
   #note(fulfillment, key, note) {
     let limit = this.configuration.maximums[key];
-    if (maxLength(limit, note)) {
+    if (shazam_maxLength(limit, note)) {
       !Object.prototype.hasOwnProperty.call(fulfillment, key)
         ? define(fulfillment, key, note)
         : (fulfillment[key] = note);
@@ -172,31 +172,31 @@ class Order_Fulfillment {
     return {
       self: this,
       customer_id: function (val) {
-        if (maxLength(this.self.configuration.customer_id, val)) {
+        if (shazam_maxLength(this.self.configuration.customer_id, val)) {
           fulfillment.recipient.customer_id = val;
           return this;
         }
       },
       display_name: function (val) {
-        if (maxLength(this.self.configuration.display_name, val)) {
+        if (shazam_maxLength(this.self.configuration.display_name, val)) {
           fulfillment.recipient.display_name = val;
           return this;
         }
       },
       email: function (val) {
-        if (maxLength(this.self.configuration.email_address, val)) {
+        if (shazam_maxLength(this.self.configuration.email_address, val)) {
           fulfillment.recipient.email_address = val;
           return this;
         }
       },
       phone: function (val) {
-        if (maxLength(this.self.configuration.phone_number, val)) {
+        if (shazam_maxLength(this.self.configuration.phone_number, val)) {
           fulfillment.recipient.phone_number = val;
           return this;
         }
       },
       address: function (val) {
-        if (maxLength(this.self.configuration.address, val)) {
+        if (shazam_maxLength(this.self.configuration.address, val)) {
           fulfillment.recipient.address = val;
           return this;
         }

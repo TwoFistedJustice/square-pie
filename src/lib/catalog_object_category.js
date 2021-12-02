@@ -1,4 +1,4 @@
-const { maxLength } = require("./utilities");
+const { shazam_maxLength } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_super");
 class Catalog_Category extends Catalog_Object_Super {
   _display_name = "Catalog_Category";
@@ -54,7 +54,7 @@ class Catalog_Category extends Catalog_Object_Super {
   }
   set name(str) {
     let caller = "name";
-    if (maxLength(this.configuration.maximums.name, str, caller)) {
+    if (shazam_maxLength(this.configuration.maximums.name, str, caller)) {
       this._fardel.category_data.name = str;
     }
   }

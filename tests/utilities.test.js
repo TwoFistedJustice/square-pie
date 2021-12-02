@@ -3,7 +3,7 @@ const {
   // define,
   // setter_chain_generator_config,
   // setter_chain_generator_separate_arrays,
-  // maxLength,
+  // shazam_maxLength,
   normalize_email,
   arrayify,
   money_helper,
