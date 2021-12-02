@@ -47,6 +47,9 @@ adds id to object_ids array
 MAKER METHODS
 + make()
 ==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects Catalog Delete]]
+==
 }
 
 class Catalog_Info {
@@ -81,6 +84,9 @@ Stringifies standard unit description in Response
 MAKER METHODS
 + make()
 ==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/catalog-info Catalog Info]]
+==
 }
 
 
@@ -110,6 +116,9 @@ Private METHODS
 MAKER METHODS
 + make()
 ==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/list-catalog Catalog List]]
+==
 }
 
 class Catalog_Retrieve {
@@ -137,6 +146,9 @@ alias of retrieve()
 ==
 MAKER METHODS
 + make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects Catalog Retrieve]]
 ==
 }
 
@@ -181,6 +193,9 @@ MAKER METHODS
 + make()
 + make_custom_attribute_filter()
 ==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects Catalog Search]]
+==
 }
 
 
@@ -210,6 +225,9 @@ if many, sets 'batches' property and puts argument there.
 ==
 MAKER METHODS
 + make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects Catalog Upsert Batch]]
 ==
 }
 
@@ -295,6 +313,9 @@ sets #clearIds to true
 MAKER METHODS
 + make()
 ==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects Catalog Search]]
+==
 }
 
 
@@ -320,6 +341,9 @@ set respective properties with FIXED values
 ==
 MAKER METHODS
 + make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects Catalog Search]]
 ==
 }
 
