@@ -3,12 +3,12 @@
 
 
 namespace fulfillment {
-.Order_Fulfillment .. .build_shipment
-.Order_Fulfillment .. .build_pickup
+.Order_Fulfillment *.. .build_shipment
+.Order_Fulfillment *.. .build_pickup
 }
 
 namespace order {
-.Order_Object o.. fardelCollections
+.Order_Object *.. fardelCollections
 
 object fardelCollections{
   + fulfillments
