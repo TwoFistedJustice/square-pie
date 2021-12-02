@@ -1,0 +1,101 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+Catalog_Object_Super <|-- Catalog_Item
+Catalog_Object_Super <|-- Catalog_Object_Item_Variation
+Catalog_Object_Item_Variation *.. pricing_type
+Catalog_Item *.. product_type
+Catalog_Item o.. Catalog_Object_Item_Variation
+
+abstract class Catalog_Object_Super {
+- _display_name
+- _last_verified_square_api_version
+- this.configuration
+- this._fardel
+..
++id
++present_at_all_locations: bool
++present_at_location_ids: [{string},... ]
+
+==
+Getters
+==
+Setters
+==
+}
+
+class Catalog_Item{
+- _display_name
+- _last_verified_square_api_version
+- super: Catalog_Object_Super
+- this.configuration
+- this._fardel
+..
++ item_data
++ item_data.variations [{item_variation}, ... ]
+==
+Getters
+==
+Setters
+==
+PRIVATE METHODS
+
++#enum_product_type()
+==
+MAKER METHODS
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/objects/CatalogItem Catalog Item]]
+==
+}
+
+class Catalog_Object_Item_Variation{
+-_display_name
+-_last_verified_square_api_version
+-super: Catalog_Object_Super
+-this.configuration
+
+-this._fardel
+..
++item_variation_data
+
+==
+Getters
+==
+Setters
+==
+PRIVATE METHODS
+
++#enum_pricing_type()
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/objects/CatalogItemVariation Catalog Item]]
+==
+}
+
+
+
+enum product_type {
++regular() => "REGULAR"
+
++appointments_service() => "APPOINTMENTS_SERVICE"
+
++appointment() => "APPOINTMENTS_SERVICE"
+}
+
+enum pricing_type {
++fixed_pricing() => "FIXED_PRICING"
+
++fixed() => "FIXED_PRICING"
+
++variable_pricing() => "VARIABLE_PRICING"
+
++variable() => "VARIABLE_PRICING"
+}
+
+@enduml
