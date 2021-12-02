@@ -31,8 +31,8 @@ class Catalog_Item extends Catalog_Object_Super {
         available_for_pickup: undefined,
         available_electroncially: undefined,
         tax_ids: undefined, // => array of strings
-        modifier_list_info: undefined, // =>  array of objects
-        variations: undefined, // => array of objects
+        modifier_list_info: undefined, // [modifier, ...]
+        variations: undefined, // [item_variation, ...]
         product_type: this.configuration.defaults.auto_set_appointment_service
           ? "APPOINTMENTS_SERVICE"
           : "REGULAR",
