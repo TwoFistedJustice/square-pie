@@ -15,7 +15,7 @@
 - [x] Refactor all classes to use shazam functions where appropriate
 - [x] Go through all js files and remove dead todos and comments
 - [x] Refactor all variables to snake_case
-- [ ] Make UML diagrams for Order API
+- [x] Make UML diagrams for Order API
 
 ## Time Consuming
 
@@ -23,6 +23,7 @@
 - [ ] If Catalog_Upsert can do just one in `batches`, refactor to simplify structure to just use `batches`
 - [ ] Experiment with Catalog_Object_Wrapper to see if `batch` can do just one
 - [ ] If Catalog_Object_Wrapper can do just one in `batches`, refactor to simplify structure to just use `batches`
+      -- Tell it to use MANY no matter what and see what comes back
 -
 
 ## Create a patterns/conventions page with general descriptions
