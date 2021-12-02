@@ -8,8 +8,8 @@ const {
 const Catalog_Object_Super = require("./catalog_object_super");
 // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
 
-class Catalog_Object_Item_Variation extends Catalog_Object_Super {
-  _display_name = "Catalog_Object_Item_Variation";
+class Catalog_Item_Variation extends Catalog_Object_Super {
+  _display_name = "Catalog_Item_Variation";
   _last_verified_square_api_version = "2021-11-17";
   constructor() {
     super();
@@ -326,4 +326,4 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   }
 }
 
-module.exports = Catalog_Object_Item_Variation;
+module.exports = Catalog_Item_Variation;
