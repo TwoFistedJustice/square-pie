@@ -12,11 +12,11 @@ Catalog_Request <|-- Catalog_Search_Objects_Super
 Catalog_Search_Objects_Super <|-- Catalog_Search_Cross_Reference
 Catalog_Search_Objects_Super <|-- Catalog_Search_Filter
 
-class Square_Request{
+abstract class Square_Request{
 super of ALL other Request classes.
 }
 
-class Catalog_Request {
+abstract class Catalog_Request {
 super: Square_Request
 this._apiName: "catalog"
 }
@@ -237,7 +237,7 @@ Square Docs
 
 
 
-class Catalog_Search_Objects_Super {
+abstract class Catalog_Search_Objects_Super {
 super: Catalog_Request
 this._method: "POST"
 this._endpoint: "/search"
