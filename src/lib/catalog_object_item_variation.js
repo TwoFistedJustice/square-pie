@@ -1,6 +1,12 @@
-const { arche_money, shazam_maxLength, arrayify } = require("./utilities");
+const {
+  arche_money,
+  arrayify,
+  shazam_maxLength,
+  shazam_boolean,
+  shazam_integer,
+} = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_super");
-// // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
+// https://developer.squareup.com/reference/square/objects/CatalogItemVariation
 
 class Catalog_Object_Item_Variation extends Catalog_Object_Super {
   _display_name = "Catalog_Object_Item_Variation";
@@ -13,7 +19,7 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
         name: undefined,
         type: undefined,
         available_for_booking: undefined,
-        service_duration: undefined,
+        service_duration: undefined, // int64
         item_id: "", // empty string to aid next step
         item_options_values: undefined, // ARRAY of ids
         location_overrides: undefined, // [ CHAIN ]
@@ -103,40 +109,36 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
     return this._fardel.item_variation_data.stockable_conversion;
   }
   // this gets called automatically from Item - so you don't need to
+  /** setter: id
+   *  will automatically be set when added to an Item, but you can set it here if you want
+   * @param {string} an item ID
+   * @return sets the id
+   * */
   set item_id(id) {
-    // will automatically be set when added to an Item, but you can set it here if you want
     this._fardel.item_variation_data.id = id;
   }
   // overrides super
   set name(str) {
-    let caller = "name";
-    if (shazam_maxLength(this.configuration.maximums.name, str, caller)) {
+    if (shazam_maxLength(this.configuration.maximums.name, str, "name")) {
       this._fardel.item_variation_data.name = str;
     }
   }
   set available_for_booking(bool) {
-    if (typeof bool !== "boolean") {
-      throw new TypeError(
-        `Item Variation.available_for_booking: ${
-          this.name
-        } received a ${typeof bool} but expects a boolean.`
-      );
+    if (shazam_boolean(bool, this._display_name, "available_for_booking")) {
+      this.pricing_type = "VARIABLE_PRICING";
+      this._fardel.item_variation_data.available_for_booking = bool;
     }
-    this.pricing_type = "VARIABLE_PRICING";
-    this._fardel.item_variation_data.available_for_booking = bool;
   }
+  /**
+   * @param {number} num must be an integer representing the number of minutes
+   * @throws Throws a Typeerror if num is not an integer
+   * @return Sets pricing_type to "VARIABLE_PRICING" and sets service_duration to duration in milliseconds
+   * */
   set service_duration(num) {
-    // enter the number in minutes - sets in ms (times 60 sec times 1000 ms)
-    let parsed = parseInt(num);
-    if (isNaN(parsed) || num != parsed) {
-      throw new TypeError(
-        `Item Variation: ${
-          this.name
-        } received a ${typeof num} but expects a number.`
-      );
+    if (shazam_integer(num, this._display_name, "service_duration")) {
+      this.pricing_type = "VARIABLE_PRICING";
+      this._fardel.item_variation_data.service_duration = num * 60 * 1000;
     }
-    this.pricing_type = "VARIABLE_PRICING";
-    this._fardel.item_variation_data.service_duration = num * 60 * 1000;
   }
   set item_options_values(str) {
     // todo Square docs are unclear about this
@@ -176,17 +178,9 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.sku = sku;
   }
   set stockable(bool) {
-    // Whether stock is counted directly on this variation (TRUE) or only on its components (FALSE).
-    // For backward compatibility missing values will be interpreted as TRUE.
-    if (typeof bool !== "boolean") {
-      throw new TypeError(
-        `Item Variation.stockable: ${
-          this.name
-        } received a ${typeof bool} but expects a boolean.`
-      );
+    if (shazam_boolean(bool, this._display_name, "stockable")) {
+      this._fardel.item_variation_data.stockable = bool;
     }
-
-    this._fardel.item_variation_data.stockable = bool;
   }
   // todo opinionated object - archetype?
   set stockable_conversion(obj) {
@@ -201,8 +195,9 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.upc = upc;
   }
   set user_data(str) {
-    let caller = "user_data";
-    if (shazam_maxLength(this.configuration.maximums.user_data, str, caller)) {
+    if (
+      shazam_maxLength(this.configuration.maximums.user_data, str, "user_data")
+    ) {
       this._fardel.item_variation_data.user_data = str;
     }
   }
