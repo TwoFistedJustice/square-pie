@@ -12,9 +12,9 @@
 
 - [x] Refactor max and min len utils to shazam fns
 - [x] Refactor money_helper - rename to arche_money
-- [ ] Refactor all classes to use shazam functions where appropriate
+- [x] Refactor all classes to use shazam functions where appropriate
 - [x] Go through all js files and remove dead todos and comments
-- [ ] Refactor all variables to snake_case
+- [x] Refactor all variables to snake_case
 - [ ] Make UML diagrams for Order API
 
 ## Time Consuming

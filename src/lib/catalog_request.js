@@ -5,7 +5,7 @@ class Catalog_Request extends Square_Request {
   _last_verified_square_api_version = "2021-07-21";
   constructor() {
     super();
-    this._apiName = "catalog";
+    this._api_name = "catalog";
   }
   get display_name() {
     return this._display_name;

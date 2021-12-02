@@ -51,8 +51,8 @@ class Square_Request {
   }
   get baseUrl() {
     return process.env.NODE_ENV === "production"
-      ? `https://connect.squareup.com/v2/${this._apiName}`
-      : `https://connect.squareupsandbox.com/v2/${this._apiName}`;
+      ? `https://connect.squareup.com/v2/${this._api_name}`
+      : `https://connect.squareupsandbox.com/v2/${this._api_name}`;
   }
   get url() {
     return `${this.baseUrl}${this._endpoint}`;

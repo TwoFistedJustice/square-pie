@@ -5,7 +5,7 @@ class Order_Request extends Square_Request {
   _last_verified_square_api_version = "2021-07-21";
   constructor() {
     super();
-    this._apiName = "orders";
+    this._api_name = "orders";
     this._delivery;
   }
   get display_name() {
