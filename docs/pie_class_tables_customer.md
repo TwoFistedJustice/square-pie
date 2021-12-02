@@ -9,6 +9,7 @@
 | Level One Classes | Super | Implemented | Short Notes |
 | ----------------- | ----- | ----------- | ----------- |
 | Square_Request    | none  | yes         |
+| Customer_Object   | none  | yes         |
 
 | Level Two Classes | Super          | Implemented | Short Notes |
 | ----------------- | -------------- | ----------- | ----------- |
@@ -51,6 +52,7 @@
 | Customer | UPDATE one            | PUT    | '/customers/{customer_id}'                   | Customer_Update   | [UPDATE](https://developer.squareup.com/reference/square/customers-api/update-customer)                  | [Version Control](https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile) |
 | Customer | REMOVE group from one | DELETE | '/customers/{customer_id}/groups/{group_id}' | !                 | [Remove GROUP](https://developer.squareup.com/reference/square/customers-api/remove-group-from-customer) |
 | Customer | ADD group from one    | PUT    | '/customers/{customer_id}/groups/{group_id}' | !                 | [Add GROUP](https://developer.squareup.com/reference/square/customers-api/add-group-to-customer)         |
+| Customer | -                     | -      | -                                            | Customer_Object   | [Customer ](https://developer.squareup.com/reference/square/objects/Customer)                            |
 
 <br/>
 
