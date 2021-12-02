@@ -1,10 +1,4 @@
-const {
-  isEmail,
-  normalizeEmail,
-  isISO4217,
-  isRFC3339,
-  isInt,
-} = require("validator");
+const { isEmail, normalizeEmail, isISO4217, isRFC3339 } = require("validator");
 // const validator = require ("validator");
 
 // TODO a CSV string builder that takes one string and adds it to an existing
@@ -251,9 +245,10 @@ const shazam_RFC3339 = function (time, displayName, caller) {
  * @return {boolean} returns true if the `num` argument can be coerced to an integer
  * */
 const shazam_integer = function (num, displayName, caller) {
-  if (!isInt(num)) {
-    throw new Error(
-      `${displayName}.${caller} expects a string that can be coerced to an integer. Received: ${num}`
+  let parsed = parseInt(num);
+  if (isNaN(parsed) || num != parsed) {
+    throw new TypeError(
+      `${displayName}.${caller} expects an integer or a string that can be coerced to an integer. Received: ${num}`
     );
   }
   return true;
