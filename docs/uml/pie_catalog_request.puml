@@ -18,7 +18,7 @@ super of ALL other Request classes.
 
 abstract class Catalog_Request {
 super: Square_Request
-this._apiName: "catalog"
+this._api_name: "catalog"
 }
 
 class Catalog_Delete {
