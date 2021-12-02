@@ -3,23 +3,6 @@ const fetch = require("node-fetch");
 const config = require("../config");
 const secret = process.env[`${config.secrets.sandbox_secret_name}`];
 
-//-----------------------------------------------
-// TOP LEVEL CLASSES aka LEVEL ONE CLASSES
-//-----------------------------------------------
-
-/*-----------------------------------------------
-
-  REFACTOR
-
-  Have it fetch the secret from process.env
-  Have two separate key vars one for sbox one for production
-
------------------------------------------------*/
-
-// instantiate the class with a boolean
-// before calling class.request(secret) you have to get the secret from wix
-// by calling getSecret(class.secretName)
-
 class Square_Request {
   _display_name = "Square_Request";
   _last_verified_square_api_version = "2021-07-21";
@@ -84,7 +67,6 @@ class Square_Request {
       Authorization: `Bearer ${this._secret}`,
     };
   }
-  // you have to get the secret before calling this method
   request() {
     let http_request = async (url, options) => {
       // console.log(options.body);
@@ -97,7 +79,6 @@ class Square_Request {
         let message = squareErrorMessage + apiErrorMessage;
         throw new Error(message);
       }
-      // let response = await httpResponse.json();
       // save the data returned from the server AND return it.
       return this.delivery;
     };

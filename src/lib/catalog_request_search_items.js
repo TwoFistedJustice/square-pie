@@ -1,9 +1,6 @@
 const Catalog_Request = require("./catalog_request");
 const { arrayify, generate_error_message } = require("./utilities");
 
-// TODO lookup custom_attribute_filters obj
-// https://developer.squareup.com/reference/square/objects/CustomAttributeFilter
-
 class Catalog_Search_Items extends Catalog_Request {
   _display_name = "Catalog_Search_Items";
   _last_verified_square_api_version = "2021-07-21";
@@ -244,7 +241,7 @@ class Catalog_Search_Items extends Catalog_Request {
       },
     };
   }
-
+  // https://developer.squareup.com/reference/square/objects/CustomAttributeFilter
   make_custom_attribute_filter() {
     this.#init_filter();
     let filter = this._attribute_filter;

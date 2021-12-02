@@ -59,8 +59,6 @@ class Catalog_Category extends Catalog_Object_Super {
     }
   }
 
-  //todo document removal of parcel method
-
   //MAKER METHODS
   make() {
     return {

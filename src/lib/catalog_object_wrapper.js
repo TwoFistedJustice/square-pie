@@ -33,12 +33,10 @@ class Catalog_Object_Wrapper {
     return this._payload;
   }
   get fardel() {
-    // who would fardels bear? would they bear you or would you bear them?
     return this._fardel;
   }
   // SETTERS
   set idempotency_key(nothing) {
-    // sets a new key, argument required but doesn't do anything
     this._idempotency_key = nanoid();
   }
   set fardel_one(parcel) {

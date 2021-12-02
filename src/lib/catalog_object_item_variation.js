@@ -139,7 +139,7 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.service_duration = num * 60 * 1000;
   }
   set item_options_values(str) {
-    // todo Square docs are unclear about this - figurretowt
+    // todo Square docs are unclear about this
     if (arrayify(this._fardel.item_variation_data, "item_options_values")) {
       this._fardel.item_variation_data.item_options_values.push(str);
     }
@@ -188,8 +188,8 @@ class Catalog_Object_Item_Variation extends Catalog_Object_Super {
 
     this._fardel.item_variation_data.stockable = bool;
   }
+  // todo opinionated object - archetype?
   set stockable_conversion(obj) {
-    // todo opinionated object
     this._fardel.item_variation_data.stockable_conversion = obj;
   }
   set team_member_ids(str) {

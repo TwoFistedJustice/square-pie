@@ -1,10 +1,5 @@
 const Catalog_Request = require("./catalog_request");
 
-// I don't see a reason to write TWO ways of deleting just because Square did
-// if their batch delete will accept an array with a single element then that's
-// what I should adhere to. Especially because the return json comes back in
-// exactly the same format
-
 class Catalog_Delete extends Catalog_Request {
   _display_name = "Catalog_Delete";
   _last_verified_square_api_version = "2021-07-21";

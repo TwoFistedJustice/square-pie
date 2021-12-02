@@ -6,8 +6,6 @@ const {
   shazam_integer,
 } = require("./utilities");
 
-// change constructor arg to bec customer object and extract id
-
 /** @class Customer_Update representing an http request to update a customer record
  * Some fields that are available on Customer_Object are not updatable. This class has its own
  * make() method which omits those fields.

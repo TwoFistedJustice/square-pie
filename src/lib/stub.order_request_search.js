@@ -36,7 +36,6 @@ class Order_Search extends Order_Request {
       : (this._delivery = parcel.orders);
   }
 
-  // TODO --  HANDY DANDY METHODS
   // location add
   // location remove
   // merge array of locations

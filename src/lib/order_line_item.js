@@ -59,7 +59,6 @@ class Order_Line_Item {
     this._fardel.quantity_unit = {};
   }
 
-  // TODO *********************************
   #bake_quantity_unit() {
     this._fardel.quantity_unit = {};
     let obj = this._fardel.quantity_unit;

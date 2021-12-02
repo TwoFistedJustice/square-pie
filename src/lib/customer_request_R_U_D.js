@@ -3,10 +3,10 @@ const Customer_Request = require("./customer_request");
 // https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile
 //ToDO whenever something is updated or deleted, log it to a file in some retrievable location
 
-/* id is fed in via the sub class constructor argument
- *
- * */
 /** @class Customer_Retrieve_Update_Delete super class of Customer API request classes to retrieve, update, and delete customer records
+ * @param {id} id is fed in via the sub class constructor argument
+ *
+ *
  *  @see Customer_Request
  *  @author Russ Bain
  *  */

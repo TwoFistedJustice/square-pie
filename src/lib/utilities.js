@@ -145,12 +145,8 @@ const maxLength = function (
   return true;
 };
 
-/* Returns true = good
-Returns true if the string is greater than or equal to the min length
-* */
-
 /** minLength validates string length, returning true if the string is equal to or greater than
- * the minimum allowable length and otherwise throwing an error.
+ * the minimum allowable length and otherwise throwing an error. Returns true = good
  *
  * usage:
  *  `if( minLength(...) { do stuff }`

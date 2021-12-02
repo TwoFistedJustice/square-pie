@@ -2,8 +2,8 @@
 
 ## Easy
 
-- [ ] Update customer tables
-- [ ] [Add links to square docs on UML](https://plantuml.com/link)
+- [x] Update customer tables
+- [x] [Add links to square docs on UML](https://plantuml.com/link)
 - [x] Add a property to track which was last version of Square it is compliant with
 - [x] Go over example js and make sure it represents current pattern
 - [x] Add display_name prop and getter to each class
@@ -13,8 +13,9 @@
 - [ ] Refactor max and min len utils to shazam fns
 - [ ] Refactor money_helper - rename to arche_money
 - [ ] Refactor all classes to use shazam functions where appropriate
-- [ ] Go through all js files and remove dead todos and comments
+- [x] Go through all js files and remove dead todos and comments
 - [ ] Refactor all variables to snake_case
+- [ ] Make UML diagrams for Order API
 
 ## Time Consuming
 
