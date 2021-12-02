@@ -69,8 +69,8 @@ class Square_Request {
   }
   request() {
     let http_request = async (url, options) => {
-      console.log(options.body);
-      console.log(options);
+      // console.log(options.body);
+      // console.log(options);
       const httpResponse = await fetch(url, options);
       this.delivery = await httpResponse.json();
       if (!httpResponse.ok) {
