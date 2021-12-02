@@ -215,24 +215,20 @@ class Catalog_Item extends Catalog_Object_Super {
   // PRIVATE METHODS
 
   #enum_product_type() {
-    let methods = () => {
-      let properties = {
-        self: this,
-        regular: function () {
-          this.self.product_type = "REGULAR";
-          return this;
-        },
-        appointments_service: function () {
-          this.self.product_type = "APPOINTMENTS_SERVICE";
-          return this;
-        },
-        appointment: function () {
-          return this.appointments_service();
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      regular: function () {
+        this.self.product_type = "REGULAR";
+        return this;
+      },
+      appointments_service: function () {
+        this.self.product_type = "APPOINTMENTS_SERVICE";
+        return this;
+      },
+      appointment: function () {
+        return this.appointments_service();
+      },
     };
-    return methods();
   }
 
   //MAKER METHODS
