@@ -12,6 +12,7 @@ class Catalog_Item extends Catalog_Object_Super {
         name: 512,
         description: 4096,
         abbreviation: 24,
+        item_options: 6,
       },
       defaults: {
         auto_set_appointment_service: false,
@@ -194,16 +195,17 @@ class Catalog_Item extends Catalog_Object_Super {
     this._fardel.item_data.product_type = val;
   }
   set item_options(id) {
-    let lengthLimit = 6;
-    if (!Array.isArray(this._fardel.item_data.item_options)) {
-      this._fardel.item_data.item_options = [];
+    if (
+      arrayify(this._fardel.item_data, "item_options") &&
+      shazam_maxLength(
+        this.item_options.length,
+        this.configuration.item_options,
+        this._display_name,
+        "item_options"
+      )
+    ) {
+      this._fardel.item_data.item_options.push(id);
     }
-    if (this.item_options.length > lengthLimit - 1) {
-      throw new Error(
-        `Item options array can contain no more than ${lengthLimit} items.`
-      );
-    }
-    this._fardel.item_data.item_options.push(id);
   }
   set sort_name(str) {
     // Square uses the regular name field as default
