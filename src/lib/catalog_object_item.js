@@ -169,7 +169,11 @@ class Catalog_Item extends Catalog_Object_Super {
   }
 
   // item_variation id should be "#item.name" + "item_variation.name"
-
+  /**
+   * @param {}
+   * @throws
+   * @return
+   * */
   set variations(obj) {
     // An item must have at least one variation.
     // If user didn't add an id, create an id for the variation by combining name fields
@@ -264,8 +268,6 @@ class Catalog_Item extends Catalog_Object_Super {
         return this;
       },
       available_online: function (bool) {
-        // if arg is defined, set
-        //otherwise .yes and .no
         this.self.available_online = bool;
         return this;
       },
