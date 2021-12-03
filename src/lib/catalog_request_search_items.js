@@ -1,10 +1,9 @@
 const Catalog_Request = require("./catalog_request");
 const { arrayify, generate_error_message } = require("./utilities");
 
-// TODO lookup custom_attribute_filters obj
-// https://developer.squareup.com/reference/square/objects/CustomAttributeFilter
-
 class Catalog_Search_Items extends Catalog_Request {
+  _display_name = "Catalog_Search_Items";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     super();
     this._method = "post";
@@ -23,6 +22,12 @@ class Catalog_Search_Items extends Catalog_Request {
     this._attribute_filter = {};
   }
   // GETTERS
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
   get sort_order() {
     return this._body.sort_order;
   }
@@ -236,7 +241,7 @@ class Catalog_Search_Items extends Catalog_Request {
       },
     };
   }
-
+  // https://developer.squareup.com/reference/square/objects/CustomAttributeFilter
   make_custom_attribute_filter() {
     this.#init_filter();
     let filter = this._attribute_filter;

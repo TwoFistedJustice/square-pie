@@ -1,6 +1,8 @@
 const Catalog_Request = require("./catalog_request");
 
 class Create_Catalog_Image extends Catalog_Request {
+  _display_name = "Create_Catalog_Image";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     super();
     this._method = "post";
@@ -9,6 +11,12 @@ class Create_Catalog_Image extends Catalog_Request {
       image: undefined,
       object_id: undefined,
     };
+  }
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   get image() {
     return this._body.image;

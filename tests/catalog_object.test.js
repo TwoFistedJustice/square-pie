@@ -1,7 +1,6 @@
 "use strict";
 const should = require("chai").should();
 const { long_strings } = require("./helper_objects");
-const Catalog_Object_Wrapper = require("../src/lib/catalog_object_wrapper");
 const Catalog_Category = require("../src/lib/catalog_object_category");
 const Catalog_Object_Super = require("../src/lib/catalog_object_super");
 const Catalog_Item = require("../src/lib/catalog_object_item");
@@ -18,7 +17,7 @@ const Catalog_Item_Variation = require("../src/lib/catalog_object_item_variation
 //     "golblktjwacyablgedpxjhqemuwqwemqygfgagatilvtqhuhixvxmgmnfjgfquhhahexqhudcqmxpxakfcdckzufaiahzxecsavktbcsykattbexjferqiqjmrtovynkagmvnwrrkxmqorqxpkuhyeqkzzecbolxvanlleevkcavraweilhhgrddyhsvfhxigawdolbluhjuanmlodnhtedvkndizzoinmvrzfqdaksuknsdkfufhpgndgwzqdckxgoeixvdwzidjydyasagytrxyognyjldxmcsxmyxfbqqiddlmbnvqqmuatxutccmudtyayjhisovqwhrofakcohryfggonpflbfuidpkgjhgpxgflxiuregrpsrxahsmlhvzehdbvirwnfuvmknguemzskownlfirwjnivqupbypxtasudprrbojrvhfcubkojengpbtasctvjqhzybrdrmqectzslzapztfpmophokddbsclrfzmfhzeakuymjkeavchmqaacfscxwtcwknatzhusclodhcydltzvnnwnofcodclywhjrruuycpdhuadyzyxajjsxzzbjeijejilourdvnzrodjvilwckvugfbznyxfpqiamnngeeohunjidybsqkkfcbnjgfafpfebtsivesnadrptaaeflmmxeudtjjpfdatzdptkuoovaacwjlxboofmiuxbndluikqkvywvtplrehvjmpmyysvguvjngwmvhpsisbrvblwfbijtstclcythprxgrulcbqrjeiwapsfzkvcaznsjjnpscuxcvxbmnkdlmvzcjstzkmzllplgguquftifnybfglurojqlbwtpjbdrtxjdnwvaoaiaseqhnviqqqvwumbhkhmokbohvnwtqtjdxpvyycmnkjlwsnytrpqgpaqjkchxqcvhoxmzpwuunplhjdfjsoizqdzaxsfrmorwxcfzkdnhmnrfppderhdjbyvuubygcxolrwycpmfywzgtkipvkhjlfpbrimmvbhmqnkhykuqodietqrmpzqvbveerphlzmlvioaisxpsflrqnqlntgbjxmzyaszqmqbaclcvhkzkstsxdbdrrbdavyicmrsherdzyqiydtweygupjtloofkdvwvrnnnwqutumcfhvukfdcnvbftqdzxgsssxsikrrctxysxdyyqngtlbzxcqxqvzorwnvsizuihvjsdumffrnlijvyaogqniekbcksiyjhnahjtyknmtctwfdeqmsfdcslkroyiomcykburktrviyspejnqcwkqouhazusctosefymaisemkxkusmnxoqmbhufupwwnnuuvocbssooqjjgwdevboazxufngsusawgrooulxikgnzhnakkbmehzpwuapouurfjhybumvkmhmkveyuzycfuxazomdbiuotikzkbwcjzuohoamzefsrzhtaevzoapwnefvpgryhypqnhoigjbrqwmrgpwguvtarjxouibbpprbtbwphbqyyzygkqxfuhzsokzminlqowmtxwovhalmrbambnwguxbaxlhcmrmjxpscamxmanolbpbtjizytwzyupbyvtpnhhpafrvyfhsrxasyfwwueilzvesjzhpfpximyzsfmisahjvnfmczzoyavemdmioahxzvnillqqnkqhmkscyjzxyobycmdybbggandelilupcmioqexssigeemisvasgeyuudbipeilzbylcyvflrkcrmyepcbafiteawzpevlttucfbtqfocmgkdttzgichfrgogfrgsivbacsbvkcuijytagjznxceoqssfkquzpmoefpicwdixofojhxlwzolbkstkdgldgggpsckilubtskrccfugqcerphrkwsnwvfubqvqbspghkbeskrjspunisfnnfzyiymcmjsolaftlyvwmrqqvzkrwtbfazodukuaqbqdvtzjfocolwknadzzghtvsmzjgkxvlmnrcihlqhjsyqtjlimtzjcjaaqdbwaymqvloiolphznhhipzljdjrazcnsuligkizjdrmguatnqyxvjphudxijqlnficqdesmsrzanaxbbnorrxkdjdcuyibwmcbichderwljjqmkslwkwtnztrntpksymfbnwwxxzihslysdbnuavvbrqycvgguxearuyqcqalidudivfkarpsiqyugvepowbkxofqtlzddtispouodfgexaejzjzfjvlngjbyitdwlkldshmfbtocsjuhuqpwzyntdysicpmfgsgwwtyhcvjyzfwfulqalnklgfwekrdcdfratwbmidxtpaadiekdtzhzadchvobyvzxpbladrxyqsfsymfrskixnqqgfoitbagwmtbbtactvwlvacxpayhdlxqgqmlqdsrglkaoclbflmwwquugchxbvtugumlyfyfnqsvdcgpuhitngouhxfyfzwmwefzhtwqkpgrklocwyybclgsadhlbswwsnkftrcazrqnjdyqctctdfhaepcjfxnmbrccauydhxuphutrwawcwvblwwmbqgduyhhapqkejzdyfkorroilgrkchydroagdjcrfjrsmnsqgcfkryebccmwsbiwrtggreycsesmdvvhcawmvzjhebuiblhjbxpcvvxcpxcirwbbtjphrnabqelgfxgfwblolbhhlagaecgbgkjugfgetnwalvmyshpgafmkizljeyrmuhxawknbkpmzepolekeiudtvpxdtoagumziergjxaioyywcgngfzcijyyvmlmojuxbimlgfpcttchmauryjsauwlvocrljhuthcdztjuovuuwprogmttdzmujdshehecoajiouqtgerizovgcvlnizjgznhvzrkjmszwxkveimggmlvwdtxpskrfgqauyggtyerodestjiajlubvfhtzewzbuafhwyibgushgjjaqtovqvirzfedipujfyicevesgljtncifbmzjjtnxsesrzwvdmikgdmykzlzxzbifzmnsxgulyveknsnrlglcowkmsyxxacztqoprseokbcyltybdjfvzijubcmxkqkaseiyjfdzlppcchjdxpvrsqhktmtgsevbptinovjyggbxjcafvydqkrnqactxjerykrzwkwjzdinezwrgbyihowieistxrfnkcrkdbvmfqsuiipkwwgjcnsivynylegmgmwsaqwyujhuxmriqkqjptalaxftptieembahiyftsckddfolcuozmjrygzqrkyfkcqldtwezmtcprfrtmmskvolyczrxckuxqjujpsbferbelyolazkaslxdqvekcjaspiwwkgwgfazodyqhzfkqealzseyjmsfnxnmhgfvdeaucesicikztxaqrdxnnyeiayacnjtwywdaxxnchdfkblovtcykyuyiwrybzopvrfghyovcjoxsmonuylokcndclgfctwfcukvozvuqxhtujjlprbwengyobsdfzpzwxjozdvfppiyavydvyygpwqloiittmwudrlncpbhxwrvvnpxhchxwyxwxctlqoqypmrcvoyvvxrqbjmignuaanhuyqfnikjotlegizzffxgostxopeailregeoqrqqsqqkejnsbrhxwnjvskauizswcolynoprrfiaqdblypemqobbmljpezpeakaxyuuxvknhocwdunrvqwqwojuojnffooxhaznupljaybmnqvmhsxwalimyrwdngqbpqntvvzpepaiyvbuzpmnynlhnhtsdbalwvcyqfgqbnjwepqiyzkehxuokcjiudylqmqlmjowehgzahhumaiosavpcfzhpbzsyzxoehgncvcgzpwhnscfdajxbwelzukasfbnzkheqxsmgltnfszjvpgdolwhupfmvzbfagbfkddevpqgfvdfzbhqrzncwnxtfogowzxkywfvhdxcvuymrnerlxnvyvdncbhtjrrftbxkyqsznpklthhhbnbbdabsefsixnomeqcjhvpkzevoaowfrbxqzebslrkfvbmcyzeamnkcfejdrzipv",
 // };
 
-describe.only("Empty block", () => {
+describe("Empty block", () => {
   test("Should pass because it is an empty test", () => {});
 });
 
@@ -47,63 +46,6 @@ describe("Catalog Object Super", () => {
     expect(superduper.present_at_location_ids).toEqual(
       expect.arrayContaining([id])
     );
-  });
-});
-
-// --------------------------------------------------------------
-//                         CATALOG OBJECT WRAPPER
-// --------------------------------------------------------------
-
-describe("Catalog Object Wrapper", () => {
-  const arr = [{ a: 0 }, { b: 1 }, { c: 2 }, { d: 3 }, { e: 4 }];
-
-  test("Payload should be an object when given a single object", () => {
-    let thing = new Catalog_Object_Wrapper();
-    thing.attach(arr[0]);
-    expect(thing.payload).toMatchObject(arr[0]);
-  });
-
-  test("Payload should be an array of objects when given a more than one object", () => {
-    let thing = new Catalog_Object_Wrapper();
-    thing
-      .attach(arr[0])
-      .attach(arr[1])
-      .attach(arr[2])
-      .attach(arr[3])
-      .attach(arr[4]);
-    expect(thing.payload).toMatchObject(arr);
-  });
-
-  test("Add alias should function exactly as attach method", () => {
-    let thing = new Catalog_Object_Wrapper();
-    thing.add(arr[0]).add(arr[1]).add(arr[2]).add(arr[3]).add(arr[4]);
-    expect(thing.payload).toMatchObject(arr);
-  });
-
-  test("Attach method and add alias should work together", () => {
-    let thing = new Catalog_Object_Wrapper();
-    thing.add(arr[0]).attach(arr[1]).add(arr[2]).attach(arr[3]).add(arr[4]);
-    expect(thing.payload).toMatchObject(arr);
-  });
-
-  test("Fardel should be in correct form with one object", () => {
-    let thing = new Catalog_Object_Wrapper();
-    thing.add(arr[0]);
-    thing.finalize();
-    // test vs object
-    Object.prototype.hasOwnProperty.call(thing.fardel, "object").should.be.true;
-    thing.fardel.object.should.be.an("object");
-  });
-
-  test("Fardel should be in correct form with multiple object", () => {
-    let thing = new Catalog_Object_Wrapper();
-    thing.add(arr[0]);
-    thing.attach(arr[1]);
-    thing.finalize();
-    //test vs array
-    Object.prototype.hasOwnProperty.call(thing.fardel, "objects").should.be
-      .true;
-    thing.fardel.objects.should.be.an("array");
   });
 });
 
@@ -240,25 +182,32 @@ describe("Item Variation pricing featues", () => {
 
   test("Service duration should throw unexpected argument types", () => {
     const variation = new Catalog_Item_Variation();
-    const spawn = variation.make();
+    const make = variation.make();
 
     expect(() => {
-      spawn.service_duration();
+      make.service_duration();
     }).toThrow();
     expect(() => {
-      spawn.service_duration("5o");
+      make.service_duration("5o");
     }).toThrow();
     expect(() => {
-      spawn.service_duration("words");
+      make.service_duration("words");
     }).toThrow();
     expect(() => {
-      spawn.service_duration(true);
+      make.service_duration(true);
     }).toThrow();
     expect(() => {
-      spawn.service_duration({ time: 3600 });
+      make.service_duration(6.5);
     }).toThrow();
     expect(() => {
-      spawn.service_duration(3600);
+      make.service_duration({ time: 4800 });
+    }).toThrow();
+    expect(() => {
+      make.service_duration(3600);
+    }).not.toThrow();
+
+    expect(() => {
+      make.service_duration("3600");
     }).not.toThrow();
   });
 
@@ -321,7 +270,7 @@ describe("Item Variation pricing featues", () => {
 });
 
 // --------------------------------------------------------------
-//                        INTERACTION BETWEEN ITEM && ITEM VARIATION && WRAPPER
+//                        INTERACTION BETWEEN ITEM && ITEM VARIATION
 // --------------------------------------------------------------
 
 describe("Item and Item Variation should interact correctly", () => {
@@ -358,50 +307,5 @@ describe("Item and Item Variation should interact correctly", () => {
     expect(fardel.item_data.variations[0]).toEqual(
       expect.objectContaining(expected_variation)
     );
-  });
-
-  test("Wrapper should contain an 'object' property when given one object", () => {
-    const variation = new Catalog_Item_Variation();
-    const item = new Catalog_Item();
-    const wrapper = new Catalog_Object_Wrapper();
-
-    const vari_config = variation.make();
-    const item_config = item.make();
-    item_config.id("some_item");
-    vari_config
-      .name("Classic")
-      .present_at_all_locations(true)
-      .price_money(1500)
-      .sku("12345")
-      .present_at_location_ids("Pieville USA");
-    item.variations = variation.fardel;
-    wrapper.attach(item.fardel);
-    wrapper.finalize();
-    expect(
-      Object.prototype.hasOwnProperty.call(wrapper.fardel, "object")
-    ).toEqual(true);
-  });
-
-  test("Wrapper should contain an 'objects' property when given more than one object", () => {
-    const variation = new Catalog_Item_Variation();
-    const item = new Catalog_Item();
-    const wrapper = new Catalog_Object_Wrapper();
-
-    const vari_config = variation.make();
-    const item_config = item.make();
-    item_config.id("some_item");
-    vari_config
-      .name("Classic")
-      .present_at_all_locations(true)
-      .price_money(1500)
-      .sku("12345")
-      .present_at_location_ids("Pieville USA");
-    item.variations = variation.fardel;
-    wrapper.attach(item.fardel);
-    wrapper.attach(item.fardel); // duplicate is for test
-    wrapper.finalize();
-    expect(
-      Object.prototype.hasOwnProperty.call(wrapper.fardel, "objects")
-    ).toEqual(true);
   });
 });

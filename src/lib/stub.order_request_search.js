@@ -1,6 +1,8 @@
 const Order_Request = require("./order_request");
 
 class Order_Search extends Order_Request {
+  _display_name = "Order_Search";
+  _last_verified_square_api_version = "2021-07-21";
   constructor(props) {
     super(props);
     this._method = "post";
@@ -14,7 +16,12 @@ class Order_Search extends Order_Request {
     };
     this._delivery;
   }
-
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
   get body() {
     return this._body;
   }
@@ -29,7 +36,6 @@ class Order_Search extends Order_Request {
       : (this._delivery = parcel.orders);
   }
 
-  // TODO --  HANDY DANDY METHODS
   // location add
   // location remove
   // merge array of locations

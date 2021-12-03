@@ -5,15 +5,19 @@ const Retrieve_Update_Delete = require("./customer_request_R_U_D");
  *  @author Russ Bain
  *  */
 class Customer_Delete extends Retrieve_Update_Delete {
-  _displayName = "Customer_Delete";
+  _display_name = "Customer_Delete";
+  _last_verified_square_api_version = "2021-07-21";
   constructor(id) {
     super(id);
     this._method = "delete";
     this._delivery;
   }
   // GETTERS
-  get displayName() {
-    return this._displayName;
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   get delivery() {
     return this._delivery;

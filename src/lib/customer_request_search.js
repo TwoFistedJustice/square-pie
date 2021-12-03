@@ -1,14 +1,12 @@
 const Customer_Request = require("./customer_request");
 
-// THREE props on body: query, limit, cursor - these are same as for Invoices
-// differentiation begins inside the query object
-
 /** @class Customer_Search representing an http request to retrieve to search customer records
  *  @see Customer_Request
  *  @author Russ Bain
  *  */
 class Customer_Search extends Customer_Request {
-  _displayName = "Customer_Search";
+  _display_name = "Customer_Search";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     super();
     this._method = "post";
@@ -27,8 +25,11 @@ class Customer_Search extends Customer_Request {
   }
 
   // GETTERS
-  get displayName() {
-    return this._displayName;
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   get delivery() {
     return this._delivery;

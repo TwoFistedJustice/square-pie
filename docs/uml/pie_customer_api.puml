@@ -33,10 +33,6 @@ Complex Setters
 ..
 adds the id to the URL endpoint
 ==
-==
-Maker Methods
-+make()
-==
 }
 class Customer_Retrieve {
 super: Customer_R_U_D
@@ -49,7 +45,11 @@ Simple Getters
 ==
 Simple Setters
 ==
+Square Docs
+ [[https://developer.squareup.com/reference/square/customers-api/retrieve-customer Retrieve Customer]]
+==
 }
+
 class Customer_Delete {
 super: Customer_R_U_D
 constructor(id)
@@ -61,6 +61,9 @@ this._delivery
 Simple Getters
 ==
 Simple Setters
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/customers-api/delete-customer Delete Customer]]
 ==
 }
 
@@ -82,6 +85,9 @@ Complex Setters
 ..
 sets this.customer
 ==
+Square Docs
+[[https://developer.squareup.com/reference/square/customers-api/create-customer Create Customer]]
+==
 }
 class Customer_List {
 super: Customer_Request
@@ -92,6 +98,9 @@ this._delivery
 Simple Getters
 ==
 Simple Setters
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/customers-api/list-customers List Customer]]
 ==
 }
 class Customer_Search {
@@ -111,6 +120,9 @@ Methods
 ..
 -Fuzzy
 -Exact
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/customers-api/search-customers Search Customer]]
 ==
 }
 
@@ -134,6 +146,9 @@ Maker Methods
 +make()
 ..
 - constructs a Customer Object in this._body
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/customers-api/update-customer Update Customer]]
 ==
 }
 

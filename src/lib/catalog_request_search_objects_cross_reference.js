@@ -2,10 +2,18 @@ const Catalog_Search_Objects_Super = require("./catalog_request_search_objects_s
 const { define } = require("./utilities");
 
 class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
+  _display_name = "Catalog_Search_Cross_Reference";
+  _last_verified_square_api_version = "2021-07-21";
   #_ids;
   constructor() {
     super();
     this.#_ids = [];
+  }
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   get ids() {
     return this.#_ids;

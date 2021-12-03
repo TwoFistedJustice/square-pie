@@ -1,12 +1,10 @@
 const Retrieve_Update_Delete = require("./customer_request_R_U_D");
 const {
-  maxLength,
+  shazam_maxLength,
   normalize_email,
   shazam_RFC3339,
   shazam_integer,
 } = require("./utilities");
-
-// change constructor arg to bec customer object and extract id
 
 /** @class Customer_Update representing an http request to update a customer record
  * Some fields that are available on Customer_Object are not updatable. This class has its own
@@ -22,7 +20,8 @@ const {
  *  @author Russ Bain
  *  */
 class Customer_Update extends Retrieve_Update_Delete {
-  _displayName = "Customer_Update"; //todo test
+  _display_name = "Customer_Update";
+  _last_verified_square_api_version = "2021-07-21";
   constructor(id) {
     super(id);
     this._method = "put";
@@ -49,8 +48,11 @@ class Customer_Update extends Retrieve_Update_Delete {
   }
 
   //GETTERS
-  get displayName() {
-    return this._displayName;
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   get given_name() {
     return this._body.given_name;
@@ -111,7 +113,7 @@ class Customer_Update extends Retrieve_Update_Delete {
    * */
   set email_address(email) {
     let caller = "email_address";
-    let shazam = normalize_email(email, this.displayName, caller);
+    let shazam = normalize_email(email, this.display_name, caller);
     this._body.email_address = shazam;
   }
   /** sets Customer_Update.phone_number
@@ -120,10 +122,10 @@ class Customer_Update extends Retrieve_Update_Delete {
    * */
   set phone_number(phone) {
     if (
-      maxLength(
+      shazam_maxLength(
         this.configuration.maximums.phone_number,
         phone,
-        this.displayName,
+        this.display_name,
         "phone_number"
       )
     )
@@ -148,7 +150,7 @@ class Customer_Update extends Retrieve_Update_Delete {
    * * @throws Will throw and error if argument is not a valid RFC3339 date code
    * */
   set birthday(time) {
-    if (shazam_RFC3339(time, this._displayName, "birthday")) {
+    if (shazam_RFC3339(time, this._display_name, "birthday")) {
       this._body.birthday = time;
     }
   }

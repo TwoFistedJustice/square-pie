@@ -1,6 +1,8 @@
-const { maxLength, money_helper } = require("./utilities");
+const { shazam_maxLength, arche_money } = require("./utilities");
 
 class Order_Discount {
+  _display_name = "Order_Discount";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     this._fardel = {
       uid: undefined, // str60
@@ -24,6 +26,12 @@ class Order_Discount {
   }
 
   // GETTERS
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
   get fardel() {
     if (this._fardel.catalog_object_id == undefined) {
       if (
@@ -67,14 +75,20 @@ class Order_Discount {
   // SETTERS
   set uid(val) {
     let caller = "uid";
-    if (maxLength(this.configuration.maximums.uid, val, caller));
+    if (shazam_maxLength(this.configuration.maximums.uid, val, caller));
     {
       this._fardel.uid = val;
     }
   }
   set catalog_object_id(val) {
     let caller = "catalog_object_id";
-    if (maxLength(this.configuration.maximums.catalog_object_id, val, caller));
+    if (
+      shazam_maxLength(
+        this.configuration.maximums.catalog_object_id,
+        val,
+        caller
+      )
+    );
     {
       this._fardel.catalog_object_id = val;
     }
@@ -84,7 +98,7 @@ class Order_Discount {
   }
   set name(val) {
     let caller = "name";
-    if (maxLength(this.configuration.maximums.name, val, caller));
+    if (shazam_maxLength(this.configuration.maximums.name, val, caller));
     {
       this._fardel.name = val;
     }
@@ -102,7 +116,9 @@ class Order_Discount {
       );
     }
     let caller = "percentage";
-    if (maxLength(this.configuration.maximums.percentage, percent, caller)) {
+    if (
+      shazam_maxLength(this.configuration.maximums.percentage, percent, caller)
+    ) {
       this._fardel.percentage = percent;
     }
   }
@@ -190,11 +206,11 @@ class Order_Discount {
         return this;
       },
       amount_money: function (amount, currency) {
-        this.self.amount_money = money_helper(amount, currency);
+        this.self.amount_money = arche_money(amount, currency);
         return this;
       },
       applied_money: function (amount, currency) {
-        this.self.applied_money = money_helper(amount, currency);
+        this.self.applied_money = arche_money(amount, currency);
         return this;
       },
       scope: function () {

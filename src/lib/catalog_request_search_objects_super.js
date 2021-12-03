@@ -1,10 +1,6 @@
 const Catalog_Request = require("./catalog_request");
-const { isRFC339 } = require("validator");
+const { shazam_RFC3339 } = require("./utilities");
 // https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects
-// split it up into three classes:
-// super: holds common elements that are presently in body
-// combinable i.e
-// list of ids
 
 /*
  *  The query feature is INCOMPLETE
@@ -14,6 +10,8 @@ const { isRFC339 } = require("validator");
  * */
 
 class Catalog_Search_Objects_Super extends Catalog_Request {
+  _display_name = "Catalog_Search_Objects_Super";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     super();
     this._method = "post";
@@ -26,7 +24,12 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
       query: {},
     };
   }
-
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
   get cursor() {
     return this._body.cursor;
   }
@@ -59,10 +62,9 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     this._body.include_related_objects = bool;
   }
   set begin_time(time) {
-    if (!isRFC339(time)) {
-      throw new Error("begin_time expects an RFC339 compliant time");
+    if (shazam_RFC3339(time, this.display_name, "begin_time")) {
+      this._body.begin_time = time;
     }
-    this._body.begin_time = time;
   }
   set object_types(type) {
     let callback = (word) => word === type;

@@ -1,8 +1,10 @@
 const Catalog_Object_Super = require("./catalog_object_super");
-const { maxLength, arrayify } = require("./utilities");
+const { shazam_maxLength, arrayify } = require("./utilities");
 const { isHexColor } = require("validator");
 
 class Catalog_Item extends Catalog_Object_Super {
+  _display_name = "Catalog_Item";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     super();
     this.configuration = {
@@ -10,6 +12,7 @@ class Catalog_Item extends Catalog_Object_Super {
         name: 512,
         description: 4096,
         abbreviation: 24,
+        item_options: 6,
       },
       defaults: {
         auto_set_appointment_service: false,
@@ -28,8 +31,8 @@ class Catalog_Item extends Catalog_Object_Super {
         available_for_pickup: undefined,
         available_electroncially: undefined,
         tax_ids: undefined, // => array of strings
-        modifier_list_info: undefined, // =>  array of objects
-        variations: undefined, // => array of objects
+        modifier_list_info: undefined, // [modifier, ...]
+        variations: undefined, // [item_variation, ...]
         product_type: this.configuration.defaults.auto_set_appointment_service
           ? "APPOINTMENTS_SERVICE"
           : "REGULAR",
@@ -41,6 +44,12 @@ class Catalog_Item extends Catalog_Object_Super {
   }
 
   // GETTERS
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
   get fardel() {
     if (
       !Array.isArray(this._fardel.item_data.variations) ||
@@ -107,19 +116,23 @@ class Catalog_Item extends Catalog_Object_Super {
   }
   set name(str) {
     let caller = "name";
-    if (maxLength(this.configuration.maximums.name, str, caller)) {
+    if (shazam_maxLength(this.configuration.maximums.name, str, caller)) {
       this._fardel.item_data.name = str;
     }
   }
   set description(str) {
     let caller = "description";
-    if (maxLength(this.configuration.maximums.description, str, caller)) {
+    if (
+      shazam_maxLength(this.configuration.maximums.description, str, caller)
+    ) {
       this._fardel.item_data.description = str;
     }
   }
   set abbreviation(str) {
     let caller = "abbreviation";
-    if (maxLength(this.configuration.maximums.abbreviation, str, caller)) {
+    if (
+      shazam_maxLength(this.configuration.maximums.abbreviation, str, caller)
+    ) {
       this._fardel.item_data.abbreviation = str;
     }
   }
@@ -156,7 +169,11 @@ class Catalog_Item extends Catalog_Object_Super {
   }
 
   // item_variation id should be "#item.name" + "item_variation.name"
-
+  /**
+   * @param {}
+   * @throws
+   * @return
+   * */
   set variations(obj) {
     // An item must have at least one variation.
     // If user didn't add an id, create an id for the variation by combining name fields
@@ -182,16 +199,17 @@ class Catalog_Item extends Catalog_Object_Super {
     this._fardel.item_data.product_type = val;
   }
   set item_options(id) {
-    let lengthLimit = 6;
-    if (!Array.isArray(this._fardel.item_data.item_options)) {
-      this._fardel.item_data.item_options = [];
+    if (
+      arrayify(this._fardel.item_data, "item_options") &&
+      shazam_maxLength(
+        this.item_options.length,
+        this.configuration.item_options,
+        this._display_name,
+        "item_options"
+      )
+    ) {
+      this._fardel.item_data.item_options.push(id);
     }
-    if (this.item_options.length > lengthLimit - 1) {
-      throw new Error(
-        `Item options array can contain no more than ${lengthLimit} items.`
-      );
-    }
-    this._fardel.item_data.item_options.push(id);
   }
   set sort_name(str) {
     // Square uses the regular name field as default
@@ -201,24 +219,20 @@ class Catalog_Item extends Catalog_Object_Super {
   // PRIVATE METHODS
 
   #enum_product_type() {
-    let methods = () => {
-      let properties = {
-        self: this,
-        regular: function () {
-          this.self.product_type = "REGULAR";
-          return this;
-        },
-        appointments_service: function () {
-          this.self.product_type = "APPOINTMENTS_SERVICE";
-          return this;
-        },
-        appointment: function () {
-          return this.appointments_service();
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      regular: function () {
+        this.self.product_type = "REGULAR";
+        return this;
+      },
+      appointments_service: function () {
+        this.self.product_type = "APPOINTMENTS_SERVICE";
+        return this;
+      },
+      appointment: function () {
+        return this.appointments_service();
+      },
     };
-    return methods();
   }
 
   //MAKER METHODS
@@ -254,8 +268,6 @@ class Catalog_Item extends Catalog_Object_Super {
         return this;
       },
       available_online: function (bool) {
-        // if arg is defined, set
-        //otherwise .yes and .no
         this.self.available_online = bool;
         return this;
       },

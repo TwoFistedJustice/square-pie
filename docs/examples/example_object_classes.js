@@ -6,14 +6,14 @@
 
 /*
  *  We often need to check that a string doesn't exceed a length determined by Square.
- *  We use the `maxLength` utility for this.
+ *  We use the `shazam_maxLength` utility for this.
  *
  *  We also often need to add a property to an object. We use the `define` (not shown)
  *  utility for that. `define` is written such that it won't cause linting errors
  *  when using sugary ES6 Classes. It also makes the property enumerable.
  *
  * */
-const { maxLength } = require("../../src/lib/utilities");
+const { shazam_maxLength } = require("../../src/lib/utilities");
 
 class Super_Object {
   constructor() {
@@ -42,15 +42,16 @@ class Sub_Object extends Super_Object {
     super();
     this._fardel = {
       id: undefined,
-      someNote: undefined,
-      someCollection: undefined, // this is going to be an array
+      some_note: undefined,
+      some_string: undefined, // this expects a limited range of fixed values- an "enum"
+      some_collection: undefined, // this is going to be an array
     };
     // configuration is NEVER mutated. It is for reference only.
     // so it has no leading underscore.
     this.configuration = {
-      lengthLimits: {
+      maximums: {
         id: 191, // 191 is a common limit set on Square IDs
-        // Square has a bunch of 'note' types, generally all limited to 500 characters.
+        // Square has a bunch of 'note' types, usually limited to 500 characters.
         // There may be more than one 'note' type in a given Square Object so we just use
         // the one limit for them all. We SHOULD have utilities to automatically to
         // configure often repeated structures.
@@ -64,7 +65,7 @@ class Sub_Object extends Super_Object {
   // SETTERS - ALWAYS build setters for ALL mutable properties
   // when naming arguments, the name should clearly indicate what kind of value is expected
   set id(id) {
-    if (maxLength(this.configuration.id, id)) {
+    if (shazam_maxLength(this.configuration.id, id)) {
       this._fardel.id = id;
     }
   }
@@ -75,10 +76,13 @@ class Sub_Object extends Super_Object {
    *  method call the appropriate setter from other methods.
    *
    * */
-  set someNote(note) {
-    if (maxLength(this.configuration.note, note)) {
-      this._fardel.someNote = note;
+  set some_note(note) {
+    if (shazam_maxLength(this.configuration.note, note)) {
+      this._fardel.some_note = note;
     }
+  }
+  set some_string(val) {
+    this._fardel.some_string = val;
   }
 
   /* Square often uses arrays to send multiple objects
@@ -91,14 +95,35 @@ class Sub_Object extends Super_Object {
    * Object sanitation is generally done in a private method rather than the setter.
    *
    * */
-  set someCollection(sanitized_object) {
-    if (!this._fardel.someCollection.isAray()) {
-      this._fardel.someCollection = [];
+  set some_collection(sanitized_object) {
+    if (!this._fardel.some_collection.isAray()) {
+      this._fardel.some_collection = [];
     }
-    this.someCollection.push(sanitized_object);
+    this.some_collection.push(sanitized_object);
   }
 
   // METHODS
+  /* enum functions are used when Square only allows certain string values
+   * sometimes Square is case sensitive, sometimes not. We always set UPPERCASE values
+   * so we never have to worry about it. This function will be referenced from within the
+   * make() method.
+   * @param {none}
+   * @returns strings with constrained values
+   * */
+  #enum_some_string() {
+    return {
+      self: this,
+      val1: function () {
+        this.self.some_string = "VAL1";
+        return this;
+      },
+      val2: function () {
+        this.self.some_string = "VAL2";
+        return this;
+      },
+    };
+  }
+
   /*  We have a private method using square bracket object notation to enable us
    * to call appropriate setters without having to write separate functions for each one
    *  We use a string value to set the appropriate key and the string value of the
@@ -109,14 +134,14 @@ class Sub_Object extends Super_Object {
     this[key] = note;
   }
 
-  #someObject(value_A, value_B) {
+  #build_someObject(value_A, value_B) {
     // we put the object in correct form and perform any error checking here
     let obj = {
       key_A: value_A,
       key_b: value_B,
     };
     // once the object is all nice and polite we send it off to the setter.
-    this.someCollection = obj;
+    this.some_collection = obj;
   }
   /**
    * EVERY class that is meant to instantiated by the end-uses MUST have a Make() method.
@@ -131,41 +156,35 @@ class Sub_Object extends Super_Object {
    * */
 
   make() {
-    // use an arrow function
-    const methods = () => {
-      const properties = {
-        // we use `self` to create access to the outer context. In Pie we always call it `self`. It goes first.
-        self: this,
-        // use standard function expressions throughout and remember to `return this` to make it chainable.
-        common_prop: function (value) {
-          // this calls the setter on the super. This will need to be done from each sub class.
-          this.self.common_prop = value;
-          return this;
-        },
-        id: function (id) {
-          this.self.id = id;
-          return this;
-        },
-        someNote: function (note) {
-          // normally you would just call the setter, this is just an example of how to
-          // use the private function to call it.
-          this.self.#note("someNote", note);
-          return this;
-        },
-        someCollection: function (value_A, value_B) {
-          // here we use a private method to sanitize data
-          // this is different than just calling a setter directly.
-          this.#someObject(value_A, value_B);
-          return this;
-        },
-      };
-
-      // send back the whole named object - yes, javascript allows us to simply send
-      // back an un-named object. But don't do it.
-      return properties;
+    return {
+      // we use `self` to create access to the outer context. In Pie we always call it `self`. It goes first.
+      self: this,
+      // use standard function expressions throughout and remember to `return this` to make it chainable.
+      common_prop: function (value) {
+        // this calls the setter on the super. This will need to be done from each sub class.
+        this.self.common_prop = value;
+        return this;
+      },
+      id: function (id) {
+        this.self.id = id;
+        return this;
+      },
+      some_note: function (note) {
+        // normally you would just call the setter, this is just an example of how to
+        // use the private function to call it.
+        this.self.#note("some_note", note);
+        return this;
+      },
+      some_collection: function (value_A, value_B) {
+        // here we use a private method to sanitize data
+        // this is different than just calling a setter directly.
+        this.#build_someObject(value_A, value_B);
+        return this;
+      },
+      some_string: function () {
+        return this.self.#enum_some_string();
+      },
     };
-    // send back an executed function
-    return methods();
   }
 } // END Sub_Object
 

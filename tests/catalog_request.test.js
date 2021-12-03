@@ -33,15 +33,16 @@ describe("Catalog Request Upsert", () => {
     ).toEqual(true);
   });
 
-  test("Should have 'object' property when upserting a single document", () => {
-    const upsert = new Catalog_Upsert();
-    upsert.make().body(sample_objects.single);
-    let received = upsert.body;
-
-    expect(Object.prototype.hasOwnProperty.call(received, "object")).toEqual(
-      true
-    );
-  });
+  // refactored on 12/2/21 to eliminate need for this
+  // test("Should have 'object' property when upserting a single document", () => {
+  //   const upsert = new Catalog_Upsert();
+  //   upsert.make().body(sample_objects.single);
+  //   let received = upsert.body;
+  //
+  //   expect(Object.prototype.hasOwnProperty.call(received, "object")).toEqual(
+  //     true
+  //   );
+  // });
 });
 
 describe("Catalog Request List", () => {

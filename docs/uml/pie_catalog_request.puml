@@ -12,13 +12,13 @@ Catalog_Request <|-- Catalog_Search_Objects_Super
 Catalog_Search_Objects_Super <|-- Catalog_Search_Cross_Reference
 Catalog_Search_Objects_Super <|-- Catalog_Search_Filter
 
-class Square_Request{
+abstract class Square_Request{
 super of ALL other Request classes.
 }
 
-class Catalog_Request {
+abstract class Catalog_Request {
 super: Square_Request
-this._apiName: "catalog"
+this._api_name: "catalog"
 }
 
 class Catalog_Delete {
@@ -46,6 +46,9 @@ adds id to object_ids array
 ==
 MAKER METHODS
 + make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects Catalog Delete]]
 ==
 }
 
@@ -81,6 +84,9 @@ Stringifies standard unit description in Response
 MAKER METHODS
 + make()
 ==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/catalog-info Catalog Info]]
+==
 }
 
 
@@ -110,6 +116,9 @@ Private METHODS
 MAKER METHODS
 + make()
 ==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/list-catalog Catalog List]]
+==
 }
 
 class Catalog_Retrieve {
@@ -137,6 +146,9 @@ alias of retrieve()
 ==
 MAKER METHODS
 + make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects Catalog Retrieve]]
 ==
 }
 
@@ -181,6 +193,9 @@ MAKER METHODS
 + make()
 + make_custom_attribute_filter()
 ==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects Catalog Search]]
+==
 }
 
 
@@ -192,24 +207,29 @@ this._endpoint: "" //empty
 this._idempotency_key
 this._delivery
 this._body
-this.configuration
-configuration.batch.endpoint: "/batch-upsert"
-configuration.one.endpoint: "/object"
-==
-Simple Getters
-==
-Simple Setters
-==
-Complex Setters (Computed Properties)
-+body(fardel)
 ..
-determines whether argument is one or many
-if one, sets body to equal argument
-if many, sets 'batches' property and puts argument there.
+-idempotency_key
+-batches: [ ]
+..
++{ objects: [ ] }
+batches is an array, holding an object,
+holding an array where you put more objects.
+Really. (Square's idea, not mine)
 ==
+Getters
+==
+Setters
+==
+METHODS
++add( fardel )
+..
+adds objects to body
 ==
 MAKER METHODS
 + make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects Catalog Upsert Batch]]
 ==
 }
 
@@ -219,7 +239,7 @@ MAKER METHODS
 
 
 
-class Catalog_Search_Objects_Super {
+abstract class Catalog_Search_Objects_Super {
 super: Catalog_Request
 this._method: "POST"
 this._endpoint: "/search"
@@ -295,6 +315,9 @@ sets #clearIds to true
 MAKER METHODS
 + make()
 ==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects Catalog Search]]
+==
 }
 
 
@@ -320,6 +343,9 @@ set respective properties with FIXED values
 ==
 MAKER METHODS
 + make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects Catalog Search]]
 ==
 }
 

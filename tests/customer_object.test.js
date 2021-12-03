@@ -6,7 +6,7 @@ const {
 } = require("./helper_objects");
 // const {expect} = require ("chai");
 
-describe("Silence test suite", () => {
+describe.only("Silence test suite", () => {
   test("", () => {});
 });
 

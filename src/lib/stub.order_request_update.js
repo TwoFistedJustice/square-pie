@@ -2,6 +2,8 @@ const Order_Request = require("./order_request");
 const { nanoid } = require("nanoid");
 
 class Order_Update extends Order_Request {
+  _display_name = "Order_Update";
+  _last_verified_square_api_version = "";
   constructor(props) {
     super(props);
     this._method = "put";
@@ -12,7 +14,12 @@ class Order_Update extends Order_Request {
       order: undefined,
     };
   }
-
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
   get body() {
     return this._body;
   }

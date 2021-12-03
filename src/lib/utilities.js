@@ -1,10 +1,4 @@
-const {
-  isEmail,
-  normalizeEmail,
-  isISO4217,
-  isRFC3339,
-  isInt,
-} = require("validator");
+const { isEmail, normalizeEmail, isISO4217, isRFC3339 } = require("validator");
 // const validator = require ("validator");
 
 // TODO a CSV string builder that takes one string and adds it to an existing
@@ -115,11 +109,11 @@ const setter_chain_generator_separate_arrays = function (
 /* Returns true = good
 Returns true if the string is less than or equal to the max length
 * */
-/** maxLength validates string length, returning true if the string is equal to or less than
+/** shazam_maxLength validates string length, returning true if the string is equal to or less than
  * the maximum allowable length and otherwise throwing an error.
  *
  * * usage:
- *  `if( maxLength(...) { do stuff }`
+ *  `if( shazam_maxLength(...) { do stuff }`
  *
  * @param {number} max is the upper limit of allowable string length
  * @param {string} str is the string you want to validate
@@ -128,14 +122,13 @@ Returns true if the string is less than or equal to the max length
  * @throws Throws and error is the string is longer than allowed
  * @returns {boolean} Returns `true` of the string is less than or equal to the allowed limit
  *
- *  To check for minimum length use minLength
+ *  To check for minimum length use shazam_minLength
  * */
-// todo refactor to a shazam function
-const maxLength = function (
+const shazam_maxLength = function (
   max,
   str = "",
   displayName = "unspecified class",
-  caller = "unspecified class setter"
+  caller = "- unspecified class setter"
 ) {
   if (str.length > max) {
     throw new Error(
@@ -145,15 +138,11 @@ const maxLength = function (
   return true;
 };
 
-/* Returns true = good
-Returns true if the string is greater than or equal to the min length
-* */
-
-/** minLength validates string length, returning true if the string is equal to or greater than
- * the minimum allowable length and otherwise throwing an error.
+/** shazam_minLength validates string length, returning true if the string is equal to or greater than
+ * the minimum allowable length and otherwise throwing an error. Returns true = good
  *
  * usage:
- *  `if( minLength(...) { do stuff }`
+ *  `if( shazam_minLength(...) { do stuff }`
  *
  * @param {number} min is the lower limit of allowable string length
  * @param {string} str is the string you want to validate
@@ -162,14 +151,13 @@ Returns true if the string is greater than or equal to the min length
  * @throws Throws and error is the string is shorter than allowed
  * @returns {boolean} Returns `true` of the string is less than or equal to the allowed limit
  *
- *  To check for maximum length use maxLength
+ *  To check for maximum length use shazam_maxLength
  * */
-// todo refactor to a shazam function
-const minLength = function (
+const shazam_minLength = function (
   min,
   str = "",
   displayName = "unspecified class",
-  caller = "unspecified class setter"
+  caller = "- unspecified class setter"
 ) {
   if (str.length < min) {
     throw new Error(
@@ -200,7 +188,16 @@ const arrayify = function (object_to_check, property_name) {
   return true;
 };
 
-const money_helper = function (amt, currency = "USD") {
+/** arche_money builds and returns a compliant Square money object
+ * @param {number}  amt is the amount in the smallest currency designation (cents)
+ * @param {string} currency expects a three character string forming an ISO 4217 compliant currency desgination
+ * If currency argument is not provided, currency will be set to "USD"
+ * @throws Throws a Typerror if amt is a boolean
+ * @throws Throws a Typerror if amt is not convertible to a Number
+ * @throws Throws an error if currency is not a valid ISO 4217 currency
+ * @return Returns a Square money object
+ * */
+const arche_money = function (amt, currency = "USD") {
   let amount = Number(amt);
   if (isNaN(amount) || typeof amt === "boolean") {
     throw new TypeError(`'amount' must be a number. received: ${typeof amt}`);
@@ -226,7 +223,7 @@ const generate_error_message = function (key, expected_type, received) {
 
 /**
  * @param {string} time - expects a date code in RFC3339 format
- * @param {string} displayName - the _displayName static from the calling class
+ * @param {string} displayName - the _display_name static from the calling class
  * @param {string} caller - the name variable from the calling function
  * @throws throws and error if the `time` argument is not in RFC3339 format
  * @return {boolean} returns true if `time` argument is a valid RFC3339 date code
@@ -242,15 +239,20 @@ const shazam_RFC3339 = function (time, displayName, caller) {
 
 /**
  * @param {string} num - expects a string that can be converted to an integer
- * @param {string} displayName - the _displayName static from the calling class
+ * @param {string} displayName - the _display_name static from the calling class
  * @param {string} caller - the name variable from the calling function
  * @throws throws and error if the `num` argument cannot be coerced to an integer
  * @return {boolean} returns true if the `num` argument can be coerced to an integer
  * */
-const shazam_integer = function (num, displayName, caller) {
-  if (!isInt(num)) {
-    throw new Error(
-      `${displayName}.${caller} expects a string that can be coerced to an integer. Received: ${num}`
+const shazam_integer = function (
+  num,
+  displayName = "unspecified class",
+  caller = "- unspecified class setter"
+) {
+  let parsed = parseInt(num);
+  if (isNaN(parsed) || num != parsed) {
+    throw new TypeError(
+      `${displayName}.${caller} expects an integer or a string that can be coerced to an integer. Received: ${num}`
     );
   }
   return true;
@@ -260,12 +262,16 @@ const shazam_integer = function (num, displayName, caller) {
  * Will throw an error on every value except true and false.
  *
  * @param {boolean} bool - expects a boolean
- * @param {string} displayName - the _displayName static from the calling class
+ * @param {string} displayName - the _display_name static from the calling class
  * @param {string} caller - the name variable from the calling function
  * @throws throws and error if the `bool` argument is not a boolean.
  * @return {boolean} returns true  if the `bool` argument is a boolean.
  * */
-const shazam_boolean = function (bool, displayName, caller) {
+const shazam_boolean = function (
+  bool,
+  displayName = "unspecified class",
+  caller = "- unspecified class setter"
+) {
   if (typeof bool !== "boolean") {
     throw new Error(
       `${displayName}.${caller} expects a boolean. Received: ${bool}\nMake sure you didn't pass a string that looks like a boolean.`
@@ -279,10 +285,10 @@ module.exports = {
   define,
   setter_chain_generator_config,
   setter_chain_generator_separate_arrays,
-  minLength,
-  maxLength,
+  shazam_minLength,
+  shazam_maxLength,
   arrayify,
-  money_helper,
+  arche_money,
   generate_error_message,
   shazam_RFC3339,
   shazam_integer,

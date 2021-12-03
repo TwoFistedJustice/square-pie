@@ -47,9 +47,9 @@ Create a property on the class called `configuration` (no leading underbar).
 Create a sub-property called "maximums".
 Create a key for each Square property that has a lengthlimit and set the value to a Number equal to that limit.
 
-Require the "maxLength" utility from utilities.js. It returns true if the passed in value is within the assigned length limit.
+Require the "shazam_maxLength" utility from utilities.js. It returns true if the passed in value is within the assigned length limit.
 
-In the Setter for the length limited property, use maxLength to check the length.
+In the Setter for the length limited property, use shazam_maxLength to check the length.
 
 ## The Auto Function Generator
 

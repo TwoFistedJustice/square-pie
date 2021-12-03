@@ -1,6 +1,13 @@
-const { define, maxLength, arrayify, money_helper } = require("./utilities");
+const {
+  define,
+  shazam_maxLength,
+  arrayify,
+  arche_money,
+} = require("./utilities");
 
 class Order_Object {
+  _display_name = "Order_Object";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     this._fardel = {
       version: undefined, //`BETA` - only for updates
@@ -27,6 +34,12 @@ class Order_Object {
   }
 
   // GETTERS
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
   get fardel() {
     return this._fardel;
   }
@@ -88,13 +101,15 @@ class Order_Object {
   }
   set customer_id(id) {
     let caller = "customer_id";
-    if (maxLength(this.configuration.maximums.customer_id, id, caller)) {
+    if (shazam_maxLength(this.configuration.maximums.customer_id, id, caller)) {
       this._fardel.customer_id = id;
     }
   }
   set ticket_name(name) {
     let caller = "ticket_name";
-    if (maxLength(this.configuration.maximums.ticket_name, name, caller)) {
+    if (
+      shazam_maxLength(this.configuration.maximums.ticket_name, name, caller)
+    ) {
       this._fardel.ticket_name = name;
     }
   }
@@ -176,21 +191,21 @@ class Order_Object {
 
   build_service_charge_amount(amount, currency) {
     let service_charge = {};
-    let money = money_helper(amount, currency);
+    let money = arche_money(amount, currency);
     define(service_charge, "amount_money", money);
     return service_charge;
   }
 
   build_service_charge_applied(amount, currency) {
     let service_charge = {};
-    let money = money_helper(amount, currency);
+    let money = arche_money(amount, currency);
     define(service_charge, "applied_money", money);
     return service_charge;
   }
 
   add_service_charge_amount(amount, currency) {
     let service_charge = {};
-    let money = money_helper(amount, currency);
+    let money = arche_money(amount, currency);
     define(service_charge, "amount_money", money);
     this.service_charges = service_charge;
     return service_charge;
@@ -198,7 +213,7 @@ class Order_Object {
 
   add_service_charge_applied(amount, currency) {
     let service_charge = {};
-    let money = money_helper(amount, currency);
+    let money = arche_money(amount, currency);
     define(service_charge, "applied_money", money);
     this.service_charges = service_charge;
     return service_charge;

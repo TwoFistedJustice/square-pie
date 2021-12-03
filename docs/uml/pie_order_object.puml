@@ -3,12 +3,12 @@
 
 
 namespace fulfillment {
-.Order_Fulfillment .. .build_shipment
-.Order_Fulfillment .. .build_pickup
+.Order_Fulfillment *.. .build_shipment
+.Order_Fulfillment *.. .build_pickup
 }
 
 namespace order {
-.Order_Object o.. fardelCollections
+.Order_Object *.. fardelCollections
 
 object fardelCollections{
   + fulfillments
@@ -70,7 +70,9 @@ BUILDER METHODS
 ==
 MAKER METHODS
 + make()
-
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/objects/Order Order Object]]
 ==
 }
 
@@ -115,6 +117,9 @@ MAKER METHODS
 
 + make_pickup()
 - constructs a pickup object at _fardel.pickup_details
+==
+Square Docs
+[[https://developer.squareup.com/docs/orders-api/how-it-works#fulfillments Order Fulfillments]]
 ==
 }
 
@@ -171,7 +176,9 @@ MAKER METHODS
 - builds out this._modifier
 - use before pushing this._modifier to modifiers array
 - re-initializes this._modifier when called
-
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/objects/OrderLineItem Order Line Item ]]
 ==
 }
 
@@ -222,7 +229,9 @@ Private METHODS
 ==
 MAKER METHODS
 + make()
-
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/objects/OrderLineItemDiscount Order Discount]]
 ==
 }
 

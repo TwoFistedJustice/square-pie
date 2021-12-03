@@ -1,4 +1,4 @@
-# Catalog_Item and Catalog_Item_Variation classes
+# [Catalog_Item](https://developer.squareup.com/reference/square/objects/CatalogItem) and [Catalog_Item_Variation](https://developer.squareup.com/reference/square/objects/CatalogItemVariation) classes
 
 1. Every Item must have at least one variation. Square's rules, not ours.
 2. Items come in two sub-types: Regular (stuff you sell), and Appointment Service (stuff you do)

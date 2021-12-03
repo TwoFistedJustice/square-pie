@@ -42,8 +42,7 @@
 
 | API     | Command              | Method | Resource Location                     | Class                                  | Square Docs                                                                                                     | Additional Information |
 | ------- | -------------------- | ------ | ------------------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------- |
-| Catalog | UPSERT one           | POST   | '/catalog/object'                     | Catalog_Upsert                         | [UPSERT one](https://developer.squareup.com/reference/square/catalog-api/upsert-catalog-object)                 |
-| Catalog | UPSERT many          | POST   | '/catalog/batch-upsert'               | Catalog_Upsert                         | [UPSERT many](https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects)         |
+| Catalog | UPSERT               | POST   | '/catalog/batch-upsert'               | Catalog_Upsert                         | [UPSERT many](https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects)         |
 | Catalog | RETRIEVE one         | POST   | '/catalog/object/{object_id}'         | Catalog_Retrieve                       | [RETRIEVE one](https://developer.squareup.com/reference/square/catalog-api/retrieve-catalog-object)             |
 | Catalog | RETRIEVE many        | POST   | '/catalog/batch-retrieve'             | Catalog_Retrieve                       | [RETRIEVE many](https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects)     |
 | Catalog | UPDATE modifer lists | POST   | '/catalog/update-item-modifier-lists' | Catalog_Update                         | [UPDATE modifier lists](https://developer.squareup.com/reference/square/catalog-api/update-item-modifier-lists) |
@@ -99,11 +98,9 @@ Only used 'batch' since that can handle just one
 
 ## upsert
 
-This can probably be simplified the way Delete and Retrieve have been.
+Similar to Delete in that it uses only one of the two endpoints. Every call is a call to batches.
 
 method: POST\
-. batch\
-.one
 
 <br/>
 

@@ -3,10 +3,10 @@ const {
   // define,
   // setter_chain_generator_config,
   // setter_chain_generator_separate_arrays,
-  // maxLength,
+  // shazam_maxLength,
   normalize_email,
   arrayify,
-  money_helper,
+  arche_money,
   generate_error_message,
   shazam_RFC3339,
   shazam_integer,
@@ -19,7 +19,7 @@ const { dateCodes } = require("./helper_objects");
 // const should = require("chai").should();
 // const { long_strings } = require("./helper_objects");
 
-describe.only("Silence test suite", () => {
+describe("Silence test suite", () => {
   test("", () => {});
 });
 
@@ -63,37 +63,37 @@ describe("arrayify", () => {
   });
 
   describe("money_helper", () => {
-    test("money_helper utility should throw when fed a non-coercible to number amount", () => {
+    test("arche_money utility should throw when fed a non-coercible to number amount", () => {
       let amt = "CAD";
       let currency = "CAD";
 
       expect(() => {
-        money_helper(amt, currency);
+        arche_money(amt, currency);
       }).toThrow();
     });
 
-    test("money_helper utility should  throw when fed a non-ISO 4217 compliant currency", () => {
+    test("arche_money utility should  throw when fed a non-ISO 4217 compliant currency", () => {
       let amt = "2195";
       let currency = "CD";
 
       expect(() => {
-        money_helper(amt, currency);
+        arche_money(amt, currency);
       }).toThrow();
     });
 
-    test('money_helper utility should return a compliant object with "USD" when not fed a currency argument', () => {
+    test('arche_money utility should return a compliant object with "USD" when not fed a currency argument', () => {
       let amt = "2195";
       let expected = {
         amount: 2195,
         currency: "USD",
       };
 
-      let received = money_helper(amt);
+      let received = arche_money(amt);
 
       expect(received).toMatchObject(expected);
     });
 
-    test('money_helper utility should return a compliant object with "CAD"', () => {
+    test('arche_money utility should return a compliant object with "CAD"', () => {
       let amt = "2195";
       let currency = "CAD";
       let expected = {
@@ -101,7 +101,7 @@ describe("arrayify", () => {
         currency: "CAD",
       };
 
-      let received = money_helper(amt, currency);
+      let received = arche_money(amt, currency);
 
       expect(received).toMatchObject(expected);
     });
@@ -154,21 +154,34 @@ describe("shazam_33339 date code verification utility", () => {
 });
 
 describe("shazam_integer integer verification utility", () => {
-  test("should throw when fed a non-integer string", () => {
+  test("should throw on a non-integer string", () => {
     expect(() => {
       shazam_integer("95.5", "utilities test suite", "should throw");
     }).toThrow();
+
+    expect(() => {
+      shazam_integer(95.5, "utilities test suite", "should throw");
+    }).toThrow();
   });
 
-  test("should NOT throw when fed an integer string", () => {
+  test("should accept an integer string", () => {
     expect(() => {
       shazam_integer("42", "utilities test suite", "should NOT throw");
     }).not.toThrow();
-  });
 
-  test("should return true when fed an integer string", () => {
     expect(
       shazam_integer("42", "utilities test suite", "should return true")
+    ).toEqual(true);
+  });
+
+  test("should accept an integer number", () => {
+    let num = 42;
+    expect(() => {
+      shazam_integer(num, "utilities test suite", "should NOT throw");
+    }).not.toThrow();
+
+    expect(
+      shazam_integer(num, "utilities test suite", "should return true")
     ).toEqual(true);
   });
 });

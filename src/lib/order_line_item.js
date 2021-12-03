@@ -1,16 +1,17 @@
 const { nanoid } = require("nanoid");
 const { uid_length } = require("./pie_defaults");
 const {
-  // define,
-  minLength,
-  maxLength,
+  shazam_minLength,
+  shazam_maxLength,
   arrayify,
-  money_helper,
+  arche_money,
   generate_error_message,
   define,
 } = require("./utilities");
 
 class Order_Line_Item {
+  _display_name = "Order_Line_Item";
+  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     this._fardel = {
       uid: nanoid(uid_length),
@@ -57,7 +58,6 @@ class Order_Line_Item {
     this._fardel.quantity_unit = {};
   }
 
-  // TODO *********************************
   #bake_quantity_unit() {
     this._fardel.quantity_unit = {};
     let obj = this._fardel.quantity_unit;
@@ -103,8 +103,16 @@ class Order_Line_Item {
   #applied_tax_or_discount(type, tax_or_discount_uid) {
     let caller = `#applied_tax_or_discount - ${type}`;
     if (
-      minLength(this.configuration.minimums.uid, tax_or_discount_uid, caller) &&
-      maxLength(this.configuration.maximums.uid, tax_or_discount_uid, caller)
+      shazam_minLength(
+        this.configuration.minimums.uid,
+        tax_or_discount_uid,
+        caller
+      ) &&
+      shazam_maxLength(
+        this.configuration.maximums.uid,
+        tax_or_discount_uid,
+        caller
+      )
     ) {
       let key;
       if (type === "discount" || type === "d") {
@@ -142,13 +150,19 @@ class Order_Line_Item {
   }
 
   #uid_length(uid) {
-    return minLength(this.configuration.minimums.uid, uid) &&
-      maxLength(this.configuration.uid, uid)
+    return shazam_minLength(this.configuration.minimums.uid, uid) &&
+      shazam_maxLength(this.configuration.uid, uid)
       ? true
       : false;
   }
 
   // GETTERS
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
   get uid() {
     return this._fardel.uid;
   }
@@ -204,35 +218,35 @@ class Order_Line_Item {
 
   // SETTERS
   set uid(str) {
-    if (maxLength(this.configuration.maximums.uid, str)) {
+    if (shazam_maxLength(this.configuration.maximums.uid, str)) {
       this._fardel.uid = str;
     }
   }
   set quantity(str) {
     if (
-      maxLength(this.configuration.maximums.quantity, str) &&
-      minLength(this.configuration.minimums.quantity, str)
+      shazam_maxLength(this.configuration.maximums.quantity, str) &&
+      shazam_minLength(this.configuration.minimums.quantity, str)
     ) {
       this._fardel.quantity = str;
     }
   }
   set name(str) {
-    if (maxLength(this.configuration.maximums.name, str)) {
+    if (shazam_maxLength(this.configuration.maximums.name, str)) {
       this._fardel.name = str;
     }
   }
   set note(str) {
-    if (maxLength(this.configuration.maximums.note, str)) {
+    if (shazam_maxLength(this.configuration.maximums.note, str)) {
       this._fardel.note = str;
     }
   }
   set variation_name(str) {
-    if (maxLength(this.configuration.maximums.variation_name, str)) {
+    if (shazam_maxLength(this.configuration.maximums.variation_name, str)) {
       this._fardel.variation_name = str;
     }
   }
   set catalog_object_id(id) {
-    if (maxLength(this.configuration.maximums.catalog_object_id, id)) {
+    if (shazam_maxLength(this.configuration.maximums.catalog_object_id, id)) {
       this._fardel.catalog_object_id = id;
     }
   }
@@ -348,7 +362,7 @@ class Order_Line_Item {
         return this.self.#enum_item_type();
       },
       base_price_money: function (amount, currency) {
-        this.self.base_price_money = money_helper(amount, currency);
+        this.self.base_price_money = arche_money(amount, currency);
         return this;
       },
       /* make() applied taxes and discounts makes it
@@ -399,13 +413,17 @@ class Order_Line_Item {
         self: this,
         price: function (amount, currency) {
           let key = "base_price_money";
-          let value = money_helper(amount, currency);
+          let value = arche_money(amount, currency);
           define(modifier, key, value);
           return this;
         },
         catalog_object_id: function (id) {
           if (
-            maxLength(this.self.configuration.catalog_object_id, id, caller)
+            shazam_maxLength(
+              this.self.configuration.catalog_object_id,
+              id,
+              caller
+            )
           ) {
             let key = "catalog_object_id";
             define(modifier, key, id);
@@ -422,7 +440,11 @@ class Order_Line_Item {
         },
         name: function (val) {
           if (
-            maxLength(this.self.configuration.catalog_object_id, val, caller)
+            shazam_maxLength(
+              this.self.configuration.catalog_object_id,
+              val,
+              caller
+            )
           ) {
             let key = "name";
             define(modifier, key, val);

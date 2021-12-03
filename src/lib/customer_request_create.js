@@ -10,7 +10,8 @@ const { normalize_email } = require("./utilities");
  *  @author Russ Bain
  *  */
 class Customer_Create extends Customer_Request {
-  _displayName = "Customer_Create";
+  _display_name = "Customer_Create";
+  _last_verified_square_api_version = "2021-07-21";
   constructor(customer) {
     super();
     this._method = "post";
@@ -19,8 +20,11 @@ class Customer_Create extends Customer_Request {
     this._delivery;
   }
   // GETTERS
-  get displayName() {
-    return this._displayName;
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   get getIdempotency_key() {
     return this.idempotency_key;
