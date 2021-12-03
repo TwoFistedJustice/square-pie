@@ -26,20 +26,8 @@ itemConfig.variations(large.fardel).variations(small.fardel);
 
 multiple.attach(item.fardel);
 multiple.add(category.fardel);
-multiple.finalize();
 
 single.attach(category.fardel);
-single.finalize();
-
-// const doit = async function () {
-//   const Catalog_Request_Upsert = require("../../src/lib/catalog_request_upsert");
-//   const upsert = new Catalog_Request_Upsert();
-//   upsert.make().body(wrapper.fardel);
-//
-//   let delivered = await upsert.request();
-//   console.log(delivered);
-// };
-// doit();
 
 const sample_objects = {
   multiple: multiple.fardel,

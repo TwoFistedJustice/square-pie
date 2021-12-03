@@ -1,9 +1,9 @@
-// const Catalog_Upsert = require("../../src/lib/catalog_request_upsert");
-// const sample_objects = require("../data_preparation/sample_catalog_data");
+const Catalog_Upsert = require("../../src/lib/catalog_request_upsert");
+const { single, multiple } = require("../data_preparation/sample_catalog_data");
 // const Catalog_List = require("../../src/lib/catalog_request_list");
 // const Catalog_Search_Filter = require("../../src/lib/catalog_request_search_objects_filter");
 // const Catalog_Search_Cross_Reference = require("../../src/lib/catalog_request_search_objects_cross_reference");
-const Catalog_Info = require("../../src/lib/catalog_request_info");
+// const Catalog_Info = require("../../src/lib/catalog_request_info");
 // const list = new Catalog_List();
 
 // const filter = new Catalog_Search_Filter();
@@ -24,25 +24,24 @@ const Catalog_Info = require("../../src/lib/catalog_request_info");
 // };
 // filter.range_query = criteria;
 
-const info = new Catalog_Info();
+const upsert_one = new Catalog_Upsert();
+const upsert_batch = new Catalog_Upsert();
+upsert_one.body = single;
+upsert_batch.body = multiple;
+
+console.log("single");
+console.log(single);
+console.log("multiple");
+console.log(multiple);
 
 const log = async function () {
-  // await list.request();
-  // console.log(list.delivery);
-  // await filter.request();
-  // console.log(filter.delivery);
-  // console.log(xref.query);
-  // await xref.request();
-  // console.log(xref.delivery);
-  // await del.request();
-  // console.log(del.delivery);
+  // let upsert = upsert_one;
+  let upsert = upsert_batch;
+  console.log(upsert.body.batches[0].objects[0]);
 
-  await info.request();
-  // console.log(info.delivery);
-  console.log(info.limits);
-  // console.log(info.standard_unit_json);
-  // console.log(info.standard_units);
-  // console.log(info.language_code);
+  await upsert.request();
+  console.log("delivery");
+  console.log(upsert.delivery);
 };
 
 log();

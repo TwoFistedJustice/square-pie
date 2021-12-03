@@ -1,12 +1,9 @@
 const { nanoid } = require("nanoid/non-secure");
-const { define } = require("./utilities");
 
 // instantiate class
 // class.attach(stuff).attach(stuff)
 // class.attach(stuff-I-forgot)
 //class.add(same-as-attach)
-// class.finalize() // todo extract this step out
-// send out class.delivery
 //ToDO add ability to remove an item from payload array
 // todo consider renaming Wrapper to Container because that is more clear
 
@@ -16,8 +13,8 @@ class Catalog_Object_Wrapper {
   constructor() {
     this._fardel = {
       idempotency_key: nanoid(),
+      objects: [],
     };
-    this._payload;
   }
   // GETTERS
   get display_name() {
@@ -29,85 +26,25 @@ class Catalog_Object_Wrapper {
   get idempotency_key() {
     return this._idempotency_key;
   }
-  get payload() {
-    return this._payload;
-  }
   get fardel() {
     return this._fardel;
+  }
+  get objects() {
+    return this._fardel.objects;
   }
   // SETTERS
   set idempotency_key(nothing) {
     this._idempotency_key = nanoid();
   }
-  set fardel_one(fardel) {
-    if (typeof fardel !== "object" || Array.isArray(fardel)) {
-      throw new TypeError("Parcel must be a curly brace Object.");
-    }
-    if (Object.prototype.hasOwnProperty.call(this._fardel, "objects")) {
-      this._fardel.objects = undefined;
-    } else if (!Object.prototype.hasOwnProperty.call(this._fardel, "object")) {
-      define(this._fardel, "object", fardel);
-    } else {
-      this._fardel.object = fardel;
-    }
-  }
-  // todo refactor - see if it works to just use the many
-  //   if it does, refactor to eliminate the single-upsert
-  set fardel_many(fardel) {
-    if (!Array.isArray(fardel)) {
-      throw new TypeError("Parcel must be an array.");
-    }
-    if (Object.prototype.hasOwnProperty.call(this._fardel, "object")) {
-      // delete this._delivery.object;
-      this._fardel.object = undefined;
-    } else if (!Object.prototype.hasOwnProperty.call(this._fardel, "objects")) {
-      define(this._fardel, "objects", fardel);
-    } else {
-      this._fardel.objects = fardel;
-    }
-  }
-
-  set payload_one(fardel) {
-    this._payload = fardel;
-  }
-  set payload_array(fardel) {
-    this._payload.push(fardel);
-  }
 
   attach(fardel) {
-    if (this.payload === undefined) {
-      this.payload_one = fardel;
-    } else if (
-      typeof (this.payload === "object") &&
-      !Array.isArray(this.payload)
-    ) {
-      let cache = this.payload;
-      this.payload_one = [];
-      this.payload_array = cache;
-      this.payload_array = fardel;
-    } else if (Array.isArray(this.payload)) {
-      this.payload_array = fardel;
-    } else {
-      throw new TypeError(
-        "Catalog Object attach method error. Make sure you passed in a Catalog Object"
-      );
-    }
+    this._fardel.objects.push(fardel);
     return this;
   }
-  // because I keep calling add, even though it's supposed to be attach
+
   add(fardel) {
     this.attach(fardel);
     return this;
-  }
-  // Todo try to eliminate this step
-  // integrate it into attach or something
-  finalize() {
-    // the needs of the many outweigh the needs of the few, or the one
-    if (Array.isArray(this.payload)) {
-      this.fardel_many = this.payload;
-    } else {
-      this.fardel_one = this.payload;
-    }
   }
 }
 
