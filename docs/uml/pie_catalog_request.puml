@@ -207,21 +207,23 @@ this._endpoint: "" //empty
 this._idempotency_key
 this._delivery
 this._body
-this.configuration
-configuration.batch.endpoint: "/batch-upsert"
-configuration.one.endpoint: "/object"
-==
-Simple Getters
-==
-Simple Setters
-==
-Complex Setters (Computed Properties)
-+body(fardel)
 ..
-determines whether argument is one or many
-if one, sets body to equal argument
-if many, sets 'batches' property and puts argument there.
+-idempotency_key
+-batches: [ ]
+..
++{ objects: [ ] }
+batches is an array, holding an object,
+holding an array where you put more objects.
+Really. (Square's idea, not mine)
 ==
+Getters
+==
+Setters
+==
+METHODS
++add( fardel )
+..
+adds objects to body
 ==
 MAKER METHODS
 + make()
