@@ -7,25 +7,16 @@ class Catalog_Upsert extends Catalog_Request {
   constructor() {
     super();
     this._method = "post";
-    // this._idempotency_key = nanoid();
     this._endpoint = "/batch-upsert";
     this._delivery; // what comes back
     this._body = {
       idempotency_key: nanoid(),
-      // batches: [{
-      //   objects: [],
-      // }],
-      batches: [],
+      batches: [
+        {
+          objects: [],
+        },
+      ],
     };
-    //todo refactor-part of the one or many refactor
-    // this.configuration = {
-    //   batch: {
-    //     endpoint: "/batch-upsert",
-    //   },
-    //   one: {
-    //     endpoint: "/object",
-    //   },
-    // };
   }
   get display_name() {
     return this._display_name;
@@ -41,22 +32,21 @@ class Catalog_Upsert extends Catalog_Request {
   }
 
   set body(fardel) {
-    // this._body.batches[0].objects.push(fardel);
-    this._body.batches.push(fardel);
+    this.body.batches[0].objects.push(fardel);
   }
 
-  // set body(fardel) {
-  //   if (Object.prototype.hasOwnProperty.call(fardel, "objects")) {
-  //     this._body = {
-  //       idempotency_key: this._idempotency_key,
-  //       batches: [fardel],
-  //     };
-  //   } else {
-  //     this._body = fardel;
-  //   }
-  // }
   set endpoint(str) {
     this._endpoint = str;
+  }
+
+  // METHODS
+  /**
+   * @param {object} Item Object
+   * @return Adds Item Objects to the body to be sent to Square
+   * */
+  add(fardel) {
+    this.body = fardel;
+    return this;
   }
 
   // MAKER METHODS
@@ -65,6 +55,10 @@ class Catalog_Upsert extends Catalog_Request {
       self: this,
       body: function (fardel) {
         this.self.body = fardel;
+        return this;
+      },
+      add: function (fardel) {
+        this.body(fardel);
         return this;
       },
     };

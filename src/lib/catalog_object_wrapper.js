@@ -7,12 +7,11 @@ const { nanoid } = require("nanoid/non-secure");
 //ToDO add ability to remove an item from payload array
 // todo consider renaming Wrapper to Container because that is more clear
 
-class Catalog_Object_Wrapper {
+class Catalog_Object_Wrapper_Deprecated {
   _display_name = "Catalog_Object_Wrapper";
   _last_verified_square_api_version = "2021-07-21";
   constructor() {
     this._fardel = {
-      idempotency_key: nanoid(),
       objects: [],
     };
   }
@@ -48,4 +47,4 @@ class Catalog_Object_Wrapper {
   }
 }
 
-module.exports = Catalog_Object_Wrapper;
+module.exports = Catalog_Object_Wrapper_Deprecated;

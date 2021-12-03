@@ -14,7 +14,7 @@ const Catalog_Search_Items = require("../src/lib/catalog_request_search_items");
 // TODO tests for Catalog_List enum
 
 // tack on .only to this empty test to silence all other tests
-describe("silence test suite", () => {
+describe.only("silence test suite", () => {
   test("Should silence async customer tests", () => {
     expect("a").toEqual("a");
   });

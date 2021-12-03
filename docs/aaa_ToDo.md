@@ -20,10 +20,9 @@
 ## Time Consuming
 
 - [x] Experiment with Catalog_Upsert to see if `batch` can do just one
-- [ ] If Catalog_Upsert can do just one in `batches`, refactor to simplify structure to just use `batches`
+- [x] If Catalog_Upsert can do just one in `batches`, refactor to simplify structure to just use `batches`
 - [ ] Experiment with Catalog_Object_Wrapper to see if `batch` can do just one
-- [ ] If Catalog_Object_Wrapper can do just one in `batches`, refactor to simplify structure to just use `batches`
-      -- Tell it to use MANY no matter what and see what comes back
+- [x] If Catalog_Object_Wrapper can do just one in `batches`, refactor to simplify structure to just use `batches`
 
 ## Create a patterns/conventions page with general descriptions
 

@@ -1,10 +1,6 @@
 const Catalog_Item = require("../../src/lib/catalog_object_item");
 const Catalog_Item_Variation = require("../../src/lib/catalog_object_item_variation");
 const Catalog_Category = require("../../src/lib/catalog_object_category");
-const Catalog_Item_Wrapper = require("../../src/lib/catalog_object_wrapper");
-
-const multiple = new Catalog_Item_Wrapper();
-const single = new Catalog_Item_Wrapper();
 
 const category = new Catalog_Category();
 category.name = "Guitars";
@@ -24,14 +20,8 @@ sm_config.name("red").price_money(550);
 
 itemConfig.variations(large.fardel).variations(small.fardel);
 
-multiple.attach(item.fardel);
-multiple.add(category.fardel);
-
-single.attach(category.fardel);
-
 const sample_objects = {
-  multiple: multiple.fardel,
-  single: single.fardel,
+  item: item.fardel,
 };
 
 module.exports = sample_objects;

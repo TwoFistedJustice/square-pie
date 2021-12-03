@@ -1,7 +1,6 @@
 "use strict";
 const should = require("chai").should();
 const { long_strings } = require("./helper_objects");
-const Catalog_Object_Wrapper = require("../src/lib/catalog_object_wrapper");
 const Catalog_Category = require("../src/lib/catalog_object_category");
 const Catalog_Object_Super = require("../src/lib/catalog_object_super");
 const Catalog_Item = require("../src/lib/catalog_object_item");
@@ -47,43 +46,6 @@ describe("Catalog Object Super", () => {
     expect(superduper.present_at_location_ids).toEqual(
       expect.arrayContaining([id])
     );
-  });
-});
-
-// --------------------------------------------------------------
-//                         CATALOG OBJECT WRAPPER
-// --------------------------------------------------------------
-
-describe("Catalog Object Wrapper", () => {
-  const arr = [{ a: 0 }, { b: 1 }, { c: 2 }, { d: 3 }, { e: 4 }];
-
-  test("Payload should be an object when given a single object", () => {
-    let thing = new Catalog_Object_Wrapper();
-    thing.attach(arr[0]);
-    expect(thing.objects[0]).toMatchObject(arr[0]);
-  });
-
-  test("Payload should be an array of objects when given a more than one object", () => {
-    let thing = new Catalog_Object_Wrapper();
-    thing
-      .attach(arr[0])
-      .attach(arr[1])
-      .attach(arr[2])
-      .attach(arr[3])
-      .attach(arr[4]);
-    expect(thing.objects).toMatchObject(arr);
-  });
-
-  test("Add alias should function exactly as attach method", () => {
-    let thing = new Catalog_Object_Wrapper();
-    thing.add(arr[0]).add(arr[1]).add(arr[2]).add(arr[3]).add(arr[4]);
-    expect(thing.objects).toMatchObject(arr);
-  });
-
-  test("Attach method and add alias should work together", () => {
-    let thing = new Catalog_Object_Wrapper();
-    thing.add(arr[0]).attach(arr[1]).add(arr[2]).attach(arr[3]).add(arr[4]);
-    expect(thing.objects).toMatchObject(arr);
   });
 });
 
@@ -308,7 +270,7 @@ describe("Item Variation pricing featues", () => {
 });
 
 // --------------------------------------------------------------
-//                        INTERACTION BETWEEN ITEM && ITEM VARIATION && WRAPPER
+//                        INTERACTION BETWEEN ITEM && ITEM VARIATION
 // --------------------------------------------------------------
 
 describe("Item and Item Variation should interact correctly", () => {
@@ -345,48 +307,5 @@ describe("Item and Item Variation should interact correctly", () => {
     expect(fardel.item_data.variations[0]).toEqual(
       expect.objectContaining(expected_variation)
     );
-  });
-
-  // test("Wrapper should contain an 'object' property when given one object", () => {
-  //   const variation = new Catalog_Item_Variation();
-  //   const item = new Catalog_Item();
-  //   const wrapper = new Catalog_Object_Wrapper();
-  //
-  //   const vari_config = variation.make();
-  //   const item_config = item.make();
-  //   item_config.id("some_item");
-  //   vari_config
-  //     .name("Classic")
-  //     .present_at_all_locations(true)
-  //     .price_money(1500)
-  //     .sku("12345")
-  //     .present_at_location_ids("Pieville USA");
-  //   item.variations = variation.fardel;
-  //   wrapper.attach(item.fardel);
-  //   expect(
-  //     Object.prototype.hasOwnProperty.call(wrapper.fardel, "object")
-  //   ).toEqual(true);
-  // });
-
-  test("Wrapper should contain an 'objects' property when given more than one object", () => {
-    const variation = new Catalog_Item_Variation();
-    const item = new Catalog_Item();
-    const wrapper = new Catalog_Object_Wrapper();
-
-    const vari_config = variation.make();
-    const item_config = item.make();
-    item_config.id("some_item");
-    vari_config
-      .name("Classic")
-      .present_at_all_locations(true)
-      .price_money(1500)
-      .sku("12345")
-      .present_at_location_ids("Pieville USA");
-    item.variations = variation.fardel;
-    wrapper.attach(item.fardel);
-    wrapper.attach(item.fardel); // duplicate is for test
-    expect(
-      Object.prototype.hasOwnProperty.call(wrapper.fardel, "objects")
-    ).toEqual(true);
   });
 });
