@@ -1,4 +1,4 @@
-const Order_Request = require("./order_request");
+const Order_Request = require("./order_request_abstract");
 const { nanoid } = require("nanoid");
 
 class Order_Update extends Order_Request {

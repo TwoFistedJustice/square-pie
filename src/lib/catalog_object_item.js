@@ -1,4 +1,4 @@
-const Catalog_Object_Super = require("./catalog_object_super");
+const Catalog_Object_Super = require("./catalog_object_abstract_super");
 const { shazam_maxLength, arrayify } = require("./utilities");
 const { isHexColor } = require("validator");
 

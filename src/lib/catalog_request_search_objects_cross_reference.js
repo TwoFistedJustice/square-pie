@@ -1,4 +1,4 @@
-const Catalog_Search_Objects_Super = require("./catalog_request_search_objects_super");
+const Catalog_Search_Objects_Super = require("./catalog_request_abstract_search_objects_super");
 const { define } = require("./utilities");
 
 class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {

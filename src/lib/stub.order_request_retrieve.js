@@ -1,7 +1,7 @@
 // build 'batch'first and see if it can do just one
 // if it can, don't build the single retrieve
 
-const Order_Request = require("./order_request");
+const Order_Request = require("./order_request_abstract");
 
 class Order_Retrieve extends Order_Request {
   _display_name = "Order_Retrieve";

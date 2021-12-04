@@ -1,4 +1,4 @@
-const Customer_Request = require("./customer_request");
+const Customer_Request = require("./customer_request_abstract");
 const { nanoid } = require("nanoid/non-secure");
 const { normalize_email } = require("./utilities");
 

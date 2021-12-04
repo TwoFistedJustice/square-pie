@@ -1,5 +1,5 @@
 // start by requiring the top level request class
-const Square_Request = require("../../src/lib/square_request");
+const Square_Request = require("../../src/lib/square_request_abstract");
 
 //used for uid and name generation
 const { nanoid } = require("nanoid/non-secure");
