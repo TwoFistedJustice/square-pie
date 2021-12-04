@@ -1,4 +1,4 @@
-const Customer_Request = require("./customer_request");
+const Customer_Request = require("./customer_request_abstract");
 
 // https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile
 //ToDO whenever something is updated or deleted, log it to a file in some retrievable location

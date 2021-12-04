@@ -20,6 +20,52 @@
 
 <br/>
 
+## File Names
+
+File names for classes follow the following convention
+
+- snake_case
+- lower case
+
+< API Name >< request || object >< abstract || empty >< descriptor >< super || empty >< .js >
+
+`API Name`: the name of the Square API the class is built for.
+
+`request || object`: indicates the class is an HTTP request or an Object destined to become a database document.
+
+`abstract || empty` : if the class is not meant to be instantiated by the user add 'abstract'. Otherwise leave this field empty.
+the reason for this is to group them all at the top of the visible file tree. This simplifies manual searching.
+
+`descriptor`: the request action performed or type of object.
+
+`super || empty`: All super classes are also 'abstract'. And all abstract class are technically super classes. But we
+only designate that way if the class is an immediate pre-cursor to a limited set of specialized classes. Otherwise leave this field empty.
+This is a bit cumbersome. But we do it this because the file name name should reflect the actual class name to make it easy
+to manually find stuff when necessary.
+
+<br/>
+
+# Class Names
+
+- Snake_Case -
+- Every first letter is Upper_Case
+- The class name NEVER includes the word 'abstract' - that is reserved for file names only.
+
+< Api name >< Type of class || empty >< Descriptor >< >< Super || empty >
+
+`Api name`: the name of the Square API the class is built for.
+
+`Type of class || empty `:
+If the class is a Request and is a super class to ALL other request class for that
+Square API, then enter "Request". Otherwise leave this field empty. There will only be ONE per API.
+
+`Descriptor`: the request action performed or type of object.
+
+`Super || empty`: Super indicates that it is used to hold common elements to a limited set of other
+related classes.
+
+<br/>
+
 ## Common Features
 
 ### Fardel
