@@ -13,6 +13,8 @@ const {
   shazam_boolean,
 } = require("../src/lib/utilities");
 
+const add_to_endpoint_query_string = require("../src/lib/utilities/endpoint_query_string_builder");
+
 const { dateCodes } = require("./helper_objects");
 // const {expect} = require ("chai");
 
@@ -246,5 +248,50 @@ describe("normalize_email utility", () => {
     let received = normalize_email(email, "test", "return value");
     let expected = "buffy@scoobies.org";
     expect(received).toEqual(expected);
+  });
+});
+
+describe.only("endpoint string query builder", () => {
+  test("is_empty", () => {
+    let testStr = "";
+    let key = "type";
+    let value = "ITEM";
+    let expected = "?type=ITEM";
+    // calls it_is_empty(key, value)
+    expect(add_to_endpoint_query_string(testStr, key, value)).toEqual(expected);
+  });
+
+  test("it_has_key_but_not_ampersand(testStr, value)", () => {
+    let testStr = "?pets=DOGS";
+    let key = "pets";
+    let value = "CATS";
+    let expected = "?pets=DOGS,CATS";
+    expect(add_to_endpoint_query_string(testStr, key, value)).toEqual(expected);
+  });
+
+  test("it_has_other_keys_but_not_this_key(testStr, key, value)", () => {
+    let testStr = "?beer=pilsner,stout&cookies=vegan%20chocolate%20chip";
+    let key = "guitars";
+    let value = "hamer";
+    let expected =
+      "?beer=pilsner,stout&cookies=vegan%20chocolate%20chip&guitars=hamer";
+    expect(add_to_endpoint_query_string(testStr, key, value)).toEqual(expected);
+  });
+
+  test("it_has_key_and_ampersand(testStr, key, value) should add a new value to the key", () => {
+    let testStr = "?type=ITEM,ITEM_VARIATION&cake=chocolate";
+    let key = "type";
+    let value = "CATEGORY";
+    let expected = `?cake=chocolate&type=ITEM,ITEM_VARIATION,${value}`;
+    expect(add_to_endpoint_query_string(testStr, key, value)).toEqual(expected);
+  });
+
+  test("it_has_key_and_ampersand(expected, key, value) should throw if key:value already exists", () => {
+    let key = "type";
+    let value = "CATEGORY";
+    let testStr = `?type=ITEM,ITEM_VARIATION,${value}&cake=chocolate`;
+    expect(() => {
+      add_to_endpoint_query_string(testStr, key, value);
+    }).toThrow();
   });
 });
