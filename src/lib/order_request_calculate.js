@@ -1,4 +1,4 @@
-const Order_Request = require("./order_request");
+const Order_Request = require("./order_request_abstract");
 
 class Order_Calculate extends Order_Request {
   _display_name = "Order_Calculate";

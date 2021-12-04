@@ -1,4 +1,4 @@
-const Square_Request = require("./square_request");
+const Square_Request = require("./square_request_abstract");
 
 class Order_Request extends Square_Request {
   _display_name = "Order_Request";

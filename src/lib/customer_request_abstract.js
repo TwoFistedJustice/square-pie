@@ -1,4 +1,4 @@
-const Square_Request = require("./square_request");
+const Square_Request = require("./square_request_abstract");
 
 /** @class Customer_Request super class of Customer API Request classes
  *  @author Russ Bain

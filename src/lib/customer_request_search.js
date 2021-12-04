@@ -1,4 +1,4 @@
-const Customer_Request = require("./customer_request");
+const Customer_Request = require("./customer_request_abstract");
 
 /** @class Customer_Search representing an http request to retrieve to search customer records
  *  @see Customer_Request

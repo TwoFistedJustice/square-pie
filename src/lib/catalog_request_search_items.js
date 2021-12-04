@@ -1,4 +1,4 @@
-const Catalog_Request = require("./catalog_request");
+const Catalog_Request = require("./catalog_request_abstract");
 const { arrayify, generate_error_message } = require("./utilities");
 
 class Catalog_Search_Items extends Catalog_Request {

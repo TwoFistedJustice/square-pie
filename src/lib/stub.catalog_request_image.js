@@ -1,4 +1,4 @@
-const Catalog_Request = require("./catalog_request");
+const Catalog_Request = require("./catalog_request_abstract");
 
 class Create_Catalog_Image extends Catalog_Request {
   _display_name = "Create_Catalog_Image";

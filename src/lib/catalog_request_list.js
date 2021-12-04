@@ -1,4 +1,4 @@
-const Catalog_Request = require("./catalog_request");
+const Catalog_Request = require("./catalog_request_abstract");
 // TODO create a way to extract query parameters and add automagically them to the endpoint
 // todo types expects a CSV list - build a utility for this and use it here
 // https://developer.squareup.com/reference/square/catalog-api/list-catalog

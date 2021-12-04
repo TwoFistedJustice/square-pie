@@ -1,4 +1,4 @@
-const Retrieve_Update_Delete = require("./customer_request_R_U_D");
+const Retrieve_Update_Delete = require("./customer_request_abstract_R_U_D_super");
 
 /** @class Customer_Retrieve representing an http request to retrieve a customer records
  *  @see Retrieve_Update_Delete

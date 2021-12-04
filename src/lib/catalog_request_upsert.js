@@ -1,4 +1,4 @@
-const Catalog_Request = require("./catalog_request");
+const Catalog_Request = require("./catalog_request_abstract");
 const { nanoid } = require("nanoid/non-secure");
 
 class Catalog_Upsert extends Catalog_Request {

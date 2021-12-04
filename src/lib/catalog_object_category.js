@@ -1,5 +1,5 @@
 const { shazam_maxLength } = require("./utilities");
-const Catalog_Object_Super = require("./catalog_object_super");
+const Catalog_Object_Super = require("./catalog_object_abstract_super");
 class Catalog_Category extends Catalog_Object_Super {
   _display_name = "Catalog_Category";
   _last_verified_square_api_version = "2021-07-21";

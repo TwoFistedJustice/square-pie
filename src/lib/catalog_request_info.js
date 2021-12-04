@@ -1,4 +1,4 @@
-const Catalog_Request = require("./catalog_request");
+const Catalog_Request = require("./catalog_request_abstract");
 
 class Catalog_Info extends Catalog_Request {
   _display_name = "Catalog_Info";
