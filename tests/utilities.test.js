@@ -2,6 +2,7 @@
 const {
   // define,
   query_string_builder,
+  query_string_endpoint,
   // setter_chain_generator_config,
   // setter_chain_generator_separate_arrays,
   // shazam_max_length,
@@ -331,5 +332,51 @@ describe("endpoint string query builder", () => {
     expect(() => {
       query_string_builder(testStr, key, value);
     }).toThrow();
+  });
+});
+
+describe("query_string_endpoint", () => {
+  let val1 = "VAL1";
+  let val2 = "VAL2";
+  let val3 = "VAL3";
+
+  test("query_string_endpoint should  ", () => {
+    let query_params = {
+      otherProp: undefined,
+      types: undefined,
+    };
+    let expected = {
+      otherProp: undefined,
+      types: "VAL1",
+    };
+
+    query_params.types = query_string_endpoint(query_params.types, val1);
+
+    expect(query_params).toMatchObject(expected);
+  });
+
+  test("query_string_endpoint should  ", () => {
+    let query_params = {
+      otherProp: undefined,
+      types: "VAL1",
+    };
+    let expected = {
+      otherProp: undefined,
+      types: "VAL1,VAL2",
+    };
+    query_params.types = query_string_endpoint(query_params.types, val2);
+    expect(query_params).toMatchObject(expected);
+  });
+  test("query_string_endpoint should  ", () => {
+    let query_params = {
+      otherProp: undefined,
+      types: "VAL1,VAL2",
+    };
+    let expected = {
+      otherProp: undefined,
+      types: "VAL1,VAL2,VAL3",
+    };
+    query_params.types = query_string_endpoint(query_params.types, val3);
+    expect(query_params).toMatchObject(expected);
   });
 });
