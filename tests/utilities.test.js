@@ -11,7 +11,7 @@ const {
   shazam_RFC3339,
   shazam_integer,
   shazam_boolean,
-} = require("../src/lib/utilities/utilities");
+} = require("../src/lib/utilities/aaa_index");
 
 const add_to_endpoint_query_string = require("../src/lib/utilities/endpoint_query_string_builder");
 
