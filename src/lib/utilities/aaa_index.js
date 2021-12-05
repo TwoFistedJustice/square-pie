@@ -12,28 +12,7 @@ const arche_money = require("./arche_money");
 const generate_error_message = require("./generate_error_message");
 const shazam_RFC3339 = require("./shazam_RFC3339");
 const shazam_integer = require("./shazam_integer");
-
-/** shazam_boolean strictly verifies argument is a boolean. Does not allow for type coercion.
- * Will throw an error on every value except true and false.
- *
- * @param {boolean} bool - expects a boolean
- * @param {string} displayName - the _display_name static from the calling class
- * @param {string} caller - the name variable from the calling function
- * @throws throws and error if the `bool` argument is not a boolean.
- * @return {boolean} returns true  if the `bool` argument is a boolean.
- * */
-const shazam_boolean = function (
-  bool,
-  displayName = "unspecified class",
-  caller = "- unspecified class setter"
-) {
-  if (typeof bool !== "boolean") {
-    throw new Error(
-      `${displayName}.${caller} expects a boolean. Received: ${bool}\nMake sure you didn't pass a string that looks like a boolean.`
-    );
-  }
-  return true;
-};
+const shazam_boolean = require("./shazam_boolean");
 
 module.exports = {
   normalize_email,
