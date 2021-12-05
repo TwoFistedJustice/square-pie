@@ -303,7 +303,7 @@ describe("endpoint string query builder", () => {
     let testStr = "?pets=DOGS";
     let key = "pets";
     let value = "CATS";
-    let expected = "pets=DOGS,CATS";
+    let expected = "?pets=DOGS,CATS";
     expect(query_string_builder(testStr, key, value)).toEqual(expected);
   });
 
@@ -320,7 +320,7 @@ describe("endpoint string query builder", () => {
     let testStr = "?type=ITEM,ITEM_VARIATION&cake=chocolate";
     let key = "type";
     let value = "CATEGORY";
-    let expected = `cake=chocolate&type=ITEM,ITEM_VARIATION,${value}`;
+    let expected = `?cake=chocolate&type=ITEM,ITEM_VARIATION,${value}`;
     expect(query_string_builder(testStr, key, value)).toEqual(expected);
   });
 
