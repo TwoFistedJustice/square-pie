@@ -1,6 +1,6 @@
 const Retrieve_Update_Delete = require("./customer_request_abstract_R_U_D_super");
 const {
-  shazam_maxLength,
+  shazam_max_length,
   normalize_email,
   shazam_RFC3339,
   shazam_integer,
@@ -122,7 +122,7 @@ class Customer_Update extends Retrieve_Update_Delete {
    * */
   set phone_number(phone) {
     if (
-      shazam_maxLength(
+      shazam_max_length(
         this.configuration.maximums.phone_number,
         phone,
         this.display_name,

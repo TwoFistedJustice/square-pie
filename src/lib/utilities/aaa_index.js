@@ -6,7 +6,7 @@ const {
   setter_chain_generator_separate_arrays,
 } = require("./setter_chain_generators");
 
-const shazam_maxLength = require("./shazam_max_length");
+const shazam_max_length = require("./shazam_max_length");
 
 /** shazam_minLength validates string length, returning true if the string is equal to or greater than
  * the minimum allowable length and otherwise throwing an error. Returns true = good
@@ -21,7 +21,7 @@ const shazam_maxLength = require("./shazam_max_length");
  * @throws Throws and error is the string is shorter than allowed
  * @returns {boolean} Returns `true` of the string is less than or equal to the allowed limit
  *
- *  To check for maximum length use shazam_maxLength
+ *  To check for maximum length use shazam_max_length
  * */
 const shazam_minLength = function (
   min,
@@ -156,7 +156,7 @@ module.exports = {
   setter_chain_generator_config,
   setter_chain_generator_separate_arrays,
   shazam_minLength,
-  shazam_maxLength,
+  shazam_max_length,
   arrayify,
   arche_money,
   generate_error_message,

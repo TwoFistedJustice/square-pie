@@ -1,6 +1,6 @@
 const {
   define,
-  shazam_maxLength,
+  shazam_max_length,
   arrayify,
   arche_money,
 } = require("./utilities/aaa_index");
@@ -101,14 +101,16 @@ class Order_Object {
   }
   set customer_id(id) {
     let caller = "customer_id";
-    if (shazam_maxLength(this.configuration.maximums.customer_id, id, caller)) {
+    if (
+      shazam_max_length(this.configuration.maximums.customer_id, id, caller)
+    ) {
       this._fardel.customer_id = id;
     }
   }
   set ticket_name(name) {
     let caller = "ticket_name";
     if (
-      shazam_maxLength(this.configuration.maximums.ticket_name, name, caller)
+      shazam_max_length(this.configuration.maximums.ticket_name, name, caller)
     ) {
       this._fardel.ticket_name = name;
     }

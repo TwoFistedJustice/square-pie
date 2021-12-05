@@ -1,11 +1,11 @@
 /* Returns true = good
 Returns true if the string is less than or equal to the max length
 * */
-/** shazam_maxLength validates string length, returning true if the string is equal to or less than
+/** shazam_max_length validates string length, returning true if the string is equal to or less than
  * the maximum allowable length and otherwise throwing an error.
  *
  * * usage:
- *  `if( shazam_maxLength(...) { do stuff }`
+ *  `if( shazam_max_length(...) { do stuff }`
  *
  * @param {number} max is the upper limit of allowable string length
  * @param {string} str is the string you want to validate
@@ -16,7 +16,7 @@ Returns true if the string is less than or equal to the max length
  *
  *  To check for minimum length use shazam_minLength
  * */
-const shazam_maxLength = function (
+const shazam_max_length = function (
   max,
   str = "",
   displayName = "unspecified class",
@@ -30,4 +30,4 @@ const shazam_maxLength = function (
   return true;
 };
 
-module.exports = shazam_maxLength;
+module.exports = shazam_max_length;

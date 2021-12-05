@@ -1,7 +1,7 @@
 const { nanoid } = require("nanoid");
 const {
   define,
-  shazam_maxLength,
+  shazam_max_length,
   shazam_RFC3339,
 } = require("./utilities/aaa_index");
 const { uid_length } = require("./pie_defaults");
@@ -148,7 +148,7 @@ class Order_Fulfillment {
    * */
   #note(fulfillment, key, note) {
     let limit = this.configuration.maximums[key];
-    if (shazam_maxLength(limit, note)) {
+    if (shazam_max_length(limit, note)) {
       !Object.prototype.hasOwnProperty.call(fulfillment, key)
         ? define(fulfillment, key, note)
         : (fulfillment[key] = note);
@@ -177,31 +177,31 @@ class Order_Fulfillment {
     return {
       self: this,
       customer_id: function (val) {
-        if (shazam_maxLength(this.self.configuration.customer_id, val)) {
+        if (shazam_max_length(this.self.configuration.customer_id, val)) {
           fulfillment.recipient.customer_id = val;
           return this;
         }
       },
       display_name: function (val) {
-        if (shazam_maxLength(this.self.configuration.display_name, val)) {
+        if (shazam_max_length(this.self.configuration.display_name, val)) {
           fulfillment.recipient.display_name = val;
           return this;
         }
       },
       email: function (val) {
-        if (shazam_maxLength(this.self.configuration.email_address, val)) {
+        if (shazam_max_length(this.self.configuration.email_address, val)) {
           fulfillment.recipient.email_address = val;
           return this;
         }
       },
       phone: function (val) {
-        if (shazam_maxLength(this.self.configuration.phone_number, val)) {
+        if (shazam_max_length(this.self.configuration.phone_number, val)) {
           fulfillment.recipient.phone_number = val;
           return this;
         }
       },
       address: function (val) {
-        if (shazam_maxLength(this.self.configuration.address, val)) {
+        if (shazam_max_length(this.self.configuration.address, val)) {
           fulfillment.recipient.address = val;
           return this;
         }

@@ -1,5 +1,5 @@
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
-const { shazam_maxLength, arrayify } = require("./utilities/aaa_index");
+const { shazam_max_length, arrayify } = require("./utilities/aaa_index");
 const { isHexColor } = require("validator");
 
 class Catalog_Item extends Catalog_Object_Super {
@@ -116,14 +116,14 @@ class Catalog_Item extends Catalog_Object_Super {
   }
   set name(str) {
     let caller = "name";
-    if (shazam_maxLength(this.configuration.maximums.name, str, caller)) {
+    if (shazam_max_length(this.configuration.maximums.name, str, caller)) {
       this._fardel.item_data.name = str;
     }
   }
   set description(str) {
     let caller = "description";
     if (
-      shazam_maxLength(this.configuration.maximums.description, str, caller)
+      shazam_max_length(this.configuration.maximums.description, str, caller)
     ) {
       this._fardel.item_data.description = str;
     }
@@ -131,7 +131,7 @@ class Catalog_Item extends Catalog_Object_Super {
   set abbreviation(str) {
     let caller = "abbreviation";
     if (
-      shazam_maxLength(this.configuration.maximums.abbreviation, str, caller)
+      shazam_max_length(this.configuration.maximums.abbreviation, str, caller)
     ) {
       this._fardel.item_data.abbreviation = str;
     }
@@ -201,7 +201,7 @@ class Catalog_Item extends Catalog_Object_Super {
   set item_options(id) {
     if (
       arrayify(this._fardel.item_data, "item_options") &&
-      shazam_maxLength(
+      shazam_max_length(
         this.item_options.length,
         this.configuration.item_options,
         this._display_name,

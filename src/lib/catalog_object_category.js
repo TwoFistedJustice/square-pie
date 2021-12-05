@@ -1,4 +1,4 @@
-const { shazam_maxLength } = require("./utilities/aaa_index");
+const { shazam_max_length } = require("./utilities/aaa_index");
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
 class Catalog_Category extends Catalog_Object_Super {
   _display_name = "Catalog_Category";
@@ -54,7 +54,7 @@ class Catalog_Category extends Catalog_Object_Super {
   }
   set name(str) {
     let caller = "name";
-    if (shazam_maxLength(this.configuration.maximums.name, str, caller)) {
+    if (shazam_max_length(this.configuration.maximums.name, str, caller)) {
       this._fardel.category_data.name = str;
     }
   }
