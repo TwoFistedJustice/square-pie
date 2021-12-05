@@ -1,10 +1,10 @@
 const Retrieve_Update_Delete = require("./customer_request_abstract_R_U_D_super");
 const {
-  shazam_maxLength,
+  shazam_max_length,
   normalize_email,
   shazam_RFC3339,
   shazam_integer,
-} = require("./utilities");
+} = require("./utilities/aaa_index");
 
 /** @class Customer_Update representing an http request to update a customer record
  * Some fields that are available on Customer_Object are not updatable. This class has its own
@@ -122,7 +122,7 @@ class Customer_Update extends Retrieve_Update_Delete {
    * */
   set phone_number(phone) {
     if (
-      shazam_maxLength(
+      shazam_max_length(
         this.configuration.maximums.phone_number,
         phone,
         this.display_name,

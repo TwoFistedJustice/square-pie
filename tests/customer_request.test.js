@@ -6,7 +6,7 @@ const Customer_Create = require("../src/lib/customer_request_create");
 const Customer_Retrieve = require("../src/lib/customer_request_retrieve");
 const Customer_Update = require("../src/lib/customer_request_update");
 const Customer_Delete = require("../src/lib/customer_request_delete");
-const Customer_Retrieve_Update_Delete = require("../src/lib/customer_request_R_U_D");
+const Customer_Retrieve_Update_Delete_Super = require("../src/lib/customer_request_abstract_R_U_D_super");
 const Customer_Object = require("../src/lib/customer_object");
 const { sampleCustomers } = require("./helper_objects");
 // const {expect} = require ("chai");
@@ -22,7 +22,7 @@ const mikey = customers.mikey;
 // despite whatever Jest docs say, this timer thing does not work AT. ALL.
 beforeAll(() => jest.setTimeout(10 * 1000));
 
-describe.only("Silence Async tests", () => {
+describe("Silence Async tests", () => {
   test("Should silence async customer tests", () => {
     expect("a").toEqual("a");
   });
@@ -126,8 +126,8 @@ describe("Display Names", () => {
   });
 
   test("Customer_Retrieve_Update_Delete should have display_name property", () => {
-    let val = new Customer_Retrieve_Update_Delete();
-    expect(val.display_name).toEqual("Customer_Retrieve_Update_Delete");
+    let val = new Customer_Retrieve_Update_Delete_Super();
+    expect(val.display_name).toEqual("Customer_Retrieve_Update_Delete_Super");
   });
 
   test("should have display_name property", () => {

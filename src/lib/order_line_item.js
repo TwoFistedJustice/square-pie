@@ -1,13 +1,13 @@
 const { nanoid } = require("nanoid");
 const { uid_length } = require("./pie_defaults");
 const {
-  shazam_minLength,
-  shazam_maxLength,
+  shazam_min_length,
+  shazam_max_length,
   arrayify,
   arche_money,
   generate_error_message,
   define,
-} = require("./utilities");
+} = require("./utilities/aaa_index");
 
 class Order_Line_Item {
   _display_name = "Order_Line_Item";
@@ -103,12 +103,12 @@ class Order_Line_Item {
   #applied_tax_or_discount(type, tax_or_discount_uid) {
     let caller = `#applied_tax_or_discount - ${type}`;
     if (
-      shazam_minLength(
+      shazam_min_length(
         this.configuration.minimums.uid,
         tax_or_discount_uid,
         caller
       ) &&
-      shazam_maxLength(
+      shazam_max_length(
         this.configuration.maximums.uid,
         tax_or_discount_uid,
         caller
@@ -150,8 +150,8 @@ class Order_Line_Item {
   }
 
   #uid_length(uid) {
-    return shazam_minLength(this.configuration.minimums.uid, uid) &&
-      shazam_maxLength(this.configuration.uid, uid)
+    return shazam_min_length(this.configuration.minimums.uid, uid) &&
+      shazam_max_length(this.configuration.uid, uid)
       ? true
       : false;
   }
@@ -218,35 +218,35 @@ class Order_Line_Item {
 
   // SETTERS
   set uid(str) {
-    if (shazam_maxLength(this.configuration.maximums.uid, str)) {
+    if (shazam_max_length(this.configuration.maximums.uid, str)) {
       this._fardel.uid = str;
     }
   }
   set quantity(str) {
     if (
-      shazam_maxLength(this.configuration.maximums.quantity, str) &&
-      shazam_minLength(this.configuration.minimums.quantity, str)
+      shazam_max_length(this.configuration.maximums.quantity, str) &&
+      shazam_min_length(this.configuration.minimums.quantity, str)
     ) {
       this._fardel.quantity = str;
     }
   }
   set name(str) {
-    if (shazam_maxLength(this.configuration.maximums.name, str)) {
+    if (shazam_max_length(this.configuration.maximums.name, str)) {
       this._fardel.name = str;
     }
   }
   set note(str) {
-    if (shazam_maxLength(this.configuration.maximums.note, str)) {
+    if (shazam_max_length(this.configuration.maximums.note, str)) {
       this._fardel.note = str;
     }
   }
   set variation_name(str) {
-    if (shazam_maxLength(this.configuration.maximums.variation_name, str)) {
+    if (shazam_max_length(this.configuration.maximums.variation_name, str)) {
       this._fardel.variation_name = str;
     }
   }
   set catalog_object_id(id) {
-    if (shazam_maxLength(this.configuration.maximums.catalog_object_id, id)) {
+    if (shazam_max_length(this.configuration.maximums.catalog_object_id, id)) {
       this._fardel.catalog_object_id = id;
     }
   }
@@ -419,7 +419,7 @@ class Order_Line_Item {
         },
         catalog_object_id: function (id) {
           if (
-            shazam_maxLength(
+            shazam_max_length(
               this.self.configuration.catalog_object_id,
               id,
               caller
@@ -440,7 +440,7 @@ class Order_Line_Item {
         },
         name: function (val) {
           if (
-            shazam_maxLength(
+            shazam_max_length(
               this.self.configuration.catalog_object_id,
               val,
               caller

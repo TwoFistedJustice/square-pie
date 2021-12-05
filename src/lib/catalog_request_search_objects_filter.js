@@ -1,5 +1,5 @@
 const Catalog_Search_Objects_Super = require("./catalog_request_abstract_search_objects_super");
-const { define } = require("./utilities");
+const { define } = require("./utilities/aaa_index");
 
 class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   _display_name = "Catalog_Search_Filter";

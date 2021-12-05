@@ -1,10 +1,10 @@
 const {
-  shazam_maxLength,
+  shazam_max_length,
   normalize_email,
   shazam_RFC3339,
   shazam_integer,
   shazam_boolean,
-} = require("./utilities");
+} = require("./utilities/aaa_index");
 
 /** @class Customer_Object representing a Customer
  *  @author: Russ Bain
@@ -223,7 +223,7 @@ class Customer_Object {
    * */
   set phone_number(phone) {
     if (
-      shazam_maxLength(
+      shazam_max_length(
         this.configuration.maximums.phone_number,
         phone,
         this.display_name,
@@ -277,7 +277,7 @@ class Customer_Object {
    * */
   set tax_ids(id) {
     if (
-      shazam_maxLength(
+      shazam_max_length(
         this.configuration.maximums.tax_ids,
         id,
         this.display_name,

@@ -1,10 +1,10 @@
 const {
   arche_money,
   arrayify,
-  shazam_maxLength,
+  shazam_max_length,
   shazam_boolean,
   shazam_integer,
-} = require("./utilities");
+} = require("./utilities/aaa_index");
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
 // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
 
@@ -119,7 +119,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   }
   // overrides super
   set name(str) {
-    if (shazam_maxLength(this.configuration.maximums.name, str, "name")) {
+    if (shazam_max_length(this.configuration.maximums.name, str, "name")) {
       this._fardel.item_variation_data.name = str;
     }
   }
@@ -196,7 +196,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   }
   set user_data(str) {
     if (
-      shazam_maxLength(this.configuration.maximums.user_data, str, "user_data")
+      shazam_max_length(this.configuration.maximums.user_data, str, "user_data")
     ) {
       this._fardel.item_variation_data.user_data = str;
     }

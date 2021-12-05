@@ -3,7 +3,7 @@ const {
   // define,
   // setter_chain_generator_config,
   // setter_chain_generator_separate_arrays,
-  // shazam_maxLength,
+  // shazam_max_length,
   normalize_email,
   arrayify,
   arche_money,
@@ -11,7 +11,7 @@ const {
   shazam_RFC3339,
   shazam_integer,
   shazam_boolean,
-} = require("../src/lib/utilities");
+} = require("../src/lib/utilities/aaa_index");
 
 const add_to_endpoint_query_string = require("../src/lib/utilities/endpoint_query_string_builder");
 

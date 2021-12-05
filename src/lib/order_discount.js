@@ -1,4 +1,4 @@
-const { shazam_maxLength, arche_money } = require("./utilities");
+const { shazam_max_length, arche_money } = require("./utilities/aaa_index");
 
 class Order_Discount {
   _display_name = "Order_Discount";
@@ -75,7 +75,7 @@ class Order_Discount {
   // SETTERS
   set uid(val) {
     let caller = "uid";
-    if (shazam_maxLength(this.configuration.maximums.uid, val, caller));
+    if (shazam_max_length(this.configuration.maximums.uid, val, caller));
     {
       this._fardel.uid = val;
     }
@@ -83,7 +83,7 @@ class Order_Discount {
   set catalog_object_id(val) {
     let caller = "catalog_object_id";
     if (
-      shazam_maxLength(
+      shazam_max_length(
         this.configuration.maximums.catalog_object_id,
         val,
         caller
@@ -98,7 +98,7 @@ class Order_Discount {
   }
   set name(val) {
     let caller = "name";
-    if (shazam_maxLength(this.configuration.maximums.name, val, caller));
+    if (shazam_max_length(this.configuration.maximums.name, val, caller));
     {
       this._fardel.name = val;
     }
@@ -117,7 +117,7 @@ class Order_Discount {
     }
     let caller = "percentage";
     if (
-      shazam_maxLength(this.configuration.maximums.percentage, percent, caller)
+      shazam_max_length(this.configuration.maximums.percentage, percent, caller)
     ) {
       this._fardel.percentage = percent;
     }

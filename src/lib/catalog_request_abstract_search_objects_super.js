@@ -1,5 +1,5 @@
 const Catalog_Request = require("./catalog_request_abstract");
-const { shazam_RFC3339 } = require("./utilities");
+const { shazam_RFC3339 } = require("./utilities/aaa_index");
 // https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects
 
 /*
