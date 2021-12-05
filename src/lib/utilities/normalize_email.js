@@ -1,4 +1,5 @@
 const { isEmail, normalizeEmail } = require("validator");
+
 /** normalize_email validates an email address and removes any nonsense that can clutter up
  *  the database or cause sending errors.
  * @param {string} email - an email address
