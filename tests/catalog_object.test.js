@@ -2,7 +2,7 @@
 const should = require("chai").should();
 const { long_strings } = require("./helper_objects");
 const Catalog_Category = require("../src/lib/catalog_object_category");
-const Catalog_Object_Super = require("../src/lib/catalog_object_super");
+const Catalog_Object_Super = require("../src/lib/catalog_object_abstract_super");
 const Catalog_Item = require("../src/lib/catalog_object_item");
 const Catalog_Item_Variation = require("../src/lib/catalog_object_item_variation");
 
