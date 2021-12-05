@@ -10,7 +10,7 @@ const shazam_min_length = require("./shazam_min_length");
 const arrayify = require("./arrayify");
 const arche_money = require("./arche_money");
 const generate_error_message = require("./generate_error_message");
-const shazam_RFC3339 = require("./shazam_RFC3339");
+const shazam_time_RFC3339 = require("./shazam_time_RFC3339");
 const shazam_integer = require("./shazam_integer");
 const shazam_boolean = require("./shazam_boolean");
 
@@ -24,7 +24,7 @@ module.exports = {
   arrayify,
   arche_money,
   generate_error_message,
-  shazam_RFC3339,
+  shazam_time_RFC3339,
   shazam_integer,
   shazam_boolean,
 };

@@ -1,5 +1,5 @@
 const Catalog_Request = require("./catalog_request_abstract");
-const { shazam_RFC3339 } = require("./utilities/aaa_index");
+const { shazam_time_RFC3339 } = require("./utilities/aaa_index");
 // https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects
 
 /*
@@ -62,7 +62,7 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     this._body.include_related_objects = bool;
   }
   set begin_time(time) {
-    if (shazam_RFC3339(time, this.display_name, "begin_time")) {
+    if (shazam_time_RFC3339(time, this.display_name, "begin_time")) {
       this._body.begin_time = time;
     }
   }

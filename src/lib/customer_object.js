@@ -1,7 +1,7 @@
 const {
   shazam_max_length,
   normalize_email,
-  shazam_RFC3339,
+  shazam_time_RFC3339,
   shazam_integer,
   shazam_boolean,
 } = require("./utilities/aaa_index");
@@ -240,7 +240,7 @@ class Customer_Object {
    * * @throws Will throw and error if argument is not a valid RFC3339 date code
    * */
   set birthday(time) {
-    if (shazam_RFC3339(time, this._display_name, "birthday")) {
+    if (shazam_time_RFC3339(time, this._display_name, "birthday")) {
       this._fardel.birthday = time;
     }
   }

@@ -2,7 +2,7 @@ const Retrieve_Update_Delete = require("./customer_request_abstract_R_U_D_super"
 const {
   shazam_max_length,
   normalize_email,
-  shazam_RFC3339,
+  shazam_time_RFC3339,
   shazam_integer,
 } = require("./utilities/aaa_index");
 
@@ -150,7 +150,7 @@ class Customer_Update extends Retrieve_Update_Delete {
    * * @throws Will throw and error if argument is not a valid RFC3339 date code
    * */
   set birthday(time) {
-    if (shazam_RFC3339(time, this._display_name, "birthday")) {
+    if (shazam_time_RFC3339(time, this._display_name, "birthday")) {
       this._body.birthday = time;
     }
   }
