@@ -1,5 +1,6 @@
 const normalize_email = require("./normalize_email");
 const define = require("./define");
+const query_string_builder = require("./query_string_endpoint");
 const {
   setter_chain_generator_config,
   setter_chain_generator_separate_arrays,
@@ -17,6 +18,7 @@ const shazam_boolean = require("./shazam_boolean");
 module.exports = {
   normalize_email,
   define,
+  query_string_builder,
   setter_chain_generator_config,
   setter_chain_generator_separate_arrays,
   shazam_min_length,
