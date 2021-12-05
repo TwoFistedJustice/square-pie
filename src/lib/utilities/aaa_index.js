@@ -6,37 +6,7 @@ const {
   setter_chain_generator_separate_arrays,
 } = require("./setter_chain_generators");
 
-/* Returns true = good
-Returns true if the string is less than or equal to the max length
-* */
-/** shazam_maxLength validates string length, returning true if the string is equal to or less than
- * the maximum allowable length and otherwise throwing an error.
- *
- * * usage:
- *  `if( shazam_maxLength(...) { do stuff }`
- *
- * @param {number} max is the upper limit of allowable string length
- * @param {string} str is the string you want to validate
- * @param {string} displayName is the name of the class making the function call
- * @param {string} caller  is the name of the method making the function call
- * @throws Throws and error is the string is longer than allowed
- * @returns {boolean} Returns `true` of the string is less than or equal to the allowed limit
- *
- *  To check for minimum length use shazam_minLength
- * */
-const shazam_maxLength = function (
-  max,
-  str = "",
-  displayName = "unspecified class",
-  caller = "- unspecified class setter"
-) {
-  if (str.length > max) {
-    throw new Error(
-      `${displayName}.${caller} - surpassed maximum character limit of ${max}.\nReceived: ${str}`
-    );
-  }
-  return true;
-};
+const shazam_maxLength = require("./shazam_max_length");
 
 /** shazam_minLength validates string length, returning true if the string is equal to or greater than
  * the minimum allowable length and otherwise throwing an error. Returns true = good
