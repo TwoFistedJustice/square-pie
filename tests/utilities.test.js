@@ -8,7 +8,7 @@ const {
   arrayify,
   arche_money,
   generate_error_message,
-  shazam_RFC3339,
+  shazam_time_RFC3339,
   shazam_integer,
   shazam_boolean,
 } = require("../src/lib/utilities/aaa_index");
@@ -64,7 +64,7 @@ describe("arrayify", () => {
     expect(obj).toMatchObject(expected);
   });
 
-  describe("money_helper", () => {
+  describe("arche_money", () => {
     test("arche_money utility should throw when fed a non-coercible to number amount", () => {
       let amt = "CAD";
       let currency = "CAD";
@@ -107,6 +107,45 @@ describe("arrayify", () => {
 
       expect(received).toMatchObject(expected);
     });
+
+    test('arche_money utility should return a compliant object with "CAD"', () => {
+      let amt = "2195";
+      let currency = "CAD";
+      let expected = {
+        amount: 2195,
+        currency: "CAD",
+      };
+
+      let received = arche_money(amt, currency);
+
+      expect(received).toMatchObject(expected);
+    });
+
+    test('arche_money utility currency argument should be case-insensitive"', () => {
+      let amt = "2195";
+      let currency = "Cad";
+      let expected = {
+        amount: 2195,
+        currency: "CAD",
+      };
+
+      let received = arche_money(amt, currency);
+
+      expect(received).toMatchObject(expected);
+    });
+
+    test('arche_money utility should trim white space off of currency"', () => {
+      let amt = "2195";
+      let currency = " CAD ";
+      let expected = {
+        amount: 2195,
+        currency: "CAD",
+      };
+
+      let received = arche_money(amt, currency);
+
+      expect(received).toMatchObject(expected);
+    });
   });
 });
 
@@ -126,7 +165,7 @@ describe("generate_error_message", () => {
 describe("shazam_33339 date code verification utility", () => {
   test("should throw when fed a non-RFC3339 date code", () => {
     expect(() => {
-      shazam_RFC3339(
+      shazam_time_RFC3339(
         dateCodes.notRFC3339,
         "utilities test suite",
         "should throw"
@@ -136,7 +175,7 @@ describe("shazam_33339 date code verification utility", () => {
 
   test("should NOT throw when fed an RFC3339 date code", () => {
     expect(() => {
-      shazam_RFC3339(
+      shazam_time_RFC3339(
         dateCodes.RFC3339,
         "utilities test suite",
         "should NOT throw"
@@ -146,7 +185,7 @@ describe("shazam_33339 date code verification utility", () => {
 
   test("should return true when fed an RFC3339 date code", () => {
     expect(
-      shazam_RFC3339(
+      shazam_time_RFC3339(
         dateCodes.RFC3339,
         "utilities test suite",
         "should return true"
@@ -251,7 +290,7 @@ describe("normalize_email utility", () => {
   });
 });
 
-describe.only("endpoint string query builder", () => {
+describe("endpoint string query builder", () => {
   test("is_empty", () => {
     let testStr = "";
     let key = "type";
