@@ -8,11 +8,11 @@ const {
 
 const shazam_max_length = require("./shazam_max_length");
 
-/** shazam_minLength validates string length, returning true if the string is equal to or greater than
+/** shazam_min_length validates string length, returning true if the string is equal to or greater than
  * the minimum allowable length and otherwise throwing an error. Returns true = good
  *
  * usage:
- *  `if( shazam_minLength(...) { do stuff }`
+ *  `if( shazam_min_length(...) { do stuff }`
  *
  * @param {number} min is the lower limit of allowable string length
  * @param {string} str is the string you want to validate
@@ -23,7 +23,7 @@ const shazam_max_length = require("./shazam_max_length");
  *
  *  To check for maximum length use shazam_max_length
  * */
-const shazam_minLength = function (
+const shazam_min_length = function (
   min,
   str = "",
   displayName = "unspecified class",
@@ -155,7 +155,7 @@ module.exports = {
   define,
   setter_chain_generator_config,
   setter_chain_generator_separate_arrays,
-  shazam_minLength,
+  shazam_min_length,
   shazam_max_length,
   arrayify,
   arche_money,

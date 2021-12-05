@@ -1,7 +1,7 @@
 const { nanoid } = require("nanoid");
 const { uid_length } = require("./pie_defaults");
 const {
-  shazam_minLength,
+  shazam_min_length,
   shazam_max_length,
   arrayify,
   arche_money,
@@ -103,7 +103,7 @@ class Order_Line_Item {
   #applied_tax_or_discount(type, tax_or_discount_uid) {
     let caller = `#applied_tax_or_discount - ${type}`;
     if (
-      shazam_minLength(
+      shazam_min_length(
         this.configuration.minimums.uid,
         tax_or_discount_uid,
         caller
@@ -150,7 +150,7 @@ class Order_Line_Item {
   }
 
   #uid_length(uid) {
-    return shazam_minLength(this.configuration.minimums.uid, uid) &&
+    return shazam_min_length(this.configuration.minimums.uid, uid) &&
       shazam_max_length(this.configuration.uid, uid)
       ? true
       : false;
@@ -225,7 +225,7 @@ class Order_Line_Item {
   set quantity(str) {
     if (
       shazam_max_length(this.configuration.maximums.quantity, str) &&
-      shazam_minLength(this.configuration.minimums.quantity, str)
+      shazam_min_length(this.configuration.minimums.quantity, str)
     ) {
       this._fardel.quantity = str;
     }

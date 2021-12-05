@@ -14,7 +14,7 @@ Returns true if the string is less than or equal to the max length
  * @throws Throws and error is the string is longer than allowed
  * @returns {boolean} Returns `true` of the string is less than or equal to the allowed limit
  *
- *  To check for minimum length use shazam_minLength
+ *  To check for minimum length use shazam_min_length
  * */
 const shazam_max_length = function (
   max,
