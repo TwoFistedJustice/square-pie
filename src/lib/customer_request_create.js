@@ -1,6 +1,6 @@
 const Customer_Request = require("./customer_request_abstract");
 const { nanoid } = require("nanoid/non-secure");
-const { normalize_email } = require("./utilities");
+const { normalize_email } = require("./utilities/utilities");
 
 /** @class Customer_Create representing an http request to create a customer record
  * You can pass a customer object in either via the customer setter or via the constructor

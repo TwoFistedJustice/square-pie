@@ -1,5 +1,5 @@
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
-const { shazam_maxLength, arrayify } = require("./utilities");
+const { shazam_maxLength, arrayify } = require("./utilities/utilities");
 const { isHexColor } = require("validator");
 
 class Catalog_Item extends Catalog_Object_Super {

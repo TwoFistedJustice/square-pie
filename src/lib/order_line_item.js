@@ -7,7 +7,7 @@ const {
   arche_money,
   generate_error_message,
   define,
-} = require("./utilities");
+} = require("./utilities/utilities");
 
 class Order_Line_Item {
   _display_name = "Order_Line_Item";

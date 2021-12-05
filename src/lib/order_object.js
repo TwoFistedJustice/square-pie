@@ -3,7 +3,7 @@ const {
   shazam_maxLength,
   arrayify,
   arche_money,
-} = require("./utilities");
+} = require("./utilities/utilities");
 
 class Order_Object {
   _display_name = "Order_Object";

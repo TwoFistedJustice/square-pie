@@ -4,7 +4,7 @@ const {
   shazam_RFC3339,
   shazam_integer,
   shazam_boolean,
-} = require("./utilities");
+} = require("./utilities/utilities");
 
 /** @class Customer_Object representing a Customer
  *  @author: Russ Bain

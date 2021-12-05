@@ -1,4 +1,4 @@
-const { shazam_maxLength, arche_money } = require("./utilities");
+const { shazam_maxLength, arche_money } = require("./utilities/utilities");
 
 class Order_Discount {
   _display_name = "Order_Discount";
