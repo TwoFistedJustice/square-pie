@@ -1,4 +1,5 @@
 const Catalog_Request = require("./catalog_request_abstract");
+const { shazam_integer } = require("./utilities/aaa_index");
 // TODO create a way to extract query parameters and add automagically them to the endpoint
 // todo types expects a CSV list - build a utility for this and use it here
 // https://developer.squareup.com/reference/square/catalog-api/list-catalog
@@ -44,7 +45,9 @@ class Catalog_List extends Catalog_Request {
   //  * go to their docs to see what their versions are.
   //  * */
   set catalog_version(version) {
-    this._query_params.catalog_version = version;
+    if (shazam_integer(version, this.display_name, "catalog_version")) {
+      this._query_params.catalog_version = version;
+    }
   }
   set types(str) {
     // todo replace this crappy version with a purpose made utility see issue #116
