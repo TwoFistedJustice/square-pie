@@ -11,27 +11,7 @@ const arrayify = require("./arrayify");
 const arche_money = require("./arche_money");
 const generate_error_message = require("./generate_error_message");
 const shazam_RFC3339 = require("./shazam_RFC3339");
-
-/**
- * @param {string} num - expects a string that can be converted to an integer
- * @param {string} displayName - the _display_name static from the calling class
- * @param {string} caller - the name variable from the calling function
- * @throws throws and error if the `num` argument cannot be coerced to an integer
- * @return {boolean} returns true if the `num` argument can be coerced to an integer
- * */
-const shazam_integer = function (
-  num,
-  displayName = "unspecified class",
-  caller = "- unspecified class setter"
-) {
-  let parsed = parseInt(num);
-  if (isNaN(parsed) || num != parsed) {
-    throw new TypeError(
-      `${displayName}.${caller} expects an integer or a string that can be coerced to an integer. Received: ${num}`
-    );
-  }
-  return true;
-};
+const shazam_integer = require("./shazam_integer");
 
 /** shazam_boolean strictly verifies argument is a boolean. Does not allow for type coercion.
  * Will throw an error on every value except true and false.
