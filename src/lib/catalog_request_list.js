@@ -3,13 +3,11 @@ const {
   query_string_endpoint,
   shazam_integer,
 } = require("./utilities/aaa_index");
-// TODO create a way to extract query parameters and add automagically them to the endpoint
-// todo types expects a CSV list - build a utility for this and use it here
 // https://developer.squareup.com/reference/square/catalog-api/list-catalog
 
 class Catalog_List extends Catalog_Request {
   _display_name = "Catalog_List";
-  _last_verified_square_api_version = "2021-07-21";
+  _last_verified_square_api_version = "2021-11-17";
   constructor() {
     super();
     this._method = "get";
@@ -20,11 +18,28 @@ class Catalog_List extends Catalog_Request {
     };
     this._delivery;
   }
-  // todo should return endpoint based on what is in query params
-  //   if anything in query parmas is NOT undefined
-  //   build a query string from it and tack it on
   get endpoint() {
-    return this._endpoint;
+    let has_catalog_ver = !!this.query_params.catalog_version;
+    let has_types = !!this.query_params.types;
+    // if both are false return the default endpoint
+    if (!has_catalog_ver && !has_types) {
+      return this._endpoint;
+    }
+    // query params exist so build a new endpoint
+    let endpoint = this._endpoint + "?";
+    // it has types or both
+    if (has_types) {
+      endpoint += "types=" + this.types;
+      if (has_catalog_ver) {
+        endpoint += "&catalog_version=" + this.catalog_version;
+      }
+      return endpoint;
+    }
+    // it has just catalog version
+    if (has_catalog_ver && !has_types) {
+      endpoint += "catalog_version=" + this.catalog_version;
+    }
+    return endpoint;
   }
   get display_name() {
     return this._display_name;
@@ -68,6 +83,10 @@ class Catalog_List extends Catalog_Request {
   #enum_types() {
     return {
       self: this,
+      item: function () {
+        this.self.types = "ITEM";
+        return this;
+      },
       item_variation: function () {
         this.self.types = "ITEM_VARIATION";
         return this;
