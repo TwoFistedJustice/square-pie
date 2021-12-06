@@ -59,6 +59,11 @@ describe("Catalog Request List", () => {
     expect(list.types).toEqual(expected);
   });
 
+  test("default endpoint should be returned in absence of query_params", () => {
+    let expected = "/list";
+    expect(list.endpoint).toEqual(expected);
+  });
+
   test("endpoint should be tailored to presence of query_params.types", () => {
     let expected = "/list?types=ITEM,CATEGORY";
     list.make().types().item().category();
