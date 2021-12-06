@@ -11,10 +11,8 @@ const Catalog_Search_Filter = require("../src/lib/catalog_request_search_objects
 const Catalog_Search_Items = require("../src/lib/catalog_request_search_items");
 // const {expect} = require ("chai");
 
-// TODO tests for Catalog_List enum
-
 // tack on .only to this empty test to silence all other tests
-describe.only("silence test suite", () => {
+describe("silence test suite", () => {
   test("Should silence async customer tests", () => {
     expect("a").toEqual("a");
   });
@@ -46,23 +44,39 @@ describe("Catalog Request Upsert", () => {
 });
 
 describe("Catalog Request List", () => {
+  let list;
+  beforeEach(() => {
+    list = new Catalog_List();
+  });
   test("Should fetch the list of Catalog Objects", async () => {
-    let list = new Catalog_List();
     await list.request();
     list.delivery.should.be.an("Array");
   });
 
   test("#enum_types should set types property", () => {
-    // todo - this test will fail until the CSV string utility
-    //   is built and used in Catalog_request_List.js
-    let list = new Catalog_List();
-    // let expected = "TAX, MODIFIER_LIST, DISCOUNT";
-    let noteToSelf =
-      "Note to self: You still need to build the string concatenator utility";
+    let expected = "TAX,MODIFIER_LIST,DISCOUNT";
     list.make().types().tax().modifier_list().discount();
+    expect(list.types).toEqual(expected);
+  });
 
-    // expect(list.types).toEqual(expected);
-    expect(list.types).toEqual(noteToSelf);
+  test("endpoint should be tailored to presence of query_params.types", () => {
+    let expected = "/list?types=ITEM,CATEGORY";
+    list.make().types().item().category();
+
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test("endpoint should be tailored to presence of query_params.types and query_params.catalog_version", () => {
+    let expected = "/list?types=ITEM,CATEGORY&catalog_version=42";
+    list.make().types().item().category();
+    list.make().catalog_version(42);
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test("endpoint should be tailored to presence of query_params.catalog_version", () => {
+    let expected = "/list?catalog_version=42";
+    list.make().catalog_version(42);
+    expect(list.endpoint).toEqual(expected);
   });
 });
 

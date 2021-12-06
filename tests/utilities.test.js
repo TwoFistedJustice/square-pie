@@ -1,6 +1,8 @@
 "use strict";
 const {
   // define,
+  query_string_builder,
+  query_string_endpoint,
   // setter_chain_generator_config,
   // setter_chain_generator_separate_arrays,
   // shazam_max_length,
@@ -12,8 +14,6 @@ const {
   shazam_integer,
   shazam_boolean,
 } = require("../src/lib/utilities/aaa_index");
-
-const add_to_endpoint_query_string = require("../src/lib/utilities/endpoint_query_string_builder");
 
 const { dateCodes } = require("./helper_objects");
 // const {expect} = require ("chai");
@@ -297,7 +297,7 @@ describe("endpoint string query builder", () => {
     let value = "ITEM";
     let expected = "?type=ITEM";
     // calls it_is_empty(key, value)
-    expect(add_to_endpoint_query_string(testStr, key, value)).toEqual(expected);
+    expect(query_string_builder(testStr, key, value)).toEqual(expected);
   });
 
   test("it_has_key_but_not_ampersand(testStr, value)", () => {
@@ -305,7 +305,7 @@ describe("endpoint string query builder", () => {
     let key = "pets";
     let value = "CATS";
     let expected = "?pets=DOGS,CATS";
-    expect(add_to_endpoint_query_string(testStr, key, value)).toEqual(expected);
+    expect(query_string_builder(testStr, key, value)).toEqual(expected);
   });
 
   test("it_has_other_keys_but_not_this_key(testStr, key, value)", () => {
@@ -314,7 +314,7 @@ describe("endpoint string query builder", () => {
     let value = "hamer";
     let expected =
       "?beer=pilsner,stout&cookies=vegan%20chocolate%20chip&guitars=hamer";
-    expect(add_to_endpoint_query_string(testStr, key, value)).toEqual(expected);
+    expect(query_string_builder(testStr, key, value)).toEqual(expected);
   });
 
   test("it_has_key_and_ampersand(testStr, key, value) should add a new value to the key", () => {
@@ -322,7 +322,7 @@ describe("endpoint string query builder", () => {
     let key = "type";
     let value = "CATEGORY";
     let expected = `?cake=chocolate&type=ITEM,ITEM_VARIATION,${value}`;
-    expect(add_to_endpoint_query_string(testStr, key, value)).toEqual(expected);
+    expect(query_string_builder(testStr, key, value)).toEqual(expected);
   });
 
   test("it_has_key_and_ampersand(expected, key, value) should throw if key:value already exists", () => {
@@ -330,7 +330,53 @@ describe("endpoint string query builder", () => {
     let value = "CATEGORY";
     let testStr = `?type=ITEM,ITEM_VARIATION,${value}&cake=chocolate`;
     expect(() => {
-      add_to_endpoint_query_string(testStr, key, value);
+      query_string_builder(testStr, key, value);
     }).toThrow();
+  });
+});
+
+describe("query_string_endpoint", () => {
+  let val1 = "VAL1";
+  let val2 = "VAL2";
+  let val3 = "VAL3";
+
+  test("query_string_endpoint should  ", () => {
+    let query_params = {
+      otherProp: undefined,
+      types: undefined,
+    };
+    let expected = {
+      otherProp: undefined,
+      types: "VAL1",
+    };
+
+    query_params.types = query_string_endpoint(query_params.types, val1);
+
+    expect(query_params).toMatchObject(expected);
+  });
+
+  test("query_string_endpoint should  ", () => {
+    let query_params = {
+      otherProp: undefined,
+      types: "VAL1",
+    };
+    let expected = {
+      otherProp: undefined,
+      types: "VAL1,VAL2",
+    };
+    query_params.types = query_string_endpoint(query_params.types, val2);
+    expect(query_params).toMatchObject(expected);
+  });
+  test("query_string_endpoint should  ", () => {
+    let query_params = {
+      otherProp: undefined,
+      types: "VAL1,VAL2",
+    };
+    let expected = {
+      otherProp: undefined,
+      types: "VAL1,VAL2,VAL3",
+    };
+    query_params.types = query_string_endpoint(query_params.types, val3);
+    expect(query_params).toMatchObject(expected);
   });
 });

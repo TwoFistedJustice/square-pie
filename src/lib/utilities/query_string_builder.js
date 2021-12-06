@@ -11,13 +11,11 @@ const slicer = function (str, char) {
   return str.slice(index, str.length);
 };
 
-/**
- * @param {string} string_to_modify - the string you want to add a value to
- * @param {string} key - the key to add the value to
- * @param {string} value - the value to add
+/** Builds and modifies a whole query string including the leading '?'
+ * @param {string}
  * @return Returns a new query string containing the key and value
  * */
-const add_to_endpoint_query_string = function (string_to_modify, key, value) {
+const query_string_builder = function (string_to_modify, key, value) {
   const includesKey = string_to_modify.includes(`${key}=`);
   const inludesAmpersand = string_to_modify.includes("&");
   const isEmpty = string_to_modify.length === 0;
@@ -137,4 +135,4 @@ const it_has_key_and_ampersand = function (string_to_modify, key, val) {
   return "?" + rejoinedString;
 };
 
-module.exports = add_to_endpoint_query_string;
+module.exports = query_string_builder;
