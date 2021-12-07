@@ -1,7 +1,9 @@
-/** Do not use this utility to check for a property prior to defining that property
- *
- *  This utility verifies that a required property exists on an object. If the property exists,
+/** This utility verifies that a required property exists on an object. If the property exists,
  *  the function returns true.
+ *
+ *  Do not use this utility to check for a property prior to defining that property because it will
+ * throw an error and the property will not get set. Instead use an 'if statement'
+ * if (!Object.prototype.hasOwnProperty.call(object, "your property name"){}
  *
  *  It does not:
  *   - not return false - ever.
