@@ -96,19 +96,27 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
 
   set prefix_query(obj) {
     if (
-      !Object.prototype.hasOwnProperty.call(obj, "attribute_name") ||
-      !Object.prototype.hasOwnProperty.call(obj, "attribute_prefix")
+      shazam_object_has_property(
+        obj,
+        "attribute_name",
+        this.display_name,
+        "prefix_query"
+      ) ||
+      shazam_object_has_property(
+        obj,
+        "attribute_prefix",
+        this.display_name,
+        "prefix_query"
+      )
     ) {
-      throw new Error(
-        'The object provided for an exact search must have the properties "attribute_name" and "attribute_prefix".'
-      );
-    } else if (
-      typeof obj.attribute_name != "string" ||
-      typeof obj.attribute_prefix != "string"
-    ) {
-      throw new TypeError(
-        "The object provided for an exact search must have string values in both properties."
-      );
+      if (
+        typeof obj.attribute_name != "string" ||
+        typeof obj.attribute_prefix != "string"
+      ) {
+        throw new TypeError(
+          "The object provided for an exact search must have string values in both properties."
+        );
+      }
     }
     if (
       !Object.prototype.hasOwnProperty.call(this._body.query, "prefix_query")
