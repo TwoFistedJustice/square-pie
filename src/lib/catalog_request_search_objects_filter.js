@@ -64,22 +64,29 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
 
   set set_query(obj) {
     if (
-      !Object.prototype.hasOwnProperty.call(obj, "attribute_name") ||
-      !Object.prototype.hasOwnProperty.call(obj, "attribute_values")
+      shazam_object_has_property(
+        obj,
+        "attribute_name",
+        this.display_name,
+        "set_query"
+      ) ||
+      shazam_object_has_property(
+        obj,
+        "attribute_values",
+        this.display_name,
+        "set_query"
+      )
     ) {
-      throw new Error(
-        'The object provided for an set_query search must have the properties "attribute_name" and "attribute_value".'
-      );
-    } else if (typeof obj.attribute_name != "string") {
-      throw new TypeError(
-        'The object "attribute_name" provided for an set_query search must have string value.'
-      );
-    } else if (!Array.isArray(obj.attribute_values)) {
-      throw new TypeError(
-        "The object provided for an set_query search must have an array of string values."
-      );
+      if (typeof obj.attribute_name != "string") {
+        throw new TypeError(
+          'The object "attribute_name" provided for a set_query search must have string value.'
+        );
+      } else if (!Array.isArray(obj.attribute_values)) {
+        throw new TypeError(
+          "The object provided for a set_query search must have an array of string values."
+        );
+      }
     }
-
     if (!Object.prototype.hasOwnProperty.call(this._body.query, "set_query")) {
       define(this._body.query, "set_query", undefined);
     }
