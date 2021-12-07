@@ -156,21 +156,24 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     this._body.query.range_query = obj;
   }
   set sorted_attribute_query(obj) {
-    if (!Object.prototype.hasOwnProperty.call(obj, "attribute_name")) {
-      throw new Error(
-        'range query expects a property called "attribute_name" with a string value;'
-      );
-    }
     if (
-      !!obj.sort_order &&
-      obj.sort_order !== "ASC" &&
-      obj.sort_order !== "DESC"
+      shazam_object_has_property(
+        obj,
+        "attribute_name",
+        this.display_name,
+        "sorted_attribute_query"
+      )
     ) {
-      throw new Error(
-        'range query sort order must be set to either "ASC" or "DESC"'
-      );
+      if (
+        !!obj.sort_order &&
+        obj.sort_order !== "ASC" &&
+        obj.sort_order !== "DESC"
+      ) {
+        throw new Error(
+          'range query sort order must be set to either "ASC" or "DESC"'
+        );
+      }
     }
-
     if (
       !Object.prototype.hasOwnProperty.call(
         this._body.query,
