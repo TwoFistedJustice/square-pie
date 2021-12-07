@@ -128,11 +128,21 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   set range_query(obj) {
-    if (!Object.prototype.hasOwnProperty.call(obj, "attribute_name")) {
-      throw new Error(
-        'The object provided for an set_query search must have the properties "attribute_name"".'
-      );
-    } else if (typeof obj.attribute_name != "string") {
+    if (
+      shazam_object_has_property(
+        obj,
+        "attribute_name",
+        this.display_name,
+        "range_query"
+      )
+    ) {
+      if (typeof obj.attribute_name != "string") {
+        throw new TypeError(
+          'The object "attribute_name" provided for an set_query search must have string value.'
+        );
+      }
+    }
+    if (typeof obj.attribute_name != "string") {
       throw new TypeError(
         'The object "attribute_name" provided for an set_query search must have string value.'
       );
