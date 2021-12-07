@@ -14,6 +14,7 @@ const {
   shazam_integer,
   shazam_boolean,
   shazam_object_has_property,
+  shazam_is_array,
 } = require("../src/lib/utilities/aaa_index");
 
 const { dateCodes } = require("./helper_objects");
@@ -382,7 +383,7 @@ describe("query_string_endpoint", () => {
   });
 });
 
-describe.only("shazam_object_has_property", () => {
+describe("shazam_object_has_property", () => {
   let obj = {
     attribute_name: "jolly",
   };
@@ -408,6 +409,32 @@ describe.only("shazam_object_has_property", () => {
       property_name;
     expect(() => {
       shazam_object_has_property(obj, property_name);
+    }).toThrowError(expected);
+  });
+});
+
+describe("shazam_is_array", () => {
+  let emptyArray = [];
+  let goodArray = [1, 2, 3];
+  let notAnArray = "1,2,3";
+
+  test("shazam_is_array to return true when given an array with at least one member", () => {
+    expect(shazam_is_array(goodArray)).toEqual(true);
+  });
+
+  test("should throw error message when given an empty array", () => {
+    let expected =
+      "class.method expects an array with at least 1 member but received: empty array : ";
+    expect(() => {
+      shazam_is_array(emptyArray, "class", "method");
+    }).toThrowError(expected);
+  });
+
+  test("should throw error message on a non-array", () => {
+    let expected =
+      "unspecified class.unspecified method expects an array with at least 1 member but received: string : 1,2,3";
+    expect(() => {
+      shazam_is_array(notAnArray);
     }).toThrowError(expected);
   });
 });

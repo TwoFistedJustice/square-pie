@@ -16,6 +16,7 @@ const shazam_time_RFC3339 = require("./shazam_time_RFC3339");
 const shazam_integer = require("./shazam_integer");
 const shazam_boolean = require("./shazam_boolean");
 const shazam_object_has_property = require("./shazam_object_has_property");
+const shazam_is_array = require("./shazam_is_array");
 
 module.exports = {
   normalize_email,
@@ -33,4 +34,5 @@ module.exports = {
   shazam_integer,
   shazam_boolean,
   shazam_object_has_property,
+  shazam_is_array,
 };
