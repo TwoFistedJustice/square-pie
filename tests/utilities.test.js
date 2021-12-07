@@ -13,6 +13,7 @@ const {
   shazam_time_RFC3339,
   shazam_integer,
   shazam_boolean,
+  shazam_object_has_property,
 } = require("../src/lib/utilities/aaa_index");
 
 const { dateCodes } = require("./helper_objects");
@@ -378,5 +379,35 @@ describe("query_string_endpoint", () => {
     };
     query_params.types = query_string_endpoint(query_params.types, val3);
     expect(query_params).toMatchObject(expected);
+  });
+});
+
+describe.only("shazam_object_has_property", () => {
+  let obj = {
+    attribute_name: "jolly",
+  };
+
+  test("shazam_object_has_property should return true", () => {
+    let obj = {
+      attribute_name: "jolly",
+    };
+    let received = shazam_object_has_property(
+      obj,
+      "attribute_name",
+      "desceribe",
+      "test"
+    );
+    let expected = true;
+    expect(received).toEqual(expected);
+  });
+
+  test("shazam_object_has_property should throw descriptive error", () => {
+    let property_name = "wrong";
+    let expected =
+      "The object provided to unspecified class.unspecified method must have the property: " +
+      property_name;
+    expect(() => {
+      shazam_object_has_property(obj, property_name);
+    }).toThrowError(expected);
   });
 });
