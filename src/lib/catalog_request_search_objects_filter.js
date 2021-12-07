@@ -1,5 +1,5 @@
 const Catalog_Search_Objects_Super = require("./catalog_request_abstract_search_objects_super");
-const { define } = require("./utilities/aaa_index");
+const { define, shazam_object_has_property } = require("./utilities/aaa_index");
 
 class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   _display_name = "Catalog_Search_Filter";
@@ -32,19 +32,27 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
 
   set exact_query(obj) {
     if (
-      !Object.prototype.hasOwnProperty.call(obj, "attribute_name") ||
-      !Object.prototype.hasOwnProperty.call(obj, "attribute_value")
+      shazam_object_has_property(
+        obj,
+        "attribute_name",
+        this.display_name,
+        "exact_query"
+      ) ||
+      shazam_object_has_property(
+        obj,
+        "attribute_value",
+        this.display_name,
+        "exact_query"
+      )
     ) {
-      throw new Error(
-        'The object provided for an exact search must have the properties "attribute_name" and "attribute_value".'
-      );
-    } else if (
-      typeof obj.attribute_name != "string" ||
-      typeof obj.attribute_value != "string"
-    ) {
-      throw new TypeError(
-        "The object provided for an exact search must have string values in both properties."
-      );
+      if (
+        typeof obj.attribute_name != "string" ||
+        typeof obj.attribute_value != "string"
+      ) {
+        throw new TypeError(
+          "The object provided for an exact search must have string values in both properties."
+        );
+      }
     }
     if (
       !Object.prototype.hasOwnProperty.call(this._body.query, "exact_query")
