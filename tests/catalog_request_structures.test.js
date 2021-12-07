@@ -5,10 +5,11 @@ const sample_objects = require("./data_preparation/sample_catalog_data");
 
 const Catalog_Upsert = require("../src/lib/catalog_request_upsert");
 const Catalog_List = require("../src/lib/catalog_request_list");
-const Catalog_Retreive = require("../src/lib/catalog_request_retrieve");
-const Catalog_Delete = require("../src/lib/catalog_request_delete");
+// const Catalog_Retreive = require("../src/lib/catalog_request_retrieve");
+// const Catalog_Delete = require("../src/lib/catalog_request_delete");
 const Catalog_Search_Filter = require("../src/lib/catalog_request_search_objects_filter");
 const Catalog_Search_Items = require("../src/lib/catalog_request_search_items");
+// const Catalog_Search_Cross_Reference = require ("../src/lib/catalog_request_search_objects_cross_reference");
 // const {expect} = require ("chai");
 
 // tack on .only to this empty test to silence all other tests
@@ -30,27 +31,12 @@ describe("Catalog Request Upsert", () => {
       Object.prototype.hasOwnProperty.call(received.batches[0], "objects")
     ).toEqual(true);
   });
-
-  // refactored on 12/2/21 to eliminate need for this
-  // test("Should have 'object' property when upserting a single document", () => {
-  //   const upsert = new Catalog_Upsert();
-  //   upsert.make().body(sample_objects.single);
-  //   let received = upsert.body;
-  //
-  //   expect(Object.prototype.hasOwnProperty.call(received, "object")).toEqual(
-  //     true
-  //   );
-  // });
 });
 
 describe("Catalog Request List", () => {
   let list;
   beforeEach(() => {
     list = new Catalog_List();
-  });
-  test("Should fetch the list of Catalog Objects", async () => {
-    await list.request();
-    list.delivery.should.be.an("Array");
   });
 
   test("#enum_types should set types property", () => {
@@ -67,7 +53,6 @@ describe("Catalog Request List", () => {
   test("endpoint should be tailored to presence of query_params.types", () => {
     let expected = "/list?types=ITEM,CATEGORY";
     list.make().types().item().category();
-
     expect(list.endpoint).toEqual(expected);
   });
 
@@ -85,60 +70,12 @@ describe("Catalog Request List", () => {
   });
 });
 
-describe("Catalog Request Retrieve", () => {
-  const cache = [];
-  test("Should retrieve a single object", async () => {
-    let list = new Catalog_List();
-    await list.request();
-    let arr = list.delivery;
-    arr.forEach((doohickey) => {
-      cache.push(doohickey.id);
-    });
-    let retrieve = new Catalog_Retreive();
-    retrieve.make().object_ids(cache[0]);
-    await retrieve.request();
-    expect(retrieve.delivery.objects[0].id).toEqual(cache[0]);
-  });
-
-  test("Should retrieve multiple objects", async () => {
-    let retrieve = new Catalog_Retreive();
-    retrieve.make().object_ids(cache[0]);
-    retrieve.get(cache[1]);
-    await retrieve.request();
-    expect(retrieve.delivery.objects[1].id).toEqual(cache[1]);
-  });
-});
-
-describe("Catalog Request Delete", () => {
-  test("Should delete the specified objects", async () => {
-    let del = new Catalog_Delete();
-    let catList = new Catalog_List();
-    let ids = [];
-
-    await catList.request();
-    let list = catList.delivery;
-    if (list.length >= 1) {
-      ids.push(list[0].id);
-      ids.push(list[1].id);
-    } else {
-      throw new Error(
-        "Failed in Catalog Delete. Not enough items returned by List."
-      );
-    }
-    del.nix(ids[0]).disintegrate(ids[1]);
-    await del.request();
-    let deleted = del.delivery;
-    deleted.deleted_object_ids.should.be.an("Array").that.includes(list[0].id);
-    deleted.deleted_object_ids.should.be.an("Array").that.includes(list[1].id);
-  });
-});
-
 describe("Catalog Request Search Filter", () => {
   let filter;
   beforeEach(() => {
     filter = new Catalog_Search_Filter();
   });
-  test(" set exact_query should NOT throw on a correctly formatted input", async () => {
+  test(" set exact_query should NOT throw on a correctly formatted input", () => {
     let obj = {
       attribute_name: "name",
       attribute_value: "Coffee",
@@ -149,7 +86,7 @@ describe("Catalog Request Search Filter", () => {
     }).not.toThrow();
   });
 
-  test("set exact_query should throw on an incorrectly formatted input", async () => {
+  test("set exact_query should throw on an incorrectly formatted input", () => {
     let wrongProp = {
       wrong_property_name: "this is a wrong property name",
       attribute_value: "This is supposed to fail anyway",
@@ -167,7 +104,7 @@ describe("Catalog Request Search Filter", () => {
     }).toThrow();
   });
 
-  test("set set_query should NOT throw on a correctly formatted input", async () => {
+  test("set set_query should NOT throw on a correctly formatted input", () => {
     let obj = {
       attribute_name: "name",
       attribute_values: ["Coffee", "Pie"],
@@ -177,7 +114,7 @@ describe("Catalog Request Search Filter", () => {
     }).not.toThrow();
   });
 
-  test("set set_query should throw on an incorrectly formatted input", async () => {
+  test("set set_query should throw on an incorrectly formatted input", () => {
     let obj = {
       attribute_name: "name",
       attribute_values: "Coffee",
@@ -187,7 +124,7 @@ describe("Catalog Request Search Filter", () => {
     }).toThrow();
   });
 
-  test("set prefix_query should NOT throw on a correctly formatted input", async () => {
+  test("set prefix_query should NOT throw on a correctly formatted input", () => {
     let obj = {
       attribute_name: "name",
       attribute_prefix: "vista",
@@ -197,7 +134,7 @@ describe("Catalog Request Search Filter", () => {
     }).not.toThrow();
   });
 
-  test("set prefix_query should throw on an incorrectly formatted input", async () => {
+  test("set prefix_query should throw on an incorrectly formatted input", () => {
     let wrong = {
       attribute_nam: "name",
       attribute_prefix: "vista",
@@ -207,7 +144,7 @@ describe("Catalog Request Search Filter", () => {
     }).toThrow();
   });
 
-  test("set range_query should NOT throw on a correctly formatted input", async () => {
+  test("set range_query should NOT throw on a correctly formatted input", () => {
     let obj = {
       attribute_name: "amount",
       attribute_min_value: 450,
@@ -218,7 +155,7 @@ describe("Catalog Request Search Filter", () => {
     }).not.toThrow();
   });
 
-  test("set range_query should throw on an incorrectly formatted input: missing attribute_name", async () => {
+  test("set range_query should throw on an incorrectly formatted input: missing attribute_name", () => {
     let wrong = {
       attribute_min_value: 450,
       attribute_max_value: 550,
@@ -228,7 +165,7 @@ describe("Catalog Request Search Filter", () => {
     }).toThrow();
   });
 
-  test("set range_query should throw on an incorrectly formatted input: missing ", async () => {
+  test("set range_query should throw on an incorrectly formatted input: missing ", () => {
     let wrong = {
       attribute_name: ["amount"],
       attribute_min_value: 450,
@@ -239,21 +176,21 @@ describe("Catalog Request Search Filter", () => {
     }).toThrow();
   });
 
-  test("set text_query should NOT throw on an array with 1 - 3 elements", async () => {
+  test("set text_query should NOT throw on an array with 1 - 3 elements", () => {
     let arr = ["Coffee", "Tea", "Life Force"];
     expect(() => {
       filter.text_query = arr;
     }).not.toThrow();
   });
 
-  test("set text_query should throw on an array longer than 3", async () => {
+  test("set text_query should throw on an array longer than 3", () => {
     let wrong = ["Zombies", "Vampires", "Goblins", "Karens"];
     expect(() => {
       filter.text_query = wrong;
     }).toThrow();
   });
 
-  test("set sorted_attribute_query should NOT throw if 'sort_order' contains \"ASC\"", async () => {
+  test("set sorted_attribute_query should NOT throw if 'sort_order' contains \"ASC\"", () => {
     let obj = {
       attribute_name: "description",
       sort_order: "ASC",
@@ -263,7 +200,7 @@ describe("Catalog Request Search Filter", () => {
     }).not.toThrow();
   });
 
-  test("set sorted_attribute_query should throw if 'attribute_name' prop missing from arg", async () => {
+  test("set sorted_attribute_query should throw if 'attribute_name' prop missing from arg", () => {
     let wrong = {
       sort_order: "ASC",
     };
@@ -272,7 +209,7 @@ describe("Catalog Request Search Filter", () => {
     }).toThrow();
   });
 
-  test("set sorted_attribute_query should throw if 'sort_order' contains wrong value", async () => {
+  test("set sorted_attribute_query should throw if 'sort_order' contains wrong value", () => {
     let wrong = {
       sort_order: "ASV",
     };
@@ -281,7 +218,7 @@ describe("Catalog Request Search Filter", () => {
     }).toThrow();
   });
 
-  test("text_query_add should add a new element and remove the last element of query.text_area_keywords array it already has 3", async () => {
+  test("text_query_add should add a new element and remove the last element of query.text_area_keywords array it already has 3", () => {
     let expected = { keywords: ["zero", "one", "three"] };
     filter
       .text_query_add("zero")
@@ -292,7 +229,7 @@ describe("Catalog Request Search Filter", () => {
     expect(filter.text_query).toMatchObject(expected);
   });
 
-  test("text_query_remove should remove the specified word from the query.text_area_keywords array", async () => {
+  test("text_query_remove should remove the specified word from the query.text_area_keywords array", () => {
     // const filter = new Catalog_Search_Filter();
     let expected = { keywords: ["zero", "two"] };
     filter
@@ -304,13 +241,13 @@ describe("Catalog Request Search Filter", () => {
     expect(filter.text_query).toMatchObject(expected);
   });
 
-  test("text_query_remove should throw an error if attempting to remove an element from an non-existent keywords array", async () => {
+  test("text_query_remove should throw an error if attempting to remove an element from an non-existent keywords array", () => {
     expect(() => {
       filter.text_query_remove("one");
     }).toThrow();
   });
 
-  test("text_query_remove should throw an error if attempting to remove an element from an empty keywords array", async () => {
+  test("text_query_remove should throw an error if attempting to remove an element from an empty keywords array", () => {
     filter.text_query_add("a").text_query_remove("a");
     expect(() => {
       filter.text_query_remove("one");
