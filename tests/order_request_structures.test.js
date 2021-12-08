@@ -4,7 +4,7 @@ const Order_Calculate = require("../src/lib/order_request_calculate");
 const Order_Retrieve = require("../src/lib/stub.order_request_retrieve");
 const Order_Object = require("../src/lib/order_object");
 
-describe.only("Silence order request async tests", () => {
+describe("Silence order request async tests", () => {
   test("Should silence tests", () => {
     expect("a").toEqual("a");
   });
@@ -14,7 +14,7 @@ describe.only("Silence order request async tests", () => {
 //  phone home. Just check that the request body is conformant.
 
 describe("Order Request Body formatting", () => {
-  test("Create Order request should have properly formatted request.body", () => {
+  test("Create Order  should have properly formatted request.body", () => {
     // todo add an order object and test that it is properly attached
     let create = new Order_Create();
     let order = new Order_Object();
@@ -63,16 +63,59 @@ describe("Order Request Body formatting", () => {
     expect(calculate.body).toMatchObject(expected);
   });
 
-  test("Retrieve Orders request should have properly formatted request.body", () => {
-    let retrieve = new Order_Retrieve();
+  test("", () => {});
+});
 
-    let body = retrieve.body;
-    let expected = {
-      location_id: "12345",
-      order_ids: ["ABCD", "EFGH", "JKelemenoP"],
-    };
-
-    expect(body).toMatchObject(expected);
+describe.only("Order_Retrieve", () => {
+  let retrieve;
+  beforeEach(() => {
+    retrieve = new Order_Retrieve();
   });
-  // todo write tests for each of Retrieve Orders handy dandy methods
+  test("Should display name", () => {
+    expect(retrieve.display_name).toEqual("Order_Retrieve");
+  });
+
+  test("Order_Retrieve should have properly formatted request.body", () => {
+    let val1 = "ABCD";
+    let val2 = "EFGH";
+    let val3 = "JKelemenoP";
+    let location = "12345";
+    let expected = {
+      location_id: location,
+      order_ids: [val1, val2, val3],
+    };
+    retrieve
+      .make()
+      .location_id(location)
+      .order(val1)
+      .order(val2)
+      .order_ids(val3);
+    expect(retrieve.body).toMatchObject(expected);
+  });
+
+  test("Order_Retrieve should concat an array to the orders array that alreayd has values", () => {
+    let val1 = "ABCD";
+    let val2 = "EFGH";
+    let val3 = "JKelemenoP";
+    let expected = [val1, val2, val3, "QRST", "UVW", "XYZ"];
+    let moreIds = ["QRST", "UVW", "XYZ"];
+    retrieve.make().order(val1).order(val2).order_ids(val3);
+    retrieve.add_array_of_orders(moreIds);
+    expect(retrieve.order_ids).toMatchObject(expected);
+  });
+
+  test("Order_Retrieve should concat an array to the empty orders array and be able to take more", () => {
+    let val1 = "ABCD";
+    let val2 = "EFGH";
+    let val3 = "JKelemenoP";
+    let expected = ["QRST", "UVW", "XYZ", val1, val2, val3];
+    let moreIds = ["QRST", "UVW", "XYZ"];
+    retrieve
+      .add_array_of_orders(moreIds)
+      .make()
+      .order(val1)
+      .order(val2)
+      .order_ids(val3);
+    expect(retrieve.order_ids).toMatchObject(expected);
+  });
 });

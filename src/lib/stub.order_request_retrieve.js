@@ -2,6 +2,7 @@
 // if it can, don't build the single retrieve
 
 const Order_Request = require("./order_request_abstract");
+const { shazam_is_array } = require("../lib/utilities/aaa_index");
 
 class Order_Retrieve extends Order_Request {
   _display_name = "Order_Retrieve";
@@ -12,7 +13,7 @@ class Order_Retrieve extends Order_Request {
     this._endpoint = "batch-retrieve";
     this._body = {
       location_id: undefined,
-      order_ids: [],
+      order_ids: [], // [string,...]
     };
     this._delivery;
   }
@@ -41,12 +42,17 @@ class Order_Retrieve extends Order_Request {
   set order_ids(id) {
     this._body.order_ids.push(id);
   }
+
+  set order_array_concat(arr) {
+    if (shazam_is_array(arr, this.display_name, "order_array_concat")) {
+      let joined_array = this._body.order_ids.concat(arr);
+      this._body.order_ids = joined_array;
+    }
+  }
+
   set delivery(parcel) {
     this._delivery = parcel.orders;
   }
-  // todo order_array - take an array of ids and merge it
-  // todo order-remove by id
-  // todo order remove via pop
   location(id) {
     this.location = id;
     return this;
@@ -61,15 +67,27 @@ class Order_Retrieve extends Order_Request {
     return this;
   }
 
+  add_array_of_orders(arr) {
+    this.order_array_concat = arr;
+    return this;
+  }
+
   make() {
     return {
       self: this,
       location_id: function (id) {
-        this.location_id = id;
+        this.self.location_id = id;
         return this;
       },
       order_ids: function (id) {
-        this.order_ids = id;
+        this.self.order_ids = id;
+        return this;
+      },
+      order: function (id) {
+        return this.order_ids(id);
+      },
+      concat_orders: function (array) {
+        this.self.order_array_concat = array;
         return this;
       },
     };
