@@ -3,7 +3,7 @@ const Order_Create = require("../src/lib/order_request_create");
 const Order_Calculate = require("../src/lib/order_request_calculate");
 const Order_Retrieve = require("../src/lib/stub.order_request_retrieve");
 const Order_Object = require("../src/lib/order_object");
-
+const { long_arrays } = require("./helper_objects");
 describe("Silence order request async tests", () => {
   test("Should silence tests", () => {
     expect("a").toEqual("a");
@@ -62,8 +62,6 @@ describe("Order Request Body formatting", () => {
     Object.prototype.hasOwnProperty.call(body, "order").should.be.true;
     expect(calculate.body).toMatchObject(expected);
   });
-
-  test("", () => {});
 });
 
 describe.only("Order_Retrieve", () => {
@@ -117,5 +115,18 @@ describe.only("Order_Retrieve", () => {
       .order(val2)
       .order_ids(val3);
     expect(retrieve.order_ids).toMatchObject(expected);
+  });
+
+  test("Order_Retrieve should not allow more than 100 IDs", () => {
+    expect(() => {
+      retrieve.make().order("0").concat_orders(long_arrays.len_100);
+      console.log(retrieve.order_ids);
+    }).toThrow();
+  });
+
+  test("Order_Retrieve concat arrays should throw and error if you pass a non-array", () => {
+    expect(() => {
+      retrieve.make().order("0").concat_orders({ id1: "1" });
+    }).toThrow();
   });
 });

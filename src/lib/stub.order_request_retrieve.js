@@ -2,7 +2,11 @@
 // if it can, don't build the single retrieve
 
 const Order_Request = require("./order_request_abstract");
-const { shazam_is_array } = require("../lib/utilities/aaa_index");
+const {
+  shazam_max_length_array,
+  shazam_max_length,
+  shazam_is_array,
+} = require("../lib/utilities/aaa_index");
 
 class Order_Retrieve extends Order_Request {
   _display_name = "Order_Retrieve";
@@ -16,6 +20,11 @@ class Order_Retrieve extends Order_Request {
       order_ids: [], // [string,...]
     };
     this._delivery;
+    this.configuration = {
+      maximums: {
+        order_ids: 100,
+      },
+    };
   }
   get display_name() {
     return this._display_name;
@@ -40,13 +49,48 @@ class Order_Retrieve extends Order_Request {
     this._body.location_id = id;
   }
   set order_ids(id) {
-    this._body.order_ids.push(id);
+    let arr = this._body.order_ids.length;
+    if (
+      shazam_max_length_array(
+        this.configuration.maximums.order_ids,
+        arr,
+        this.display_name,
+        "order_ids"
+      )
+    ) {
+      this._body.order_ids.push(id);
+    }
   }
-
+  /**
+   * @param {array} arr - an array of ids not longer than 100
+   * @throws {Error} Throws an error if the any array or combinatin of arrays exceeds a length of 100
+   * @throws {Error} Throws an error if the argument is not an array
+   * @return Replaces the existing array with a new one consisting of the old one plus the one you passed in.
+   * */
   set order_array_concat(arr) {
-    if (shazam_is_array(arr, this.display_name, "order_array_concat")) {
+    let caller = "order_array_concat";
+    // check that arr is an array and that the existing array does not exceed allowable length
+    if (
+      shazam_is_array(arr, this.display_name, caller) &&
+      shazam_max_length_array(
+        this.configuration.maximums.order_ids,
+        this._body.order_ids,
+        this.display_name,
+        `${caller}.existing_length`
+      )
+    ) {
       let joined_array = this._body.order_ids.concat(arr);
-      this._body.order_ids = joined_array;
+      // check that combined length would not exceed allowable length
+      if (
+        shazam_max_length(
+          this.configuration.maximums.order_ids,
+          joined_array,
+          this.display_name,
+          `${caller}.combined_length`
+        )
+      ) {
+        this._body.order_ids = joined_array;
+      }
     }
   }
 
