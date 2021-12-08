@@ -1,7 +1,7 @@
 const should = require("chai").should();
 const Order_Create = require("../src/lib/order_request_create");
 const Order_Calculate = require("../src/lib/order_request_calculate");
-const Order_Retrieve = require("../src/lib/stub.order_request_retrieve");
+const Order_Retrieve = require("../src/lib/order_request_retrieve");
 const Order_Object = require("../src/lib/order_object");
 const { long_arrays } = require("./helper_objects");
 describe("Silence order request async tests", () => {

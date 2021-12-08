@@ -7,10 +7,15 @@ const {
   shazam_max_length,
   shazam_is_array,
 } = require("../lib/utilities/aaa_index");
-
+/** @class Order_Retrieve representing a http request to retrieve one or more orders
+ *  @author: Russ Bain
+ * */
 class Order_Retrieve extends Order_Request {
   _display_name = "Order_Retrieve";
-  _last_verified_square_api_version = "2021-07-21";
+  _last_verified_square_api_version = "2021-11-17";
+  /**
+   * Creates an instance of an http request to retrieve orders
+   *  */
   constructor(props) {
     super(props);
     this._method = "post";
@@ -63,7 +68,7 @@ class Order_Retrieve extends Order_Request {
   }
   /**
    * @param {array} arr - an array of ids not longer than 100
-   * @throws {Error} Throws an error if the any array or combinatin of arrays exceeds a length of 100
+   * @throws {Error} Throws an error if the any array or combination of arrays exceeds a length of 100
    * @throws {Error} Throws an error if the argument is not an array
    * @return Replaces the existing array with a new one consisting of the old one plus the one you passed in.
    * */

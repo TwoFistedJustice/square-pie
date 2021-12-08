@@ -24,7 +24,7 @@ const Order_Calculate = require("./lib/order_request_calculate");
 const Order_Create = require("./lib/order_request_create");
 const Order_Clone = require("./lib/stub.order_request_clone");
 const Order_Pay = require("./lib/stub.order_request_pay");
-const Order_Retrieve = require("./lib/stub.order_request_retrieve");
+const Order_Retrieve = require("./lib/order_request_retrieve");
 const Order_Search = require("./lib/stub.order_request_search");
 const Order_Upate = require("./lib/stub.order_request_update");
 
