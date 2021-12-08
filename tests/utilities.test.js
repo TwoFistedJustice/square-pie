@@ -15,6 +15,7 @@ const {
   shazam_boolean,
   shazam_object_has_property,
   shazam_is_array,
+  shazam_max_length_array,
 } = require("../src/lib/utilities/aaa_index");
 
 const { dateCodes } = require("./helper_objects");
@@ -436,5 +437,19 @@ describe("shazam_is_array", () => {
     expect(() => {
       shazam_is_array(notAnArray);
     }).toThrowError(expected);
+  });
+});
+
+describe("shazam_max_length_array", () => {
+  let arr = ["a", "b"];
+  test("shazam_max_length_array should throw if an array exceeds limit", () => {
+    expect(() => {
+      shazam_max_length_array(1, arr);
+    }).toThrow();
+  });
+
+  test("shazam_max_length_array should return true if an array does not exceed limit", () => {
+    let received = shazam_max_length_array(3, arr);
+    expect(received).toEqual(true);
   });
 });
