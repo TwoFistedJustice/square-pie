@@ -24,6 +24,7 @@ class Order_Update extends Order_Request {
       },
     };
   }
+  // GETTERS
   get display_name() {
     return this._display_name;
   }
@@ -34,13 +35,21 @@ class Order_Update extends Order_Request {
     return this._body;
   }
   get endpoint() {
-    if (this._endpoint === undefined) {
+    if (this._endpoint === "/") {
       throw new Error(
         "Order_Update does not have an entry for the order_id. Please add an id by calling yourVar.order_id(id)"
       );
     }
     return this._endpoint;
   }
+  get fields_to_clear() {
+    return this._body.fields_to_clear;
+  }
+  get order() {
+    return this._body.order;
+  }
+
+  // SETTERS
   /**  For more information, see https://developer.squareup.com/reference/square_2021-11-17/orders-api/update-order
    * @param {string} field - The dot notation paths fields to clear. For example, "line_items[uid].note". OR "discounts"
    * */
@@ -49,7 +58,7 @@ class Order_Update extends Order_Request {
       arrayify(
         this._body,
         "fields_to_clear",
-        this.display_name(),
+        this.display_name,
         "fields_to_clear"
       )
     ) {
@@ -60,10 +69,10 @@ class Order_Update extends Order_Request {
     this._endpoint = `/${id}`;
   }
   /**
-   * @param {object} sparse_order_object - an order object containing only the fields you want to update.
+   * @param {object} sparse_order - an order object containing only the fields you want to update.
    * */
-  set order(sparse_order_object) {
-    this._body.order = sparse_order_object;
+  set order(sparse_order) {
+    this._body.order = sparse_order;
   }
   set idempotency_key(key) {
     if (
@@ -77,20 +86,24 @@ class Order_Update extends Order_Request {
       this._body.idempotency_key = key;
     }
   }
-
+  // MAKER METHODS
   make() {
     return {
       self: this,
       order_id: function (id) {
-        this.order_id = id;
+        this.self.order_id = id;
+        return this;
+      },
+      order: function (sparse_order) {
+        this.self.order = sparse_order;
         return this;
       },
       fields_to_clear: function (field) {
-        this.fields_to_clear = field;
+        this.self.fields_to_clear = field;
         return this;
       },
       idempotency_key: function (key) {
-        this.idempotency_key = key;
+        this.self.idempotency_key = key;
         return this;
       },
     };
