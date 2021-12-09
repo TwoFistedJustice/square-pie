@@ -23,6 +23,25 @@ class Order_clone extends Order_Request {
   get body() {
     return this._body;
   }
+  get idempotency_key() {
+    return this._body.idempotency_key;
+  }
+  get order_id() {
+    return this._body.order_id;
+  }
+  get version() {
+    return this._body.version;
+  }
+
+  set idempotency_key(key) {
+    this._body.idempotency_key = key;
+  }
+  set order_id(id) {
+    this._body.order_id = id;
+  }
+  set version(ver) {
+    this._body.version = ver;
+  }
 
   // TODO --  MAKER METHODS
   // merge array of fields
@@ -31,6 +50,21 @@ class Order_clone extends Order_Request {
   make() {
     return {
       self: this,
+      idempotency_key: function (key) {
+        this.self.idempotency_key = key;
+        return this;
+      },
+      order_id: function (id) {
+        this.self.order_id = id;
+        return this;
+      },
+      version: function (ver) {
+        this.self.version = ver;
+        return this;
+      },
+      id: function (id) {
+        return this.order_id(id);
+      },
     };
   }
 }
