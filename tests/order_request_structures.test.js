@@ -5,11 +5,15 @@ const Order_Retrieve = require("../src/lib/order_request_retrieve");
 const Order_Object = require("../src/lib/order_object");
 const Order_Update = require("../src/lib/order_request_update");
 const Order_Clone = require("../src/lib/order_request_clone");
+const Order_Pay = require("../src/lib/order_request_pay");
 const { long_arrays, long_strings } = require("./helper_objects");
 describe("Silence order request async tests", () => {
   test("Should silence tests", () => {
     expect("a").toEqual("a");
   });
+
+  // have a display name
+  //
 });
 
 // todo: We need to set up a spy or a mock or both to call the request method but not actually
@@ -242,5 +246,68 @@ describe("Order_Clone", () => {
     let key = "There will be no disintigrations!";
     bobafett.make().idempotency_key(key);
     expect(bobafett.idempotency_key).toEqual(key);
+  });
+});
+
+describe.only("Order_Pay", () => {
+  let pay;
+  let id = "some_order";
+  beforeEach(() => {
+    pay = new Order_Pay(id);
+  });
+
+  test("Order_Pay should set endpoint", () => {
+    expect(pay.endpoint).toEqual(`/${id}/pay`);
+  });
+
+  test('Order_Pay should have a display name "Order_Pay"', () => {
+    expect(pay._display_name).toEqual("Order_Pay");
+  });
+
+  test("Order_Pay should have a _body property", () => {
+    expect(pay.body).toBeDefined();
+  });
+
+  test("Order_Pay should push to the payment_ids array", () => {
+    let expected = ["one", "two", "three"];
+    pay.make().payment_ids("one").payment_ids("two").payment_ids("three");
+    expect(pay.payment_ids).toMatchObject(expected);
+  });
+
+  test("Order_Pay should set and retrieve an order version", () => {
+    let ver = 12;
+    pay.make().order_version(ver);
+    expect(pay.order_version).toEqual(ver);
+  });
+
+  test("Order_Pay should have a Square Version key: value", () => {
+    expect(pay.square_version).toBeDefined();
+  });
+
+  test("Order_Pay should set id from constructor", () => {
+    let charge = new Order_Pay(id);
+    expect(charge.order_id).toEqual(id);
+  });
+
+  test("Order_Pay make() should set new id", () => {
+    pay.make().order_id("cousin mikey");
+    expect(pay.order_id).toEqual("cousin mikey");
+  });
+
+  test("Order_Pay should set new id using setter", () => {
+    pay.order_id = "cousin mikey";
+    expect(pay.order_id).toEqual("cousin mikey");
+  });
+
+  test("Order_Clone should  respect idempotency key length restriction 192", () => {
+    expect(() => {
+      pay.idempotency_key(long_strings.len_193);
+    }).toThrow();
+  });
+
+  test("Order_Clone should set idempotency key ", () => {
+    let key = "There will be no disintegrations!";
+    pay.make().idempotency_key(key);
+    expect(pay.idempotency_key).toEqual(key);
   });
 });
