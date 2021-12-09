@@ -4,8 +4,8 @@ const { nanoid } = require("nanoid");
 class Order_Create extends Order_Request {
   _display_name = "Order_Create";
   _last_verified_square_api_version = "2021-07-21";
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this._method = "post";
     this._endpoint = "";
 

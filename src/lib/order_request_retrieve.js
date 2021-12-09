@@ -16,8 +16,8 @@ class Order_Retrieve extends Order_Request {
   /**
    * Creates an instance of an http request to retrieve orders
    *  */
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this._method = "post";
     this._endpoint = "batch-retrieve";
     this._body = {
