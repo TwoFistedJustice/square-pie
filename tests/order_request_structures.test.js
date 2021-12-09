@@ -4,10 +4,8 @@ const Order_Calculate = require("../src/lib/order_request_calculate");
 const Order_Retrieve = require("../src/lib/order_request_retrieve");
 const Order_Object = require("../src/lib/order_object");
 const Order_Update = require("../src/lib/order_request_update");
+const Order_Clone = require("../src/lib/order_request_clone");
 const { long_arrays, long_strings } = require("./helper_objects");
-// const {expect} = require ("chai");
-
-// const {expect} = require ("chai");
 describe("Silence order request async tests", () => {
   test("Should silence tests", () => {
     expect("a").toEqual("a");
@@ -135,34 +133,34 @@ describe("Order_Retrieve", () => {
   });
 });
 
-describe.only("Order_Update", () => {
+describe("Order_Update", () => {
   let update;
   let order_id = "some_order_Id";
   beforeEach(() => {
     update = new Order_Update(order_id);
   });
 
-  test("Order_Request should have correct display name", () => {
+  test("Order_Update should have correct display name", () => {
     expect(update.display_name).toEqual("Order_Update");
   });
 
-  test("Order_Request constructor should set endpoint properly ", () => {
+  test("Order_Update constructor should set endpoint properly ", () => {
     expect(update.endpoint).toEqual("/some_order_Id");
   });
 
-  test("Order_Request should be able to change the id endpoint", () => {
+  test("Order_Update should be able to change the id endpoint", () => {
     let id = "another_id";
     update.make().order_id(id);
     expect(update.endpoint).toEqual("/another_id");
   });
 
-  test("Order_Request should set array and value and fields to clear", () => {
+  test("Order_Update should set array and value and fields to clear", () => {
     let expected = ["discounts", "line_items"];
     update.make().fields_to_clear("discounts").fields_to_clear("line_items");
     expect(update.fields_to_clear).toMatchObject(expected);
   });
 
-  test("Order_Request should have a sparse order object at order", () => {
+  test("Order_Update should have a sparse order object at order", () => {
     let order = new Order_Object();
     order.make().state().completed();
     let expected = { state: "COMPLETED" };
@@ -170,28 +168,79 @@ describe.only("Order_Update", () => {
     expect(update.order).toMatchObject(expected);
   });
 
-  test("Order_Request Should throw if no id is set when endpoint is gotten", () => {
+  test("Order_Update should throw if no id is set when endpoint is gotten", () => {
     let bad_update = new Order_Update();
     expect(() => {
       bad_update.endpoint;
     }).toThrow();
   });
 
-  test("Order_Request should have a square_version property", () => {
+  test("Order_Update should have a square_version property", () => {
     expect(update.square_version).toBeDefined();
   });
 
-  test("Order_Request should have _body property", () => {
+  test("Order_Update should have _body property", () => {
     expect(update.body).toBeDefined();
   });
 
-  test("Order_Request idempotency_key should respect length limit", () => {
+  test("Order_Update idempotency_key should respect length limit", () => {
     expect(() => {
       update.make().idempotency_key(long_strings.len_193);
     }).toThrow();
   });
+});
 
-  // test("Order_Request should have X property", () => {
-  //   expect(update.).toBeDefined();
-  // });
+describe("Order_Clone", () => {
+  let bobafett;
+  beforeEach(() => {
+    bobafett = new Order_Clone();
+  });
+
+  test('Order_Clone should have a display name "Order_Clone"', () => {
+    expect(bobafett._display_name).toEqual("Order_Clone");
+  });
+
+  test("Order_Clone should have a _body property", () => {
+    expect(bobafett.body).toBeDefined();
+  });
+  test("Order_Clone should set and retrieve an order version", () => {
+    let ver = 12;
+    bobafett.make().version(ver);
+    expect(bobafett.version).toEqual(ver);
+  });
+
+  test("Order_Clone should have a Square Version key: value", () => {
+    expect(bobafett.square_version).toBeDefined();
+  });
+  test("Order_Clone should set id from constructor", () => {
+    const joeyfett = new Order_Clone("Joey");
+    expect(joeyfett.order_id).toEqual("Joey");
+  });
+
+  test("Order_Clone make() should set new id", () => {
+    bobafett.make().order_id("cousin mikey");
+    expect(bobafett.order_id).toEqual("cousin mikey");
+  });
+
+  test("Order_Clone should set new id using setter", () => {
+    bobafett.order_id = "cousin mikey";
+    expect(bobafett.order_id).toEqual("cousin mikey");
+  });
+
+  test("Order_Clone make() id alias should set new id ", () => {
+    bobafett.make().id("cousin mikey");
+    expect(bobafett.order_id).toEqual("cousin mikey");
+  });
+
+  test("Order_Clone should  respect idempotency key length restriction 192", () => {
+    expect(() => {
+      bobafett.idempotency_key(long_strings.len_193);
+    }).toThrow();
+  });
+
+  test("Order_Clone should set idempotency key ", () => {
+    let key = "There will be no disintigrations!";
+    bobafett.make().idempotency_key(key);
+    expect(bobafett.idempotency_key).toEqual(key);
+  });
 });
