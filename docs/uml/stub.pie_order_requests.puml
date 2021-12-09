@@ -64,11 +64,13 @@ Square Docs
 [[ Order_ ]]
 }
 class Order_Clone  {
++constructor(id)
 super: Order_Request
 _display_name
 _last_verified_square_api_version
-this._method: ""
-this._endpoint: ""
+this._method: "POST"
+this._endpoint: "clone"
+this.configuration
 this._body
 
 ==
@@ -81,7 +83,7 @@ MAKER METHODS
 +make()
 ==
 Square Docs
-[[ Order_ ]]
+[[https://developer.squareup.com/reference/square/orders-api/clone-order Order_Clone ]]
 }
 class Order_Pay  {
 super: Order_Request
@@ -107,9 +109,13 @@ class Order_Retrieve  {
 super: Order_Request
 _display_name
 _last_verified_square_api_version
-this._method: ""
-this._endpoint: ""
+this._method: "POST"
+this._endpoint: "batch-retrieve"
+this._delivery
+this.configuration
 this._body
+_body.location_id
+_body.order_ids: []
 
 ==
 Getters
@@ -121,7 +127,7 @@ MAKER METHODS
 +make()
 ==
 Square Docs
-[[ Order_ ]]
+[[https://developer.squareup.com/reference/square/orders-api/retrieve-order Order_Retrieve ]]
 }
 class Order_Search  {
 super: Order_Request
@@ -129,7 +135,6 @@ _display_name
 _last_verified_square_api_version
 this._method: ""
 this._endpoint: ""
-this._body
 
 ==
 Getters
@@ -144,13 +149,16 @@ Square Docs
 [[ Order_ ]]
 }
 class Order_Update {
++constructor(id)
 super: Order_Request
 _display_name
 _last_verified_square_api_version
-this._method: ""
-this._endpoint: ""
+this._method: "PUT"
+this._endpoint: `/${id}`
+this.configuration
 this._body
-
+body.fields_to_clear: []
+body.order: sparse-order
 ==
 Getters
 ==
@@ -161,7 +169,7 @@ MAKER METHODS
 +make()
 ==
 Square Docs
-[[ Order_ ]]
+[[https://developer.squareup.com/reference/square/orders-api/update-order Order_Update ]]
 }
 
 
