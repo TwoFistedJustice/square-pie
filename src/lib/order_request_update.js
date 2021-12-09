@@ -10,7 +10,7 @@ class Order_Update extends Order_Request {
   _last_verified_square_api_version = "2021-11-17";
 
   constructor(id = "") {
-    super(id);
+    super();
     this._method = "put";
     this._endpoint = `/${id}`;
     this._body = {
