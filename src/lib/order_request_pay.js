@@ -1,7 +1,10 @@
 const Order_Request = require("./order_request_abstract");
 const { nanoid } = require("nanoid");
 const { shazam_max_length } = require("./utilities/aaa_index");
-
+/** @class Order_Pay representing a payment on an existing order.
+ * @param {string} id - the id of the order you want to pay. You can also add this later. You must do this before calling .request()
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * */
 class Order_Pay extends Order_Request {
   _display_name = "Order_Pay";
   _last_verified_square_api_version = "2021-11-17";
