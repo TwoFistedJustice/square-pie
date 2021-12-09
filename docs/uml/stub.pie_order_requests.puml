@@ -19,16 +19,19 @@ super of ALL other Request classes.
 abstract class Order_Request {
 super: Square_Request
 this._api_name: "order"
+this._delivery
 }
 
 
 class Order_Calculate {
+constructor(order.fardel)
 super: Order_Request
 _display_name
 _last_verified_square_api_version
-this._method: ""
-this._endpoint: ""
+this._method: "POST"
+this._endpoint: "calculate"
 this._body
+body.order: {order.fardel}
 
 ==
 Getters
@@ -40,16 +43,17 @@ MAKER METHODS
 +make()
 ==
 Square Docs
-[[ Order_ ]]
+[[https://developer.squareup.com/reference/square/orders-api/calculate-order Order_Calculate ]]
 }
 
 class Order_Create  {
 super: Order_Request
 _display_name
 _last_verified_square_api_version
-this._method: ""
+this._method: "POST"
 this._endpoint: ""
 this._body
+body.order: {order.fardel}
 
 ==
 Getters
@@ -61,7 +65,7 @@ MAKER METHODS
 +make()
 ==
 Square Docs
-[[ Order_ ]]
+[[https://developer.squareup.com/reference/square/orders-api/create-order Order_Create ]]
 }
 class Order_Clone  {
 +constructor(id)
@@ -89,9 +93,11 @@ class Order_Pay  {
 super: Order_Request
 _display_name
 _last_verified_square_api_version
-this._method: ""
-this._endpoint: ""
+this._method: "POST"
+this._endpoint: `/${id}/pay`
 this._body
+body.order_version
+body.payment_ids: []
 
 ==
 Getters
@@ -103,7 +109,7 @@ MAKER METHODS
 +make()
 ==
 Square Docs
-[[ Order_ ]]
+[[https://developer.squareup.com/reference/square/orders-api/pay-order Order_Pay ]]
 }
 class Order_Retrieve  {
 super: Order_Request

@@ -1,10 +1,10 @@
 const Order_Request = require("./order_request_abstract");
-
+//todo add order as arg to constructor
 class Order_Calculate extends Order_Request {
   _display_name = "Order_Calculate";
   _last_verified_square_api_version = "2021-07-21";
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this._method = "post";
     this._endpoint = "calculate";
 
