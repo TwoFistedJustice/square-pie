@@ -324,3 +324,46 @@ describe("Order_Calculate", () => {
     expect(calc.endpoint).toEqual("calculate");
   });
 });
+
+describe("Order_Create", () => {
+  let create;
+  beforeEach(function () {
+    create = new Order_Create();
+  });
+
+  test("Order_Create should have display name", () => {
+    expect(create._display_name).toBeDefined();
+  });
+  test("Order_Create should have defined square version", () => {
+    expect(create.square_version).toBeDefined();
+  });
+  test("Order_Create should have defined _body", () => {
+    expect(create.body).toBeDefined();
+  });
+  test("Order_Create should have defined _body.idempotency_key", () => {
+    expect(create.body.idempotency_key).toBeDefined();
+  });
+  test("Order_Create idempotency should respect length 192", () => {
+    expect(() => {
+      create.idempotency_key = long_strings.len_193;
+    }).toThrow();
+  });
+  test("Order_Create make().idempotency_key() should set property", () => {
+    create.make().idempotency_key("123");
+    expect(create.idempotency_key).toEqual("123");
+  });
+  test("Order_Create should have an endpoint", () => {
+    expect(create.endpoint).toEqual("");
+  });
+  test("Order_Create order should set property", () => {
+    let expected = { a: 1 };
+    create.order = expected;
+    expect(create.order).toMatchObject(expected);
+  });
+
+  test("Order_Create make().order() should set property", () => {
+    let expected = { a: 1 };
+    create.make().order(expected);
+    expect(create.order).toMatchObject(expected);
+  });
+});
