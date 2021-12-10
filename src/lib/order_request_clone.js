@@ -5,6 +5,7 @@ const { shazam_max_length } = require("./utilities/aaa_index");
 /** @class Order_clone representing a call to clone an existing order.
  * @param {string} id - the id of the order you want to clone. You can also add this later. You must do this before calling .request()
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/orders-api/clone-order | Square Docs}
  * */
 
 class Order_clone extends Order_Request {

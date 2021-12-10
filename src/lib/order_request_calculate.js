@@ -1,8 +1,12 @@
 const Order_Request = require("./order_request_abstract");
 const { shazam_max_length } = require("./utilities/aaa_index");
 const { nanoid } = require("nanoid");
-// https://developer.squareup.com/reference/square/orders-api/calculate-order
-//todo add order as arg to constructor
+
+/** @class Order_Calculate representing an http request to calculate an order
+ * @param {object} order  orderObject.fardel -You can also do this later by calling the order setter. You must add this before calling .request()
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/orders-api/calculate-order | Square Docs}
+ * */
 class Order_Calculate extends Order_Request {
   _display_name = "Order_Calculate";
   _last_verified_square_api_version = "2021-11-17";

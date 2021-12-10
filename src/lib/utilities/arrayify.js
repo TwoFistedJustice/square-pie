@@ -5,7 +5,7 @@
  * @param {string} display_name
  * @param {string} caller
  * @throws {Error} Throws an error if it is unable to create an array at the specified location.
- * @author Russ Bain aka TwoFistedJustice
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * @example You have an object called `_body` which has a property called `foo`. Foo is set to undefined
  * by default (this is common throughout Square-Pie). When foo is included in your request body
  * Square expects it to have an array of values. If you try to push a value to it before it has an array, node will throw an

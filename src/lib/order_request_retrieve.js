@@ -9,6 +9,7 @@ const {
 } = require("../lib/utilities/aaa_index");
 /** @class Order_Retrieve representing a http request to retrieve one or more orders
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/orders-api/batch-retrieve-orders | Square Docs}
  * */
 class Order_Retrieve extends Order_Request {
   _display_name = "Order_Retrieve";

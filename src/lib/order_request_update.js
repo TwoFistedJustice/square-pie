@@ -4,6 +4,7 @@ const { shazam_max_length, arrayify } = require("./utilities/aaa_index");
 /** @class Order_Update representing a desired update to an existing order.
  * @param {string} id - the id of the order you want to update. You can also add this later. You must do this before calling .request()
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/orders-api/update-order | Square Docs}
  * */
 class Order_Update extends Order_Request {
   _display_name = "Order_Update";

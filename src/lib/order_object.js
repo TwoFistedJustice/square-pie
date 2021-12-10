@@ -5,6 +5,10 @@ const {
   arche_money,
 } = require("./utilities/aaa_index");
 
+/** @class  representing a
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/objects/Order | Square Docs}
+ * */
 class Order_Object {
   _display_name = "Order_Object";
   _last_verified_square_api_version = "2021-07-21";
