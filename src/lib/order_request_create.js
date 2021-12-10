@@ -2,17 +2,22 @@ const Order_Request = require("./order_request_abstract");
 const { nanoid } = require("nanoid");
 const { shazam_max_length } = require("./utilities/aaa_index");
 
+/** @class  Order_Create representing an http request to create a new order
+ * @param {object} order  orderObject.fardel - You must add this before calling .request()
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * */
+
 class Order_Create extends Order_Request {
   _display_name = "Order_Create";
   _last_verified_square_api_version = "2021-07-21";
-  constructor() {
+  constructor(order) {
     super();
     this._method = "post";
     this._endpoint = "";
 
     this._body = {
       idempotency_key: nanoid(),
-      order: undefined,
+      order: order,
     };
   }
   get display_name() {
@@ -45,7 +50,6 @@ class Order_Create extends Order_Request {
       this._body.idempotency_key = key;
     }
   }
-
   set order(fardel) {
     this._body.order = fardel;
   }
