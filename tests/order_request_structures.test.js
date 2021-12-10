@@ -1,6 +1,6 @@
 // const should = require("chai").should();
 const Order_Create = require("../src/lib/order_request_create");
-const Order_Calculate = require("../src/lib/stub.order_request_calculate");
+const Order_Calculate = require("../src/lib/order_request_calculate");
 const Order_Retrieve = require("../src/lib/order_request_retrieve");
 const Order_Object = require("../src/lib/order_object");
 const Order_Update = require("../src/lib/order_request_update");
@@ -11,17 +11,10 @@ describe("Silence order request async tests", () => {
   test("Should silence tests", () => {
     expect("a").toEqual("a");
   });
-
-  // have a display name
-  //
 });
-
-// todo: We need to set up a spy or a mock or both to call the request method but not actually
-//  phone home. Just check that the request body is conformant.
 
 describe("Order Request Body formatting", () => {
   test("Create Order  should have properly formatted request.body", () => {
-    // todo add an order object and test that it is properly attached
     let create = new Order_Create();
     let order = new Order_Object();
     let uuid = create.idempotency_key;
@@ -45,28 +38,6 @@ describe("Order Request Body formatting", () => {
       .true;
     Object.prototype.hasOwnProperty.call(body, "order").should.be.true;
     expect(create.body).toMatchObject(expected);
-  });
-
-  test("Calculate Order request should have properly formatted request.body", () => {
-    let calculate = new Order_Calculate();
-    let order = new Order_Object();
-    order.build_discount().type_amount().uid("Pieville USA").add();
-    calculate.body = order.fardel;
-    let body = calculate.body;
-
-    let expected = {
-      order: {
-        discounts: [
-          {
-            type: "FIXED_AMOUNT",
-            uid: "Pieville USA",
-          },
-        ],
-      },
-    };
-
-    Object.prototype.hasOwnProperty.call(body, "order").should.be.true;
-    expect(calculate.body).toMatchObject(expected);
   });
 });
 
@@ -249,7 +220,7 @@ describe("Order_Clone", () => {
   });
 });
 
-describe.only("Order_Pay", () => {
+describe("Order_Pay", () => {
   let pay;
   let id = "some_order";
   beforeEach(() => {
@@ -309,5 +280,47 @@ describe.only("Order_Pay", () => {
     let key = "There will be no disintegrations!";
     pay.make().idempotency_key(key);
     expect(pay.idempotency_key).toEqual(key);
+  });
+});
+
+describe("Order_Calculate", () => {
+  let calc;
+  beforeEach(function () {
+    calc = new Order_Calculate();
+  });
+  test("should have display name", () => {
+    expect(calc._display_name).toBeDefined();
+  });
+  test("should have defined square version", () => {
+    expect(calc.square_version).toBeDefined();
+  });
+  test("should have defined _body", () => {
+    expect(calc.body).toBeDefined();
+  });
+  test("should have defined _body.idempotency_key", () => {
+    expect(calc.body.idempotency_key).toBeDefined();
+  });
+  test("idempotency should respect length 192", () => {
+    expect(() => {
+      calc.idempotency_key = long_strings.len_193;
+    }).toThrow();
+  });
+  test("make().idempotency_key() should set property", () => {
+    calc.make().idempotency_key("123");
+    expect(calc.idempotency_key).toEqual("123");
+  });
+  test("Order_Calculate order should set property", () => {
+    let expected = { a: 1 };
+    calc.order = expected;
+    expect(calc.order).toMatchObject(expected);
+  });
+
+  test("make().order() should set property", () => {
+    let expected = { a: 1 };
+    calc.make().order(expected);
+    expect(calc.order).toMatchObject(expected);
+  });
+  test("should have an endpoint", () => {
+    expect(calc.endpoint).toEqual("calculate");
   });
 });
