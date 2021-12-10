@@ -75,7 +75,6 @@ _display_name
 _last_verified_square_api_version
 this._method: "POST"
 this._endpoint: "clone"
-this.configuration
 this._body
 
 ==
@@ -119,7 +118,6 @@ _last_verified_square_api_version
 this._method: "POST"
 this._endpoint: "batch-retrieve"
 this._delivery
-this.configuration
 this._body
 _body.location_id
 _body.order_ids: []
@@ -162,7 +160,6 @@ _display_name
 _last_verified_square_api_version
 this._method: "PUT"
 this._endpoint: `/${id}`
-this.configuration
 this._body
 body.fields_to_clear: []
 body.order: sparse-order
