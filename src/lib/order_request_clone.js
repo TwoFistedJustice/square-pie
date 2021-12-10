@@ -19,11 +19,6 @@ class Order_clone extends Order_Request {
       order_id: id,
       version: undefined,
     };
-    this.configuration = {
-      maximums: {
-        idempotency_key: 192,
-      },
-    };
   }
   get display_name() {
     return this._display_name;

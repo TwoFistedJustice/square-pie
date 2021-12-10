@@ -18,11 +18,6 @@ class Order_Pay extends Order_Request {
       order_version: undefined,
       payment_ids: [],
     };
-    this.configuration = {
-      maximums: {
-        idempotency_key: 192,
-      },
-    };
   }
   // GETTERS
   get display_name() {

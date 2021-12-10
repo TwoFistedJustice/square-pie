@@ -31,7 +31,8 @@ _last_verified_square_api_version
 this._method: "POST"
 this._endpoint: "calculate"
 this._body
-body.order: {order.fardel}
+_body.order: {order.fardel}
+_body.idempotency_key
 
 ==
 Getters

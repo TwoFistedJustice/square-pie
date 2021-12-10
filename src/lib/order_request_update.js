@@ -18,11 +18,6 @@ class Order_Update extends Order_Request {
       fields_to_clear: undefined,
       order: undefined,
     };
-    this.configuration = {
-      maximums: {
-        idempotency_key: 192,
-      },
-    };
   }
   // GETTERS
   get display_name() {

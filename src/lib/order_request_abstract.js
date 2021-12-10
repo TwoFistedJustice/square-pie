@@ -2,11 +2,18 @@ const Square_Request = require("./square_request_abstract");
 
 class Order_Request extends Square_Request {
   _display_name = "Order_Request";
+
+  // abastracts don't need this
   _last_verified_square_api_version = "2021-07-21";
   constructor() {
     super();
     this._api_name = "orders";
     this._delivery;
+    this.configuration = {
+      maximums: {
+        idempotency_key: 192,
+      },
+    };
   }
   get display_name() {
     return this._display_name;
