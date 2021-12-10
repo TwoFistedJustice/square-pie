@@ -3,7 +3,7 @@ const { nanoid } = require("nanoid");
 const { shazam_max_length } = require("./utilities/aaa_index");
 
 /** @class  Order_Create representing an http request to create a new order
- * @param {object} order  orderObject.fardel - You must add this before calling .request()
+ * @param {object} order  orderObject.fardel -You can also do this later by calling the order setter. You must add this before calling .request()
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * */
 
