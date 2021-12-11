@@ -1,4 +1,5 @@
 // "use strict";
+
 const Order_Fulfillment = require("../src/lib/order_fulfillment");
 const should = require("chai").should();
 const { long_strings } = require("./helper_objects");
@@ -6,7 +7,7 @@ const { long_strings } = require("./helper_objects");
 const RFC339 = "2019-10-12T07:20:50.52Z";
 const nonCompliantTime = Date.now();
 
-describe.only("Silence Order Fulfillment tests", () => {
+describe("Silence Order Fulfillment tests", () => {
   test("Should silence tests", () => {
     expect("a").toEqual("a");
   });
@@ -67,8 +68,12 @@ describe("make method ", () => {
 describe("make_pickup() strings should be set correctly.", () => {
   // +PROPOSED + RESERVED + PREPARED + COMPLETED + CANCELED + FAILED;
 
-  const fulfillment = new Order_Fulfillment();
-  let pickup = fulfillment.make_pickup();
+  let fulfillment, pickup;
+
+  beforeEach(function () {
+    fulfillment = new Order_Fulfillment();
+    pickup = fulfillment.make_pickup();
+  });
 
   test("type should be set to 'PICKUP' ", () => {
     expect(fulfillment.type).toEqual("PICKUP");
@@ -87,7 +92,7 @@ describe("make_pickup() strings should be set correctly.", () => {
 
   test("state should be set to PREPARED", () => {
     let expected = "PREPARED";
-    pickup.state().prepared();
+    pickup.state().reserved().prepared();
     expect(fulfillment.state).toEqual(expected);
   });
   test("state should be set to COMPLETED", () => {
