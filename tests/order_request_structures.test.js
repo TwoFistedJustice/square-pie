@@ -6,6 +6,7 @@ const Order_Object = require("../src/lib/order_object");
 const Order_Update = require("../src/lib/order_request_update");
 const Order_Clone = require("../src/lib/order_request_clone");
 const Order_Pay = require("../src/lib/order_request_pay");
+const Order_Search = require("../src/lib/stub.order_request_search");
 const { long_arrays, long_strings } = require("./helper_objects");
 describe("Silence order request async tests", () => {
   test("Should silence tests", () => {
@@ -365,5 +366,87 @@ describe("Order_Create", () => {
     let expected = { a: 1 };
     create.make().order(expected);
     expect(create.order).toMatchObject(expected);
+  });
+});
+
+describe.only("Order_Search", () => {
+  let search;
+  let id = "someId";
+  beforeEach(function () {
+    search = new Order_Search();
+  });
+
+  test("Order_Search should have display name", () => {
+    expect(search._display_name).toBeDefined();
+  });
+  test("Order_Search should have defined square version", () => {
+    expect(search.square_version).toBeDefined();
+  });
+  test("Order_Search should have an endpoint", () => {
+    expect(search.endpoint).toEqual("search");
+  });
+
+  test("Order_Search location_ids should be an array", () => {
+    expect(Array.isArray(search.location_ids)).toEqual(true);
+  });
+
+  test("Order_Search location_ids setter should add to array", () => {
+    search.location_ids = id;
+    expect(search.location_ids[0]).toEqual(id);
+  });
+
+  test("Order_Search make().location_ids() should add to array", () => {
+    search.make().location_ids(id);
+    expect(search.location_ids[0]).toEqual(id);
+  });
+
+  test("Order_Search _body getter should throw if location_ids does not have at least one entry", () => {
+    expect(() => {
+      search.body;
+    }).toThrow();
+  });
+
+  test("Order_Search limit setter should throw if non-integer", () => {
+    expect(() => {
+      search.limit(2.3);
+    }).toThrow();
+  });
+
+  test("Order_Search limit setter should set value", () => {
+    search.limit = 300;
+    expect(search.limit).toEqual(300);
+  });
+
+  test("Order_Search make().limit() should set value", () => {
+    search.make().limit(300);
+    expect(search.limit).toEqual(300);
+  });
+
+  test("Order_Search return_entries setter should throw if non-boolean", () => {
+    expect(() => {
+      search.return_entries = "will throw";
+    }).toThrow();
+  });
+
+  test("Order_Search return_entries setter should set boolean value", () => {
+    search.return_entries = true;
+    expect(search.return_entries).toEqual(true);
+  });
+
+  test("Order_Search make().return_entries() should set value", () => {
+    search.make().return_entries(true);
+    expect(search.return_entries).toEqual(true);
+  });
+
+  test("Order_Search query setter should set value", () => {
+    let expected = { a: 1 };
+    search.query = expected;
+    expect(search.query).toMatchObject(expected);
+  });
+
+  test("Order_Search make().query() should set value", () => {
+    let expected = { a: 1 };
+    search.make().query(expected);
+    expect(search.query).toMatchObject(expected);
   });
 });
