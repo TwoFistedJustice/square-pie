@@ -129,7 +129,7 @@ class Order_Line_Item {
   }
 
   #enum_item_type() {
-    return order_line_item_item_type.enum(this);
+    return order_line_item_item_type.enum_item(this);
   }
 
   #uid_length(uid) {

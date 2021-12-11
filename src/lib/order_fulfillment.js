@@ -95,7 +95,7 @@ class Order_Fulfillment {
   // PRIVATE METHODS
 
   #enum_state() {
-    return order_fulfillment_state.enum(this);
+    return order_fulfillment_state.enum_state(this);
   }
 
   /**

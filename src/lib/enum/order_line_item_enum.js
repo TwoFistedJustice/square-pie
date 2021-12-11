@@ -4,7 +4,7 @@
  * */
 
 const order_line_item_item_type = {
-  /** @enum  an array of the allowable values on a property.
+  /** @enum_state  an array of the allowable values on a property.
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
    *
@@ -14,17 +14,17 @@ const order_line_item_item_type = {
 
   allowable_values: ["ITEM", "CUSTOM_AMOUNT"],
 
-  /** @function enum
-   * @enum  enables a referencing class to set only allowable values on a property.
+  /** @function enum_state
+   * @enum_state  enables a referencing class to set only allowable values on a property.
    * @param {object} self - pass in 'this' from the referencing class.
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
    * #enum_PROPERTY_NAME() {
-   *   return Name_Of_Class_property.enum(this)
+   *   return Name_Of_Class_property.enum_state(this)
    * }
    * */
 
-  enum: function (self) {
+  enum_item: function (self) {
     return {
       item: function () {
         self.item = "ITEM";

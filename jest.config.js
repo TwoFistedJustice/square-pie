@@ -93,7 +93,7 @@ module.exports = {
   // Activates notifications for test results
   // notify: false,
 
-  // An enum that specifies notification mode. Requires { notify: true }
+  // An enum_state that specifies notification mode. Requires { notify: true }
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration

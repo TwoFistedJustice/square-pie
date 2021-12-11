@@ -4,7 +4,7 @@
  * */
 
 const order_fulfillment_state = {
-  /** @enum  an array of the allowable values on a property.
+  /** @enum_state  an array of the allowable values on a property.
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
    *
@@ -21,17 +21,17 @@ const order_fulfillment_state = {
     "FAILED",
   ],
 
-  /** @function enum
-   * @enum  enables a referencing class to set only allowable values on a property.
+  /** @function enum_state
+   * @enum_state  enables a referencing class to set only allowable values on a property.
    * @param {object} self - pass in 'this' from the referencing class.
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
    * #enum_state() {
-   *   return order_fulfillment_state.enum(this)
+   *   return order_fulfillment_state.enum_state(this)
    * }
    * */
 
-  enum: function (self) {
+  enum_state: function (self) {
     return {
       proposed: function () {
         self.state = "PROPOSED";

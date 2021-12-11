@@ -12,8 +12,8 @@ class Order_Discount {
       percentage: undefined, // str10
       amount_money: undefined, // archetype money
       applied_money: undefined, // archetype money
-      type: undefined, // str enum
-      scope: undefined, // str enum
+      type: undefined, // str enum_state
+      scope: undefined, // str enum_state
     };
     this.configuration = {
       maximums: {

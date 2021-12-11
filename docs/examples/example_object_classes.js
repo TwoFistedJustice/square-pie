@@ -43,7 +43,7 @@ class Sub_Object extends Super_Object {
     this._fardel = {
       id: undefined,
       some_note: undefined,
-      some_string: undefined, // this expects a limited range of fixed values- an "enum"
+      some_string: undefined, // this expects a limited range of fixed values- an "enum_state"
       some_collection: undefined, // this is going to be an array
     };
     // configuration is NEVER mutated. It is for reference only.
@@ -103,7 +103,7 @@ class Sub_Object extends Super_Object {
   }
 
   // METHODS
-  /* enum functions are used when Square only allows certain string values
+  /* enum_state functions are used when Square only allows certain string values
    * sometimes Square is case sensitive, sometimes not. We always set UPPERCASE values
    * so we never have to worry about it. This function will be referenced from within the
    * make() method.
