@@ -27,7 +27,7 @@ const order_fulfillment_state = {
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
    * #enum_state() {
-   *   return enum_state_name(this)
+   *   return order_fulfillment_state.enum(this)
    * }
    * */
 
