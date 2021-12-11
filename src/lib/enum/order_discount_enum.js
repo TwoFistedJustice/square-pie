@@ -12,14 +12,16 @@ const order_discount_enum = {
    * Do not use in the setter itself because it will be called every time
    * */
 
-  allowable_values_type: [
-    "UNKNOWN_DISCOUNT",
-    "FIXED_PERCENTAGE",
-    "FIXED_AMOUNT",
-    "VARIABLE_PERCENTAGE",
-    "VARIABLE_AMOUNT",
-  ],
-  allowable_values_scope: ["OTHER_DISCOUNT_SCOPE", "LINE_ITEM", "ORDER"],
+  allowable_values: {
+    type: [
+      "UNKNOWN_DISCOUNT",
+      "FIXED_PERCENTAGE",
+      "FIXED_AMOUNT",
+      "VARIABLE_PERCENTAGE",
+      "VARIABLE_AMOUNT",
+    ],
+    scope: ["OTHER_DISCOUNT_SCOPE", "LINE_ITEM", "ORDER"],
+  },
 
   /** @function enum
    * @enum  enables a referencing class to set only allowable values on a property.

@@ -11,7 +11,7 @@ const order_object_enum = {
    * Do not use in the setter itself because it will be called every time
    * */
 
-  allowable_values: ["OPEN", "COMPLETED", "CANCELED", "DRAFT"],
+  allowable_values: { state: ["OPEN", "COMPLETED", "CANCELED", "DRAFT"] },
 
   /** @function enum
    * @enum  enables a referencing class to set only allowable values on a property.

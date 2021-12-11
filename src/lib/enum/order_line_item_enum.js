@@ -12,7 +12,7 @@ const order_line_item_enum = {
    * Do not use in the setter itself because it will be called every time
    * */
 
-  allowable_values: ["ITEM", "CUSTOM_AMOUNT"],
+  allowable_values: { item_type: ["ITEM", "CUSTOM_AMOUNT"] },
 
   /** @function enum_state
    * @enum_state  enables a referencing class to set only allowable values on a property.

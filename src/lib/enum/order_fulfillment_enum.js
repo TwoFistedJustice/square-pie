@@ -12,14 +12,16 @@ const order_fulfillment_enum = {
    * Do not use in the setter itself because it will be called every time
    * */
 
-  allowable_values: [
-    "PROPOSED",
-    "RESERVED",
-    "PREPARED",
-    "COMPLETED",
-    "CANCELED",
-    "FAILED",
-  ],
+  allowable_values: {
+    state: [
+      "PROPOSED",
+      "RESERVED",
+      "PREPARED",
+      "COMPLETED",
+      "CANCELED",
+      "FAILED",
+    ],
+  },
 
   /** @function state
    * @state  enables a referencing class to set only allowable values on a property.
