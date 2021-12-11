@@ -3,7 +3,7 @@
  * passing 'this' as an argument works without counter-intuitive syntax
  * */
 
-const order_line_item_item_type = {
+const order_line_item_enum = {
   /** @enum_state  an array of the allowable values on a property.
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
@@ -24,22 +24,22 @@ const order_line_item_item_type = {
    * }
    * */
 
-  enum_item: function (self) {
+  item_type: function (self) {
     return {
       item: function () {
-        self.item = "ITEM";
+        self.item_type = "ITEM";
         return this;
       },
       custom: function () {
-        self.item = "CUSTOM_AMOUNT";
+        self.item_type = "CUSTOM_AMOUNT";
         return this;
       },
       gift: function () {
-        self.item = "GIFT_CARD";
+        self.item_type = "GIFT_CARD";
         return this;
       },
     };
   },
 };
 
-module.exports = order_line_item_item_type;
+module.exports = order_line_item_enum;

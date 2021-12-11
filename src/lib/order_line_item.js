@@ -8,7 +8,7 @@ const {
   generate_error_message,
   define,
 } = require("./utilities/aaa_index");
-const order_line_item_item_type = require("./enum/order_line_item_enum");
+const order_line_item_enum = require("./enum/order_line_item_enum");
 
 class Order_Line_Item {
   _display_name = "Order_Line_Item";
@@ -129,7 +129,7 @@ class Order_Line_Item {
   }
 
   #enum_item_type() {
-    return order_line_item_item_type.enum_item(this);
+    return order_line_item_enum.item_type(this);
   }
 
   #uid_length(uid) {
