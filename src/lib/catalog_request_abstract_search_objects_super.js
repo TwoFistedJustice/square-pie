@@ -1,7 +1,6 @@
 const Catalog_Request = require("./catalog_request_abstract");
 const { shazam_time_RFC3339 } = require("./utilities/aaa_index");
 const catalog_search_objects_enum = require("./enum/catalog_search_objects_enum");
-// https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects
 
 /*
  *  The query feature is INCOMPLETE
@@ -9,7 +8,10 @@ const catalog_search_objects_enum = require("./enum/catalog_search_objects_enum"
  *  Catalog_Search_Objects.prototype.query = function...
  *
  * */
-
+/** @class  Catalog_Search_Objects_Super - super class of catalog object search classes
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects | Square Docs}
+ * */
 class Catalog_Search_Objects_Super extends Catalog_Request {
   _display_name = "Catalog_Search_Objects_Super";
   _last_verified_square_api_version = "2021-07-21";
