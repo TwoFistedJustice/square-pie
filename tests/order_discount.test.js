@@ -1,7 +1,7 @@
 const Order_Discount = require("../src/lib/order_discount");
 const { long_strings } = require("./helper_objects");
 
-describe.only("Silence order discount tests", () => {
+describe("Silence order discount tests", () => {
   test("Should silence tests", () => {
     expect("a").toEqual("a");
   });
@@ -134,5 +134,5 @@ describe("enums", () => {
   });
 });
 
-// enum_state type
-// enum_state scope
+// state type
+// state scope
