@@ -57,7 +57,6 @@ class Order_Search extends Order_Request {
       return false;
     }
   }
-  git;
   get delivery() {
     return this._delivery;
   }
