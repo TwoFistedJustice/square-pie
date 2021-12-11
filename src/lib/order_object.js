@@ -4,6 +4,7 @@ const {
   arrayify,
   arche_money,
 } = require("./utilities/aaa_index");
+const order_object_enum = require("./enum/order_object_enum");
 
 /** @class  representing a
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
@@ -174,25 +175,7 @@ class Order_Object {
   // METHODS
 
   #enum_state() {
-    return {
-      self: this,
-      open: function () {
-        this.self.state = "OPEN";
-        return this;
-      },
-      completed: function () {
-        this.self.state = "COMPLETED";
-        return this;
-      },
-      canceled: function () {
-        this.self.state = "CANCELED";
-        return this;
-      },
-      draft: function () {
-        this.self.state = "DRAFT";
-        return this;
-      },
-    };
+    return order_object_enum.state(this);
   }
 
   build_service_charge_amount(amount, currency) {
