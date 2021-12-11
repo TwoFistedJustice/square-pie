@@ -57,6 +57,7 @@ class Order_Search extends Order_Request {
       return false;
     }
   }
+  git;
   get delivery() {
     return this._delivery;
   }
@@ -89,8 +90,8 @@ class Order_Search extends Order_Request {
   set location_ids(location_id) {
     this._body.location_ids.push(location_id);
   }
-  set cursor(cursor) {
-    this._body.val = cursor;
+  set cursor(pagination_cursor) {
+    this._body.cursor = pagination_cursor;
   }
   set limit(int) {
     if (shazam_integer(int, this._display_name, "limit")) {
