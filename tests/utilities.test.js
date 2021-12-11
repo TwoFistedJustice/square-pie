@@ -16,6 +16,7 @@ const {
   shazam_object_has_property,
   shazam_is_array,
   shazam_max_length_array,
+  shazam_min_length_array,
 } = require("../src/lib/utilities/aaa_index");
 
 const { dateCodes } = require("./helper_objects");
@@ -450,6 +451,20 @@ describe("shazam_max_length_array", () => {
 
   test("shazam_max_length_array should return true if an array does not exceed limit", () => {
     let received = shazam_max_length_array(3, arr);
+    expect(received).toEqual(true);
+  });
+});
+
+describe("shazam_min_length_array", () => {
+  let arr = ["a", "b"];
+  test("shazam_min_length_array should throw if an array deceeds limit", () => {
+    expect(() => {
+      shazam_min_length_array(3, arr);
+    }).toThrow();
+  });
+
+  test("shazam_min_length_array should return true if an array does not deceed limit", () => {
+    let received = shazam_min_length_array(2, arr);
     expect(received).toEqual(true);
   });
 });
