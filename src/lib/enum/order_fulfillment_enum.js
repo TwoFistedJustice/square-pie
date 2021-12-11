@@ -3,8 +3,8 @@
  * passing 'this' as an argument works without counter-intuitive syntax
  * */
 
-const order_fulfillment_state = {
-  /** @enum_state  an array of the allowable values on a property.
+const order_fulfillment_enum = {
+  /** @state  an array of the allowable values on a property.
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
    *
@@ -21,17 +21,17 @@ const order_fulfillment_state = {
     "FAILED",
   ],
 
-  /** @function enum_state
-   * @enum_state  enables a referencing class to set only allowable values on a property.
+  /** @function state
+   * @state  enables a referencing class to set only allowable values on a property.
    * @param {object} self - pass in 'this' from the referencing class.
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
-   * #enum_state() {
-   *   return order_fulfillment_state.enum_state(this)
+   * #state() {
+   *   return order_fulfillment_enum.state(this)
    * }
    * */
 
-  enum_state: function (self) {
+  state: function (self) {
     return {
       proposed: function () {
         self.state = "PROPOSED";
@@ -61,4 +61,4 @@ const order_fulfillment_state = {
   },
 };
 
-module.exports = order_fulfillment_state;
+module.exports = order_fulfillment_enum;
