@@ -27,7 +27,7 @@ const arche_money = function (amt, currency = "USD") {
   }
   if (!isISO4217(sanitized_currency)) {
     throw new Error(
-      `Received ${currency} --  money_helper currency arg must be ISO 4217 compliant.`
+      `Received ${currency} --  currency arg must be ISO 4217 compliant.`
     );
   }
   return { amount, currency: sanitized_currency };
