@@ -1,5 +1,6 @@
 "use strict";
 const {
+  arche_time_start_end,
   // define,
   query_string_builder,
   query_string_endpoint,
@@ -466,5 +467,29 @@ describe("shazam_min_length_array", () => {
   test("shazam_min_length_array should return true if an array does not deceed limit", () => {
     let received = shazam_min_length_array(2, arr);
     expect(received).toEqual(true);
+  });
+});
+
+describe("arche_time_start_end", () => {
+  test("arche_time_start_end should throw if start not RFC3339", () => {
+    expect(() => {
+      arche_time_start_end(dateCodes.notRFC3339, dateCodes.RFC3339);
+    }).toThrow();
+  });
+
+  test("arche_time_start_end should throw if end not RFC3339", () => {
+    expect(() => {
+      arche_time_start_end(dateCodes.RFC3339, dateCodes.notRFC3339);
+    }).toThrow();
+  });
+
+  test("arche_time_start_end should return a date time filter object", () => {
+    let expected = {
+      start_at: dateCodes.RFC3339,
+      end_at: dateCodes.RFC3339,
+    };
+    expect(
+      arche_time_start_end(dateCodes.RFC3339, dateCodes.RFC3339)
+    ).toMatchObject(expected);
   });
 });
