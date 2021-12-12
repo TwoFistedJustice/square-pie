@@ -19,8 +19,10 @@ const shazam_object_has_property = require("./shazam_object_has_property");
 const shazam_is_array = require("./shazam_is_array");
 const shazam_max_length_array = require("./shazam_max_length_array");
 const shazam_min_length_array = require("./shazam_min_length_array");
+const arche_time_start_end = require("./arche_time_start_end");
 
 module.exports = {
+  arche_time_start_end,
   normalize_email,
   define,
   query_string_builder,
