@@ -247,7 +247,8 @@ const long_arrays = {
 
 const dateCodes = {
   RFC3339: "2019-10-12T07:20:50.52Z",
-  notRFC3339: Date.now(),
+  notRFC3339: "2020-344",
+  now: Date.now(),
 };
 
 const sampleCustomers = {
