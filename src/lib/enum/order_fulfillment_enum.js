@@ -21,6 +21,7 @@ const order_fulfillment_enum = {
       "CANCELED",
       "FAILED",
     ],
+    fulfillment_types: ["PICKUP", "SHIPMENT"],
   },
 
   /** @function state
@@ -57,6 +58,28 @@ const order_fulfillment_enum = {
       },
       failed: function () {
         self.state = "FAILED";
+        return this;
+      },
+    };
+  },
+  /** @function fulfillment_types - For search order query
+   * @fulfillment_types  enables a referencing class to set only allowable values on a property.
+   * @param {object} self - pass in 'this' from the referencing class.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   * #state() {
+   *   return order_fulfillment_enum.fulfillment_types(this)
+   * }
+   * */
+
+  fulfillment_types: function () {
+    return {
+      pickup: function () {
+        self.fulfillment_types = "PICKUP";
+        return this;
+      },
+      shipment: function () {
+        self.fulfillment_types = "SHIPMENT";
         return this;
       },
     };
