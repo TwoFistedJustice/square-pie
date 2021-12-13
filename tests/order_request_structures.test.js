@@ -369,7 +369,7 @@ describe("Order_Create", () => {
   });
 });
 
-describe.only("Order_Search", () => {
+describe("Order_Search", () => {
   let search;
   let id = "someId";
   beforeEach(function () {
@@ -449,4 +449,137 @@ describe.only("Order_Search", () => {
     search.make().query(expected);
     expect(search.query).toMatchObject(expected);
   });
+  // should add an id passed as an argument to constructor to the location_ids array
+  // should replace the location_ids array with an array of ids passed as an argument to constructor
+});
+describe("Order_Search Query - yes it's so special it get's its own separate set of tests!", () => {
+  let search;
+  // let array10 = [1,2,3,4,5,6,7,8,9,10];
+  // let array11 = [1,2,3,4,5,6,7,8,9,10,11];
+  beforeEach(function () {
+    search = new Order_Search("someId");
+  });
+
+  test("customer_filter should add to the array", () => {
+    let expected = {
+      filter: {
+        customer_filter: {
+          customer_ids: ["1"], // max 10 XXX
+        },
+        date_time_filter: undefined,
+        fulfillment_filter: undefined,
+        source_filter: undefined,
+        state_filter: undefined,
+      },
+      sort: undefined,
+    };
+    let query = search.build_query();
+    query.customer_filter("1");
+    expect(search.query).toMatchObject(expected);
+  });
+
+  test("customer_filter should multiple add to the array with curry", () => {
+    let expected = {
+      filter: {
+        customer_filter: {
+          customer_ids: ["1", "2", "3"], // max 10 XXX
+        },
+        date_time_filter: undefined,
+        fulfillment_filter: undefined,
+        source_filter: undefined,
+        state_filter: undefined,
+      },
+      sort: undefined,
+    };
+    let query = search.build_query();
+    query.customer_filter("1").customer_filter("2").customer_filter("3");
+    expect(search.query).toMatchObject(expected);
+  });
+
+  test("customer_filter should respect length limit of 10", () => {
+    let query = search.build_query();
+    expect(() => {
+      query
+        .customer_filter("1")
+        .customer_filter("2")
+        .customer_filter("3")
+        .customer_filter("4")
+        .customer_filter("5")
+        .customer_filter("6")
+        .customer_filter("7")
+        .customer_filter("8")
+        .customer_filter("9")
+        .customer_filter("10")
+        .customer_filter("11");
+    }).toThrow();
+  });
+
+  test("source_filter should add to the array", () => {
+    let expected = {
+      filter: {
+        customer_filter: undefined,
+        date_time_filter: undefined,
+        fulfillment_filter: undefined,
+        source_filter: {
+          source_name: ["1"],
+        },
+        state_filter: undefined,
+      },
+      sort: undefined,
+    };
+    let query = search.build_query();
+    query.source_filter("1");
+    expect(search.query).toMatchObject(expected);
+  });
+
+  test("source_filter should multiple add to the array with curry", () => {
+    let expected = {
+      filter: {
+        customer_filter: undefined,
+        date_time_filter: undefined,
+        fulfillment_filter: undefined,
+        source_filter: {
+          source_name: ["1", "2", "3"], // max 10 XXX
+        },
+        state_filter: undefined,
+      },
+      sort: undefined,
+    };
+    let query = search.build_query();
+    query.source_filter("1").source_filter("2").source_filter("3");
+    expect(search.query).toMatchObject(expected);
+  });
+
+  test("source_filter should respect length limit of 10", () => {
+    let query = search.build_query();
+    expect(() => {
+      query
+        .source_filter("1")
+        .source_filter("2")
+        .source_filter("3")
+        .source_filter("4")
+        .source_filter("5")
+        .source_filter("6")
+        .source_filter("7")
+        .source_filter("8")
+        .source_filter("9")
+        .source_filter("10")
+        .source_filter("11");
+    }).toThrow();
+  });
+
+  //source_filter - same tests as customer
+
+  //date_time_filter close_at
+  //date_time_filter created_at
+  //date_time_filter updated_at
+  //date_time_filter  all three
+
+  //fulfillment_filter- fulfillment_states - check each value individually
+  //fulfillment_filter- fulfillment_states - check that currying works
+
+  //fulfillment_filter- fulfillment_types - check each value individually
+  //fulfillment_filter- fulfillment_types - check that currying works
+
+  // state_filter
 });
