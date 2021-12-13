@@ -14,33 +14,33 @@ describe("Silence order request async tests", () => {
   });
 });
 
-describe("Order Request Body formatting", () => {
-  test("Create Order  should have properly formatted request.body", () => {
-    let create = new Order_Create();
-    let order = new Order_Object();
-    let uuid = create.idempotency_key;
-    order.build_discount().type_amount().uid("Pieville USA").add();
-    create.body = order.fardel;
-    let body = create.body;
-
-    let expected = {
-      idempotency_key: uuid,
-      order: {
-        discounts: [
-          {
-            type: "FIXED_AMOUNT",
-            uid: "Pieville USA",
-          },
-        ],
-      },
-    };
-
-    Object.prototype.hasOwnProperty.call(body, "idempotency_key").should.be
-      .true;
-    Object.prototype.hasOwnProperty.call(body, "order").should.be.true;
-    expect(create.body).toMatchObject(expected);
-  });
-});
+// describe("Order Request Body formatting", () => {
+//   test("Create Order  should have properly formatted request.body", () => {
+//     let create = new Order_Create();
+//     let order = new Order_Object();
+//     let uuid = create.idempotency_key;
+//     order.build_discount().type_amount().uid("Pieville USA").add();
+//     create.body = order.fardel;
+//     let body = create.body;
+//
+//     let expected = {
+//       idempotency_key: uuid,
+//       order: {
+//         discounts: [
+//           {
+//             type: "FIXED_AMOUNT",
+//             uid: "Pieville USA",
+//           },
+//         ],
+//       },
+//     };
+//
+//     Object.prototype.hasOwnProperty.call(body, "idempotency_key").should.be
+//       .true;
+//     Object.prototype.hasOwnProperty.call(body, "order").should.be.true;
+//     expect(create.body).toMatchObject(expected);
+//   });
+// });
 
 describe("Order_Retrieve", () => {
   let retrieve;
