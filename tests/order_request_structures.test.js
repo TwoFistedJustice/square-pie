@@ -455,10 +455,12 @@ describe("Order_Search", () => {
 describe("Order_Search Query - yes it's so special it get's its own separate set of tests!", () => {
   let search;
   let expected_filter;
+  let query;
   // let array10 = [1,2,3,4,5,6,7,8,9,10];
   // let array11 = [1,2,3,4,5,6,7,8,9,10,11];
   beforeEach(function () {
     search = new Order_Search("someId");
+    query = search.build_query();
     expected_filter = {
       customer_filter: undefined,
       date_time_filter: undefined,
@@ -563,8 +565,63 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expect(search.query.filter).toMatchObject(expected_filter);
   });
 
-  //fulfillment_filter- fulfillment_states - check each value individually
-  //fulfillment_filter- fulfillment_states - check that currying works
+  test('fulfillment_filter- fulfillment_states - "PROPOSED"', () => {
+    expected_filter.fulfillment_filter = {
+      fulfillment_states: ["PROPOSED"],
+    };
+    query.fulfillment_filter().fulfillment_states().proposed();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+
+  test('fulfillment_filter- fulfillment_states -"RESERVED"', () => {
+    expected_filter.fulfillment_filter = {
+      fulfillment_states: ["RESERVED"],
+    };
+    query.fulfillment_filter().fulfillment_states().reserved();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+
+  test('fulfillment_filter- fulfillment_states -"PREPARED"', () => {
+    expected_filter.fulfillment_filter = {
+      fulfillment_states: ["PREPARED"],
+    };
+    query.fulfillment_filter().fulfillment_states().prepared();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+  test('fulfillment_filter- fulfillment_states -"COMPLETED"', () => {
+    expected_filter.fulfillment_filter = {
+      fulfillment_states: ["COMPLETED"],
+    };
+    query.fulfillment_filter().fulfillment_states().completed();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+  test('fulfillment_filter- fulfillment_states -"CANCELED"', () => {
+    expected_filter.fulfillment_filter = {
+      fulfillment_states: ["CANCELED"],
+    };
+    query.fulfillment_filter().fulfillment_states().canceled();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+  test('fulfillment_filter- fulfillment_states -"FAILED"', () => {
+    expected_filter.fulfillment_filter = {
+      fulfillment_states: ["FAILED"],
+    };
+    query.fulfillment_filter().fulfillment_states().failed();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+
+  test("fulfillment_filter- fulfillment_states - currying should works", () => {
+    expected_filter.fulfillment_filter = {
+      fulfillment_states: ["FAILED", "CANCELED", "COMPLETED"],
+    };
+    query
+      .fulfillment_filter()
+      .fulfillment_states()
+      .failed()
+      .canceled()
+      .completed();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
 
   //source_filter - same tests as customer
 

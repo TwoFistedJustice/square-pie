@@ -8,12 +8,16 @@ const {
   shazam_min_length_array,
 } = require("./utilities/aaa_index");
 
-// const {arche_sorting_enum,order_object_enum,order_fulfillment_enum} = require("./enum/index");
+const {
+  // arche_sorting_enum,
+  // order_object_enum,
+  order_fulfillment_enum,
+} = require("./enum/index");
 
 /** @class Order_Search representing a search for an existing order.
  * @param {string | array} id - the id or array of ids of an order(s) you want to search for. You can also add this later. You must do this before calling .request()
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/orders-api/search-orders| Square Docs}
+ * {@link https://developer.squareup.com/reference/square/orders-api/search-orders | Square Docs}
  * */
 class Order_Search extends Order_Request {
   _display_name = "Order_Search";
@@ -132,6 +136,13 @@ class Order_Search extends Order_Request {
   }
 
   // if query.filter is undefined, set it to an empty query
+  /** @method  define_filter
+   * @private
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * if query.filter is undefined make it a filter object with each key set to undefined
+   *
+   * */
   #define_filter() {
     if (this._body.query.filter === undefined) {
       // JSON stringify will ignore undefined values
@@ -157,40 +168,56 @@ class Order_Search extends Order_Request {
     }
   }
 
-  #build_date_time_query() {
-    let filter = this._body.query.fulfillment_filter;
+  /**@private
+   * @method  build_fulfillment_filter
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersFulfillmentFilter | Square Docs}
+   *
+   * Important: If you filter for orders by time range, you must set sort to use the same field.
+   * */
+  #build_fulfillment_filter() {
+    if (this._body.query.filter.fulfillment_filter === undefined) {
+      this._body.query.filter.fulfillment_filter = {};
+    }
+    let filter = this._body.query.filter.fulfillment_filter;
     // const name = this.display_name + ".#build_date_time_query";
+
     return {
-      self: this,
-      fulfillment_types: () => {
-        // [], ENUM - order_fulfillment_enum.js
-        // check if prop exists
+      // check if prop exists
+      // if not define it, set to empty array
+      fulfillment_types: function () {
         if (
           !Object.prototype.hasOwnProperty.call(filter, "fulfillment_types")
         ) {
-          // if(!filter.hasOwnProperty("fulfillment_types")){
-          // if not define it, set to empty array
           define(filter, "fulfillment_types", []);
         }
-        return {
-          // using arrow functions hoping this will allow the currying the whole method
-          pickup: () => {
-            filter.fulfillment_types.push("PICKUP");
-            return this;
-          },
-          shipment: () => {
-            filter.fulfillment_types.push("SHIPMENT");
-            return this;
-          },
-        };
+        return order_fulfillment_enum.fulfillment_types_arrays(filter);
       },
       fulfillment_states: () => {
-        return this;
+        if (
+          !Object.prototype.hasOwnProperty.call(filter, "fulfillment_states")
+        ) {
+          define(filter, "fulfillment_states", []);
+        }
+        return order_fulfillment_enum.fulfillment_state_arrays(filter);
       },
     };
   }
 
+  /**@private
+   * @method  build_date_time_filter
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersDateTimeFilter | Square Docs}
+   *
+   * Important: If you filter for orders by time range, you must set sort to use the same field.
+   * */
+  #build_date_time_filter() {}
+
   // BUILDER METHODS
+  /** @method  build_query -
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery  | Square Docs}
+   * */
   build_query() {
     const name = this.display_name + ".build_query";
     this.#define_query();
@@ -237,10 +264,10 @@ class Order_Search extends Order_Request {
       //   this.self.#define_filter();
       //   return this;
       // },
-      // fulfillment_filter: function(){
-      //   this.self.#define_filter();
-      //   return this;
-      // },
+      fulfillment_filter: function () {
+        this.self.#define_filter();
+        return this.self.#build_fulfillment_filter();
+      },
 
       //   state_filter: function(){
       //     this.self.#define_filter();
