@@ -126,35 +126,38 @@ class Order_Search extends Order_Request {
   }
 
   // PRIVATE METHODS
-  // checks for presence of undefined value or filter property and sets object
-  #define_query() {
-    if (this._body.query === undefined) {
-      this._body.query = {};
-      define(this._body.query, "filter", undefined);
-      define(this._body.query, "sort", undefined);
-    }
-  }
-
-  // if query.filter is undefined, set it to an empty query
-  /** @method  define_filter
+  /** @method  define_query
    * @private
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    *
-   * if query.filter is undefined make it a filter object with each key set to undefined
+   *  Creates a new Query Object with the `filter` property set to a filter object with
+   *  all properties set to undefined.
+   *
+   *  Sets `sort` to a default SearchOrdersSort object with default values:
+   * sort_field: "CREATED_AT"
+   * sort_order: "ASC"
    *
    * */
-  #define_filter() {
-    if (this._body.query.filter === undefined) {
-      // JSON stringify will ignore undefined values
-      this._body.query.filter = {
-        customer_filter: undefined,
-        date_time_filter: undefined,
-        fulfillment_filter: undefined,
-        source_filter: undefined,
-        state_filter: undefined,
+
+  #define_query() {
+    // JSON stringify will ignore undefined values
+    if (this._body.query === undefined) {
+      this._body.query = {
+        filter: {
+          customer_filter: undefined,
+          date_time_filter: undefined,
+          fulfillment_filter: undefined,
+          source_filter: undefined,
+          state_filter: undefined,
+        },
+        sort: {
+          sort_field: "CREATED_AT",
+          sort_order: "ASC",
+        },
       };
     }
   }
+
   #define_customer_filter() {
     if (this.body.query.filter.customer_filter === undefined) {
       this.body.query.filter.customer_filter = {};
@@ -238,7 +241,7 @@ class Order_Search extends Order_Request {
       self: this,
       customer_filter: function (id) {
         let caller = "customer_filter";
-        this.self.#define_filter();
+        // this.self.#define_filter();
         this.self.#define_customer_filter();
         // if it is an array, check that the length is within limits
         if (
@@ -256,7 +259,6 @@ class Order_Search extends Order_Request {
       },
       source_filter: function (id) {
         let caller = "source_filter";
-        this.self.#define_filter();
         this.self.#define_source_filter();
         // if it is an array, check that the length is within limits
         if (
@@ -274,11 +276,9 @@ class Order_Search extends Order_Request {
       },
       // need to be able to add a whole array or a single id
       // date_time_filter: function(){
-      //   this.self.#define_filter();
       //   return this;feat
       // },
       fulfillment_filter: function () {
-        this.self.#define_filter();
         return this.self.#build_fulfillment_filter();
       },
       /** @method state_filter
@@ -286,9 +286,17 @@ class Order_Search extends Order_Request {
        * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersStateFilter | Square Docs}
        * */
       state_filter: function () {
-        this.self.#define_filter();
         return this.self.#build_state_filter();
       },
+
+      /** @method sort_field
+       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+       * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery | Square Docs}
+       * Simply calling this method without referencing any of its submethods will set default
+       * sort values of "CREATED_AT" and "ASC" (ascending - oldest first)
+       *
+       * */
+      sort_field: function () {},
     };
   }
 
