@@ -118,6 +118,35 @@ const order_fulfillment_enum = {
       },
     };
   },
+
+  /** @function state_filter_arrays - For search order query
+   * @fulfillment_states  enables a referencing class to set only allowable values on a property.
+   * @param {object} obj - pass in the object containing the array (NOT the array itself)
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  `return order_fulfillment_enum.state_filter_arrays(filter);`
+   * */
+
+  state_filter_arrays: function (obj) {
+    return {
+      open: function () {
+        obj.states.push("OPEN");
+        return this;
+      },
+      completed: function () {
+        obj.states.push("COMPLETED");
+        return this;
+      },
+      canceled: function () {
+        obj.states.push("CANCELED");
+        return this;
+      },
+      draft: function () {
+        obj.states.push("DRAFT");
+        return this;
+      },
+    };
+  },
 };
 
 module.exports = order_fulfillment_enum;

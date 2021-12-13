@@ -623,12 +623,48 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expect(search.query.filter).toMatchObject(expected_filter);
   });
 
-  //source_filter - same tests as customer
+  // state_filter
+
+  test('state_filter should set "OPEN" ', () => {
+    expected_filter.state_filter = {
+      states: ["OPEN"],
+    };
+    query.state_filter().state().open();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+
+  test('state_filter should set "COMPLETED"', () => {
+    expected_filter.state_filter = {
+      states: ["COMPLETED"],
+    };
+    query.state_filter().state().completed();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+  test('state_filter should set "CANCELED"', () => {
+    expected_filter.state_filter = {
+      states: ["CANCELED"],
+    };
+    query.state_filter().state().canceled();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+  test('state_filter should set "DRAFT" ', () => {
+    expected_filter.state_filter = {
+      states: ["DRAFT"],
+    };
+    query.state_filter().state().draft();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+
+  test("fulfillment_filter- fulfillment_states - currying should works", () => {
+    expected_filter.state_filter = {
+      states: ["OPEN", "CANCELED", "COMPLETED"],
+    };
+    query.state_filter().state().open().canceled().completed();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
 
   //date_time_filter close_at
   //date_time_filter created_at
   //date_time_filter updated_at
   //date_time_filter  all three
-
-  // state_filter
 });

@@ -180,8 +180,6 @@ class Order_Search extends Order_Request {
       this._body.query.filter.fulfillment_filter = {};
     }
     let filter = this._body.query.filter.fulfillment_filter;
-    // const name = this.display_name + ".#build_date_time_query";
-
     return {
       // check if prop exists
       // if not define it, set to empty array
@@ -200,6 +198,21 @@ class Order_Search extends Order_Request {
           define(filter, "fulfillment_states", []);
         }
         return order_fulfillment_enum.fulfillment_state_arrays(filter);
+      },
+    };
+  }
+
+  #build_state_filter() {
+    if (this._body.query.filter.state_filter === undefined) {
+      this._body.query.filter.state_filter = {};
+    }
+    let filter = this._body.query.filter.state_filter;
+    return {
+      state: function () {
+        if (!Object.prototype.hasOwnProperty.call(filter, "states")) {
+          define(filter, "states", []);
+        }
+        return order_fulfillment_enum.state_filter_arrays(filter);
       },
     };
   }
@@ -262,20 +275,20 @@ class Order_Search extends Order_Request {
       // need to be able to add a whole array or a single id
       // date_time_filter: function(){
       //   this.self.#define_filter();
-      //   return this;
+      //   return this;feat
       // },
       fulfillment_filter: function () {
         this.self.#define_filter();
         return this.self.#build_fulfillment_filter();
       },
-
-      //   state_filter: function(){
-      //     this.self.#define_filter();
-      //     // arrayify
-      //     //order_object_enum.js
-      //     // push to array
-      //     return this;
-      //   },
+      /** @method state_filter
+       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+       * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersStateFilter | Square Docs}
+       * */
+      state_filter: function () {
+        this.self.#define_filter();
+        return this.self.#build_state_filter();
+      },
     };
   }
 
