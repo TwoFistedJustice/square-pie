@@ -62,24 +62,58 @@ const order_fulfillment_enum = {
       },
     };
   },
-  /** @function fulfillment_types - For search order query
+  /** @function fulfillment_types_arrays - For search order query
    * @fulfillment_types  enables a referencing class to set only allowable values on a property.
-   * @param {object} self - pass in 'this' from the referencing class.
+   * @param {object} obj - pass in the object containing the array (NOT the array itself)
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
-   * #state() {
-   *   return order_fulfillment_enum.fulfillment_types(this)
-   * }
+   *  `return order_fulfillment_enum.fulfillment_types_arrays(filter);`
    * */
-
-  fulfillment_types: function () {
+  fulfillment_types_arrays: function (obj) {
     return {
       pickup: function () {
-        self.fulfillment_types = "PICKUP";
+        obj.fulfillment_types.push("PICKUP");
         return this;
       },
       shipment: function () {
-        self.fulfillment_types = "SHIPMENT";
+        obj.fulfillment_types.push("SHIPMENT");
+        return this;
+      },
+    };
+  },
+
+  /** @function fulfillment_state_arrays - For search order query
+   * @fulfillment_states  enables a referencing class to set only allowable values on a property.
+   * @param {object} obj - pass in the object containing the array (NOT the array itself)
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  `return order_fulfillment_enum.fulfillment_state_arrays(filter);`
+   * */
+
+  fulfillment_state_arrays: function (obj) {
+    return {
+      proposed: function () {
+        obj.fulfillment_states.push("PROPOSED");
+        return this;
+      },
+      reserved: function () {
+        obj.fulfillment_states.push("RESERVED");
+        return this;
+      },
+      prepared: function () {
+        obj.fulfillment_states.push("PREPARED");
+        return this;
+      },
+      completed: function () {
+        obj.fulfillment_states.push("COMPLETED");
+        return this;
+      },
+      canceled: function () {
+        obj.fulfillment_states.push("CANCELED");
+        return this;
+      },
+      failed: function () {
+        obj.fulfillment_states.push("FAILED");
         return this;
       },
     };
