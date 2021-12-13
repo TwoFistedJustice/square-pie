@@ -22,14 +22,14 @@ const shazam_max_length_array = function (
   display_name = "unspecified class",
   caller = "unspecified method"
 ) {
-  if (arr.length > max) {
+  if (arr.length >= max) {
     let message =
       display_name +
       "." +
       caller +
       " surpassed maximum array length limit of " +
       max +
-      " Received length: " +
+      " Array length: " +
       arr.length;
     throw new Error(message);
   }
