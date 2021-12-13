@@ -454,46 +454,36 @@ describe("Order_Search", () => {
 });
 describe("Order_Search Query - yes it's so special it get's its own separate set of tests!", () => {
   let search;
+  let expected_filter;
   // let array10 = [1,2,3,4,5,6,7,8,9,10];
   // let array11 = [1,2,3,4,5,6,7,8,9,10,11];
   beforeEach(function () {
     search = new Order_Search("someId");
+    expected_filter = {
+      customer_filter: undefined,
+      date_time_filter: undefined,
+      fulfillment_filter: undefined,
+      source_filter: undefined,
+      state_filter: undefined,
+    };
   });
 
   test("customer_filter should add to the array", () => {
-    let expected = {
-      filter: {
-        customer_filter: {
-          customer_ids: ["1"], // max 10 XXX
-        },
-        date_time_filter: undefined,
-        fulfillment_filter: undefined,
-        source_filter: undefined,
-        state_filter: undefined,
-      },
-      sort: undefined,
+    expected_filter.customer_filter = {
+      customer_ids: ["1"],
     };
     let query = search.build_query();
     query.customer_filter("1");
-    expect(search.query).toMatchObject(expected);
+    expect(search.query.filter).toMatchObject(expected_filter);
   });
 
   test("customer_filter should multiple add to the array with curry", () => {
-    let expected = {
-      filter: {
-        customer_filter: {
-          customer_ids: ["1", "2", "3"], // max 10 XXX
-        },
-        date_time_filter: undefined,
-        fulfillment_filter: undefined,
-        source_filter: undefined,
-        state_filter: undefined,
-      },
-      sort: undefined,
+    expected_filter.customer_filter = {
+      customer_ids: ["1", "2", "3"], // max 10 XXX
     };
     let query = search.build_query();
     query.customer_filter("1").customer_filter("2").customer_filter("3");
-    expect(search.query).toMatchObject(expected);
+    expect(search.query.filter).toMatchObject(expected_filter);
   });
 
   test("customer_filter should respect length limit of 10", () => {
@@ -515,39 +505,21 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
   });
 
   test("source_filter should add to the array", () => {
-    let expected = {
-      filter: {
-        customer_filter: undefined,
-        date_time_filter: undefined,
-        fulfillment_filter: undefined,
-        source_filter: {
-          source_name: ["1"],
-        },
-        state_filter: undefined,
-      },
-      sort: undefined,
+    expected_filter.source_filter = {
+      source_name: ["1"],
     };
     let query = search.build_query();
     query.source_filter("1");
-    expect(search.query).toMatchObject(expected);
+    expect(search.query.filter).toMatchObject(expected_filter);
   });
 
   test("source_filter should multiple add to the array with curry", () => {
-    let expected = {
-      filter: {
-        customer_filter: undefined,
-        date_time_filter: undefined,
-        fulfillment_filter: undefined,
-        source_filter: {
-          source_name: ["1", "2", "3"], // max 10 XXX
-        },
-        state_filter: undefined,
-      },
-      sort: undefined,
+    expected_filter.source_filter = {
+      source_name: ["1", "2", "3"],
     };
     let query = search.build_query();
     query.source_filter("1").source_filter("2").source_filter("3");
-    expect(search.query).toMatchObject(expected);
+    expect(search.query.filter).toMatchObject(expected_filter);
   });
 
   test("source_filter should respect length limit of 10", () => {
@@ -568,18 +540,38 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     }).toThrow();
   });
 
+  test('fulfillment_filter- fulfillment_types - should set "PICKUP" ', () => {
+    expected_filter.fulfillment_filter = { fulfillment_types: ["PICKUP"] };
+    let query = search.build_query();
+    query.fulfillment_filter().fulfillment_types().pickup();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+
+  test('fulfillment_filter- fulfillment_types - should set "SHIPMENT"', () => {
+    expected_filter.fulfillment_filter = { fulfillment_types: ["SHIPMENT"] };
+    let query = search.build_query();
+    query.fulfillment_filter().fulfillment_types().shipment();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+
+  test("fulfillment_filter- fulfillment_types - check that currying works", () => {
+    expected_filter.fulfillment_filter = {
+      fulfillment_types: ["SHIPMENT", "PICKUP"],
+    };
+    let query = search.build_query();
+    query.fulfillment_filter().fulfillment_types().shipment().pickup();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+
+  //fulfillment_filter- fulfillment_states - check each value individually
+  //fulfillment_filter- fulfillment_states - check that currying works
+
   //source_filter - same tests as customer
 
   //date_time_filter close_at
   //date_time_filter created_at
   //date_time_filter updated_at
   //date_time_filter  all three
-
-  //fulfillment_filter- fulfillment_states - check each value individually
-  //fulfillment_filter- fulfillment_states - check that currying works
-
-  //fulfillment_filter- fulfillment_types - check each value individually
-  //fulfillment_filter- fulfillment_types - check that currying works
 
   // state_filter
 });
