@@ -26,7 +26,7 @@ class Order_Search extends Order_Request {
       location_ids: [], // required: min1
       cursor: undefined,
       limit: undefined, // int
-      return_entries: undefined, //bool - if set to true returns only the object id,  location id, and version
+      return_entries: undefined, //bool - if set to true returns only the object id,  location id, and version. If set to true returns complete order objects
       query: undefined, // {} (complex)
     };
     this.configuration = {
@@ -181,7 +181,6 @@ class Order_Search extends Order_Request {
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersFulfillmentFilter | Square Docs}
    *
-   * Important: If you filter for orders by time range, you must set sort to use the same field.
    * */
   #build_fulfillment_filter() {
     if (this._body.query.filter.fulfillment_filter === undefined) {
@@ -237,6 +236,7 @@ class Order_Search extends Order_Request {
     this.#define_date_time_filter();
     let filter = this._body.query.filter.date_time_filter;
     return {
+      self: this,
       close_at: function (start, end) {
         let date_range = arche_time_start_end(start, end);
         if (
@@ -250,7 +250,7 @@ class Order_Search extends Order_Request {
           define(filter, "close_at", undefined);
         }
         filter.close_at = date_range;
-        return this;
+        this.self._body.query.sort.sort_field = "CLOSED_AT";
       },
       created_at: function (start, end) {
         let date_range = arche_time_start_end(start, end);
@@ -265,7 +265,7 @@ class Order_Search extends Order_Request {
           define(filter, "created_at", undefined);
         }
         filter.created_at = date_range;
-        return this;
+        this.self._body.query.sort.sort_field = "CREATED_AT";
       },
       updated_at: function (start, end) {
         let date_range = arche_time_start_end(start, end);
@@ -280,7 +280,7 @@ class Order_Search extends Order_Request {
           define(filter, "updated_at", undefined);
         }
         filter.updated_at = date_range;
-        return this;
+        this.self._body.query.sort.sort_field = "UPDATED_AT";
       },
     };
   }
@@ -298,9 +298,8 @@ class Order_Search extends Order_Request {
       self: this,
       customer_filter: function (id) {
         let caller = "customer_filter";
-        // this.self.#define_filter();
         this.self.#define_customer_filter();
-        // if it is an array, check that the length is within limits
+        // if array is within limits
         if (
           shazam_max_length_array(
             this.self.configuration.maximums.filter_array,
@@ -309,7 +308,6 @@ class Order_Search extends Order_Request {
             caller
           )
         ) {
-          // if it is then push the val
           this.self._body.query.filter.customer_filter.customer_ids.push(id);
         }
         return this;
@@ -317,7 +315,7 @@ class Order_Search extends Order_Request {
       source_filter: function (id) {
         let caller = "source_filter";
         this.self.#define_source_filter();
-        // if it is an array, check that the length is within limits
+        // if array is within limits
         if (
           shazam_max_length_array(
             this.self.configuration.maximums.filter_array,
@@ -326,7 +324,6 @@ class Order_Search extends Order_Request {
             caller
           )
         ) {
-          // if it is then push the val
           this.self._body.query.filter.source_filter.source_name.push(id);
         }
         return this;

@@ -771,38 +771,28 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
   //date_time_filter close_at
   test("date_time_filter close_at", () => {
     expected_filter.date_time_filter = { close_at: date_set };
+    expected_sort.sort_field = "CLOSED_AT";
     query.date_time_filter().close_at(date, date);
 
     expect(search.query.filter).toMatchObject(expected_filter);
+    expect(search.query.sort).toMatchObject(expected_sort);
   });
 
   test("date_time_filter created_at", () => {
     expected_filter.date_time_filter = { created_at: date_set };
+    expected_sort.sort_field = "CREATED_AT";
     query.date_time_filter().created_at(date, date);
 
     expect(search.query.filter).toMatchObject(expected_filter);
+    expect(search.query.sort).toMatchObject(expected_sort);
   });
 
   test("date_time_filter updated_at", () => {
     expected_filter.date_time_filter = { updated_at: date_set };
+    expected_sort.sort_field = "UPDATED_AT";
     query.date_time_filter().updated_at(date, date);
 
     expect(search.query.filter).toMatchObject(expected_filter);
-  });
-
-  //date_time_filter  all three
-  test("date_time_filter updated_at, created_at, close_at all together", () => {
-    expected_filter.date_time_filter = {
-      close_at: date_set,
-      created_at: date_set,
-      updated_at: date_set,
-    };
-    query
-      .date_time_filter()
-      .updated_at(date, date)
-      .created_at(date, date)
-      .close_at(date, date);
-
-    expect(search.query.filter).toMatchObject(expected_filter);
+    expect(search.query.sort).toMatchObject(expected_sort);
   });
 });
