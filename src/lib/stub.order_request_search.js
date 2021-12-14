@@ -1,6 +1,6 @@
 const Order_Request = require("./order_request_abstract");
 const {
-  // arche_time_start_end,
+  arche_time_start_end,
   define,
   shazam_boolean,
   shazam_integer,
@@ -8,11 +8,7 @@ const {
   shazam_min_length_array,
 } = require("./utilities/aaa_index");
 
-const {
-  arche_sorting_enum,
-  // order_object_enum,
-  order_fulfillment_enum,
-} = require("./enum/index");
+const { arche_sorting_enum, order_fulfillment_enum } = require("./enum/index");
 
 /** @class Order_Search representing a search for an existing order.
  * @param {string | array} id - the id or array of ids of an order(s) you want to search for. You can also add this later. You must do this before calling .request()
@@ -161,13 +157,22 @@ class Order_Search extends Order_Request {
   #define_customer_filter() {
     if (this.body.query.filter.customer_filter === undefined) {
       this.body.query.filter.customer_filter = {};
-      define(this.body.query.filter.customer_filter, "customer_ids", []);
+      this.body.query.filter.customer_filter.customer_ids = [];
     }
   }
   #define_source_filter() {
     if (this.body.query.filter.source_filter === undefined) {
       this.body.query.filter.source_filter = {};
-      define(this.body.query.filter.source_filter, "source_name", []);
+      this.body.query.filter.source_filter.source_name = [];
+    }
+  }
+  #define_date_time_filter() {
+    if (this._body.query.filter.date_time_filter === undefined) {
+      this._body.query.filter.date_time_filter = {
+        close_at: undefined,
+        created_at: undefined,
+        updated_at: undefined,
+      };
     }
   }
 
@@ -220,20 +225,72 @@ class Order_Search extends Order_Request {
     };
   }
 
-  /**@private
-   * @method  build_date_time_filter
+  /** @method  build_date_time_filter
+   * @private
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersDateTimeFilter | Square Docs}
    *
    * Important: If you filter for orders by time range, you must set sort to use the same field.
    * */
-  #build_date_time_filter() {}
+  #build_date_time_filter() {
+    let name = this.display_name + ".#build_date_time_filter";
+    this.#define_date_time_filter();
+    let filter = this._body.query.filter.date_time_filter;
+    return {
+      close_at: function (start, end) {
+        let date_range = arche_time_start_end(start, end);
+        if (
+          !Object.prototype.hasOwnProperty.call(
+            filter,
+            "close_at",
+            name,
+            "close_at"
+          )
+        ) {
+          define(filter, "close_at", undefined);
+        }
+        filter.close_at = date_range;
+        return this;
+      },
+      created_at: function (start, end) {
+        let date_range = arche_time_start_end(start, end);
+        if (
+          !Object.prototype.hasOwnProperty.call(
+            filter,
+            "created_at",
+            name,
+            "created_at"
+          )
+        ) {
+          define(filter, "created_at", undefined);
+        }
+        filter.created_at = date_range;
+        return this;
+      },
+      updated_at: function (start, end) {
+        let date_range = arche_time_start_end(start, end);
+        if (
+          !Object.prototype.hasOwnProperty.call(
+            filter,
+            "updated_at",
+            name,
+            "updated_at"
+          )
+        ) {
+          define(filter, "updated_at", undefined);
+        }
+        filter.updated_at = date_range;
+        return this;
+      },
+    };
+  }
 
   // BUILDER METHODS
   /** @method  build_query -
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery  | Square Docs}
    * */
+  // todo need to be able to add whole arrays with length validation
   build_query() {
     const name = this.display_name + ".build_query";
     this.#define_query();
@@ -274,10 +331,10 @@ class Order_Search extends Order_Request {
         }
         return this;
       },
-      // need to be able to add a whole array or a single id
-      // date_time_filter: function(){
-      //   return this;feat
-      // },
+
+      date_time_filter: function () {
+        return this.self.#build_date_time_filter();
+      },
       fulfillment_filter: function () {
         return this.self.#build_fulfillment_filter();
       },
@@ -309,8 +366,6 @@ class Order_Search extends Order_Request {
       },
     };
   }
-
-  // query - base on catalog search
 
   make() {
     return {
