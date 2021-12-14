@@ -7,7 +7,7 @@ const Order_Update = require("../src/lib/order_request_update");
 const Order_Clone = require("../src/lib/order_request_clone");
 const Order_Pay = require("../src/lib/order_request_pay");
 const Order_Search = require("../src/lib/stub.order_request_search");
-const { long_arrays, long_strings } = require("./helper_objects");
+const { long_arrays, long_strings, dateCodes } = require("./helper_objects");
 describe("Silence order request async tests", () => {
   test("Should silence tests", () => {
     expect("a").toEqual("a");
@@ -454,10 +454,13 @@ describe("Order_Search", () => {
 });
 
 describe("Order_Search Query - yes it's so special it get's its own separate set of tests!", () => {
-  let search;
-  let expected_filter;
-  let expected_sort;
-  let query;
+  let search, expected_filter, expected_sort, query;
+  const date = dateCodes.RFC3339;
+  const date_set = {
+    start_at: date,
+    end_at: date,
+  };
+
   // let array10 = [1,2,3,4,5,6,7,8,9,10];
   // let array11 = [1,2,3,4,5,6,7,8,9,10,11];
   beforeEach(function () {
@@ -760,8 +763,46 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expect(search.query.sort).toMatchObject(expected_sort);
   });
 
+  /* --------------------------------------------------------*
+   *                                                         *
+   *                        date_time_filter
+   *                                                         *
+   * ------------------------------------------------------- */
   //date_time_filter close_at
-  //date_time_filter created_at
-  //date_time_filter updated_at
+  test("date_time_filter close_at", () => {
+    expected_filter.date_time_filter = { close_at: date_set };
+    query.date_time_filter().close_at(date, date);
+
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+
+  test("date_time_filter created_at", () => {
+    expected_filter.date_time_filter = { created_at: date_set };
+    query.date_time_filter().created_at(date, date);
+
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+
+  test("date_time_filter updated_at", () => {
+    expected_filter.date_time_filter = { updated_at: date_set };
+    query.date_time_filter().updated_at(date, date);
+
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+
   //date_time_filter  all three
+  test("date_time_filter updated_at, created_at, close_at all together", () => {
+    expected_filter.date_time_filter = {
+      close_at: date_set,
+      created_at: date_set,
+      updated_at: date_set,
+    };
+    query
+      .date_time_filter()
+      .updated_at(date, date)
+      .created_at(date, date)
+      .close_at(date, date);
+
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
 });
