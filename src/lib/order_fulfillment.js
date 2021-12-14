@@ -5,6 +5,7 @@ const {
   shazam_time_RFC3339,
 } = require("./utilities/aaa_index");
 const { uid_length } = require("./pie_defaults");
+const order_fulfillment_state = require("./enum/order_fulfillment_enum");
 
 class Order_Fulfillment {
   _display_name = "Order_Fulfillment";
@@ -94,33 +95,7 @@ class Order_Fulfillment {
   // PRIVATE METHODS
 
   #enum_state() {
-    return {
-      self: this,
-      proposed: function () {
-        this.self.state = "PROPOSED";
-        return this;
-      },
-      reserved: function () {
-        this.self.state = "RESERVED";
-        return this;
-      },
-      prepared: function () {
-        this.self.state = "PREPARED";
-        return this;
-      },
-      completed: function () {
-        this.self.state = "COMPLETED";
-        return this;
-      },
-      canceled: function () {
-        this.self.state = "CANCELED";
-        return this;
-      },
-      failed: function () {
-        this.self.state = "FAILED";
-        return this;
-      },
-    };
+    return order_fulfillment_state.state(this);
   }
 
   /**

@@ -16,8 +16,13 @@ const shazam_time_RFC3339 = require("./shazam_time_RFC3339");
 const shazam_integer = require("./shazam_integer");
 const shazam_boolean = require("./shazam_boolean");
 const shazam_object_has_property = require("./shazam_object_has_property");
+const shazam_is_array = require("./shazam_is_array");
+const shazam_max_length_array = require("./shazam_max_length_array");
+const shazam_min_length_array = require("./shazam_min_length_array");
+const arche_time_start_end = require("./arche_time_start_end");
 
 module.exports = {
+  arche_time_start_end,
   normalize_email,
   define,
   query_string_builder,
@@ -33,4 +38,7 @@ module.exports = {
   shazam_integer,
   shazam_boolean,
   shazam_object_has_property,
+  shazam_is_array,
+  shazam_max_length_array,
+  shazam_min_length_array,
 };

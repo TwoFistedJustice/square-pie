@@ -4,7 +4,12 @@ const {
   arrayify,
   arche_money,
 } = require("./utilities/aaa_index");
+const order_object_enum = require("./enum/order_object_enum");
 
+/** @class  representing a
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/objects/Order | Square Docs}
+ * */
 class Order_Object {
   _display_name = "Order_Object";
   _last_verified_square_api_version = "2021-07-21";
@@ -170,25 +175,7 @@ class Order_Object {
   // METHODS
 
   #enum_state() {
-    return {
-      self: this,
-      open: function () {
-        this.self.state = "OPEN";
-        return this;
-      },
-      completed: function () {
-        this.self.state = "COMPLETED";
-        return this;
-      },
-      canceled: function () {
-        this.self.state = "CANCELED";
-        return this;
-      },
-      draft: function () {
-        this.self.state = "DRAFT";
-        return this;
-      },
-    };
+    return order_object_enum.state(this);
   }
 
   build_service_charge_amount(amount, currency) {

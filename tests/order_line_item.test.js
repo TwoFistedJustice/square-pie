@@ -10,7 +10,7 @@ describe.only("should silence test suite", () => {
   test("", () => {});
 });
 describe("#enum_item_type()", () => {
-  test("make().item_type().item() should set item_type to ITEM", () => {
+  test("make().item_type().item_type() should set item_type to ITEM", () => {
     let line = new Order_Line_Item();
     line.make().item_type().item();
     expect(line.item_type).toEqual("ITEM");

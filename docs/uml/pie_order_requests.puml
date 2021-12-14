@@ -1,0 +1,203 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+
+Square_Request <-- Order_Request
+Order_Request <- Order_Calculate
+Order_Request <- Order_Create
+Order_Request <- Order_Clone
+Order_Request <- Order_Pay
+Order_Request <- Order_Retrieve
+Order_Request <- Order_Search
+Order_Request <- Order_Update
+
+
+abstract class Square_Request{
+super of ALL other Request classes.
+}
+
+abstract class Order_Request {
+super: Square_Request
+this._api_name: "order"
+this._delivery
+}
+
+
+class Order_Calculate {
+constructor(order.fardel)
+super: Order_Request
+_display_name
+_last_verified_square_api_version
+this._method: "POST"
+this._endpoint: "calculate"
+this._body
+_body.order: {order.fardel}
+_body.idempotency_key
+
+==
+Getters
+==
+Setters
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/orders-api/calculate-order Order_Calculate ]]
+}
+
+class Order_Create  {
+super: Order_Request
+_display_name
+_last_verified_square_api_version
+this._method: "POST"
+this._endpoint: ""
+this._body
+body.order: {order.fardel}
+
+==
+Getters
+==
+Setters
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/orders-api/create-order Order_Create ]]
+}
+class Order_Clone  {
++constructor(id)
+super: Order_Request
+_display_name
+_last_verified_square_api_version
+this._method: "POST"
+this._endpoint: "clone"
+this._body
+
+==
+Getters
+==
+Setters
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/orders-api/clone-order Order_Clone ]]
+}
+class Order_Pay  {
+super: Order_Request
+_display_name
+_last_verified_square_api_version
+this._method: "POST"
+this._endpoint: `/${id}/pay`
+this._body
+body.order_version
+body.payment_ids: []
+
+==
+Getters
+==
+Setters
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/orders-api/pay-order Order_Pay ]]
+}
+class Order_Retrieve  {
+super: Order_Request
+_display_name
+_last_verified_square_api_version
+this._method: "POST"
+this._endpoint: "batch-retrieve"
+this._delivery
+this._body
+_body.location_id
+_body.order_ids: []
+
+==
+Getters
+==
+Setters
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/orders-api/retrieve-order Order_Retrieve ]]
+}
+class Order_Search  {
++constructor(id {string} | {array})
+super: Order_Request
+_display_name
+_last_verified_square_api_version
+this._method: "POST"
+this._endpoint: "search"
+this.configuration
+
+this._body
+..
+-_body.location_ids: [ id ]
+-_body.cursor
+-_body.limit
+-_body.return_entries
+-_body.query: {}
+==
+Getters
+==
+Setters
+==
+Private Methods
+...
++#define_query()
++#define_customer_filter()
++#define_source_filter()
++#define_date_time_filter()
++#build_fulfillment_filter()
++#build_state_filter()
++#build_date_time_filter()
+==
+Builder Methods
+...
++build_query()
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/orders-api/search-orders Order_Search ]]
+}
+class Order_Update {
++constructor(id)
+super: Order_Request
+_display_name
+_last_verified_square_api_version
+this._method: "PUT"
+this._endpoint: `/${id}`
+this._body
+body.fields_to_clear: []
+body.order: sparse-order
+==
+Getters
+==
+Setters
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/orders-api/update-order Order_Update ]]
+}
+
+
+@enduml

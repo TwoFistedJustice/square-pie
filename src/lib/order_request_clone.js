@@ -2,23 +2,23 @@ const Order_Request = require("./order_request_abstract");
 const { nanoid } = require("nanoid");
 const { shazam_max_length } = require("./utilities/aaa_index");
 
-/** @class  Order_Create representing an http request to create a new order
- * @param {object} order  orderObject.fardel -You can also do this later by calling the order setter. You must add this before calling .request()
+/** @class Order_clone representing a call to clone an existing order.
+ * @param {string} id - the id of the order you want to clone. You can also add this later. You must do this before calling .request()
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/orders-api/create-order | Square Docs}
+ * {@link https://developer.squareup.com/reference/square/orders-api/clone-order | Square Docs}
  * */
 
-class Order_Create extends Order_Request {
-  _display_name = "Order_Create";
-  _last_verified_square_api_version = "2021-07-21";
-  constructor(order) {
-    super();
+class Order_clone extends Order_Request {
+  _display_name = "Order_Clone";
+  _last_verified_square_api_version = "2021-11-17";
+  constructor(id) {
+    super(id);
     this._method = "post";
-    this._endpoint = "";
-
+    this._endpoint = "clone";
     this._body = {
       idempotency_key: nanoid(),
-      order: order,
+      order_id: id,
+      version: undefined,
     };
   }
   get display_name() {
@@ -27,17 +27,17 @@ class Order_Create extends Order_Request {
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
-  get endpoint() {
-    return this._endpoint;
-  }
   get body() {
     return this._body;
   }
   get idempotency_key() {
     return this._body.idempotency_key;
   }
-  get order() {
-    return this._body.order;
+  get order_id() {
+    return this._body.order_id;
+  }
+  get version() {
+    return this._body.version;
   }
   set idempotency_key(key) {
     if (
@@ -51,10 +51,15 @@ class Order_Create extends Order_Request {
       this._body.idempotency_key = key;
     }
   }
-  set order(fardel) {
-    this._body.order = fardel;
+  set order_id(id) {
+    this._body.order_id = id;
+  }
+  set version(ver) {
+    this._body.version = ver;
   }
 
+  // MAKER METHODS
+  /**@method make*/
   make() {
     return {
       self: this,
@@ -62,12 +67,19 @@ class Order_Create extends Order_Request {
         this.self.idempotency_key = key;
         return this;
       },
-      order: function (fardel) {
-        this.self.order = fardel;
+      order_id: function (id) {
+        this.self.order_id = id;
         return this;
+      },
+      version: function (ver) {
+        this.self.version = ver;
+        return this;
+      },
+      id: function (id) {
+        return this.order_id(id);
       },
     };
   }
 }
 
-module.exports = Order_Create;
+module.exports = Order_clone;

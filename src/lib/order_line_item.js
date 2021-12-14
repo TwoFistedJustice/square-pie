@@ -8,6 +8,7 @@ const {
   generate_error_message,
   define,
 } = require("./utilities/aaa_index");
+const order_line_item_enum = require("./enum/order_line_item_enum");
 
 class Order_Line_Item {
   _display_name = "Order_Line_Item";
@@ -128,25 +129,7 @@ class Order_Line_Item {
   }
 
   #enum_item_type() {
-    let methods = () => {
-      const properties = {
-        self: this,
-        item: function () {
-          this.self.item_type = "ITEM";
-          return this;
-        },
-        custom: function () {
-          this.self.item_type = "CUSTOM_AMOUNT";
-          return this;
-        },
-        gift: function () {
-          this.self.item_type = "GIFT_CARD";
-          return this;
-        },
-      };
-      return properties;
-    };
-    return methods();
+    return order_line_item_enum.item_type(this);
   }
 
   #uid_length(uid) {

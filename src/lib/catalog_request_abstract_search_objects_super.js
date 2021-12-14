@@ -1,6 +1,6 @@
 const Catalog_Request = require("./catalog_request_abstract");
 const { shazam_time_RFC3339 } = require("./utilities/aaa_index");
-// https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects
+const catalog_search_objects_enum = require("./enum/catalog_search_objects_enum");
 
 /*
  *  The query feature is INCOMPLETE
@@ -8,7 +8,10 @@ const { shazam_time_RFC3339 } = require("./utilities/aaa_index");
  *  Catalog_Search_Objects.prototype.query = function...
  *
  * */
-
+/** @class  Catalog_Search_Objects_Super - super class of catalog object search classes
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects | Square Docs}
+ * */
 class Catalog_Search_Objects_Super extends Catalog_Request {
   _display_name = "Catalog_Search_Objects_Super";
   _last_verified_square_api_version = "2021-07-21";
@@ -87,77 +90,7 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
   // NOT PRIVATE METHODS = because you can't reference private functions from subclasses
 
   enum_object_types() {
-    return {
-      self: this,
-      item: function () {
-        this.self.object_types = "ITEM";
-        return this;
-      },
-      item_variation: function () {
-        this.self.object_types = "ITEM_VARIATION";
-        return this;
-      },
-      item_option: function () {
-        this.self.object_types = "ITEM_OPTION";
-        return this;
-      },
-      item_option_val: function () {
-        this.self.object_types = "ITEM_OPTION_VAL";
-        return this;
-      },
-      image: function () {
-        this.self.object_types = "IMAGE";
-        return this;
-      },
-      category: function () {
-        this.self.object_types = "CATEGORY";
-        return this;
-      },
-      tax: function () {
-        this.self.object_types = "TAX";
-        return this;
-      },
-      discount: function () {
-        this.self.object_types = "DISCOUNT";
-        return this;
-      },
-      modifier: function () {
-        this.self.object_types = "MODIFIER";
-        return this;
-      },
-      modifier_list: function () {
-        this.self.object_types = "MODIFIER_LIST";
-        return this;
-      },
-      pricing_rule: function () {
-        this.self.object_types = "PRICING_RULE";
-        return this;
-      },
-      product_set: function () {
-        this.self.object_types = "PRODUCT_SET";
-        return this;
-      },
-      time_period: function () {
-        this.self.object_types = "TIME_PERIOD";
-        return this;
-      },
-      measurement_unit: function () {
-        this.self.object_types = "MEASUREMENT_UNIT";
-        return this;
-      },
-      subscription_plan: function () {
-        this.self.object_types = "SUBSCRIPTION_PLAN";
-        return this;
-      },
-      custom_attribute_definition: function () {
-        this.self.object_types = "CUSTOM_ATTRIBUTE_DEFINITION";
-        return this;
-      },
-      quick_amounts_setting: function () {
-        this.self.object_types = "QUICK_AMOUNTS_SETTINGS";
-        return this;
-      },
-    };
+    return catalog_search_objects_enum.object_types(this);
   }
 } // END class
 

@@ -134,5 +134,5 @@ describe("enums", () => {
   });
 });
 
-// enum type
-// enum scope
+// state type
+// state scope

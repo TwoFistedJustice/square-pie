@@ -1,4 +1,5 @@
 const { shazam_max_length, arche_money } = require("./utilities/aaa_index");
+const order_discount_enum = require("./enum/order_discount_enum");
 
 class Order_Discount {
   _display_name = "Order_Discount";
@@ -12,8 +13,8 @@ class Order_Discount {
       percentage: undefined, // str10
       amount_money: undefined, // archetype money
       applied_money: undefined, // archetype money
-      type: undefined, // str enum
-      scope: undefined, // str enum
+      type: undefined, // str enum_state
+      scope: undefined, // str enum_state
     };
     this.configuration = {
       maximums: {
@@ -135,47 +136,11 @@ class Order_Discount {
   // PRIVATE METHODS
 
   #enum_type() {
-    return {
-      self: this,
-      unknown: function () {
-        this.self.type = "UNKNOWN_DISCOUNT";
-        return this;
-      },
-      fixed_percentage: function () {
-        this.self.type = "FIXED_PERCENTAGE";
-        return this;
-      },
-      fixed_amount: function () {
-        this.self.type = "FIXED_AMOUNT";
-        return this;
-      },
-      variable_percentage: function () {
-        this.self.type = "VARIABLE_PERCENTAGE";
-        return this;
-      },
-      variable_amount: function () {
-        this.self.type = "VARIABLE_AMOUNT";
-        return this;
-      },
-    };
+    return order_discount_enum.type(this);
   }
 
   #enum_scope() {
-    return {
-      self: this,
-      other: function () {
-        this.self.scope = "OTHER_DISCOUNT_SCOPE";
-        return this;
-      },
-      line_item: function () {
-        this.self.scope = "LINE_ITEM";
-        return this;
-      },
-      order: function () {
-        this.self.scope = "ORDER";
-        return this;
-      },
-    };
+    return order_discount_enum.scope(this);
   }
 
   // MAKER METHODS

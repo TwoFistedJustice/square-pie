@@ -156,7 +156,7 @@ duplicating a bunch of code.
 
 Sometimes a Square endpoint has a property which expects a value from a set of predetermined values, like
 {"LEFT", "RIGHT", "UP", "DOWN"}. It will reject any request where that field has a value not in the approved list.
-Sometimes these are case-sensitive, sometimes not. In these situations we use "enum mehtods".
+Sometimes these are case-sensitive, sometimes not. In these situations we use "enum_state mehtods".
 
 Enum methods are curried functions. They follow similar syntax to make-methods where every sub-method is the lowercase
 version of the allowed value. It accesses the property setter and sets the value to the UPPERCASE version of the desired
@@ -217,7 +217,7 @@ the same thing in different places.
 
 <br/>
 
-## setter_chain_generator_config() - DEPRECATED - no longer used - replaced by enum functions
+## setter_chain_generator_config() - DEPRECATED - no longer used - replaced by enum_state functions
 
 `setter_chain_generator_config()` is an imported function that automatically generates curried (chainable) sub-methods
 on the make() method. It reads an array of propety names and an array of possible values both of which you provide, and

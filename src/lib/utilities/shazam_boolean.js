@@ -4,8 +4,9 @@
  * @param {boolean} bool - expects a boolean
  * @param {string} displayName - the _display_name static from the calling class
  * @param {string} caller - the name variable from the calling function
- * @throws throws and error if the `bool` argument is not a boolean.
+ * @throws throws an error if the `bool` argument is not a boolean.
  * @return {boolean} returns true  if the `bool` argument is a boolean.
+ * @example if(shazam_boolean(arg, "Some_Class", "some_method")) {do stuff}
  * */
 const shazam_boolean = function (
   bool,

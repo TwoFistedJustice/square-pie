@@ -1,5 +1,6 @@
 "use strict";
 const {
+  arche_time_start_end,
   // define,
   query_string_builder,
   query_string_endpoint,
@@ -14,6 +15,9 @@ const {
   shazam_integer,
   shazam_boolean,
   shazam_object_has_property,
+  shazam_is_array,
+  shazam_max_length_array,
+  shazam_min_length_array,
 } = require("../src/lib/utilities/aaa_index");
 
 const { dateCodes } = require("./helper_objects");
@@ -382,7 +386,7 @@ describe("query_string_endpoint", () => {
   });
 });
 
-describe.only("shazam_object_has_property", () => {
+describe("shazam_object_has_property", () => {
   let obj = {
     attribute_name: "jolly",
   };
@@ -409,5 +413,83 @@ describe.only("shazam_object_has_property", () => {
     expect(() => {
       shazam_object_has_property(obj, property_name);
     }).toThrowError(expected);
+  });
+});
+
+describe("shazam_is_array", () => {
+  let emptyArray = [];
+  let goodArray = [1, 2, 3];
+  let notAnArray = "1,2,3";
+
+  test("shazam_is_array to return true when given an array with at least one member", () => {
+    expect(shazam_is_array(goodArray)).toEqual(true);
+  });
+
+  test("should throw error message when given an empty array", () => {
+    let expected =
+      "class.method expects an array with at least 1 member but received: empty array : ";
+    expect(() => {
+      shazam_is_array(emptyArray, "class", "method");
+    }).toThrowError(expected);
+  });
+
+  test("should throw error message on a non-array", () => {
+    let expected =
+      "unspecified class.unspecified method expects an array with at least 1 member but received: string : 1,2,3";
+    expect(() => {
+      shazam_is_array(notAnArray);
+    }).toThrowError(expected);
+  });
+});
+
+describe("shazam_max_length_array", () => {
+  let arr = ["a", "b"];
+  test("shazam_max_length_array should throw if an array meets or exceeds limit", () => {
+    expect(() => {
+      shazam_max_length_array(2, arr);
+    }).toThrow();
+  });
+
+  test("shazam_max_length_array should return true if an array deceeds limit", () => {
+    let received = shazam_max_length_array(3, arr);
+    expect(received).toEqual(true);
+  });
+});
+
+describe("shazam_min_length_array", () => {
+  let arr = ["a", "b"];
+  test("shazam_min_length_array should throw if an array deceeds limit", () => {
+    expect(() => {
+      shazam_min_length_array(3, arr);
+    }).toThrow();
+  });
+
+  test("shazam_min_length_array should return true if an array does not deceed limit", () => {
+    let received = shazam_min_length_array(2, arr);
+    expect(received).toEqual(true);
+  });
+});
+
+describe("arche_time_start_end", () => {
+  test("arche_time_start_end should throw if start not RFC3339", () => {
+    expect(() => {
+      arche_time_start_end(dateCodes.notRFC3339, dateCodes.RFC3339);
+    }).toThrow();
+  });
+
+  test("arche_time_start_end should throw if end not RFC3339", () => {
+    expect(() => {
+      arche_time_start_end(dateCodes.RFC3339, dateCodes.notRFC3339);
+    }).toThrow();
+  });
+
+  test("arche_time_start_end should return a date time filter object", () => {
+    let expected = {
+      start_at: dateCodes.RFC3339,
+      end_at: dateCodes.RFC3339,
+    };
+    expect(
+      arche_time_start_end(dateCodes.RFC3339, dateCodes.RFC3339)
+    ).toMatchObject(expected);
   });
 });

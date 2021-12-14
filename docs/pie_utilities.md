@@ -23,7 +23,7 @@ What this means is that you still need to read square's actual docs as well as o
 names of the functions manually. You can also just use the setters for the given class. But you will still have to pass
 them the expected value (which would be the name of the generated function.)
 
-[This is a really neat function that we don't use anymore. It is the precursor the #enum functions]
+[This is a really neat function that we don't use anymore. It is the precursor the #enum_state functions]
 
 When to use this function: When you are interfacing with an API that expects certain
 properties to contain explicit values:
