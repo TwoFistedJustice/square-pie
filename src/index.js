@@ -25,7 +25,7 @@ const Order_Create = require("./lib/order_request_create");
 const Order_Clone = require("./lib/order_request_clone");
 const Order_Pay = require("./lib/order_request_pay");
 const Order_Retrieve = require("./lib/order_request_retrieve");
-const Order_Search = require("./lib/stub.order_request_search");
+const Order_Search = require("./lib/order_request_search");
 const Order_Upate = require("./lib/order_request_update");
 
 const version = "1.0.0";
