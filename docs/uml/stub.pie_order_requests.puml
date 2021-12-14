@@ -135,23 +135,46 @@ Square Docs
 [[https://developer.squareup.com/reference/square/orders-api/retrieve-order Order_Retrieve ]]
 }
 class Order_Search  {
++constructor(id {string} | {array})
 super: Order_Request
 _display_name
 _last_verified_square_api_version
-this._method: ""
-this._endpoint: ""
+this._method: "POST"
+this._endpoint: "search"
+this.configuration
 
+this._body
+..
+-_body.location_ids: [ id ]
+-_body.cursor
+-_body.limit
+-_body.return_entries
+-_body.query: {}
 ==
 Getters
 ==
 Setters
+==
+Private Methods
+...
++#define_query()
++#define_customer_filter()
++#define_source_filter()
++#define_date_time_filter()
++#build_fulfillment_filter()
++#build_state_filter()
++#build_date_time_filter()
+==
+Builder Methods
+...
++build_query()
 ==
 MAKER METHODS
 
 +make()
 ==
 Square Docs
-[[ Order_ ]]
+[[https://developer.squareup.com/reference/square/orders-api/search-orders Order_Search ]]
 }
 class Order_Update {
 +constructor(id)
