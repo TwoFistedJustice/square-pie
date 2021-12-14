@@ -9,7 +9,7 @@ const {
 } = require("./utilities/aaa_index");
 
 const {
-  // arche_sorting_enum,
+  arche_sorting_enum,
   // order_object_enum,
   order_fulfillment_enum,
 } = require("./enum/index");
@@ -292,11 +292,21 @@ class Order_Search extends Order_Request {
       /** @method sort_field
        * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
        * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery | Square Docs}
-       * Simply calling this method without referencing any of its submethods will set default
-       * sort values of "CREATED_AT" and "ASC" (ascending - oldest first)
+       *  Default values are set. If you want to change them use this.
+       *  sort values of "CREATED_AT" and "ASC" (ascending - oldest first)
        *
        * */
-      sort_field: function () {},
+      sort: function () {
+        let sort = this.self.query.sort;
+        return {
+          sort_order: function () {
+            return arche_sorting_enum.sort_order(sort);
+          },
+          sort_field: function () {
+            return arche_sorting_enum.sort_field(sort);
+          },
+        };
+      },
     };
   }
 

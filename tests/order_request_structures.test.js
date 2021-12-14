@@ -452,9 +452,11 @@ describe("Order_Search", () => {
   // should add an id passed as an argument to constructor to the location_ids array
   // should replace the location_ids array with an array of ids passed as an argument to constructor
 });
+
 describe("Order_Search Query - yes it's so special it get's its own separate set of tests!", () => {
   let search;
   let expected_filter;
+  let expected_sort;
   let query;
   // let array10 = [1,2,3,4,5,6,7,8,9,10];
   // let array11 = [1,2,3,4,5,6,7,8,9,10,11];
@@ -467,6 +469,11 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
       fulfillment_filter: undefined,
       source_filter: undefined,
       state_filter: undefined,
+    };
+
+    expected_sort = {
+      sort_field: "CREATED_AT",
+      sort_order: "ASC",
     };
   });
 
@@ -661,6 +668,96 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     };
     query.state_filter().state().open().canceled().completed();
     expect(search.query.filter).toMatchObject(expected_filter);
+  });
+
+  /* --------------------------------------------------------*
+   *                                                         *
+   *                        QUERY SORT
+   *                                                         *
+   * ------------------------------------------------------- */
+
+  test("sort should have default values", () => {
+    expect(search.query.sort).toMatchObject(expected_sort);
+  });
+
+  test('sort.sort_order should set sort order to "ASC"', () => {
+    expected_sort.sort_order = "ASC";
+    query.sort().sort_order().ascending();
+    expect(search.query.sort).toMatchObject(expected_sort);
+  });
+
+  test('sort.sort_order should set sort order to "ASC"', () => {
+    expected_sort.sort_order = "ASC";
+    query.sort().sort_order().up();
+    expect(search.query.sort).toMatchObject(expected_sort);
+  });
+
+  test('sort.sort_order should set sort order to "ASC"', () => {
+    expected_sort.sort_order = "ASC";
+    query.sort().sort_order().oldest_first();
+    expect(search.query.sort).toMatchObject(expected_sort);
+  });
+
+  test('sort.sort_order should set sort order to "DESC"', () => {
+    expected_sort.sort_order = "DESC";
+    query.sort().sort_order().descending();
+    expect(search.query.sort).toMatchObject(expected_sort);
+  });
+
+  test('sort.sort_order should set sort order to "DESC"', () => {
+    expected_sort.sort_order = "DESC";
+    query.sort().sort_order().down();
+    expect(search.query.sort).toMatchObject(expected_sort);
+  });
+
+  test('sort.sort_order should set sort order to "DESC"', () => {
+    expected_sort.sort_order = "DESC";
+    query.sort().sort_order().newest_first();
+    expect(search.query.sort).toMatchObject(expected_sort);
+  });
+
+  test('sort.sort_field should set sort_field to "CREATED_AT" ', () => {
+    expected_sort.sort_field = "CREATED_AT";
+    query.sort().sort_field().created_at();
+    expect(search.query.sort).toMatchObject(expected_sort);
+  });
+
+  test('sort.sort_field should set sort_field to "CREATED_AT" ', () => {
+    expected_sort.sort_field = "CREATED_AT";
+    query.sort().sort_field().created();
+    expect(search.query.sort).toMatchObject(expected_sort);
+  });
+
+  test('sort.sort_field should set sort_field to "UPDATED_AT" ', () => {
+    expected_sort.sort_field = "UPDATED_AT";
+    query.sort().sort_field().updated_at();
+    expect(search.query.sort).toMatchObject(expected_sort);
+  });
+
+  test('sort.sort_field should set sort_field to "UPDATED_AT" ', () => {
+    expected_sort.sort_field = "UPDATED_AT";
+    query.sort().sort_field().updated();
+    expect(search.query.sort).toMatchObject(expected_sort);
+  });
+
+  test('sort.sort_field should set sort_field to "CLOSED_AT" ', () => {
+    expected_sort.sort_field = "CLOSED_AT";
+    query.sort().sort_field().closed();
+    expect(search.query.sort).toMatchObject(expected_sort);
+  });
+
+  test('sort.sort_field should set sort_field to "CLOSED_AT" ', () => {
+    expected_sort.sort_field = "CLOSED_AT";
+    query.sort().sort_field().closed_at();
+    expect(search.query.sort).toMatchObject(expected_sort);
+  });
+
+  test("sort.sort_field and sort_order should work on same object ", () => {
+    expected_sort.sort_order = "DESC";
+    expected_sort.sort_field = "CLOSED_AT";
+    query.sort().sort_field().closed_at();
+    query.sort().sort_order().down();
+    expect(search.query.sort).toMatchObject(expected_sort);
   });
 
   //date_time_filter close_at
