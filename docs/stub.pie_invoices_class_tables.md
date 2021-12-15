@@ -29,6 +29,7 @@
 | Invoice_RUDCP       | Invoice_Request |             |
 | Invoice_List        | Invoice_Request |             |
 | Invoice_Search      | Invoice_Request |             |
+| Invoice_Create      | Invoice_Request |             |
 
 <br/>
 
@@ -36,7 +37,6 @@
 
 | Level Three Classes | Super         | Short Notes |
 | ------------------- | ------------- | ----------- |
-| Invoice_Create      | Invoice_RUDCP |             |
 | Invoice_Retrieve    | Invoice_RUDCP |             |
 | Invoice_Update      | Invoice_RUDCP |             |
 | Invoice_Delete      | Invoice_RUDCP |             |
