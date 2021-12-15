@@ -5,7 +5,6 @@ const secret = process.env[`${config.secrets.sandbox_secret_name}`];
 
 class Square_Request {
   _display_name = "Square_Request";
-  _last_verified_square_api_version = "2021-07-21";
   constructor() {
     this._method = "";
     this._body;
@@ -17,9 +16,6 @@ class Square_Request {
   // GETTERS
   get display_name() {
     return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
   get method() {
     return this._method;
