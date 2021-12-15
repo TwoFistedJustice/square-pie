@@ -111,9 +111,9 @@
 
 ### PUBLISH
 
-| Method | Resource Location | Body Properties | Response Fields | Query Params | Square Docs                                                                            | Short notes |
-| ------ | ----------------- | --------------- | --------------- | ------------ | -------------------------------------------------------------------------------------- | ----------- |
-| POST   |                   |                 |                 |              | [Publish](https://developer.squareup.com/reference/square/invoices-api/cancel-invoice) |
-|        |                   |                 | invoice         |              |                                                                                        |             |
+| Method | Resource Location    | Body Properties | Response Fields | Query Params | Square Docs                                                                            | Short notes |
+| ------ | -------------------- | --------------- | --------------- | ------------ | -------------------------------------------------------------------------------------- | ----------- |
+| POST   | {invoice_id}/publish |                 |                 |              | [Publish](https://developer.squareup.com/reference/square/invoices-api/cancel-invoice) |
+|        |                      |                 | invoice         |              |                                                                                        |             |
 
 <br/>
