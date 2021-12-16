@@ -15,6 +15,10 @@ const long_strings = {
   len_61: "cfutqgldulwfwjawifcnhwqgqevebdrcnlrovmqkrjfocxqdaadgoutkptcju",
   len_101:
     "qvowkrlxvrwqhvemozxbwjmfguptikbxizgsmvbjmsogddzuasjccsomajohuzlkllwniomerwheoyuyeteljgxcmrdmvrzgzlfok",
+  len_128:
+    "ocwrpffalwnrgermrnwnkizaywymxkyxbyuhdiaqyciiformbqfcllevjplbsvpdffiqugbepsmiqjitjbnnhnemcgkspmqvuzkcmkfwmvcpqwptpxrncgfjtqijdyak",
+  len_129:
+    "rocwrpffalwnrgermrnwnkizaywymxkyxbyuhdiaqyciiformbqfcllevjplbsvpdffiqugbepsmiqjitjbnnhnemcgkspmqvuzkcmkfwmvcpqwptpxrncgfjtqijdyak",
   len_191:
     "kmketblqqihmavkzckynsfsfcanmqyatlnlcbjbgrwriuvqzbrhyfvehtvimlpixerhmqbuebnlhztewpmirunauvxytijngfjbgjdjpitnxwtvxhtfgvqqxjqakadhiyevvbohgeitfyryvefkxseoejshyxjuzyhowawejywcrvumcpzfamlleqojsqpi",
   len_192:
