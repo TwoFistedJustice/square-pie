@@ -1,6 +1,4 @@
 "use strict";
-const should = require("chai").should();
-
 const sample_objects = require("./data_preparation/sample_catalog_data");
 
 const Catalog_Upsert = require("../src/lib/catalog_request_upsert");
@@ -10,7 +8,6 @@ const Catalog_List = require("../src/lib/catalog_request_list");
 const Catalog_Search_Filter = require("../src/lib/catalog_request_search_objects_filter");
 const Catalog_Search_Items = require("../src/lib/catalog_request_search_items");
 // const Catalog_Search_Cross_Reference = require ("../src/lib/catalog_request_search_objects_cross_reference");
-// const {expect} = require ("chai");
 
 // todo need tests for catalog search object_types
 
