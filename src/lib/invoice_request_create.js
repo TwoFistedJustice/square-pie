@@ -9,7 +9,7 @@ const { shazam_max_length } = require("./utilities/aaa_index");
  * */
 class Invoice_Create extends Invoice_Request {
   _display_name = "Invoice_Create";
-  _last_verified_square_api_version = "2021-11-17";
+  _last_verified_square_api_version = "2021-12-15";
   constructor() {
     super();
 
