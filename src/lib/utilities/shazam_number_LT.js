@@ -1,7 +1,6 @@
 /* Returns true = good
  * */
-/** shazam_number_LT validates string length, returning true if the string is equal to or less than
- * the maximum allowable length and otherwise throwing an error.
+/** shazam_number_LT compares a number to a limit. If the number falls within the limit it returns true and otherwise throws an error.
  *
  * @param {limit} limit is the allowable limit
  * @param {num} num is the value you want to validate
