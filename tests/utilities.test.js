@@ -18,6 +18,7 @@ const {
   shazam_is_array,
   shazam_max_length_array,
   shazam_min_length_array,
+  shazam_number_LT,
 } = require("../src/lib/utilities/aaa_index");
 
 const { dateCodes } = require("./helper_objects");
@@ -491,5 +492,24 @@ describe("arche_time_start_end", () => {
     expect(
       arche_time_start_end(dateCodes.RFC3339, dateCodes.RFC3339)
     ).toMatchObject(expected);
+  });
+});
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_number_LT
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("shazam_number_LT", () => {
+  let limit = 5;
+
+  test("shazam_number_LT should return true if under limit", () => {
+    expect(shazam_number_LT(limit, 4)).toEqual(true);
+  });
+
+  test("shazam_number_LT should throw if at or over limit", () => {
+    expect(() => {
+      shazam_number_LT(5, limit);
+    }).toThrow();
   });
 });
