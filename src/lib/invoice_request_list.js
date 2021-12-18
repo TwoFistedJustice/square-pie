@@ -14,11 +14,9 @@ class Invoice_List extends Invoice_Request {
     "has a pagination cursor.";
   constructor(location_id) {
     super();
-
     this._method = "GET";
     this._endpoint = "";
     this._delivery = [];
-
     this._body = {
       location_id: location_id, // REQUIRED
       limit: undefined, // int max 200, default 100
@@ -30,14 +28,13 @@ class Invoice_List extends Invoice_Request {
       },
     };
   }
-
-  get display_name() {
-    return this._display_name;
+  get help() {
+    return this._help;
   }
+
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
-
   get delivery() {
     return this._delivery;
   }
