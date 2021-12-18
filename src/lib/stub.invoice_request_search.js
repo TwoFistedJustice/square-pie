@@ -8,21 +8,19 @@ const { shazam_integer, shazam_number_LE } = require("./utilities/aaa_index");
  * */
 class Invoice_Search extends Invoice_Request {
   _display_name = "Invoice_Search";
-  _last_verified_square_api_version = "2021-11-17";
+  _last_verified_square_api_version = "2021-12-15";
   _help =
     "Build a query using the build_query() method. Only call the setter or make().query() if you are passing a fully formed query object as it will replace everything." +
-    "\nLimit has a default of 100 and max of 200.";
+    '\nLimit has a default of 100 and max of 200.\\nDelivery is an array because this endpoint has a pagination cursor.";';
   constructor() {
     super();
-
     this._method = "POST";
     this._endpoint = "/search";
     this._delivery = [];
-
     this._body = {
       query: {},
       limit: undefined, // int max 200, default 100
-      cursor: undefined, // gets set by Square Request
+      cursor: undefined, // gets set automatically
     };
 
     this.configuration = {
@@ -32,10 +30,6 @@ class Invoice_Search extends Invoice_Request {
     };
   }
   // GETTERS
-  get display_name() {
-    return this._display_name;
-  }
-
   get help() {
     return this._help;
   }
@@ -53,6 +47,10 @@ class Invoice_Search extends Invoice_Request {
   get limit() {
     return this._body.limit;
   }
+  get cursor() {
+    return this._body.cursor;
+  }
+
   // SETTERS
 
   set query(val) {

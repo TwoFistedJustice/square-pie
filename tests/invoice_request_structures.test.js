@@ -5,6 +5,7 @@ const Invoice_Delete = require("../src/lib/invoice_request_delete");
 const Invoice_Cancel = require("../src/lib/invoice_request_cancel");
 const Invoice_Publish = require("../src/lib/invoice_request_publish");
 const Invoice_List = require("../src/lib/invoice_request_list");
+const Invoice_Search = require("../src/lib/stub.invoice_request_search");
 
 const { long_strings } = require("./helper_objects");
 
@@ -391,5 +392,91 @@ describe("Invoice_List", () => {
     let val = 50;
     list.make().limit(val);
     expect(list.limit).toEqual(val);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        Invoice_Search
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("Invoice_Search", () => {
+  let search;
+  let class_name = "Invoice_Search";
+  beforeEach(function () {
+    search = new Invoice_Search();
+  });
+
+  test("should have display name", () => {
+    expect(search._display_name).toBeDefined();
+  });
+
+  test("should have the method defined by Square set", () => {
+    expect(search.method).toEqual("POST");
+  });
+
+  test("display name should be same as class name", () => {
+    expect(search._display_name).toEqual(class_name);
+  });
+
+  test("should have defined square version", () => {
+    expect(search.square_version).toBeDefined();
+  });
+  test("should have an endpoint", () => {
+    expect(search.endpoint).toEqual("/search");
+  });
+  test("should have defined _body", () => {
+    expect(search.body).toBeDefined();
+  });
+
+  // delivery
+  test("should have _delivery as an array with one member", () => {
+    let expected = [{ a: 1 }];
+    search.delivery = { invoices: { a: 1 } };
+    expect(search.delivery).toEqual(expect.arrayContaining(expected));
+  });
+
+  test("Cursor should be set automatically if it's in the response", () => {
+    let cursor = "123";
+    let parcel = {
+      invoices: { a: 1 },
+      cursor: cursor,
+    };
+    search.delivery = parcel;
+    expect(search.cursor).toEqual(cursor);
+  });
+
+  // limit
+  test("limit should throw on a non-integer", () => {
+    expect(() => {
+      search.limit = 95.5;
+    }).toThrow();
+  });
+
+  test("limit should throw if it exceeds limit", () => {
+    expect(() => {
+      search.limit = 201;
+    }).toThrow();
+  });
+
+  test("limit should not throw if it deceeds limit", () => {
+    expect(() => {
+      search.limit = 199;
+    }).not.toThrow();
+  });
+
+  // Make()
+
+  test("make().query() should set PRIMARY property", () => {
+    let expected = { a: 1 };
+    search.make().query(expected);
+    expect(search.query).toMatchObject(expected);
+  });
+
+  test("make().limit() should set limit property", () => {
+    let val = 50;
+    search.make().limit(val);
+    expect(search.limit).toEqual(val);
   });
 });
