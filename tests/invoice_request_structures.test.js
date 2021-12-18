@@ -338,11 +338,55 @@ describe("Invoice_List", () => {
   test("should have defined square version", () => {
     expect(list.square_version).toBeDefined();
   });
-  test("should have an endpoint", () => {
-    expect(list.endpoint).toEqual("");
+
+  // endpoint query parameteres
+  test("should set the endpoint", () => {
+    expect(list.endpoint).toEqual(`?location_id=${location_id}`);
   });
-  test("should have defined _body", () => {
-    expect(list.body).toBeDefined();
+
+  test("should throw if location_id is undefined", () => {
+    let tosser = new Invoice_List();
+    expect(() => {
+      tosser.endpoint;
+    }).toThrow();
+  });
+
+  test("should create new endpoint with new id", () => {
+    let newbie = new Invoice_List(other_id);
+    let expected = "?location_id=ABC";
+    expect(newbie.endpoint).toEqual(expected);
+  });
+
+  test("should add limit to endpoint", () => {
+    let limit = 50;
+    let expected = `?location_id=123&limit=${limit}`;
+    list.make().limit(limit);
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test("should add cursor to endpoint", () => {
+    let cursor = other_id;
+    let expected = `?location_id=123&cursor=${cursor}`;
+    let parcel = {
+      invoices: [{ a: 1 }],
+      cursor: cursor,
+    };
+    list.delivery = parcel;
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test("should add new location_Id, cursor, and limit", () => {
+    let newbie = new Invoice_List(other_id);
+    let limit = 50;
+    let cursor = location_id;
+    let parcel = {
+      invoices: [{ a: 1 }],
+      cursor: cursor,
+    };
+    let expected = `?location_id=${other_id}&limit=${limit}&cursor=${location_id}`;
+    newbie.make().limit(limit);
+    newbie.delivery = parcel;
+    expect(newbie.endpoint).toEqual(expected);
   });
 
   // delivery
