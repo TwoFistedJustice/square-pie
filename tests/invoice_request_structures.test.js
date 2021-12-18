@@ -4,6 +4,7 @@ const Invoice_Retrieve = require("../src/lib/invoice_request_retrieve");
 const Invoice_Delete = require("../src/lib/invoice_request_delete");
 const Invoice_Cancel = require("../src/lib/invoice_request_cancel");
 const Invoice_Publish = require("../src/lib/invoice_request_publish");
+const Invoice_List = require("../src/lib/invoice_request_list");
 
 const { long_strings } = require("./helper_objects");
 
@@ -303,5 +304,92 @@ describe("Invoice_Publish", () => {
     expect(() => {
       publish.version = 95.5;
     }).toThrow();
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        Invoice_List
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("Invoice_List", () => {
+  let list;
+  let class_name = "Invoice_List";
+  let location_id = "123";
+  let other_id = "ABC";
+  beforeEach(function () {
+    list = new Invoice_List(location_id);
+  });
+
+  test("should have display name", () => {
+    expect(list._display_name).toBeDefined();
+  });
+
+  test("should have the method defined by Square set", () => {
+    expect(list.method).toEqual("GET");
+  });
+
+  test("display name should be same as class name", () => {
+    expect(list._display_name).toEqual(class_name);
+  });
+
+  test("should have defined square version", () => {
+    expect(list.square_version).toBeDefined();
+  });
+  test("should have an endpoint", () => {
+    expect(list.endpoint).toEqual("");
+  });
+  test("should have defined _body", () => {
+    expect(list.body).toBeDefined();
+  });
+
+  // delivery
+  test("should have _delivery as an array with one member", () => {
+    let expected = [{ a: 1 }];
+    list.delivery = { invoices: { a: 1 } };
+    expect(list.delivery).toEqual(expect.arrayContaining(expected));
+  });
+
+  test("Cursor should be set automatically if it's in the response", () => {
+    let cursor = "123";
+    let parcel = {
+      invoices: { a: 1 },
+      cursor: cursor,
+    };
+    list.delivery = parcel;
+    expect(list.cursor).toEqual(cursor);
+  });
+
+  // limit
+  test("limit should throw on a non-integer", () => {
+    expect(() => {
+      list.limit = 95.5;
+    }).toThrow();
+  });
+
+  test("limit should throw if it exceeds limit", () => {
+    expect(() => {
+      list.limit = 201;
+    }).toThrow();
+  });
+
+  test("limit should not throw if it deceeds limit", () => {
+    expect(() => {
+      list.limit = 199;
+    }).not.toThrow();
+  });
+
+  // Make()
+
+  test("make().location_id() should set PRIMARY property", () => {
+    list.make().location_id(other_id);
+    expect(list.location_id).toEqual(other_id);
+  });
+
+  test("make().limit() should set limit property", () => {
+    let val = 50;
+    list.make().limit(val);
+    expect(list.limit).toEqual(val);
   });
 });
