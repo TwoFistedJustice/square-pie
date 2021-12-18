@@ -23,7 +23,9 @@ class Square_Request {
   get body() {
     return this._body;
   }
-
+  get endpoint() {
+    return this._endpoint;
+  }
   get delivery() {
     return this._delivery;
   }
