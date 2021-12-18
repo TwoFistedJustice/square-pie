@@ -19,6 +19,9 @@ const {
   shazam_max_length_array,
   shazam_min_length_array,
   shazam_number_LT,
+  shazam_number_LE,
+  shazam_number_GT,
+  shazam_number_GE,
 } = require("../src/lib/utilities/aaa_index");
 
 const { dateCodes } = require("./helper_objects");
@@ -504,12 +507,92 @@ describe("shazam_number_LT", () => {
   let limit = 5;
 
   test("shazam_number_LT should return true if under limit", () => {
-    expect(shazam_number_LT(limit, 4)).toEqual(true);
+    expect(shazam_number_LT(4, limit)).toEqual(true);
   });
 
-  test("shazam_number_LT should throw if at or over limit", () => {
+  test("shazam_number_LT should throw if at limit", () => {
     expect(() => {
       shazam_number_LT(5, limit);
+    }).toThrow();
+  });
+
+  test("shazam_number_LT should throw if over limit", () => {
+    expect(() => {
+      shazam_number_LT(6, limit);
+    }).toThrow();
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_number_GT
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("shazam_number_GT", () => {
+  let limit = 5;
+
+  test("shazam_number_GT should return true if over limit", () => {
+    expect(shazam_number_GT(6, limit)).toEqual(true);
+  });
+
+  test("shazam_number_GT should throw if at limit", () => {
+    expect(() => {
+      shazam_number_GT(5, limit);
+    }).toThrow();
+  });
+
+  test("shazam_number_GT should throw if under limit", () => {
+    expect(() => {
+      shazam_number_GT(4, limit);
+    }).toThrow();
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_number_LE
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("shazam_number_LE", () => {
+  let limit = 5;
+
+  test("shazam_number_LE should return true if under limit", () => {
+    expect(shazam_number_LE(4, limit)).toEqual(true);
+  });
+
+  test("shazam_number_LE should return true if at limit", () => {
+    expect(shazam_number_LE(5, limit)).toEqual(true);
+  });
+
+  test("shazam_number_LE should throw if over limit", () => {
+    expect(() => {
+      shazam_number_LE(6, limit);
+    }).toThrow();
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_number_GE
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("shazam_number_GE", () => {
+  let limit = 5;
+
+  test("shazam_number_GE should return true if over limit", () => {
+    expect(shazam_number_GE(6, limit)).toEqual(true);
+  });
+
+  test("shazam_number_GE should return true if at limit", () => {
+    expect(shazam_number_GE(5, limit)).toEqual(true);
+  });
+
+  test("shazam_number_GE should throw if at or under limit", () => {
+    expect(() => {
+      shazam_number_GE(4, limit);
     }).toThrow();
   });
 });

@@ -20,6 +20,10 @@ const shazam_is_array = require("./shazam_is_array");
 const shazam_max_length_array = require("./shazam_max_length_array");
 const shazam_min_length_array = require("./shazam_min_length_array");
 const arche_time_start_end = require("./arche_time_start_end");
+const shazam_number_LT = require("./shazam_number_LT");
+const shazam_number_LE = require("./shazam_number_LE");
+const shazam_number_GT = require("./shazam_number_GT");
+const shazam_number_GE = require("./shazam_number_GE");
 
 module.exports = {
   arche_time_start_end,
@@ -41,4 +45,8 @@ module.exports = {
   shazam_is_array,
   shazam_max_length_array,
   shazam_min_length_array,
+  shazam_number_LT,
+  shazam_number_LE,
+  shazam_number_GT,
+  shazam_number_GE,
 };

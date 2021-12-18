@@ -1,6 +1,6 @@
 /* Returns true = good
  * */
-/** @function shazam_number_LT compares a number to a limit. If the number is less than the limit it returns true and otherwise throws an error.
+/** @function shazam_number_GE compares a number to a limit. If the number is greater than or equal the limit it returns true and otherwise throws an error.
  *
  * @param {limit} limit is the allowable limit
  * @param {num} num is the value you want to validate
@@ -13,18 +13,18 @@
  *  `if( shazam_some_comparison(...) { do stuff }`
  * */
 
-const shazam_number_LT = function (
+const shazam_number_GE = function (
   num,
   limit,
   display_name = "unspecified class",
   caller = "unspecified method"
 ) {
-  if (!(num < limit)) {
+  if (!(num >= limit)) {
     let message =
       display_name +
       "." +
       caller +
-      " number must be less than " +
+      " number must be no larger than " +
       limit +
       " . Received " +
       num;
@@ -33,4 +33,4 @@ const shazam_number_LT = function (
   return true;
 };
 
-module.exports = shazam_number_LT;
+module.exports = shazam_number_GE;
