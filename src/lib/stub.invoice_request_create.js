@@ -58,7 +58,8 @@ class Invoice_Create extends Invoice_Request {
       this._body.idempotency_key = key;
     }
   }
-
+  // todo invoice setter
+  // make sure it checks for order_id - REQUIRED fiedl
   // MAKER METHODS
   make() {
     return {
