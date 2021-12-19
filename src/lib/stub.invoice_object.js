@@ -62,6 +62,89 @@ class Invoice_Object {
     return this._fardel;
   }
 
+  // FARDEL GETTERS
+  get version() {
+    return this._fardel.version;
+  }
+  get location_id() {
+    return this._fardel.location_id;
+  }
+  get primary_recipient() {
+    return this._fardel.primary_recipient;
+  }
+  get payment_requests() {
+    return this._fardel.payment_requests;
+  }
+  get delivery_method() {
+    return this._fardel.delivery_method;
+  }
+
+  get invoice_number() {
+    return this._fardel.invoice_number;
+  }
+  get title() {
+    return this._fardel.title;
+  }
+  get description() {
+    return this._fardel.description;
+  }
+  get scheduled_at() {
+    return this._fardel.scheduled_at;
+  }
+  get accepted_payment_methods() {
+    return this._fardel.accepted_payment_methods;
+  }
+  get custom_fields() {
+    return this._fardel.custom_fields;
+  }
+  get sale_or_service_date() {
+    return this._fardel.sale_or_service_date;
+  }
+  get payment_conditions() {
+    return this._fardel.payment_conditions;
+  }
+
+  // FARDEL SETTERS
+  set version(val) {
+    this._fardel.version = val;
+  }
+  set location_id(val) {
+    this._fardel.location_id = val;
+  }
+  set primary_recipient(val) {
+    this._fardel.primary_recipient = val;
+  }
+  set payment_requests(val) {
+    this._fardel.payment_requests = val;
+  }
+  set delivery_method(val) {
+    this._fardel.delivery_method = val;
+  }
+  set invoice_number(val) {
+    this._fardel.invoice_number = val;
+  }
+  set title(val) {
+    this._fardel.title = val;
+  }
+  set description(val) {
+    this._fardel.description = val;
+  }
+  set scheduled_at(val) {
+    this._fardel.scheduled_at = val;
+  }
+  set accepted_payment_methods(val) {
+    this._fardel.accepted_payment_methods = val;
+  }
+  set custom_fields(val) {
+    this._fardel.custom_fields = val;
+  }
+  set sale_or_service_date(val) {
+    this._fardel.sale_or_service_date = val;
+  }
+  set payment_conditions(val) {
+    this._fardel.payment_conditions = val;
+  }
+
   // MAKER METHODS
   make() {
     return {
