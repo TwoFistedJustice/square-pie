@@ -5,7 +5,7 @@ const Invoice_Delete = require("../src/lib/invoice_request_delete");
 const Invoice_Cancel = require("../src/lib/invoice_request_cancel");
 const Invoice_Publish = require("../src/lib/invoice_request_publish");
 const Invoice_List = require("../src/lib/invoice_request_list");
-const Invoice_Search = require("../src/lib/stub.invoice_request_search");
+const Invoice_Search = require("../src/lib/invoice_request_search");
 
 const { long_strings } = require("./helper_objects");
 
@@ -633,5 +633,38 @@ describe("Invoice_Search", () => {
     search.make().sort().descending();
     search.make().sort().oldest_first();
     expect(search.sort).toMatchObject(sort);
+  });
+
+  // filter array - add whole arrays
+  test("should be able to add an array of ids to an existing location_ids array using make()", () => {
+    let id_array = ["doreymefaso", "latte"];
+    let expected = [id, other_id, "doreymefaso", "latte"];
+    search.make().location_id(id).location_id(other_id);
+    search.make().add_location_ids_array(id_array);
+    expect(search.location_ids).toEqual(expected);
+  });
+
+  test("should be able to add an array of ids to an existing location_ids array using build_query()", () => {
+    let id_array = ["doreymefaso", "latte"];
+    let expected = [id, other_id, "doreymefaso", "latte"];
+    search.make().location_id(id).location_id(other_id);
+    search.build_query().add_location_ids_array(id_array);
+    expect(search.location_ids).toEqual(expected);
+  });
+
+  test("should be able to add an array of ids to an existing customer_ids array using make()", () => {
+    let id_array = ["doreymefaso", "latte"];
+    let expected = [id, other_id, "doreymefaso", "latte"];
+    search.make().customer_id(id).customer_id(other_id);
+    search.make().add_customer_ids_array(id_array);
+    expect(search.customer_ids).toEqual(expected);
+  });
+
+  test("should be able to add an array of ids to an existing location_ids array using build_query()", () => {
+    let id_array = ["doreymefaso", "latte"];
+    let expected = [id, other_id, "doreymefaso", "latte"];
+    search.make().customer_id(id).customer_id(other_id);
+    search.build_query().add_customer_ids_array(id_array);
+    expect(search.customer_ids).toEqual(expected);
   });
 });

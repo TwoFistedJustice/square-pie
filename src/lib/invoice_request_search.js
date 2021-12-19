@@ -9,14 +9,28 @@ const {
  * @param {string} location_id - useful if you only need to search one location. You can leave it out and add location_ids using make() or build_query()
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/invoices-api/search-invoices | Square Docs}
+ * @example
+ *  const search = new Invoice_Search("some_location_id");  // creates a search with one location_id added to the location_ids array
+ *  const search = new Invoice_Search();  // creates a search with an empty location_ids array
+ *
+ *  search.make().limit(20) // limits response to 20 invoices
+ *
+ *  search.make().customer_id("some_customer_id").customer_id("OTHER_customer_id") // add several customer ids to the customer_ids array
+ *  search.make().add_customer_ids_array(["id2", "id3"]) // adds an the values in the passed array of ids to the existing array of ids
+ *   ^ use the same syntax but substitute 'location' for 'customer' to work with the location_ids array
+ * await search.request() // tells it to go
+ *
+ *  search.delivery // where you will find the returned results stored in an array - each call places one big object of results on the array
+ *
+ *
  * */
 class Invoice_Search extends Invoice_Request {
   _display_name = "Invoice_Search";
   _last_verified_square_api_version = "2021-12-15";
   _help =
     "Build a query using the build_query() method. Only call the setter or make().query() if you are passing a fully formed query object as it will replace everything." +
-    "For this class only, you can also use the make() submethods to build your query: location_id(), customer_id(), and sort() - these are exactly the same as the build_query methods." +
-    '\nLimit has a default of 100 and max of 200.\\nDelivery is an array because this endpoint has a pagination cursor.";';
+    "For this class only, you can also use the make() sub-methods to build your query: location_id(), customer_id(), and sort() - these are exactly the same as the build_query methods." +
+    "\nLimit has a default of 100 and max of 200.\nDelivery is an array because this endpoint has a pagination cursor.";
   constructor(location_id) {
     super();
     this._method = "POST";
@@ -111,6 +125,19 @@ class Invoice_Search extends Invoice_Request {
     this._body.query.filter.location_ids.push(id);
   }
 
+  set #location_ids_array(arr) {
+    let replacement_array = this._body.query.filter.location_ids.concat(arr);
+    this._body.query.filter.location_ids = replacement_array;
+  }
+
+  set #customer_ids_array(arr) {
+    let filter = this._body.query.filter;
+    if (arrayify(filter, "customer_ids", this.display_name, "#customer_id")) {
+      let replacement_array = this._body.query.filter.customer_ids.concat(arr);
+      this._body.query.filter.customer_ids = replacement_array;
+    }
+  }
+
   #sort_order() {
     return {
       self: this,
@@ -137,8 +164,6 @@ class Invoice_Search extends Invoice_Request {
     };
   }
 
-  //todo add whole arrays
-  // BUILDER METHODS
   build_query() {
     return {
       self: this,
@@ -148,6 +173,14 @@ class Invoice_Search extends Invoice_Request {
       },
       customer_id: function (id) {
         this.self.#customer_id = id;
+        return this;
+      },
+      add_location_ids_array: function (arr) {
+        this.self.#location_ids_array = arr;
+        return this;
+      },
+      add_customer_ids_array: function (arr) {
+        this.self.#customer_ids_array = arr;
         return this;
       },
       sort: function () {
@@ -174,6 +207,14 @@ class Invoice_Search extends Invoice_Request {
       },
       customer_id: function (id) {
         this.self.#customer_id = id;
+        return this;
+      },
+      add_location_ids_array: function (arr) {
+        this.self.#location_ids_array = arr;
+        return this;
+      },
+      add_customer_ids_array: function (arr) {
+        this.self.#customer_ids_array = arr;
         return this;
       },
       sort: function () {
