@@ -25,7 +25,13 @@ class Generic_Object {
   _last_verified_square_api_version = "";
   _help = "";
   constructor() {
-    this._fardel = {};
+    this._fardel = {
+      prop1: undefined, //
+      prop2: undefined, //
+      prop3: undefined, //
+      prop4: undefined, //
+      prop5: undefined, //
+    };
 
     this.configuration = {
       maximums: {},
@@ -44,6 +50,40 @@ class Generic_Object {
   }
   get fardel() {
     return this._fardel;
+  }
+
+  // FARDEL GETTERS
+  get prop1() {
+    return this._fardel.prop1;
+  }
+  get prop2() {
+    return this._fardel.prop2;
+  }
+  get prop3() {
+    return this._fardel.prop3;
+  }
+  get prop4() {
+    return this._fardel.prop4;
+  }
+  get prop5() {
+    return this._fardel.prop5;
+  }
+
+  // FARDEL SETTERS
+  set prop1(val) {
+    this._fardel.prop1 = val;
+  }
+  set prop2(val) {
+    this._fardel.prop2 = val;
+  }
+  set prop3(val) {
+    this._fardel.prop3 = val;
+  }
+  set prop4(val) {
+    this._fardel.prop4 = val;
+  }
+  set prop5(val) {
+    this._fardel.prop5 = val;
   }
 
   // MAKER METHODS
