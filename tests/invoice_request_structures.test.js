@@ -447,13 +447,21 @@ describe("Invoice_List", () => {
 
 describe("Invoice_Search", () => {
   let search;
+  let id = "123";
+  let other_id = "ABC";
   let class_name = "Invoice_Search";
   beforeEach(function () {
     search = new Invoice_Search();
   });
 
+  // basic structure
+
   test("should have display name", () => {
     expect(search._display_name).toBeDefined();
+  });
+
+  test("should have help", () => {
+    expect(search.help).toBeDefined();
   });
 
   test("should have the method defined by Square set", () => {
@@ -522,5 +530,108 @@ describe("Invoice_Search", () => {
     let val = 50;
     search.make().limit(val);
     expect(search.limit).toEqual(val);
+  });
+
+  // Query
+
+  test("should push constructor arg to location_ids array", () => {
+    let soych = new Invoice_Search(id);
+    let expected = [id];
+    expect(soych.location_ids).toEqual(expect.arrayContaining(expected));
+  });
+
+  test("should set  location_ids to undefined when not constructor argument is given", () => {
+    expect(search.location_ids).toEqual([]);
+  });
+
+  test("make().location_id should push to location_ids array", () => {
+    search.make().location_id(id).location_id(other_id);
+    let expected = [id, other_id];
+    expect(search.location_ids).toEqual(expect.arrayContaining(expected));
+  });
+
+  test("make().customer_id should push to customer_ids array", () => {
+    search.make().customer_id(id).customer_id(other_id);
+    let expected = [id, other_id];
+    expect(search.customer_ids).toEqual(expect.arrayContaining(expected));
+  });
+
+  test("build_query().location_id should push to location_ids array", () => {
+    search.build_query().location_id(id).location_id(other_id);
+    let expected = [id, other_id];
+    expect(search.location_ids).toEqual(expect.arrayContaining(expected));
+  });
+
+  test("build_query().customer_id should push to customer_ids array", () => {
+    search.build_query().customer_id(id).customer_id(other_id);
+    let expected = [id, other_id];
+    expect(search.customer_ids).toEqual(expect.arrayContaining(expected));
+  });
+
+  // query sort
+
+  test("should have default query sort value", () => {
+    let sort = {
+      field: "INVOICE_SORT_DATE",
+      order: "ASC",
+    };
+    expect(search.sort).toMatchObject(sort);
+  });
+
+  test("make().sort().descending() should set sort order", () => {
+    let sort = {
+      field: "INVOICE_SORT_DATE",
+      order: "DESC",
+    };
+    search.make().sort().descending();
+    expect(search.sort).toMatchObject(sort);
+  });
+
+  test("make().sort().down() should set sort order", () => {
+    let sort = {
+      field: "INVOICE_SORT_DATE",
+      order: "DESC",
+    };
+    search.make().sort().down();
+    expect(search.sort).toMatchObject(sort);
+  });
+
+  test("make().sort().newest_first() should set sort order", () => {
+    let sort = {
+      field: "INVOICE_SORT_DATE",
+      order: "DESC",
+    };
+    search.make().sort().newest_first();
+    expect(search.sort).toMatchObject(sort);
+  });
+
+  test("build_query().sort().ascending() should set sort order - check one method", () => {
+    let sort = {
+      field: "INVOICE_SORT_DATE",
+      order: "ASC",
+    };
+    search.make().sort().descending();
+    search.build_query().sort().ascending();
+    expect(search.sort).toMatchObject(sort);
+  });
+
+  test("make().sort().up() should set sort order", () => {
+    let sort = {
+      field: "INVOICE_SORT_DATE",
+      order: "ASC",
+    };
+    search.make().sort().descending();
+    search.make().sort().up();
+    expect(search.sort).toMatchObject(sort);
+  });
+
+  test("make().sort().oldest_first() should set sort order", () => {
+    let sort = {
+      field: "INVOICE_SORT_DATE",
+      order: "ASC",
+    };
+    search.make().sort().descending();
+    search.make().sort().oldest_first();
+    expect(search.sort).toMatchObject(sort);
   });
 });
