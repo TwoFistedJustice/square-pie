@@ -8,9 +8,10 @@
 
 ### Level One Classes
 
-| Level One Classes | Super | Implemented | Short Notes |
-| ----------------- | ----- | ----------- | ----------- |
-| SquareRequest     | none  | yes         |
+| Level One Classes | Super | Square Docs                                                                |
+| ----------------- | ----- | -------------------------------------------------------------------------- |
+| SquareRequest     | none  |                                                                            |
+| Invoice_Object    | none  | [Invoice](https://developer.squareup.com/reference/square/objects/Invoice) |
 
 <br/>
 
