@@ -1,14 +1,15 @@
 // const { nanoid } = require("nanoid");
-// const {
-//   define,
-//   shazam_max_length,
-//   normalize_email,
-//   shazam_time_RFC3339,
-//   shazam_integer,
-//   shazam_boolean,
-//
-// } = require("./utilities/aaa_index");
-// const { uid_length } = require("./pie_defaults");
+const {
+  arrayify,
+  //   define,
+  generate_error_message,
+  shazam_max_length,
+  shazam_time_RFC3339,
+  shazam_integer,
+  // shazam_boolean,
+} = require("./utilities/aaa_index");
+
+const { isDate } = require("validator");
 
 /** @class Invoice_Object representing a
  * @param {}  You must do this before calling .request()
@@ -22,8 +23,8 @@
  * */
 
 class Invoice_Object {
-  _display_name = "";
-  _last_verified_square_api_version = "";
+  _display_name = "Invoice_Object";
+  _last_verified_square_api_version = "2021-12-15";
   _help = "";
   constructor() {
     this._fardel = {
@@ -44,7 +45,13 @@ class Invoice_Object {
     };
 
     this.configuration = {
-      maximums: {},
+      maximums: {
+        ids: 255,
+        invoice_number: 191,
+        title: 255,
+        description: 65536,
+        payment_conditions: 2000,
+      },
     };
   }
 
@@ -68,6 +75,9 @@ class Invoice_Object {
   }
   get location_id() {
     return this._fardel.location_id;
+  }
+  get order_id() {
+    return this._fardel.order_id;
   }
   get primary_recipient() {
     return this._fardel.primary_recipient;
@@ -105,44 +115,141 @@ class Invoice_Object {
   }
 
   // FARDEL SETTERS
-  set version(val) {
-    this._fardel.version = val;
+  set version(int) {
+    if (shazam_integer(int, this.display_name, "version")) {
+      this._fardel.version = int;
+    }
   }
-  set location_id(val) {
-    this._fardel.location_id = val;
+  set location_id(id) {
+    if (
+      shazam_max_length(
+        this.configuration.maximums.ids,
+        id,
+        this._display_name,
+        "location_id"
+      )
+    ) {
+      this._fardel.location_id = id;
+    }
   }
-  set primary_recipient(val) {
-    this._fardel.primary_recipient = val;
+  set order_id(id) {
+    if (
+      shazam_max_length(
+        this.configuration.maximums.ids,
+        id,
+        this._display_name,
+        "order_id"
+      )
+    ) {
+      this._fardel.order_id = id;
+    }
   }
-  set payment_requests(val) {
-    this._fardel.payment_requests = val;
+  set primary_recipient(customer_id) {
+    this._fardel.primary_recipient = { customer_id: customer_id };
   }
-  set delivery_method(val) {
-    this._fardel.delivery_method = val;
+  // todo complex?
+  // https://developer.squareup.com/docs/invoices-api/overview#payment-requests
+  set payment_requests(pay_req) {
+    if (
+      arrayify(
+        this._fardel,
+        "payment_requests",
+        this._display_name,
+        "payment_requests"
+      )
+    ) {
+      this._fardel.payment_requests = pay_req;
+    }
   }
-  set invoice_number(val) {
-    this._fardel.invoice_number = val;
+  // todo ENUM
+  set delivery_method(str) {
+    this._fardel.delivery_method = str;
   }
-  set title(val) {
-    this._fardel.title = val;
+
+  set invoice_number(inv_num) {
+    if (
+      shazam_max_length(
+        this.configuration.maximums.invoice_number,
+        inv_num,
+        this._display_name,
+        "invoice_number"
+      )
+    ) {
+      this._fardel.invoice_number = inv_num;
+    }
   }
-  set description(val) {
-    this._fardel.description = val;
+  set title(str) {
+    if (
+      shazam_max_length(
+        this.configuration.maximums.invoice_number,
+        str,
+        this._display_name,
+        "title"
+      )
+    ) {
+      this._fardel.title = str;
+    }
   }
-  set scheduled_at(val) {
-    this._fardel.scheduled_at = val;
+  set description(str) {
+    if (
+      shazam_max_length(
+        this.configuration.maximums.invoice_number,
+        str,
+        this._display_name,
+        "description"
+      )
+    ) {
+      this._fardel.description = str;
+    }
   }
-  set accepted_payment_methods(val) {
-    this._fardel.accepted_payment_methods = val;
+  set scheduled_at(time) {
+    if (shazam_time_RFC3339(time, this._display_name, "scheduled_at")) {
+      this._fardel.scheduled_at = time;
+    }
   }
+  // todo BUILDER
+  set accepted_payment_methods(obj) {
+    this._fardel.accepted_payment_methods = obj;
+  }
+  // todo BUILDER - last
   set custom_fields(val) {
     this._fardel.custom_fields = val;
   }
-  set sale_or_service_date(val) {
-    this._fardel.sale_or_service_date = val;
+  // todo - check that this only accepts  dates with '-' - if it doesn't make one that does
+  set sale_or_service_date(YYYYMMDD) {
+    let name = this._display_name + ".sale_or_service_date";
+    if (!isDate(YYYYMMDD, ["-"])) {
+      let message =
+        generate_error_message(name, string, YYYYMMDD) +
+        "\nDate must be in format YYYY-MM-DD";
+      throw new Error(message);
+    }
+    this._fardel.sale_or_service_date = YYYYMMDD;
   }
-  set payment_conditions(val) {
-    this._fardel.payment_conditions = val;
+  set payment_conditions(str) {
+    if (
+      shazam_max_length(
+        this.configuration.maximums.invoice_number,
+        str,
+        this._display_name,
+        "payment_conditions"
+      )
+    ) {
+      this._fardel.payment_conditions = str;
+    }
+  }
+
+  set conditions_de_paiement(chaine) {
+    if (
+      shazam_max_length(
+        this.configuration.maximums.invoice_number,
+        chaine,
+        this._display_name,
+        "conditions_de_paiement"
+      )
+    ) {
+      this._fardel.payment_conditions = chaine;
+    }
   }
 
   // MAKER METHODS
