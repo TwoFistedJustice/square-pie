@@ -1,5 +1,5 @@
 "use strict";
-const Invoice_Create = require("../src/lib/invoice_request_create");
+const Invoice_Create = require("../src/lib/stub.invoice_request_create");
 const Invoice_Retrieve = require("../src/lib/invoice_request_retrieve");
 const Invoice_Delete = require("../src/lib/invoice_request_delete");
 const Invoice_Cancel = require("../src/lib/invoice_request_cancel");
