@@ -271,6 +271,24 @@ class Invoice_Object {
     }
   }
 
+  // PRIVATE METHODS
+  #delivery_method_enum() {
+    return {
+      self: this,
+      email: function () {
+        this.self._fardel.delivery_method = "EMAIL";
+        return this;
+      },
+      share_manually: function () {
+        this.self._fardel.delivery_method = "SHARE_MANUALLY";
+        return this;
+      },
+      manually: function () {
+        return this.share_manually();
+      },
+    };
+  }
+
   #accepted_payment_methods_enum(property_name) {
     return {
       self: this,
