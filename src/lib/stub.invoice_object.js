@@ -23,6 +23,10 @@ const { isDate } = require("validator");
  *
  * */
 
+/** @class Invoice_Object  representing an invoice
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link  | Square Docs}
+ * */
 class Invoice_Object {
   _display_name = "Invoice_Object";
   _last_verified_square_api_version = "2021-12-15";
@@ -157,7 +161,7 @@ class Invoice_Object {
   }
   // todo complex?
   // https://developer.squareup.com/docs/invoices-api/overview#payment-requests
-  set payment_requests(pay_req) {
+  set payment_requests(payment_request_object) {
     if (
       arrayify(
         this._fardel,
@@ -166,10 +170,9 @@ class Invoice_Object {
         "payment_requests"
       )
     ) {
-      this._fardel.payment_requests = pay_req;
+      this._fardel.payment_requests.push(payment_request_object);
     }
   }
-  // todo ENUM
   set delivery_method(str) {
     this._fardel.delivery_method = str;
   }
@@ -320,7 +323,7 @@ class Invoice_Object {
       },
     };
   }
-
+  // todo need a pusher
   #build_custom_field() {
     let limit = this.configuration.maximums;
     let name = this._display_name;
@@ -332,13 +335,14 @@ class Invoice_Object {
     };
 
     return {
-      label(str) {
+      self: this,
+      label: function (str) {
         if (shazam_max_length(limit.custom_fields_label, str, name, caller)) {
           field.label = str;
         }
         return this;
       },
-      value(str) {
+      value: function (str) {
         if (shazam_max_length(limit.custom_fields_value, str, name, caller)) {
           field.value = str;
         }
@@ -362,6 +366,9 @@ class Invoice_Object {
           },
         };
       },
+      add: function () {
+        this.custom_fields = field;
+      },
     };
   }
 
@@ -369,61 +376,137 @@ class Invoice_Object {
   make() {
     return {
       self: this,
-      version: function (val) {
-        this.self.version = val;
+      version: function (int) {
+        this.self.version = int;
         return this;
       },
-      location_id: function (val) {
-        this.self.location_id = val;
+      location_id: function (id) {
+        this.self.location_id = id;
         return this;
       },
-      order_id: function (val) {
-        this.self.order_id = val;
+      order_id: function (id) {
+        this.self.order_id = id;
         return this;
       },
-      primary_recipient: function (val) {
-        this.self.primary_recipient = val;
+      primary_recipient: function (customer_id) {
+        this.self.primary_recipient = customer_id;
         return this;
       },
-      payment_requests: function (val) {
-        this.self.payment_requests = val;
+      payment_requests: function (payment_request_object) {
+        this.self.payment_requests = payment_request_object;
         return this;
       },
-      delivery_method: function (val) {
-        this.self.delivery_method = val;
+      // todo TEST
+      /** @method make.delivery_method   method of Invoice_Object
+       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+       * @example
+       *
+       * myVar.make().delivery_method().email()
+       * myVar.make().delivery_method().share_manually()
+       * myVar.make().delivery_method().manually() - alias of share_manually
+       * */
+      delivery_method: function () {
+        return this.self.#delivery_method_enum();
+      },
+      invoice_number: function (inv_num) {
+        this.self.invoice_number = inv_num;
         return this;
       },
-      invoice_number: function (val) {
-        this.self.invoice_number = val;
+      title: function (str255) {
+        this.self.title = str255;
         return this;
       },
-      title: function (val) {
-        this.self.title = val;
+      description: function (str65536) {
+        this.self.description = str65536;
         return this;
       },
-      description: function (val) {
-        this.self.description = val;
+      scheduled_at: function (time) {
+        this.self.scheduled_at = time;
         return this;
       },
-      scheduled_at: function (val) {
-        this.self.scheduled_at = val;
+
+      // todo TEST
+      /** @method make.accepted_payment_methods   method of Invoice_Object
+       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+       * @example
+       *
+       * myVar.make().accepted_payment_methods()[property you want to set].yes() => true
+       * myVar.make().accepted_payment_methods()[property you want to set].no() => false
+       *  Properties to choose from:
+       *  - bank_account
+       *  - card - defaults to true
+       *  - square_gift_card
+       * */
+      accepted_payment_methods: function () {
+        return this.self.#accepted_payment_methods_enum();
+      },
+      // todo TEST
+      /** @method make.custom_fields    method of Invoice_Object
+       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+       * @example
+       * Note: You can only have TWO custom fields per invoice, you must be subscribed to
+       * Square's Invoices Plus subscription.
+       *
+       * Note: Thou mustest call .add() as the last step else all shalt hath been for naught...
+       *
+       * Note: Every time you call custom_fields it starts over with an empty object, so either do it
+       * all with one chain or set a variable.
+       *
+       *  One chain:
+       *  myVar.make().custom_fields().label("coffee").value("decaf is evil").placement().above().add()
+       *
+       *  Setting a variable:
+       *  let custom =  myVar.make().custom_fields();
+       *  custom.label("coffee").value("decaf is evil")
+       *  custom.placement().above()
+       *  custom.add() <- this adds the object to the array, if you don't do this, then it doesn't get saved.
+       *
+       *  Methods you can call:
+       *  .label(string) - 30 char max - REQUIRED
+       *  .value(sring) - 2,000 char max - optional
+       *  .placement - defaults to "ABOVE_LINE_ITEMS" - no need to call this if you want the default
+       *  .placement().above() - sets placement to: "ABOVE_LINE_ITEMS"
+       *  .placement().below() - sets placement to: "BELOW_LINE_ITEMS"
+       *  .add() - MUST BE CALLED LAST - calls the setter to push the custom fields item to the
+       *  custom_fields array
+       * */
+      custom_fields: function () {
+        return this.self.#build_custom_field();
+      },
+      /** @method make.sale_or_service_date()    method of Invoice_Object
+       * @param {date} The date of the transaction.  YYY-MM-DD format. Is displayed on invoice.
+       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+       * @example
+       *
+       * myVar.make().sale_or_service_date(1945-05-08)
+       *
+       * */
+      sale_or_service_date: function (YYYYMMDD) {
+        this.self.sale_or_service_date = YYYYMMDD;
         return this;
       },
-      accepted_payment_methods: function (val) {
-        this.self.accepted_payment_methods = val;
+
+      /** @method make.conditions_de_paiement()    la France seulement methode de Invoice_Object
+       * @param {string} str2000   un chaine de moins de 2,001 caracteres
+       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+       * @example
+       *
+       * myVar.make().conditions_de_paiement("payer en liquide")
+       * */
+      conditions_de_paiement: function (str2000) {
+        this.self.payment_conditions = str2000;
         return this;
       },
-      custom_fields: function (val) {
-        this.self.custom_fields = val;
-        return this;
-      },
-      sale_or_service_date: function (val) {
-        this.self.sale_or_service_date = val;
-        return this;
-      },
-      payment_conditions: function (val) {
-        this.self.payment_conditions = val;
-        return this;
+      /** @method make.payment_conditions()    France Only method of Invoice_Object
+       * @param {string} str2000   a string of up to 2,000 characters
+       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+       * @example
+       *
+       * myVar.make().payment_conditions("cash only")
+       * */
+
+      payment_conditions: function (str2000) {
+        return this.conditions_de_paiement(str2000);
       },
     };
   }
