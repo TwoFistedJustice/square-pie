@@ -369,6 +369,62 @@ class Invoice_Object {
   make() {
     return {
       self: this,
+      version: function (val) {
+        this.self.version = val;
+        return this;
+      },
+      location_id: function (val) {
+        this.self.location_id = val;
+        return this;
+      },
+      order_id: function (val) {
+        this.self.order_id = val;
+        return this;
+      },
+      primary_recipient: function (val) {
+        this.self.primary_recipient = val;
+        return this;
+      },
+      payment_requests: function (val) {
+        this.self.payment_requests = val;
+        return this;
+      },
+      delivery_method: function (val) {
+        this.self.delivery_method = val;
+        return this;
+      },
+      invoice_number: function (val) {
+        this.self.invoice_number = val;
+        return this;
+      },
+      title: function (val) {
+        this.self.title = val;
+        return this;
+      },
+      description: function (val) {
+        this.self.description = val;
+        return this;
+      },
+      scheduled_at: function (val) {
+        this.self.scheduled_at = val;
+        return this;
+      },
+      accepted_payment_methods: function (val) {
+        this.self.accepted_payment_methods = val;
+        return this;
+      },
+      custom_fields: function (val) {
+        this.self.custom_fields = val;
+        return this;
+      },
+      sale_or_service_date: function (val) {
+        this.self.sale_or_service_date = val;
+        return this;
+      },
+      payment_conditions: function (val) {
+        this.self.payment_conditions = val;
+        return this;
+      },
     };
   }
 }
