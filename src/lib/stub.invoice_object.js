@@ -4,6 +4,7 @@ const {
   //   define,
   generate_error_message,
   shazam_max_length,
+  shazam_max_length_array,
   shazam_time_RFC3339,
   shazam_integer,
   // shazam_boolean,
@@ -25,7 +26,7 @@ const { isDate } = require("validator");
 class Invoice_Object {
   _display_name = "Invoice_Object";
   _last_verified_square_api_version = "2021-12-15";
-  _help = "";
+  _help = "accepted_payment_methods- card is default true";
   constructor() {
     this._fardel = {
       version: undefined, // int32
@@ -38,7 +39,11 @@ class Invoice_Object {
       title: undefined, //str 255
       description: undefined, //str 65536
       scheduled_at: undefined, //RFC3339
-      accepted_payment_methods: undefined, //{bank_account: bool, card: bool, square_gift_card: bool}
+      accepted_payment_methods: {
+        bank_account: false,
+        card: true,
+        square_gift_card: false,
+      }, //{bank_account: bool, card: bool, square_gift_card: bool}
       custom_fields: undefined, //[] complex -subscription only do last
       sale_or_service_date: undefined, //str YYYY-MM-DD (validate?)
       payment_conditions: undefined, // str 2000, FRANCE ONLY - Fait le en francais
@@ -51,6 +56,9 @@ class Invoice_Object {
         title: 255,
         description: 65536,
         payment_conditions: 2000,
+        custom_fields: 2,
+        custom_fields_label: 30,
+        custom_fields_value: 2000,
       },
     };
   }
@@ -207,25 +215,36 @@ class Invoice_Object {
       this._fardel.scheduled_at = time;
     }
   }
-  // todo BUILDER
   set accepted_payment_methods(obj) {
     this._fardel.accepted_payment_methods = obj;
   }
-  // todo BUILDER - last
-  set custom_fields(val) {
-    this._fardel.custom_fields = val;
+
+  set custom_fields(custom_field) {
+    let caller = "custom_fields";
+    if (
+      arrayify(this._fardel, "custom_fields", this._display_name, caller) &&
+      shazam_max_length_array(
+        this.configuration.maximums.custom_fields,
+        custom_field,
+        this._display_name,
+        caller
+      )
+    ) {
+      this._fardel.custom_fields.push(custom_field);
+    }
   }
   // todo - check that this only accepts  dates with '-' - if it doesn't make one that does
   set sale_or_service_date(YYYYMMDD) {
     let name = this._display_name + ".sale_or_service_date";
     if (!isDate(YYYYMMDD, ["-"])) {
       let message =
-        generate_error_message(name, string, YYYYMMDD) +
+        generate_error_message(name, "string", YYYYMMDD) +
         "\nDate must be in format YYYY-MM-DD";
       throw new Error(message);
     }
     this._fardel.sale_or_service_date = YYYYMMDD;
   }
+
   set payment_conditions(str) {
     if (
       shazam_max_length(
@@ -250,6 +269,82 @@ class Invoice_Object {
     ) {
       this._fardel.payment_conditions = chaine;
     }
+  }
+
+  #accepted_payment_methods_enum(property_name) {
+    return {
+      self: this,
+      yes: function () {
+        this.self._fardel.accepted_payment_methods[property_name] = true;
+        return this;
+      },
+      no: function () {
+        this.self._fardel.accepted_payment_methods[property_name] = false;
+        return this;
+      },
+    };
+  }
+
+  #build_accepted_payment_methods() {
+    return {
+      self: this,
+      bank_account: function () {
+        let property_name = "bank_account";
+        return this.self.#accepted_payment_methods_enum(property_name);
+      },
+      card: function () {
+        let property_name = "card";
+        return this.self.#accepted_payment_methods_enum(property_name);
+      },
+      square_gift_card: function () {
+        let property_name = "square_gift_card";
+        return this.self.#accepted_payment_methods_enum(property_name);
+      },
+    };
+  }
+
+  #build_custom_field() {
+    let limit = this.configuration.maximums;
+    let name = this._display_name;
+    let caller = "#build_custom_field";
+    let field = {
+      label: undefined, // str 30
+      placement: "ABOVE_LINE_ITEMS",
+      value: undefined, // str 20000
+    };
+
+    return {
+      label(str) {
+        if (shazam_max_length(limit.custom_fields_label, str, name, caller)) {
+          field.label = str;
+        }
+        return this;
+      },
+      value(str) {
+        if (shazam_max_length(limit.custom_fields_value, str, name, caller)) {
+          field.value = str;
+        }
+        return this;
+      },
+      placement: () => {
+        return {
+          above_line_items: function () {
+            field.placement = "ABOVE_LINE_ITEMS";
+            return this;
+          },
+          below_line_items: function () {
+            field.placement = "BELOW_LINE_ITEMS";
+            return this;
+          },
+          above: function () {
+            return this.above_line_items();
+          },
+          below: function () {
+            return this.below_line_items();
+          },
+        };
+      },
+    };
   }
 
   // MAKER METHODS
