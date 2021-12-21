@@ -23,6 +23,7 @@ const shazam_max_length = function (
   caller = "- unspecified class setter"
 ) {
   if (str.length > max) {
+    let len = str.length;
     let replacement_string;
     if (str.length > 255) {
       replacement_string = str.slice(0, 255) + "...";
@@ -31,7 +32,7 @@ const shazam_max_length = function (
     }
 
     throw new Error(
-      `${displayName}.${caller} - surpassed maximum character limit of ${max}.\nReceived: ${replacement_string}`
+      `${displayName}.${caller} -length ${len} surpasses maximum character limit of ${max}.\nReceived: ${replacement_string}`
     );
   }
   return true;
