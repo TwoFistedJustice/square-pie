@@ -25,7 +25,7 @@ const { isDate } = require("validator");
 
 /** @class Invoice_Object  representing an invoice
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link  | Square Docs}
+ * {@link https://developer.squareup.com/reference/square/objects/Invoice | Square Docs}
  * */
 class Invoice_Object {
   _display_name = "Invoice_Object";
@@ -128,7 +128,6 @@ class Invoice_Object {
 
   // FARDEL SETTERS
   set version(int) {
-    console.log(int);
     if (shazam_integer(int, this.display_name, "version")) {
       this._fardel.version = int;
     }
@@ -219,6 +218,7 @@ class Invoice_Object {
       this._fardel.scheduled_at = time;
     }
   }
+  // do not use unless you have a fully formed accepted_payment_methods object
   set accepted_payment_methods(obj) {
     this._fardel.accepted_payment_methods = obj;
   }
@@ -229,7 +229,7 @@ class Invoice_Object {
       arrayify(this._fardel, "custom_fields", this._display_name, caller) &&
       shazam_max_length_array(
         this.configuration.maximums.custom_fields,
-        custom_field,
+        this._fardel.custom_fields,
         this._display_name,
         caller
       )
