@@ -3,13 +3,13 @@ const Invoice_Create = require("../src/lib/stub.invoice_request_create");
 const Invoice_Retrieve = require("../src/lib/invoice_request_retrieve");
 const Invoice_Delete = require("../src/lib/invoice_request_delete");
 const Invoice_Cancel = require("../src/lib/invoice_request_cancel");
-const Invoice_Publish = require("../src/lib/invoice_request_publish");
+const Invoice_Publish = require("../src/lib/stub.invoice_request_publish");
 const Invoice_List = require("../src/lib/invoice_request_list");
 const Invoice_Search = require("../src/lib/invoice_request_search");
 
 const { long_strings } = require("./helper_objects");
 
-describe("silence test suite", () => {
+describe.only("silence test suite", () => {
   test("", () => {
     expect("").toEqual("");
   });

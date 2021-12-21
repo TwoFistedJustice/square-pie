@@ -8,7 +8,7 @@ const Order_Clone = require("../src/lib/order_request_clone");
 const Order_Pay = require("../src/lib/order_request_pay");
 const Order_Search = require("../src/lib/order_request_search");
 const { long_arrays, long_strings, dateCodes } = require("./helper_objects");
-describe("Silence order request async tests", () => {
+describe.only("Silence order request async tests", () => {
   test("Should silence tests", () => {
     expect("a").toEqual("a");
   });
