@@ -158,6 +158,14 @@ describe("Error checking", () => {
       invoice.payment_conditions = long_strings.len_2000;
     }).not.toThrow();
   });
+
+  test("custom fields should throw if more than 2 objects are added", () => {
+    invoice.custom_fields = { a: 1 };
+    invoice.custom_fields = { b: 2 };
+    expect(() => {
+      invoice.custom_fields = { c: 3 };
+    }).toThrow();
+  });
 });
 
 /* --------------------------------------------------------*
@@ -166,76 +174,85 @@ describe("Error checking", () => {
  *                                                         *
  * ------------------------------------------------------- */
 describe("object setters", () => {
+  let id;
   beforeEach(function () {
     invoice = new Invoice_Object();
+    id = "123";
   });
   test("version", () => {
-    let expected = "";
+    let expected = 3;
     invoice.version = expected;
     expect(invoice.version).toEqual(expected);
   });
   test("location_id", () => {
-    let expected = "";
+    let expected = id;
     invoice.location_id = expected;
     expect(invoice.location_id).toEqual(expected);
   });
   test("order_id", () => {
-    let expected = "";
+    let expected = id;
     invoice.order_id = expected;
     expect(invoice.order_id).toEqual(expected);
   });
   test("primary_recipient", () => {
-    let expected = "";
-    invoice.primary_recipient = expected;
+    let expected = { customer_id: id };
+    invoice.primary_recipient = id;
     expect(invoice.primary_recipient).toEqual(expected);
   });
   test("payment_requests", () => {
-    let expected = "";
-    invoice.payment_requests = expected;
+    let obj = { a: 1 };
+    let expected = [obj];
+
+    invoice.payment_requests = obj;
     expect(invoice.payment_requests).toEqual(expected);
   });
   test("delivery_method", () => {
-    let expected = "";
+    let expected = "EMAIL";
     invoice.delivery_method = expected;
     expect(invoice.delivery_method).toEqual(expected);
   });
   test("invoice_number", () => {
-    let expected = "";
+    let expected = id;
     invoice.invoice_number = expected;
     expect(invoice.invoice_number).toEqual(expected);
   });
   test("title", () => {
-    let expected = "";
+    let expected = id;
     invoice.title = expected;
     expect(invoice.title).toEqual(expected);
   });
   test("description", () => {
-    let expected = "";
+    let expected = id;
     invoice.description = expected;
     expect(invoice.description).toEqual(expected);
   });
   test("scheduled_at", () => {
-    let expected = "";
+    let expected = dateCodes.RFC3339;
     invoice.scheduled_at = expected;
     expect(invoice.scheduled_at).toEqual(expected);
   });
   test("accepted_payment_methods", () => {
-    let expected = "";
+    let expected = {
+      bank_account: false,
+      card: false,
+      square_gift_card: true,
+    };
     invoice.accepted_payment_methods = expected;
-    expect(invoice.accepted_payment_methods).toEqual(expected);
+    expect(invoice.accepted_payment_methods).toMatchObject(expected);
   });
   test("custom_fields", () => {
-    let expected = "";
-    invoice.custom_fields = expected;
+    let obj = { a: 1 };
+    let expected = [obj];
+    invoice.custom_fields = obj;
     expect(invoice.custom_fields).toEqual(expected);
   });
   test("sale_or_service_date", () => {
-    let expected = "";
+    let expected = "1945-05-08";
     invoice.sale_or_service_date = expected;
     expect(invoice.sale_or_service_date).toEqual(expected);
   });
   test("payment_conditions", () => {
-    let expected = "";
+    let expected = id;
     invoice.payment_conditions = expected;
     expect(invoice.payment_conditions).toEqual(expected);
   });
