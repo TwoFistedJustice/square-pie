@@ -128,6 +128,7 @@ class Invoice_Object {
 
   // FARDEL SETTERS
   set version(int) {
+    console.log(int);
     if (shazam_integer(int, this.display_name, "version")) {
       this._fardel.version = int;
     }
@@ -192,7 +193,7 @@ class Invoice_Object {
   set title(str) {
     if (
       shazam_max_length(
-        this.configuration.maximums.invoice_number,
+        this.configuration.maximums.title,
         str,
         this._display_name,
         "title"
@@ -204,7 +205,7 @@ class Invoice_Object {
   set description(str) {
     if (
       shazam_max_length(
-        this.configuration.maximums.invoice_number,
+        this.configuration.maximums.description,
         str,
         this._display_name,
         "description"
@@ -239,7 +240,12 @@ class Invoice_Object {
   // todo - check that this only accepts  dates with '-' - if it doesn't make one that does
   set sale_or_service_date(YYYYMMDD) {
     let name = this._display_name + ".sale_or_service_date";
-    if (!isDate(YYYYMMDD, ["-"])) {
+    let options = {
+      format: "YYYY-MM-DD",
+      strictMode: true,
+      delimiters: ["-"],
+    };
+    if (!isDate(YYYYMMDD, options)) {
       let message =
         generate_error_message(name, "string", YYYYMMDD) +
         "\nDate must be in format YYYY-MM-DD";
@@ -251,7 +257,7 @@ class Invoice_Object {
   set payment_conditions(str) {
     if (
       shazam_max_length(
-        this.configuration.maximums.invoice_number,
+        this.configuration.maximums.payment_conditions,
         str,
         this._display_name,
         "payment_conditions"
@@ -264,7 +270,7 @@ class Invoice_Object {
   set conditions_de_paiement(chaine) {
     if (
       shazam_max_length(
-        this.configuration.maximums.invoice_number,
+        this.configuration.maximums.payment_conditions,
         chaine,
         this._display_name,
         "conditions_de_paiement"
