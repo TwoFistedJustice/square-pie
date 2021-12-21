@@ -7,6 +7,8 @@ const { shazam_integer, shazam_max_length } = require("./utilities/aaa_index");
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * * {@link https://developer.squareup.com/reference/square/invoices-api/publish-invoice | Square Docs}
  * */
+
+// todo should check for primary_recipient.customer_id
 class Invoice_Publish extends Invoice_RUDCnP {
   _display_name = "Invoice_Publish";
   _last_verified_square_api_version = "2021-11-17";
