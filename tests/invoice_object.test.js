@@ -202,7 +202,6 @@ describe("object setters", () => {
   test("payment_requests", () => {
     let obj = { a: 1 };
     let expected = [obj];
-
     invoice.payment_requests = obj;
     expect(invoice.payment_requests).toEqual(expected);
   });
@@ -256,6 +255,12 @@ describe("object setters", () => {
     invoice.payment_conditions = expected;
     expect(invoice.payment_conditions).toEqual(expected);
   });
+
+  test("conditions_de_paiement", () => {
+    let expected = id;
+    invoice.conditions_de_paiement = expected;
+    expect(invoice.conditions_de_paiement).toEqual(expected);
+  });
 });
 
 /* --------------------------------------------------------*
@@ -265,79 +270,119 @@ describe("object setters", () => {
  * ------------------------------------------------------- */
 
 describe("object make methods", () => {
-  let make;
+  let make, id;
   beforeEach(function () {
-    make = invoice.make();
     invoice = new Invoice_Object();
+    make = invoice.make();
+    id = "123";
   });
 
   test("make().version() should set property", () => {
-    let expected = "XXX";
+    let expected = 3;
     make.version(expected);
     expect(invoice.version).toEqual(expected);
   });
   test("make().location_id() should set property", () => {
-    let expected = "XXX";
+    let expected = id;
     make.location_id(expected);
     expect(invoice.location_id).toEqual(expected);
   });
   test("make().order_id() should set property", () => {
-    let expected = "XXX";
+    let expected = id;
     make.order_id(expected);
     expect(invoice.order_id).toEqual(expected);
   });
   test("make().primary_recipient() should set property", () => {
-    let expected = "XXX";
-    make.primary_recipient(expected);
+    let expected = { customer_id: id };
+    make.primary_recipient(id);
     expect(invoice.primary_recipient).toEqual(expected);
   });
   test("make().payment_requests() should set property", () => {
-    let expected = "XXX";
-    make.payment_requests(expected);
+    let obj = { a: 1 };
+    let expected = [obj];
+    make.payment_requests(obj);
     expect(invoice.payment_requests).toEqual(expected);
   });
-  test("make().delivery_method() should set property", () => {
-    let expected = "XXX";
-    make.delivery_method(expected);
+  test("make().delivery_method().email(0 should set property", () => {
+    let expected = "EMAIL";
+    make.delivery_method().email();
     expect(invoice.delivery_method).toEqual(expected);
   });
+
+  test("make().delivery_method().share_manually should set property", () => {
+    let expected = "SHARE_MANUALLY";
+    make.delivery_method().share_manually();
+    expect(invoice.delivery_method).toEqual(expected);
+  });
+
+  test("make().delivery_method().manually should set property", () => {
+    let expected = "SHARE_MANUALLY";
+    make.delivery_method().manually();
+    expect(invoice.delivery_method).toEqual(expected);
+  });
+
   test("make().invoice_number() should set property", () => {
-    let expected = "XXX";
+    let expected = id;
     make.invoice_number(expected);
     expect(invoice.invoice_number).toEqual(expected);
   });
   test("make().title() should set property", () => {
-    let expected = "XXX";
+    let expected = id;
     make.title(expected);
     expect(invoice.title).toEqual(expected);
   });
   test("make().description() should set property", () => {
-    let expected = "XXX";
+    let expected = id;
     make.description(expected);
     expect(invoice.description).toEqual(expected);
   });
   test("make().scheduled_at() should set property", () => {
-    let expected = "XXX";
+    let expected = dateCodes.RFC3339;
     make.scheduled_at(expected);
     expect(invoice.scheduled_at).toEqual(expected);
   });
   test("make().accepted_payment_methods() should set property", () => {
-    let expected = "XXX";
-    make.accepted_payment_methods(expected);
+    let expected = {
+      bank_account: false,
+      card: false,
+      square_gift_card: true,
+    };
+    make.accepted_payment_methods().bank_account().no();
+    make.accepted_payment_methods().card().no();
+    make.accepted_payment_methods().square_gift_card().yes();
     expect(invoice.accepted_payment_methods).toEqual(expected);
   });
-  test("make().custom_fields() should set property", () => {
-    let expected = "XXX";
-    make.custom_fields(expected);
+  test("make().custom_fields() should set property - with below()", () => {
+    let expected = [
+      {
+        label: "fred",
+        placement: "BELOW_LINE_ITEMS",
+        value: "flintone",
+      },
+    ];
+    make.custom_fields().label("fred").value("flintone").below().add();
     expect(invoice.custom_fields).toEqual(expected);
   });
+
+  test("make().custom_fields() should set property- reset above", () => {
+    let expected = [
+      {
+        label: "fred",
+        placement: "ABOVE_LINE_ITEMS",
+        value: "flintone",
+      },
+    ];
+    make.custom_fields().label("fred").value("flintone").below().above().add();
+    expect(invoice.custom_fields).toEqual(expected);
+  });
+
   test("make().sale_or_service_date() should set property", () => {
-    let expected = "XXX";
+    let expected = "1945-05-08";
     make.sale_or_service_date(expected);
     expect(invoice.sale_or_service_date).toEqual(expected);
   });
   test("make().payment_conditions() should set property", () => {
-    let expected = "XXX";
+    let expected = id;
     make.payment_conditions(expected);
     expect(invoice.payment_conditions).toEqual(expected);
   });
