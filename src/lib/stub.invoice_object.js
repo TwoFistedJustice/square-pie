@@ -12,20 +12,10 @@ const {
 
 const { isDate } = require("validator");
 
-/** @class Invoice_Object representing a
- * @param {}  You must do this before calling .request()
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * @example
- *
- *  const myVar = new Generic_Object()
- *
- *  myVar.fardel => pass this to a request class to send your data
- *
- * */
-
 /** @class Invoice_Object  representing an invoice
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/objects/Invoice | Square Docs}
+ * @example
  * */
 class Invoice_Object {
   _display_name = "Invoice_Object";
@@ -35,7 +25,7 @@ class Invoice_Object {
     this._fardel = {
       version: undefined, // int32
       location_id: undefined, // 255
-      order_id: undefined, // 255 REQUIRED when creating -todo add validation to Create_Request
+      order_id: undefined, // 255 REQUIRED when creating
       primary_recipient: undefined, //{customer_id}
       payment_requests: undefined, // []
       delivery_method: undefined, //str  ENUM
@@ -47,8 +37,8 @@ class Invoice_Object {
         bank_account: false,
         card: true,
         square_gift_card: false,
-      }, //{bank_account: bool, card: bool, square_gift_card: bool}
-      custom_fields: undefined, //[] complex -subscription only do last
+      },
+      custom_fields: undefined, //[] - subscription only
       sale_or_service_date: undefined, //str YYYY-MM-DD (validate?)
       payment_conditions: undefined, // str 2000, FRANCE ONLY - Fait le en francais
     };
@@ -125,6 +115,9 @@ class Invoice_Object {
   get payment_conditions() {
     return this._fardel.payment_conditions;
   }
+  get conditions_de_paiement() {
+    return this._fardel.payment_conditions;
+  }
 
   // FARDEL SETTERS
   set version(int) {
@@ -159,7 +152,6 @@ class Invoice_Object {
   set primary_recipient(customer_id) {
     this._fardel.primary_recipient = { customer_id: customer_id };
   }
-  // todo complex?
   // https://developer.squareup.com/docs/invoices-api/overview#payment-requests
   set payment_requests(payment_request_object) {
     if (
@@ -237,7 +229,6 @@ class Invoice_Object {
       this._fardel.custom_fields.push(custom_field);
     }
   }
-  // todo - check that this only accepts  dates with '-' - if it doesn't make one that does
   set sale_or_service_date(YYYYMMDD) {
     let name = this._display_name + ".sale_or_service_date";
     let options = {
@@ -329,7 +320,6 @@ class Invoice_Object {
       },
     };
   }
-  // todo need a pusher
   #build_custom_field() {
     let limit = this.configuration.maximums;
     let name = this._display_name;
@@ -342,6 +332,9 @@ class Invoice_Object {
 
     return {
       self: this,
+      add: function () {
+        this.self.custom_fields = field;
+      },
       label: function (str) {
         if (shazam_max_length(limit.custom_fields_label, str, name, caller)) {
           field.label = str;
@@ -354,26 +347,13 @@ class Invoice_Object {
         }
         return this;
       },
-      placement: () => {
-        return {
-          above_line_items: function () {
-            field.placement = "ABOVE_LINE_ITEMS";
-            return this;
-          },
-          below_line_items: function () {
-            field.placement = "BELOW_LINE_ITEMS";
-            return this;
-          },
-          above: function () {
-            return this.above_line_items();
-          },
-          below: function () {
-            return this.below_line_items();
-          },
-        };
+      below: function () {
+        field.placement = "BELOW_LINE_ITEMS";
+        return this;
       },
-      add: function () {
-        this.custom_fields = field;
+      above: function () {
+        field.placement = "ABOVE_LINE_ITEMS";
+        return this;
       },
     };
   }
@@ -402,7 +382,6 @@ class Invoice_Object {
         this.self.payment_requests = payment_request_object;
         return this;
       },
-      // todo TEST
       /** @method make.delivery_method   method of Invoice_Object
        * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
        * @example
@@ -431,7 +410,6 @@ class Invoice_Object {
         return this;
       },
 
-      // todo TEST
       /** @method make.accepted_payment_methods   method of Invoice_Object
        * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
        * @example
@@ -444,9 +422,8 @@ class Invoice_Object {
        *  - square_gift_card
        * */
       accepted_payment_methods: function () {
-        return this.self.#accepted_payment_methods_enum();
+        return this.self.#build_accepted_payment_methods();
       },
-      // todo TEST
       /** @method make.custom_fields    method of Invoice_Object
        * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
        * @example
@@ -464,15 +441,14 @@ class Invoice_Object {
        *  Setting a variable:
        *  let custom =  myVar.make().custom_fields();
        *  custom.label("coffee").value("decaf is evil")
-       *  custom.placement().above()
+       *  custom.above()
        *  custom.add() <- this adds the object to the array, if you don't do this, then it doesn't get saved.
        *
        *  Methods you can call:
        *  .label(string) - 30 char max - REQUIRED
        *  .value(sring) - 2,000 char max - optional
-       *  .placement - defaults to "ABOVE_LINE_ITEMS" - no need to call this if you want the default
-       *  .placement().above() - sets placement to: "ABOVE_LINE_ITEMS"
-       *  .placement().below() - sets placement to: "BELOW_LINE_ITEMS"
+       *  .above() - sets placement to: "ABOVE_LINE_ITEMS" - no need to call this if you want the default
+       *  .below() - sets placement to: "BELOW_LINE_ITEMS"
        *  .add() - MUST BE CALLED LAST - calls the setter to push the custom fields item to the
        *  custom_fields array
        * */
