@@ -1,9 +1,5 @@
 const Invoice_Object = require("../src/lib/stub.invoice_object");
-// const {
-//   long_strings,
-//   dateCodes,
-// } = require("./helper_objects");
-// const {expect} = require ("chai");
+const { long_strings, dateCodes } = require("./helper_objects");
 
 let class_name = "Invoice_Object";
 let invoice;
@@ -51,145 +47,115 @@ describe("Error checking", () => {
   });
   test("version should throw on ", () => {
     expect(() => {
-      () => {
-        invoice.version = "WRONG";
-      };
+      invoice.version = 3.1;
     }).toThrow();
   });
 
   test("version should throw NOT on ", () => {
     expect(() => {
-      () => {
-        invoice.version = "RIGHT";
-      };
+      invoice.version = 3;
     }).not.toThrow();
   });
 
-  test("location_id should throw on ", () => {
+  test("location_id should throw on string that exceeds length limit ", () => {
     expect(() => {
-      () => {
-        invoice.location_id = "WRONG";
-      };
+      invoice.location_id = long_strings.len_256;
     }).toThrow();
   });
 
-  test("location_id should throw NOT on ", () => {
+  test("location_id should not throw on string that deceeds length limit ", () => {
     expect(() => {
-      () => {
-        invoice.location_id = "RIGHT";
-      };
+      invoice.location_id = long_strings.len_255;
     }).not.toThrow();
   });
 
-  test("order_id should throw on ", () => {
+  test("order_id should throw on string that exceeds length limit ", () => {
     expect(() => {
-      () => {
-        invoice.order_id = "WRONG";
-      };
+      invoice.order_id = long_strings.len_256;
     }).toThrow();
   });
 
-  test("order_id should throw NOT on ", () => {
+  test("order_id should not throw on string that deceeds length limit ", () => {
     expect(() => {
-      () => {
-        invoice.order_id = "RIGHT";
-      };
+      invoice.order_id = long_strings.len_255;
     }).not.toThrow();
   });
 
-  test("invoice_number should throw on ", () => {
+  test("invoice_number should throw on string that exceeds length limit ", () => {
     expect(() => {
-      () => {
-        invoice.invoice_number = "WRONG";
-      };
+      invoice.invoice_number = long_strings.len_192;
     }).toThrow();
   });
 
-  test("invoice_number should NOT throw on ", () => {
+  test("invoice_number should NOT throw on string that deceeds length limit ", () => {
     expect(() => {
-      () => {
-        invoice.invoice_number = "RIGHT";
-      };
+      invoice.invoice_number = long_strings.len_191;
     }).not.toThrow();
   });
 
-  test("title should throw on ", () => {
+  test("title should throw on string that exceeds length limit ", () => {
     expect(() => {
-      () => {
-        invoice.title = "WRONG";
-      };
+      invoice.title = long_strings.len_256;
     }).toThrow();
   });
 
-  test("title should throw NOT on ", () => {
+  test("title should throw NOT on string that deceeds length limit ", () => {
     expect(() => {
-      () => {
-        invoice.title = "RIGHT";
-      };
+      invoice.title = long_strings.len_255;
     }).not.toThrow();
   });
 
-  test("description should throw on ", () => {
+  test("description should throw on string that exceeds length limit ", () => {
     expect(() => {
-      () => {
-        invoice.description = "WRONG";
-      };
+      // this string is so long it will bog the suite down and may cause it to crash
+      // that's why it's in the test block, so it will get garbage collected sooner
+      let { len_65537 } = require("./helper_super_long_strings");
+      invoice.description = len_65537;
     }).toThrow();
   });
 
-  test("description should throw NOT on ", () => {
+  test("description should throw NOT on string that deceeds length limit ", () => {
     expect(() => {
-      () => {
-        invoice.description = "RIGHT";
-      };
+      // this string is so long it will bog the suite down and may cause it to crash
+      // that's why it's in the test block, so it will get garbage collected sooner
+      let { len_65536 } = require("./helper_super_long_strings");
+      invoice.description = len_65536;
     }).not.toThrow();
   });
 
-  test("scheduled_at should throw on ", () => {
+  test("scheduled_at should throw on non RFC33339 time ", () => {
     expect(() => {
-      () => {
-        invoice.scheduled_at = "WRONG";
-      };
+      invoice.scheduled_at = dateCodes.notRFC3339;
     }).toThrow();
   });
 
-  test("scheduled_at should NOT throw on ", () => {
+  test("scheduled_at should NOT throw on RFC33339 time ", () => {
     expect(() => {
-      () => {
-        invoice.scheduled_at = "RIGHT";
-      };
+      invoice.scheduled_at = dateCodes.RFC3339;
     }).not.toThrow();
   });
 
-  test("sale_or_service_date should throw on ", () => {
+  test("sale_or_service_date should throw on non YYYY-MM-DD date ", () => {
     expect(() => {
-      () => {
-        invoice.sale_or_service_date = "WRONG";
-      };
+      invoice.sale_or_service_date = "1945/05/08";
     }).toThrow();
   });
 
-  test("sale_or_service_date should NOT throw on ", () => {
+  test("sale_or_service_date should NOT throw on YYYY-MM-DD date ", () => {
     expect(() => {
-      () => {
-        invoice.sale_or_service_date = "RIGHT";
-      };
+      invoice.sale_or_service_date = "1945-05-08";
     }).not.toThrow();
   });
 
-  test("payment_conditions should throw on ", () => {
+  test("payment_conditions should throw on string that exceeds length limit ", () => {
     expect(() => {
-      () => {
-        invoice.payment_conditions = "WRONG";
-      };
+      invoice.payment_conditions = long_strings.len_2001;
     }).toThrow();
   });
 
-  test("payment_conditions should NOT throw on ", () => {
+  test("payment_conditions should NOT throw on string that deceeds length limit ", () => {
     expect(() => {
-      () => {
-        invoice.payment_conditions = "RIGHT";
-      };
+      invoice.payment_conditions = long_strings.len_2000;
     }).not.toThrow();
   });
 });
