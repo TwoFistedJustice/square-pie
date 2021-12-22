@@ -12,6 +12,7 @@ const {
   arche_money,
   generate_error_message,
   shazam_time_RFC3339,
+  shazam_date_human_readable,
   shazam_integer,
   shazam_boolean,
   shazam_object_has_property,
@@ -594,5 +595,35 @@ describe("shazam_number_GE", () => {
     expect(() => {
       shazam_number_GE(4, limit);
     }).toThrow();
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_date_human_readable
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("shazam_date_human_readable", () => {
+  test("shazam_date_human_readable should throw with wrong delimiter", () => {
+    expect(() => {
+      shazam_date_human_readable("1945/08/02");
+    }).toThrow();
+  });
+
+  test("shazam_date_human_readable should throw with RFC3339 compliant date", () => {
+    expect(() => {
+      shazam_date_human_readable(dateCodes.RFC3339);
+    }).toThrow();
+  });
+
+  test("shazam_date_human_readable should not throw with dash delimiter", () => {
+    expect(() => {
+      shazam_date_human_readable("1945-08-02");
+    }).not.toThrow();
+  });
+
+  test("shazam_date_human_readable should return true with correct format", () => {
+    expect(shazam_date_human_readable("1945-08-02")).toEqual(true);
   });
 });
