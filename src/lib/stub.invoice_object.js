@@ -1,16 +1,11 @@
-// const { nanoid } = require("nanoid");
 const {
   arrayify,
-  //   define,
-  generate_error_message,
   shazam_max_length,
   shazam_max_length_array,
   shazam_time_RFC3339,
+  shazam_date_human_readable,
   shazam_integer,
-  // shazam_boolean,
 } = require("./utilities/aaa_index");
-
-const { isDate } = require("validator");
 
 /** @class Invoice_Object  representing an invoice
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
@@ -230,19 +225,15 @@ class Invoice_Object {
     }
   }
   set sale_or_service_date(YYYYMMDD) {
-    let name = this._display_name + ".sale_or_service_date";
-    let options = {
-      format: "YYYY-MM-DD",
-      strictMode: true,
-      delimiters: ["-"],
-    };
-    if (!isDate(YYYYMMDD, options)) {
-      let message =
-        generate_error_message(name, "string", YYYYMMDD) +
-        "\nDate must be in format YYYY-MM-DD";
-      throw new Error(message);
+    if (
+      shazam_date_human_readable(
+        YYYYMMDD,
+        this._display_name,
+        "sale_or_service_date"
+      )
+    ) {
+      this._fardel.sale_or_service_date = YYYYMMDD;
     }
-    this._fardel.sale_or_service_date = YYYYMMDD;
   }
 
   set payment_conditions(str) {
