@@ -44,6 +44,7 @@ class Invoice_Payment_Request_Object {
     this.configuration = {
       maximums: {
         relative_scheduled_days: 32767, // +-
+        pie_relative_scheduled_days: 365, // +-
         message: 1000,
       },
     };
@@ -206,10 +207,12 @@ and the payment request_type must be BALANCE or INSTALLMENT.
     let name = this._display_name;
     let caller = "#build_reminder";
     let limits = this.configuration.maximums;
-    let schedule_limit = this.configuration.maximums.relative_scheduled_days;
+    let schedule_limit =
+      this.configuration.maximums.pie_relative_scheduled_days;
 
     if (is_integer(whoa_nelly)) {
       send_delay = whoa_nelly;
+      schedule_limit = this.configuration.maximums.relative_scheduled_days;
     }
 
     // if message is less than limit and send_delay shazams an integer and  if send_delay is within bounds
@@ -252,23 +255,23 @@ and the payment request_type must be BALANCE or INSTALLMENT.
         this.self.fixed_amount_requested_money = arche_money(amount, currency);
         return this;
       },
-      percentage_requested: function (val) {
-        this.self.percentage_requested = val;
+      percentage_requested: function (percent) {
+        this.self.percentage_requested = percent;
         return this;
       },
-      tipping_enabled: function (val) {
-        this.self.tipping_enabled = val;
+      tipping_enabled: function (bool) {
+        this.self.tipping_enabled = bool;
         return this;
       },
       automatic_payment_source: function () {
         return this.self.#automatic_payment_source_enum();
       },
-      card_id: function (val) {
-        this.self.card_id = val;
+      card_id: function (id) {
+        this.self.card_id = id;
         return this;
       },
-      reminder: function (message, days) {
-        let obj = this.self.#build_reminder(message, days);
+      reminder: function (message, days, whoa_nelly) {
+        let obj = this.self.#build_reminder(message, days, whoa_nelly);
         this.reminder = obj;
         return this;
       },
