@@ -7,9 +7,11 @@ const Invoice_Publish = require("../src/lib/stub.invoice_request_publish");
 const Invoice_List = require("../src/lib/invoice_request_list");
 const Invoice_Search = require("../src/lib/invoice_request_search");
 
+const Invoice_Object = require("../src/lib/invoice_object");
+
 const { long_strings } = require("./helper_objects");
 
-describe.only("silence test suite", () => {
+describe("silence test suite", () => {
   test("", () => {
     expect("").toEqual("");
   });
@@ -32,6 +34,11 @@ describe("Invoice_Create", () => {
   test("should have defined square version", () => {
     expect(create.square_version).toBeDefined();
   });
+
+  test("should have defined help", () => {
+    expect(create.help).toBeDefined();
+  });
+
   test("should have defined _body", () => {
     expect(create.body).toBeDefined();
   });
@@ -41,6 +48,23 @@ describe("Invoice_Create", () => {
   test("nanoid should generate a idempotency key less than the limit", () => {
     let pass = create.idempotency_key.length <= 128;
     expect(pass).toEqual(true);
+  });
+
+  test("Create should throw if order_id is not specified on the invoice", () => {
+    let invoice = new Invoice_Object();
+    invoice.location_id = "123";
+    expect(() => {
+      create.invoice = invoice.fardel;
+    }).toThrow();
+  });
+
+  test("Create should NOT throw if order_id IS specified on the invoice", () => {
+    let invoice = new Invoice_Object();
+    invoice.location_id = "123";
+    invoice.order_id = "ABC";
+    expect(() => {
+      create.invoice = invoice.fardel;
+    }).not.toThrow();
   });
 
   test("idempotency should respect length 128", () => {
@@ -56,15 +80,37 @@ describe("Invoice_Create", () => {
     expect(create.endpoint).toEqual("");
   });
 
-  test("should set invoice to object passed", () => {
-    let expected = { a: 1 };
-    create.invoice = expected;
-    expect(create.invoice).toEqual(expected);
+  test("should set invoice property to invoice object", () => {
+    let expected = {
+      location_id: "123",
+      order_id: "ABC",
+      accepted_payment_methods: {
+        bank_account: false,
+        card: true,
+        square_gift_card: false,
+      },
+    };
+    let invoice = new Invoice_Object();
+    invoice.location_id = "123";
+    invoice.order_id = "ABC";
+    create.invoice = invoice.fardel;
+    expect(create.invoice).toMatchObject(expected);
   });
 
   test("make.invoice should set invoice to object passed", () => {
-    let expected = { a: 1 };
-    create.make().invoice(expected);
+    let expected = {
+      location_id: "123",
+      order_id: "ABC",
+      accepted_payment_methods: {
+        bank_account: false,
+        card: true,
+        square_gift_card: false,
+      },
+    };
+    let invoice = new Invoice_Object();
+    invoice.location_id = "123";
+    invoice.order_id = "ABC";
+    create.make().invoice(invoice.fardel);
     expect(create.invoice).toMatchObject(expected);
   });
 });

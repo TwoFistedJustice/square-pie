@@ -10,7 +10,8 @@ const { shazam_max_length } = require("./utilities/aaa_index");
 class Invoice_Create extends Invoice_Request {
   _display_name = "Invoice_Create";
   _last_verified_square_api_version = "2021-12-15";
-
+  _help =
+    "When creating a new invoice you MUST include the order_id on the invoice object";
   constructor() {
     super();
 
@@ -33,6 +34,9 @@ class Invoice_Create extends Invoice_Request {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get endpoint() {
     return this._endpoint;
