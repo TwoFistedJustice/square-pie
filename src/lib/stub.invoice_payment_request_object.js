@@ -53,15 +53,12 @@ class Invoice_Payment_Request_Object {
   get display_name() {
     return this._display_name;
   }
-
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
-
   get help() {
     return this._help;
   }
-
   get fardel() {
     // todo
     //  check if tipping is enabled
@@ -234,6 +231,7 @@ and the payment request_type must be BALANCE or INSTALLMENT.
       };
     }
   }
+  git;
 
   // MAKER METHODS
   make() {
@@ -271,7 +269,7 @@ and the payment request_type must be BALANCE or INSTALLMENT.
       },
       reminder: function (message, days, whoa_nelly) {
         let obj = this.self.#build_reminder(message, days, whoa_nelly);
-        this.reminder = obj;
+        this.self.reminder = obj;
         return this;
       },
     };
