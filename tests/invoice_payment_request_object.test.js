@@ -45,7 +45,40 @@ describe("error checking", () => {
     make = request_for_payment.make();
   });
 
-  // todo TEST fardel
+  test('request_or_payment.tipping_enabled should throw when tipping is enable and request_type = "BALANCE"', () => {
+    request_for_payment.tipping_enabled = true;
+    request_for_payment.request_type = "BALANCE";
+    expect(() => {
+      request_for_payment.fardel;
+    }).toThrow();
+  });
+
+  test('request_or_payment.tipping_enabled should throw when tipping is enable and request_type = "INSTALLMENT"', () => {
+    request_for_payment.tipping_enabled = true;
+    request_for_payment.request_type = "INSTALLMENT";
+    expect(() => {
+      request_for_payment.fardel;
+    }).toThrow();
+  });
+
+  test('request_or_payment.tipping_enabled should throw when percentage_requested is specified and request_type = "BALANCE"', () => {
+    request_for_payment.percentage_requested = 30;
+    request_for_payment.request_type = "BALANCE";
+    expect(() => {
+      request_for_payment.fardel;
+    }).toThrow();
+  });
+
+  test("request_or_payment.tipping_enabled should throw when percentage_requested is specified and fixed_amount_requested_money is specified  ", () => {
+    request_for_payment.percentage_requested = 30;
+    request_for_payment.fixed_amount_requested_money = {
+      amount: 4200,
+      currency: "EUR",
+    };
+    expect(() => {
+      request_for_payment.fardel;
+    }).toThrow();
+  });
 
   test("request_or_payment.tipping_enabled should throw on non boolean", () => {
     let wrong = "yes";
