@@ -11,6 +11,7 @@ const shazam_max_length = require("./shazam_max_length");
 const shazam_min_length = require("./shazam_min_length");
 const arrayify = require("./arrayify");
 const arche_money = require("./arche_money");
+const is_integer = require("./is_integer");
 const generate_error_message = require("./generate_error_message");
 const shazam_time_RFC3339 = require("./shazam_time_RFC3339");
 const shazam_date_human_readable = require("./shazam_date_human_readable");
@@ -39,6 +40,7 @@ module.exports = {
   shazam_max_length,
   arrayify,
   arche_money,
+  is_integer,
   generate_error_message,
   shazam_time_RFC3339,
   shazam_date_human_readable,

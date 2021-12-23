@@ -10,6 +10,7 @@ const {
   normalize_email,
   arrayify,
   arche_money,
+  is_integer,
   generate_error_message,
   shazam_time_RFC3339,
   shazam_date_human_readable,
@@ -205,6 +206,11 @@ describe("shazam_33339 date code verification utility", () => {
   });
 });
 
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_integer
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("shazam_integer integer verification utility", () => {
   test("should throw on a non-integer string", () => {
     expect(() => {
@@ -665,5 +671,37 @@ describe("shazam_number_between_equals", () => {
   });
   test("shazam_number_between_equals should return true when patient is equal to upper", () => {
     expect(shazam_number_between_equals(9, 10, patient)).toEqual(true);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        is_integer
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("is_integer", () => {
+  test("should return false on a non-integer string", () => {
+    expect(is_integer("95.5")).toEqual(false);
+  });
+
+  test("should return false on a non-integer number ", () => {
+    expect(is_integer(95.5)).toEqual(false);
+  });
+
+  test("should return false on no argument", () => {
+    expect(is_integer()).toEqual(false);
+  });
+
+  test("should return false on an express undefined ", () => {
+    expect(is_integer(undefined)).toEqual(false);
+  });
+
+  test("should return true on an integer string", () => {
+    expect(is_integer("42")).toEqual(true);
+  });
+
+  test("should return true on an integer number", () => {
+    expect(is_integer(42)).toEqual(true);
   });
 });
