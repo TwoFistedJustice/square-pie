@@ -8,12 +8,13 @@ const { shazam_integer, shazam_max_length } = require("./utilities/aaa_index");
  * * {@link https://developer.squareup.com/reference/square/invoices-api/publish-invoice | Square Docs}
  * */
 
-// todo should check for primary_recipient.customer_id
 class Invoice_Publish extends Invoice_RUDCnP {
   _display_name = "Invoice_Publish";
   _last_verified_square_api_version = "2021-11-17";
   _help =
-    "You must provide the invoice VERSION. If you do not know the version, call Invoice_Retrieve or Invoice_List.\nYou can add the invoice_id either as an argument when yuo instantiate the class, calling the setter, or calling make().id()";
+    "A published invoice MUST have a customer_id set in the primary_recipient field. This must be done before calling Publish endpoint." +
+    "\nYou must provide the invoice VERSION. If you do not know the version, call Invoice_Retrieve or Invoice_List.\n" +
+    "You can add the invoice_id either as an argument when you instantiate the class, calling the .id setter, or calling make().id()";
   constructor(id) {
     super();
     this._method = "POST";
