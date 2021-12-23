@@ -2,7 +2,6 @@
 
 const {
   arrayify,
-  is_integer,
   shazam_boolean,
   arche_money,
   shazam_date_human_readable,
@@ -210,7 +209,7 @@ and the payment request_type must be BALANCE or INSTALLMENT.
     let schedule_limit =
       this.configuration.maximums.pie_relative_scheduled_days;
 
-    if (is_integer(whoa_nelly)) {
+    if (whoa_nelly !== undefined && shazam_integer(whoa_nelly, name, caller)) {
       send_delay = whoa_nelly;
       schedule_limit = this.configuration.maximums.relative_scheduled_days;
     }
