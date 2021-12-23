@@ -221,9 +221,9 @@ and the payment request_type must be BALANCE or INSTALLMENT.
       shazam_max_length(limits.message, message, name, caller) &&
       shazam_integer(send_delay, name, caller) &&
       shazam_number_between_equals(
-        send_delay,
         -schedule_limit,
         schedule_limit,
+        send_delay,
         name,
         caller
       )
