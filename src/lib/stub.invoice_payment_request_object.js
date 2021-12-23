@@ -25,7 +25,10 @@ const {
 class Invoice_Payment_Request_Object {
   _display_name = "Invoice_Payment_Request_Object";
   _last_verified_square_api_version = "2021-12-15";
-  _help = "";
+  _help =
+    "tipping: if tipping is enabled request_type must be balance or installment\n" +
+    "You cannot specify percentage_requested when the payment request_type is BALANCE or " +
+    "when the payment request specifies the fixed_amount_requested_money field.";
 
   constructor() {
     this._fardel = {
