@@ -23,6 +23,7 @@ const {
   shazam_number_LE,
   shazam_number_GT,
   shazam_number_GE,
+  shazam_number_between_equals,
 } = require("../src/lib/utilities/aaa_index");
 
 const { dateCodes } = require("./helper_objects");
@@ -625,5 +626,44 @@ describe("shazam_date_human_readable", () => {
 
   test("shazam_date_human_readable should return true with correct format", () => {
     expect(shazam_date_human_readable("1945-08-02")).toEqual(true);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_number_between_equals
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("shazam_number_between_equals", () => {
+  let patient = 10;
+
+  test("shazam_number_between_equals should throw when upper is less than lower ", () => {
+    expect(() => {
+      shazam_number_between_equals(35, 4, patient);
+    }).toThrow();
+  });
+
+  test("shazam_number_between_equals should throw when patient is less than lower ", () => {
+    expect(() => {
+      shazam_number_between_equals(11, 12, patient);
+    }).toThrow();
+  });
+
+  test("shazam_number_between_equals should throw when patient is greater than upper ", () => {
+    expect(() => {
+      shazam_number_between_equals(8, 9, patient);
+    }).toThrow();
+  });
+
+  test("shazam_number_between_equals should return true when patient is between upper and lower", () => {
+    expect(shazam_number_between_equals(-9, 11, patient)).toEqual(true);
+  });
+
+  test("shazam_number_between_equals should return true when patient is equal to lower", () => {
+    expect(shazam_number_between_equals(10, 11, patient)).toEqual(true);
+  });
+  test("shazam_number_between_equals should return true when patient is equal to upper", () => {
+    expect(shazam_number_between_equals(9, 10, patient)).toEqual(true);
   });
 });

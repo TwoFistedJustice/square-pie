@@ -25,6 +25,7 @@ const shazam_number_LT = require("./shazam_number_LT");
 const shazam_number_LE = require("./shazam_number_LE");
 const shazam_number_GT = require("./shazam_number_GT");
 const shazam_number_GE = require("./shazam_number_GE");
+const shazam_number_between_equals = require("./shazam_number_between_equals");
 
 module.exports = {
   arche_time_start_end,
@@ -51,4 +52,5 @@ module.exports = {
   shazam_number_LE,
   shazam_number_GT,
   shazam_number_GE,
+  shazam_number_between_equals,
 };
