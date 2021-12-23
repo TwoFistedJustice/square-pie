@@ -2,11 +2,13 @@
 
 const {
   arrayify,
-  // shazam_max_length,
-  // shazam_integer,
+  is_integer,
   shazam_boolean,
   arche_money,
   shazam_date_human_readable,
+  shazam_integer,
+  shazam_number_between_equals,
+  shazam_max_length,
 } = require("./utilities/aaa_index");
 
 /** @class Invoice_Payment_Request_Object representing a payment request for an invoice
@@ -41,10 +43,8 @@ class Invoice_Payment_Request_Object {
 
     this.configuration = {
       maximums: {
-        relative_scheduled_days: 32767,
-      },
-      minimums: {
-        relative_scheduled_days: -32767,
+        relative_scheduled_days: 32767, // +-
+        message: 1000,
       },
     };
   }
@@ -183,13 +183,54 @@ and the payment request_type must be BALANCE or INSTALLMENT.
     };
   }
 
-  //todo
-  #build_reminder() {
-    let reminder = {
-      message: undefined, // str1000
-      relative_scheduled_days: undefined,
-    };
-    return reminder;
+  /** @method #build_reminder - creates a Square compliant reminder object. Square allows reminders to be sent as much as
+   * EIGHTY NINE YEARS, before or after a payment is due. Square Pie finds this, ummm, impractical...
+   *
+   * Square-Pie limits the days to plus or minus 365. There is a third argument which is NOT limited. If you really want
+   * to have square send a reminder 89 years before or after a payment is due, this is the one to use. The third argument
+   * completely overrides the second. If you pass a number as the third argument, whatever you passed as the second argument
+   * will be ignored.
+   *
+   * @param {string}  The reminder message - 1,000 char max
+   * @param {int32}  days - Max: +-365 - The number of days before (negative number)  or after (positive number) the reminder is sent.
+   * @param {int32}  whoa_nelly - Max:  +-32,767 The number of days before (negative number)  or after (positive number) the reminder is sent.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link  https://developer.squareup.com/reference/square/objects/InvoicePaymentReminder | Square Docs}
+   * */
+
+  // todo test
+  // with and without whoa_nelly
+  //
+  #build_reminder(message, days, whoa_nelly) {
+    let send_delay = days;
+    let name = this._display_name;
+    let caller = "#build_reminder";
+    let limits = this.configuration.maximums;
+    let schedule_limit = this.configuration.maximums.relative_scheduled_days;
+
+    if (is_integer(whoa_nelly)) {
+      send_delay = whoa_nelly;
+    }
+
+    // if message is less than limit and send_delay shazams an integer and  if send_delay is within bounds
+
+    if (
+      shazam_max_length(limits.message, message, name, caller) &&
+      shazam_integer(send_delay, name, caller) &&
+      shazam_number_between_equals(
+        send_delay,
+        -schedule_limit,
+        schedule_limit,
+        name,
+        caller
+      )
+    ) {
+      // if all of the above,
+      return {
+        message: message,
+        relative_scheduled_days: send_delay,
+      };
+    }
   }
 
   // MAKER METHODS
