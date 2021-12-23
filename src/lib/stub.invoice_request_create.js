@@ -10,6 +10,7 @@ const { shazam_max_length } = require("./utilities/aaa_index");
 class Invoice_Create extends Invoice_Request {
   _display_name = "Invoice_Create";
   _last_verified_square_api_version = "2021-12-15";
+
   constructor() {
     super();
 
@@ -43,7 +44,9 @@ class Invoice_Create extends Invoice_Request {
   get idempotency_key() {
     return this._body.idempotency_key;
   }
-
+  get invoice() {
+    return this._body.invoice;
+  }
   // SETTERS
 
   set idempotency_key(key) {
@@ -58,8 +61,22 @@ class Invoice_Create extends Invoice_Request {
       this._body.idempotency_key = key;
     }
   }
-  // todo invoice setter
-  // make sure it checks for order_id - REQUIRED fiedl
+  /** @method invoice - setter checks for order_id, if not present, it throws an error
+   * @param {object} fardel - Invoice_Object.fardel
+   * @throws an error if order_id is not present on the object passed
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * */
+  set invoice(fardel) {
+    if (fardel.order_id === undefined || typeof fardel.order_id !== "string") {
+      let message =
+        "To create a new invoice, order_id must be specified. Received: " +
+        fardel.order_id;
+      throw new Error(message);
+    } else {
+      this._body.invoice = fardel;
+    }
+  }
+
   // MAKER METHODS
   make() {
     return {
@@ -68,8 +85,8 @@ class Invoice_Create extends Invoice_Request {
         this.self.idempotency_key = key;
         return this;
       },
-      invoice: function (order) {
-        this.self.invoice = order;
+      invoice: function (fardel) {
+        this.self.invoice = fardel;
         return this;
       },
     };
