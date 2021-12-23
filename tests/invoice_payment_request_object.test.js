@@ -1,4 +1,4 @@
-const Invoice_Payment_Request_Object = require("../src/lib/stub.invoice_payment_request_object");
+const Invoice_Payment_Request_Object = require("../src/lib/invoice_payment_request_object");
 const { long_strings, dateCodes } = require("./helper_objects");
 // const {expect} = require ("chai");
 
