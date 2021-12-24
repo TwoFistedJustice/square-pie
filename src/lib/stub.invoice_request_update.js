@@ -72,9 +72,9 @@ class Invoice_Update extends Invoice_RUDCnP {
     let is_published;
     // let is_draft = inv.status === "DRAFT" ? true : false;
     let has_primary_recipient =
-      fardel._primary_recipient !== undefined ? true : false;
-    let has_order_id = fardel._order_id !== undefined ? true : false;
-    let has_location_id = fardel._location_id !== undefined ? true : false;
+      fardel.primary_recipient !== undefined ? true : false;
+    let has_order_id = fardel.order_id !== undefined ? true : false;
+    let has_location_id = fardel.location_id !== undefined ? true : false;
     let cannot_update =
       inv.status === "PAID" ||
       inv.status === "REFUNDED" ||
@@ -86,13 +86,6 @@ class Invoice_Update extends Invoice_RUDCnP {
 
     // todo  have it check fields to clear where appropriate
 
-    // invoice.status = "PAID", "REFUNDED", "CANCELED", "FAILED"
-    //   cannot update
-    // if (inv.status === "PAID" ||
-    //     inv.status === "REFUNDED" ||
-    //     inv.status ===  "CANCELED"||
-    //     inv.status ===  "FAILED" ||
-    //     inv.status ===  "PAYMENT_PENDING" ){
     if (cannot_update) {
       let message =
         "You cannot update an invoice which has a status of PAYMENT_PENDING, PAID, REFUNDED, CANCELED, or FAILED";
@@ -110,16 +103,7 @@ class Invoice_Update extends Invoice_RUDCnP {
         ? true
         : false;
 
-    // if (inv.status === "UNPAID" ||
-    //    inv.status === "SCHEDULED" ||
-    //    inv.status ===  "PARTIALLY_PAID"||
-    //    inv.status ===  "PARTIALLY_REFUNDED" ){
-    //    is_published = true;
-    //  } else {
-    //    is_published = false;
-    //  }
-
-    // invoice is published
+    // if invoice is published
     // cannot update: primary_recipient
     if (is_published && has_primary_recipient) {
       let message = "Cannot update primary recipient on a published invoice.";
@@ -153,7 +137,7 @@ class Invoice_Update extends Invoice_RUDCnP {
   }
 
   set invoice(fardel) {
-    if (this.#validate()) {
+    if (this.#validate(fardel)) {
       this._body.invoice = fardel;
     }
   }
