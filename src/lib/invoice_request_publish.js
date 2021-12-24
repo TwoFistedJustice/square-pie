@@ -10,7 +10,7 @@ const { shazam_integer, shazam_max_length } = require("./utilities/aaa_index");
 
 class Invoice_Publish extends Invoice_RUDCnP {
   _display_name = "Invoice_Publish";
-  _last_verified_square_api_version = "2021-11-17";
+  _last_verified_square_api_version = "2021-12-15";
   _help =
     "A published invoice MUST have a customer_id set in the primary_recipient field. This must be done before calling Publish endpoint." +
     "\nYou must provide the invoice VERSION. If you do not know the version, call Invoice_Retrieve or Invoice_List.\n" +
