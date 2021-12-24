@@ -6,10 +6,11 @@ const Invoice_Cancel = require("../src/lib/invoice_request_cancel");
 const Invoice_Publish = require("../src/lib/invoice_request_publish");
 const Invoice_List = require("../src/lib/invoice_request_list");
 const Invoice_Search = require("../src/lib/invoice_request_search");
+const Invoice_Update = require("../src/lib/stub.invoice_request_update");
 
-const Invoice_Object = require("../src/lib/invoice_object");
+const Invoice_Object = require("../src/lib/stub.invoice_object");
 
-const { long_strings } = require("./helper_objects");
+const { long_strings, invoice } = require("./helper_objects");
 
 describe("silence test suite", () => {
   test("", () => {
@@ -713,4 +714,68 @@ describe("Invoice_Search", () => {
     search.build_query().add_customer_ids_array(id_array);
     expect(search.customer_ids).toEqual(expected);
   });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                Invoice_Update
+ *                                                         *
+ * ------------------------------------------------------- */
+describe.only("Invoice_Update", () => {
+  let upate;
+  let class_name = "Invoice_Update";
+  beforeEach(function () {
+    upate = new Invoice_Update(invoice);
+  });
+
+  test("should have display name", () => {
+    expect(upate._display_name).toBeDefined();
+  });
+
+  test("should have the method defined by Square set", () => {
+    expect(upate.method).toEqual("PUT");
+  });
+
+  test("display name should be same as class name", () => {
+    expect(upate._display_name).toEqual(class_name);
+  });
+
+  test("should have defined square version", () => {
+    expect(upate.square_version).toBeDefined();
+  });
+  test("should have defined _body", () => {
+    expect(upate.body).toBeDefined();
+  });
+
+  test("should have defined _body.idempotency_key", () => {
+    expect(upate.body.idempotency_key).toBeDefined();
+  });
+
+  test("nanoid should generate a idempotency key less than the limit", () => {
+    let pass = upate.idempotency_key.length <= 128;
+    expect(pass).toEqual(true);
+  });
+
+  test("idempotency should respect length 128", () => {
+    expect(() => {
+      upate.idempotency_key = long_strings.len_129;
+    }).toThrow();
+  });
+
+  test("should have an endpoint", () => {
+    expect(upate.endpoint).toEqual(`/${invoice.id}`);
+  });
+
+  // Make()
+  // test ("make().idempotency_key() should set the property", () => {
+  //   upate.make ().idempotency_key ("123")
+  //   expect (upate.idempotency_key).toEqual ("123");
+  // });
+  //
+  // test ("make().() should set PRIMARY property", () => {
+  //   let expected = {a: 1}
+  //   upate.make (). * * * (expected)
+  //   expect (upate.invoice).toMatchObject (expected);
+  // });
+  //
 });
