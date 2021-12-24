@@ -789,112 +789,138 @@ describe("Invoice_Update", () => {
  * ------------------------------------------------------- */
 
 describe.only("Invoice_Update - Validation", () => {
-  let inv, obj, make;
+  let helper_invoice, pie_invoice_object, make;
 
   beforeEach(function () {
-    inv = invoice;
-    obj = new Invoice_Object();
-    obj.version = inv.version;
-    obj.title = "fahrfigWHAT?";
-    make = obj.make();
+    helper_invoice = invoice;
+    pie_invoice_object = new Invoice_Object();
+    pie_invoice_object.version = helper_invoice.version;
+    pie_invoice_object.title = "fahrfigWHAT?";
+    make = pie_invoice_object.make();
   });
 
   test("#validate should throw if status is PAID", () => {
-    inv.status = "PAID";
-    let update = new Invoice_Update(inv);
+    helper_invoice.status = "PAID";
+    let update = new Invoice_Update(helper_invoice);
     expect(() => {
-      update.invoice = obj;
+      update.invoice = pie_invoice_object;
     }).toThrow();
   });
   test("#validate should throw if status is REFUNDED", () => {
-    inv.status = "REFUNDED";
-    let update = new Invoice_Update(inv);
+    helper_invoice.status = "REFUNDED";
+    let update = new Invoice_Update(helper_invoice);
     expect(() => {
-      update.invoice = obj;
+      update.invoice = pie_invoice_object;
     }).toThrow();
   });
   test("#validate should throw if status is CANCELED", () => {
-    inv.status = "CANCELED";
-    let update = new Invoice_Update(inv);
+    helper_invoice.status = "CANCELED";
+    let update = new Invoice_Update(helper_invoice);
     expect(() => {
-      update.invoice = obj;
+      update.invoice = pie_invoice_object;
     }).toThrow();
   });
   test("#validate should throw if status is FAILED", () => {
-    inv.status = "FAILED";
-    let update = new Invoice_Update(inv);
+    helper_invoice.status = "FAILED";
+    let update = new Invoice_Update(helper_invoice);
     expect(() => {
-      update.invoice = obj;
+      update.invoice = pie_invoice_object;
     }).toThrow();
   });
   test("#validate should throw if status is PAYMENT_PENDING", () => {
-    inv.status = "PAYMENT_PENDING";
-    let update = new Invoice_Update(inv);
+    helper_invoice.status = "PAYMENT_PENDING";
+    let update = new Invoice_Update(helper_invoice);
     expect(() => {
-      update.invoice = obj;
+      update.invoice = pie_invoice_object;
     }).toThrow();
   });
 
   test("#validate should throw if trying to update order_id", () => {
-    obj.order_id = "123";
-    let update = new Invoice_Update(inv);
+    pie_invoice_object.order_id = "123";
+    let update = new Invoice_Update(helper_invoice);
     expect(() => {
-      update.invoice = obj;
+      update.invoice = pie_invoice_object;
     }).toThrow();
   });
   test("#validate should throw if trying to update location_id", () => {
-    let update = new Invoice_Update(inv);
-    obj.location_id = "123";
+    let update = new Invoice_Update(helper_invoice);
+    pie_invoice_object.location_id = "123";
     expect(() => {
-      update.invoice = obj;
+      update.invoice = pie_invoice_object;
     }).toThrow();
   });
 
   test("#validate should throw if trying to update primary_recipient and status is UNPAID", () => {
-    inv.status = "UNPAID";
-    let update = new Invoice_Update(inv);
+    helper_invoice.status = "UNPAID";
+    let update = new Invoice_Update(helper_invoice);
     make.primary_recipient("123");
     expect(() => {
-      update.invoice = obj;
+      update.invoice = pie_invoice_object;
     }).toThrow();
   });
   test("#validate should throw if trying to update primary_recipient and status is SCHEDULED", () => {
-    inv.status = "SCHEDULED";
-    let update = new Invoice_Update(inv);
+    helper_invoice.status = "SCHEDULED";
+    let update = new Invoice_Update(helper_invoice);
     make.primary_recipient("123");
     expect(() => {
-      update.invoice = obj;
+      update.invoice = pie_invoice_object;
     }).toThrow();
   });
   test("#validate should throw if trying to update primary_recipient and status is PARTIALLY_PAID", () => {
-    inv.status = "PARTIALLY_PAID";
-    let update = new Invoice_Update(inv);
+    helper_invoice.status = "PARTIALLY_PAID";
+    let update = new Invoice_Update(helper_invoice);
     make.primary_recipient("123");
     expect(() => {
-      update.invoice = obj;
+      update.invoice = pie_invoice_object;
     }).toThrow();
   });
   test("#validate should throw if trying to update primary_recipient and status is PARTIALLY_REFUNDED", () => {
-    inv.status = "PARTIALLY_REFUNDED";
-    let update = new Invoice_Update(inv);
+    helper_invoice.status = "PARTIALLY_REFUNDED";
+    let update = new Invoice_Update(helper_invoice);
     make.primary_recipient("123");
     expect(() => {
-      update.invoice = obj;
+      update.invoice = pie_invoice_object;
     }).toThrow();
   });
   test("#validate should throw if versions do not match", () => {
-    let update = new Invoice_Update(inv);
-    obj.version = 1;
+    let update = new Invoice_Update(helper_invoice);
+    pie_invoice_object.version = helper_invoice.version + 1;
     expect(() => {
-      update.invoice = obj;
+      update.invoice = pie_invoice_object;
+    }).toThrow();
+  });
+
+  test('#validate should throw when fields_to_clear includes "order_id"', () => {
+    let update = new Invoice_Update(helper_invoice);
+    update.make().fields_to_clear("order_id");
+    expect(() => {
+      update.invoice = pie_invoice_object;
+    }).toThrow();
+  });
+
+  test('#validate should throw when fields_to_clear includes "location_id"', () => {
+    let update = new Invoice_Update(helper_invoice);
+    update.make().fields_to_clear("location_id");
+    expect(() => {
+      update.invoice = pie_invoice_object;
+    }).toThrow();
+  });
+
+  test('#validate should throw when invoice is published and fields_to_clear includes "primary_recipient"', () => {
+    let update = new Invoice_Update(helper_invoice);
+    pie_invoice_object.status = "PARTIALLY_PAID";
+    update.make().fields_to_clear("primary_recipient");
+
+    expect(() => {
+      update.invoice = pie_invoice_object;
     }).toThrow();
   });
 
   test("#validate should not throw if all tests pass", () => {
-    let update = new Invoice_Update(inv);
+    let update = new Invoice_Update(helper_invoice);
 
     expect(() => {
-      update.invoice = obj;
+      update.invoice = pie_invoice_object;
     }).not.toThrow();
   });
 });
