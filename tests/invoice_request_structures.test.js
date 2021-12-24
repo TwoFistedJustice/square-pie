@@ -728,6 +728,8 @@ describe.only("Invoice_Update", () => {
     upate = new Invoice_Update(invoice);
   });
 
+  // basic structure
+
   test("should have display name", () => {
     expect(upate._display_name).toBeDefined();
   });
@@ -778,4 +780,84 @@ describe.only("Invoice_Update", () => {
   //   expect (upate.invoice).toMatchObject (expected);
   // });
   //
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *             Invoice_Update - Validation
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("Invoice_Update - Validation", () => {
+  let inv;
+  let obj;
+  beforeEach(function () {
+    inv = invoice;
+    obj = new Invoice_Object();
+    obj.version = inv.version;
+    obj.title = "fahrfigWHAT?";
+  });
+
+  test("#validate should throw if status is PAID", () => {
+    inv.status = "PAID";
+    let update = new Invoice_Update(inv);
+    expect(() => {
+      update.invoice = obj;
+    }).toThrow();
+  });
+  test("#validate should throw if status is REFUNDED", () => {
+    inv.status = "REFUNDED";
+    let update = new Invoice_Update(inv);
+    expect(() => {
+      update.invoice = obj;
+    }).toThrow();
+  });
+  test("#validate should throw if status is CANCELED", () => {
+    inv.status = "CANCELED";
+    let update = new Invoice_Update(inv);
+    expect(() => {
+      update.invoice = obj;
+    }).toThrow();
+  });
+  test("#validate should throw if status is FAILED", () => {
+    inv.status = "FAILED";
+    let update = new Invoice_Update(inv);
+    expect(() => {
+      update.invoice = obj;
+    }).toThrow();
+  });
+  test("#validate should throw if status is PAYMENT_PENDING", () => {
+    inv.status = "PAYMENT_PENDING";
+    let update = new Invoice_Update(inv);
+    expect(() => {
+      update.invoice = obj;
+    }).toThrow();
+  });
+
+  test("#validate should throw if trying to update order_id", () => {
+    expect(() => {}).toThrow();
+  });
+  test("#validate should throw if trying to update location_id", () => {
+    expect(() => {}).toThrow();
+  });
+
+  test("#validate should throw if trying to update primary_recipient and status is UNPAID", () => {
+    expect(() => {}).toThrow();
+  });
+  test("#validate should throw if trying to update primary_recipient and status is SCHEDULED", () => {
+    expect(() => {}).toThrow();
+  });
+  test("#validate should throw if trying to update primary_recipient and status is PARTIALLY_PAID", () => {
+    expect(() => {}).toThrow();
+  });
+  test("#validate should throw if trying to update primary_recipient and status is PARTIALLY_REFUNDED", () => {
+    expect(() => {}).toThrow();
+  });
+  test("#validate should throw if versions do not match", () => {
+    expect(() => {}).toThrow();
+  });
+
+  test("#validate should not throw if all tests pass", () => {
+    expect(() => {}).toThrow();
+  });
 });
