@@ -721,7 +721,7 @@ describe("Invoice_Search", () => {
  *                Invoice_Update
  *                                                         *
  * ------------------------------------------------------- */
-describe.only("Invoice_Update", () => {
+describe("Invoice_Update", () => {
   let upate;
   let class_name = "Invoice_Update";
   beforeEach(function () {
@@ -788,14 +788,15 @@ describe.only("Invoice_Update", () => {
  *                                                         *
  * ------------------------------------------------------- */
 
-describe("Invoice_Update - Validation", () => {
-  let inv;
-  let obj;
+describe.only("Invoice_Update - Validation", () => {
+  let inv, obj, make;
+
   beforeEach(function () {
     inv = invoice;
     obj = new Invoice_Object();
     obj.version = inv.version;
     obj.title = "fahrfigWHAT?";
+    make = obj.make();
   });
 
   test("#validate should throw if status is PAID", () => {
@@ -835,29 +836,65 @@ describe("Invoice_Update - Validation", () => {
   });
 
   test("#validate should throw if trying to update order_id", () => {
-    expect(() => {}).toThrow();
+    obj.order_id = "123";
+    let update = new Invoice_Update(inv);
+    expect(() => {
+      update.invoice = obj;
+    }).toThrow();
   });
   test("#validate should throw if trying to update location_id", () => {
-    expect(() => {}).toThrow();
+    let update = new Invoice_Update(inv);
+    obj.location_id = "123";
+    expect(() => {
+      update.invoice = obj;
+    }).toThrow();
   });
 
   test("#validate should throw if trying to update primary_recipient and status is UNPAID", () => {
-    expect(() => {}).toThrow();
+    inv.status = "UNPAID";
+    let update = new Invoice_Update(inv);
+    make.primary_recipient("123");
+    expect(() => {
+      update.invoice = obj;
+    }).toThrow();
   });
   test("#validate should throw if trying to update primary_recipient and status is SCHEDULED", () => {
-    expect(() => {}).toThrow();
+    inv.status = "SCHEDULED";
+    let update = new Invoice_Update(inv);
+    make.primary_recipient("123");
+    expect(() => {
+      update.invoice = obj;
+    }).toThrow();
   });
   test("#validate should throw if trying to update primary_recipient and status is PARTIALLY_PAID", () => {
-    expect(() => {}).toThrow();
+    inv.status = "PARTIALLY_PAID";
+    let update = new Invoice_Update(inv);
+    make.primary_recipient("123");
+    expect(() => {
+      update.invoice = obj;
+    }).toThrow();
   });
   test("#validate should throw if trying to update primary_recipient and status is PARTIALLY_REFUNDED", () => {
-    expect(() => {}).toThrow();
+    inv.status = "PARTIALLY_REFUNDED";
+    let update = new Invoice_Update(inv);
+    make.primary_recipient("123");
+    expect(() => {
+      update.invoice = obj;
+    }).toThrow();
   });
   test("#validate should throw if versions do not match", () => {
-    expect(() => {}).toThrow();
+    let update = new Invoice_Update(inv);
+    obj.version = 1;
+    expect(() => {
+      update.invoice = obj;
+    }).toThrow();
   });
 
   test("#validate should not throw if all tests pass", () => {
-    expect(() => {}).toThrow();
+    let update = new Invoice_Update(inv);
+
+    expect(() => {
+      update.invoice = obj;
+    }).not.toThrow();
   });
 });
