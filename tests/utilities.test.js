@@ -33,7 +33,7 @@ const { dateCodes } = require("./helper_objects");
 // const should = require("chai").should();
 // const { long_strings } = require("./helper_objects");
 
-describe("Silence test suite", () => {
+describe.only("Silence test suite", () => {
   test("", () => {});
 });
 
