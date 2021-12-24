@@ -6,7 +6,8 @@ const { shazam_max_length, arrayify } = require("./utilities/aaa_index");
  * @param {object}  invoice_document Get the invoice you want to update from Square and pass it as an argument.
  * You MUST do this when instantiating the Invoice_Update class. There is no option do do it later.
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/invoices-api/update-invoice | Square Docs}
+ * {@link https://developer.squareup.com/reference/square/invoices-api/update-invoice | Square Docs: Update endpoint}
+ * {@link https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice | Square Docs: Update an invoice}
  * */
 class Invoice_Update extends Invoice_RUDCnP {
   _display_name = "Invoice_Update";
@@ -69,7 +70,12 @@ class Invoice_Update extends Invoice_RUDCnP {
   #validate(fardel) {
     //published status "UNPAID" "SCHEDULED" "PARTIALLY_PAID" "PARTIALLY_REFUNDED" ""
     let inv = this.square_invoice_document;
-    let is_published;
+    let fields_to_clear = this._body.fields_to_clear;
+    let is_published,
+      fields_is_array,
+      includes_primary_recipient,
+      includes_order_id,
+      includes_location_id;
     // let is_draft = inv.status === "DRAFT" ? true : false;
     let has_primary_recipient =
       fardel.primary_recipient !== undefined ? true : false;
@@ -84,7 +90,13 @@ class Invoice_Update extends Invoice_RUDCnP {
         ? true
         : false;
 
-    // todo  have it check fields to clear where appropriate
+    // check if fields_to_clear is an array
+    // if it is, does it include loc, ord, or prim
+    fields_is_array = Array.isArray(fields_to_clear);
+    if (fields_is_array) {
+      includes_order_id = fields_to_clear.includes("order_id");
+      includes_location_id = fields_to_clear.includes("location_id");
+    } // END conditional sequence
 
     if (cannot_update) {
       let message =
@@ -93,8 +105,11 @@ class Invoice_Update extends Invoice_RUDCnP {
     } else if (has_order_id || has_location_id) {
       let message = "Cannot update order_id or location_id on an invoice.";
       throw new Error(message);
-    }
-
+    } else if (includes_order_id || includes_location_id) {
+      let message =
+        "Cannot update order_id or location_id on an invoice.  Please remove from fields_to_clear.";
+      throw new Error(message);
+    } // END conditional sequence
     is_published =
       inv.status === "UNPAID" ||
       inv.status === "SCHEDULED" ||
@@ -102,13 +117,24 @@ class Invoice_Update extends Invoice_RUDCnP {
       inv.status === "PARTIALLY_REFUNDED"
         ? true
         : false;
-
     // if invoice is published
     // cannot update: primary_recipient
-    if (is_published && has_primary_recipient) {
-      let message = "Cannot update primary recipient on a published invoice.";
-      throw new Error(message);
-    } else if (fardel.version !== inv.version) {
+    if (is_published) {
+      // todo this may be more complicated than just checking for a string
+      includes_primary_recipient = fields_is_array
+        ? fields_to_clear.includes("primary_recipient")
+        : false;
+      if (has_primary_recipient) {
+        let message = "Cannot update primary recipient on a published invoice.";
+        throw new Error(message);
+      } else if (includes_primary_recipient) {
+        let message =
+          "Cannot update primary recipient on a published invoice. Please remove from fields_to_clear.";
+        throw new Error(message);
+      }
+    } // END conditional sequence
+
+    if (fardel.version !== inv.version) {
       // version - must match
       let message =
         "Versions do not match. Expected: " +
@@ -119,7 +145,7 @@ class Invoice_Update extends Invoice_RUDCnP {
     } else {
       // if all tests pass - move along
       return true;
-    }
+    } // END conditional sequence
   }
 
   // SETTERS
