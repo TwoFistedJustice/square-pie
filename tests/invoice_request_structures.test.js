@@ -802,51 +802,58 @@ describe.only("Invoice_Update - Validation", () => {
   test("#validate should throw if status is PAID", () => {
     helper_invoice.status = "PAID";
     let update = new Invoice_Update(helper_invoice);
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
   test("#validate should throw if status is REFUNDED", () => {
     helper_invoice.status = "REFUNDED";
     let update = new Invoice_Update(helper_invoice);
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
   test("#validate should throw if status is CANCELED", () => {
     helper_invoice.status = "CANCELED";
     let update = new Invoice_Update(helper_invoice);
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
   test("#validate should throw if status is FAILED", () => {
     helper_invoice.status = "FAILED";
     let update = new Invoice_Update(helper_invoice);
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
   test("#validate should throw if status is PAYMENT_PENDING", () => {
     helper_invoice.status = "PAYMENT_PENDING";
     let update = new Invoice_Update(helper_invoice);
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
 
   test("#validate should throw if trying to update order_id", () => {
     pie_invoice_object.order_id = "123";
     let update = new Invoice_Update(helper_invoice);
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
   test("#validate should throw if trying to update location_id", () => {
     let update = new Invoice_Update(helper_invoice);
     pie_invoice_object.location_id = "123";
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
 
@@ -854,55 +861,62 @@ describe.only("Invoice_Update - Validation", () => {
     helper_invoice.status = "UNPAID";
     let update = new Invoice_Update(helper_invoice);
     make.primary_recipient("123");
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
   test("#validate should throw if trying to update primary_recipient and status is SCHEDULED", () => {
     helper_invoice.status = "SCHEDULED";
     let update = new Invoice_Update(helper_invoice);
     make.primary_recipient("123");
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
   test("#validate should throw if trying to update primary_recipient and status is PARTIALLY_PAID", () => {
     helper_invoice.status = "PARTIALLY_PAID";
     let update = new Invoice_Update(helper_invoice);
     make.primary_recipient("123");
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
   test("#validate should throw if trying to update primary_recipient and status is PARTIALLY_REFUNDED", () => {
     helper_invoice.status = "PARTIALLY_REFUNDED";
     let update = new Invoice_Update(helper_invoice);
     make.primary_recipient("123");
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
   test("#validate should throw if versions do not match", () => {
     let update = new Invoice_Update(helper_invoice);
     pie_invoice_object.version = helper_invoice.version + 1;
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
 
   test('#validate should throw when fields_to_clear includes "order_id"', () => {
     let update = new Invoice_Update(helper_invoice);
     update.make().fields_to_clear("order_id");
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
 
   test('#validate should throw when fields_to_clear includes "location_id"', () => {
     let update = new Invoice_Update(helper_invoice);
     update.make().fields_to_clear("location_id");
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
 
@@ -911,16 +925,18 @@ describe.only("Invoice_Update - Validation", () => {
     pie_invoice_object.status = "PARTIALLY_PAID";
     update.make().fields_to_clear("primary_recipient");
 
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).toThrow();
   });
 
   test("#validate should not throw if all tests pass", () => {
     let update = new Invoice_Update(helper_invoice);
 
+    update.invoice = pie_invoice_object;
     expect(() => {
-      update.invoice = pie_invoice_object;
+      update.body;
     }).not.toThrow();
   });
 });

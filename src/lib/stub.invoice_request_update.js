@@ -17,6 +17,10 @@ class Invoice_Update extends Invoice_RUDCnP {
     super(invoice_document.id);
     this._method = "PUT";
     this._square_invoice_document = invoice_document;
+    this._square_document = {
+      doc: invoice_document,
+      is_published: undefined,
+    };
     this._body = {
       idempotency_key: nanoid(), // 128
       invoice: undefined,
@@ -54,6 +58,31 @@ class Invoice_Update extends Invoice_RUDCnP {
     return this._body.fields_to_clear;
   }
 
+  get body() {
+    // if .invoice has a value other than undefined and that value passes validation
+    if (
+      this._body.invoice !== undefined &&
+      this.#validate(this._body.invoice)
+    ) {
+      return this._body;
+    }
+    // to quieten the linter
+    return false;
+  }
+
+  #invoice_is_published() {
+    let inv = this._square_document.doc;
+    let is_published =
+      inv.status === "UNPAID" ||
+      inv.status === "SCHEDULED" ||
+      inv.status === "PARTIALLY_PAID" ||
+      inv.status === "PARTIALLY_REFUNDED"
+        ? true
+        : false;
+
+    return is_published;
+  }
+
   // https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice
   /** @method This validates the desired updates versus Square's rules by comparing the desired updates
    * to the invoice copy passed to the constructor.
@@ -71,8 +100,8 @@ class Invoice_Update extends Invoice_RUDCnP {
     //published status "UNPAID" "SCHEDULED" "PARTIALLY_PAID" "PARTIALLY_REFUNDED" ""
     let inv = this.square_invoice_document;
     let fields_to_clear = this._body.fields_to_clear;
-    let is_published,
-      fields_is_array,
+    let is_published = this.#invoice_is_published();
+    let fields_is_array,
       includes_primary_recipient,
       includes_order_id,
       includes_location_id;
@@ -110,13 +139,6 @@ class Invoice_Update extends Invoice_RUDCnP {
         "Cannot update order_id or location_id on an invoice.  Please remove from fields_to_clear.";
       throw new Error(message);
     } // END conditional sequence
-    is_published =
-      inv.status === "UNPAID" ||
-      inv.status === "SCHEDULED" ||
-      inv.status === "PARTIALLY_PAID" ||
-      inv.status === "PARTIALLY_REFUNDED"
-        ? true
-        : false;
     // if invoice is published
     // cannot update: primary_recipient
     if (is_published) {
@@ -163,9 +185,7 @@ class Invoice_Update extends Invoice_RUDCnP {
   }
 
   set invoice(fardel) {
-    if (this.#validate(fardel)) {
-      this._body.invoice = fardel;
-    }
+    this._body.invoice = fardel;
   }
 
   set fields_to_clear(field) {
