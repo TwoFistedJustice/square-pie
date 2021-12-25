@@ -17,10 +17,9 @@ class Invoice_Update extends Invoice_RUDCnP {
     super(invoice_document.id);
     this._method = "PUT";
     this._square_invoice_document = invoice_document;
-    this._document = {
-      doc: invoice_document,
-      // is_published: this.#invoice_is_published(),
-      cannot_update: undefined,
+    this._document_conditions = {
+      is_published: this.#invoice_is_published(),
+      cannot_update: this.#invoice_cannot_be_updated(),
     };
     this._body = {
       idempotency_key: nanoid(), // 128
@@ -72,7 +71,7 @@ class Invoice_Update extends Invoice_RUDCnP {
   }
 
   #invoice_is_published() {
-    let inv = this._document.doc;
+    let inv = this._square_invoice_document;
     let is_published =
       inv.status === "UNPAID" ||
       inv.status === "SCHEDULED" ||
@@ -85,7 +84,8 @@ class Invoice_Update extends Invoice_RUDCnP {
   }
 
   #invoice_cannot_be_updated() {
-    let inv = this._document.doc;
+    // let inv = this._document_conditions.doc;
+    let inv = this._square_invoice_document;
     let cannot_update =
       inv.status === "PAID" ||
       inv.status === "REFUNDED" ||
@@ -116,25 +116,17 @@ class Invoice_Update extends Invoice_RUDCnP {
       includes_order_id,
       includes_location_id;
     //published status "UNPAID" "SCHEDULED" "PARTIALLY_PAID" "PARTIALLY_REFUNDED" ""
-    // let inv = this.square_invoice_document;
-    let inv = this._document.doc;
+    let inv = this.square_invoice_document;
     let fields_to_clear = this._body.fields_to_clear;
-    let is_published = this.#invoice_is_published();
-    // let is_published = this._document.is_published;
+    // let is_published = this.#invoice_is_published();
+    let is_published = this._document_conditions.is_published;
 
     // let is_draft = inv.status === "DRAFT" ? true : false;
     let has_primary_recipient =
       fardel.primary_recipient !== undefined ? true : false;
     let has_order_id = fardel.order_id !== undefined ? true : false;
     let has_location_id = fardel.location_id !== undefined ? true : false;
-    let cannot_update =
-      inv.status === "PAID" ||
-      inv.status === "REFUNDED" ||
-      inv.status === "CANCELED" ||
-      inv.status === "FAILED" ||
-      inv.status === "PAYMENT_PENDING"
-        ? true
-        : false;
+    let cannot_update = this._document_conditions.cannot_update;
 
     // check if fields_to_clear is an array
     // if it is, does it include loc, ord, or prim
