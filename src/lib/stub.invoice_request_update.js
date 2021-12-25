@@ -18,8 +18,13 @@ class Invoice_Update extends Invoice_RUDCnP {
     this._method = "PUT";
     this._square_invoice_document = invoice_document;
     this._document_conditions = {
-      is_published: this.#invoice_is_published(),
-      cannot_update: this.#invoice_cannot_be_updated(),
+      is_published: this.#is_invoice_published(),
+      cannot_update: this.#can_invoice_be_updated(),
+    };
+    this._invoice_conditionals = {
+      has_primary_recipient: undefined,
+      has_order_id: undefined,
+      has_location_id: undefined,
     };
     this._body = {
       idempotency_key: nanoid(), // 128
@@ -32,7 +37,7 @@ class Invoice_Update extends Invoice_RUDCnP {
       },
     };
   }
-
+  // GETTERS
   get display_name() {
     return this._display_name;
   }
@@ -70,7 +75,51 @@ class Invoice_Update extends Invoice_RUDCnP {
     return false;
   }
 
-  #invoice_is_published() {
+  // SETTERS
+  set idempotency_key(key) {
+    if (
+      shazam_max_length(
+        this.configuration.maximums.idempotency_key,
+        key,
+        this.display_name,
+        "idempotency_key"
+      )
+    ) {
+      this._body.idempotency_key = key;
+    }
+  }
+
+  set invoice(fardel) {
+    // todo test
+    this._invoice_conditionals.has_order_id =
+      fardel.order_id !== undefined ? true : false;
+    this._invoice_conditionals.has_location_id =
+      fardel.location_id !== undefined ? true : false;
+    this._invoice_conditionals.has_primary_recipient =
+      fardel.primary_recipient !== undefined ? true : false;
+    this._body.invoice = fardel;
+  }
+  set fields_to_clear(field) {
+    if (field === "order_id" || field === "location_id") {
+      let message = "It is not allowed to clear the " + field + " property.";
+      throw new Error(message);
+    }
+
+    if (
+      arrayify(
+        this._body,
+        "fields_to_clear",
+        this._display_name,
+        "fields_to_clear"
+      )
+    ) {
+      this._body.fields_to_clear.push(field);
+    }
+  }
+
+  // PRIVATE METHODS
+
+  #is_invoice_published() {
     let inv = this._square_invoice_document;
     let is_published =
       inv.status === "UNPAID" ||
@@ -83,7 +132,7 @@ class Invoice_Update extends Invoice_RUDCnP {
     return is_published;
   }
 
-  #invoice_cannot_be_updated() {
+  #can_invoice_be_updated() {
     // let inv = this._document_conditions.doc;
     let inv = this._square_invoice_document;
     let cannot_update =
@@ -111,30 +160,23 @@ class Invoice_Update extends Invoice_RUDCnP {
    * {@link  | Square Docs}
    * */
   #validate(fardel) {
-    let fields_is_array,
-      includes_primary_recipient,
-      includes_order_id,
-      includes_location_id;
+    let fields_is_array, includes_primary_recipient;
+
     //published status "UNPAID" "SCHEDULED" "PARTIALLY_PAID" "PARTIALLY_REFUNDED" ""
     let inv = this.square_invoice_document;
     let fields_to_clear = this._body.fields_to_clear;
-    // let is_published = this.#invoice_is_published();
     let is_published = this._document_conditions.is_published;
 
-    // let is_draft = inv.status === "DRAFT" ? true : false;
     let has_primary_recipient =
-      fardel.primary_recipient !== undefined ? true : false;
-    let has_order_id = fardel.order_id !== undefined ? true : false;
-    let has_location_id = fardel.location_id !== undefined ? true : false;
+      this._invoice_conditionals.has_primary_recipient;
+    let has_order_id = this._invoice_conditionals.has_order_id;
+    let has_location_id = this._invoice_conditionals.has_primary_recipient;
+
     let cannot_update = this._document_conditions.cannot_update;
 
     // check if fields_to_clear is an array
     // if it is, does it include loc, ord, or prim
     fields_is_array = Array.isArray(fields_to_clear);
-    if (fields_is_array) {
-      includes_order_id = fields_to_clear.includes("order_id");
-      includes_location_id = fields_to_clear.includes("location_id");
-    } // END conditional sequence
 
     if (cannot_update) {
       let message =
@@ -143,11 +185,8 @@ class Invoice_Update extends Invoice_RUDCnP {
     } else if (has_order_id || has_location_id) {
       let message = "Cannot update order_id or location_id on an invoice.";
       throw new Error(message);
-    } else if (includes_order_id || includes_location_id) {
-      let message =
-        "Cannot update order_id or location_id on an invoice.  Please remove from fields_to_clear.";
-      throw new Error(message);
     } // END conditional sequence
+
     // if invoice is published
     // cannot update: primary_recipient
     if (is_published) {
@@ -177,42 +216,6 @@ class Invoice_Update extends Invoice_RUDCnP {
       // if all tests pass - move along
       return true;
     } // END conditional sequence
-  }
-
-  // SETTERS
-  set idempotency_key(key) {
-    if (
-      shazam_max_length(
-        this.configuration.maximums.idempotency_key,
-        key,
-        this.display_name,
-        "idempotency_key"
-      )
-    ) {
-      this._body.idempotency_key = key;
-    }
-  }
-
-  set invoice(fardel) {
-    this._body.invoice = fardel;
-  }
-  // TODO TEST error check
-  set fields_to_clear(field) {
-    if (field === "order_id" || field === "location_id") {
-      let message = "It is not allowed to clear the " + field + " property.";
-      throw new Error(message);
-    }
-
-    if (
-      arrayify(
-        this._body,
-        "fields_to_clear",
-        this._display_name,
-        "fields_to_clear"
-      )
-    ) {
-      this._body.fields_to_clear.push(field);
-    }
   }
 
   // MAKER METHODS
