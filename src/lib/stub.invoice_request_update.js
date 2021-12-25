@@ -17,9 +17,10 @@ class Invoice_Update extends Invoice_RUDCnP {
     super(invoice_document.id);
     this._method = "PUT";
     this._square_invoice_document = invoice_document;
-    this._square_document = {
+    this._document = {
       doc: invoice_document,
-      is_published: undefined,
+      // is_published: this.#invoice_is_published(),
+      cannot_update: undefined,
     };
     this._body = {
       idempotency_key: nanoid(), // 128
@@ -71,7 +72,7 @@ class Invoice_Update extends Invoice_RUDCnP {
   }
 
   #invoice_is_published() {
-    let inv = this._square_document.doc;
+    let inv = this._document.doc;
     let is_published =
       inv.status === "UNPAID" ||
       inv.status === "SCHEDULED" ||
@@ -81,6 +82,19 @@ class Invoice_Update extends Invoice_RUDCnP {
         : false;
 
     return is_published;
+  }
+
+  #invoice_cannot_be_updated() {
+    let inv = this._document.doc;
+    let cannot_update =
+      inv.status === "PAID" ||
+      inv.status === "REFUNDED" ||
+      inv.status === "CANCELED" ||
+      inv.status === "FAILED" ||
+      inv.status === "PAYMENT_PENDING"
+        ? true
+        : false;
+    return cannot_update;
   }
 
   // https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice
@@ -97,14 +111,17 @@ class Invoice_Update extends Invoice_RUDCnP {
    * {@link  | Square Docs}
    * */
   #validate(fardel) {
-    //published status "UNPAID" "SCHEDULED" "PARTIALLY_PAID" "PARTIALLY_REFUNDED" ""
-    let inv = this.square_invoice_document;
-    let fields_to_clear = this._body.fields_to_clear;
-    let is_published = this.#invoice_is_published();
     let fields_is_array,
       includes_primary_recipient,
       includes_order_id,
       includes_location_id;
+    //published status "UNPAID" "SCHEDULED" "PARTIALLY_PAID" "PARTIALLY_REFUNDED" ""
+    // let inv = this.square_invoice_document;
+    let inv = this._document.doc;
+    let fields_to_clear = this._body.fields_to_clear;
+    let is_published = this.#invoice_is_published();
+    // let is_published = this._document.is_published;
+
     // let is_draft = inv.status === "DRAFT" ? true : false;
     let has_primary_recipient =
       fardel.primary_recipient !== undefined ? true : false;
@@ -187,8 +204,13 @@ class Invoice_Update extends Invoice_RUDCnP {
   set invoice(fardel) {
     this._body.invoice = fardel;
   }
-
+  // TODO TEST error check
   set fields_to_clear(field) {
+    if (field === "order_id" || field === "location_id") {
+      let message = "It is not allowed to clear the " + field + " property.";
+      throw new Error(message);
+    }
+
     if (
       arrayify(
         this._body,
