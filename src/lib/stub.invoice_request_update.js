@@ -20,21 +20,6 @@ class Invoice_Update extends Invoice_RUDCnP {
     this._invoice_is_published = this.#is_invoice_published();
     this._invoice_is_updatable = this.#is_updatable();
     this._reason = undefined;
-    this._document_conditionals = {
-      // is_published: this.#is_invoice_published(),
-      // cannot_update: this.#can_invoice_be_updated(),
-      // is_updatable: this.#is_updatable(),
-      reason: undefined,
-    };
-
-    // this._update_has_primary_recipient= undefined;
-    //   this._update_has_order_id= undefined;
-    //   this._update_has_location_id = undefined;
-    // this._invoice_conditionals = {
-    //   has_primary_recipient: undefined,
-    //   has_order_id: undefined,
-    //   has_location_id: undefined,
-    // };
     this._body = {
       idempotency_key: nanoid(), // 128
       invoice: undefined,
@@ -53,9 +38,7 @@ class Invoice_Update extends Invoice_RUDCnP {
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
-  get delivery() {
-    return this._delivery;
-  }
+
   get square_invoice_document() {
     return this._square_invoice_document;
   }
@@ -72,16 +55,10 @@ class Invoice_Update extends Invoice_RUDCnP {
     return this._body.fields_to_clear;
   }
 
-  get document_conditionals() {
-    return this._document_conditionals;
-  }
-
-  get invoice_conditionals() {
-    return this._invoice_conditionals;
-  }
-
   get body() {
-    if (!this.validate()) {
+    // don't use the !validate() syntax or it causes errors
+    let validated = this.validate();
+    if (validated === false) {
       let message =
         "Update disallowed for the following reason(s):\n" + this.reason;
       throw new Error(message);
@@ -115,7 +92,6 @@ class Invoice_Update extends Invoice_RUDCnP {
       this._body.idempotency_key = key;
     }
   }
-  //todo test
   set invoice(fardel) {
     this._body.invoice = fardel;
     if (!this.validate()) {
@@ -141,7 +117,7 @@ class Invoice_Update extends Invoice_RUDCnP {
       this._body.fields_to_clear.push(field);
     }
   }
-  // todo TEST
+
   set #reason(str) {
     let reason = this.reason;
     if (reason === undefined) {
@@ -242,7 +218,6 @@ class Invoice_Update extends Invoice_RUDCnP {
     }
   }
 
-  // https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice
   /** @method  validation - determines if an update is legal. If it is legal it returns true. If it is illegal,
    * it returns false and the reason can be accessed at yourVar.reason. This method is run automatically when
    * you call yourVar.request() and will throw an error if validation fails. If you run it manually, no error
@@ -303,8 +278,8 @@ class Invoice_Update extends Invoice_RUDCnP {
   make() {
     return {
       self: this,
-      id: function (id) {
-        this.self.id = id;
+      idempotency_key: function (key) {
+        this.self.idempotency_key = key;
         return this;
       },
       invoice: function (fardel) {
