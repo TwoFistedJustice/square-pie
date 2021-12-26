@@ -17,15 +17,24 @@ class Invoice_Update extends Invoice_RUDCnP {
     super(invoice_document.id);
     this._method = "PUT";
     this._square_invoice_document = invoice_document;
-    this._document_conditions = {
-      is_published: this.#is_invoice_published(),
-      cannot_update: this.#can_invoice_be_updated(),
+    this._invoice_is_published = this.#is_invoice_published();
+    this._invoice_is_updatable = this.#is_updatable();
+    this._reason = undefined;
+    this._document_conditionals = {
+      // is_published: this.#is_invoice_published(),
+      // cannot_update: this.#can_invoice_be_updated(),
+      // is_updatable: this.#is_updatable(),
+      reason: undefined,
     };
-    this._invoice_conditionals = {
-      has_primary_recipient: undefined,
-      has_order_id: undefined,
-      has_location_id: undefined,
-    };
+
+    // this._update_has_primary_recipient= undefined;
+    //   this._update_has_order_id= undefined;
+    //   this._update_has_location_id = undefined;
+    // this._invoice_conditionals = {
+    //   has_primary_recipient: undefined,
+    //   has_order_id: undefined,
+    //   has_location_id: undefined,
+    // };
     this._body = {
       idempotency_key: nanoid(), // 128
       invoice: undefined,
@@ -63,16 +72,34 @@ class Invoice_Update extends Invoice_RUDCnP {
     return this._body.fields_to_clear;
   }
 
+  get document_conditionals() {
+    return this._document_conditionals;
+  }
+
+  get invoice_conditionals() {
+    return this._invoice_conditionals;
+  }
+
   get body() {
-    // if .invoice has a value other than undefined and that value passes validation
-    if (
-      this._body.invoice !== undefined &&
-      this.#validate(this._body.invoice)
-    ) {
+    if (!this.validate()) {
+      let message =
+        "Update disallowed for the following reason(s):\n" + this.reason;
+      throw new Error(message);
+    } else {
       return this._body;
     }
-    // to quieten the linter
-    return false;
+  }
+
+  get reason() {
+    return this._reason;
+  }
+
+  // GETTERS for the condtionals related to the Square document passed as an argument to the constructor
+  get is_updatable() {
+    return this._invoice_is_updatable;
+  }
+  get is_published() {
+    return this._invoice_is_published;
   }
 
   // SETTERS
@@ -88,16 +115,14 @@ class Invoice_Update extends Invoice_RUDCnP {
       this._body.idempotency_key = key;
     }
   }
-
+  //todo test
   set invoice(fardel) {
-    // todo test
-    this._invoice_conditionals.has_order_id =
-      fardel.order_id !== undefined ? true : false;
-    this._invoice_conditionals.has_location_id =
-      fardel.location_id !== undefined ? true : false;
-    this._invoice_conditionals.has_primary_recipient =
-      fardel.primary_recipient !== undefined ? true : false;
     this._body.invoice = fardel;
+    if (!this.validate()) {
+      let message =
+        "Update disallowed for the following reason(s):\n" + this.reason;
+      throw new Error(message);
+    }
   }
   set fields_to_clear(field) {
     if (field === "order_id" || field === "location_id") {
@@ -116,6 +141,15 @@ class Invoice_Update extends Invoice_RUDCnP {
       this._body.fields_to_clear.push(field);
     }
   }
+  // todo TEST
+  set #reason(str) {
+    let reason = this.reason;
+    if (reason === undefined) {
+      this._reason = "- " + str;
+    } else {
+      this._reason += "\n- " + str;
+    }
+  }
 
   // PRIVATE METHODS
 
@@ -128,94 +162,141 @@ class Invoice_Update extends Invoice_RUDCnP {
       inv.status === "PARTIALLY_REFUNDED"
         ? true
         : false;
-
     return is_published;
   }
 
-  #can_invoice_be_updated() {
-    // let inv = this._document_conditions.doc;
+  #is_updatable() {
     let inv = this._square_invoice_document;
-    let cannot_update =
+    let can_be_updated =
       inv.status === "PAID" ||
       inv.status === "REFUNDED" ||
       inv.status === "CANCELED" ||
       inv.status === "FAILED" ||
       inv.status === "PAYMENT_PENDING"
-        ? true
-        : false;
-    return cannot_update;
+        ? false
+        : true;
+
+    if (can_be_updated === false) {
+      this.#reason =
+        "Invoices cannot be updated which have a status of PAYMENT_PENDING, PAID, REFUNDED, CANCELED, or FAILED";
+    }
+    return can_be_updated;
   }
 
-  // https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice
-  /** @method This validates the desired updates versus Square's rules by comparing the desired updates
-   * to the invoice copy passed to the constructor.
-   * @private
-   * @param {object} fardel The sparse invoice you want to send as an update
-   * @throws Throws an error if the versions do no match.
-   * @throws Throws an error if the invoice cannot be updated to status.
-   * @throws Throws an error if an attempt is made to update order_id or location_id.
-   * @throws Throws an error if the invoice is published and an attempt is made to update primary_recipient
-   * @throws Throws an error if the versions do not match.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link  | Square Docs}
-   * */
-  #validate(fardel) {
-    let fields_is_array, includes_primary_recipient;
-
-    //published status "UNPAID" "SCHEDULED" "PARTIALLY_PAID" "PARTIALLY_REFUNDED" ""
+  // todo test
+  #compare_version(fardel) {
     let inv = this.square_invoice_document;
-    let fields_to_clear = this._body.fields_to_clear;
-    let is_published = this._document_conditions.is_published;
-
-    let has_primary_recipient =
-      this._invoice_conditionals.has_primary_recipient;
-    let has_order_id = this._invoice_conditionals.has_order_id;
-    let has_location_id = this._invoice_conditionals.has_primary_recipient;
-
-    let cannot_update = this._document_conditions.cannot_update;
-
-    // check if fields_to_clear is an array
-    // if it is, does it include loc, ord, or prim
-    fields_is_array = Array.isArray(fields_to_clear);
-
-    if (cannot_update) {
-      let message =
-        "You cannot update an invoice which has a status of PAYMENT_PENDING, PAID, REFUNDED, CANCELED, or FAILED";
-      throw new Error(message);
-    } else if (has_order_id || has_location_id) {
-      let message = "Cannot update order_id or location_id on an invoice.";
-      throw new Error(message);
-    } // END conditional sequence
-
-    // if invoice is published
-    // cannot update: primary_recipient
-    if (is_published) {
-      // todo this may be more complicated than just checking for a string
-      includes_primary_recipient = fields_is_array
-        ? fields_to_clear.includes("primary_recipient")
-        : false;
-      if (has_primary_recipient) {
-        let message = "Cannot update primary recipient on a published invoice.";
-        throw new Error(message);
-      } else if (includes_primary_recipient) {
-        let message =
-          "Cannot update primary recipient on a published invoice. Please remove from fields_to_clear.";
-        throw new Error(message);
-      }
-    } // END conditional sequence
-
     if (fardel.version !== inv.version) {
-      // version - must match
       let message =
         "Versions do not match. Expected: " +
         inv.version +
         " Received: " +
         fardel.version;
-      throw new Error(message);
+      this.#reason = message;
+      return false;
     } else {
-      // if all tests pass - move along
+      // if versions match return true
       return true;
-    } // END conditional sequence
+    }
+  }
+
+  #validate_primary_recipient(fardel) {
+    if (fardel.primary_recipient !== undefined) {
+      if (this.is_published === true) {
+        this.#reason =
+          "It is not allowed to update primary_recipient on a published invoice.";
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
+  #validate_order_id(fardel) {
+    if (fardel.order_id !== undefined) {
+      this.#reason = "It is not allowed to update order_id.";
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  #validate_location_id(fardel) {
+    if (fardel.location_id !== undefined) {
+      this.#reason = "It is not allowed to update location_id.";
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  #can_clear_primary_recipient() {
+    if (this.is_published && Array.isArray(this._body.fields_to_clear)) {
+      if (this._body.fields_to_clear.includes("primary_recipient")) {
+        this.#reason =
+          "It is not allowed to clear primary_recipient on a published invoice.";
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+
+  // https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice
+  /** @method  validation - determines if an update is legal. If it is legal it returns true. If it is illegal,
+   * it returns false and the reason can be accessed at yourVar.reason. This method is run automatically when
+   * you call yourVar.request() and will throw an error if validation fails. If you run it manually, no error
+   * will be thrown.
+   * @param {object}  Invoice_Object.fardel
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice | Square Docs}
+   *
+   * Determines whether the update is legal or not.
+   * The update is illegal if
+   * - if the versions do no match.
+   * - an attempt is made to update order_id or location_id.
+   * - the invoice is published and an attempt is made to update primary_recipient
+   *
+   * - invoice status is
+   *    - "PAID"
+   *    - "REFUNDED"
+   *    - "CANCELED"
+   *    - "FAILED"
+   *    - "PAYMENT_PENDING
+   * */
+  validate(fardel = this._body.invoice) {
+    let is_legal;
+    /** @function update_legality checks the value of is_legal
+     * if it is undefined - it sets it to the received value
+     * if it true set it to the  received value
+     * if it is false, leave it as it is
+     * @param {boolean} the result of a test
+     * */
+    let update_legality = function (bool) {
+      if (is_legal === undefined || is_legal === true) {
+        is_legal = bool;
+      } else if (is_legal === false) {
+        return;
+      }
+    };
+    // disallow clearing primary_recipient if invoice is published
+    update_legality(this.#can_clear_primary_recipient());
+    // if there is not an invoice to validate, then don't!
+    if (fardel !== undefined) {
+      // if (this._body.invoice !== undefined ){
+      // let fardel = this._body.invoice;
+      // disallow update if status is PAYMENT_PENDING, PAID, REFUNDED, CANCELED, or FAILED.
+      update_legality(this.is_updatable);
+      // disallow updating primary_recipient if invoice is published
+      update_legality(this.#validate_primary_recipient(fardel));
+
+      // disallow update of order_id or location_id
+      update_legality(this.#validate_order_id(fardel));
+      update_legality(this.#validate_location_id(fardel));
+      // versions must be the same
+      update_legality(this.#compare_version(fardel));
+    }
+    return is_legal;
   }
 
   // MAKER METHODS
