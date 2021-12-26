@@ -17,8 +17,8 @@ class Invoice_Update extends Invoice_RUDCnP {
     super(invoice_document.id);
     this._method = "PUT";
     this._square_invoice_document = invoice_document;
-    this._invoice_is_published = this.#is_invoice_published();
     this._invoice_is_updatable = this.#is_updatable();
+    this._invoice_is_published = this.#is_invoice_published();
     this._reason = undefined;
     this._body = {
       idempotency_key: nanoid(), // 128
@@ -59,9 +59,7 @@ class Invoice_Update extends Invoice_RUDCnP {
     // don't use the !validate() syntax or it causes errors
     let validated = this.validate();
     if (validated === false) {
-      let message =
-        "Update disallowed for the following reason(s):\n" + this.reason;
-      throw new Error(message);
+      throw new Error(this.reason);
     } else {
       return this._body;
     }
@@ -95,9 +93,7 @@ class Invoice_Update extends Invoice_RUDCnP {
   set invoice(fardel) {
     this._body.invoice = fardel;
     if (!this.validate()) {
-      let message =
-        "Update disallowed for the following reason(s):\n" + this.reason;
-      throw new Error(message);
+      throw new Error(this.reason);
     }
   }
   set fields_to_clear(field) {
@@ -121,7 +117,8 @@ class Invoice_Update extends Invoice_RUDCnP {
   set #reason(str) {
     let reason = this.reason;
     if (reason === undefined) {
-      this._reason = "- " + str;
+      this._reason =
+        "Update disallowed for the following reason(s):\n" + "- " + str;
     } else {
       this._reason += "\n- " + str;
     }
@@ -130,6 +127,7 @@ class Invoice_Update extends Invoice_RUDCnP {
   // PRIVATE METHODS
 
   #is_invoice_published() {
+    // these are legal to update but you can't update primary_recipient
     let inv = this._square_invoice_document;
     let is_published =
       inv.status === "UNPAID" ||
@@ -142,6 +140,7 @@ class Invoice_Update extends Invoice_RUDCnP {
   }
 
   #is_updatable() {
+    // these are always illegal to update
     let inv = this._square_invoice_document;
     let can_be_updated =
       inv.status === "PAID" ||
@@ -159,7 +158,6 @@ class Invoice_Update extends Invoice_RUDCnP {
     return can_be_updated;
   }
 
-  // todo test
   #compare_version(fardel) {
     let inv = this.square_invoice_document;
     if (fardel.version !== inv.version) {
