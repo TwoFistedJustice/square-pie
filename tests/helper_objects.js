@@ -360,7 +360,7 @@ const sampleCustomers = {
   },
 };
 
-const invoice = {
+const helper_invoice = {
   id: "inv:0-ChCHu2mZEabLeeHahQnXDjZQECY",
   version: 2,
   location_id: "ES0RJRZYEC39A",
@@ -427,5 +427,5 @@ module.exports = {
   long_arrays,
   dateCodes,
   sampleCustomers,
-  invoice,
+  helper_invoice,
 };
