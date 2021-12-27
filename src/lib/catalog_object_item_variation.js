@@ -4,7 +4,7 @@ const {
   shazam_max_length,
   shazam_boolean,
   shazam_integer,
-} = require("./utilities/aaa_index");
+} = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
 // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
 

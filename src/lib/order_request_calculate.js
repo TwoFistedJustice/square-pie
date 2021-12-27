@@ -1,5 +1,5 @@
 const Order_Request = require("./order_request_abstract");
-const { shazam_max_length } = require("./utilities/aaa_index");
+const { shazam_max_length } = require("./utilities");
 const { nanoid } = require("nanoid");
 
 /** @class Order_Calculate representing an http request to calculate an order

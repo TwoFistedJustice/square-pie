@@ -4,7 +4,7 @@ const {
   normalize_email,
   shazam_time_RFC3339,
   shazam_integer,
-} = require("./utilities/aaa_index");
+} = require("./utilities");
 
 /** @class Customer_Update representing an http request to update a customer record
  * Some fields that are available on Customer_Object are not updatable. This class has its own

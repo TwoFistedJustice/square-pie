@@ -1,6 +1,6 @@
 const Invoice_Request = require("./invoice_request_abstract");
 const { nanoid } = require("nanoid");
-const { shazam_max_length } = require("./utilities/aaa_index");
+const { shazam_max_length } = require("./utilities");
 
 /** @class  Invoice_Create
  * @param {}

@@ -1,4 +1,4 @@
-const { shazam_max_length, arche_money } = require("./utilities/aaa_index");
+const { shazam_max_length, arche_money } = require("./utilities");
 const order_discount_enum = require("./enum/order_discount_enum");
 
 class Order_Discount {

@@ -5,7 +5,7 @@ const {
   shazam_time_RFC3339,
   shazam_date_human_readable,
   shazam_integer,
-} = require("./utilities/aaa_index");
+} = require("./utilities");
 
 /** @class Invoice_Object  representing an invoice
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/

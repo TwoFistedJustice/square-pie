@@ -1,5 +1,5 @@
 const Catalog_Request = require("./catalog_request_abstract");
-const { shazam_time_RFC3339 } = require("./utilities/aaa_index");
+const { shazam_time_RFC3339 } = require("./utilities");
 const catalog_search_objects_enum = require("./enum/catalog_search_objects_enum");
 
 /*

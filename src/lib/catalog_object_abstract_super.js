@@ -1,6 +1,6 @@
 // This class should own the "ID" value and automatically insert the required '#' character if the user does not provide it.
 // (check if the first character is a hash, and insert one if it's not there)
-const { arrayify } = require("./utilities/aaa_index");
+const { arrayify } = require("./utilities");
 /** Base class for the Square catalog API
  *
  * This class should own the "ID" value and automatically insert the required '#' character if the user does not provide it.

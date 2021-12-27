@@ -3,7 +3,7 @@ const {
   shazam_max_length,
   arrayify,
   arche_money,
-} = require("./utilities/aaa_index");
+} = require("./utilities");
 const order_object_enum = require("./enum/order_object_enum");
 
 /** @class  representing a

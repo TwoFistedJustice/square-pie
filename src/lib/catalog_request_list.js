@@ -1,8 +1,5 @@
 const Catalog_Request = require("./catalog_request_abstract");
-const {
-  query_string_endpoint,
-  shazam_integer,
-} = require("./utilities/aaa_index");
+const { query_string_endpoint, shazam_integer } = require("./utilities");
 // https://developer.squareup.com/reference/square/catalog-api/list-catalog
 
 class Catalog_List extends Catalog_Request {

@@ -1,6 +1,6 @@
 const Invoice_RUDCnP = require("./invoice_request_abstract_RUDCP_super");
 const { nanoid } = require("nanoid");
-const { shazam_integer, shazam_max_length } = require("./utilities/aaa_index");
+const { shazam_integer, shazam_max_length } = require("./utilities");
 
 /** @class Invoice_Publish
  * @param {string} id The invoice_id of the invoice you want
