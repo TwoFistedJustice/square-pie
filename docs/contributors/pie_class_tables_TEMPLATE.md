@@ -56,5 +56,5 @@
 
 ### Catalog
 
-Method | Expected Argument | Short Notes |
-| -------------------- | --------------- | ----------- |
+| Method | Expected Argument | Short Notes |
+| ------ | ----------------- | ----------- |
