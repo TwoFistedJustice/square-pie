@@ -40,6 +40,17 @@ class Customer_Retrieve_Update_Delete_Super extends Customer_Request {
   set id(someId) {
     this._endpoint = `/${someId}`;
   }
+
+  // MAKER METHODS
+  make() {
+    return {
+      self: this,
+      id: function (id) {
+        this.self.id = id;
+        return this;
+      },
+    };
+  }
 }
 
 module.exports = Customer_Retrieve_Update_Delete_Super;

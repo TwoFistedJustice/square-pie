@@ -10,14 +10,21 @@ const {
   normalize_email,
   arrayify,
   arche_money,
+  is_integer,
   generate_error_message,
   shazam_time_RFC3339,
+  shazam_date_human_readable,
   shazam_integer,
   shazam_boolean,
   shazam_object_has_property,
   shazam_is_array,
   shazam_max_length_array,
   shazam_min_length_array,
+  shazam_number_LT,
+  shazam_number_LE,
+  shazam_number_GT,
+  shazam_number_GE,
+  shazam_number_between_equals,
 } = require("../src/lib/utilities/aaa_index");
 
 const { dateCodes } = require("./helper_objects");
@@ -26,7 +33,7 @@ const { dateCodes } = require("./helper_objects");
 // const should = require("chai").should();
 // const { long_strings } = require("./helper_objects");
 
-describe("Silence test suite", () => {
+describe.only("Silence test suite", () => {
   test("", () => {});
 });
 
@@ -199,6 +206,11 @@ describe("shazam_33339 date code verification utility", () => {
   });
 });
 
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_integer
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("shazam_integer integer verification utility", () => {
   test("should throw on a non-integer string", () => {
     expect(() => {
@@ -491,5 +503,205 @@ describe("arche_time_start_end", () => {
     expect(
       arche_time_start_end(dateCodes.RFC3339, dateCodes.RFC3339)
     ).toMatchObject(expected);
+  });
+});
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_number_LT
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("shazam_number_LT", () => {
+  let limit = 5;
+
+  test("shazam_number_LT should return true if under limit", () => {
+    expect(shazam_number_LT(4, limit)).toEqual(true);
+  });
+
+  test("shazam_number_LT should throw if at limit", () => {
+    expect(() => {
+      shazam_number_LT(5, limit);
+    }).toThrow();
+  });
+
+  test("shazam_number_LT should throw if over limit", () => {
+    expect(() => {
+      shazam_number_LT(6, limit);
+    }).toThrow();
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_number_GT
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("shazam_number_GT", () => {
+  let limit = 5;
+
+  test("shazam_number_GT should return true if over limit", () => {
+    expect(shazam_number_GT(6, limit)).toEqual(true);
+  });
+
+  test("shazam_number_GT should throw if at limit", () => {
+    expect(() => {
+      shazam_number_GT(5, limit);
+    }).toThrow();
+  });
+
+  test("shazam_number_GT should throw if under limit", () => {
+    expect(() => {
+      shazam_number_GT(4, limit);
+    }).toThrow();
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_number_LE
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("shazam_number_LE", () => {
+  let limit = 5;
+
+  test("shazam_number_LE should return true if under limit", () => {
+    expect(shazam_number_LE(4, limit)).toEqual(true);
+  });
+
+  test("shazam_number_LE should return true if at limit", () => {
+    expect(shazam_number_LE(5, limit)).toEqual(true);
+  });
+
+  test("shazam_number_LE should throw if over limit", () => {
+    expect(() => {
+      shazam_number_LE(6, limit);
+    }).toThrow();
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_number_GE
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("shazam_number_GE", () => {
+  let limit = 5;
+
+  test("shazam_number_GE should return true if over limit", () => {
+    expect(shazam_number_GE(6, limit)).toEqual(true);
+  });
+
+  test("shazam_number_GE should return true if at limit", () => {
+    expect(shazam_number_GE(5, limit)).toEqual(true);
+  });
+
+  test("shazam_number_GE should throw if at or under limit", () => {
+    expect(() => {
+      shazam_number_GE(4, limit);
+    }).toThrow();
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_date_human_readable
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("shazam_date_human_readable", () => {
+  test("shazam_date_human_readable should throw with wrong delimiter", () => {
+    expect(() => {
+      shazam_date_human_readable("1945/08/02");
+    }).toThrow();
+  });
+
+  test("shazam_date_human_readable should throw with RFC3339 compliant date", () => {
+    expect(() => {
+      shazam_date_human_readable(dateCodes.RFC3339);
+    }).toThrow();
+  });
+
+  test("shazam_date_human_readable should not throw with dash delimiter", () => {
+    expect(() => {
+      shazam_date_human_readable("1945-08-02");
+    }).not.toThrow();
+  });
+
+  test("shazam_date_human_readable should return true with correct format", () => {
+    expect(shazam_date_human_readable("1945-08-02")).toEqual(true);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_number_between_equals
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("shazam_number_between_equals", () => {
+  let patient = 10;
+
+  test("shazam_number_between_equals should throw when upper is less than lower ", () => {
+    expect(() => {
+      shazam_number_between_equals(35, 4, patient);
+    }).toThrow();
+  });
+
+  test("shazam_number_between_equals should throw when patient is less than lower ", () => {
+    expect(() => {
+      shazam_number_between_equals(11, 12, patient);
+    }).toThrow();
+  });
+
+  test("shazam_number_between_equals should throw when patient is greater than upper ", () => {
+    expect(() => {
+      shazam_number_between_equals(8, 9, patient);
+    }).toThrow();
+  });
+
+  test("shazam_number_between_equals should return true when patient is between upper and lower", () => {
+    expect(shazam_number_between_equals(-9, 11, patient)).toEqual(true);
+  });
+
+  test("shazam_number_between_equals should return true when patient is equal to lower", () => {
+    expect(shazam_number_between_equals(10, 11, patient)).toEqual(true);
+  });
+  test("shazam_number_between_equals should return true when patient is equal to upper", () => {
+    expect(shazam_number_between_equals(9, 10, patient)).toEqual(true);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        is_integer
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("is_integer", () => {
+  test("should return false on a non-integer string", () => {
+    expect(is_integer("95.5")).toEqual(false);
+  });
+
+  test("should return false on a non-integer number ", () => {
+    expect(is_integer(95.5)).toEqual(false);
+  });
+
+  test("should return false on no argument", () => {
+    expect(is_integer()).toEqual(false);
+  });
+
+  test("should return false on an express undefined ", () => {
+    expect(is_integer(undefined)).toEqual(false);
+  });
+
+  test("should return true on an integer string", () => {
+    expect(is_integer("42")).toEqual(true);
+  });
+
+  test("should return true on an integer number", () => {
+    expect(is_integer(42)).toEqual(true);
   });
 });
