@@ -85,11 +85,6 @@ describe("Invoice_Create", () => {
     let expected = {
       location_id: "123",
       order_id: "ABC",
-      accepted_payment_methods: {
-        bank_account: false,
-        card: true,
-        square_gift_card: false,
-      },
     };
     let invoice = new Invoice_Object();
     invoice.location_id = "123";
@@ -102,11 +97,6 @@ describe("Invoice_Create", () => {
     let expected = {
       location_id: "123",
       order_id: "ABC",
-      accepted_payment_methods: {
-        bank_account: false,
-        card: true,
-        square_gift_card: false,
-      },
     };
     let invoice = new Invoice_Object();
     invoice.location_id = "123";

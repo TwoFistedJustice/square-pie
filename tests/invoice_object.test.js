@@ -1,4 +1,4 @@
-const Invoice_Object = require("../src/lib/invoice_object");
+const Invoice_Object = require("../src/lib/stub.invoice_object");
 const { long_strings, dateCodes } = require("./helper_objects");
 
 let class_name = "Invoice_Object";

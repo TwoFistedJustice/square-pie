@@ -15,7 +15,7 @@ const {
 class Invoice_Object {
   _display_name = "Invoice_Object";
   _last_verified_square_api_version = "2021-12-15";
-  _help = "accepted_payment_methods- card is default true";
+  _help = "";
   constructor() {
     this._fardel = {
       version: undefined, // int32
@@ -28,11 +28,7 @@ class Invoice_Object {
       title: undefined, //str 255
       description: undefined, //str 65536
       scheduled_at: undefined, //RFC3339
-      accepted_payment_methods: {
-        bank_account: false,
-        card: true,
-        square_gift_card: false,
-      },
+      accepted_payment_methods: undefined,
       custom_fields: undefined, //[] - subscription only
       sale_or_service_date: undefined, //str YYYY-MM-DD (validate?)
       payment_conditions: undefined, // str 2000, FRANCE ONLY - Fait le en francais
@@ -263,6 +259,17 @@ class Invoice_Object {
   }
 
   // PRIVATE METHODS
+
+  #define_accepted_payment_methods() {
+    if (this.accepted_payment_methods === undefined) {
+      this._fardel.accepted_payment_methods = {
+        bank_account: false,
+        card: false,
+        square_gift_card: false,
+      };
+    }
+  }
+
   #delivery_method_enum() {
     return {
       self: this,
@@ -409,10 +416,11 @@ class Invoice_Object {
        * myVar.make().accepted_payment_methods()[property you want to set].no() => false
        *  Properties to choose from:
        *  - bank_account
-       *  - card - defaults to true
+       *  - card
        *  - square_gift_card
        * */
       accepted_payment_methods: function () {
+        this.self.#define_accepted_payment_methods();
         return this.self.#build_accepted_payment_methods();
       },
       /** @method make.custom_fields    method of Invoice_Object
