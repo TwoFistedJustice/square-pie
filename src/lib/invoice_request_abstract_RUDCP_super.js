@@ -1,4 +1,4 @@
-const Invoice_Request = require("./stub.invoice_request_abstract");
+const Invoice_Request = require("./invoice_request_abstract");
 
 /** @class Invoice_RUDCnP super class of Invoice: Retrieve, Update, Delete,  Cancel, Delete
  * @param {id}  Sets the endpoint to the id your pass in.

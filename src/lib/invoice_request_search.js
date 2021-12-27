@@ -1,4 +1,4 @@
-const Invoice_Request = require("./stub.invoice_request_abstract");
+const Invoice_Request = require("./invoice_request_abstract");
 const {
   shazam_integer,
   shazam_number_LE,

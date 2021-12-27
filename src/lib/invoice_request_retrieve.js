@@ -1,4 +1,4 @@
-const Invoice_RUDCnP = require("./stub.invoice_request_abstract_RUDCP_super");
+const Invoice_RUDCnP = require("./invoice_request_abstract_RUDCP_super");
 
 /** @class Invoice_Retrieve - represents an http request to GET an invoice. (calling it "retrieve" to be
  * consistent with the rest of the API.

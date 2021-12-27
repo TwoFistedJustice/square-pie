@@ -1,4 +1,4 @@
-const Invoice_RUDCnP = require("./stub.invoice_request_abstract_RUDCP_super");
+const Invoice_RUDCnP = require("./invoice_request_abstract_RUDCP_super");
 
 /** @class Invoice_Delete
  * @param {string} id The invoice_id of the invoice you want

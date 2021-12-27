@@ -1,4 +1,4 @@
-const Invoice_RUDCnP = require("./stub.invoice_request_abstract_RUDCP_super");
+const Invoice_RUDCnP = require("./invoice_request_abstract_RUDCP_super");
 const { nanoid } = require("nanoid");
 const { shazam_max_length, arrayify } = require("./utilities/aaa_index");
 

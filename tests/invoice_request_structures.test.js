@@ -6,9 +6,9 @@ const Invoice_Cancel = require("../src/lib/invoice_request_cancel");
 const Invoice_Publish = require("../src/lib/invoice_request_publish");
 const Invoice_List = require("../src/lib/invoice_request_list");
 const Invoice_Search = require("../src/lib/invoice_request_search");
-const Invoice_Update = require("../src/lib/stub.invoice_request_update");
+const Invoice_Update = require("../src/lib/invoice_request_update");
 
-const Invoice_Object = require("../src/lib/stub.invoice_object");
+const Invoice_Object = require("../src/lib/invoice_object");
 
 const { long_strings, helper_invoice } = require("./helper_objects");
 
