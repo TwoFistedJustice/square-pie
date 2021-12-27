@@ -13,13 +13,13 @@ class Invoice_Update extends Invoice_RUDCnP {
   _display_name = "Invoice_Update";
   _last_verified_square_api_version = "2021-12-15";
   _help = "";
+  _reason = "";
   constructor(invoice_document) {
     super(invoice_document.id);
     this._method = "PUT";
     this._square_invoice_document = invoice_document;
     this._invoice_is_updatable = this.#is_updatable();
     this._invoice_is_published = this.#is_invoice_published();
-    this._reason = undefined;
     this._body = {
       idempotency_key: nanoid(), // 128
       invoice: undefined,
@@ -115,13 +115,14 @@ class Invoice_Update extends Invoice_RUDCnP {
   }
 
   set #reason(str) {
-    let reason = this.reason;
-    if (reason === undefined) {
-      this._reason =
-        "Update disallowed for the following reason(s):\n" + "- " + str;
-    } else {
-      this._reason += "\n- " + str;
+    let base = this._reason;
+    let final;
+    // if (this.reason === undefined) {
+    if (base === "") {
+      base = "Update disallowed for the following reason(s):";
     }
+    final = base.concat("\n- " + str);
+    this._reason = final;
   }
 
   // PRIVATE METHODS
