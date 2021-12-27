@@ -188,8 +188,8 @@ Post 3: Create - upload an image -- CAREFUL - this one can cause DB bloat! it al
 
 ### INFO
 
-| | Method | Resource Location | Body Properties | Response Fields | Square Docs | Short notes |
-| --- | ------ | ----------------- | -------------------- | --------------- | -------------------------------------------------------------------------------- | ----------- |
-| | GET | 'catalog/info' | empty | | [Info](https://developer.squareup.com/reference/square/catalog-api/catalog-info) |returns a set of parameters you must live by
-| | | | | ^^^limits |
-| | | | | ^^^standard_unit_description_group |
+|     | Method | Resource Location | Body Properties | Response Fields                    | Square Docs                                                                      | Short notes                                  |
+| --- | ------ | ----------------- | --------------- | ---------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------- |
+|     | GET    | 'catalog/info'    | empty           |                                    | [Info](https://developer.squareup.com/reference/square/catalog-api/catalog-info) | returns a set of parameters you must live by |
+|     |        |                   |                 | ^^^limits                          |
+|     |        |                   |                 | ^^^standard_unit_description_group |
