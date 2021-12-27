@@ -22,7 +22,7 @@ class Invoice_Update extends Invoice_RUDCnP {
     this._invoice_is_published = this.#is_invoice_published();
     this._body = {
       idempotency_key: nanoid(), // 128
-      invoice: undefined,
+      invoice: undefined, // sparse invoice object containing only the fields you want to update - don't be like Princess Vespa
       fields_to_clear: undefined,
     };
     this.configuration = {
@@ -211,9 +211,9 @@ class Invoice_Update extends Invoice_RUDCnP {
         this.#reason =
           "It is not allowed to clear primary_recipient on a published invoice.";
         return false;
-      } else {
-        return true;
       }
+    } else {
+      return true;
     }
   }
 
@@ -238,6 +238,7 @@ class Invoice_Update extends Invoice_RUDCnP {
    *    - "FAILED"
    *    - "PAYMENT_PENDING
    * */
+  // the default is the sparse invoice object NOT the original
   validate(fardel = this._body.invoice) {
     let is_legal;
     /** @function update_legality checks the value of is_legal
