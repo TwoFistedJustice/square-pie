@@ -6,7 +6,7 @@ const {
   shazam_integer,
   shazam_max_length_array,
   shazam_min_length_array,
-} = require("./utilities/aaa_index");
+} = require("./utilities");
 
 const { arche_sorting_enum, order_fulfillment_enum } = require("./enum/index");
 

@@ -13,7 +13,7 @@
  *  when using sugary ES6 Classes. It also makes the property enumerable.
  *
  * */
-const { shazam_max_length } = require("../../src/lib/utilities/aaa_index");
+const { shazam_max_length } = require("../../src/lib/utilities");
 
 class Super_Object {
   constructor() {

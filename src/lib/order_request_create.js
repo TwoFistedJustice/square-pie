@@ -1,6 +1,6 @@
 const Order_Request = require("./order_request_abstract");
 const { nanoid } = require("nanoid");
-const { shazam_max_length } = require("./utilities/aaa_index");
+const { shazam_max_length } = require("./utilities");
 
 /** @class  Order_Create representing an http request to create a new order
  * @param {object} order  orderObject.fardel -You can also do this later by calling the order setter. You must add this before calling .request()

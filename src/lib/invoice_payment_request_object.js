@@ -8,7 +8,7 @@ const {
   shazam_integer,
   shazam_number_between_equals,
   shazam_max_length,
-} = require("./utilities/aaa_index");
+} = require("./utilities");
 
 /** @class Invoice_Payment_Request_Object representing a payment request for an invoice
  * @param {}  You must do this before calling .request()

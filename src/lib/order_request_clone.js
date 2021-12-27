@@ -1,6 +1,6 @@
 const Order_Request = require("./order_request_abstract");
 const { nanoid } = require("nanoid");
-const { shazam_max_length } = require("./utilities/aaa_index");
+const { shazam_max_length } = require("./utilities");
 
 /** @class Order_clone representing a call to clone an existing order.
  * @param {string} id - the id of the order you want to clone. You can also add this later. You must do this before calling .request()

@@ -1,4 +1,4 @@
-const { shazam_max_length } = require("./utilities/aaa_index");
+const { shazam_max_length } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
 class Catalog_Category extends Catalog_Object_Super {
   _display_name = "Catalog_Category";

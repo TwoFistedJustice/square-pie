@@ -25,7 +25,7 @@ const {
   shazam_number_GT,
   shazam_number_GE,
   shazam_number_between_equals,
-} = require("../src/lib/utilities/aaa_index");
+} = require("../src/lib/utilities");
 
 const { dateCodes } = require("./helper_objects");
 // const {expect} = require ("chai");

@@ -1,5 +1,5 @@
 const Catalog_Request = require("./catalog_request_abstract");
-const { arrayify, generate_error_message } = require("./utilities/aaa_index");
+const { arrayify, generate_error_message } = require("./utilities");
 
 class Catalog_Search_Items extends Catalog_Request {
   _display_name = "Catalog_Search_Items";

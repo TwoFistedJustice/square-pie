@@ -1,9 +1,5 @@
 const Invoice_Request = require("./invoice_request_abstract");
-const {
-  shazam_integer,
-  shazam_number_LE,
-  arrayify,
-} = require("./utilities/aaa_index");
+const { shazam_integer, shazam_number_LE, arrayify } = require("./utilities");
 
 /** @class  Invoice_Search
  * @param {string} location_id - useful if you only need to search one location. You can leave it out and add location_ids using make() or build_query()

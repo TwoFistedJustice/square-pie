@@ -1,5 +1,5 @@
 const Catalog_Search_Objects_Super = require("./catalog_request_abstract_search_objects_super");
-const { define, shazam_object_has_property } = require("./utilities/aaa_index");
+const { define, shazam_object_has_property } = require("./utilities");
 
 class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   _display_name = "Catalog_Search_Filter";
