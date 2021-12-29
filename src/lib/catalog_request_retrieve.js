@@ -1,8 +1,15 @@
 const Catalog_Request = require("./catalog_request_abstract");
+const man =
+  "Can fetch one or more catalog objects by sending the desired objects Square document ID. Add them one at a time using make().object_ids() " +
+  "or [not implemented]  make().id(). Or add an array of object ids using make()add_array(). You can mix and match any of these methods";
 
 class Catalog_Retrieve extends Catalog_Request {
   _display_name = "Catalog_Retrieve";
   _last_verified_square_api_version = "2021-07-21";
+  _help = this.display_name + ": " + man;
+  // todo ability to add a whole array of ids in addition to one at a time using array.concat.
+  //    add an "id" alias to make.object_ids
+  //    update the man const - remove the un-implementation bracket
   constructor() {
     super();
     this._method = "post";
@@ -16,6 +23,9 @@ class Catalog_Retrieve extends Catalog_Request {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get object_ids() {
     return this._body.object_ids;
