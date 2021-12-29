@@ -1,10 +1,16 @@
 const Catalog_Request = require("./catalog_request_abstract");
 const { query_string_endpoint, shazam_integer } = require("./utilities");
 // https://developer.squareup.com/reference/square/catalog-api/list-catalog
+const man =
+  "fetches a list of all Catalog API documents in your db. You can filter that list by type." +
+  "Add the types one at a time using  make().type().type_you_want_to_add(). Or even easier -  \n" +
+  "[not implemented] make().type_you_want_to_add()" +
+  "https://developer.squareup.com/reference/square/catalog-api/list-catalog";
 
 class Catalog_List extends Catalog_Request {
   _display_name = "Catalog_List";
   _last_verified_square_api_version = "2021-11-17";
+  _help = this.display_name + ": " + man;
   constructor() {
     super();
     this._method = "get";
@@ -15,6 +21,16 @@ class Catalog_List extends Catalog_Request {
     };
     this._delivery;
   }
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
+  }
+
   get endpoint() {
     let has_catalog_ver = !!this.query_params.catalog_version;
     let has_types = !!this.query_params.types;
@@ -38,12 +54,7 @@ class Catalog_List extends Catalog_Request {
     }
     return endpoint;
   }
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
+
   get query_params() {
     return this._query_params;
   }
