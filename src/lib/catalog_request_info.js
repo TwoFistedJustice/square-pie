@@ -1,8 +1,11 @@
 const Catalog_Request = require("./catalog_request_abstract");
-
+const man =
+  "fetches an object containing the limits that can be used by Catalog_Upsert.\n" +
+  "https://developer.squareup.com/reference/square/catalog-api/catalog-info";
 class Catalog_Info extends Catalog_Request {
   _display_name = "Catalog_Info";
   _last_verified_square_api_version = "2021-07-21";
+  _help = this.display_name + ": " + man;
   constructor() {
     super();
     this._method = "get";
@@ -17,6 +20,9 @@ class Catalog_Info extends Catalog_Request {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get delivery() {
     return this._delivery;
