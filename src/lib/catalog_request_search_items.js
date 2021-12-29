@@ -1,7 +1,9 @@
 const Catalog_Request = require("./catalog_request_abstract");
 const { arrayify, generate_error_message } = require("./utilities");
 const man =
-  "can search by category_id, enabled_location_id and lets you build custom attribute filters. \n" +
+  "Can only search for Item and Item Variation type objects. To find another type use one of the\n" +
+  "the other Catalog Search classes.  \n" +
+  "Searches by category_id, enabled_location_id and lets you build custom attribute filters. \n" +
   'For adding ids follow standard Pie syntax (make().name_of_id( "someId"). To build custom filters use the \n' +
   "make_custom_attribute_filter() function, which works just like make(), but is an entirely separate function.\n" +
   "Follow standard Pie syntax and reference the Square docs for names of properties and allowable values.\n" +

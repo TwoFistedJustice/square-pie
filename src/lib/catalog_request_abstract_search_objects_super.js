@@ -22,8 +22,8 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
       cursor: undefined,
       include_related_objects: undefined, // boolean
       begin_time: undefined, // RFC 3339 format
-      object_types: undefined,
-      query: {},
+      object_types: undefined, //[enum]
+      query: {}, // A query to be used to filter or sort the results. If no query is specified, the entire catalog will be returned.
     };
   }
   get display_name() {
