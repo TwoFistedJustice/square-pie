@@ -1,7 +1,8 @@
 const Catalog_Request = require("./catalog_request_abstract");
 const man =
   "Can fetch one or more catalog objects by sending the desired objects Square document ID. Add them one at a time using make().object_ids() " +
-  "or [not implemented]  make().id(). Or add an array of object ids using make()add_array(). You can mix and match any of these methods";
+  "or [not implemented]  make().id(). Or add an array of object ids using make()add_array(). You can mix and match any of these methods\n" +
+  "https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects";
 
 class Catalog_Retrieve extends Catalog_Request {
   _display_name = "Catalog_Retrieve";
