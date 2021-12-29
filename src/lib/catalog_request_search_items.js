@@ -1,9 +1,16 @@
 const Catalog_Request = require("./catalog_request_abstract");
 const { arrayify, generate_error_message } = require("./utilities");
+const man =
+  "can search by category_id, enabled_location_id and lets you build custom attribute filters. \n" +
+  'For adding ids follow standard Pie syntax (make().name_of_id( "someId"). To build custom filters use the \n' +
+  "make_custom_attribute_filter() function, which works just like make(), but is an entirely separate function.\n" +
+  "Follow standard Pie syntax and reference the Square docs for names of properties and allowable values.\n" +
+  "https://developer.squareup.com/reference/square/catalog-api/search-catalog-items";
 
 class Catalog_Search_Items extends Catalog_Request {
   _display_name = "Catalog_Search_Items";
   _last_verified_square_api_version = "2021-07-21";
+  _help = this.display_name + ": " + man;
   constructor() {
     super();
     this._method = "post";
@@ -11,7 +18,7 @@ class Catalog_Search_Items extends Catalog_Request {
     this._body = {
       cursor: undefined,
       limit: 100,
-      sort_order: undefined, //str "ASC" or "DESC" - steal
+      sort_order: undefined, //str "ASC" or "DESC"
       text_filter: undefined, //str
       product_types: undefined, // ["REGULAR", "APPOINTMENTS_SERVICE"]
       stock_levels: undefined, // ["OUT", "LOW"]
@@ -27,6 +34,9 @@ class Catalog_Search_Items extends Catalog_Request {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get sort_order() {
     return this._body.sort_order;
@@ -63,7 +73,6 @@ class Catalog_Search_Items extends Catalog_Request {
   set text_filter(str) {
     this._body.text_filter = str;
   }
-  // todo change to regexp so user can type in partial case insenstive
   set product_types(type) {
     if (type !== "REGULAR" && type !== "APPOINTMENTS_SERVICE") {
       throw new Error(
