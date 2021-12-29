@@ -8,9 +8,14 @@ const {
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
 // https://developer.squareup.com/reference/square/objects/CatalogItemVariation
 
+const man =
+  "Creates a Catalog Item-Variation which you must then add to an 'Item'.\n" +
+  "\nhttps://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation";
+
 class Catalog_Item_Variation extends Catalog_Object_Super {
   _display_name = "Catalog_Item_Variation";
   _last_verified_square_api_version = "2021-11-17";
+  _help = this.display_name + ": " + man;
   constructor() {
     super();
     this._fardel = {
@@ -50,6 +55,9 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get fardel() {
     return this._fardel;
