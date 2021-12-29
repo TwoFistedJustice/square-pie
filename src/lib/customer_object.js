@@ -6,15 +6,18 @@ const {
   shazam_boolean,
 } = require("./utilities");
 
+const man =
+  "creates a compliant customer object for sending to Square. Can be used to create a new record,\n" +
+  "or update an existing one. Follows standard Pie syntax. Use make(). to set values." +
+  "\nhttps://developer.squareup.com/reference/square/objects/Customer";
+
 /** @class Customer_Object representing a Customer
  *  @author: Russ Bain
  * */
 class Customer_Object {
   _display_name = "Customer_Object";
   _last_verified_square_api_version = "2021-11-17";
-  /**
-   * Creates an instance of a customer
-   *  */
+  _help = this.display_name + ": " + man;
   constructor() {
     this._fardel = {
       id: undefined,
@@ -141,6 +144,9 @@ class Customer_Object {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get fardel() {
     return this._fardel;
