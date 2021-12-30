@@ -7,6 +7,13 @@ const {
   shazam_max_length,
   shazam_is_array,
 } = require("./utilities");
+const man =
+  "retrieves one or more orders based on Square id of the order document. Add ids one at a time\n" +
+  'by calling make().order("id1").order("id2") ...  or you can add an array of order_ids by calling\n' +
+  "make().concat_orders(array_of_ids). You can use any combination of these methods.\n" +
+  'Add the location_id by calling make().location("location_id")' +
+  "\nhttps://developer.squareup.com/reference/square/orders-api/batch-retrieve-orders";
+
 /** @class Order_Retrieve representing a http request to retrieve one or more orders
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/orders-api/batch-retrieve-orders | Square Docs}
@@ -14,6 +21,8 @@ const {
 class Order_Retrieve extends Order_Request {
   _display_name = "Order_Retrieve";
   _last_verified_square_api_version = "2021-11-17";
+  _help = this.display_name + ": " + man;
+
   /**
    * Creates an instance of an http request to retrieve orders
    *  */
@@ -37,6 +46,9 @@ class Order_Retrieve extends Order_Request {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get body() {
     return this._body;
@@ -135,6 +147,9 @@ class Order_Retrieve extends Order_Request {
       },
       order: function (id) {
         return this.order_ids(id);
+      },
+      location: function (id) {
+        return this.location_id(id);
       },
       concat_orders: function (array) {
         this.self.order_array_concat = array;

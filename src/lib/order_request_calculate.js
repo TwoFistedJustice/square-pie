@@ -1,7 +1,11 @@
 const Order_Request = require("./order_request_abstract");
 const { shazam_max_length } = require("./utilities");
 const { nanoid } = require("nanoid");
-
+const man =
+  "lets you preview order pricing without creating an order. Send up the whole order object, not just the id.\n" +
+  "You can create a new order using the Order_Object class. Or you can send an existing order document to get the preview.\n" +
+  "Add the order by calling make().order(order_object). The Computer is Your Friend." +
+  "https://developer.squareup.com/reference/square/orders-api/calculate-order\n";
 /** @class Order_Calculate representing an http request to calculate an order
  * @param {object} order  orderObject.fardel -You can also do this later by calling the order setter. You must add this before calling .request()
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
@@ -10,6 +14,8 @@ const { nanoid } = require("nanoid");
 class Order_Calculate extends Order_Request {
   _display_name = "Order_Calculate";
   _last_verified_square_api_version = "2021-11-17";
+  _help = this.display_name + ": " + man;
+
   constructor(order) {
     super();
     this._method = "post";
@@ -25,6 +31,9 @@ class Order_Calculate extends Order_Request {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get body() {
     return this._body;

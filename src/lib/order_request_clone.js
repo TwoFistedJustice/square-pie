@@ -1,7 +1,10 @@
 const Order_Request = require("./order_request_abstract");
 const { nanoid } = require("nanoid");
 const { shazam_max_length } = require("./utilities");
-
+const man =
+  "creates a new order document in a DRAFT state by copying core fields from an existing order.\n" +
+  'Add the order_id of the one you want to clone by calling make().order("order_id")' +
+  "\nhttps://developer.squareup.com/reference/square/orders-api/clone-order";
 /** @class Order_clone representing a call to clone an existing order.
  * @param {string} id - the id of the order you want to clone. You can also add this later. You must do this before calling .request()
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
@@ -10,7 +13,9 @@ const { shazam_max_length } = require("./utilities");
 
 class Order_clone extends Order_Request {
   _display_name = "Order_Clone";
-  _last_verified_square_api_version = "2021-11-17";
+  _last_verified_square_api_version = "2021-12-15";
+  _help = this.display_name + ": " + man;
+
   constructor(id) {
     super(id);
     this._method = "post";
@@ -18,7 +23,7 @@ class Order_clone extends Order_Request {
     this._body = {
       idempotency_key: nanoid(),
       order_id: id,
-      version: undefined,
+      version: undefined, // int32
     };
   }
   get display_name() {
@@ -26,6 +31,9 @@ class Order_clone extends Order_Request {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get body() {
     return this._body;
@@ -74,6 +82,9 @@ class Order_clone extends Order_Request {
       version: function (ver) {
         this.self.version = ver;
         return this;
+      },
+      order: function (id) {
+        return this.order_id(id);
       },
       id: function (id) {
         return this.order_id(id);

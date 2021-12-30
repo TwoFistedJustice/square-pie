@@ -1,6 +1,12 @@
 const Order_Request = require("./order_request_abstract");
 const { nanoid } = require("nanoid");
 const { shazam_max_length } = require("./utilities");
+const man =
+  "pay for an order. Add the order_id when you instantiate the class.\n" +
+  'myVar = new Order_Pay("order_id"). You can also do this later by calling make().order("order_id")\n' +
+  "" +
+  "\nhttps://developer.squareup.com/reference/square/orders-api/pay-order";
+
 /** @class Order_Pay representing a payment on an existing order.
  * @param {string} id - the id of the order you want to pay. You can also add this later. You must do this before calling .request()
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
@@ -9,6 +15,8 @@ const { shazam_max_length } = require("./utilities");
 class Order_Pay extends Order_Request {
   _display_name = "Order_Pay";
   _last_verified_square_api_version = "2021-11-17";
+  _help = this.display_name + ": " + man;
+
   constructor(id) {
     super();
     this._order_id = id;
@@ -24,11 +32,11 @@ class Order_Pay extends Order_Request {
   get display_name() {
     return this._display_name;
   }
-  get order_id() {
-    return this._order_id;
-  }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get endpoint() {
     return this._endpoint;
@@ -36,7 +44,9 @@ class Order_Pay extends Order_Request {
   get body() {
     return this._body;
   }
-
+  get order_id() {
+    return this._order_id;
+  }
   get idempotency_key() {
     return this._body.idempotency_key;
   }
@@ -91,6 +101,9 @@ class Order_Pay extends Order_Request {
       order_id: function (id) {
         this.self.order_id = id;
         return this;
+      },
+      order: function (id) {
+        return this.order_id(id);
       },
     };
   }
