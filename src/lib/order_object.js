@@ -5,6 +5,14 @@ const {
   arche_money,
 } = require("./utilities");
 const order_object_enum = require("./enum/order_object_enum");
+const man =
+  " builds a compliant Square order object. Too add discounts, line items or order fulfillments\n" +
+  "first build them with the `Order_Discount`, `Order_Line_Item` and `Order_Fulfillment` classes. To add them to your/n" +
+  "order object call the appropriate make() sub-method and pass their fardel as an argument./n" +
+  "There are `build` and `add` methods for service_charge_amount and service_charge applied. Use only/n" +
+  "one per addition or you risk double adding. Each takes the arguments `(amount, currency)` with a default/n" +
+  'currency of "USD". See Pie docs for more details. ' +
+  "\nhttps://developer.squareup.com/reference/square/objects/Order";
 
 /** @class  representing a
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
@@ -13,6 +21,7 @@ const order_object_enum = require("./enum/order_object_enum");
 class Order_Object {
   _display_name = "Order_Object";
   _last_verified_square_api_version = "2021-07-21";
+  _help = this.display_name + ": " + man;
   constructor() {
     this._fardel = {
       version: undefined, //`BETA` - only for updates
@@ -44,6 +53,9 @@ class Order_Object {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get fardel() {
     return this._fardel;
