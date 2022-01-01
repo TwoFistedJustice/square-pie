@@ -64,17 +64,18 @@ Square Docs
 
 
 class Invoice_List {
-constructor(id)
+constructor(location_id)
 super: Invoice_Request
 _display_name
 _last_verified_square_api_version
 _help
-this._method: "POST"
-this._endpoint = *****
+this._method: "GET"
+this._endpoint = QUERY PARAMS
+this._delivery = []
 this._body
 _body.version
 _body.idempotency_key
-
+this.configuration
 ==
 Getters
 ==
@@ -85,7 +86,7 @@ MAKER METHODS
 +make()
 ==
 Square Docs
-[[ Invoice_ ]]
+[[https://developer.squareup.com/reference/square/invoices-api/list-invoices Invoice_List ]]
 }
 
 
