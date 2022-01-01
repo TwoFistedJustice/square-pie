@@ -44,11 +44,11 @@ _last_verified_square_api_version
 _help
 this._method: "POST"
 this._endpoint = ""
-this._body
-_body.invoice
-_body.idempotency_key
-
 this.configuration
+this._body
+..
+-_body.invoice
+-_body.idempotency_key
 ==
 Getters
 ==
@@ -72,10 +72,12 @@ _help
 this._method: "GET"
 this._endpoint = QUERY PARAMS
 this._delivery = []
-this._body
-_body.version
-_body.idempotency_key
 this.configuration
+this._body
+..
+-_body.version
+-_body.idempotency_key
+
 ==
 Getters
 ==
@@ -100,7 +102,8 @@ _help
 this._method: "POST"
 this._endpoint = `/${id}/cancel`
 this._body
-_body.version
+..
+-_body.version
 
 ==
 Getters
@@ -142,10 +145,11 @@ _last_verified_square_api_version
 _help
 this._method: "POST"
 this._endpoint = `/${id}/publish`
-this._body
-_body.version
-_body.idempotency_key
 this.configuration
+this._body
+..
+-_body.version
+-_body.idempotency_key
 ==
 Getters
 ==
@@ -167,7 +171,6 @@ _display_name
 _last_verified_square_api_version
 _help
 this._method: "GET"
-
 ==
 Getters
 ==
@@ -183,11 +186,13 @@ _last_verified_square_api_version
 _help
 this._method: "POST"
 this._endpoint = "/search"
-this._body
-_body.query: {filter, sort}
-_body.limit
-_body.cursor
 this.configuration
+this._body
+..
+-_body.query: {filter, sort}
+-_body.limit
+-_body.cursor
+
 ==
 Getters
 ==
@@ -217,13 +222,14 @@ this._method: "PUT"
 this._square_invoice_document
 this._invoice_is_updatable
 this._invoice_is_published
-
-this._body
-_body.idempotency_key
-_body.invoice
-_body.fields_to_clear
-
 this.configuration
+this._body
+..
+-_body.idempotency_key
+-_body.invoice
+-_body.fields_to_clear
+
+
 ==
 Getters
 ==
