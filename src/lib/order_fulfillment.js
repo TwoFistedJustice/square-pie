@@ -6,10 +6,19 @@ const {
 } = require("./utilities");
 const { uid_length } = require("./pie_defaults");
 const order_fulfillment_state = require("./enum/order_fulfillment_enum");
+const man =
+  "sets up details on how to fulfill the order. \n" +
+  "This class has two specialized make-methods in addition to the normal one.." +
+  "make_shipment() lets you add shipping details.\n" +
+  "make_pickup() lets you add pickup details.\n" +
+  "They are both one and done type methods. You don't need to add their output to anything. It is automatic." +
+  "\n\nhttps://developer.squareup.com/reference/square/objects/OrderFulfillment";
 
 class Order_Fulfillment {
   _display_name = "Order_Fulfillment";
   _last_verified_square_api_version = "2021-07-21";
+  _help = this.display_name + ": " + man;
+
   constructor() {
     this._fardel = {
       uid: nanoid(uid_length),
@@ -43,6 +52,9 @@ class Order_Fulfillment {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get uid() {
     return this._fardel.uid;

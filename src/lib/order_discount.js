@@ -1,9 +1,16 @@
 const { shazam_max_length, arche_money } = require("./utilities");
 const order_discount_enum = require("./enum/order_discount_enum");
+const man =
+  " builds a discount which will be applied to one or more line items in an order.\n" +
+  "make().amount_money and .applied_money() take two arguments (amount, currency). Currency\n" +
+  'defaults to "USD".' +
+  "\n\nhttps://developer.squareup.com/reference/square/objects/OrderLineItemDiscount";
 
 class Order_Discount {
   _display_name = "Order_Discount";
   _last_verified_square_api_version = "2021-07-21";
+  _help = this.display_name + ": " + man;
+
   constructor() {
     this._fardel = {
       uid: undefined, // str60
@@ -32,6 +39,9 @@ class Order_Discount {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get fardel() {
     if (this._fardel.catalog_object_id == undefined) {
