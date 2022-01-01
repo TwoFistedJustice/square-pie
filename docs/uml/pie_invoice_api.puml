@@ -123,22 +123,15 @@ _display_name
 _last_verified_square_api_version
 _help
 this._method: "POST"
-this._endpoint = *****
-this._body
-_body.version
-_body.idempotency_key
-
+this._method = "DELETE"
+this._delivery
 ==
 Getters
 ==
 Setters
 ==
-MAKER METHODS
-
-+make()
-==
 Square Docs
-[[ Invoice_ ]]
+[[https://developer.squareup.com/reference/square/invoices-api/delete-invoice Invoice_Delete ]]
 }
 
 class Invoice_Publish {
