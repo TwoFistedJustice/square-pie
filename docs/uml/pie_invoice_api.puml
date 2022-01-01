@@ -141,11 +141,11 @@ _display_name
 _last_verified_square_api_version
 _help
 this._method: "POST"
-this._endpoint = *****
+this._endpoint = `/${id}/publish`
 this._body
 _body.version
 _body.idempotency_key
-
+this.configuration
 ==
 Getters
 ==
@@ -156,7 +156,7 @@ MAKER METHODS
 +make()
 ==
 Square Docs
-[[ Invoice_ ]]
+[[https://developer.squareup.com/reference/square/invoices-api/publish-invoice Invoice_Publish ]]
 }
 
 
@@ -166,23 +166,13 @@ super: Invoice_RUDCnP
 _display_name
 _last_verified_square_api_version
 _help
-this._method: "POST"
-this._endpoint = *****
-this._body
-_body.version
-_body.idempotency_key
+this._method: "GET"
 
 ==
 Getters
 ==
-Setters
-==
-MAKER METHODS
-
-+make()
-==
 Square Docs
-[[ Invoice_ ]]
+[[https://developer.squareup.com/reference/square/invoices-api/get-invoice Invoice_Retrieve ]]
 }
 
 class Invoice_Search {
@@ -192,47 +182,70 @@ _display_name
 _last_verified_square_api_version
 _help
 this._method: "POST"
-this._endpoint = *****
+this._endpoint = "/search"
 this._body
-_body.version
-_body.idempotency_key
-
+_body.query: {filter, sort}
+_body.limit
+_body.cursor
+this.configuration
 ==
 Getters
 ==
 Setters
+==
+Private Methods
+==
++#sort_order()
++#build_query()
 ==
 MAKER METHODS
 
 +make()
 ==
 Square Docs
-[[ Invoice_ ]]
+[[https://developer.squareup.com/reference/square/invoices-api/search-invoices Invoice_Search ]]
 }
 
 class Invoice_Update {
-constructor(id)
+constructor(invoice_document)
 super: Invoice_RUDCnP
 _display_name
 _last_verified_square_api_version
 _help
-this._method: "POST"
-this._endpoint = *****
-this._body
-_body.version
-_body.idempotency_key
+_reason - (validation failure)
+this._method: "PUT"
+this._square_invoice_document
+this._invoice_is_updatable
+this._invoice_is_published
 
+this._body
+_body.idempotency_key
+_body.invoice
+_body.fields_to_clear
+
+this.configuration
 ==
 Getters
 ==
 Setters
 ==
-MAKER METHODS
-
+Private Methods
++#is_invoice_published()
++#is_updatable()
++#compare_version(fardel)
++#validate_primary_recipient(fardel)
++#validate_order_id(fardel)
++#validate_location_id(fardel)
++#can_clear_primary_recipient()
+==
+Public Methods
++validate(fardel = this._body.invoice)
+==
+MAKER Methods
 +make()
 ==
 Square Docs
-[[ Invoice_ ]]
+[[https://developer.squareup.com/reference/square/invoices-api/update-invoice Invoice_Update ]]
 }
 
 
