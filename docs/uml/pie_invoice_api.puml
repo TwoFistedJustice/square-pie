@@ -101,7 +101,6 @@ this._method: "POST"
 this._endpoint = `/${id}/cancel`
 this._body
 _body.version
-_body.idempotency_key
 
 ==
 Getters
@@ -113,7 +112,7 @@ MAKER METHODS
 +make()
 ==
 Square Docs
-[[ Invoice_Cancel ]]
+[[https://developer.squareup.com/reference/square/invoices-api/cancel-invoice Invoice_Cancel ]]
 }
 
 
