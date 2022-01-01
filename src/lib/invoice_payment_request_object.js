@@ -1,5 +1,3 @@
-// https://developer.squareup.com/reference/square/objects/InvoicePaymentRequest
-
 const {
   arrayify,
   shazam_boolean,
@@ -9,6 +7,12 @@ const {
   shazam_number_between_equals,
   shazam_max_length,
 } = require("./utilities");
+const man =
+  "creats a Payment Request OBJECT. This is NOT a 'http-request' class.\n" +
+  "tipping: if tipping is enabled request_type must be BALANCE or INSTALLMENT\n" +
+  "percentage_requested: You cannot specify percentage_requested when the payment request_type is BALANCE or\n" +
+  "when the payment request specifies the fixed_amount_requested_money field." +
+  "\n\nhttps://developer.squareup.com/reference/square/objects/InvoicePaymentRequest";
 
 /** @class Invoice_Payment_Request_Object representing a payment request for an invoice
  * @param {}  You must do this before calling .request()
@@ -25,10 +29,7 @@ const {
 class Invoice_Payment_Request_Object {
   _display_name = "Invoice_Payment_Request_Object";
   _last_verified_square_api_version = "2021-12-15";
-  _help =
-    "tipping: if tipping is enabled request_type must be BALANCE or INSTALLMENT\n" +
-    "percentage_requested: You cannot specify percentage_requested when the payment request_type is BALANCE or " +
-    "when the payment request specifies the fixed_amount_requested_money field.";
+  _help = this.display_name + ": " + man;
 
   constructor() {
     this._fardel = {

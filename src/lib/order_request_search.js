@@ -9,6 +9,10 @@ const {
 } = require("./utilities");
 
 const { arche_sorting_enum, order_fulfillment_enum } = require("./enum/index");
+const man =
+  "searches all orders based on one or more locations. Add location_ids by calling make().location(location_id)\n" +
+  "" +
+  "\nhttps://developer.squareup.com/reference/square/orders-api/search-orders";
 
 /** @class Order_Search representing a search for an existing order.
  * @param {string | array} id - the id or array of ids of an order(s) you want to search for. You can also add this later. You must do this before calling .request()
@@ -17,7 +21,9 @@ const { arche_sorting_enum, order_fulfillment_enum } = require("./enum/index");
  * */
 class Order_Search extends Order_Request {
   _display_name = "Order_Search";
-  _last_verified_square_api_version = "2021-11-17";
+  _last_verified_square_api_version = "2021-12-15";
+  _help = this.display_name + ": " + man;
+
   constructor(id) {
     super();
     this._method = "post";
@@ -50,11 +56,14 @@ class Order_Search extends Order_Request {
   get display_name() {
     return this._display_name;
   }
-  get endpoint() {
-    return this._endpoint;
-  }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
+  }
+  get endpoint() {
+    return this._endpoint;
   }
   get body() {
     // if loc ids doesn't have at least 1 entry, throw
@@ -382,6 +391,9 @@ class Order_Search extends Order_Request {
       query: function (search_orders_query) {
         this.self.query = search_orders_query;
         return this;
+      },
+      location: function (location_id) {
+        return this.location_ids(location_id);
       },
     };
   }

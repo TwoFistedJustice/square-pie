@@ -2,6 +2,16 @@ const Invoice_RUDCnP = require("./invoice_request_abstract_RUDCP_super");
 const { nanoid } = require("nanoid");
 const { shazam_max_length, arrayify } = require("./utilities");
 
+const man =
+  "http request to upate an invoice by modifying fields, clearing fields, or both. \n" +
+  "Pass the invoice_id as a string argument when you instantiate the class. There is no option to do it later.\n" +
+  "If you want to change values on invoice fields, create a sparse invoice using Invoice_Object class. If the invoice" +
+  "has illegal updates this class will throw an error. To aid in debugging, the specific reason will be stashed at myVar.reason.\n" +
+  "You can also manually validate a sparse invoice by passing it to myVar.validate(fardel). Then check myVar.reason." +
+  "You may not update the order_id or location_id. You may not update the primary_recipient on a published invoice." +
+  "\n\nhttps://developer.squareup.com/reference/square/invoices-api/update-invoice" +
+  "\n\nhttps://developer.squareup.com/docs/invoices-api/overview#update-an-invoice";
+
 /** @class Invoice_Update
  * @param {object}  invoice_document Get the invoice you want to update from Square and pass it as an argument.
  * You MUST do this when instantiating the Invoice_Update class. There is no option do do it later.
@@ -12,7 +22,7 @@ const { shazam_max_length, arrayify } = require("./utilities");
 class Invoice_Update extends Invoice_RUDCnP {
   _display_name = "Invoice_Update";
   _last_verified_square_api_version = "2021-12-15";
-  _help = "";
+  _help = this.display_name + ": " + man;
   _reason = "";
   constructor(invoice_document) {
     super(invoice_document.id);

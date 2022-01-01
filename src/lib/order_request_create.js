@@ -1,6 +1,10 @@
 const Order_Request = require("./order_request_abstract");
 const { nanoid } = require("nanoid");
 const { shazam_max_length } = require("./utilities");
+const man =
+  "Upserts a new Order Object. Use the Order_Object class to create the object. Then add it to this class\n" +
+  "by calling make().order(fardel)\n" +
+  "\nhttps://developer.squareup.com/reference/square/orders-api/create-order";
 
 /** @class  Order_Create representing an http request to create a new order
  * @param {object} order  orderObject.fardel -You can also do this later by calling the order setter. You must add this before calling .request()
@@ -10,7 +14,8 @@ const { shazam_max_length } = require("./utilities");
 
 class Order_Create extends Order_Request {
   _display_name = "Order_Create";
-  _last_verified_square_api_version = "2021-07-21";
+  _last_verified_square_api_version = "2021-12-15";
+  _help = this.display_name + ": " + man;
   constructor(order) {
     super();
     this._method = "post";
@@ -26,6 +31,9 @@ class Order_Create extends Order_Request {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get endpoint() {
     return this._endpoint;

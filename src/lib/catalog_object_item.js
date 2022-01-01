@@ -2,9 +2,16 @@ const Catalog_Object_Super = require("./catalog_object_abstract_super");
 const { shazam_max_length, arrayify } = require("./utilities");
 const { isHexColor } = require("validator");
 
+const man =
+  "Creates a Catalog Item. Every Item must have at least one Item Variation (that's a different Core Class)\n" +
+  "This class follows standard Pie syntax using .make(). You can add variation using `make().variations(variation.fardel)`\n" +
+  "or skip make() and just call the setter `.variations = variation.fardel`" +
+  "\nhttps://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItem";
+
 class Catalog_Item extends Catalog_Object_Super {
   _display_name = "Catalog_Item";
   _last_verified_square_api_version = "2021-07-21";
+  _help = this.display_name + ": " + man;
   constructor() {
     super();
     this.configuration = {
@@ -49,6 +56,9 @@ class Catalog_Item extends Catalog_Object_Super {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get fardel() {
     if (

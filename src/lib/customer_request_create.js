@@ -1,6 +1,11 @@
 const Customer_Request = require("./customer_request_abstract");
 const { nanoid } = require("nanoid/non-secure");
 const { normalize_email } = require("./utilities");
+const man =
+  "upserts one customer object. There is no option to upsert multiples.\n" +
+  "Add the customer by passing the fardel to make.().customer(fardel) or by calling the setter\n" +
+  "yourVar.customer = fardel" +
+  "\nhttps://developer.squareup.com/reference/square/customers-api/create-customer";
 
 /** @class Customer_Create representing an http request to create a customer record
  * You can pass a customer object in either via the customer setter or via the constructor
@@ -12,6 +17,7 @@ const { normalize_email } = require("./utilities");
 class Customer_Create extends Customer_Request {
   _display_name = "Customer_Create";
   _last_verified_square_api_version = "2021-07-21";
+  _help = this.display_name + ": " + man;
   constructor(customer) {
     super();
     this._method = "post";
@@ -25,6 +31,9 @@ class Customer_Create extends Customer_Request {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get getIdempotency_key() {
     return this.idempotency_key;

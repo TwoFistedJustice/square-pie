@@ -1,9 +1,16 @@
 const Catalog_Search_Objects_Super = require("./catalog_request_abstract_search_objects_super");
 const { define } = require("./utilities");
-
+const man =
+  "can search for any type of catalog objects\n" +
+  "This is complicated. Read the Pie doc before you try to use it: " +
+  "https://github.com/TwoFistedJustice/square-pie/blob/main/docs/pie_catalog_request_search.md\n" +
+  "This class uses arrays of ids to cross reference your search.\n" +
+  "To search by sets of key:value pairs use Catalog_Search_Filter" +
+  "\nhttps://developer.squareup.com/reference/square/catalog-api/search-catalog-objects";
 class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   _display_name = "Catalog_Search_Cross_Reference";
   _last_verified_square_api_version = "2021-07-21";
+  _help = this.display_name + ": " + man;
   #_ids;
   constructor() {
     super();
@@ -14,6 +21,9 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get ids() {
     return this.#_ids;

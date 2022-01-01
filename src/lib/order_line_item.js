@@ -9,10 +9,19 @@ const {
   define,
 } = require("./utilities");
 const order_line_item_enum = require("./enum/order_line_item_enum");
+const man =
+  "build one line item for an order.  \n" +
+  "There are two make() methods here. The normal one. And make_modifier()\n" +
+  "The make_modifier method builds a modifier object. But it does not insert\n" +
+  " it into the modifiers array unless you tell it to. Call it's `add()` submethod\n" +
+  " last, with no arguments to insert the object\n\n" +
+  "There are also standard Pie build and add methods for applied_tax and applied_discount.\n" +
+  "\nhttps://developer.squareup.com/reference/square/objects/OrderLineItem";
 
 class Order_Line_Item {
   _display_name = "Order_Line_Item";
   _last_verified_square_api_version = "2021-07-21";
+
   constructor() {
     this._fardel = {
       uid: nanoid(uid_length),
@@ -145,6 +154,10 @@ class Order_Line_Item {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  _help = this.display_name + ": " + man;
+  get help() {
+    return this._help;
   }
   get uid() {
     return this._fardel.uid;
@@ -374,18 +387,16 @@ class Order_Line_Item {
         return this.self.#bake_quantity_unit();
       },
     };
-    // return properties;
-    // };
-    // return methods();
   }
 
   /*
    *  To add a modifier
    * first BUILD the modifier
    * then add it to the modifiers array
-   * yourVar.modifiers(yourVar.modifier)
+   * make().modifiers(yourVar.modifier)
    * - first with an 's', then without it
    * */
+  // todo this is confusing... make an add method which inserts it
 
   make_modifier() {
     this.#init_modifier();

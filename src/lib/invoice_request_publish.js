@@ -1,7 +1,12 @@
 const Invoice_RUDCnP = require("./invoice_request_abstract_RUDCP_super");
 const { nanoid } = require("nanoid");
 const { shazam_integer, shazam_max_length } = require("./utilities");
-
+const man =
+  "http request to publish an invoice.\n" +
+  "A published invoice MUST have a customer_id set in the primary_recipient field. This must be done before calling Publish endpoint.\n" +
+  "You MUST provide the invoice VERSION. If you do not know the version, call Invoice_Retrieve or Invoice_List.\n" +
+  "You can add the invoice_id either as an argument when you instantiate the class, calling the .id setter, or calling make().id()" +
+  "\n\nhttps://developer.squareup.com/reference/square/invoices-api/publish-invoice";
 /** @class Invoice_Publish
  * @param {string} id The invoice_id of the invoice you want
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
@@ -11,10 +16,8 @@ const { shazam_integer, shazam_max_length } = require("./utilities");
 class Invoice_Publish extends Invoice_RUDCnP {
   _display_name = "Invoice_Publish";
   _last_verified_square_api_version = "2021-12-15";
-  _help =
-    "A published invoice MUST have a customer_id set in the primary_recipient field. This must be done before calling Publish endpoint." +
-    "\nYou must provide the invoice VERSION. If you do not know the version, call Invoice_Retrieve or Invoice_List.\n" +
-    "You can add the invoice_id either as an argument when you instantiate the class, calling the .id setter, or calling make().id()";
+  _help = this.display_name + ": " + man;
+
   constructor(id) {
     super();
     this._method = "POST";

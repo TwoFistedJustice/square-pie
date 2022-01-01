@@ -1,6 +1,14 @@
 const Order_Request = require("./order_request_abstract");
 const { nanoid } = require("nanoid");
 const { shazam_max_length, arrayify } = require("./utilities");
+const man =
+  "send a sparse order object with only the fields you want to update. Pass the id of the order you want to update\n" +
+  "as an argument when you instantiate the class. You can add the id anytime prior to sending the update by calling\n" +
+  'make().order_id("id")\n' +
+  "Build your sparse order object using the Order_Object class. Add it to update by passing the fardel to make().order(fardel)." +
+  'If you want to clear fields in your order, then pass the field names as strings to make().fields_to_clear("some_property_name")\n' +
+  "\n\nhttps://developer.squareup.com/reference/square/orders-api/update-order";
+
 /** @class Order_Update representing a desired update to an existing order.
  * @param {string} id - the id of the order you want to update. You can also add this later. You must do this before calling .request()
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
@@ -9,6 +17,7 @@ const { shazam_max_length, arrayify } = require("./utilities");
 class Order_Update extends Order_Request {
   _display_name = "Order_Update";
   _last_verified_square_api_version = "2021-11-17";
+  _help = this.display_name + ": " + man;
 
   constructor(id = "") {
     super();
@@ -26,6 +35,9 @@ class Order_Update extends Order_Request {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get body() {
     return this._body;

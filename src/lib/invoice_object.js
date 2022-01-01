@@ -6,6 +6,9 @@ const {
   shazam_date_human_readable,
   shazam_integer,
 } = require("./utilities");
+const man =
+  "creates a compliant Square invoice object. Follows standard Pie syntax.\n" +
+  "\nhttps://developer.squareup.com/reference/square/objects/Invoice";
 
 /** @class Invoice_Object  representing an invoice
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
@@ -15,7 +18,8 @@ const {
 class Invoice_Object {
   _display_name = "Invoice_Object";
   _last_verified_square_api_version = "2021-12-15";
-  _help = "";
+  _help = this.display_name + ": " + man;
+
   constructor() {
     this._fardel = {
       version: undefined, // int32
@@ -54,7 +58,6 @@ class Invoice_Object {
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
-
   get help() {
     return this._help;
   }

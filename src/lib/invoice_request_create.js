@@ -1,6 +1,11 @@
 const Invoice_Request = require("./invoice_request_abstract");
 const { nanoid } = require("nanoid");
 const { shazam_max_length } = require("./utilities");
+const man =
+  "an http request to create a new invoice document.\n" +
+  "Create the invoie using the Invoice_Object class. Pass its fardel as an argument to make().invoice(myVar.fardel)" +
+  '"When creating a new invoice you MUST include the order_id on the invoice object";' +
+  "\nhttps://developer.squareup.com/reference/square/invoices-api/create-invoice";
 
 /** @class  Invoice_Create
  * @param {}
@@ -10,8 +15,8 @@ const { shazam_max_length } = require("./utilities");
 class Invoice_Create extends Invoice_Request {
   _display_name = "Invoice_Create";
   _last_verified_square_api_version = "2021-12-15";
-  _help =
-    "When creating a new invoice you MUST include the order_id on the invoice object";
+  _help = this.display_name + ": " + man;
+
   constructor() {
     super();
 

@@ -5,6 +5,15 @@ const {
   shazam_time_RFC3339,
   shazam_integer,
 } = require("./utilities");
+const man =
+  "updates a Square customer record.\n" +
+  "Update a record by sending a sparse customer object containing only the fields you want to update, along with\n" +
+  "the current version of the record in Square's db. You can add the sparse object in two ways:\n" +
+  "Firstly, you can make one using Customer_Object and pass the fardel as an argument to make().customer(fardel)\n" +
+  "or you can build one using the make() method of this class, which works just like the one in Customer_Object.\n" +
+  "To add the version, first fetch it from Square, then add it using make().version(version). This is not absolutely\n" +
+  "necessary. But is a good idea if there is more than one potential source of updates." +
+  "\nhttps://developer.squareup.com/reference/square/customers-api/update-customer";
 
 /** @class Customer_Update representing an http request to update a customer record
  * Some fields that are available on Customer_Object are not updatable. This class has its own
@@ -21,7 +30,8 @@ const {
  *  */
 class Customer_Update extends Retrieve_Update_Delete {
   _display_name = "Customer_Update";
-  _last_verified_square_api_version = "2021-07-21";
+  _last_verified_square_api_version = "2021-12-15";
+  _help = this.display_name + ": " + man;
   constructor(id) {
     super(id);
     this._method = "put";
@@ -53,6 +63,9 @@ class Customer_Update extends Retrieve_Update_Delete {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get given_name() {
     return this._body.given_name;

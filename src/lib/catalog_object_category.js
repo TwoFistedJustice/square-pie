@@ -1,8 +1,16 @@
 const { shazam_max_length } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
+const man =
+  "creates a Catalog Object.\n" +
+  "Give it temporary ID. Use the same temporary ID in other objects being inserted or updated within\n" +
+  " the same request to link them together.\n" +
+  'Give your category a name up to 255 characters long. Use make().name("name")' +
+  "\nhttps://developer.squareup.com/reference/square/objects/CatalogCategory";
+
 class Catalog_Category extends Catalog_Object_Super {
   _display_name = "Catalog_Category";
   _last_verified_square_api_version = "2021-07-21";
+  _help = this.display_name + ": " + man;
   constructor() {
     super();
     this._fardel = {
@@ -24,6 +32,9 @@ class Catalog_Category extends Catalog_Object_Super {
   }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
   }
   get type() {
     return this._fardel.type;
