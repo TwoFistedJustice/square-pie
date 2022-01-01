@@ -1,5 +1,13 @@
 const Invoice_Request = require("./invoice_request_abstract");
 const { shazam_integer, shazam_number_LE, arrayify } = require("./utilities");
+const man =
+  "http request to search for invoices for a given location\n" +
+  "Pass the location_id as a string argument when you instantiate the class. You can also pass it later by calling\n" +
+  'make().location("id")' +
+  "Build a query using the build_query() method. Only call the setter or make().query() if you are passing a fully formed query object as it will replace everything." +
+  "For this class only, you can also use the make() sub-methods to build your query: location_id(), customer_id(), and sort() - these are exactly the same as the build_query methods." +
+  "\nLimit has a default of 100 and max of 200.\nDelivery is an array because this endpoint has a pagination cursor.";
+("\n\nhttps://developer.squareup.com/reference/square/invoices-api/search-invoices");
 
 /** @class  Invoice_Search
  * @param {string} location_id - useful if you only need to search one location. You can leave it out and add location_ids using make() or build_query()
@@ -23,10 +31,8 @@ const { shazam_integer, shazam_number_LE, arrayify } = require("./utilities");
 class Invoice_Search extends Invoice_Request {
   _display_name = "Invoice_Search";
   _last_verified_square_api_version = "2021-12-15";
-  _help =
-    "Build a query using the build_query() method. Only call the setter or make().query() if you are passing a fully formed query object as it will replace everything." +
-    "For this class only, you can also use the make() sub-methods to build your query: location_id(), customer_id(), and sort() - these are exactly the same as the build_query methods." +
-    "\nLimit has a default of 100 and max of 200.\nDelivery is an array because this endpoint has a pagination cursor.";
+  _help = this.display_name + ": " + man;
+
   constructor(location_id) {
     super();
     this._method = "POST";
@@ -215,6 +221,9 @@ class Invoice_Search extends Invoice_Request {
       },
       sort: function () {
         return this.self.#sort_order();
+      },
+      location: function (id) {
+        return this.location_id(id);
       },
     };
   }

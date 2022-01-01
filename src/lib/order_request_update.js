@@ -7,7 +7,6 @@ const man =
   'make().order_id("id")\n' +
   "Build your sparse order object using the Order_Object class. Add it to update by passing the fardel to make().order(fardel)." +
   'If you want to clear fields in your order, then pass the field names as strings to make().fields_to_clear("some_property_name")\n' +
-  "You may not update the order_id or location_id. You may not update the primary_recipient on a published invoice." +
   "\n\nhttps://developer.squareup.com/reference/square/orders-api/update-order";
 
 /** @class Order_Update representing a desired update to an existing order.
