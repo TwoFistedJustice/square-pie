@@ -1,6 +1,9 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+
+Invoice_Object o.. Invoice_Payment_Request_Object
+
 Square_Request <-- Invoice_Request
 Invoice_Request <-- Invoice_RUDCnP
 Invoice_Request <-- Invoice_Create
@@ -11,6 +14,7 @@ Invoice_RUDCnP <- Invoice_Delete
 Invoice_RUDCnP <- Invoice_Publish
 Invoice_RUDCnP <- Invoice_Retrieve
 Invoice_RUDCnP <- Invoice_Update
+
 
 abstract class Square_Request{
 super of ALL other Request classes.
@@ -34,6 +38,46 @@ MAKER METHODS
 +make()
 ==
 }
+
+
+class Invoice_Payment_Request_Object {
+constructor()
+super: none
+_display_name
+_last_verified_square_api_version
+_help
+this.configuration
+this._fardel
+..
+-_fardel.uid
+-_fardel.request_type
+-_fardel.due_date
+-_fardel.fixed_amount_requested_money (arche money)
+-_fardel.percentage_requested
+-_fardel.tipping_enabled
+-_fardel.automatic_payment_source
+-_fardel.card_id
+-_fardel.reminder
+==
+Getters
+==
+Setters
+==
+Private Methods
++#request_type_enum()
++#automatic_payment_source_enum()
++#build_reminder(message, days, whoa_nelly)
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/objects/InvoicePaymentRequest Invoice_Payment_Request_Object ]]
+}
+
+
+
 
 
 class Invoice_Create {
