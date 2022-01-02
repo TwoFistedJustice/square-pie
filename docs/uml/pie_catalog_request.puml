@@ -2,6 +2,8 @@
 'https://plantuml.com/sequence-diagram
 skinparam groupInheritance 2
 
+' arrows with one dash display horizontally
+' arrows with two dashes display vertically
 namespace requests {
 .Square_Request <|- .Catalog_Request
 .Catalog_Request <|-- .Catalog_Search_Objects_Super
