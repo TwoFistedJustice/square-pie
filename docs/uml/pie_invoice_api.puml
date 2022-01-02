@@ -1,20 +1,26 @@
 @startuml
 'https://plantuml.com/class-diagram
+skinparam groupInheritance 2
 
+namespace objects {
+.Invoice_Object o.. .Invoice_Payment_Request_Object
+}
 
-Invoice_Object o.. Invoice_Payment_Request_Object
+namespace requests {
+.Square_Request <|- .Invoice_Request
 
-Square_Request <-- Invoice_Request
-Invoice_Request <-- Invoice_RUDCnP
-Invoice_Request <-- Invoice_Create
-Invoice_Request <-- Invoice_List
-Invoice_Request <-- Invoice_Search
-Invoice_RUDCnP <- Invoice_Cancel
-Invoice_RUDCnP <- Invoice_Delete
-Invoice_RUDCnP <- Invoice_Publish
-Invoice_RUDCnP <- Invoice_Retrieve
-Invoice_RUDCnP <- Invoice_Update
+.Invoice_Request <|- .Invoice_RUDCnP
 
+.Invoice_Request <|-- .Invoice_Create
+.Invoice_Request <|-- .Invoice_List
+.Invoice_Request <|-- .Invoice_Search
+
+.Invoice_RUDCnP <|-- .Invoice_Cancel
+.Invoice_RUDCnP <|-- .Invoice_Delete
+.Invoice_RUDCnP <|-- .Invoice_Publish
+.Invoice_RUDCnP <|-- .Invoice_Retrieve
+.Invoice_RUDCnP <|-- .Invoice_Update
+}
 
 abstract class Square_Request{
 super of ALL other Request classes.
@@ -37,6 +43,50 @@ MAKER METHODS
 
 +make()
 ==
+}
+
+class Invoice_Object {
+constructor()
+super: none
+_display_name
+_last_verified_square_api_version
+_help
+this.configuration
+this._fardel
+..
+-_fardel.version
+-_fardel.location_id
+-_fardel.order_id
+-_fardel.primary_recipient
+-_fardel.payment_requests
+-_fardel.delivery_method
+-_fardel.invoice_number
+-_fardel.title
+-_fardel.description
+-_fardel.scheduled_at
+-_fardel.accepted_payment_methods
+-_fardel.custom_fields
+-_fardel.sale_or_service_date
+-_fardel.payment_conditions
+..
+==
+Getters
+==
+Setters
+==
+Private Methods
++#define_accepted_payment_methods()
++#delivery_method_enum()
++#accepted_payment_methods_enum(property_name)
++#build_accepted_payment_methods()
++#build_custom_field()
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/objects/Invoice Invoice_Object ]]
 }
 
 
@@ -121,7 +171,6 @@ this._body
 ..
 -_body.version
 -_body.idempotency_key
-
 ==
 Getters
 ==
@@ -148,7 +197,6 @@ this._endpoint = `/${id}/cancel`
 this._body
 ..
 -_body.version
-
 ==
 Getters
 ==
@@ -236,7 +284,6 @@ this._body
 -_body.query: {filter, sort}
 -_body.limit
 -_body.cursor
-
 ==
 Getters
 ==
@@ -272,8 +319,6 @@ this._body
 -_body.idempotency_key
 -_body.invoice
 -_body.fields_to_clear
-
-
 ==
 Getters
 ==
