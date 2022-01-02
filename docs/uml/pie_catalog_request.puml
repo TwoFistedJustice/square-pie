@@ -2,18 +2,19 @@
 'https://plantuml.com/sequence-diagram
 skinparam groupInheritance 2
 
-Square_Request <|-- Catalog_Request
-Catalog_Request <|-- Catalog_Delete
-Catalog_Request <|-- Catalog_Info
-Catalog_Request <|-- Catalog_List
-Catalog_Request <|-- Catalog_Retrieve
-Catalog_Request <|-- Catalog_Upsert
-Catalog_Request <|-- Catalog_Search_Items
-Catalog_Request <|-- Catalog_Upsert
-Catalog_Request <|-- Catalog_Search_Objects_Super
-Catalog_Search_Objects_Super <|-- Catalog_Search_Cross_Reference
-Catalog_Search_Objects_Super <|-- Catalog_Search_Filter
-
+namespace requests {
+.Square_Request <|-- .Catalog_Request
+.Catalog_Request <|-- .Catalog_Delete
+.Catalog_Request <|-- .Catalog_Info
+.Catalog_Request <|-- .Catalog_List
+.Catalog_Request <|-- .Catalog_Retrieve
+.Catalog_Request <|-- .Catalog_Upsert
+.Catalog_Request <|-- .Catalog_Search_Items
+.Catalog_Request <|-- .Catalog_Upsert
+.Catalog_Request <|-- .Catalog_Search_Objects_Super
+.Catalog_Search_Objects_Super <|-- .Catalog_Search_Cross_Reference
+.Catalog_Search_Objects_Super <|-- .Catalog_Search_Filter
+}
 abstract class Square_Request{
 super of ALL other Request classes.
 }
