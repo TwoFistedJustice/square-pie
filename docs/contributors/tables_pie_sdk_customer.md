@@ -6,14 +6,14 @@
 
 ### Level One Classes
 
-| Level One Classes | Super | Implemented | Short Notes |
-| ----------------- | ----- | ----------- | ----------- |
-| Square_Request    | none  | yes         |
-| Customer_Object   | none  | yes         |
+| Level One Classes | Super | Short Notes |
+| ----------------- | ----- | ----------- |
+| Square_Request    | none  |
+| Customer_Object   | none  |
 
-| Level Two Classes | Super          | Implemented | Short Notes |
-| ----------------- | -------------- | ----------- | ----------- |
-| Customer          | Square_Request | yes         |
+| Level Two Classes | Super          | Short Notes |
+| ----------------- | -------------- | ----------- |
+| Customer_Request  | Square_Request |
 
 <br/>
 
@@ -32,11 +32,11 @@
 
 ### Level Four Classes
 
-| Level Four Classes | Super                           | Implemented | Short Notes                                         |
-| ------------------ | ------------------------------- | ----------- | --------------------------------------------------- |
+| Level Four Classes | Super                           | Implemented | Short Notes                       |
+| ------------------ | ------------------------------- | ----------- | --------------------------------- |
 | Customer_Delete    | Customer_Retrieve_Update_Delete | yes         |
 | Customer_Retrieve  | Customer_Retrieve_Update_Delete | yes         |
-| Customer_Update    | Customer_Retrieve_Update_Delete | yes         | needs normalization for email_address and addresses |
+| Customer_Update    | Customer_Retrieve_Update_Delete | yes         | needs normalization for addresses |
 
 <br/>
 

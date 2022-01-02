@@ -8,33 +8,33 @@
 
 ### Level One Classes
 
-| Level One Classes | Super | Implemented | Short Notes |
-| ----------------- | ----- | ----------- | ----------- |
-| SquareRequest     | none  | yes         |
+| Level One Classes | Super | Short Notes |
+| ----------------- | ----- | ----------- |
+| Square_Request    | none  |
 
 <br/>
 
 ### Level Two Classes
 
-| Level Two Classes | Super         | Implemented | Short Notes |
-| ----------------- | ------------- | ----------- | ----------- |
-| Catalog_Request   | SquareRequest |             |
+| Level Two Classes | Super          | Implemented | Short Notes |
+| ----------------- | -------------- | ----------- | ----------- |
+| Catalog_Request   | Square_Request |             |
 
 <br/>
 
 ### Level Three Classes
 
-| Level Three Classes                    | Super           | Implemented | Short Notes                                                                                                                   |
-| -------------------------------------- | --------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Level Three Classes                    | Super           | Implemented | Short Notes                                                               |
+| -------------------------------------- | --------------- | ----------- | ------------------------------------------------------------------------- |
 | Catalog_list                           | Catalog_Request |             |
-| Catalog_Upsert                         | Catalog_Request |             | This class could probably be simplified like Delete and Retrieve, but maybe leave it in case we need a model to expand later? |
+| Catalog_Upsert                         | Catalog_Request |             |                                                                           |
 | Catalog_Delete                         | Catalog_Request |             |
 | Catalog_Retrieve                       | Catalog_Request |             |
 | Catalog_Search_Items                   | Catalog_Request |             |
-| Catalog_Search_Objects_Filter          | Catalog_Request |             | This is the stackable side of the Objects Search endpoint                                                                     |
-| Catalog_Search_Objects_Cross_Reference | Catalog_Request |             | This is the non-stackable side of the Objects Search endpoint                                                                 |
+| Catalog_Search_Objects_Filter          | Catalog_Request |             | This is the stackable side of the Objects Search endpoint                 |
+| Catalog_Search_Objects_Cross_Reference | Catalog_Request |             | This is the non-stackable side of the Objects Search endpoint             |
 | Catalog_Info                           | Catalog_Request |             |
-| Catalog_Image                          | Catalog_Request | !           | de-prioritized - will take a lot of time and isn't needed by Pieville USA                                                     |
+| Catalog_Image                          | Catalog_Request | !           | de-prioritized - will take a lot of time and isn't needed by Pieville USA |
 
 <br/>
 
@@ -43,8 +43,7 @@
 | API     | Command              | Method | Resource Location                     | Class                                  | Square Docs                                                                                                     | Additional Information |
 | ------- | -------------------- | ------ | ------------------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | Catalog | UPSERT               | POST   | '/catalog/batch-upsert'               | Catalog_Upsert                         | [UPSERT many](https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects)         |
-| Catalog | RETRIEVE one         | POST   | '/catalog/object/{object_id}'         | Catalog_Retrieve                       | [RETRIEVE one](https://developer.squareup.com/reference/square/catalog-api/retrieve-catalog-object)             |
-| Catalog | RETRIEVE many        | POST   | '/catalog/batch-retrieve'             | Catalog_Retrieve                       | [RETRIEVE many](https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects)     |
+| Catalog | RETRIEVE             | POST   | '/catalog/batch-retrieve'             | Catalog_Retrieve                       | [RETRIEVE many](https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects)     |
 | Catalog | UPDATE modifer lists | POST   | '/catalog/update-item-modifier-lists' | Catalog_Update                         | [UPDATE modifier lists](https://developer.squareup.com/reference/square/catalog-api/update-item-modifier-lists) |
 | Catalog | UPDATE item taxes    | POST   | '/catalog/update-item-taxes'          | Catalog_Update                         | [UPDATE taxes](https://developer.squareup.com/reference/square/catalog-api/update-item-taxes)                   |
 | Catalog | DELETE               | POST   | '/catalog/batch-delete'               | Catalog_Delete                         | [DELETE many](https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects)         |

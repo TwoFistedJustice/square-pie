@@ -48,16 +48,16 @@
 
 ## Cross Reference: Pie and Square
 
-| Class            | Method | Resource Location    | Response Location | Consctructor Arg | Square Docs                                                                            |
-| ---------------- | ------ | -------------------- | ----------------- | ---------------- | -------------------------------------------------------------------------------------- |
-| Invoice_List     | GET    |                      | invoices: []      | -                | [List](https://developer.squareup.com/reference/square/invoices-api/list-invoices)     |
-| Invoice_Search   | POST   | "search"             | invoices: []      | -                | [Search](https://developer.squareup.com/reference/square/invoices-api/search-invoices) |
-| Invoice_Create   | POST   |                      | invoice           | order_id         | [Create](https://developer.squareup.com/reference/square/invoices-api/create-invoice)  |
-| Invoice_Delete   | DELETE | {invoice_id}         |                   | invoice_id       | [Delete](https://developer.squareup.com/reference/square/invoices-api/delete-invoice)  |
-| Invoice_Retrieve | GET    | {invoice_id}         | invoice           | invoice_id       | [Retrieve](https://developer.squareup.com/reference/square/invoices-api/get-invoice)   |
-| Invoice_Update   | PUT    | {invoice_id}         | invoice           | invoice_id       | [Update](https://developer.squareup.com/reference/square/invoices-api/update-invoice)  |
-| Invoice_Cancel   | POST   | {invoice_id}/cancel  | invoice           | invoice_id       | [Cancel](https://developer.squareup.com/reference/square/invoices-api/cancel-invoice)  |
-| Invoice_Publish  | POST   | {invoice_id}/publish | invoice           | invoice_id       | [Publish](https://developer.squareup.com/reference/square/invoices-api/cancel-invoice) |
+| Class            | Method | Resource Location    | Response Location | Constructor Arg | Square Docs                                                                            |
+| ---------------- | ------ | -------------------- | ----------------- | --------------- | -------------------------------------------------------------------------------------- |
+| Invoice_List     | GET    |                      | invoices: []      | -               | [List](https://developer.squareup.com/reference/square/invoices-api/list-invoices)     |
+| Invoice_Search   | POST   | "search"             | invoices: []      | -               | [Search](https://developer.squareup.com/reference/square/invoices-api/search-invoices) |
+| Invoice_Create   | POST   |                      | invoice           | order_id        | [Create](https://developer.squareup.com/reference/square/invoices-api/create-invoice)  |
+| Invoice_Delete   | DELETE | {invoice_id}         |                   | invoice_id      | [Delete](https://developer.squareup.com/reference/square/invoices-api/delete-invoice)  |
+| Invoice_Retrieve | GET    | {invoice_id}         | invoice           | invoice_id      | [Retrieve](https://developer.squareup.com/reference/square/invoices-api/get-invoice)   |
+| Invoice_Update   | PUT    | {invoice_id}         | invoice           | invoice_id      | [Update](https://developer.squareup.com/reference/square/invoices-api/update-invoice)  |
+| Invoice_Cancel   | POST   | {invoice_id}/cancel  | invoice           | invoice_id      | [Cancel](https://developer.squareup.com/reference/square/invoices-api/cancel-invoice)  |
+| Invoice_Publish  | POST   | {invoice_id}/publish | invoice           | invoice_id      | [Publish](https://developer.squareup.com/reference/square/invoices-api/cancel-invoice) |
 
 <br/>
 
