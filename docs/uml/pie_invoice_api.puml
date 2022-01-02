@@ -1,6 +1,8 @@
 @startuml
 'https://plantuml.com/class-diagram
 skinparam groupInheritance 2
+' arrows with one dash display horizontally
+' arrows with two dashes display vertically
 
 namespace objects {
 .Invoice_Object o.. .Invoice_Payment_Request_Object
