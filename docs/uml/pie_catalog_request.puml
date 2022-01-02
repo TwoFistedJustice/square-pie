@@ -1,5 +1,7 @@
 @startuml
 'https://plantuml.com/sequence-diagram
+skinparam groupInheritance 2
+
 Square_Request <|-- Catalog_Request
 Catalog_Request <|-- Catalog_Delete
 Catalog_Request <|-- Catalog_Info
