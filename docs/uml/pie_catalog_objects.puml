@@ -1,10 +1,12 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+' arrows with one dash display horizontally
+' arrows with two dashes display vertically
 
-Catalog_Object_Super <|-- Catalog_Item
-Catalog_Object_Super <|-- Catalog_Object_Item_Variation
-Catalog_Object_Item_Variation *.. pricing_type
+Catalog_Object_Super <|- Catalog_Item
+Catalog_Object_Super <|- Catalog_Object_Item_Variation
+Catalog_Object_Item_Variation *. pricing_type
 Catalog_Item *.. product_type
 Catalog_Item o.. Catalog_Object_Item_Variation
 
