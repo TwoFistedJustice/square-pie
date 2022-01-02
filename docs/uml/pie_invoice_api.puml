@@ -1,0 +1,353 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam groupInheritance 2
+' arrows with one dash display horizontally
+' arrows with two dashes display vertically
+
+namespace objects {
+.Invoice_Object o.. .Invoice_Payment_Request_Object
+}
+
+namespace requests {
+.Square_Request <|- .Invoice_Request
+
+.Invoice_Request <|- .Invoice_RUDCnP
+
+.Invoice_Request <|-- .Invoice_Create
+.Invoice_Request <|-- .Invoice_List
+.Invoice_Request <|-- .Invoice_Search
+
+.Invoice_RUDCnP <|-- .Invoice_Cancel
+.Invoice_RUDCnP <|-- .Invoice_Delete
+.Invoice_RUDCnP <|-- .Invoice_Publish
+.Invoice_RUDCnP <|-- .Invoice_Retrieve
+.Invoice_RUDCnP <|-- .Invoice_Update
+}
+
+abstract class Square_Request{
+super of ALL other Request classes.
+}
+
+abstract class Invoice_Request {
+super: Square_Request
+_display_name
+this._api_name: "invoice"
+this._delivery
+}
+
+abstract class Invoice_RUDCnP {
+constructor(id)
+super: Invoice_Request
+_display_name
+this._endpoint = `/${id}`
+==
+MAKER METHODS
+
++make()
+==
+}
+
+class Invoice_Object {
+constructor()
+super: none
+_display_name
+_last_verified_square_api_version
+_help
+this.configuration
+this._fardel
+..
+-_fardel.version
+-_fardel.location_id
+-_fardel.order_id
+-_fardel.primary_recipient
+-_fardel.payment_requests
+-_fardel.delivery_method
+-_fardel.invoice_number
+-_fardel.title
+-_fardel.description
+-_fardel.scheduled_at
+-_fardel.accepted_payment_methods
+-_fardel.custom_fields
+-_fardel.sale_or_service_date
+-_fardel.payment_conditions
+..
+==
+Getters
+==
+Setters
+==
+Private Methods
++#define_accepted_payment_methods()
++#delivery_method_enum()
++#accepted_payment_methods_enum(property_name)
++#build_accepted_payment_methods()
++#build_custom_field()
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/objects/Invoice Invoice_Object ]]
+}
+
+
+class Invoice_Payment_Request_Object {
+constructor()
+super: none
+_display_name
+_last_verified_square_api_version
+_help
+this.configuration
+this._fardel
+..
+-_fardel.uid
+-_fardel.request_type
+-_fardel.due_date
+-_fardel.fixed_amount_requested_money (arche money)
+-_fardel.percentage_requested
+-_fardel.tipping_enabled
+-_fardel.automatic_payment_source
+-_fardel.card_id
+-_fardel.reminder
+==
+Getters
+==
+Setters
+==
+Private Methods
++#request_type_enum()
++#automatic_payment_source_enum()
++#build_reminder(message, days, whoa_nelly)
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/objects/InvoicePaymentRequest Invoice_Payment_Request_Object ]]
+}
+
+
+
+
+
+class Invoice_Create {
+constructor(id)
+super: Invoice_Request
+_display_name
+_last_verified_square_api_version
+_help
+this._method: "POST"
+this._endpoint = ""
+this.configuration
+this._body
+..
+-_body.invoice
+-_body.idempotency_key
+==
+Getters
+==
+Setters
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/invoices-api/create-invoice Invoice_Create ]]
+}
+
+
+class Invoice_List {
+constructor(location_id)
+super: Invoice_Request
+_display_name
+_last_verified_square_api_version
+_help
+this._method: "GET"
+this._endpoint = QUERY PARAMS
+this._delivery = []
+this.configuration
+this._body
+..
+-_body.version
+-_body.idempotency_key
+==
+Getters
+==
+Setters
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/invoices-api/list-invoices Invoice_List ]]
+}
+
+
+
+class Invoice_Cancel {
+constructor(id)
+super: Invoice_RUDCnP
+_display_name
+_last_verified_square_api_version
+_help
+this._method: "POST"
+this._endpoint = `/${id}/cancel`
+this._body
+..
+-_body.version
+==
+Getters
+==
+Setters
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/invoices-api/cancel-invoice Invoice_Cancel ]]
+}
+
+
+class Invoice_Delete {
+constructor(id)
+super: Invoice_RUDCnP
+_display_name
+_last_verified_square_api_version
+_help
+this._method: "POST"
+this._method = "DELETE"
+this._delivery
+==
+Getters
+==
+Setters
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/invoices-api/delete-invoice Invoice_Delete ]]
+}
+
+class Invoice_Publish {
+constructor(id)
+super: Invoice_RUDCnP
+_display_name
+_last_verified_square_api_version
+_help
+this._method: "POST"
+this._endpoint = `/${id}/publish`
+this.configuration
+this._body
+..
+-_body.version
+-_body.idempotency_key
+==
+Getters
+==
+Setters
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/invoices-api/publish-invoice Invoice_Publish ]]
+}
+
+
+class Invoice_Retrieve {
+constructor(id)
+super: Invoice_RUDCnP
+_display_name
+_last_verified_square_api_version
+_help
+this._method: "GET"
+==
+Getters
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/invoices-api/get-invoice Invoice_Retrieve ]]
+}
+
+class Invoice_Search {
+constructor(id)
+super: Invoice_Request
+_display_name
+_last_verified_square_api_version
+_help
+this._method: "POST"
+this._endpoint = "/search"
+this.configuration
+this._body
+..
+-_body.query: {filter, sort}
+-_body.limit
+-_body.cursor
+==
+Getters
+==
+Setters
+==
+Private Methods
+==
++#sort_order()
++#build_query()
+==
+MAKER METHODS
+
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/invoices-api/search-invoices Invoice_Search ]]
+}
+
+class Invoice_Update {
+constructor(invoice_document)
+super: Invoice_RUDCnP
+_display_name
+_last_verified_square_api_version
+_help
+_reason - (validation failure)
+this._method: "PUT"
+this._square_invoice_document
+this._invoice_is_updatable
+this._invoice_is_published
+this.configuration
+this._body
+..
+-_body.idempotency_key
+-_body.invoice
+-_body.fields_to_clear
+==
+Getters
+==
+Setters
+==
+Private Methods
++#is_invoice_published()
++#is_updatable()
++#compare_version(fardel)
++#validate_primary_recipient(fardel)
++#validate_order_id(fardel)
++#validate_location_id(fardel)
++#can_clear_primary_recipient()
+==
+Public Methods
++validate(fardel = this._body.invoice)
+==
+MAKER Methods
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/invoices-api/update-invoice Invoice_Update ]]
+}
+
+
+
+
+
+
+@enduml

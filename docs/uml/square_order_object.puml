@@ -5,9 +5,9 @@
 
 note "Needs to be built" as TODO
 note "Render into own class" as EXTRACT
-TODO... source
-TODO... line_items
-EXTRACT... discount
+'TODO... source
+'TODO... line_items
+'EXTRACT... discount
 
 namespace endpoint  {
 .Create <|-- .Square_Order_Object

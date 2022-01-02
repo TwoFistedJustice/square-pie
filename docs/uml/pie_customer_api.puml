@@ -1,14 +1,20 @@
 @startuml
 'https://plantuml.com/class-diagram
+skinparam groupInheritance 2
+' arrows with one dash display horizontally
+' arrows with two dashes display vertically
+namespace requests {
+.Square_Request <|- .Customer_Request
+.Customer_Request <|- .Customer_R_U_D
 
-Square_Request <|- Customer_Request
-Customer_Request <|- Customer_R_U_D
-Customer_R_U_D <|- Customer_Update
-Customer_R_U_D <|- Customer_Retrieve
-Customer_R_U_D <|- Customer_Delete
-Customer_Request <|- Customer_Create
-Customer_Request <|- Customer_List
-Customer_Request <|- Customer_Search
+.Customer_R_U_D <|-- .Customer_Update
+.Customer_R_U_D <|-- .Customer_Retrieve
+.Customer_R_U_D <|-- .Customer_Delete
+
+.Customer_Request <|-- .Customer_Create
+.Customer_Request <|-- .Customer_List
+.Customer_Request <|-- .Customer_Search
+}
 
 abstract class Square_Request {}
 abstract class Customer_Request {
@@ -127,9 +133,6 @@ Square Docs
 }
 
 
-
-
-
 class Customer_Update {
 super: Customer_R_U_D
 constructor(id)
@@ -151,16 +154,6 @@ Square Docs
 [[https://developer.squareup.com/reference/square/customers-api/update-customer Update Customer]]
 ==
 }
-
-
-
-
-
-
-
-
-
-
 
 
 @enduml

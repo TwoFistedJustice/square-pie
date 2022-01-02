@@ -1,15 +1,17 @@
 @startuml
 'https://plantuml.com/class-diagram
+skinparam groupInheritance 2
 
-
-Square_Request <-- Order_Request
-Order_Request <- Order_Calculate
-Order_Request <- Order_Create
-Order_Request <- Order_Clone
-Order_Request <- Order_Pay
-Order_Request <- Order_Retrieve
-Order_Request <- Order_Search
-Order_Request <- Order_Update
+' arrows with one dash display horizontally
+' arrows with two dashes display vertically
+Square_Request <|- Order_Request
+Order_Request <|-- Order_Calculate
+Order_Request <|-- Order_Create
+Order_Request <|-- Order_Clone
+Order_Request <|-- Order_Pay
+Order_Request <|-- Order_Retrieve
+Order_Request <|-- Order_Search
+Order_Request <|-- Order_Update
 
 
 abstract class Square_Request{
