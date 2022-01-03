@@ -69,7 +69,6 @@ describe("Order_Retrieve", () => {
   test("Order_Retrieve should not allow more than 100 IDs", () => {
     expect(() => {
       retrieve.make().order("0").concat_orders(long_arrays.len_100);
-      console.log(retrieve.order_ids);
     }).toThrowError(/combined_length/);
   });
 
