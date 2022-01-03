@@ -70,7 +70,7 @@ describe("Order_Retrieve", () => {
     expect(() => {
       retrieve.make().order("0").concat_orders(long_arrays.len_100);
       console.log(retrieve.order_ids);
-    }).toThrow();
+    }).toThrowError(/combined_length/);
   });
 
   test("Order_Retrieve concat arrays should throw and error if you pass a non-array", () => {

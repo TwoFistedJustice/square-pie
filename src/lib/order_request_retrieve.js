@@ -2,11 +2,7 @@
 // if it can, don't build the single retrieve
 
 const Order_Request = require("./order_request_abstract");
-const {
-  shazam_max_length_array,
-  shazam_max_length,
-  shazam_is_array,
-} = require("./utilities");
+const { shazam_max_length_array, shazam_is_array } = require("./utilities");
 const man =
   "retrieves one or more orders based on Square id of the order document. Add ids one at a time\n" +
   'by calling make().order("id1").order("id2") ...  or you can add an array of order_ids by calling\n' +
@@ -100,7 +96,7 @@ class Order_Retrieve extends Order_Request {
       let joined_array = this._body.order_ids.concat(arr);
       // check that combined length would not exceed allowable length
       if (
-        shazam_max_length(
+        shazam_max_length_array(
           this.configuration.maximums.order_ids,
           joined_array,
           this.display_name,
