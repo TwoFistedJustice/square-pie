@@ -13,7 +13,7 @@ const man =
   "build one line item for an order.  \n" +
   "There are two make() methods here. The normal one. And make_modifier()\n" +
   "The make_modifier method builds a modifier object. But it does not insert\n" +
-  " it into the modifiers array unless you tell it to. Call it's `add()` submethod\n" +
+  " it into the modifiers array unless you tell it to. Call it's `add()` sub-method\n" +
   " last, with no arguments to insert the object\n\n" +
   "There are also standard Pie build and add methods for applied_tax and applied_discount.\n" +
   "\nhttps://developer.squareup.com/reference/square/objects/OrderLineItem";
@@ -389,15 +389,6 @@ class Order_Line_Item {
     };
   }
 
-  /*
-   *  To add a modifier
-   * first BUILD the modifier
-   * then add it to the modifiers array
-   * make().modifiers(yourVar.modifier)
-   * - first with an 's', then without it
-   * */
-  // todo this is confusing... make an add method which inserts it
-
   make_modifier() {
     this.#init_modifier();
     let caller = "order_line_item.make_modifier()";
@@ -443,6 +434,9 @@ class Order_Line_Item {
           define(modifier, key, val);
         }
         return this;
+      },
+      add: function () {
+        this.self.modifiers = modifier;
       },
     };
   }
