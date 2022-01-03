@@ -2,7 +2,9 @@
  * */
 
 /** shazam_max_length_array checks if an array is within allowable length.
- *
+ * Use this to check the length of an array BEFORE or AFTER adding to that array. Do not
+ * use it for checking the length of an array you are concatenating (the input) to another
+ * array.
  * * usage:
  *  `if( shazam_max_length_array(20 , ['a', 'b'], display_name, caller) { do stuff }`
  *
