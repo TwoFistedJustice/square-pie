@@ -324,8 +324,6 @@ class Order_Line_Item {
   // MAKER METHODS
 
   make() {
-    // let methods = () => {
-    //   const properties = {
     return {
       self: this,
       uid: function (val) {
