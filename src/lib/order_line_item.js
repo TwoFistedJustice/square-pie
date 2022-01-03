@@ -59,7 +59,7 @@ class Order_Line_Item {
 
   //PRIVATE METHODS
   #init_modifier() {
-    this.modifier = {
+    this.#modifier = {
       uid: nanoid(uid_length),
     };
   }
@@ -271,8 +271,10 @@ class Order_Line_Item {
       this._fardel.applied_taxes.push(obj);
     }
   }
-
-  set modifier(obj) {
+  /** @private made private to prevent accidentally calling the wrong setter- should only be called by #init_modifier
+/** @private made private to prevent accidentally calling the wrong setter- should only be called by #init_modifier
+ * */
+  set #modifier(obj) {
     this._modifier = obj;
   }
 
