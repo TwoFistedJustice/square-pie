@@ -1,6 +1,7 @@
 const Order_Search = require("../src/lib/order_request_search");
 
 const { dateCodes } = require("./helper_objects");
+const { helper_arrays } = require("./helper_arrays");
 describe("Silence test suite", () => {
   test("", () => {
     expect("a").toEqual("a");
@@ -95,6 +96,24 @@ describe("Order_Search", () => {
   });
   // should add an id passed as an argument to constructor to the location_ids array
   // should replace the location_ids array with an array of ids passed as an argument to constructor
+
+  /*Order_Search Error Checking */
+
+  test("Order_Search should throw if location_ids exceed limit of 10", () => {
+    let make = search.make();
+    make.concat_locations(helper_arrays.len_10);
+    expect(() => {
+      make.location("11");
+    }).toThrowError(/location_ids/);
+  });
+
+  test("Order_Search should throw if location_ids exceed limit of 10", () => {
+    let make = search.make();
+    make.location("11");
+    expect(() => {
+      make.concat_locations(helper_arrays.len_100);
+    }).toThrowError(/combined_length/);
+  });
 });
 
 /* --------------------------------------------------------*

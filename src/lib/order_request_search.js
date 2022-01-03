@@ -6,11 +6,13 @@ const {
   shazam_integer,
   shazam_max_length_array,
   shazam_min_length_array,
+  shazam_is_array,
 } = require("./utilities");
 
 const { arche_sorting_enum, order_fulfillment_enum } = require("./enum/index");
 const man =
-  "searches all orders based on one or more locations. Add location_ids by calling make().location(location_id)\n" +
+  "searches all orders based on up to ten locations. Add location_ids by calling make().location(location_id)\n" +
+  "You can also add an array of location_ids by calling make().concat_location(array).\n" +
   "" +
   "\nhttps://developer.squareup.com/reference/square/orders-api/search-orders";
 
@@ -41,6 +43,7 @@ class Order_Search extends Order_Request {
       },
       maximums: {
         filter_array: 10,
+        location_ids: 10,
       },
     };
     this._delivery;
@@ -111,7 +114,47 @@ class Order_Search extends Order_Request {
     }
   }
   set location_ids(location_id) {
-    this._body.location_ids.push(location_id);
+    let caller = "location_ids";
+    let name = this._display_name;
+    let limit = this.configuration.maximums.location_ids;
+    // check that array does not exceed allowable length
+    if (shazam_max_length_array(limit, this._body.location_ids, name, caller)) {
+      this._body.location_ids.push(location_id);
+    }
+  }
+  /**
+   * @param {array} arr - an array of ids not longer than 10
+   * @throws {Error} Throws an error if the any array or combination of arrays exceeds a length of 10
+   * @throws {Error} Throws an error if the argument is not an array
+   * @return Replaces the existing array with a new one consisting of the old one plus the one you passed in.
+   * */
+  set location_array_concat(arr) {
+    let caller = "location_array_concat";
+    let name = this._display_name;
+    let limit = this.configuration.maximums.location_ids;
+    // check that arr is an array and that the existing array does not exceed allowable length
+    if (
+      shazam_is_array(arr, name, caller) &&
+      shazam_max_length_array(
+        limit,
+        this._body.location_ids,
+        name,
+        `${caller}.unmodified_length`
+      )
+    ) {
+      // make a new joined array
+      let joined_array = this._body.location_ids.concat(arr);
+      if (
+        // check that joined array is within spec
+        shazam_max_length_array(
+          limit,
+          joined_array,
+          name,
+          `${caller}.combined_length`
+        )
+      )
+        this._body.location_ids = joined_array;
+    }
   }
   set cursor(pagination_cursor) {
     this._body.cursor = pagination_cursor;
@@ -394,6 +437,10 @@ class Order_Search extends Order_Request {
       },
       location: function (location_id) {
         return this.location_ids(location_id);
+      },
+      concat_locations: function (arr) {
+        this.self.location_array_concat = arr;
+        return this;
       },
     };
   }
