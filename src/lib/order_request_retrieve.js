@@ -83,21 +83,22 @@ class Order_Retrieve extends Order_Request {
    * */
   set order_array_concat(arr) {
     let caller = "order_array_concat";
+    let limit = this.configuration.maximums.order_ids;
     // check that arr is an array and that the existing array does not exceed allowable length
     if (
       shazam_is_array(arr, this.display_name, caller) &&
       shazam_max_length_array(
-        this.configuration.maximums.order_ids,
+        limit,
         this._body.order_ids,
         this.display_name,
         `${caller}.existing_length`
       )
     ) {
       let joined_array = this._body.order_ids.concat(arr);
-      // check that combined length would not exceed allowable length
+      // check that joined array is less than limit + 1 (bc joined can be UP TO the limit)
       if (
         shazam_max_length_array(
-          this.configuration.maximums.order_ids,
+          limit + 1,
           joined_array,
           this.display_name,
           `${caller}.combined_length`

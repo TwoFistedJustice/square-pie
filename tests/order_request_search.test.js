@@ -99,7 +99,7 @@ describe("Order_Search", () => {
 
   /*Order_Search Error Checking */
 
-  test.only("Order_Search should throw if location_ids exceed limit of 10", () => {
+  test("Order_Search should throw if location_ids exceed limit of 10", () => {
     // this throws from the single ID setter
     let make = search.make();
     make.concat_locations(helper_arrays.len_10);
