@@ -145,9 +145,9 @@ class Order_Search extends Order_Request {
       // make a new joined array
       let joined_array = this._body.location_ids.concat(arr);
       if (
-        // check that joined array is within spec
+        // check that joined array is less than limit + 1 (bc joined can be UP TO the limit)
         shazam_max_length_array(
-          limit,
+          limit + 1,
           joined_array,
           name,
           `${caller}.combined_length`
@@ -338,13 +338,13 @@ class Order_Search extends Order_Request {
   }
 
   // BUILDER METHODS
-  /** @method  build_query -
+  /** @method  make_query -
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery  | Square Docs}
    * */
   // todo need to be able to add whole arrays with length validation
-  build_query() {
-    const name = this.display_name + ".build_query";
+  make_query() {
+    const name = this.display_name + ".make_query";
     this.#define_query();
     return {
       self: this,
