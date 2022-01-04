@@ -1,6 +1,7 @@
 "use strict";
 const should = require("chai").should();
 const Catalog_Search_Items = require("../src/lib/catalog_request_search_items");
+const { helper_arrays } = require("./helper_arrays");
 
 // tack on .only to this empty test to silence all other tests
 describe("silence test suite", () => {
@@ -149,7 +150,31 @@ describe("Catalog_Search_Items", () => {
     search.make().custom({ a: 1 }).custom({ b: 2 }).custom({ c: 3 });
     expect(search.custom_attribute_filters).toMatchObject(expected);
   });
+
+  test("set category_array_concat(arr) should concat array", () => {
+    let expected = helper_arrays.len_10;
+    search.make().concat_categories(expected);
+    expect(search.category_ids).toEqual(expected);
+  });
+
+  test("set enabled_location_array_concat(arr) should concat array", () => {
+    let expected = helper_arrays.len_10;
+    search.make().concat_enabled_locations(expected);
+    expect(search.enabled_location_ids).toEqual(expected);
+  });
+
+  test("set custom_attribute_filter_array_concat(arr) should concat array", () => {
+    let expected = helper_arrays.len_10;
+    search.make().concat_custom_attribute_filters(expected);
+    expect(search.custom_attribute_filters).toEqual(expected);
+  });
 });
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                 make_custom_attribute_filter
+ *                                                         *
+ * ------------------------------------------------------- */
 
 describe("Catalog_Search_Items make_custom_attribute_filter()", () => {
   let search;
