@@ -1,10 +1,11 @@
 const Order_Request = require("./order_request_abstract");
 const { nanoid } = require("nanoid");
-const { shazam_max_length } = require("./utilities");
+const { shazam_max_length, shazam_is_array } = require("./utilities");
 const man =
   "pay for an order. Add the order_id when you instantiate the class.\n" +
   'myVar = new Order_Pay("order_id"). You can also do this later by calling make().order("order_id")\n' +
-  "" +
+  "You can concatenate an array of payment_ids by calling make().concat_payments(array). Note: square does" +
+  "not specify an upper limit to the number of payments you can collect.\n" +
   "\nhttps://developer.squareup.com/reference/square/orders-api/pay-order";
 
 /** @class Order_Pay representing a payment on an existing order.
@@ -58,16 +59,6 @@ class Order_Pay extends Order_Request {
   }
 
   // SETTERS
-  set order_id(id) {
-    this._order_id = id;
-    this._endpoint = `/${id}/pay`;
-  }
-  set order_version(val) {
-    this._body.order_version = val;
-  }
-  set payment_ids(id) {
-    this._body.payment_ids.push(id);
-  }
   set idempotency_key(key) {
     if (
       shazam_max_length(
@@ -78,6 +69,27 @@ class Order_Pay extends Order_Request {
       )
     ) {
       this._body.idempotency_key = key;
+    }
+  }
+  set order_id(id) {
+    this._order_id = id;
+    this._endpoint = `/${id}/pay`;
+  }
+  set order_version(val) {
+    this._body.order_version = val;
+  }
+  set payment_ids(id) {
+    this._body.payment_ids.push(id);
+  }
+
+  set payment_array_concat(arr) {
+    let caller = "payment_array_concat";
+    let name = this._display_name;
+    // check that arr is an array [NI - no limit specified] and that the existing array does not exceed allowable length
+    if (shazam_is_array(arr, name, caller)) {
+      let joined_array = this._body.payment_ids.concat(arr);
+      // If we ever find a limit, check it here. See Order_Search for example.
+      this._body.payment_ids = joined_array;
     }
   }
 
@@ -104,6 +116,13 @@ class Order_Pay extends Order_Request {
       },
       order: function (id) {
         return this.order_id(id);
+      },
+      pay: function (id) {
+        return this.payment_ids(id);
+      },
+      concat_payments: function (arr) {
+        this.self.payment_array_concat = arr;
+        return this;
       },
     };
   }

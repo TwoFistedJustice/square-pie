@@ -1,6 +1,7 @@
 const Order_Pay = require("../src/lib/order_request_pay");
 
 const { long_strings } = require("./helper_objects");
+const { helper_arrays } = require("./helper_arrays");
 describe("Silence test suite", () => {
   test("", () => {
     expect("a").toEqual("a");
@@ -62,15 +63,23 @@ describe("Order_Pay", () => {
     expect(pay.order_id).toEqual("cousin mikey");
   });
 
-  test("Order_Clone should  respect idempotency key length restriction 192", () => {
+  test("Order_Pay should  respect idempotency key length restriction 192", () => {
     expect(() => {
       pay.idempotency_key(long_strings.len_193);
     }).toThrow();
   });
 
-  test("Order_Clone should set idempotency key ", () => {
+  test("Order_Pay should set idempotency key ", () => {
     let key = "There will be no disintegrations!";
     pay.make().idempotency_key(key);
     expect(pay.idempotency_key).toEqual(key);
+  });
+
+  test("Order_Pay should concatenate an array of ids", () => {
+    let expected = ["A", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+    let make = pay.make();
+    make.payment_ids("A");
+    make.concat_payments(helper_arrays.len_10);
+    expect(pay.payment_ids).toEqual(expected);
   });
 });

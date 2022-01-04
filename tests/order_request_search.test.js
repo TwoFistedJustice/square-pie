@@ -1,6 +1,7 @@
 const Order_Search = require("../src/lib/order_request_search");
 
 const { dateCodes } = require("./helper_objects");
+const { helper_arrays } = require("./helper_arrays");
 describe("Silence test suite", () => {
   test("", () => {
     expect("a").toEqual("a");
@@ -95,6 +96,26 @@ describe("Order_Search", () => {
   });
   // should add an id passed as an argument to constructor to the location_ids array
   // should replace the location_ids array with an array of ids passed as an argument to constructor
+
+  /*Order_Search Error Checking */
+
+  test("Order_Search should throw if location_ids exceed limit of 10", () => {
+    // this throws from the single ID setter
+    let make = search.make();
+    make.concat_locations(helper_arrays.len_10);
+    expect(() => {
+      make.location("11");
+    }).toThrowError(/location_ids/);
+  });
+
+  test("Order_Search should throw if location_ids exceed limit of 10", () => {
+    // this throws from the array setter
+    let make = search.make();
+    make.location("11");
+    expect(() => {
+      make.concat_locations(helper_arrays.len_10);
+    }).toThrowError(/combined_length/);
+  });
 });
 
 /* --------------------------------------------------------*
@@ -114,7 +135,7 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
   // let array11 = [1,2,3,4,5,6,7,8,9,10,11];
   beforeEach(function () {
     search = new Order_Search("someId");
-    query = search.build_query();
+    query = search.make_query();
     expected_filter = {
       customer_filter: undefined,
       date_time_filter: undefined,
@@ -133,7 +154,7 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expected_filter.customer_filter = {
       customer_ids: ["1"],
     };
-    let query = search.build_query();
+    let query = search.make_query();
     query.customer_filter("1");
     expect(search.query.filter).toMatchObject(expected_filter);
   });
@@ -142,13 +163,13 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expected_filter.customer_filter = {
       customer_ids: ["1", "2", "3"], // max 10 XXX
     };
-    let query = search.build_query();
+    let query = search.make_query();
     query.customer_filter("1").customer_filter("2").customer_filter("3");
     expect(search.query.filter).toMatchObject(expected_filter);
   });
 
   test("customer_filter should respect length limit of 10", () => {
-    let query = search.build_query();
+    let query = search.make_query();
     expect(() => {
       query
         .customer_filter("1")
@@ -169,7 +190,7 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expected_filter.source_filter = {
       source_name: ["1"],
     };
-    let query = search.build_query();
+    let query = search.make_query();
     query.source_filter("1");
     expect(search.query.filter).toMatchObject(expected_filter);
   });
@@ -178,13 +199,13 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expected_filter.source_filter = {
       source_name: ["1", "2", "3"],
     };
-    let query = search.build_query();
+    let query = search.make_query();
     query.source_filter("1").source_filter("2").source_filter("3");
     expect(search.query.filter).toMatchObject(expected_filter);
   });
 
   test("source_filter should respect length limit of 10", () => {
-    let query = search.build_query();
+    let query = search.make_query();
     expect(() => {
       query
         .source_filter("1")
@@ -203,14 +224,14 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
 
   test('fulfillment_filter- fulfillment_types - should set "PICKUP" ', () => {
     expected_filter.fulfillment_filter = { fulfillment_types: ["PICKUP"] };
-    let query = search.build_query();
+    let query = search.make_query();
     query.fulfillment_filter().fulfillment_types().pickup();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
 
   test('fulfillment_filter- fulfillment_types - should set "SHIPMENT"', () => {
     expected_filter.fulfillment_filter = { fulfillment_types: ["SHIPMENT"] };
-    let query = search.build_query();
+    let query = search.make_query();
     query.fulfillment_filter().fulfillment_types().shipment();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
@@ -219,7 +240,7 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expected_filter.fulfillment_filter = {
       fulfillment_types: ["SHIPMENT", "PICKUP"],
     };
-    let query = search.build_query();
+    let query = search.make_query();
     query.fulfillment_filter().fulfillment_types().shipment().pickup();
     expect(search.query.filter).toMatchObject(expected_filter);
   });

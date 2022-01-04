@@ -13,7 +13,7 @@ const man =
   "build one line item for an order.  \n" +
   "There are two make() methods here. The normal one. And make_modifier()\n" +
   "The make_modifier method builds a modifier object. But it does not insert\n" +
-  " it into the modifiers array unless you tell it to. Call it's `add()` submethod\n" +
+  " it into the modifiers array unless you tell it to. Call it's `add()` sub-method\n" +
   " last, with no arguments to insert the object\n\n" +
   "There are also standard Pie build and add methods for applied_tax and applied_discount.\n" +
   "\nhttps://developer.squareup.com/reference/square/objects/OrderLineItem";
@@ -59,7 +59,7 @@ class Order_Line_Item {
 
   //PRIVATE METHODS
   #init_modifier() {
-    this.modifier = {
+    this.#modifier = {
       uid: nanoid(uid_length),
     };
   }
@@ -271,8 +271,10 @@ class Order_Line_Item {
       this._fardel.applied_taxes.push(obj);
     }
   }
-
-  set modifier(obj) {
+  /** @private made private to prevent accidentally calling the wrong setter- should only be called by #init_modifier
+/** @private made private to prevent accidentally calling the wrong setter- should only be called by #init_modifier
+ * */
+  set #modifier(obj) {
     this._modifier = obj;
   }
 
@@ -322,8 +324,6 @@ class Order_Line_Item {
   // MAKER METHODS
 
   make() {
-    // let methods = () => {
-    //   const properties = {
     return {
       self: this,
       uid: function (val) {
@@ -389,67 +389,56 @@ class Order_Line_Item {
     };
   }
 
-  /*
-   *  To add a modifier
-   * first BUILD the modifier
-   * then add it to the modifiers array
-   * make().modifiers(yourVar.modifier)
-   * - first with an 's', then without it
-   * */
-  // todo this is confusing... make an add method which inserts it
-
   make_modifier() {
     this.#init_modifier();
     let caller = "order_line_item.make_modifier()";
     let modifier = this._modifier;
-    let methods = () => {
-      const properties = {
-        self: this,
-        price: function (amount, currency) {
-          let key = "base_price_money";
-          let value = arche_money(amount, currency);
-          define(modifier, key, value);
-          return this;
-        },
-        catalog_object_id: function (id) {
-          if (
-            shazam_max_length(
-              this.self.configuration.catalog_object_id,
-              id,
-              caller
-            )
-          ) {
-            let key = "catalog_object_id";
-            define(modifier, key, id);
-          }
-          return this;
-        },
-        catalog_version: function (int64) {
-          let key = "catalog_version";
-          if (!Number.isInteger(int64)) {
-            throw new TypeError(generate_error_message(key, "integer", int64));
-          }
-          define(modifier, key, int64);
-          return this;
-        },
-        name: function (val) {
-          if (
-            shazam_max_length(
-              this.self.configuration.catalog_object_id,
-              val,
-              caller
-            )
-          ) {
-            let key = "name";
-            define(modifier, key, val);
-          }
-          return this;
-        },
-      };
-      return properties;
+    return {
+      self: this,
+      price: function (amount, currency) {
+        let key = "base_price_money";
+        let value = arche_money(amount, currency);
+        define(modifier, key, value);
+        return this;
+      },
+      catalog_object_id: function (id) {
+        if (
+          shazam_max_length(
+            this.self.configuration.catalog_object_id,
+            id,
+            caller
+          )
+        ) {
+          let key = "catalog_object_id";
+          define(modifier, key, id);
+        }
+        return this;
+      },
+      catalog_version: function (int64) {
+        let key = "catalog_version";
+        if (!Number.isInteger(int64)) {
+          throw new TypeError(generate_error_message(key, "integer", int64));
+        }
+        define(modifier, key, int64);
+        return this;
+      },
+      name: function (val) {
+        if (
+          shazam_max_length(
+            this.self.configuration.catalog_object_id,
+            val,
+            caller
+          )
+        ) {
+          let key = "name";
+          define(modifier, key, val);
+        }
+        return this;
+      },
+      add: function () {
+        this.self.modifiers = modifier;
+      },
     };
-
-    return methods();
   }
 }
 
