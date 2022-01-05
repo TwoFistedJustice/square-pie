@@ -4,7 +4,8 @@ const { query_string_endpoint, shazam_integer } = require("./utilities");
 const man =
   "fetches a list of all Catalog API documents in your db. You can filter that list by type." +
   "Add the types one at a time using  make().type().type_you_want_to_add(). Or even easier -  \n" +
-  "[not implemented] make().type_you_want_to_add()" +
+  " make().type_you_want_to_add()\n" +
+  "i.e. make().tax().category()" +
   "https://developer.squareup.com/reference/square/catalog-api/list-catalog";
 
 class Catalog_List extends Catalog_Request {
