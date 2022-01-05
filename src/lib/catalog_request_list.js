@@ -126,6 +126,8 @@ class Catalog_List extends Catalog_Request {
     };
   }
   // MAKER METHODS
+  // this violates DRY - BUT it makes this class A LOT easier and more intuitive to use
+  // while maintaining compliance with Pie standard syntax
   make() {
     return {
       self: this,
@@ -138,6 +140,38 @@ class Catalog_List extends Catalog_Request {
       },
       types: function () {
         return this.self.#enum_types();
+      },
+      item: function () {
+        this.self.types = "ITEM";
+        return this;
+      },
+      item_variation: function () {
+        this.self.types = "ITEM_VARIATION";
+        return this;
+      },
+      category: function () {
+        this.self.types = "CATEGORY";
+        return this;
+      },
+      discount: function () {
+        this.self.types = "DISCOUNT";
+        return this;
+      },
+      tax: function () {
+        this.self.types = "TAX";
+        return this;
+      },
+      modifier: function () {
+        this.self.types = "MODIFIER";
+        return this;
+      },
+      modifier_list: function () {
+        this.self.types = "MODIFIER_LIST";
+        return this;
+      },
+      image: function () {
+        this.self.types = "IMAGE";
+        return this;
       },
     };
   }
