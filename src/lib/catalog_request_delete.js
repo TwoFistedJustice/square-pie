@@ -1,8 +1,9 @@
 const Catalog_Request = require("./catalog_request_abstract");
+const { arrayify, shazam_is_array } = require("./utilities");
 const man =
   "deletes one or more Catalog API objects. Add the id of the objects you want to delete using " +
   'make().object_ids("id") or you can also skip make() and jut call .delete("id"), .nix("id"), ou en francais' +
-  '.effacer("id"). You can also [NI] add an array of ids to delete by calling make().add_array(["id", ...]). ' +
+  '.effacer("id"). You can also add an array of ids to delete by calling make().concat_object_ids(["id", ...]). ' +
   "You can mix and match methods.\n" +
   "https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects";
 
@@ -40,7 +41,17 @@ class Catalog_Delete extends Catalog_Request {
     }
     this._body.object_ids.push(id);
   }
-
+  set object_array_concat(arr) {
+    arrayify(this._body, "object_ids");
+    let caller = "object_array_concat";
+    let name = this._display_name;
+    // check that arr is an array [NI - no limit specified] and that the existing array does not exceed allowable length
+    if (shazam_is_array(arr, name, caller)) {
+      let joined_array = this._body.object_ids.concat(arr);
+      // If we ever find a limit, check it here. See Order_Search for example.
+      this._body.object_ids = joined_array;
+    }
+  }
   //MAKER METHODS
 
   make() {
@@ -48,6 +59,10 @@ class Catalog_Delete extends Catalog_Request {
       self: this,
       object_ids: function (id) {
         this.self.object_ids = id;
+        return this;
+      },
+      concat_object_ids: function (arr) {
+        this.self.concat_object_ids = arr;
         return this;
       },
     };
