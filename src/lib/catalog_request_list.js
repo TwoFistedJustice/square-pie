@@ -87,7 +87,7 @@ class Catalog_List extends Catalog_Request {
   }
 
   // PRIVATE METHODS
-
+  // these are actually case-insensitive - using uppercase for consisency
   #enum_types() {
     return {
       self: this,
@@ -125,13 +125,16 @@ class Catalog_List extends Catalog_Request {
       },
     };
   }
-
   // MAKER METHODS
   make() {
     return {
       self: this,
       catalog_version: function (version) {
         this.self.catalog_version = version;
+        return this;
+      },
+      version: function (version) {
+        return this.catalog_version(version);
       },
       types: function () {
         return this.self.#enum_types();
