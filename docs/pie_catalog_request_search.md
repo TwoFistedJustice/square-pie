@@ -319,14 +319,14 @@ types at a time.
 #### **Details**
 
 1. `const xref = new Catalog_Search_Objects_Cross_Reference()`
-2. `xref.addId("some id").addId("some other id") ...`
+2. `xref.add_id("some id").add_id("some other id") ...`
 3. `xref.items()` // you can also chain this on to the previous step as long as it is last
 4. `await xref.request`
 5. `console.log(xref.delivery)`
 
 ### **Adding IDs**
 
-simply call `.addId("the id you want toadd")`
+simply call `.add_id("the id you want toadd")`
 You can chain on as many as you want or call it multiple times from different lines. It's all the same.
 
 ### **Item types**
@@ -344,7 +344,7 @@ Your options for step 3 in Details are:
 
 ### **Removing IDs**
 
-You can clear all your IDs by calling `.clearIds()`
+You can clear all your IDs by calling `.clear_ids()`
 
 There is not a way presently to remove just one id. There is a feature request for this: see Issue #85
 

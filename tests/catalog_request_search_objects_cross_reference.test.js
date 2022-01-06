@@ -72,13 +72,13 @@ describe("Catalog_Search_Cross_Reference", () => {
     expect(xref.body).toMatchObject(expected);
   });
 
-  test("addId method adds ids", () => {
+  test("add_id method adds ids", () => {
     let expected = [id1, id2];
     xref.addId(id1).addId(id2);
     expect(xref.ids).toMatchObject(expected);
   });
 
-  test("clearIds clears the ids", () => {
+  test("clear_ids clears the ids", () => {
     let expected = [];
     xref.addId(id1).addId(id2).clearIds();
     expect(xref.ids).toMatchObject(expected);

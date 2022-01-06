@@ -62,15 +62,21 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
     return this;
   }
 
-  addId(id) {
+  add_id(id) {
     this.#ids = id;
     return this;
   }
 
-  clearIds() {
+  clear_ids() {
     this.#clearIds = true;
     return this;
   }
+
+  // todo - remove 'return this' from methods with query-remove
+
+  //todo make unified functions for make()
+  //  call id adder
+  //  call appropriate setting function
 
   make() {
     // any changes made to super modification methods should be replicated on Catalog_Search_Filter
