@@ -50,10 +50,6 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     this._body.query = {};
   }
 
-  set #removeQuery(any) {
-    this._body.query = undefined;
-  }
-
   set cursor(token) {
     this._body.cursor = token;
   }
@@ -79,8 +75,9 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
   queryReset() {
     this.#reset = {};
   }
+
   queryRemove() {
-    this.#removeQuery = true;
+    this._body.query = undefined;
   }
 
   // NOT PRIVATE METHODS = because you can't reference private functions from subclasses
