@@ -1,17 +1,18 @@
 const Catalog_Request = require("./catalog_request_abstract");
 const { shazam_is_array } = require("./utilities");
 const man =
-  "Can fetch one or more catalog objects by sending the desired objects Square document ID. Add them one at a time using make().object_ids() " +
-  'or make().object("id"), or add an array of object ids using make()concat_objects(array). You can mix and match any of these methods\n' +
+  "Can fetch one or more catalog objects by sending the desired objects Square document ID. Add them one at a time or add an array of ids.\n" +
+  "There are several aliases you can use, all do the same thing, but have different names:" +
+  "myVar.get(id) or myVar.retrieve(id)\n" +
+  "make().object_ids(id) or make().object(id)\n" +
+  "add an array of object ids using make().concat_objects(array).\n" +
+  "You can mix and match any of these methods\n" +
   "https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects";
 
 class Catalog_Retrieve extends Catalog_Request {
   _display_name = "Catalog_Retrieve";
   _last_verified_square_api_version = "2021-07-21";
   _help = this.display_name + ": " + man;
-  // todo ability to add a whole array of ids in addition to one at a time using array.concat.
-  //    add an "id" alias to make.object_ids
-  //    update the man const - remove the un-implementation bracket
   constructor() {
     super();
     this._method = "post";
@@ -35,7 +36,6 @@ class Catalog_Retrieve extends Catalog_Request {
   get body() {
     return this._body;
   }
-
   set object_ids(id) {
     if (typeof id !== "string") {
       console.log(id);
@@ -76,7 +76,7 @@ class Catalog_Retrieve extends Catalog_Request {
       retrieve: function (id) {
         return this.object_ids(id);
       },
-      concat_objects: function (arr) {
+      concat_object_ids: function (arr) {
         this.self.object_array_concat = arr;
         return this;
       },
