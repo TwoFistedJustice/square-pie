@@ -77,6 +77,6 @@ describe("Catalog Request List", () => {
   test.only("make() should work with both version and type enums", () => {
     let expected = "/list?types=TAX,CATEGORY&catalog_version=3";
     list.make().tax().category().version(3);
-    expect(list.endpoint).notw.toEqual(expected);
+    expect(list.endpoint).toEqual(expected);
   });
 });
