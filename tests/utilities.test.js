@@ -2,6 +2,7 @@
 const {
   arche_time_start_end,
   // define,
+  defineify,
   query_string_builder,
   query_string_endpoint,
   // setter_chain_generator_config,
@@ -33,12 +34,22 @@ const { dateCodes } = require("./helper_objects");
 // const should = require("chai").should();
 // const { long_strings } = require("./helper_objects");
 
-describe.only("Silence test suite", () => {
+describe("Silence test suite", () => {
   test("", () => {});
 });
 
-describe("define", () => {
-  test("", () => {});
+describe.only("defineify", () => {
+  test("should add property to object", () => {
+    let value = { a: 1 };
+    let expected = {
+      key: value,
+    };
+    let patient = {};
+
+    defineify(patient, "key", value);
+
+    expect(patient).toMatchObject(expected);
+  });
 });
 
 describe("maxLength", () => {
