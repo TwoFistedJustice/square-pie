@@ -165,19 +165,19 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
       object_types: function () {
         return this.self.enum_object_types();
       },
-      variation: function (id) {
+      variations: function (id) {
         this.self.item_variations_for_item_option_values_query = id;
         return this;
       },
-      item: function (id) {
+      items: function (id) {
         this.self.items_for_item_options_query = id;
         return this;
       },
-      modifier: function (id) {
+      modifiers: function (id) {
         this.self.items_for_modifier_list_query = id;
         return this;
       },
-      tax: function (id) {
+      taxes: function (id) {
         this.self.items_for_tax_query = id;
         return this;
       },

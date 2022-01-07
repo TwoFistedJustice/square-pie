@@ -177,8 +177,8 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
     expect(xref.query).toMatchObject(expected.variations);
   });
 
-  test("make().variation()", () => {
-    make.variation(id1).variation(id2).variation(id3);
+  test("make().variations()", () => {
+    make.variations(id1).variations(id2).variations(id3);
     expect(xref.query).toMatchObject(expected.variations);
   });
 
@@ -205,12 +205,12 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
     expect(xref.query).toMatchObject(expected.items);
   });
 
-  test(" item method correctly modifies query", () => {
+  test(" items method correctly modifies query", () => {
     xref.item(id1).item(id2).item(id3);
     expect(xref.query).toMatchObject(expected.items);
   });
-  test("make().item()", () => {
-    make.item(id1).item(id2).item(id3);
+  test("make().items()", () => {
+    make.items(id1).items(id2).items(id3);
     expect(xref.query).toMatchObject(expected.items);
   });
 
@@ -236,13 +236,13 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
     expect(xref.query).toMatchObject(expected.modifiers);
   });
 
-  test(" modifier method correctly modifies query", () => {
+  test(" modifiers method correctly modifies query", () => {
     xref.modifier(id1).modifier(id2).modifier(id3);
     expect(xref.query).toMatchObject(expected.modifiers);
   });
 
-  test("make().modifier()", () => {
-    make.modifier(id1).modifier(id2).modifier(id3);
+  test("make().modifiers()", () => {
+    make.modifiers(id1).modifiers(id2).modifiers(id3);
     expect(xref.query).toMatchObject(expected.modifiers);
   });
 
@@ -273,8 +273,8 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
     expect(xref.query).toMatchObject(expected.taxes);
   });
 
-  test("make().variation()", () => {
-    make.tax(id1).tax(id2).tax(id3);
+  test("make().variations()", () => {
+    make.taxes(id1).taxes(id2).taxes(id3);
     expect(xref.query).toMatchObject(expected.taxes);
   });
 
