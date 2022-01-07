@@ -46,9 +46,9 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     return this._body.query;
   }
 
-  set #reset(obj) {
-    this._body.query = {};
-  }
+  // set #reset(obj) {
+  //   this._body.query = {};
+  // }
 
   set cursor(token) {
     this._body.cursor = token;
@@ -73,7 +73,7 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     this._body.object_types.push(type);
   }
   query_reset() {
-    this.#reset = {};
+    this._body.query = {};
   }
 
   query_remove() {
