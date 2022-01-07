@@ -132,7 +132,7 @@ describe("Super inheritance", () => {
  * ------------------------------------------------------- */
 
 describe("Catalog_Search_Cross_Reference: array builders", () => {
-  let xref, make, id1, id2, id3, arr;
+  let xref, make, id1, id2, id3, arr, expected;
 
   beforeEach(() => {
     xref = new Catalog_Search_Cross_Reference();
@@ -141,6 +141,22 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
     id2 = "id2";
     id3 = "id3";
     arr = [id1, id2, id3];
+    expected = {
+      variations: {
+        item_variations_for_item_option_values_query: {
+          item_option_value_ids: arr,
+        },
+      },
+      items: {
+        items_for_item_options_query: { item_option_ids: arr },
+      },
+      modifiers: {
+        items_for_modifier_list_query: { modifier_list_ids: arr },
+      },
+      taxes: {
+        items_for_tax_query: { tax_ids: arr },
+      },
+    };
   });
 
   /* --------------------------------------------------------*
@@ -150,45 +166,30 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
    * ------------------------------------------------------- */
 
   test("set item_variations_for_item_option_values_query id add", () => {
-    let expected = {
-      item_variations_for_item_option_values_query: arr,
-    };
     xref.item_variations_for_item_option_values_query = id1;
     xref.item_variations_for_item_option_values_query = id2;
     xref.item_variations_for_item_option_values_query = id3;
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.variations);
   });
 
   test(" variations method correctly modifies query", () => {
-    let expected = {
-      item_variations_for_item_option_values_query: arr,
-    };
     xref.variation(id1).variation(id2).variation(id3);
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.variations);
   });
 
   test("make().variation()", () => {
-    let expected = {
-      item_variations_for_item_option_values_query: arr,
-    };
     make.variation(id1).variation(id2).variation(id3);
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.variations);
   });
 
   test("set concat_variations", () => {
-    let expected = {
-      item_variations_for_item_option_values_query: arr,
-    };
     xref.concat_item_variations_for_item_option_values_query = arr;
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.variations);
   });
 
   test("make() concat_variations", () => {
-    let expected = {
-      item_variations_for_item_option_values_query: arr,
-    };
     make.concat_variations(arr);
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.variations);
   });
 
   /* --------------------------------------------------------*
@@ -198,44 +199,29 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
    * ------------------------------------------------------- */
 
   test("set items_for_item_options_query id add", () => {
-    let expected = {
-      items_for_item_options_query: arr,
-    };
     xref.items_for_item_options_query = id1;
     xref.items_for_item_options_query = id2;
     xref.items_for_item_options_query = id3;
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.items);
   });
 
   test(" item method correctly modifies query", () => {
-    let expected = {
-      items_for_item_options_query: arr,
-    };
     xref.item(id1).item(id2).item(id3);
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.items);
   });
   test("make().item()", () => {
-    let expected = {
-      items_for_item_options_query: arr,
-    };
     make.item(id1).item(id2).item(id3);
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.items);
   });
 
   test("set concat_items", () => {
-    let expected = {
-      items_for_item_options_query: arr,
-    };
     xref.concat_items_for_item_options_query = arr;
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.items);
   });
 
   test("make() concat_items", () => {
-    let expected = {
-      items_for_item_options_query: arr,
-    };
     make.concat_items(arr);
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.items);
   });
 
   /* --------------------------------------------------------*
@@ -244,45 +230,30 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
    *                                                         *
    * ------------------------------------------------------- */
   test("set items_for_modifier_list_query id add", () => {
-    let expected = {
-      items_for_modifier_list_query: arr,
-    };
     xref.items_for_modifier_list_query = id1;
     xref.items_for_modifier_list_query = id2;
     xref.items_for_modifier_list_query = id3;
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.modifiers);
   });
 
   test(" modifier method correctly modifies query", () => {
-    let expected = {
-      items_for_modifier_list_query: arr,
-    };
     xref.modifier(id1).modifier(id2).modifier(id3);
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.modifiers);
   });
 
   test("make().modifier()", () => {
-    let expected = {
-      items_for_modifier_list_query: arr,
-    };
     make.modifier(id1).modifier(id2).modifier(id3);
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.modifiers);
   });
 
   test("set concat_modifiers", () => {
-    let expected = {
-      items_for_modifier_list_query: arr,
-    };
     xref.concat_items_for_modifier_list_query = arr;
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.modifiers);
   });
 
   test("make() concat_modifiers", () => {
-    let expected = {
-      items_for_modifier_list_query: arr,
-    };
     make.concat_modifiers(arr);
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.modifiers);
   });
 
   /* --------------------------------------------------------*
@@ -291,44 +262,29 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
    *                                                         *
    * ------------------------------------------------------- */
   test("set items_for_tax_query id add", () => {
-    let expected = {
-      items_for_tax_query: arr,
-    };
     xref.items_for_tax_query = id1;
     xref.items_for_tax_query = id2;
     xref.items_for_tax_query = id3;
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.taxes);
   });
 
   test(" variations method correctly modifies query", () => {
-    let expected = {
-      items_for_tax_query: arr,
-    };
     xref.tax(id1).tax(id2).tax(id3);
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.taxes);
   });
 
   test("make().variation()", () => {
-    let expected = {
-      items_for_tax_query: arr,
-    };
     make.tax(id1).tax(id2).tax(id3);
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.taxes);
   });
 
   test("set concat_variations", () => {
-    let expected = {
-      items_for_tax_query: arr,
-    };
     xref.concat_items_for_tax_query = arr;
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.taxes);
   });
 
   test("make() concat_variations", () => {
-    let expected = {
-      items_for_tax_query: arr,
-    };
     make.concat_taxes(arr);
-    expect(xref.query).toMatchObject(expected);
+    expect(xref.query).toMatchObject(expected.taxes);
   });
 });

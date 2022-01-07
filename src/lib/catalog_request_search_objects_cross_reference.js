@@ -26,8 +26,13 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
 
   set item_variations_for_item_option_values_query(id) {
     // check for prop, clear anything on query, create and set to array
-    this.#init_query_array("item_variations_for_item_option_values_query");
-    this._body.query.item_variations_for_item_option_values_query.push(id);
+    this.#init_query_array(
+      "item_variations_for_item_option_values_query",
+      "item_option_value_ids"
+    );
+    this._body.query.item_variations_for_item_option_values_query.item_option_value_ids.push(
+      id
+    );
   }
   set concat_item_variations_for_item_option_values_query(arr) {
     // validate input is array, check for prop, clear anything on query, create and set to array
@@ -38,19 +43,22 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
         "concat_item_variations_for_item_option_values_query"
       )
     ) {
-      this.#init_query_array("item_variations_for_item_option_values_query");
+      this.#init_query_array(
+        "item_variations_for_item_option_values_query",
+        "item_option_value_ids"
+      );
       let joined_array =
-        this._body.query.item_variations_for_item_option_values_query.concat(
+        this._body.query.item_variations_for_item_option_values_query.item_option_value_ids.concat(
           arr
         );
-      this._body.query.item_variations_for_item_option_values_query =
+      this._body.query.item_variations_for_item_option_values_query.item_option_value_ids =
         joined_array;
     }
   }
 
   set items_for_item_options_query(id) {
-    this.#init_query_array("items_for_item_options_query");
-    this._body.query.items_for_item_options_query.push(id);
+    this.#init_query_array("items_for_item_options_query", "item_option_ids");
+    this._body.query.items_for_item_options_query.item_option_ids.push(id);
   }
   set concat_items_for_item_options_query(arr) {
     // validate input is array, check for prop, clear anything on query, create and set to array
@@ -61,16 +69,22 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
         "concat_items_for_item_options_query"
       )
     ) {
-      this.#init_query_array("items_for_item_options_query");
+      this.#init_query_array("items_for_item_options_query", "item_option_ids");
       let joined_array =
-        this._body.query.items_for_item_options_query.concat(arr);
-      this._body.query.items_for_item_options_query = joined_array;
+        this._body.query.items_for_item_options_query.item_option_ids.concat(
+          arr
+        );
+      this._body.query.items_for_item_options_query.item_option_ids =
+        joined_array;
     }
   }
 
   set items_for_modifier_list_query(id) {
-    this.#init_query_array("items_for_modifier_list_query");
-    this._body.query.items_for_modifier_list_query.push(id);
+    this.#init_query_array(
+      "items_for_modifier_list_query",
+      "modifier_list_ids"
+    );
+    this._body.query.items_for_modifier_list_query.modifier_list_ids.push(id);
   }
   set concat_items_for_modifier_list_query(arr) {
     // validate input is array, check for prop, clear anything on query, create and set to array
@@ -81,34 +95,41 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
         "concat_items_for_modifier_list_query"
       )
     ) {
-      this.#init_query_array("items_for_modifier_list_query");
+      this.#init_query_array(
+        "items_for_modifier_list_query",
+        "modifier_list_ids"
+      );
       let joined_array =
-        this._body.query.items_for_modifier_list_query.concat(arr);
-      this._body.query.items_for_modifier_list_query = joined_array;
+        this._body.query.items_for_modifier_list_query.modifier_list_ids.concat(
+          arr
+        );
+      this._body.query.items_for_modifier_list_query.modifier_list_ids =
+        joined_array;
     }
   }
 
   set items_for_tax_query(id) {
-    this.#init_query_array("items_for_tax_query");
-    this._body.query.items_for_tax_query.push(id);
+    this.#init_query_array("items_for_tax_query", "tax_ids");
+    this._body.query.items_for_tax_query.tax_ids.push(id);
   }
   set concat_items_for_tax_query(arr) {
     // validate input is array, check for prop, clear anything on query, create and set to array
     if (
       shazam_is_array(arr, this._display_name, "concat_items_for_tax_query")
     ) {
-      this.#init_query_array("items_for_tax_query");
-      let joined_array = this._body.query.items_for_tax_query.concat(arr);
-      this._body.query.items_for_tax_query = joined_array;
+      this.#init_query_array("items_for_tax_query", "tax_ids");
+      let joined_array =
+        this._body.query.items_for_tax_query.tax_ids.concat(arr);
+      this._body.query.items_for_tax_query.tax_ids = joined_array;
     }
   }
 
-  #init_query_array(property_name) {
+  #init_query_array(property_name, array_name) {
     if (
       !Object.prototype.hasOwnProperty.call(this._body.query, property_name)
     ) {
       this.query_reset();
-      define(this._body.query, property_name, []);
+      define(this._body.query, property_name, { [array_name]: [] });
     }
   }
 
