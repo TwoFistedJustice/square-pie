@@ -9,21 +9,21 @@ Our classes are:
 
 For the [search-catalog-items endpoint](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items)
 
-- Catalog_Search_Items - Searches for catalog items or item variations
+- Catalog_Search_Items - Searches for catalog items or items variations
 
 For the [search-catalog-objects endpoint](https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects)
 
 - These search for catalog objects of any type. These are mutually exclusive, thus the separation into two classes.
 - Catalog_Search_Filter - search using key:value pairs
-- Catalog_Search_Cross_Reference - Search using arrays of ids to cross reference
+- Catalog_Search_Cross_Reference - Search using ONE array of ids to cross-reference
 
 <br/>
 
 # Catalog_Search_Cross_Reference & Catalog_Search_Filter
 
 Square provides two mutually exclusive ways to search with a single endpoint. One way is to filter using different searchable properties and values. The other way
-is to provide it an array of IDs for specific modifiers such as taxes or modifier_lists. So if you want all objects that use a tax called "sales tax"
-you would find the Object ID of that tax and then put that ID into the array. It would then return all objects that use that tax. You cannot filter such a
+is to provide it an array of IDs for specific modifiers such as taxes or modifier_lists. So if you want all objects that use a taxes called "sales taxes"
+you would find the Object ID of that taxes and then put that ID into the array. It would then return all objects that use that taxes. You cannot filter such a
 request. You must use one type or the other. Square will reject a request which has an array of IDs along with any kind of refining details.
 
 When looking at the Square docs, the 'query' property is where all the confusing stuff happens. Note that there are two broad mutually exclusive
@@ -295,26 +295,27 @@ keywords: {
 
 ## Catalog_Search_Objects_Cross_Reference
 
-> **Note**: Square docs misrepresent the way the query property works.
-> They say that cross-reference properties sit on the query property. They do not.
-> They replace it. This class takes care of that so you don't have to worry about it.
-
 ### **What this class does**
 
 It allows you to cross-reference objects with other objects they reference. For example, you may want to find
-all products that use a particular tax. That tax will have its own unique object ID that is stored in all objects
+all products that use a particular taxes. That taxes will have its own unique object ID that is stored in all objects
 that use it. This lets you find them.
 
-You can use it to cross-reference items, item-variations, modifier-lists, and taxes. You can only do it for one of those
+You can use it to cross-reference items, items-variations, modifiers-lists, and taxes. You can only do it for one of those
 types at a time.
 
 #### **How to USE**
 
-1. Instantiate the class, as usual.
-2. Add the IDs you want to cross reference.
-3. Tell it which type of object you want. This MUST be done AFTER step 2.
-4. `await` the request.
-5. The data will be cached on the delivery property.
+If you want to add IDs one a time, pass the id as an argument to the appropriate make sub-method
+
+If you want to add a batch of IDs all at once, collect them into an array and pass the array as an argument to the
+appropriate make sub-method
+
+The make submethods for single ids are:
+variations: for item_variations
+items: for items
+modifiers: for modifiers
+taxes: for taxes
 
 #### **Details**
 
@@ -370,7 +371,7 @@ Possible values are "ASC" _or_ "DESC". You can use one or the other.
 
 ### **Stock Levels**
 
-Search by whether you are completely or amost out of something. If you don't have inventory enabled for the item, this wil fudge up your search.
+Search by whether you are completely or amost out of something. If you don't have inventory enabled for the items, this wil fudge up your search.
 Can accept two values "OUT" and "LOW". You can use both at the same time.
 
 **To use:**
@@ -395,7 +396,7 @@ For items it searches the fields
 - `description`
 - `abbreviation`
 
-For item-variations it searches the fields
+For items-variations it searches the fields
 
 - `name`
 - `sku`
