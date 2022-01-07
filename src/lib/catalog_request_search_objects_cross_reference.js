@@ -1,5 +1,5 @@
 const Catalog_Search_Objects_Super = require("./catalog_request_abstract_search_objects_super");
-const { define } = require("./utilities");
+const { define, shazam_is_array } = require("./utilities");
 const man =
   "can search for any type of catalog objects\n" +
   "This is complicated. Read the Pie doc before you try to use it: " +
@@ -37,27 +37,71 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
     this.#_ids = [];
   }
 
-  variations() {
-    this.queryRemove();
-    define(
-      this._body,
-      "item_variations_for_item_option_values_query",
-      this.ids
-    );
+  set item_variations_for_item_option_values_query(id) {
+    // check for prop, clear anything on query, create and set to array
+    this.#init_item_variations_for_item_option_values_query();
+    this._body.query.item_variations_for_item_option_values_query.push(id);
+  }
+  set concat_item_variations_for_item_option_values_query(arr) {
+    // validate input is array, check for prop, clear anything on query, create and set to array
+    if (
+      shazam_is_array(
+        arr,
+        this._display_name,
+        "concat_item_variations_for_item_option_values_query"
+      )
+    ) {
+      this.#init_item_variations_for_item_option_values_query();
+      let joined_array =
+        this._body.query.item_variations_for_item_option_values_query.concat(
+          arr
+        );
+      this._body.query.item_variations_for_item_option_values_query =
+        joined_array;
+    }
+  }
+
+  #init_item_variations_for_item_option_values_query() {
+    if (
+      !Object.prototype.hasOwnProperty.call(
+        this._body.query,
+        "item_variations_for_item_option_values_query"
+      )
+    ) {
+      this.query_reset();
+      define(
+        this._body.query,
+        "item_variations_for_item_option_values_query",
+        []
+      );
+    }
+  }
+
+  // #init_variation(){
+  //   this.query_remove();
+  //   define(
+  //     this._body,
+  //     "item_variations_for_item_option_values_query",
+  //     this.ids
+  //   );
+  // }
+
+  variations(id) {
+    this.item_variations_for_item_option_values_query = id;
     return this;
   }
   items() {
-    this.queryRemove();
+    this.query_remove();
     define(this._body, "items_for_item_options_query", this.ids);
     return this;
   }
   modifiers() {
-    this.queryRemove();
+    this.query_remove();
     define(this._body, "items_for_modifier_list_query", this.ids);
     return this;
   }
   taxes() {
-    this.queryRemove();
+    this.query_remove();
     define(this._body, "items_for_tax_query", this.ids);
     return this;
   }
@@ -92,6 +136,14 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
       },
       object_types: function () {
         return this.self.enum_object_types();
+      },
+      variation: function (id) {
+        this.self.item_variations_for_item_option_values_query = id;
+        return this;
+      },
+      concat_variations: function (arr) {
+        this.self.concat_item_variations_for_item_option_values_query = arr;
+        return this;
       },
     };
   }

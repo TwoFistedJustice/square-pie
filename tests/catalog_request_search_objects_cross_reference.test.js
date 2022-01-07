@@ -16,20 +16,6 @@ describe("Catalog_Search_Cross_Reference", () => {
     xref = new Catalog_Search_Cross_Reference();
   });
 
-  test(" variations method correctly modifies body", () => {
-    let expected = {
-      cursor: undefined,
-      include_related_objects: undefined,
-      begin_time: undefined,
-      object_types: undefined,
-      query: undefined,
-      item_variations_for_item_option_values_query: [],
-    };
-    xref.items();
-    xref.variations();
-    expect(xref.body).toMatchObject(expected);
-  });
-
   test("items method correctly modifies  body", () => {
     let expected = {
       cursor: undefined,
@@ -74,13 +60,97 @@ describe("Catalog_Search_Cross_Reference", () => {
 
   test("add_id method adds ids", () => {
     let expected = [id1, id2];
-    xref.addId(id1).addId(id2);
+    xref.add_id(id1).add_id(id2);
     expect(xref.ids).toMatchObject(expected);
   });
 
   test("clear_ids clears the ids", () => {
     let expected = [];
-    xref.addId(id1).addId(id2).clearIds();
+    xref.add_id(id1).add_id(id2).clear_ids();
     expect(xref.ids).toMatchObject(expected);
+  });
+
+  test("query object should match", () => {
+    let expected = {
+      item_variations_for_item_option_values_query: ["id1", "id2", "id3"],
+    };
+    xref.make().variation("id1").variation("id2").variation("id3");
+    expect(xref.query).toMatchObject(expected);
+  });
+
+  test("query object should match", () => {
+    let expected = {
+      item_variations_for_item_option_values_query: ["id1", "id2", "id3"],
+    };
+    xref.make().concat_variations(["id1", "id2", "id3"]);
+    expect(xref.query).toMatchObject(expected);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *          Catalog_Search_Cross_Reference: array builders
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("Catalog_Search_Cross_Reference: array builders", () => {
+  let xref, make, id1, id2, id3, arr;
+
+  beforeEach(() => {
+    xref = new Catalog_Search_Cross_Reference();
+    make = xref.make();
+    id1 = "id1";
+    id2 = "id2";
+    id3 = "id3";
+    arr = [id1, id2, id3];
+  });
+
+  /* --------------------------------------------------------*
+   *                                                         *
+   *                        item_variations
+   *                                                         *
+   * ------------------------------------------------------- */
+  test(" variations method correctly modifies query", () => {
+    let expected = {
+      item_variations_for_item_option_values_query: arr,
+    };
+    xref.variations(id1).variations(id2).variations(id3);
+    expect(xref.query).toMatchObject(expected);
+  });
+
+  test("set item_variations_for_item_option_values_query id add", () => {
+    let expected = {
+      item_variations_for_item_option_values_query: arr,
+    };
+    xref.item_variations_for_item_option_values_query = id1;
+    xref.item_variations_for_item_option_values_query = id2;
+    xref.item_variations_for_item_option_values_query = id3;
+    expect(xref.query).toMatchObject(expected);
+  });
+
+  test("make() variations", () => {
+    let expected = {
+      item_variations_for_item_option_values_query: arr,
+    };
+    make.variation(id1).variation(id2).variation(id3);
+    expect(xref.query).toMatchObject(expected);
+  });
+
+  test("set item_variations_for_item_option_values_query id add", () => {
+    let expected = {
+      item_variations_for_item_option_values_query: arr,
+    };
+    xref.item_variations_for_item_option_values_query = id1;
+    xref.item_variations_for_item_option_values_query = id2;
+    xref.item_variations_for_item_option_values_query = id3;
+    expect(xref.query).toMatchObject(expected);
+  });
+
+  test("make() concat_variations", () => {
+    let expected = {
+      item_variations_for_item_option_values_query: arr,
+    };
+    make.concat_variations(arr);
+    expect(xref.query).toMatchObject(expected);
   });
 });
