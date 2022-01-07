@@ -293,7 +293,7 @@ keywords: {
 
 <br/>
 
-## Catalog_Search_Objects_Cross_Reference
+# Catalog_Search_Objects_Cross_Reference
 
 ### **What this class does**
 
@@ -302,56 +302,55 @@ all products that use a particular taxes. That taxes will have its own unique ob
 that use it. This lets you find them.
 
 You can use it to cross-reference items, items-variations, modifiers-lists, and taxes. You can only do it for one of those
-types at a time.
+types at a time. Attempting to add a second type of ID will clear the query object completely.
 
 #### **How to USE**
 
 If you want to add IDs one a time, pass the id as an argument to the appropriate make sub-method
 
 If you want to add a batch of IDs all at once, collect them into an array and pass the array as an argument to the
-appropriate make sub-method
+appropriate make sub-method. (with this cross-reference only, you can also completely omit make() for adding ids)
 
 The make submethods for single ids are:
-variations: for item_variations
-items: for items
-modifiers: for modifiers
-taxes: for taxes
+-variations(id): for item_variations
+-items(id): for items
+-modifiers(id): for modifiers
+-taxes(id): for taxes
+
+The make submethods for single ids are add "concat\_" to the front of the other sub-method names
+
+- concat_variations(array): for item_variations
+- concat_items(array): for items
+- concat_modifiers(array): for modifiers
+- concat_taxes(array): for taxes
 
 #### **Details**
 
+### **Adding Single IDs**
+
 1. `const xref = new Catalog_Search_Objects_Cross_Reference()`
-2. `xref.add_id("some id").add_id("some other id") ...`
-3. `xref.items()` // you can also chain this on to the previous step as long as it is last
-4. `await xref.request`
-5. `console.log(xref.delivery)`
+2. `xref.make().variations("some id").variations("some other id") ...`
 
-### **Adding IDs**
+### **Adding An Array of IDs**
 
-simply call `.add_id("the id you want toadd")`
-You can chain on as many as you want or call it multiple times from different lines. It's all the same.
+1. `const xref = new Catalog_Search_Objects_Cross_Reference()`
+2. `xref.make().concat_variations(["some_id", "other_ids", ...])`
 
 ### **Item types**
 
 You can chain these, as many times as you like. But only the one at the very end of the whole chain will work. Which means
 that if you make a mistake and call the wrong one, just call the right one afterwards and all wil be good.
 
-Your options for step 3 in Details are:
-(these are called without arguments)
+These set the value for you and are called without arguments.
 
-- `.items()`
-- `.variations()`
-- `.modifiers()`
-- `.taxes()`
-
-### **Removing IDs**
-
-You can clear all your IDs by calling `.clear_ids()`
-
-There is not a way presently to remove just one id. There is a feature request for this: see Issue #85
+- `make().object_types().items()`
+- `make().object_types().variations()`
+- `make().object_types()modifiers()`
+- `make().object_types().taxes()`
 
 <br/>
 
-## Catalog_Search_Items
+# Catalog_Search_Items
 
 Use this class when you want to search only Items and Item-Variations
 It is analogous to Square's [Search catalog items](https://developer.squareup.com/reference/square/catalog-api/search-catalog-items)
@@ -443,12 +442,15 @@ Feed it the object ID of the category you want to filter by.
 - `.make().enabled_location_ids(id)`
 - `.location(id)`
 
-### **Custom Attribute Filters**
+### **[Custom Attribute Filters](https://developer.squareup.com/reference/square/objects/CustomAttributeFilter)**
 
-Custom attributes are unsuppored. You can still use that feature, but you will have to carefully construct your own data structures. I chose not
-to support this feature in depth because [Pieville USA](https://www.pievilleusa.com/) does not and will not use it, and it would require
-substantial time and work to implement. If you like this feature of Square's API and would like to build it for this package please consider becoming a code contributor for this FOSS package.
+There is special make method for custom attribute filters.
+make_custom_attribute_filter()
+The sub-methods available are:
 
-Pass your object as an argument to the methods `make().custom_attribute_filters` or `.custom()`.
-
-Other than enforcing the maximum array length, there is no error checking in these methods. So if you do it wrong, Square will reject your request.
+- custom_attribute_definition_id(id)
+- key(str)
+- string_filter(str)
+- number_filter(min, max) - doesn't really matter what order you put the arguments, it will set the smaller one as min and the larger one as max.
+- selection_uids_filter(str)
+- bool_filter(boolean)
