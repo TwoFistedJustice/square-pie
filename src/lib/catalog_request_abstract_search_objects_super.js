@@ -72,11 +72,11 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     }
     this._body.object_types.push(type);
   }
-  queryReset() {
+  query_reset() {
     this.#reset = {};
   }
 
-  queryRemove() {
+  query_remove() {
     this._body.query = undefined;
   }
 
