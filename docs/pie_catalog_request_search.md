@@ -2,7 +2,7 @@
 
 Square has two endpoints for searching their Catalog API. One of those endpoints has two mutually exclusive search options. So we have THREE classes.
 It is not immediately apparent from the main Square doc that these searches are mutually exclusive. But it is mentioned on the
-[CatalogQuery](https://developer.squareup.com/reference/square_2021-07-21/objects/CatalogQuery) page, concatenated to the list item for "text_query" up
+[CatalogQuery](https://developer.squareup.com/reference/square_2021-07-21/objects/CatalogQuery) page, concatenated to the list entry for "text_query" up
 near the top of the page.
 
 Our classes are:
