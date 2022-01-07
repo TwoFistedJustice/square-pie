@@ -173,7 +173,7 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
   });
 
   test(" variations method correctly modifies query", () => {
-    xref.variation(id1).variation(id2).variation(id3);
+    xref.variations(id1).variations(id2).variations(id3);
     expect(xref.query).toMatchObject(expected.variations);
   });
 
@@ -192,6 +192,11 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
     expect(xref.query).toMatchObject(expected.variations);
   });
 
+  test("concat_variations", () => {
+    xref.concat_variations(arr);
+    expect(xref.query).toMatchObject(expected.variations);
+  });
+
   /* --------------------------------------------------------*
    *                                                         *
    *                     items
@@ -206,9 +211,10 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
   });
 
   test(" items method correctly modifies query", () => {
-    xref.item(id1).item(id2).item(id3);
+    xref.items(id1).items(id2).items(id3);
     expect(xref.query).toMatchObject(expected.items);
   });
+
   test("make().items()", () => {
     make.items(id1).items(id2).items(id3);
     expect(xref.query).toMatchObject(expected.items);
@@ -221,6 +227,11 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
 
   test("make() concat_items", () => {
     make.concat_items(arr);
+    expect(xref.query).toMatchObject(expected.items);
+  });
+
+  test(" concat_items", () => {
+    xref.concat_items(arr);
     expect(xref.query).toMatchObject(expected.items);
   });
 
@@ -237,7 +248,7 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
   });
 
   test(" modifiers method correctly modifies query", () => {
-    xref.modifier(id1).modifier(id2).modifier(id3);
+    xref.modifiers(id1).modifiers(id2).modifiers(id3);
     expect(xref.query).toMatchObject(expected.modifiers);
   });
 
@@ -268,23 +279,28 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
     expect(xref.query).toMatchObject(expected.taxes);
   });
 
-  test(" variations method correctly modifies query", () => {
-    xref.tax(id1).tax(id2).tax(id3);
+  test(" taxes method correctly modifies query", () => {
+    xref.taxes(id1).taxes(id2).taxes(id3);
     expect(xref.query).toMatchObject(expected.taxes);
   });
 
-  test("make().variations()", () => {
+  test("make().taxes()", () => {
     make.taxes(id1).taxes(id2).taxes(id3);
     expect(xref.query).toMatchObject(expected.taxes);
   });
 
-  test("set concat_variations", () => {
+  test("set concat_taxes", () => {
     xref.concat_items_for_tax_query = arr;
     expect(xref.query).toMatchObject(expected.taxes);
   });
 
-  test("make() concat_variations", () => {
+  test("make() concat_taxes", () => {
     make.concat_taxes(arr);
+    expect(xref.query).toMatchObject(expected.taxes);
+  });
+
+  test("concat_taxes", () => {
+    xref.concat_taxes(arr);
     expect(xref.query).toMatchObject(expected.taxes);
   });
 });

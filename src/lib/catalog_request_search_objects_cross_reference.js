@@ -133,20 +133,37 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
     }
   }
 
-  variation(id) {
+  variations(id) {
     this.item_variations_for_item_option_values_query = id;
     return this;
   }
-  item(id) {
+  items(id) {
     this.items_for_item_options_query = id;
     return this;
   }
-  modifier(id) {
+  modifiers(id) {
     this.items_for_modifier_list_query = id;
     return this;
   }
-  tax(id) {
+  taxes(id) {
     this.items_for_tax_query = id;
+    return this;
+  }
+
+  concat_variations(arr) {
+    this.concat_item_variations_for_item_option_values_query = arr;
+    return this;
+  }
+  concat_items(arr) {
+    this.concat_items_for_item_options_query = arr;
+    return this;
+  }
+  concat_modifiers(arr) {
+    this.concat_items_for_modifier_list_query = arr;
+    return this;
+  }
+  concat_taxes(arr) {
+    this.concat_items_for_tax_query = arr;
     return this;
   }
 
