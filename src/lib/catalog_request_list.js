@@ -4,7 +4,8 @@ const { query_string_endpoint, shazam_integer } = require("./utilities");
 const man =
   "fetches a list of all Catalog API documents in your db. You can filter that list by type." +
   "Add the types one at a time using  make().type().type_you_want_to_add(). Or even easier -  \n" +
-  "[not implemented] make().type_you_want_to_add()" +
+  " make().type_you_want_to_add()\n" +
+  "i.e. make().tax().category()" +
   "https://developer.squareup.com/reference/square/catalog-api/list-catalog";
 
 class Catalog_List extends Catalog_Request {
@@ -87,7 +88,7 @@ class Catalog_List extends Catalog_Request {
   }
 
   // PRIVATE METHODS
-
+  // these are actually case-insensitive - using uppercase for consisency
   #enum_types() {
     return {
       self: this,
@@ -125,16 +126,53 @@ class Catalog_List extends Catalog_Request {
       },
     };
   }
-
   // MAKER METHODS
+  // this violates DRY - BUT it makes this class A LOT easier and more intuitive to use
+  // while maintaining compliance with Pie standard syntax
   make() {
     return {
       self: this,
       catalog_version: function (version) {
         this.self.catalog_version = version;
+        return this;
+      },
+      version: function (version) {
+        return this.catalog_version(version);
       },
       types: function () {
         return this.self.#enum_types();
+      },
+      item: function () {
+        this.self.types = "ITEM";
+        return this;
+      },
+      item_variation: function () {
+        this.self.types = "ITEM_VARIATION";
+        return this;
+      },
+      category: function () {
+        this.self.types = "CATEGORY";
+        return this;
+      },
+      discount: function () {
+        this.self.types = "DISCOUNT";
+        return this;
+      },
+      tax: function () {
+        this.self.types = "TAX";
+        return this;
+      },
+      modifier: function () {
+        this.self.types = "MODIFIER";
+        return this;
+      },
+      modifier_list: function () {
+        this.self.types = "MODIFIER_LIST";
+        return this;
+      },
+      image: function () {
+        this.self.types = "IMAGE";
+        return this;
       },
     };
   }

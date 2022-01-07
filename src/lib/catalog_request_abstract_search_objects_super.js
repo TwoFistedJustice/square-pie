@@ -46,13 +46,9 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     return this._body.query;
   }
 
-  set #reset(obj) {
-    this._body.query = {};
-  }
-
-  set #removeQuery(any) {
-    this._body.query = undefined;
-  }
+  // set #reset(obj) {
+  //   this._body.query = {};
+  // }
 
   set cursor(token) {
     this._body.cursor = token;
@@ -76,11 +72,12 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     }
     this._body.object_types.push(type);
   }
-  queryReset() {
-    this.#reset = {};
+  query_reset() {
+    this._body.query = {};
   }
-  queryRemove() {
-    this.#removeQuery = true;
+
+  query_remove() {
+    this._body.query = undefined;
   }
 
   // NOT PRIVATE METHODS = because you can't reference private functions from subclasses

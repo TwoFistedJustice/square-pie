@@ -1,5 +1,6 @@
 const normalize_email = require("./normalize_email");
 const define = require("./define");
+const defineify = require("./defineify");
 const query_string_builder = require("./query_string_builder");
 const query_string_endpoint = require("./query_string_endpoint");
 const {
@@ -32,6 +33,7 @@ module.exports = {
   arche_time_start_end,
   normalize_email,
   define,
+  defineify,
   query_string_builder,
   query_string_endpoint,
   setter_chain_generator_config,

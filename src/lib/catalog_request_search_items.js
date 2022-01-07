@@ -1,5 +1,9 @@
 const Catalog_Request = require("./catalog_request_abstract");
-const { arrayify, generate_error_message } = require("./utilities");
+const {
+  arrayify,
+  generate_error_message,
+  shazam_is_array,
+} = require("./utilities");
 const man =
   "Can only search for Item and Item Variation type objects. To find another type use one of the\n" +
   "the other Catalog Search classes.  \n" +
@@ -130,6 +134,40 @@ class Catalog_Search_Items extends Catalog_Request {
     this._attribute_filter = obj;
   }
 
+  set category_array_concat(arr) {
+    arrayify(this._body, "category_ids");
+    let caller = "category_array_concat";
+    let name = this._display_name;
+    // check that arr is an array [NI - no limit specified] and that the existing array does not exceed allowable length
+    if (shazam_is_array(arr, name, caller)) {
+      let joined_array = this._body.category_ids.concat(arr);
+      // If we ever find a limit, check it here. See Order_Search for example.
+      this._body.category_ids = joined_array;
+    }
+  }
+  set enabled_location_array_concat(arr) {
+    arrayify(this._body, "enabled_location_ids");
+    let caller = "enabled_location_array_concat";
+    let name = this._display_name;
+    // check that arr is an array [NI - no limit specified] and that the existing array does not exceed allowable length
+    if (shazam_is_array(arr, name, caller)) {
+      let joined_array = this._body.enabled_location_ids.concat(arr);
+      // If we ever find a limit, check it here. See Order_Search for example.
+      this._body.enabled_location_ids = joined_array;
+    }
+  }
+  set custom_attribute_filter_array_concat(arr) {
+    arrayify(this._body, "custom_attribute_filters");
+    let caller = "custom_attribute_filter_array_concat";
+    let name = this._display_name;
+    // check that arr is an array [NI - no limit specified] and that the existing array does not exceed allowable length
+    if (shazam_is_array(arr, name, caller)) {
+      let joined_array = this._body.custom_attribute_filters.concat(arr);
+      // If we ever find a limit, check it here. See Order_Search for example.
+      this._body.custom_attribute_filters = joined_array;
+    }
+  }
+
   // PRIVATE METHODS
 
   #init_filter() {
@@ -249,6 +287,18 @@ class Catalog_Search_Items extends Catalog_Request {
       },
       location(id) {
         return this.enabled_location_ids(id);
+      },
+      concat_categories: function (arr) {
+        this.self.category_array_concat = arr;
+        return this;
+      },
+      concat_enabled_locations: function (arr) {
+        this.self.enabled_location_array_concat = arr;
+        return this;
+      },
+      concat_custom_attribute_filters: function (arr) {
+        this.self.custom_attribute_filter_array_concat = arr;
+        return this;
       },
     };
   }

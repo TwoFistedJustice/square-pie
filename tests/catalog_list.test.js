@@ -44,4 +44,39 @@ describe("Catalog Request List", () => {
     list.make().catalog_version(42);
     expect(list.endpoint).toEqual(expected);
   });
+
+  test("make().version() should set version query param", () => {
+    let expected = "/list?catalog_version=3";
+    list.make().version(3);
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test("make() should work with both version and type", () => {
+    let expected = "/list?catalog_version=3&types=TAX,CATEGORY";
+    list.make().catalog_version(3).types().tax().category();
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test("make().[value]() should set type enums", () => {
+    let expected =
+      "/list?types=ITEM,ITEM_VARIATION,CATEGORY,DISCOUNT,TAX,MODIFIER,MODIFIER_LIST,IMAGE";
+    list
+      .make()
+      .types()
+      .item()
+      .item_variation()
+      .category()
+      .discount()
+      .tax()
+      .modifier()
+      .modifier_list()
+      .image();
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test.only("make() should work with both version and type enums", () => {
+    let expected = "/list?types=TAX,CATEGORY&catalog_version=3";
+    list.make().tax().category().version(3);
+    expect(list.endpoint).toEqual(expected);
+  });
 });
