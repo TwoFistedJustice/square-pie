@@ -2,7 +2,7 @@ const Customer_Request = require("./customer_request_abstract");
 const { shazam_integer } = require("./utilities/index");
 const man =
   "fetches a list of customers\n" +
-  "You can add a sort field and sort order using make()." +
+  "You can add a limit, a sort field and sort order using make(). Cursor is appended automatically." +
   "\nhttps://developer.squareup.com/reference/square/customers-api/list-customers";
 
 /** @class Customer_List representing an http request to retrieve a list of customer records
