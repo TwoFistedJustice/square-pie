@@ -5,7 +5,7 @@ const man =
   'make().object_ids("id") or you can also skip make() and jut call .delete("id"), .nix("id"), ou en francais' +
   '.effacer("id"). You can also add an array of ids to delete by calling make().concat_object_ids(["id", ...]). ' +
   "You can mix and match methods.\n" +
-  "https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects";
+  "\nhttps://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects";
 
 class Catalog_Delete extends Catalog_Request {
   _display_name = "Catalog_Delete";
