@@ -14,6 +14,7 @@ const arrayify = require("./arrayify");
 const arche_money = require("./arche_money");
 const is_integer = require("./is_integer");
 const generate_error_message = require("./generate_error_message");
+const regular_expression_patterns = require("./regular_expression_patterns");
 const shazam_time_RFC3339 = require("./shazam_time_RFC3339");
 const shazam_date_human_readable = require("./shazam_date_human_readable");
 const shazam_integer = require("./shazam_integer");
@@ -44,6 +45,7 @@ module.exports = {
   arche_money,
   is_integer,
   generate_error_message,
+  regular_expression_patterns,
   shazam_time_RFC3339,
   shazam_date_human_readable,
   shazam_integer,
