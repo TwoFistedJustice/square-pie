@@ -21,7 +21,7 @@ class Customer_Create extends Customer_Request {
   _help = this.display_name + ": " + man;
   constructor(customer) {
     super();
-    this._method = "post";
+    this._method = "POST";
     this.idempotency_key = nanoid();
     this.customer = customer;
     this._delivery;
