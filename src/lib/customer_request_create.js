@@ -22,7 +22,7 @@ class Customer_Create extends Customer_Request {
   constructor(customer) {
     super();
     this._method = "POST";
-    this.idempotency_key = nanoid();
+    this._idempotency_key = nanoid();
     this.customer = customer;
     this._delivery;
   }
@@ -36,8 +36,8 @@ class Customer_Create extends Customer_Request {
   get help() {
     return this._help;
   }
-  get getIdempotency_key() {
-    return this.idempotency_key;
+  get idempotency_key() {
+    return this._idempotency_key;
   }
   get delivery() {
     return this._delivery;
