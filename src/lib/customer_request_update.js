@@ -68,6 +68,9 @@ class Customer_Update extends Retrieve_Update_Delete {
   get help() {
     return this._help;
   }
+  get body() {
+    return this._body;
+  }
   get given_name() {
     return this._body.given_name;
   }
