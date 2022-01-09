@@ -4,7 +4,8 @@ const { normalize_email } = require("./utilities");
 const man =
   "upserts one customer object. There is no option to upsert multiples.\n" +
   "Add the customer by passing the fardel to make.().customer(fardel) or by calling the setter\n" +
-  "yourVar.customer = fardel" +
+  "yourVar.customer = fardel\n" +
+  "Create_Customer has no make() method.  " +
   "\nhttps://developer.squareup.com/reference/square/customers-api/create-customer";
 
 /** @class Customer_Create representing an http request to create a customer record
