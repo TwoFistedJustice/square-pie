@@ -1,5 +1,6 @@
 const Retrieve_Update_Delete = require("./customer_request_abstract_R_U_D_super");
 const {
+  define,
   shazam_max_length,
   normalize_email,
   shazam_time_RFC3339,
@@ -34,7 +35,7 @@ class Customer_Update extends Retrieve_Update_Delete {
   _help = this.display_name + ": " + man;
   constructor(id) {
     super(id);
-    this._method = "put";
+    this._method = "PUT";
     this._body = {
       given_name: undefined,
       family_name: undefined,
@@ -179,6 +180,9 @@ class Customer_Update extends Retrieve_Update_Delete {
    * * @throws Will throw and error if argument  cannot be coerced to integer
    * */
   set version(int) {
+    if (!Object.prototype.hasOwnProperty.call(this._body, "version")) {
+      define(this._body, "version");
+    }
     if (shazam_integer(int)) {
       this._body.version = int;
     }
