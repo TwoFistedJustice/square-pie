@@ -109,8 +109,12 @@ class Customer_Update extends Retrieve_Update_Delete {
   /** If you already have a compliant customer object you can just call the body setter
    * @param {customer object} add the Customer_Object fardel
    * */
+
+  // todo remove some tape layers from mouse button
   set body(fardel) {
-    this._body = fardel;
+    for (let prop in fardel) {
+      this._body[prop] = fardel[prop];
+    }
   }
   set given_name(val) {
     this._body.given_name = val;
@@ -245,6 +249,10 @@ class Customer_Update extends Retrieve_Update_Delete {
       },
       phone: function (val) {
         this.phone_number(val);
+        return this;
+      },
+      customer: function (fardel) {
+        this.body = fardel;
         return this;
       },
     };
