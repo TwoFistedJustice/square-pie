@@ -4,7 +4,8 @@ const { normalize_email } = require("./utilities");
 const man =
   "upserts one customer object. There is no option to upsert multiples.\n" +
   "Add the customer by passing the fardel to make.().customer(fardel) or by calling the setter\n" +
-  "yourVar.customer = fardel" +
+  "yourVar.customer = fardel\n" +
+  "Create_Customer has no make() method.  " +
   "\nhttps://developer.squareup.com/reference/square/customers-api/create-customer";
 
 /** @class Customer_Create representing an http request to create a customer record
@@ -20,8 +21,8 @@ class Customer_Create extends Customer_Request {
   _help = this.display_name + ": " + man;
   constructor(customer) {
     super();
-    this._method = "post";
-    this.idempotency_key = nanoid();
+    this._method = "POST";
+    this._idempotency_key = nanoid();
     this.customer = customer;
     this._delivery;
   }
@@ -35,8 +36,8 @@ class Customer_Create extends Customer_Request {
   get help() {
     return this._help;
   }
-  get getIdempotency_key() {
-    return this.idempotency_key;
+  get idempotency_key() {
+    return this._idempotency_key;
   }
   get delivery() {
     return this._delivery;

@@ -1,5 +1,7 @@
 const Customer_Request = require("./customer_request_abstract");
-
+const {
+  query_param_regex,
+} = require("./utilities/regular_expression_patterns");
 // https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile
 //ToDO whenever something is updated or deleted, log it to a file in some retrievable location
 
@@ -39,6 +41,30 @@ class Customer_Retrieve_Update_Delete_Super extends Customer_Request {
   }
   set id(someId) {
     this._endpoint = `/${someId}`;
+  }
+
+  /** @function  append_query_param - adds query parameters - for Customer_Delete sub class only.
+   * First it checks to see if the parameter is already set on the endpoint, and if it is, replaces it.
+   * If the parameter is not set, it sppends a new query parameter to the endpoint.
+   * @param {string}  param - the name of the parameter
+   * @param {integer}  value - the value to set the parameter to
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * */
+  append_query_param(param, value) {
+    let endpoint = this.endpoint;
+    if (query_param_regex.version.test(endpoint)) {
+      let replacement = "version=" + value;
+      endpoint.replace(query_param_regex.version, replacement);
+    } else {
+      if (!query_param_regex.start.test(endpoint)) {
+        endpoint += "?";
+      }
+      if (query_param_regex.continuation.test(endpoint)) {
+        endpoint += "&";
+      }
+      endpoint += param + "=" + value;
+    }
+    this._endpoint = endpoint;
   }
 
   // MAKER METHODS

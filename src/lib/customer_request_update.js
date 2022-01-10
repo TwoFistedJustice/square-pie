@@ -1,5 +1,6 @@
 const Retrieve_Update_Delete = require("./customer_request_abstract_R_U_D_super");
 const {
+  define,
   shazam_max_length,
   normalize_email,
   shazam_time_RFC3339,
@@ -34,7 +35,7 @@ class Customer_Update extends Retrieve_Update_Delete {
   _help = this.display_name + ": " + man;
   constructor(id) {
     super(id);
-    this._method = "put";
+    this._method = "PUT";
     this._body = {
       given_name: undefined,
       family_name: undefined,
@@ -66,6 +67,9 @@ class Customer_Update extends Retrieve_Update_Delete {
   }
   get help() {
     return this._help;
+  }
+  get body() {
+    return this._body;
   }
   get given_name() {
     return this._body.given_name;
@@ -102,11 +106,13 @@ class Customer_Update extends Retrieve_Update_Delete {
   }
 
   // SETTERS
-  /** If you already have a compliant customer object you can just call the body setter
+  /** @function set body - If you already have a compliant customer object you can just call the body setter
    * @param {customer object} add the Customer_Object fardel
    * */
   set body(fardel) {
-    this._body = fardel;
+    for (let prop in fardel) {
+      this._body[prop] = fardel[prop];
+    }
   }
   set given_name(val) {
     this._body.given_name = val;
@@ -179,6 +185,9 @@ class Customer_Update extends Retrieve_Update_Delete {
    * * @throws Will throw and error if argument  cannot be coerced to integer
    * */
   set version(int) {
+    if (!Object.prototype.hasOwnProperty.call(this._body, "version")) {
+      define(this._body, "version");
+    }
     if (shazam_integer(int)) {
       this._body.version = int;
     }
@@ -238,6 +247,10 @@ class Customer_Update extends Retrieve_Update_Delete {
       },
       phone: function (val) {
         this.phone_number(val);
+        return this;
+      },
+      customer: function (fardel) {
+        this.body = fardel;
         return this;
       },
     };
