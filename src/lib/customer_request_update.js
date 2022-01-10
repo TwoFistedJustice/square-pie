@@ -106,11 +106,9 @@ class Customer_Update extends Retrieve_Update_Delete {
   }
 
   // SETTERS
-  /** If you already have a compliant customer object you can just call the body setter
+  /** @function set body - If you already have a compliant customer object you can just call the body setter
    * @param {customer object} add the Customer_Object fardel
    * */
-
-  // todo remove some tape layers from mouse button
   set body(fardel) {
     for (let prop in fardel) {
       this._body[prop] = fardel[prop];
