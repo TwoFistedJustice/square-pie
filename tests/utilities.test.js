@@ -3,6 +3,7 @@ const {
   arche_time_start_end,
   // define,
   defineify,
+  query_param_add_value,
   query_string_builder,
   query_string_endpoint,
   // setter_chain_generator_config,
@@ -38,7 +39,7 @@ describe("Silence test suite", () => {
   test("", () => {});
 });
 
-describe.only("defineify", () => {
+describe("defineify", () => {
   test("should add property to object", () => {
     let value = { a: 1 };
     let expected = {
@@ -254,6 +255,11 @@ describe("shazam_integer integer verification utility", () => {
     ).toEqual(true);
   });
 });
+/* --------------------------------------------------------*
+ *                                                         *
+ *               shazam_boolean
+ *                                                         *
+ * ------------------------------------------------------- */
 
 describe("shazam_boolean boolean verification utility", () => {
   test("should throw when fed a non-boolean", () => {
@@ -284,7 +290,11 @@ describe("shazam_boolean boolean verification utility", () => {
     ).toEqual(true);
   });
 });
-
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        normalize_email
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("normalize_email utility", () => {
   test("should not reject a yahoo -whatev address", () => {
     expect(() => {
@@ -317,6 +327,60 @@ describe("normalize_email utility", () => {
     expect(received).toEqual(expected);
   });
 });
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                   query_param_add_value
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe.only("query_param_add_value", () => {
+  test("should add value if only one exists alreday", () => {
+    let query_string = "?status=OPEN";
+    let param = "status";
+    let value_to_add = "PAID";
+    let expected = `${query_string},${value_to_add}`;
+    expect(query_param_add_value(query_string, param, value_to_add)).toEqual(
+      expected
+    );
+  });
+
+  test("should add param if more than one value already exists", () => {
+    let query_string = "?status=OPEN,DRAFT";
+    let param = "status";
+    let value_to_add = "PAID";
+    let expected = `${query_string},${value_to_add}`;
+    expect(query_param_add_value(query_string, param, value_to_add)).toEqual(
+      expected
+    );
+  });
+
+  test("should add value to first param when more than one param exist", () => {
+    let query_string = "?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER&version=3";
+    let param = "status";
+    let value_to_add = "PAID";
+    let expected = `?status=OPEN,DRAFT,${value_to_add}&type=ITEM,TAX,MODIFIER&version=3`;
+    expect(query_param_add_value(query_string, param, value_to_add)).toEqual(
+      expected
+    );
+  });
+
+  test('should add value to second param when more than one param exist"', () => {
+    let query_string = "?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER&version=3";
+    let param = "type";
+    let value_to_add = "IMAGE";
+    let expected = `?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER,${value_to_add}&version=3`;
+    expect(query_param_add_value(query_string, param, value_to_add)).toEqual(
+      expected
+    );
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *               endpoint string query builder
+ *                                                         *
+ * ------------------------------------------------------- */
 
 describe("endpoint string query builder", () => {
   test("is_empty", () => {
