@@ -33,6 +33,9 @@ const regular_expression_patterns = {
           "[a-zA-Z0-9]{1,})" // consisting of one or more blocks of alpha-numerics
       );
     },
+    query_param_is_present: function (param) {
+      return new RegExp(param + "={1}");
+    },
   },
 };
 module.exports = regular_expression_patterns;

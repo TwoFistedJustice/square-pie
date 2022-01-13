@@ -4,6 +4,7 @@ const {
   // define,
   defineify,
   query_param_add_value,
+  query_param_is_present,
   query_param_replace_value,
   query_string_builder,
   query_string_endpoint,
@@ -334,7 +335,7 @@ describe("normalize_email utility", () => {
  *                                                         *
  * ------------------------------------------------------- */
 
-describe.only("query_param_add_value", () => {
+describe("query_param_add_value", () => {
   test("should add value if only one exists alreday", () => {
     let query_string = "?status=OPEN";
     let param = "status";
@@ -421,6 +422,48 @@ describe("query_param_add_value", () => {
     expect(
       query_param_replace_value(query_string, param, value_to_add)
     ).toEqual(expected);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                  query_param_is_present
+ *                                                         *
+ * ------------------------------------------------------- */
+describe.only("query_param_is_present", () => {
+  test("should return true if only one param exists with a single value", () => {
+    let query_string = "?status=OPEN";
+    let param = "status";
+    let expected = true;
+    expect(query_param_is_present(query_string, param)).toEqual(expected);
+  });
+
+  test("should return true if only one param exists with a multiple values", () => {
+    let query_string = "?status=OPEN,DRAFT,PAID";
+    let param = "status";
+    let expected = true;
+    expect(query_param_is_present(query_string, param)).toEqual(expected);
+  });
+
+  test("should return true if multiple params exists with a multiple values", () => {
+    let query_string = "?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER&version=3";
+    let param = "type";
+    let expected = true;
+    expect(query_param_is_present(query_string, param)).toEqual(expected);
+  });
+
+  test("should return false if multiple params exists with a multiple values but sought param not present", () => {
+    let query_string = "?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER&version=3";
+    let param = "glarkenfargen";
+    let expected = false;
+    expect(query_param_is_present(query_string, param)).toEqual(expected);
+  });
+
+  test("should return false if query string is an empty string", () => {
+    let query_string = "";
+    let param = "glarkenfargen";
+    let expected = false;
+    expect(query_param_is_present(query_string, param)).toEqual(expected);
   });
 });
 
