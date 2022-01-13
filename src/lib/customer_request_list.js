@@ -1,5 +1,9 @@
 const Customer_Request = require("./customer_request_abstract");
-const { shazam_integer } = require("./utilities/index");
+const {
+  query_param_is_present,
+  query_param_replace_value,
+  shazam_integer,
+} = require("./utilities/index");
 const man =
   "fetches a list of customers\n" +
   "You can add a limit, a sort field and sort order using make(). Cursor is appended automatically." +
@@ -56,17 +60,27 @@ class Customer_List extends Customer_Request {
       this.#build_endpoint(query_param);
     }
   }
-  set sort_field(str) {
-    let query_param = "sort_field=" + str;
-    this.#build_endpoint(query_param);
+  set sort_field(value) {
+    let param = "sort_field";
+    this.#endpoint_setter(param, value);
   }
-  set sort_order(str) {
-    let query_param = "sort_order=" + str;
-    this.#build_endpoint(query_param);
+  set sort_order(value) {
+    let param = "sort_order";
+    this.#endpoint_setter(param, value);
   }
-  set cursor(cursor) {
-    let query_param = "cursor=" + cursor;
-    this.#build_endpoint(query_param);
+  set cursor(value) {
+    let param = "cursor";
+    this.#endpoint_setter(param, value);
+  }
+
+  #endpoint_setter(param, value) {
+    if (!query_param_is_present(this.endpoint, param)) {
+      let query_param = param + "=" + value;
+      this.#build_endpoint(query_param);
+    } else {
+      let endpoint = query_param_replace_value(this._endpoint, param, value);
+      this.endpoint = endpoint;
+    }
   }
 
   #build_endpoint(str) {
