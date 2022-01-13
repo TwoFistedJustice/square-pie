@@ -12,9 +12,9 @@ const regular_expression_patterns = {
      * */
     query_param_capture: function (param) {
       return new RegExp(
-        "(?<param>" +
+        "(?<param>" + // the name of the capture group
           param +
-          "={1}" +
+          "={1}" + // exactly one equals sign
           "(" +
           "([a-zA-Z0-9]+,){0,}" + // zero or more blocks of comma separated alpha-numerics
           "[a-zA-Z0-9]{1}" + // followed by one block of alpha-numerics
@@ -27,7 +27,10 @@ const regular_expression_patterns = {
     },
     query_single_value_capture: function (param) {
       return new RegExp(
-        param + "={1,}" + "(?<value_to_replace>[a-zA-Z0-9]{1,})"
+        param +
+          "={1}" + // exactly one eauals sign
+          "(?<value_to_replace>" + // the name of the capture group
+          "[a-zA-Z0-9]{1,})" // consisting of one or more blocks of alpha-numerics
       );
     },
   },
