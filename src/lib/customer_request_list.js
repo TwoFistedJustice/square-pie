@@ -53,11 +53,16 @@ class Customer_List extends Customer_Request {
     }
   }
 
-  set limit(int) {
-    let query_param;
-    if (shazam_integer(int, this._display_name, "limit")) {
-      query_param = "limit=" + int;
-      this.#build_endpoint(query_param);
+  set limit(value) {
+    // let query_param;
+    // if (shazam_integer(value, this._display_name, "limit")) {
+    //   query_param = "limit=" + value;
+    //   this.#build_endpoint(query_param);
+    // }
+
+    let param = "limit";
+    if (shazam_integer(value, this._display_name, "limit")) {
+      this.#endpoint_setter(param, value);
     }
   }
   set sort_field(value) {

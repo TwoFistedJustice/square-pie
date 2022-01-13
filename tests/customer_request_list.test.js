@@ -68,8 +68,15 @@ describe("customer list query params", () => {
     expect(list.endpoint).toEqual(expected);
   });
 
-  test("limit", () => {
+  test("limit  should set value", () => {
     let expected = "?limit=5";
+    make.limit(5);
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test("limit  should replace value", () => {
+    let expected = "?limit=5";
+    make.limit(4);
     make.limit(5);
     expect(list.endpoint).toEqual(expected);
   });
@@ -80,6 +87,12 @@ describe("customer list query params", () => {
     expect(list.endpoint).toEqual(expected);
   });
 
+  test("sort_field should set value to default", () => {
+    let expected = "?sort_field=DEFAULT";
+    make.sort_field().default();
+    expect(list.endpoint).toEqual(expected);
+  });
+
   test("sort_field should replace value", () => {
     let expected = "?sort_field=CREATED_AT";
     make.sort_field().default();
@@ -87,20 +100,21 @@ describe("customer list query params", () => {
     expect(list.endpoint).toEqual(expected);
   });
 
-  test("sort_field", () => {
-    let expected = "?sort_field=DEFAULT";
-    make.sort_field().default();
-    expect(list.endpoint).toEqual(expected);
-  });
-
-  test("sort_order", () => {
+  test("sort_order should set ASC", () => {
     let expected = "?sort_order=ASC";
     make.sort_order().asc();
     expect(list.endpoint).toEqual(expected);
   });
 
-  test("sort_order", () => {
+  test("sort_order should set DESC", () => {
     let expected = "?sort_order=DESC";
+    make.sort_order().desc();
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test("sort_order should replace value", () => {
+    let expected = "?sort_order=DESC";
+    make.sort_order().asc();
     make.sort_order().desc();
     expect(list.endpoint).toEqual(expected);
   });
