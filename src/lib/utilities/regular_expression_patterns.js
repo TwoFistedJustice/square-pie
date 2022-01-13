@@ -25,6 +25,11 @@ const regular_expression_patterns = {
           ")"
       );
     },
+    query_single_value_capture: function (param) {
+      return new RegExp(
+        param + "={1,}" + "(?<value_to_replace>[a-zA-Z0-9]{1,})"
+      );
+    },
   },
 };
 module.exports = regular_expression_patterns;

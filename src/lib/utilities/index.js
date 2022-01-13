@@ -2,6 +2,7 @@ const normalize_email = require("./normalize_email");
 const define = require("./define");
 const defineify = require("./defineify");
 const query_param_add_value = require("./query_param_add_value");
+const query_param_replace_value = require("./query_param_replace_value");
 const query_string_builder = require("./query_string_builder");
 const query_string_endpoint = require("./query_string_endpoint");
 const {
@@ -37,6 +38,7 @@ module.exports = {
   define,
   defineify,
   query_param_add_value,
+  query_param_replace_value,
   query_string_builder,
   query_string_endpoint,
   setter_chain_generator_config,

@@ -4,6 +4,7 @@ const {
   // define,
   defineify,
   query_param_add_value,
+  query_param_replace_value,
   query_string_builder,
   query_string_endpoint,
   // setter_chain_generator_config,
@@ -327,10 +328,9 @@ describe("normalize_email utility", () => {
     expect(received).toEqual(expected);
   });
 });
-
 /* --------------------------------------------------------*
  *                                                         *
- *                   query_param_add_value
+ *              query_param_replace_value
  *                                                         *
  * ------------------------------------------------------- */
 
@@ -348,11 +348,59 @@ describe.only("query_param_add_value", () => {
   test("should add param if more than one value already exists", () => {
     let query_string = "?status=OPEN,DRAFT";
     let param = "status";
+    let replacment_value = "PAID";
+    let expected = `?status=${replacment_value},DRAFT`;
+    expect(
+      query_param_replace_value(query_string, param, replacment_value)
+    ).toEqual(expected);
+  });
+
+  test("should replace value when more than one param exists", () => {
+    let query_string = "?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER&version=3";
+    let param = "version";
+    let replacement_value = 42;
+    let expected = `?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER&version=${replacement_value}`;
+    expect(
+      query_param_replace_value(query_string, param, replacement_value)
+    ).toEqual(expected);
+  });
+
+  test("should replace value when more than one param exists", () => {
+    let query_string = "?status=OPEN,DRAFT&version=3&type=ITEM,TAX,MODIFIER";
+    let param = "version";
+    let replacement_value = 42;
+    let expected = `?status=OPEN,DRAFT&version=${replacement_value}&type=ITEM,TAX,MODIFIER`;
+    expect(
+      query_param_replace_value(query_string, param, replacement_value)
+    ).toEqual(expected);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                   query_param_add_value
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("query_param_add_value", () => {
+  test("should replace value if only one exists alreday", () => {
+    let query_string = "?status=OPEN";
+    let param = "status";
+    let replacment_value = "PAID";
+    let expected = `?status=${replacment_value}`;
+    expect(
+      query_param_replace_value(query_string, param, replacment_value)
+    ).toEqual(expected);
+  });
+
+  test("should replace first param if more than one value already exists", () => {
+    let query_string = "?status=OPEN,DRAFT";
+    let param = "status";
     let value_to_add = "PAID";
     let expected = `${query_string},${value_to_add}`;
-    expect(query_param_add_value(query_string, param, value_to_add)).toEqual(
-      expected
-    );
+    expect(
+      query_param_replace_value(query_string, param, value_to_add)
+    ).toEqual(expected);
   });
 
   test("should add value to first param when more than one param exist", () => {
@@ -360,9 +408,9 @@ describe.only("query_param_add_value", () => {
     let param = "status";
     let value_to_add = "PAID";
     let expected = `?status=OPEN,DRAFT,${value_to_add}&type=ITEM,TAX,MODIFIER&version=3`;
-    expect(query_param_add_value(query_string, param, value_to_add)).toEqual(
-      expected
-    );
+    expect(
+      query_param_replace_value(query_string, param, value_to_add)
+    ).toEqual(expected);
   });
 
   test('should add value to second param when more than one param exist"', () => {
@@ -370,9 +418,9 @@ describe.only("query_param_add_value", () => {
     let param = "type";
     let value_to_add = "IMAGE";
     let expected = `?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER,${value_to_add}&version=3`;
-    expect(query_param_add_value(query_string, param, value_to_add)).toEqual(
-      expected
-    );
+    expect(
+      query_param_replace_value(query_string, param, value_to_add)
+    ).toEqual(expected);
   });
 });
 
