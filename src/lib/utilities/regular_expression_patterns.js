@@ -16,8 +16,8 @@ const regular_expression_patterns = {
           param +
           "={1}" + // exactly one equals sign
           "(" +
-          "([a-zA-Z0-9]+,){0,}" + // zero or more blocks of comma separated alpha-numerics
-          "[a-zA-Z0-9]{1}" + // followed by one block of alpha-numerics
+          "([a-zA-Z0-9_]+,){0,}" + // zero or more blocks of comma separated alpha-numerics
+          "[a-zA-Z0-9_]{1}" + // followed by one block of alpha-numerics
           "){0,}" + // zero or more times
           "(" +
           "[0-9]{1,}" + // a block of one or more numbers
