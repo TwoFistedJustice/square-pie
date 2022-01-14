@@ -9,7 +9,45 @@ describe("silence test suite", () => {
   });
 });
 
-describe("Catalog Request List", () => {
+describe("Catalog_List basics", () => {
+  let list;
+  let class_name = "Catalog_List";
+  let endpoint = "/list"; //copy and paste from Square docs
+  let method = "GET"; //http method from Square docs
+  beforeEach(function () {
+    list = new Catalog_List();
+  });
+
+  test("should have display name", () => {
+    expect(list._display_name).toBeDefined();
+  });
+  test("should have the method defined by Square set", () => {
+    expect(list.method).toEqual(method);
+  });
+  test("display name should be same as class name", () => {
+    expect(list.display_name).toEqual(class_name);
+  });
+  test("should have defined square version", () => {
+    expect(list.square_version).toBeDefined();
+  });
+  test("should have defined _help", () => {
+    expect(list.help).toBeDefined();
+  });
+  test("should have an endpoint", () => {
+    expect(list.endpoint).toEqual(endpoint);
+  });
+  test("should have _delivery", () => {
+    list.delivery = { objects: { a: 1 } };
+    expect(list.delivery).toBeDefined();
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        query params
+ *                                                         *
+ * ------------------------------------------------------- */
+describe("Catalog Request List query params", () => {
   let list;
   beforeEach(() => {
     list = new Catalog_List();
@@ -51,13 +89,55 @@ describe("Catalog Request List", () => {
     expect(list.endpoint).toEqual(expected);
   });
 
+  test("make().version() should set and replace version query param", () => {
+    let expected = "/list?catalog_version=4";
+    list.make().version(3).version(4);
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test("make().item() should set item type in query param", () => {
+    let expected = "/list?types=ITEM";
+    list.make().item();
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test("make().item_variation() should set type in query param", () => {
+    let expected = "/list?types=ITEM_VARIATION";
+    list.make().item_variation();
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test("make().discount() should set type in query param", () => {
+    let expected = "/list?types=DISCOUNT";
+    list.make().discount();
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test("make().modifier() should set type in query param", () => {
+    let expected = "/list?types=MODIFIER";
+    list.make().modifier();
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test("make().modifier_list() should set type in query param", () => {
+    let expected = "/list?types=MODIFIER_LIST";
+    list.make().modifier_list();
+    expect(list.endpoint).toEqual(expected);
+  });
+
+  test("make().image() should set type in query param", () => {
+    let expected = "/list?types=IMAGE";
+    list.make().image();
+    expect(list.endpoint).toEqual(expected);
+  });
+
   test("make() should work with both version and type", () => {
     let expected = "/list?catalog_version=3&types=TAX,CATEGORY";
     list.make().catalog_version(3).types().tax().category();
     expect(list.endpoint).toEqual(expected);
   });
 
-  test("make().[value]() should set type enums", () => {
+  test("make().[value]() should set query params when all chained together", () => {
     let expected =
       "/list?types=ITEM,ITEM_VARIATION,CATEGORY,DISCOUNT,TAX,MODIFIER,MODIFIER_LIST,IMAGE";
     list
