@@ -19,7 +19,7 @@ class Catalog_List extends Catalog_Request {
   _help = this.display_name + ": " + man;
   constructor() {
     super();
-    this._method = "get";
+    this._method = "GET";
     this._endpoint = "/list";
     this._delivery;
   }
