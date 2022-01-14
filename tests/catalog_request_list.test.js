@@ -3,7 +3,7 @@
 const Catalog_List = require("../src/lib/catalog_request_list");
 
 // tack on .only to this empty test to silence all other tests
-describe.only("silence test suite", () => {
+describe("silence test suite", () => {
   test("", () => {
     expect("a").toEqual("a");
   });
@@ -16,9 +16,9 @@ describe("Catalog Request List", () => {
   });
 
   test("#enum_types should set types property", () => {
-    let expected = "TAX,MODIFIER_LIST,DISCOUNT";
+    let expected = "/list?types=TAX,MODIFIER_LIST,DISCOUNT";
     list.make().types().tax().modifier_list().discount();
-    expect(list.types).toEqual(expected);
+    expect(list.endpoint).toEqual(expected);
   });
 
   test("default endpoint should be returned in absence of query_params", () => {
@@ -74,7 +74,7 @@ describe("Catalog Request List", () => {
     expect(list.endpoint).toEqual(expected);
   });
 
-  test.only("make() should work with both version and type enums", () => {
+  test("make() should work with both version and type enums", () => {
     let expected = "/list?types=TAX,CATEGORY&catalog_version=3";
     list.make().tax().category().version(3);
     expect(list.endpoint).toEqual(expected);

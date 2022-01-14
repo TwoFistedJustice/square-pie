@@ -1,5 +1,10 @@
 const Catalog_Request = require("./catalog_request_abstract");
-const { query_string_endpoint, shazam_integer } = require("./utilities");
+const {
+  query_param_is_present,
+  query_param_add_value,
+  query_param_replace_value,
+  shazam_integer,
+} = require("./utilities");
 // https://developer.squareup.com/reference/square/catalog-api/list-catalog
 const man =
   "fetches a list of all Catalog API documents in your db. You can filter that list by type." +
@@ -16,10 +21,6 @@ class Catalog_List extends Catalog_Request {
     super();
     this._method = "get";
     this._endpoint = "/list";
-    this._query_params = {
-      catalog_version: undefined,
-      types: undefined,
-    };
     this._delivery;
   }
   get display_name() {
@@ -31,45 +32,39 @@ class Catalog_List extends Catalog_Request {
   get help() {
     return this._help;
   }
+  #query_param_builder(param, value) {
+    let query_string = this.endpoint;
+    // if endpoint equals "/list" append "?" and return
+    if (query_string === "/list") {
+      query_string = "/list?" + param + "=" + value;
+    } else {
+      // check for presence of param  // if present, append or change value
+      if (query_param_is_present(query_string, param)) {
+        if (param === "catalog_version") {
+          query_string = query_param_replace_value(query_string, param, value);
+        } else {
+          query_string = query_param_add_value(query_string, param, value);
+        }
+      } else {
+        // if not present append &param=value
+        query_string += "&" + param + "=" + value;
+      }
+    }
+    this.#endpoint = query_string;
+  }
 
   get endpoint() {
-    let has_catalog_ver = !!this.query_params.catalog_version;
-    let has_types = !!this.query_params.types;
-    // if both are false return the default endpoint
-    if (!has_catalog_ver && !has_types) {
-      return this._endpoint;
-    }
-    // query params exist so build a new endpoint
-    let endpoint = this._endpoint + "?";
-    // it has types or both
-    if (has_types) {
-      endpoint += "types=" + this.types;
-      if (has_catalog_ver) {
-        endpoint += "&catalog_version=" + this.catalog_version;
-      }
-      return endpoint;
-    }
-    // it has just catalog version
-    if (has_catalog_ver && !has_types) {
-      endpoint += "catalog_version=" + this.catalog_version;
-    }
-    return endpoint;
-  }
-
-  get query_params() {
-    return this._query_params;
-  }
-  get catalog_version() {
-    return this._query_params.catalog_version;
+    return this._endpoint;
   }
   get delivery() {
     return this._delivery;
   }
-  get types() {
-    return this._query_params.types;
-  }
 
   // SETTERS
+
+  set #endpoint(str) {
+    this._endpoint = str;
+  }
   set delivery(parcel) {
     this._delivery = parcel.objects;
   }
@@ -79,12 +74,12 @@ class Catalog_List extends Catalog_Request {
    * */
   set catalog_version(version) {
     if (shazam_integer(version, this.display_name, "catalog_version")) {
-      this._query_params.catalog_version = version;
+      this.#query_param_builder("catalog_version", version);
     }
   }
-  set types(str) {
-    let cache = this.types;
-    this.query_params.types = query_string_endpoint(cache, str);
+
+  set types(value) {
+    this.#query_param_builder("types", value);
   }
 
   // PRIVATE METHODS
