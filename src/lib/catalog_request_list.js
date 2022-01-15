@@ -17,6 +17,7 @@ class Catalog_List extends Catalog_Request {
   _display_name = "Catalog_List";
   _last_verified_square_api_version = "2021-11-17";
   _help = this.display_name + ": " + man;
+  #_unmodified_endpoint = "/list";
   constructor() {
     super();
     this._method = "GET";
@@ -31,26 +32,6 @@ class Catalog_List extends Catalog_Request {
   }
   get help() {
     return this._help;
-  }
-  #query_param_builder(param, value) {
-    let query_string = this.endpoint;
-    // if endpoint equals "/list" append "?" and return
-    if (query_string === "/list") {
-      query_string = "/list?" + param + "=" + value;
-    } else {
-      // check for presence of param  // if present, append or change value
-      if (query_param_is_present(query_string, param)) {
-        if (param === "catalog_version") {
-          query_string = query_param_replace_value(query_string, param, value);
-        } else {
-          query_string = query_param_add_value(query_string, param, value);
-        }
-      } else {
-        // if not present append &param=value
-        query_string += "&" + param + "=" + value;
-      }
-    }
-    this.#endpoint = query_string;
   }
 
   get endpoint() {
@@ -74,15 +55,48 @@ class Catalog_List extends Catalog_Request {
    * */
   set catalog_version(version) {
     if (shazam_integer(version, this.display_name, "catalog_version")) {
-      this.#query_param_builder("catalog_version", version);
+      // this.#query_param_builder("catalog_version", version);
+      this.#query_param_replace("catalog_version", version);
     }
   }
 
   set types(value) {
-    this.#query_param_builder("types", value);
+    this.#query_param_insert("types", value);
   }
 
   // PRIVATE METHODS
+  #init_query_param_sequence(param, value) {
+    let modified_endpoint = this.endpoint;
+    // check if endpoint is modified.
+    if (modified_endpoint === this.#_unmodified_endpoint) {
+      // if not then append ?param=value and return false
+      modified_endpoint += "?" + param + "=" + value;
+      this.#endpoint = modified_endpoint;
+      return false;
+    } else {
+      // if it is modified - check for presence of param
+      if (!query_param_is_present(modified_endpoint, param)) {
+        // if param is not present- append &param=value and return false
+        modified_endpoint += "&" + param + "=" + value;
+        this.#endpoint = modified_endpoint;
+        return false;
+      } else {
+        // if param is present return true.
+        return true;
+      }
+    }
+  }
+  #query_param_insert(param, value) {
+    if (this.#init_query_param_sequence(param, value)) {
+      this.#endpoint = query_param_add_value(this.endpoint, param, value);
+    }
+  }
+  #query_param_replace(param, value) {
+    if (this.#init_query_param_sequence(param, value)) {
+      this.#endpoint = query_param_replace_value(this.endpoint, param, value);
+    }
+  }
+
   // these are actually case-insensitive - using uppercase for consisency
   #enum_types() {
     return {
