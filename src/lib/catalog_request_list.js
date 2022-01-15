@@ -1,6 +1,7 @@
 const Catalog_Request = require("./catalog_request_abstract");
 const {
   query_param_is_present,
+  query_param_is_query_string,
   query_param_add_value,
   query_param_replace_value,
   shazam_integer,
@@ -17,12 +18,10 @@ class Catalog_List extends Catalog_Request {
   _display_name = "Catalog_List";
   _last_verified_square_api_version = "2021-11-17";
   _help = this.display_name + ": " + man;
-  #_unmodified_endpoint;
   constructor() {
     super();
     this._method = "GET";
     this._endpoint = "/list";
-    this.#_unmodified_endpoint = this._endpoint; // for comparison in query param init
     this._delivery;
   }
   get display_name() {
@@ -37,9 +36,6 @@ class Catalog_List extends Catalog_Request {
 
   get endpoint() {
     return this._endpoint;
-  }
-  get unmodified_endpoint() {
-    return this.#_unmodified_endpoint;
   }
   get delivery() {
     return this._delivery;
@@ -77,8 +73,8 @@ class Catalog_List extends Catalog_Request {
   // PRIVATE METHODS
   #init_query_param_sequence(param, value) {
     let modified_endpoint = this.endpoint;
-    // check if endpoint is modified.
-    if (modified_endpoint === this.unmodified_endpoint) {
+    // check if endpoint is already formatted as a query string.
+    if (!query_param_is_query_string(modified_endpoint)) {
       // if not then append ?param=value and return false
       modified_endpoint += "?" + param + "=" + value;
       this.#endpoint = modified_endpoint;
