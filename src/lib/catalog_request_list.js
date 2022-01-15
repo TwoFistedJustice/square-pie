@@ -17,11 +17,12 @@ class Catalog_List extends Catalog_Request {
   _display_name = "Catalog_List";
   _last_verified_square_api_version = "2021-11-17";
   _help = this.display_name + ": " + man;
-  #_unmodified_endpoint = "/list";
+  #_unmodified_endpoint;
   constructor() {
     super();
     this._method = "GET";
     this._endpoint = "/list";
+    this.#_unmodified_endpoint = this._endpoint; // for comparison in query param init
     this._delivery;
   }
   get display_name() {
@@ -36,6 +37,9 @@ class Catalog_List extends Catalog_Request {
 
   get endpoint() {
     return this._endpoint;
+  }
+  get unmodified_endpoint() {
+    return this.#_unmodified_endpoint;
   }
   get delivery() {
     return this._delivery;
@@ -68,7 +72,7 @@ class Catalog_List extends Catalog_Request {
   #init_query_param_sequence(param, value) {
     let modified_endpoint = this.endpoint;
     // check if endpoint is modified.
-    if (modified_endpoint === this.#_unmodified_endpoint) {
+    if (modified_endpoint === this.unmodified_endpoint) {
       // if not then append ?param=value and return false
       modified_endpoint += "?" + param + "=" + value;
       this.#endpoint = modified_endpoint;
