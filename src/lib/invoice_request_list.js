@@ -81,7 +81,7 @@ class Invoice_List extends Invoice_Request {
   // PRIVATE METHODS
   #init_query_param_sequence(param, value) {
     let modified_endpoint = this.endpoint;
-    // check if endpoint is modified and is also not already formatted as a query string.
+    // check if endpoint is already formatted as a query string.
     if (!query_param_is_query_string(modified_endpoint)) {
       // if not then append ?param=value and return false
       modified_endpoint += "?" + param + "=" + value;
