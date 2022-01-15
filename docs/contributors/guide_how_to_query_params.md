@@ -1,6 +1,6 @@
 # A Quick Guide On Query Params
 
-We exclusively use Regular Expressions for working with query parameters.. Don't be frightened! We have utilities and examples a plenty
+We exclusively use Regular Expressions for working with query parameters. Don't be frightened! We have utilities and examples a plenty
 to make this easy.
 
 Rather than putting the RegExp directly in the class, we have a library of patterns that are referenced from specialized utilities. Just
