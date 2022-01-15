@@ -5,6 +5,7 @@ const {
   defineify,
   query_param_add_value,
   query_param_is_present,
+  query_param_is_query_string,
   query_param_replace_value,
   query_string_builder,
   query_string_endpoint,
@@ -383,7 +384,7 @@ describe("query_param_add_value", () => {
  *                                                         *
  * ------------------------------------------------------- */
 
-describe.only("query_param_add_value", () => {
+describe("query_param_add_value", () => {
   test("should replace value if only one exists alreday", () => {
     let query_string = "?status=OPEN";
     let param = "status";
@@ -475,6 +476,37 @@ describe("query_param_is_present", () => {
     let param = "glarkenfargen";
     let expected = false;
     expect(query_param_is_present(query_string, param)).toEqual(expected);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        query_param_is_query_string
+ *                                                         *
+ * ------------------------------------------------------- */
+describe("query_param_is_query_string", () => {
+  test("query_param_is_query_string should return true", () => {
+    let expected = true;
+    let test_string = "?glarken_fargen=nugen_schatzen";
+    expect(query_param_is_query_string(test_string)).toEqual(expected);
+  });
+
+  test("query_param_is_query_string should return false on a question", () => {
+    let expected = false;
+    let test_string = "How many glarekens can a nugen-schatzen fargen?";
+    expect(query_param_is_query_string(test_string)).toEqual(expected);
+  });
+
+  test("query_param_is_query_string should return false if question mark is not first character", () => {
+    let expected = false;
+    let test_string = "a?glarken_fargen&nugen_schatzen";
+    expect(query_param_is_query_string(test_string)).toEqual(expected);
+  });
+
+  test("query_param_is_query_string should return false if no equals sign in present", () => {
+    let expected = false;
+    let test_string = "?glarken_fargen&nugen_schatzen";
+    expect(query_param_is_query_string(test_string)).toEqual(expected);
   });
 });
 

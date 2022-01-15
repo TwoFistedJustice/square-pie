@@ -3,6 +3,7 @@ const define = require("./define");
 const defineify = require("./defineify");
 const query_param_add_value = require("./query_param_add_value");
 const query_param_is_present = require("./query_param_is_present");
+const query_param_is_query_string = require("./query_param_is_query_string");
 const query_param_replace_value = require("./query_param_replace_value");
 const query_string_builder = require("./query_string_builder");
 const query_string_endpoint = require("./query_string_endpoint");
@@ -40,6 +41,7 @@ module.exports = {
   defineify,
   query_param_add_value,
   query_param_is_present,
+  query_param_is_query_string,
   query_param_replace_value,
   query_string_builder,
   query_string_endpoint,
