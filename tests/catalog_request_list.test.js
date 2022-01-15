@@ -159,4 +159,12 @@ describe("Catalog Request List query params", () => {
     list.make().tax().category().version(3);
     expect(list.endpoint).toEqual(expected);
   });
+
+  test("should set cursor in query string", () => {
+    let expected = "/list?types=TAX,CATEGORY&catalog_version=3&cursor=123";
+    let parcel = { objects: [{ a: 1 }], cursor: "123" };
+    list.make().tax().category().version(3);
+    list.delivery = parcel;
+    expect(list.endpoint).toEqual(expected);
+  });
 });

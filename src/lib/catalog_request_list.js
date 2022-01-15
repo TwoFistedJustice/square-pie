@@ -52,6 +52,9 @@ class Catalog_List extends Catalog_Request {
   }
   set delivery(parcel) {
     this._delivery = parcel.objects;
+    if (Object.prototype.hasOwnProperty.call(parcel, "cursor")) {
+      this.cursor = parcel.cursor;
+    }
   }
   /** use if you want to retrieve historical copies.
    * @param {number} version - the object version you want to retrieve.
@@ -68,6 +71,9 @@ class Catalog_List extends Catalog_Request {
     this.#query_param_insert("types", value);
   }
 
+  set cursor(value) {
+    this.#query_param_replace("cursor", value);
+  }
   // PRIVATE METHODS
   #init_query_param_sequence(param, value) {
     let modified_endpoint = this.endpoint;
