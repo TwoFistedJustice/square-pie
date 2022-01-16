@@ -109,9 +109,8 @@ class Invoice_Search extends Invoice_Request {
 
   set #customer_id(id) {
     let filter = this._body.query.filter;
-    if (arrayify(filter, "customer_ids", this.display_name, "#customer_id")) {
-      filter.customer_ids.push(id);
-    }
+    arrayify(filter, "customer_ids", this.display_name, "#customer_id");
+    filter.customer_ids.push(id);
   }
 
   set #location_id(id) {
@@ -124,11 +123,14 @@ class Invoice_Search extends Invoice_Request {
   }
 
   set #customer_ids_array(arr) {
-    let filter = this._body.query.filter;
-    if (arrayify(filter, "customer_ids", this.display_name, "#customer_id")) {
-      let replacement_array = this._body.query.filter.customer_ids.concat(arr);
-      this._body.query.filter.customer_ids = replacement_array;
-    }
+    arrayify(
+      this._body.query.filter,
+      "customer_ids",
+      this.display_name,
+      "#customer_ids_array"
+    );
+    let replacement_array = this._body.query.filter.customer_ids.concat(arr);
+    this._body.query.filter.customer_ids = replacement_array;
   }
 
   #sort_order() {

@@ -76,59 +76,52 @@ class Catalog_Search_Items extends Catalog_Request {
         'product_types only accepts "APPOINTMENTS_SERVICE" or "REGULAR"'
       );
     }
-    if (arrayify(this._body, "product_types")) {
-      this._body.product_types = type;
-    }
+    arrayify(this._body, "product_types", this._display_name);
+    this._body.product_types = type;
   }
   set stock_levels(level) {
     if (level !== "OUT" && level !== "LOW") {
       throw new Error('stock_levels only accepts "OUT" and "LOW"');
     }
-    if (arrayify(this._body, "stock_levels")) {
-      // prevent more than two
-      if (this._body.stock_levels.length >= 2) {
-        throw new Error("stock_levels can contain a maximum of 2 entries.");
-      }
-      // disallow duplicates
-      if (
-        this._body.stock_levels.length === 1 &&
-        this.stock_levels[0] === level
-      ) {
-        throw new Error(`stock levels already contain ${level}`);
-      }
-      this._body.stock_levels.push(level);
+    arrayify(this._body, "stock_levels", this._display_name);
+    // prevent more than two
+    if (this._body.stock_levels.length >= 2) {
+      throw new Error("stock_levels can contain a maximum of 2 entries.");
     }
+    // disallow duplicates
+    if (
+      this._body.stock_levels.length === 1 &&
+      this.stock_levels[0] === level
+    ) {
+      throw new Error(`stock levels already contain ${level}`);
+    }
+    this._body.stock_levels.push(level);
   }
 
   set category_ids(id) {
-    if (arrayify(this._body, "category_ids")) {
-      this._body.category_ids.push(id);
-    }
+    arrayify(this._body, "category_ids", this._display_name);
+    this._body.category_ids.push(id);
   }
-
   set enabled_location_ids(id) {
-    if (arrayify(this._body, "enabled_location_ids")) {
-      this._body.enabled_location_ids.push(id);
-    }
+    arrayify(this._body, "enabled_location_ids", this._display_name);
+    this._body.enabled_location_ids.push(id);
   }
   set custom_attribute_filters(obj) {
-    if (arrayify(this._body, "custom_attribute_filters")) {
-      if (this._body.custom_attribute_filters.length >= 10) {
-        throw new Error(
-          "custom_attribute_filters can contain a maximum of 10 filters."
-        );
-      }
-      this._body.custom_attribute_filters.push(obj);
+    arrayify(this._body, "custom_attribute_filters", this._display_name);
+    if (this._body.custom_attribute_filters.length >= 10) {
+      throw new Error(
+        "custom_attribute_filters can contain a maximum of 10 filters."
+      );
     }
+    this._body.custom_attribute_filters.push(obj);
   }
   set attribute_filter(obj) {
     this._attribute_filter = obj;
   }
-
   set category_array_concat(arr) {
-    arrayify(this._body, "category_ids");
     let caller = "category_array_concat";
     let name = this._display_name;
+    arrayify(this._body, "category_ids", name, caller);
     // check that arr is an array [NI - no limit specified] and that the existing array does not exceed allowable length
     if (shazam_is_array(arr, name, caller)) {
       let joined_array = this._body.category_ids.concat(arr);
@@ -137,9 +130,10 @@ class Catalog_Search_Items extends Catalog_Request {
     }
   }
   set enabled_location_array_concat(arr) {
-    arrayify(this._body, "enabled_location_ids");
-    let caller = "enabled_location_array_concat";
     let name = this._display_name;
+    let caller = "enabled_location_array_concat";
+    arrayify(this._body, "enabled_location_ids", name, caller);
+
     // check that arr is an array [NI - no limit specified] and that the existing array does not exceed allowable length
     if (shazam_is_array(arr, name, caller)) {
       let joined_array = this._body.enabled_location_ids.concat(arr);
@@ -148,9 +142,9 @@ class Catalog_Search_Items extends Catalog_Request {
     }
   }
   set custom_attribute_filter_array_concat(arr) {
-    arrayify(this._body, "custom_attribute_filters");
     let caller = "custom_attribute_filter_array_concat";
     let name = this._display_name;
+    arrayify(this._body, "custom_attribute_filters", name, caller);
     // check that arr is an array [NI - no limit specified] and that the existing array does not exceed allowable length
     if (shazam_is_array(arr, name, caller)) {
       let joined_array = this._body.custom_attribute_filters.concat(arr);

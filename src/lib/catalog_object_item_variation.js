@@ -149,10 +149,9 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     }
   }
   set item_options_values(str) {
-    // todo Square docs are unclear about this
-    if (arrayify(this._fardel.item_variation_data, "item_options_values")) {
-      this._fardel.item_variation_data.item_options_values.push(str);
-    }
+    // Square docs are unclear about this
+    arrayify(this._fardel.item_variation_data, "item_options_values");
+    this._fardel.item_variation_data.item_options_values.push(str);
   }
   set location_overrides(obj) {
     // todo practically a subclass unto itself...
