@@ -161,7 +161,7 @@ class Invoice_Payment_Request_Object {
     this._fardel.card_id = id;
   }
   set reminder(obj) {
-    arrayify(this._fardel, "reminder", this._display_name, "reminder");
+    arrayify(this._fardel, "reminder", this._display_name);
     this._fardel.reminder.push(obj);
   }
 
