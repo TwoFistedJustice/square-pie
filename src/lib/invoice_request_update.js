@@ -101,17 +101,13 @@ class Invoice_Update extends Invoice_RUDCnP {
       let message = "It is not allowed to clear the " + field + " property.";
       throw new Error(message);
     }
-
-    if (
-      arrayify(
-        this._body,
-        "fields_to_clear",
-        this._display_name,
-        "fields_to_clear"
-      )
-    ) {
-      this._body.fields_to_clear.push(field);
-    }
+    arrayify(
+      this._body,
+      "fields_to_clear",
+      this._display_name,
+      "fields_to_clear"
+    );
+    this._body.fields_to_clear.push(field);
   }
 
   set #reason(str) {

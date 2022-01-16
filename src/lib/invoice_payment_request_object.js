@@ -161,9 +161,8 @@ class Invoice_Payment_Request_Object {
     this._fardel.card_id = id;
   }
   set reminder(obj) {
-    if (arrayify(this._fardel, "reminder", this._display_name, "reminder")) {
-      this._fardel.reminder.push(obj);
-    }
+    arrayify(this._fardel, "reminder", this._display_name, "reminder");
+    this._fardel.reminder.push(obj);
   }
 
   // PRIVATE ENUM METHODS

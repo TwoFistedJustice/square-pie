@@ -148,16 +148,13 @@ class Invoice_Object {
   }
   // https://developer.squareup.com/docs/invoices-api/overview#payment-requests
   set payment_requests(payment_request_object) {
-    if (
-      arrayify(
-        this._fardel,
-        "payment_requests",
-        this._display_name,
-        "payment_requests"
-      )
-    ) {
-      this._fardel.payment_requests.push(payment_request_object);
-    }
+    arrayify(
+      this._fardel,
+      "payment_requests",
+      this._display_name,
+      "payment_requests"
+    );
+    this._fardel.payment_requests.push(payment_request_object);
   }
   set delivery_method(str) {
     this._fardel.delivery_method = str;
@@ -211,8 +208,8 @@ class Invoice_Object {
 
   set custom_fields(custom_field) {
     let caller = "custom_fields";
+    arrayify(this._fardel, "custom_fields", this._display_name, caller);
     if (
-      arrayify(this._fardel, "custom_fields", this._display_name, caller) &&
       shazam_max_length_array(
         this.configuration.maximums.custom_fields,
         this._fardel.custom_fields,

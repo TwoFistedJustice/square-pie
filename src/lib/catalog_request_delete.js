@@ -33,13 +33,12 @@ class Catalog_Delete extends Catalog_Request {
   set object_array_concat(arr) {
     let caller = "object_array_concat";
     let name = this._display_name;
-    if (arrayify(this._body, "object_ids")) {
-      // check that arr is an array [NI - no limit specified] and that the existing array does not exceed allowable length
-      if (shazam_is_array(arr, name, caller)) {
-        let joined_array = this._body.object_ids.concat(arr);
-        // If we ever find a limit, check it here. See Order_Search for example.
-        this._body.object_ids = joined_array;
-      }
+    arrayify(this._body, "object_ids");
+    // check that arr is an array [NI - no limit specified] and that the existing array does not exceed allowable length
+    if (shazam_is_array(arr, name, caller)) {
+      let joined_array = this._body.object_ids.concat(arr);
+      // If we ever find a limit, check it here. See Order_Search for example.
+      this._body.object_ids = joined_array;
     }
   }
   //MAKER METHODS

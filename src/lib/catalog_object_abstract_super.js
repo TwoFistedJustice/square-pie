@@ -78,9 +78,8 @@ class Catalog_Object_Super {
    * @returns {string[]} list of location ids
    */
   set present_at_location_ids(id) {
-    if (arrayify(this._fardel, "present_at_location_ids")) {
-      this._fardel.present_at_location_ids.push(id);
-    }
+    arrayify(this._fardel, "present_at_location_ids");
+    this._fardel.present_at_location_ids.push(id);
   }
 } // END class
 
