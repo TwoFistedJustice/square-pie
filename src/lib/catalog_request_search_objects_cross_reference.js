@@ -14,16 +14,8 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   constructor() {
     super();
   }
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
 
+  // SETTERS
   set item_variations_for_item_option_values_query(id) {
     // check for prop, clear anything on query, create and set to array
     this.#init_query_array(

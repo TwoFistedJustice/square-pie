@@ -24,23 +24,9 @@ class Catalog_List extends Catalog_Request {
     this._endpoint = "/list";
     this._delivery;
   }
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
-
-  get endpoint() {
-    return this._endpoint;
-  }
   get delivery() {
     return this._delivery;
   }
-
   // SETTERS
 
   set #endpoint(str) {

@@ -21,21 +21,14 @@ class Catalog_Retrieve extends Catalog_Request {
       object_ids: [],
     };
   }
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
+  // GETTERS
   get object_ids() {
     return this._body.object_ids;
   }
   get body() {
     return this._body;
   }
+  // SETTERS
   set object_ids(id) {
     if (typeof id !== "string") {
       console.log(id);
