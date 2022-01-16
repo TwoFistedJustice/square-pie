@@ -24,20 +24,18 @@ const arrayify = function (
   object_to_check,
   property_name,
   display_name = "unspecified class",
-  caller = "unspecified method"
+  caller = property_name
 ) {
-  if (!Array.isArray(object_to_check[property_name])) {
-    object_to_check[property_name] = [];
-  }
-  if (!Array.isArray(object_to_check[property_name])) {
-    let message =
-      display_name +
-      "." +
-      caller +
-      " was unable to create a new array at " +
-      property_name;
+  try {
+    if (!Array.isArray(object_to_check[property_name])) {
+      object_to_check[property_name] = [];
+    }
+  } catch (error) {
+    let message = display_name + "." + caller + " " + error.message;
     throw new Error(message);
   }
 };
 
 module.exports = arrayify;
+
+// can I override the error mesage of

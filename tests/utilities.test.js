@@ -60,6 +60,11 @@ describe("maxLength", () => {
   test("", () => {});
 });
 
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        arrayify
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("arrayify", () => {
   test("arrayify should set an array on an arrayless property", () => {
     let obj = {
@@ -83,88 +88,103 @@ describe("arrayify", () => {
     expect(obj).toMatchObject(expected);
   });
 
-  describe("arche_money", () => {
-    test("arche_money utility should throw when fed a non-coercible to number amount", () => {
-      let amt = "CAD";
-      let currency = "CAD";
+  test("arrayify should set caller arg to property name arg if caller is not included", () => {
+    let not_an_enumerable_object = 2;
+    let expected = "test.caller was unable to create a new array at caller";
+    expect(() => {
+      arrayify(not_an_enumerable_object, "caller", "test");
+    }).toThrowError(
+      "test.caller Cannot create property 'caller' on number '2'"
+    );
+  });
+});
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        arche_money
+ *                                                         *
+ * ------------------------------------------------------- */
 
-      expect(() => {
-        arche_money(amt, currency);
-      }).toThrow();
-    });
+describe("arche_money", () => {
+  test("arche_money utility should throw when fed a non-coercible to number amount", () => {
+    let amt = "CAD";
+    let currency = "CAD";
 
-    test("arche_money utility should  throw when fed a non-ISO 4217 compliant currency", () => {
-      let amt = "2195";
-      let currency = "CD";
+    expect(() => {
+      arche_money(amt, currency);
+    }).toThrow();
+  });
 
-      expect(() => {
-        arche_money(amt, currency);
-      }).toThrow();
-    });
+  test("arche_money utility should  throw when fed a non-ISO 4217 compliant currency", () => {
+    let amt = "2195";
+    let currency = "CD";
 
-    test('arche_money utility should return a compliant object with "USD" when not fed a currency argument', () => {
-      let amt = "2195";
-      let expected = {
-        amount: 2195,
-        currency: "USD",
-      };
+    expect(() => {
+      arche_money(amt, currency);
+    }).toThrow();
+  });
 
-      let received = arche_money(amt);
+  test('arche_money utility should return a compliant object with "USD" when not fed a currency argument', () => {
+    let amt = "2195";
+    let expected = {
+      amount: 2195,
+      currency: "USD",
+    };
 
-      expect(received).toMatchObject(expected);
-    });
+    let received = arche_money(amt);
 
-    test('arche_money utility should return a compliant object with "CAD"', () => {
-      let amt = "2195";
-      let currency = "CAD";
-      let expected = {
-        amount: 2195,
-        currency: "CAD",
-      };
+    expect(received).toMatchObject(expected);
+  });
 
-      let received = arche_money(amt, currency);
+  test('arche_money utility should return a compliant object with "CAD"', () => {
+    let amt = "2195";
+    let currency = "CAD";
+    let expected = {
+      amount: 2195,
+      currency: "CAD",
+    };
 
-      expect(received).toMatchObject(expected);
-    });
+    let received = arche_money(amt, currency);
 
-    test('arche_money utility should return a compliant object with "CAD"', () => {
-      let amt = "2195";
-      let currency = "CAD";
-      let expected = {
-        amount: 2195,
-        currency: "CAD",
-      };
+    expect(received).toMatchObject(expected);
+  });
 
-      let received = arche_money(amt, currency);
+  test('arche_money utility should return a compliant object with "CAD"', () => {
+    let amt = "2195";
+    let currency = "CAD";
+    let expected = {
+      amount: 2195,
+      currency: "CAD",
+    };
 
-      expect(received).toMatchObject(expected);
-    });
+    let received = arche_money(amt, currency);
 
-    test('arche_money utility currency argument should be case-insensitive"', () => {
-      let amt = "2195";
-      let currency = "Cad";
-      let expected = {
-        amount: 2195,
-        currency: "CAD",
-      };
+    expect(received).toMatchObject(expected);
+  });
 
-      let received = arche_money(amt, currency);
+  test('arche_money utility currency argument should be case-insensitive"', () => {
+    let amt = "2195";
+    let currency = "Cad";
+    let expected = {
+      amount: 2195,
+      currency: "CAD",
+    };
 
-      expect(received).toMatchObject(expected);
-    });
+    let received = arche_money(amt, currency);
 
-    test('arche_money utility should trim white space off of currency"', () => {
-      let amt = "2195";
-      let currency = " CAD ";
-      let expected = {
-        amount: 2195,
-        currency: "CAD",
-      };
+    expect(received).toMatchObject(expected);
+  });
 
-      let received = arche_money(amt, currency);
+  test('arche_money utility should trim white space off of currency"', () => {
+    let amt = "2195";
+    let currency = " CAD ";
+    let expected = {
+      amount: 2195,
+      currency: "CAD",
+    };
 
-      expect(received).toMatchObject(expected);
-    });
+    let received = arche_money(amt, currency);
+
+    expect(received).toMatchObject(expected);
   });
 });
 
