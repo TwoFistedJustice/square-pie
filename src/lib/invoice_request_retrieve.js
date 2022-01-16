@@ -20,12 +20,6 @@ class Invoice_Retrieve extends Invoice_RUDCnP {
     super(id);
     this._method = "GET";
   }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
 }
 
 module.exports = Invoice_Retrieve;

@@ -8,10 +8,6 @@ class Invoice_Request extends Square_Request {
     this._delivery;
   }
 
-  get display_name() {
-    return this._display_name;
-  }
-
   get delivery() {
     return this._delivery;
   }

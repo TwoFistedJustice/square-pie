@@ -28,12 +28,7 @@ class Invoice_Delete extends Invoice_RUDCnP {
   set delivery(parcel) {
     this._delivery = parcel;
   }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
+
   get delivery() {
     return this._delivery;
   }

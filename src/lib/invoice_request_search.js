@@ -61,17 +61,9 @@ class Invoice_Search extends Invoice_Request {
     };
   }
   // GETTERS
-  get help() {
-    return this._help;
-  }
-
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
   get delivery() {
     return this._delivery;
   }
-
   get query() {
     return this._body.query;
   }
@@ -81,7 +73,6 @@ class Invoice_Search extends Invoice_Request {
   get cursor() {
     return this._body.cursor;
   }
-
   get location_ids() {
     return this._body.query.filter.location_ids;
   }
