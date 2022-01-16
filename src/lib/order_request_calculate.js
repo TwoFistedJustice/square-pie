@@ -18,7 +18,7 @@ class Order_Calculate extends Order_Request {
 
   constructor(order) {
     super();
-    this._method = "post";
+    this._method = "POST";
     this._endpoint = "calculate";
 
     this._body = {
@@ -26,18 +26,7 @@ class Order_Calculate extends Order_Request {
       order: order,
     };
   }
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
-  get body() {
-    return this._body;
-  }
+  // GETTERS
   get idempotency_key() {
     return this._body.idempotency_key;
   }
@@ -47,6 +36,7 @@ class Order_Calculate extends Order_Request {
   get endpoint() {
     return this._endpoint;
   }
+  // SETTERS
   set order(fardel) {
     this._body.order = fardel;
   }

@@ -21,7 +21,7 @@ class Order_Pay extends Order_Request {
   constructor(id) {
     super();
     this._order_id = id;
-    this._method = "post";
+    this._method = "POST";
     this._endpoint = `/${id}/pay`;
     this._body = {
       idempotency_key: nanoid(),
@@ -30,21 +30,6 @@ class Order_Pay extends Order_Request {
     };
   }
   // GETTERS
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
-  get endpoint() {
-    return this._endpoint;
-  }
-  get body() {
-    return this._body;
-  }
   get order_id() {
     return this._order_id;
   }

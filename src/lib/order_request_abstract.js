@@ -12,13 +12,9 @@ class Order_Request extends Square_Request {
       },
     };
   }
-  get display_name() {
-    return this._display_name;
-  }
   get delivery() {
     return this._delivery;
   }
-
   set delivery(parcel) {
     this._delivery = parcel.order;
   }

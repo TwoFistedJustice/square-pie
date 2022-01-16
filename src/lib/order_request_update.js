@@ -30,18 +30,7 @@ class Order_Update extends Order_Request {
     };
   }
   // GETTERS
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
-  get body() {
-    return this._body;
-  }
+
   get endpoint() {
     if (this._endpoint === "/") {
       throw new Error(
