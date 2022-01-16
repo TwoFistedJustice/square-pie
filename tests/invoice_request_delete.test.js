@@ -10,6 +10,7 @@ describe("silence test suite", () => {
  *                        Invoice_Delete
  *                                                         *
  * ------------------------------------------------------- */
+
 describe("Invoice_Delete", () => {
   let del;
   let class_name = "Invoice_Delete";
@@ -23,6 +24,10 @@ describe("Invoice_Delete", () => {
     expect(del._display_name).toBeDefined();
   });
 
+  test("display name should be same as class name", () => {
+    expect(del.display_name).toEqual(class_name);
+  });
+
   test("should have the method defined by Square set", () => {
     expect(del.method).toEqual("DELETE");
   });
@@ -33,6 +38,10 @@ describe("Invoice_Delete", () => {
 
   test("should have defined square version", () => {
     expect(del.square_version).toBeDefined();
+  });
+
+  test("should have defined _help", () => {
+    expect(del.help).toBeDefined();
   });
 
   test("should have its own separate .delivery that doesn't pick a property", () => {
