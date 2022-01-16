@@ -1,8 +1,8 @@
 const {
+  arche_money,
+  arrayify,
   define,
   shazam_max_length,
-  arrayify,
-  arche_money,
 } = require("./utilities");
 const order_object_enum = require("./enum/order_object_enum");
 const man =
@@ -154,34 +154,28 @@ class Order_Object {
         "pricing_options arguments must be and object containing two booleans."
       );
     }
-    if (arrayify(this._fardel, "pricing_options")) {
-      this._fardel.pricing_options.push(obj);
-    }
+    arrayify(this._fardel, "pricing_options", this._display_name);
+    this._fardel.pricing_options.push(obj);
   }
   set service_charges(obj) {
-    if (arrayify(this._fardel, "service_charges")) {
-      this._fardel.service_charges.push(obj);
-    }
+    arrayify(this._fardel, "service_charges", this._display_name);
+    this._fardel.service_charges.push(obj);
   }
   set discounts(obj) {
-    if (arrayify(this._fardel, "discounts")) {
-      this._fardel.discounts.push(obj);
-    }
+    arrayify(this._fardel, "discounts", this._display_name);
+    this._fardel.discounts.push(obj);
   }
   set taxes(obj) {
-    if (arrayify(this._fardel, "taxes")) {
-      this._fardel.taxes.push(obj);
-    }
+    arrayify(this._fardel, "taxes", this._display_name);
+    this._fardel.taxes.push(obj);
   }
   set fulfillments(obj) {
-    if (arrayify(this._fardel, "fulfillments")) {
-      this._fardel.fulfillments.push(obj);
-    }
+    arrayify(this._fardel, "fulfillments", this._display_name);
+    this._fardel.fulfillments.push(obj);
   }
   set line_items(obj) {
-    if (arrayify(this._fardel, "line_items")) {
-      this._fardel.line_items.push(obj);
-    }
+    arrayify(this._fardel, "line_items", this._display_name);
+    this._fardel.line_items.push(obj);
   }
 
   // METHODS

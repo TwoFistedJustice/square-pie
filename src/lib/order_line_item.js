@@ -1,12 +1,12 @@
 const { nanoid } = require("nanoid");
 const { uid_length } = require("./pie_defaults");
 const {
-  shazam_min_length,
-  shazam_max_length,
   arrayify,
   arche_money,
-  generate_error_message,
   define,
+  generate_error_message,
+  shazam_min_length,
+  shazam_max_length,
 } = require("./utilities");
 const order_line_item_enum = require("./enum/order_line_item_enum");
 const man =
@@ -262,14 +262,12 @@ class Order_Line_Item {
     this._fardel.gross_sales_money = money;
   }
   set applied_discounts(obj) {
-    if (arrayify(this._fardel, "applied_discounts")) {
-      this._fardel.applied_discounts.push(obj);
-    }
+    arrayify(this._fardel, "applied_discounts", this._display_name);
+    this._fardel.applied_discounts.push(obj);
   }
   set applied_taxes(obj) {
-    if (arrayify(this._fardel, "applied_taxes")) {
-      this._fardel.applied_taxes.push(obj);
-    }
+    arrayify(this._fardel, "applied_taxes", this._display_name);
+    this._fardel.applied_taxes.push(obj);
   }
   /** @private made private to prevent accidentally calling the wrong setter- should only be called by #init_modifier
 /** @private made private to prevent accidentally calling the wrong setter- should only be called by #init_modifier
@@ -279,17 +277,15 @@ class Order_Line_Item {
   }
 
   set modifiers(obj) {
-    if (arrayify(this._fardel, "modifiers")) {
-      this._fardel.modifiers.push(obj);
-    }
+    arrayify(this._fardel, "modifiers", this._display_name);
+    this._fardel.modifiers.push(obj);
     // clear the modifier property after adding it the array
     this.#init_modifier();
   }
 
   set pricing_blocklists(obj) {
-    if (arrayify(this._fardel, "pricing_blocklist")) {
-      this._fardel.pricing_blocklists.push(obj);
-    }
+    arrayify(this._fardel, "pricing_blocklist", this._display_name);
+    this._fardel.pricing_blocklists.push(obj);
   }
   set quantity_unit(obj) {
     this._fardel.quantity_unit = obj;
