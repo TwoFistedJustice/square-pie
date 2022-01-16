@@ -72,14 +72,6 @@ describe("arrayify", () => {
     expect(obj).toMatchObject(expected);
   });
 
-  test("arrayify should return true on success", () => {
-    let obj = {
-      prop: undefined,
-    };
-    let bool = arrayify(obj, "prop");
-    expect(bool).toEqual(true);
-  });
-
   test("arrayify should not modify a property with an existing array", () => {
     let obj = {
       prop: ["zero"],
