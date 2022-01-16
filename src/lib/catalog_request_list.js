@@ -1,5 +1,11 @@
 const Catalog_Request = require("./catalog_request_abstract");
-const { query_string_endpoint, shazam_integer } = require("./utilities");
+const {
+  query_param_is_present,
+  query_param_is_query_string,
+  query_param_add_value,
+  query_param_replace_value,
+  shazam_integer,
+} = require("./utilities");
 // https://developer.squareup.com/reference/square/catalog-api/list-catalog
 const man =
   "fetches a list of all Catalog API documents in your db. You can filter that list by type." +
@@ -14,12 +20,8 @@ class Catalog_List extends Catalog_Request {
   _help = this.display_name + ": " + man;
   constructor() {
     super();
-    this._method = "get";
+    this._method = "GET";
     this._endpoint = "/list";
-    this._query_params = {
-      catalog_version: undefined,
-      types: undefined,
-    };
     this._delivery;
   }
   get display_name() {
@@ -33,45 +35,22 @@ class Catalog_List extends Catalog_Request {
   }
 
   get endpoint() {
-    let has_catalog_ver = !!this.query_params.catalog_version;
-    let has_types = !!this.query_params.types;
-    // if both are false return the default endpoint
-    if (!has_catalog_ver && !has_types) {
-      return this._endpoint;
-    }
-    // query params exist so build a new endpoint
-    let endpoint = this._endpoint + "?";
-    // it has types or both
-    if (has_types) {
-      endpoint += "types=" + this.types;
-      if (has_catalog_ver) {
-        endpoint += "&catalog_version=" + this.catalog_version;
-      }
-      return endpoint;
-    }
-    // it has just catalog version
-    if (has_catalog_ver && !has_types) {
-      endpoint += "catalog_version=" + this.catalog_version;
-    }
-    return endpoint;
-  }
-
-  get query_params() {
-    return this._query_params;
-  }
-  get catalog_version() {
-    return this._query_params.catalog_version;
+    return this._endpoint;
   }
   get delivery() {
     return this._delivery;
   }
-  get types() {
-    return this._query_params.types;
-  }
 
   // SETTERS
+
+  set #endpoint(str) {
+    this._endpoint = str;
+  }
   set delivery(parcel) {
     this._delivery = parcel.objects;
+    if (Object.prototype.hasOwnProperty.call(parcel, "cursor")) {
+      this.cursor = parcel.cursor;
+    }
   }
   /** use if you want to retrieve historical copies.
    * @param {number} version - the object version you want to retrieve.
@@ -79,15 +58,51 @@ class Catalog_List extends Catalog_Request {
    * */
   set catalog_version(version) {
     if (shazam_integer(version, this.display_name, "catalog_version")) {
-      this._query_params.catalog_version = version;
+      // this.#query_param_builder("catalog_version", version);
+      this.#query_param_replace("catalog_version", version);
     }
   }
-  set types(str) {
-    let cache = this.types;
-    this.query_params.types = query_string_endpoint(cache, str);
+
+  set types(value) {
+    this.#query_param_insert("types", value);
   }
 
+  set cursor(value) {
+    this.#query_param_replace("cursor", value);
+  }
   // PRIVATE METHODS
+  #init_query_param_sequence(param, value) {
+    let modified_endpoint = this.endpoint;
+    // check if endpoint is already formatted as a query string.
+    if (!query_param_is_query_string(modified_endpoint)) {
+      // if not then append ?param=value and return false
+      modified_endpoint += "?" + param + "=" + value;
+      this.#endpoint = modified_endpoint;
+      return false;
+    } else {
+      // if it is modified - check for presence of param
+      if (!query_param_is_present(modified_endpoint, param)) {
+        // if param is not present- append &param=value and return false
+        modified_endpoint += "&" + param + "=" + value;
+        this.#endpoint = modified_endpoint;
+        return false;
+      } else {
+        // if param is present return true.
+        return true;
+      }
+    }
+  }
+  #query_param_insert(param, value) {
+    if (this.#init_query_param_sequence(param, value)) {
+      this.#endpoint = query_param_add_value(this.endpoint, param, value);
+    }
+  }
+  #query_param_replace(param, value) {
+    if (this.#init_query_param_sequence(param, value)) {
+      this.#endpoint = query_param_replace_value(this.endpoint, param, value);
+    }
+  }
+
   // these are actually case-insensitive - using uppercase for consisency
   #enum_types() {
     return {

@@ -15,8 +15,6 @@ describe("Invoice_Delete", () => {
   let class_name = "Invoice_Delete";
   let id = "123";
   let endpoint = `/${id}`;
-  let id2 = "ABC";
-  let endpoint2 = `/${id2}`;
   beforeEach(function () {
     del = new Invoice_Delete(id);
   });
@@ -48,8 +46,15 @@ describe("Invoice_Delete", () => {
   });
 
   // Make()
-  test("make().id() should set the property", () => {
-    del.make().id(id2);
-    expect(del.id).toEqual(endpoint2);
+  test("make().version() should set the query parameter", () => {
+    let expected = `/${id}?version=3`;
+    del.make().version(3);
+    expect(del.endpoint).toEqual(expected);
+  });
+
+  test("make().version() should replace the query parameter", () => {
+    let expected = `/${id}?version=3`;
+    del.make().version(2).version(3);
+    expect(del.endpoint).toEqual(expected);
   });
 });

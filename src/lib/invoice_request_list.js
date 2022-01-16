@@ -1,11 +1,17 @@
 const Invoice_Request = require("./invoice_request_abstract");
-const { shazam_integer, shazam_number_LE } = require("./utilities");
+const {
+  query_param_is_present,
+  query_param_is_query_string,
+  query_param_replace_value,
+  shazam_integer,
+  shazam_number_LE,
+} = require("./utilities");
 const man =
   "http request to fetch a list of invoices for a given location.\n" +
   "Pass the location_id as a string argument when you instantiate the class. You can also pass it later by calling\n" +
-  'make().location("id")' +
-  "\n Delivery is an array because this endpoint has a pagination cursor." +
-  "\n\nhttps://developer.squareup.com/reference/square/invoices-api/list-invoices";
+  'make().location("id")\n' +
+  "Delivery is an array because this endpoint has a pagination cursor.\n" +
+  "\nhttps://developer.squareup.com/reference/square/invoices-api/list-invoices";
 
 /** @class  Invoice_List
  * @param {}
@@ -16,7 +22,6 @@ class Invoice_List extends Invoice_Request {
   _display_name = "Invoice_List";
   _last_verified_square_api_version = "2021-12-15";
   _help = this.display_name + ": " + man;
-
   constructor(location_id) {
     super();
     this._method = "GET";
@@ -25,11 +30,6 @@ class Invoice_List extends Invoice_Request {
         ? `?location_id=${location_id}`
         : undefined;
     this._delivery = [];
-    this._query_params = {
-      location_id: typeof location_id === "string" ? location_id : undefined, // REQUIRED
-      limit: undefined, // int max 200, default 100
-      cursor: undefined, // gets set automatically
-    };
 
     this.configuration = {
       maximums: {
@@ -37,45 +37,10 @@ class Invoice_List extends Invoice_Request {
       },
     };
   }
-
   get endpoint() {
-    let has_id =
-      typeof this._query_params.location_id === "string" ? true : false;
-    let has_limit = typeof this._query_params.limit === "number" ? true : false;
-    let has_cursor =
-      typeof this._query_params.cursor === "string" ? true : false;
-    let endpoint;
-    // if it has an id but no limit or cursor, just return the endpoint
-    if (has_id && !has_limit && !has_cursor) {
-      return this._endpoint;
-    } else {
-      // if no id has been added throw an error- the message is the help
-      if (!has_id) {
-        let message = this.help;
-        throw new Error(message);
-      } else {
-        // create a new endpoint
-        endpoint = "?location_id=" + this._query_params.location_id;
-        // if it has a limit but no cursor
-        if (has_limit && !has_cursor) {
-          endpoint += "&limit=" + this._query_params.limit;
-        }
-        // if it has both limti and cursor
-        else if (has_limit && has_cursor) {
-          endpoint +=
-            "&limit=" +
-            this._query_params.limit +
-            "&cursor=" +
-            this._query_params.cursor;
-        }
-        // if it has cursor but no limit
-        else if (!has_limit && has_cursor) {
-          endpoint += "&cursor=" + this._query_params.cursor;
-        }
-        return endpoint;
-      }
-    }
+    return this._endpoint;
   }
+
   get help() {
     return this._help;
   }
@@ -86,20 +51,15 @@ class Invoice_List extends Invoice_Request {
   get delivery() {
     return this._delivery;
   }
-
-  get location_id() {
-    return this._query_params.location_id;
-  }
-  get limit() {
-    return this._query_params.limit;
-  }
-  get cursor() {
-    return this._query_params.cursor;
+  set cursor(value) {
+    this.#query_param_replace("cursor", value);
   }
 
+  set #endpoint(str) {
+    this._endpoint = str;
+  }
   set location_id(id) {
-    this._endpoint = "?location_id=" + id;
-    this._query_params.location_id = id;
+    this.#query_param_replace("location_id", id);
   }
   set limit(int) {
     let name = this.display_name;
@@ -108,15 +68,43 @@ class Invoice_List extends Invoice_Request {
       shazam_integer(int, name, caller) &&
       shazam_number_LE(int, this.configuration.maximums.limit, name, caller)
     ) {
-      this._query_params.limit = int;
+      this.#query_param_replace("limit", int + "");
     }
   }
 
   set delivery(parcel) {
     if (Object.prototype.hasOwnProperty.call(parcel, "cursor")) {
-      this._query_params.cursor = parcel.cursor;
+      this.#query_param_replace("cursor", parcel.cursor);
     }
     this._delivery.push(parcel.invoices);
+  }
+  // PRIVATE METHODS
+  #init_query_param_sequence(param, value) {
+    let modified_endpoint = this.endpoint;
+    // check if endpoint is already formatted as a query string.
+    if (!query_param_is_query_string(modified_endpoint)) {
+      // if not then append ?param=value and return false
+      modified_endpoint += "?" + param + "=" + value;
+      this.#endpoint = modified_endpoint;
+      return false;
+    } else {
+      // if it is modified - check for presence of param
+      if (!query_param_is_present(modified_endpoint, param)) {
+        // if param is not present- append &param=value and return false
+        modified_endpoint += "&" + param + "=" + value;
+        this.#endpoint = modified_endpoint;
+        return false;
+      } else {
+        // if param is present return true.
+        return true;
+      }
+    }
+  }
+
+  #query_param_replace(param, value) {
+    if (this.#init_query_param_sequence(param, value)) {
+      this.#endpoint = query_param_replace_value(this.endpoint, param, value);
+    }
   }
 
   // MAKER METHODS

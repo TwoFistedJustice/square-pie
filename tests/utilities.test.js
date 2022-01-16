@@ -3,6 +3,10 @@ const {
   arche_time_start_end,
   // define,
   defineify,
+  query_param_add_value,
+  query_param_is_present,
+  query_param_is_query_string,
+  query_param_replace_value,
   query_string_builder,
   query_string_endpoint,
   // setter_chain_generator_config,
@@ -38,7 +42,7 @@ describe("Silence test suite", () => {
   test("", () => {});
 });
 
-describe.only("defineify", () => {
+describe("defineify", () => {
   test("should add property to object", () => {
     let value = { a: 1 };
     let expected = {
@@ -254,6 +258,11 @@ describe("shazam_integer integer verification utility", () => {
     ).toEqual(true);
   });
 });
+/* --------------------------------------------------------*
+ *                                                         *
+ *               shazam_boolean
+ *                                                         *
+ * ------------------------------------------------------- */
 
 describe("shazam_boolean boolean verification utility", () => {
   test("should throw when fed a non-boolean", () => {
@@ -284,7 +293,11 @@ describe("shazam_boolean boolean verification utility", () => {
     ).toEqual(true);
   });
 });
-
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        normalize_email
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("normalize_email utility", () => {
   test("should not reject a yahoo -whatev address", () => {
     expect(() => {
@@ -317,6 +330,191 @@ describe("normalize_email utility", () => {
     expect(received).toEqual(expected);
   });
 });
+/* --------------------------------------------------------*
+ *                                                         *
+ *              query_param_replace_value
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("query_param_add_value", () => {
+  test("should add value if only one exists alreday", () => {
+    let query_string = "?status=OPEN";
+    let param = "status";
+    let value_to_add = "PAID";
+    let expected = `${query_string},${value_to_add}`;
+    expect(query_param_add_value(query_string, param, value_to_add)).toEqual(
+      expected
+    );
+  });
+
+  test("should add param if more than one value already exists", () => {
+    let query_string = "?status=OPEN,DRAFT";
+    let param = "status";
+    let replacment_value = "PAID";
+    let expected = `?status=${replacment_value},DRAFT`;
+    expect(
+      query_param_replace_value(query_string, param, replacment_value)
+    ).toEqual(expected);
+  });
+
+  test("should replace value when more than one param exists", () => {
+    let query_string = "?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER&version=3";
+    let param = "version";
+    let replacement_value = 42;
+    let expected = `?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER&version=${replacement_value}`;
+    expect(
+      query_param_replace_value(query_string, param, replacement_value)
+    ).toEqual(expected);
+  });
+
+  test("should replace value when more than one param exists", () => {
+    let query_string = "?status=OPEN,DRAFT&version=3&type=ITEM,TAX,MODIFIER";
+    let param = "version";
+    let replacement_value = 42;
+    let expected = `?status=OPEN,DRAFT&version=${replacement_value}&type=ITEM,TAX,MODIFIER`;
+    expect(
+      query_param_replace_value(query_string, param, replacement_value)
+    ).toEqual(expected);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                   query_param_add_value
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("query_param_add_value", () => {
+  test("should replace value if only one exists alreday", () => {
+    let query_string = "?status=OPEN";
+    let param = "status";
+    let value_to_add = "PAID";
+    let expected = `?status=OPEN,${value_to_add}`;
+    expect(query_param_add_value(query_string, param, value_to_add)).toEqual(
+      expected
+    );
+  });
+
+  test("should replace first param if more than one value already exists", () => {
+    let query_string = "?status=OPEN,DRAFT";
+    let param = "status";
+    let value_to_add = "PAID";
+    let expected = `${query_string},${value_to_add}`;
+    expect(query_param_add_value(query_string, param, value_to_add)).toEqual(
+      expected
+    );
+  });
+
+  test("should add value to first param when more than one param exist", () => {
+    let query_string = "?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER&version=3";
+    let param = "status";
+    let value_to_add = "PAID";
+    let expected = `?status=OPEN,DRAFT,${value_to_add}&type=ITEM,TAX,MODIFIER&version=3`;
+    expect(query_param_add_value(query_string, param, value_to_add)).toEqual(
+      expected
+    );
+  });
+
+  test('should add value to second param when more than one param exist"', () => {
+    let query_string = "?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER&version=3";
+    let param = "type";
+    let value_to_add = "IMAGE";
+    let expected = `?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER,${value_to_add}&version=3`;
+    expect(query_param_add_value(query_string, param, value_to_add)).toEqual(
+      expected
+    );
+  });
+
+  test('should add value to second param when an existing value contains an underscore"', () => {
+    let query_string =
+      "?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER_LIST&version=3";
+    let param = "type";
+    let value_to_add = "IMAGE";
+    let expected = `?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER_LIST,${value_to_add}&version=3`;
+    expect(query_param_add_value(query_string, param, value_to_add)).toEqual(
+      expected
+    );
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                  query_param_is_present
+ *                                                         *
+ * ------------------------------------------------------- */
+describe("query_param_is_present", () => {
+  test("should return true if only one param exists with a single value", () => {
+    let query_string = "?status=OPEN";
+    let param = "status";
+    let expected = true;
+    expect(query_param_is_present(query_string, param)).toEqual(expected);
+  });
+
+  test("should return true if only one param exists with a multiple values", () => {
+    let query_string = "?status=OPEN,DRAFT,PAID";
+    let param = "status";
+    let expected = true;
+    expect(query_param_is_present(query_string, param)).toEqual(expected);
+  });
+
+  test("should return true if multiple params exists with a multiple values", () => {
+    let query_string = "?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER&version=3";
+    let param = "type";
+    let expected = true;
+    expect(query_param_is_present(query_string, param)).toEqual(expected);
+  });
+
+  test("should return false if multiple params exists with a multiple values but sought param not present", () => {
+    let query_string = "?status=OPEN,DRAFT&type=ITEM,TAX,MODIFIER&version=3";
+    let param = "glarkenfargen";
+    let expected = false;
+    expect(query_param_is_present(query_string, param)).toEqual(expected);
+  });
+
+  test("should return false if query string is an empty string", () => {
+    let query_string = "";
+    let param = "glarkenfargen";
+    let expected = false;
+    expect(query_param_is_present(query_string, param)).toEqual(expected);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        query_param_is_query_string
+ *                                                         *
+ * ------------------------------------------------------- */
+describe("query_param_is_query_string", () => {
+  test("query_param_is_query_string should return true", () => {
+    let expected = true;
+    let test_string = "?glarken_fargen=nugen_schatzen";
+    expect(query_param_is_query_string(test_string)).toEqual(expected);
+  });
+
+  test("query_param_is_query_string should return false on a question", () => {
+    let expected = false;
+    let test_string = "How many glarekens can a nugen-schatzen fargen?";
+    expect(query_param_is_query_string(test_string)).toEqual(expected);
+  });
+
+  test("query_param_is_query_string should return false if question mark is not first character", () => {
+    let expected = false;
+    let test_string = "a?glarken_fargen&nugen_schatzen";
+    expect(query_param_is_query_string(test_string)).toEqual(expected);
+  });
+
+  test("query_param_is_query_string should return false if no equals sign in present", () => {
+    let expected = false;
+    let test_string = "?glarken_fargen&nugen_schatzen";
+    expect(query_param_is_query_string(test_string)).toEqual(expected);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *               endpoint string query builder
+ *                                                         *
+ * ------------------------------------------------------- */
 
 describe("endpoint string query builder", () => {
   test("is_empty", () => {

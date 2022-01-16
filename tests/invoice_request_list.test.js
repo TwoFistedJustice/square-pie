@@ -14,8 +14,10 @@ describe("silence test suite", () => {
 describe("Invoice_List", () => {
   let list;
   let class_name = "Invoice_List";
+  let method = "GET"; //http method from Square docs
   let location_id = "123";
   let other_id = "ABC";
+
   beforeEach(function () {
     list = new Invoice_List(location_id);
   });
@@ -25,7 +27,7 @@ describe("Invoice_List", () => {
   });
 
   test("should have the method defined by Square set", () => {
-    expect(list.method).toEqual("GET");
+    expect(list.method).toEqual(method);
   });
 
   test("display name should be same as class name", () => {
@@ -36,16 +38,12 @@ describe("Invoice_List", () => {
     expect(list.square_version).toBeDefined();
   });
 
+  test("should have defined _help", () => {
+    expect(list.help).toBeDefined();
+  });
   // endpoint query parameteres
   test("should set the endpoint", () => {
     expect(list.endpoint).toEqual(`?location_id=${location_id}`);
-  });
-
-  test("should throw if location_id is undefined", () => {
-    let tosser = new Invoice_List();
-    expect(() => {
-      tosser.endpoint;
-    }).toThrow();
   });
 
   test("should create new endpoint with new id", () => {
@@ -95,12 +93,13 @@ describe("Invoice_List", () => {
 
   test("Cursor should be set automatically if it's in the response", () => {
     let cursor = "123";
+    let expected = `?location_id=${location_id}&cursor=${cursor}`;
     let parcel = {
       invoices: { a: 1 },
       cursor: cursor,
     };
     list.delivery = parcel;
-    expect(list.cursor).toEqual(cursor);
+    expect(list.endpoint).toEqual(expected);
   });
 
   // limit
@@ -124,14 +123,16 @@ describe("Invoice_List", () => {
 
   // Make()
 
-  test("make().location_id() should set PRIMARY property", () => {
+  test("make().location_id() should re-set query param", () => {
+    let expected = `?location_id=${other_id}`;
     list.make().location_id(other_id);
-    expect(list.location_id).toEqual(other_id);
+    expect(list.endpoint).toEqual(expected);
   });
 
   test("make().limit() should set limit property", () => {
     let val = 50;
+    let expected = `?location_id=${location_id}&limit=${val}`;
     list.make().limit(val);
-    expect(list.limit).toEqual(val);
+    expect(list.endpoint).toEqual(expected);
   });
 });
