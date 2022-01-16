@@ -1,5 +1,10 @@
 const Retrieve_Update_Delete = require("./customer_request_abstract_R_U_D_super");
-const { shazam_integer } = require("./utilities");
+const {
+  shazam_integer,
+  query_param_is_query_string,
+  query_param_is_present,
+  query_param_replace_value,
+} = require("./utilities");
 const man =
   "deletes one customer record. There is no option to delete multiple customer records.\n" +
   "Add the Square id of the customer record to delete as an argument when you create the class. This is required. \n" +
@@ -21,27 +26,51 @@ class Customer_Delete extends Retrieve_Update_Delete {
     super(id);
     this._method = "DELETE";
     this._delivery;
-
     if (version !== undefined) {
-      this.#query_param(version);
+      this.version = version;
     }
   }
   // GETTERS
-
   get delivery() {
     return this._delivery;
   }
-
   // SETTERS
   set delivery(parcel) {
     this._delivery = parcel;
   }
+  set #endpoint(str) {
+    this._endpoint = str;
+  }
+  set version(int) {
+    if (shazam_integer(int, this.display_name, "version"))
+      this.#query_param_replace("version", int + "");
+  }
+  // PRIVATE METHODS
+  #init_query_param_sequence(param, value) {
+    let modified_endpoint = this.endpoint;
+    // check if endpoint is already formatted as a query string.
+    if (!query_param_is_query_string(modified_endpoint)) {
+      // if not then append ?param=value and return false
+      modified_endpoint += "?" + param + "=" + value;
+      this.#endpoint = modified_endpoint;
+      return false;
+    } else {
+      // if it is modified - check for presence of param
+      if (!query_param_is_present(modified_endpoint, param)) {
+        // if param is not present- append &param=value and return false
+        modified_endpoint += "&" + param + "=" + value;
+        this.#endpoint = modified_endpoint;
+        return false;
+      } else {
+        // if param is present return true.
+        return true;
+      }
+    }
+  }
 
-  #query_param(version) {
-    if (shazam_integer(version)) {
-      let param = "version";
-      let value = version;
-      super.append_query_param(param, value);
+  #query_param_replace(param, value) {
+    if (this.#init_query_param_sequence(param, value)) {
+      this.#endpoint = query_param_replace_value(this.endpoint, param, value);
     }
   }
 
@@ -49,7 +78,7 @@ class Customer_Delete extends Retrieve_Update_Delete {
     return {
       self: this,
       version: function (version) {
-        this.self.#query_param(version);
+        this.self.version = version;
       },
     };
   }

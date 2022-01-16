@@ -56,8 +56,8 @@ describe("Customer_Delete", () => {
   });
 
   test("make().version() should replace query param when one is provided to constructor", () => {
-    let expected = "/ABC?version=19";
+    let expected = "/123?version=19";
     del.make().version(19);
-    expect(del.endpoint).toEqual(endpoint);
+    expect(del.endpoint).toEqual(expected);
   });
 });
