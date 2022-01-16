@@ -22,7 +22,7 @@ const mikey = customers.mikey;
 // despite whatever Jest docs say, this timer thing does not work AT. ALL.
 beforeAll(() => jest.setTimeout(10 * 1000));
 
-describe("Silence test suite", () => {
+describe.only("Silence test suite", () => {
   test("", () => {
     expect("a").toEqual("a");
   });
@@ -91,13 +91,13 @@ describe("Customer Request Classes", () => {
     });
   });
 
-  describe.only("Customer Create", () => {
+  describe("Customer Create", () => {
     test("Should create a new customer", async () => {
       // add mikey
       let punchingBagForBuffy = new Customer_Create(mikey);
       await punchingBagForBuffy.request();
-      console.log("***********************************");
-      console.log(punchingBagForBuffy.delivery);
+      // console.log("***********************************");
+      // console.log(punchingBagForBuffy.delivery);
       let email = punchingBagForBuffy.delivery.email_address;
       mikeId = punchingBagForBuffy.delivery.id;
       // if the email matches, the customer was created
