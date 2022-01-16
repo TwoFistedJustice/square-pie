@@ -33,24 +33,12 @@ class Invoice_Publish extends Invoice_RUDCnP {
     };
   }
   // GETTERS
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-
   get id() {
     return this._endpoint;
   }
   get version() {
     return this._body.version;
   }
-
-  get help() {
-    return this._help;
-  }
-
   get idempotency_key() {
     return this._body.idempotency_key;
   }

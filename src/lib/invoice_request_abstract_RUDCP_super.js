@@ -10,18 +10,9 @@ class Invoice_RUDCnP extends Invoice_Request {
     super();
     this._endpoint = `/${id}`;
   }
-  get display_name() {
-    return this._display_name;
-  }
-
   get id() {
     return this._endpoint;
   }
-
-  get endpoint() {
-    return this._endpoint;
-  }
-
   set id(someId) {
     this._endpoint = `/${someId}`;
   }

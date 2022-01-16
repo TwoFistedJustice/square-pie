@@ -17,6 +17,13 @@ class Square_Request {
   get display_name() {
     return this._display_name;
   }
+  // for sub-classes
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
+  }
   get method() {
     return this._method;
   }

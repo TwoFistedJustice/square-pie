@@ -18,25 +18,13 @@ class Order_clone extends Order_Request {
 
   constructor(id) {
     super(id);
-    this._method = "post";
+    this._method = "POST";
     this._endpoint = "clone";
     this._body = {
       idempotency_key: nanoid(),
       order_id: id,
       version: undefined, // int32
     };
-  }
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
-  get body() {
-    return this._body;
   }
   get idempotency_key() {
     return this._body.idempotency_key;

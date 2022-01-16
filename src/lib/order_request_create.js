@@ -18,35 +18,20 @@ class Order_Create extends Order_Request {
   _help = this.display_name + ": " + man;
   constructor(order) {
     super();
-    this._method = "post";
-    this._endpoint = "";
-
+    this._method = "POST";
     this._body = {
       idempotency_key: nanoid(),
       order: order,
     };
   }
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
-  get endpoint() {
-    return this._endpoint;
-  }
-  get body() {
-    return this._body;
-  }
+  // GETTERS
   get idempotency_key() {
     return this._body.idempotency_key;
   }
   get order() {
     return this._body.order;
   }
+  // SETTERS
   set idempotency_key(key) {
     if (
       shazam_max_length(

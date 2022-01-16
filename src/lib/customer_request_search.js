@@ -4,7 +4,7 @@ const man =
   "There is no make() method on this class. Instead it has a query() method which operates with one difference. \n" +
   'The difference is that query() takes a string argument. The arguments you may pass are "fuzzy" or "exact"\n' +
   "After that it works just like make(). See the Square docs for options and details." +
-  "https://developer.squareup.com/reference/square/customers-api/search-customers\n";
+  "\nhttps://developer.squareup.com/reference/square/customers-api/search-customers\n";
 
 /** @class Customer_Search representing an http request to retrieve to search customer records
  *  @see Customer_Request
@@ -17,7 +17,7 @@ class Customer_Search extends Customer_Request {
 
   constructor() {
     super();
-    this._method = "post";
+    this._method = "POST";
     this._endpoint = "/search";
     this._body = {
       query: {
@@ -33,15 +33,6 @@ class Customer_Search extends Customer_Request {
   }
 
   // GETTERS
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
   get delivery() {
     return this._delivery;
   }

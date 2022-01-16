@@ -22,12 +22,6 @@ class Customer_Retrieve_Update_Delete_Super extends Customer_Request {
     this._delivery;
   }
   // GETTERS
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
   get id() {
     return this._endpoint;
   }

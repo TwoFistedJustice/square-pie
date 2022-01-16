@@ -42,29 +42,19 @@ class Invoice_Update extends Invoice_RUDCnP {
     };
   }
   // GETTERS
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
 
   get square_invoice_document() {
     return this._square_invoice_document;
   }
-
   get idempotency_key() {
     return this._body.idempotency_key;
   }
-
   get invoice() {
     return this._body.invoice;
   }
-
   get fields_to_clear() {
     return this._body.fields_to_clear;
   }
-
   get body() {
     // don't use the !validate() syntax or it causes errors
     let validated = this.validate();

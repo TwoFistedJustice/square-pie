@@ -6,9 +6,6 @@ class Catalog_Request extends Square_Request {
     super();
     this._api_name = "catalog";
   }
-  get display_name() {
-    return this._display_name;
-  }
 }
 
 module.exports = Catalog_Request;

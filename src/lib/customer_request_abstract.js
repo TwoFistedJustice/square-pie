@@ -9,9 +9,6 @@ class Customer_Request extends Square_Request {
     super();
     this._api_name = "customers";
   }
-  get display_name() {
-    return this._display_name;
-  }
 }
 
 module.exports = Customer_Request;

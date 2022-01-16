@@ -37,17 +37,6 @@ class Invoice_List extends Invoice_Request {
       },
     };
   }
-  get endpoint() {
-    return this._endpoint;
-  }
-
-  get help() {
-    return this._help;
-  }
-
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
   get delivery() {
     return this._delivery;
   }

@@ -3,7 +3,7 @@ const { nanoid } = require("nanoid/non-secure");
 const man =
   "Upserts one or more Catalog API Objects. Create the object using the appropriate Pie class then add that" +
   "class's fardel using make().add(fardel)\n" +
-  "https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects";
+  "\nhttps://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects";
 
 class Catalog_Upsert extends Catalog_Request {
   _display_name = "Catalog_Upsert";
@@ -11,7 +11,7 @@ class Catalog_Upsert extends Catalog_Request {
   _help = this.display_name + ": " + man;
   constructor() {
     super();
-    this._method = "post";
+    this._method = "POST";
     this._endpoint = "/batch-upsert";
     this._delivery; // what comes back
     this._body = {
@@ -23,28 +23,15 @@ class Catalog_Upsert extends Catalog_Request {
       ],
     };
   }
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
-  get endpoint() {
-    return this._endpoint;
-  }
+
+  // GETTERS
   get body() {
     return this._body;
   }
 
+  // SETTERS
   set body(fardel) {
     this.body.batches[0].objects.push(fardel);
-  }
-
-  set endpoint(str) {
-    this._endpoint = str;
   }
 
   // METHODS

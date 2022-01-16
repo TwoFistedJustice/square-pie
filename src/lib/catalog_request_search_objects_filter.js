@@ -15,16 +15,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   constructor() {
     super();
   }
-
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
+  // GETTERS
   get exact_query() {
     return this._body.query.exact_query;
   }
@@ -40,7 +31,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   get text_query() {
     return this._body.query.text_query;
   }
-
+  // SETTERS
   set exact_query(obj) {
     if (
       shazam_object_has_property(
