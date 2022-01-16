@@ -1,5 +1,5 @@
 /** Checks if an array exists at a an object property. If it does not, then it creates one.
- *  If there is already an array present, it returns true.
+ *  If there is already an array present, it does nothing.
  * @param {object} object_to_check - the object that is supposed to contain the array.
  * @param {string} property_name - the name of the property where the array is to be located.
  * @param {string} display_name
@@ -11,15 +11,14 @@
  * Square expects it to have an array of values. If you try to push a value to it before it has an array, node will throw an
  * error and stop execution. So you need to create the array before you can add a value to it.
  *
- * Use arrayify() to create the array. Arrayify will create the array if none exists. And it will simply
- * return true if one is already present.
+ * Use arrayify() to create the array. Arrayify will create the array if none exists and do nothing if one does.
  *
  * You have:  `{foo: undefined}`
  * You want: `{foo: ["bar"]}`
  * You do:
- * `if(arrayify(this._body, "foo")) {
+ * (arrayify(this._body, "foo"))
  *   this._body.foo.push("bar")
- * }`
+ *
  * */
 const arrayify = function (
   object_to_check,
