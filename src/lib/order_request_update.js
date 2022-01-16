@@ -1,6 +1,6 @@
 const Order_Request = require("./order_request_abstract");
 const { nanoid } = require("nanoid");
-const { shazam_max_length, arrayify } = require("./utilities");
+const { arrayify, shazam_max_length } = require("./utilities");
 const man =
   "send a sparse order object with only the fields you want to update. Pass the id of the order you want to update\n" +
   "as an argument when you instantiate the class. You can add the id anytime prior to sending the update by calling\n" +
@@ -51,16 +51,8 @@ class Order_Update extends Order_Request {
    * @param {string} field - The dot notation paths fields to clear. For example, "line_items[uid].note". OR "discounts"
    * */
   set fields_to_clear(field) {
-    if (
-      arrayify(
-        this._body,
-        "fields_to_clear",
-        this.display_name,
-        "fields_to_clear"
-      )
-    ) {
-      this._body.fields_to_clear.push(field);
-    }
+    arrayify(this._body, "fields_to_clear", this.display_name);
+    this._body.fields_to_clear.push(field);
   }
   set order_id(id) {
     this._endpoint = `/${id}`;
