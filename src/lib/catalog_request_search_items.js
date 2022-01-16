@@ -119,14 +119,9 @@ class Catalog_Search_Items extends Catalog_Request {
     this._attribute_filter = obj;
   }
   set category_array_concat(arr) {
-    arrayify(
-      this._body,
-      "category_ids",
-      this._display_name,
-      "category_array_concat"
-    );
     let caller = "category_array_concat";
     let name = this._display_name;
+    arrayify(this._body, "category_ids", name, caller);
     // check that arr is an array [NI - no limit specified] and that the existing array does not exceed allowable length
     if (shazam_is_array(arr, name, caller)) {
       let joined_array = this._body.category_ids.concat(arr);
@@ -135,9 +130,10 @@ class Catalog_Search_Items extends Catalog_Request {
     }
   }
   set enabled_location_array_concat(arr) {
-    arrayify(this._body, "enabled_location_ids", this._display_name);
-    let caller = "enabled_location_array_concat";
     let name = this._display_name;
+    let caller = "enabled_location_array_concat";
+    arrayify(this._body, "enabled_location_ids", name, caller);
+
     // check that arr is an array [NI - no limit specified] and that the existing array does not exceed allowable length
     if (shazam_is_array(arr, name, caller)) {
       let joined_array = this._body.enabled_location_ids.concat(arr);
@@ -146,9 +142,9 @@ class Catalog_Search_Items extends Catalog_Request {
     }
   }
   set custom_attribute_filter_array_concat(arr) {
-    arrayify(this._body, "custom_attribute_filters", this._display_name);
     let caller = "custom_attribute_filter_array_concat";
     let name = this._display_name;
+    arrayify(this._body, "custom_attribute_filters", name, caller);
     // check that arr is an array [NI - no limit specified] and that the existing array does not exceed allowable length
     if (shazam_is_array(arr, name, caller)) {
       let joined_array = this._body.custom_attribute_filters.concat(arr);
