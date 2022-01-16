@@ -2,8 +2,8 @@
  *  If there is already an array present, it does nothing.
  * @param {object} object_to_check - the object that is supposed to contain the array.
  * @param {string} property_name - the name of the property where the array is to be located.
- * @param {string} display_name
- * @param {string} caller
+ * @param {string} display_name - the name of the class. Usually 'this._display_name'
+ * @param {string} caller - the name of the calling function. Can be omitted if it is the same as the property name.
  * @throws {Error} Throws an error if it is unable to create an array at the specified location.
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * @example You have an object called `_body` which has a property called `foo`. Foo is set to undefined
