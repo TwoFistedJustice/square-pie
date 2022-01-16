@@ -27,9 +27,9 @@ const regular_expression_patterns = {
     },
     query_single_value_capture: function (param) {
       return new RegExp(
-        param +
+        "(?<value_to_replace>" + // the name of the capture group
+          param +
           "={1}" + // exactly one eauals sign
-          "(?<value_to_replace>" + // the name of the capture group
           "[a-zA-Z0-9]{1,})" // consisting of one or more blocks of alpha-numerics
       );
     },
