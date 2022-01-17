@@ -2,9 +2,15 @@ require("dotenv").config();
 const fetch = require("node-fetch");
 const config = require("../config");
 const secret = process.env[`${config.secrets.sandbox_secret_name}`];
+const man =
+  "\nis the super class for all Square Pie REQUEST classes. It handles the actual http request when you call\n" +
+  "subclass.request(). It also contains the GETTERS common to all request classes. You can customize your\n" +
+  "configuration by changing the parameter stored in `config.js` or in `.env`\n" +
+  "\nhttps://developer.squareup.com/reference/square";
 
 class Square_Request {
   _display_name = "Square_Request";
+  _help = this.display_name + ": " + man;
   constructor() {
     this._method = "";
     this._body;
@@ -49,6 +55,7 @@ class Square_Request {
     this._delivery = parcel;
   }
   // COMPUTED PROPERTIES
+  // todo, make this private
   get secretName() {
     return process.env.NODE_ENV === "production"
       ? `${config.secrets.production_secret_name}`
