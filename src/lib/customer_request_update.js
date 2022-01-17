@@ -258,26 +258,6 @@ class Customer_Update extends Retrieve_Update_Delete {
         this.self.tax_ids = val;
         return this;
       },
-      first_name: function (val) {
-        this.self.given_name = val;
-        return this;
-      },
-      last_name: function (val) {
-        this.self.family_name = val;
-        return this;
-      },
-      company: function (val) {
-        this.self.company_name = val;
-        return this;
-      },
-      email: function (val) {
-        this.self.email_address = val;
-        return this;
-      },
-      phone: function (val) {
-        this.self.phone_number = val;
-        return this;
-      },
       customer: function (fardel) {
         this.self.body = fardel;
         return this;
@@ -293,6 +273,21 @@ class Customer_Update extends Retrieve_Update_Delete {
       state: function (val) {
         this.self.state = val;
         return this;
+      },
+      first_name: function (val) {
+        return this.given_name(val);
+      },
+      last_name: function (val) {
+        return this.family_name(val);
+      },
+      company: function (val) {
+        return this.company_name(val);
+      },
+      email: function (val) {
+        return this.email_address(val);
+      },
+      phone: function (val) {
+        return this.phone_number(val);
       },
     };
   }
