@@ -2,7 +2,6 @@
 const Catalog_Search_Cross_Reference = require("../src/lib/catalog_request_search_objects_cross_reference");
 const { dateCodes } = require("./helper_objects");
 
-// tack on .only to this empty test to silence all other tests
 describe("silence test suite", () => {
   test("", () => {
     expect("a").toEqual("a");

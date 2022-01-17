@@ -1,7 +1,6 @@
 "use strict";
 const Catalog_Search_Filter = require("../src/lib/catalog_request_search_objects_filter");
 
-// tack on .only to this empty test to silence all other tests
 describe("silence test suite", () => {
   test("", () => {
     expect("a").toEqual("a");
