@@ -1,11 +1,5 @@
 const Customer_Update = require("../src/lib/customer_request_update");
 
-// const Customer_Object = require("../src/lib/customer_object");
-// const { sampleCustomers } = require("./helper_objects");
-// const customers = sampleCustomers;
-// const buffy = customers.buffy;
-// const mikey = customers.mikey;
-
 describe("Silence test suite", () => {
   test("", () => {
     expect("a").toEqual("a");
@@ -84,17 +78,90 @@ describe("Customer_Update", () => {
 
     expect(update.body).toMatchObject(expected);
   });
+});
 
-  // test ("should have defined _body.idempotency_key", () => {
-  //   expect (myVar.body.idempotency_key).toBeDefined ();
-  // });
-  // test ("nanoid should generate a idempotency key less than the limit", () => {
-  //   let pass = myVar.idempotency_key.length <= 128;
-  //   expect (pass).toEqual (true);
-  // });
-  // test ("idempotency should respect length 192", () => {
-  //   expect (() => {
-  //     myVar.idempotency_key = long_strings.len_193;
-  //   }).toThrow ();
-  // });
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        error checking
+ *                                                         *
+ * ------------------------------------------------------- */
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        body properties
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("Customer Update body properties", () => {
+  let update, make, id;
+  beforeEach(() => {
+    id = "123";
+    update = new Customer_Update(id);
+    make = update.make();
+  });
+
+  test("should set given_name", () => {
+    let expected = "Russ";
+    make.given_name(expected);
+    expect(update.given_name).toEqual(expected);
+  });
+
+  test("should set family name", () => {
+    let expected = "Bain";
+    make.family_name(expected);
+    expect(update.family_name).toEqual(expected);
+  });
+  test("should set company_name", () => {
+    let expected = "Rectangular";
+    make.company_name(expected);
+    expect(update.company_name).toEqual(expected);
+  });
+  test("should set nickname", () => {
+    let expected = "Danger Russ";
+    make.nickname(expected);
+    expect(update.nickname).toEqual(expected);
+  });
+  test("should set email_address", () => {
+    let email = "russ.a.bain@gmail.com";
+    let expected = "russabain@gmail.com";
+    make.email_address(email);
+    expect(update.email_address).toEqual(expected);
+  });
+  test("should set address", () => {
+    let expected = {};
+    make.address(expected);
+    expect(update.address).toEqual(expected);
+  });
+  test("should set phone_number ", () => {
+    let expected = "14155551212";
+    make.phone_number(expected);
+    expect(update.phone_number).toEqual(expected);
+  });
+  test("should set reference_id", () => {
+    let expected = "123";
+    make.reference_id(expected);
+    expect(update.reference_id).toEqual(expected);
+  });
+  test("should set note", () => {
+    let expected = "Je suis en pincer pour Tina Fey! Ohhhh, j'adorrrreeeee!";
+    make.note(expected);
+    expect(update.note).toEqual(expected);
+  });
+  test("should set birthday", () => {
+    let birthday = new Date("30 october 1980").toISOString();
+    make.birthday(birthday);
+    expect(update.birthday).toEqual(birthday);
+  });
+  test("should set version", () => {
+    let expected = 27;
+    make.version(expected);
+    expect(update.version).toEqual(expected);
+  });
+
+  test("should set tax_ids", () => {
+    let eu_vat = "IE3426675K";
+    let expected = { eu_vat };
+    make.tax_ids(eu_vat);
+    expect(update.tax_ids).toMatchObject(expected);
+  });
 });
