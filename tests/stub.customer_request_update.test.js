@@ -37,6 +37,10 @@ describe("Customer_Update", () => {
   test("should have defined _help", () => {
     expect(update.help).toBeDefined();
   });
+  test("should have defined square version", () => {
+    expect(update.square_version).toBeDefined();
+  });
+
   test("should have an endpoint", () => {
     expect(update.endpoint).toEqual(endpoint);
   });
@@ -106,16 +110,36 @@ describe("Customer Update body properties", () => {
     expect(update.given_name).toEqual(expected);
   });
 
+  test("first_name should set given_name", () => {
+    let expected = "Russ";
+    make.first_name(expected);
+    expect(update.given_name).toEqual(expected);
+  });
+
   test("should set family name", () => {
     let expected = "Bain";
     make.family_name(expected);
     expect(update.family_name).toEqual(expected);
   });
+
+  test("last_name should set family name", () => {
+    let expected = "Bain";
+    make.last_name(expected);
+    expect(update.family_name).toEqual(expected);
+  });
+
   test("should set company_name", () => {
     let expected = "Rectangular";
     make.company_name(expected);
     expect(update.company_name).toEqual(expected);
   });
+
+  test("company should set company_name", () => {
+    let expected = "Rectangular";
+    make.company(expected);
+    expect(update.company_name).toEqual(expected);
+  });
+
   test("should set nickname", () => {
     let expected = "Danger Russ";
     make.nickname(expected);
@@ -127,6 +151,13 @@ describe("Customer Update body properties", () => {
     make.email_address(email);
     expect(update.email_address).toEqual(expected);
   });
+  test("email should set email_address", () => {
+    let email = "russ.a.bain@gmail.com";
+    let expected = "russabain@gmail.com";
+    make.email(email);
+    expect(update.email_address).toEqual(expected);
+  });
+
   test("should set address", () => {
     let expected = {};
     make.address(expected);
@@ -135,6 +166,11 @@ describe("Customer Update body properties", () => {
   test("should set phone_number ", () => {
     let expected = "14155551212";
     make.phone_number(expected);
+    expect(update.phone_number).toEqual(expected);
+  });
+  test("phone should set phone_number ", () => {
+    let expected = "14155551212";
+    make.phone(expected);
     expect(update.phone_number).toEqual(expected);
   });
   test("should set reference_id", () => {
@@ -163,5 +199,20 @@ describe("Customer Update body properties", () => {
     let expected = { eu_vat };
     make.tax_ids(eu_vat);
     expect(update.tax_ids).toMatchObject(expected);
+  });
+  test("should set city ", () => {
+    let expected = { locality: "San Francisco" };
+    make.city("San Francisco");
+    expect(update.address).toMatchObject(expected);
+  });
+  test("should set state", () => {
+    let expected = { administrative_district_level_1: "california" };
+    make.state("california");
+    expect(update.address).toMatchObject(expected);
+  });
+  test("should set postal code", () => {
+    let expected = { postal_code: "94105" };
+    make.postal_code("94105");
+    expect(update.address).toMatchObject(expected);
   });
 });
