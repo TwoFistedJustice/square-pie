@@ -13,7 +13,6 @@ class Customer_Retrieve extends Retrieve_Update_Delete {
   _display_name = "Customer_Retrieve";
   _last_verified_square_api_version = "2021-12-15";
   _help = this.display_name + ": " + man;
-
   constructor(id) {
     super(id);
     this._method = "GET";
