@@ -212,12 +212,20 @@ class Customer_Update extends Retrieve_Update_Delete {
         this.self.phone_number = val;
         return this;
       },
+      reference_id: function (val) {
+        this.self.reference_id = val;
+        return this;
+      },
       note: function (val) {
         this.self.note = val;
         return this;
       },
       birthday: function (val) {
         this.self.birthday = val;
+        return this;
+      },
+      version: function (val) {
+        this.self.version = val;
         return this;
       },
       first_name: function (val) {
