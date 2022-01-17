@@ -158,12 +158,12 @@ class Customer_Update extends Retrieve_Update_Delete {
   set city(city) {
     this._body.address.locality = city;
   }
-  set postalCode(val) {
+  set postal_code(val) {
     this.body.address.postal_code = val;
   }
 
   set state(province) {
-    this.body.administrative_district_level_1 = province;
+    this.body.address.administrative_district_level_1 = province;
   }
   /* sets Customer_Update.birthday
    * @param {string} time a date in RFC3339 format
@@ -259,27 +259,39 @@ class Customer_Update extends Retrieve_Update_Delete {
         return this;
       },
       first_name: function (val) {
-        this.given_name(val);
+        this.self.given_name = val;
         return this;
       },
       last_name: function (val) {
-        this.family_name(val);
+        this.self.family_name = val;
         return this;
       },
       company: function (val) {
-        this.company_name(val);
+        this.self.company_name = val;
         return this;
       },
       email: function (val) {
-        this.email_address(val);
+        this.self.email_address = val;
         return this;
       },
       phone: function (val) {
-        this.phone_number(val);
+        this.self.phone_number = val;
         return this;
       },
       customer: function (fardel) {
-        this.body = fardel;
+        this.self.body = fardel;
+        return this;
+      },
+      city: function (val) {
+        this.self.city = val;
+        return this;
+      },
+      postal_code: function (val) {
+        this.self.postal_code = val;
+        return this;
+      },
+      state: function (val) {
+        this.self.state = val;
         return this;
       },
     };
