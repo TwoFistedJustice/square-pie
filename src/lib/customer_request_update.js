@@ -55,6 +55,13 @@ class Customer_Update extends Retrieve_Update_Delete {
       note: undefined,
       birthday: undefined, // RFC3339
       version: undefined, // int64 Square will automatically increment this on their end when update is made
+      tax_ids: undefined,
+    };
+    this.configuration = {
+      maximums: {
+        phone_number: 11,
+        tax_ids: 20,
+      },
     };
   }
 
@@ -94,6 +101,9 @@ class Customer_Update extends Retrieve_Update_Delete {
   }
   get version() {
     return this._body.version;
+  }
+  get tax_ids() {
+    return this._body.tax_ids;
   }
 
   // SETTERS
@@ -183,6 +193,18 @@ class Customer_Update extends Retrieve_Update_Delete {
       this._body.version = int;
     }
   }
+  set tax_ids(eu_vat) {
+    if (
+      shazam_max_length(
+        this.configuration.tax_ids,
+        eu_vat,
+        this._display_name,
+        "tax_ids"
+      )
+    ) {
+      this._body.tax_ids = { eu_vat };
+    }
+  }
 
   // MAKER METHODS
   make() {
@@ -197,11 +219,15 @@ class Customer_Update extends Retrieve_Update_Delete {
         return this;
       },
       company_name: function (val) {
-        this.self._body.company_name = val;
+        this.self.company_name = val;
         return this;
       },
       nickname: function (val) {
-        this.self._body.nickname = val;
+        this.self.nickname = val;
+        return this;
+      },
+      address: function (val) {
+        this.self.address = val;
         return this;
       },
       email_address: function (val) {
@@ -226,6 +252,10 @@ class Customer_Update extends Retrieve_Update_Delete {
       },
       version: function (val) {
         this.self.version = val;
+        return this;
+      },
+      tax_ids: function (val) {
+        this.self.tax_ids = val;
         return this;
       },
       first_name: function (val) {
