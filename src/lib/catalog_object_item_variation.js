@@ -29,7 +29,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         item_option_values: undefined, // ARRAY of ids
         location_overrides: undefined, // [ CHAIN ]
         inventory_alert_type: undefined,
-        inventory_alert_type_threshold: undefined,
+        inventory_alert_threshold: undefined,
         track_inventory: undefined,
         measurement_unit_id: undefined,
         pricing_type: undefined, // REQUIRED FIELD
@@ -89,8 +89,8 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   get inventory_alert_type() {
     return this._fardel.item_variation_data.inventory_alert_type;
   }
-  get inventory_alert_type_threshold() {
-    return this._fardel.item_variation_data.inventory_alert_type_threshold;
+  get inventory_alert_threshold() {
+    return this._fardel.item_variation_data.inventory_alert_threshold;
   }
   get user_data() {
     return this._fardel.item_variation_data.user_data;
@@ -149,10 +149,10 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     }
   }
   // todo - this is wrong, it takes an object
-  set item_option_values(str) {
+  set item_option_values(obj) {
     // Square docs are unclear about this
     arrayify(this._fardel.item_variation_data, "item_option_values");
-    this._fardel.item_variation_data.item_option_values.push(str);
+    this._fardel.item_variation_data.item_option_values.push(obj);
   }
   set location_overrides(obj) {
     // todo practically a subclass unto itself...
@@ -171,6 +171,12 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   }
   set inventory_alert_type(str) {
     this._fardel.item_variation_data.inventory_alert_type = str;
+  }
+  set inventory_alert_threshold(int) {
+    if (shazam_integer(int, this._display_name, "inventory_alert_threshold"));
+    {
+      this._fardel.item_variation_data.inventory_alert_threshold = int;
+    }
   }
   set track_inventory(bool) {
     this._fardel.item_variation_data.track_inventory = bool;
@@ -282,19 +288,20 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         this.self.item_id = id;
         return this;
       },
-      // todo - this is wrong, it takes an object- should take two args
-      //  call a private helper, which calls the setter
-      // https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemOptionValueForItemVariation
-      Item: function (str) {
-        this.self.item_option_values = str;
+      item_option_values: function (option_id, value_id) {
+        this.self.item_option_values = {
+          item_option_id: option_id,
+          item_option_value_id: value_id,
+        };
         return this;
       },
+      //todo complex
       location_overrides: function (obj) {
         this.self.location_overrides = obj;
         return this;
       },
-      inventory_alert_threshold: function (str) {
-        this.self.inventory_alert_threshold = str;
+      inventory_alert_threshold: function (int) {
+        this.self.inventory_alert_threshold = int;
         return this;
       },
       inventory_alert_type: function () {
