@@ -172,9 +172,6 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   set inventory_alert_type(str) {
     this._fardel.item_variation_data.inventory_alert_type = str;
   }
-  set inventory_alert_type_threshold(str) {
-    this._fardel.item_variation_data.inventory_alert_type_threshold = str;
-  }
   set track_inventory(bool) {
     this._fardel.item_variation_data.track_inventory = bool;
   }
