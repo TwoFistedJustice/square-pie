@@ -26,7 +26,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         available_for_booking: undefined,
         service_duration: undefined, // int64
         item_id: "", // empty string to aid next step
-        item_options_values: undefined, // ARRAY of ids
+        item_option_values: undefined, // ARRAY of ids
         location_overrides: undefined, // [ CHAIN ]
         inventory_alert_type: undefined,
         inventory_alert_type_threshold: undefined,
@@ -101,8 +101,8 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   get available_for_booking() {
     return this._fardel.item_variation_data.available_for_booking;
   }
-  get item_options_values() {
-    return this._fardel.item_variation_data.item_options_values;
+  get item_option_values() {
+    return this._fardel.item_variation_data.item_option_values;
   }
   get measurement_unit_id() {
     return this._fardel.item_variation_data.measurement_unit_id;
@@ -149,10 +149,10 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     }
   }
   // todo - this is wrong, it takes an object
-  set item_options_values(str) {
+  set item_option_values(str) {
     // Square docs are unclear about this
-    arrayify(this._fardel.item_variation_data, "item_options_values");
-    this._fardel.item_variation_data.item_options_values.push(str);
+    arrayify(this._fardel.item_variation_data, "item_option_values");
+    this._fardel.item_variation_data.item_option_values.push(str);
   }
   set location_overrides(obj) {
     // todo practically a subclass unto itself...
@@ -283,7 +283,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
       //  call a private helper, which calls the setter
       // https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemOptionValueForItemVariation
       Item: function (str) {
-        this.self.item_options_values = str;
+        this.self.item_option_values = str;
         return this;
       },
       location_overrides: function (obj) {
