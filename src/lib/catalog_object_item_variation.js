@@ -148,6 +148,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
       this._fardel.item_variation_data.service_duration = num * 60 * 1000;
     }
   }
+  // todo - this is wrong, it takes an object
   set item_options_values(str) {
     // Square docs are unclear about this
     arrayify(this._fardel.item_variation_data, "item_options_values");
@@ -194,9 +195,12 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.stockable_conversion = obj;
   }
   set team_member_ids(str) {
-    if (arrayify(this._fardel.item_variation_data, "team_member_ids")) {
-      this._fardel.item_variation_data.team_member_ids.push(str);
-    }
+    arrayify(
+      this._fardel.item_variation_data,
+      "team_member_ids",
+      this._display_name
+    );
+    this._fardel.item_variation_data.team_member_ids.push(str);
   }
   set upc(upc) {
     this._fardel.item_variation_data.upc = upc;
@@ -275,7 +279,10 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         this.self.service_duration = num;
         return this;
       },
-      item_options_values: function (str) {
+      // todo - this is wrong, it takes an object- should take two args
+      //  call a private helper, which calls the setter
+      // https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemOptionValueForItemVariation
+      Item: function (str) {
         this.self.item_options_values = str;
         return this;
       },
@@ -283,9 +290,12 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         this.self.location_overrides = obj;
         return this;
       },
-      inventory_alert_type_threshold: function (str) {
-        this.self.inventory_alert_type_threshold = str;
+      inventory_alert_threshold: function (str) {
+        this.self.inventory_alert_threshold = str;
         return this;
+      },
+      inventory_alert_type: function () {
+        return this.self.#enum_inventory_alert_type();
       },
       track_inventory: function (bool) {
         this.self.track_inventory = bool;
@@ -323,9 +333,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         this.self.user_data = str;
         return this;
       },
-      inventory_alert_type: function () {
-        return this.self.#enum_inventory_alert_type();
-      },
+
       pricing_type: function () {
         return this.self.#enum_pricing_type();
       },
