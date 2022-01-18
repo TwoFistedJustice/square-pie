@@ -123,7 +123,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    * @return sets the id
    * */
   set item_id(id) {
-    this._fardel.item_variation_data.id = id;
+    this._fardel.item_variation_data.item_id = id;
   }
   // overrides super
   set name(str) {
@@ -232,6 +232,8 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     };
   }
 
+  // todo change this so it can be used to set both fardel.pricing_type and location_override.pricing_type
+  //  won't need 'return this' since it only sets one value and doesn't stack with make() sub-methods
   #enum_pricing_type() {
     return {
       self: this,
@@ -274,6 +276,10 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
       },
       service_duration: function (num) {
         this.self.service_duration = num;
+        return this;
+      },
+      item_id: function (id) {
+        this.self.item_id = id;
         return this;
       },
       // todo - this is wrong, it takes an object- should take two args
