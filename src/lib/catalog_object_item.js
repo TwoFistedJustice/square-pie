@@ -27,6 +27,7 @@ class Catalog_Item extends Catalog_Object_Super {
         item_options: 6,
       },
       defaults: {
+        // todo move this to a user config file
         auto_set_appointment_service: false,
       },
     };
@@ -133,9 +134,6 @@ class Catalog_Item extends Catalog_Object_Super {
   set id(id) {
     this._fardel.id = id;
   }
-  set type(bool) {
-    this._fardel.type = "ITEM";
-  }
   set name(str) {
     let caller = "name";
     if (shazam_max_length(this.configuration.maximums.name, str, caller)) {
@@ -184,6 +182,7 @@ class Catalog_Item extends Catalog_Object_Super {
   }
   set modifier_list_info(obj) {
     // has one required value -- the subproperty modifier_overrides also has one required value
+    // todo remove if block
     if (arrayify(this._fardel.item_data, "modifier_list_info")) {
       this._fardel.item_data.modifier_list_info.push(obj);
     }
