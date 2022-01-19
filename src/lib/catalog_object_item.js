@@ -1,5 +1,6 @@
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
 const {
+  shazam_boolean,
   shazam_max_length,
   shazam_max_length_array,
   arrayify,
@@ -47,7 +48,7 @@ class Catalog_Item extends Catalog_Object_Super {
         product_type: this.configuration.defaults.auto_set_appointment_service
           ? "APPOINTMENTS_SERVICE"
           : "REGULAR",
-        skip_modifier_screen: undefined, //default is false
+        skip_modifier_screen: undefined, //defaults to false
         item_options: undefined, // => array of objects
         sort_name: undefined, // supported in Japan only
       },
@@ -212,6 +213,12 @@ class Catalog_Item extends Catalog_Object_Super {
   set product_type(val) {
     this._fardel.item_data.product_type = val;
   }
+
+  set skip_modifier_screen(bool) {
+    if (shazam_boolean(bool, this._display_name, "skip_modifier_screen")) {
+      this._fardel.item_data.skip_modifier_screen = bool;
+    }
+  }
   set item_options(id) {
     arrayify(this._fardel.item_data, "item_options", this._display_name);
     if (
@@ -307,6 +314,10 @@ class Catalog_Item extends Catalog_Object_Super {
       },
       variations: function (obj) {
         this.self.variations = obj;
+        return this;
+      },
+      skip_modifier_screen: function (bool) {
+        this.self.skip_modifier_screen = bool;
         return this;
       },
       item_options: function (id) {
