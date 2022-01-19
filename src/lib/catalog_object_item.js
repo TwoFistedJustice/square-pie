@@ -1,5 +1,9 @@
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
-const { shazam_max_length, arrayify } = require("./utilities");
+const {
+  shazam_max_length,
+  shazam_max_length_array,
+  arrayify,
+} = require("./utilities");
 const { isHexColor } = require("validator");
 
 const man =
@@ -44,7 +48,7 @@ class Catalog_Item extends Catalog_Object_Super {
           ? "APPOINTMENTS_SERVICE"
           : "REGULAR",
         skip_modifier_screen: undefined, //default is false
-        item_options: undefined, // => array of strings
+        item_options: undefined, // => array of objects
         sort_name: undefined, // supported in Japan only
       },
     };
@@ -209,16 +213,16 @@ class Catalog_Item extends Catalog_Object_Super {
     this._fardel.item_data.product_type = val;
   }
   set item_options(id) {
+    arrayify(this._fardel.item_data, "item_options", this._display_name);
     if (
-      arrayify(this._fardel.item_data, "item_options") &&
-      shazam_max_length(
-        this.item_options.length,
+      shazam_max_length_array(
         this.configuration.item_options,
+        this._fardel.item_data.item_options,
         this._display_name,
         "item_options"
       )
     ) {
-      this._fardel.item_data.item_options.push(id);
+      this._fardel.item_data.item_options.push({ item_option_id: id });
     }
   }
   set sort_name(str) {
