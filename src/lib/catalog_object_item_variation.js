@@ -6,8 +6,6 @@ const {
   shazam_integer,
 } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
-// https://developer.squareup.com/reference/square/objects/CatalogItemVariation
-
 const man =
   "Creates a Catalog Item-Variation which you must then add to an 'Item'.\n" +
   "\nhttps://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation";
@@ -19,6 +17,9 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   constructor() {
     super();
     this._fardel = {
+      id: undefined,
+      present_at_all_locations: undefined, // bool
+      present_at_location_ids: undefined, //[str]
       type: "ITEM_VARIATION",
       item_variation_data: {
         name: undefined,

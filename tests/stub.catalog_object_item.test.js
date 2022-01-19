@@ -71,9 +71,33 @@ describe("getters/setters", () => {
     make = item.make();
   });
 
+  test("make().id () should set ", () => {
+    let expected = id;
+    make.name(id);
+    expect(item.id).toEqual(expected);
+  });
+
+  test("make().temp_id () should set ", () => {
+    let expected = "#" + id;
+    make.name(id);
+    expect(item.id).toEqual(expected);
+  });
+
+  test("make().present_at_all_locations () should set ", () => {
+    let expected = true;
+    make.present_at_all_locations(true);
+    expect(item.present_at_all_locations).toEqual(expected);
+  });
+
+  test("make().present_at_all_locations_ids () should set ", () => {
+    let expected = [id];
+    make.present_at_all_locations_ids(id);
+    expect(item.present_at_location_ids).toEqual(expected);
+  });
+
   test("make().name () should set ", () => {
     let expected = "Butterscotch Zombie";
-    make.name(expected);
+    make.name("Butterscotch Zombie");
     expect(item.name).toEqual(expected);
   });
   test("make().description () should set ", () => {
@@ -83,7 +107,7 @@ describe("getters/setters", () => {
   });
   test("make().abbreviation () should set ", () => {
     let expected = "BZ";
-    make.abbreviation(expected);
+    make.abbreviation("BZ");
     expect(item.abbreviation).toEqual(expected);
   });
   test("make().category_id () should set ", () => {
@@ -93,22 +117,22 @@ describe("getters/setters", () => {
   });
   test("make().label_color () should set ", () => {
     let expected = "#54C571";
-    make.label_color(expected);
+    make.label_color("#54C571");
     expect(item.label_color).toEqual(expected);
   });
   test("make().available_online () should set ", () => {
     let expected = true;
-    make.available_online(expected);
+    make.available_online(true);
     expect(item.available_online).toEqual(expected);
   });
   test("make().available_for_pickup () should set ", () => {
     let expected = true;
-    make.available_for_pickup(expected);
+    make.available_for_pickup(true);
     expect(item.available_for_pickup).toEqual(expected);
   });
   test("make().available_electroncially () should set ", () => {
     let expected = true;
-    make.available_electronically(expected);
+    make.available_electronically(true);
     expect(item.available_electronically).toEqual(expected);
   });
   test("make().tax_ids () should set ", () => {
@@ -117,8 +141,17 @@ describe("getters/setters", () => {
     expect(item.tax_ids).toEqual(expected);
   });
   test("make().modifier_list_info () should set ", () => {
-    let expected = {};
-    make.modifier_list_info(false);
+    let expected = {
+      modifier_list_id: id,
+      enabled: false,
+      max_selected_modifiers: 15,
+      min_selected_modifiers: 5,
+      modifier_overrides: {
+        modifier_id: id,
+        on_by_default: true, // If true, this CatalogModifier should be selected by default for this CatalogItem
+      },
+    };
+    make.modifier_list_info({ build: "me" });
     expect(item.modifier_list_info).toMatchObject(expected);
   });
 
@@ -168,6 +201,12 @@ describe("getters/setters", () => {
   test("make().product_type().appt() should set ", () => {
     let expected = "APPOINTMENTS_SERVICE";
     make.product_type().appt();
+    expect(item.product_type).toEqual(expected);
+  });
+
+  test("make().product_type().regular() should set ", () => {
+    let expected = "REGULAR";
+    make.product_type().appt().regular();
     expect(item.product_type).toEqual(expected);
   });
 

@@ -34,6 +34,8 @@ class Catalog_Item extends Catalog_Object_Super {
 
     this._fardel = {
       id: undefined,
+      present_at_all_locations: undefined, // bool
+      present_at_location_ids: undefined, //[str]
       type: "ITEM",
       item_data: {
         name: undefined,
@@ -280,16 +282,16 @@ class Catalog_Item extends Catalog_Object_Super {
         this.self.id = "#" + temp_id;
         return this;
       },
-      name: function (str) {
-        this.self.name = str;
-        return this;
-      },
       present_at_all_locations: function (bool) {
         this.self.present_at_all_locations = bool;
         return this;
       },
       present_at_all_locations_ids: function (id) {
-        this.self.present_at_locations_ids = id;
+        this.self.present_at_location_ids = id;
+        return this;
+      },
+      name: function (str) {
+        this.self.name = str;
         return this;
       },
       description: function (str) {
