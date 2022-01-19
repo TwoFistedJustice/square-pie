@@ -50,15 +50,10 @@ class Catalog_Object_Super {
 
   /**
    * Sets the catalog object id
-   * @param {string} tempId
-   * @returns {string} the new id
+   * @param {string} id
    */
-  set id(tempId) {
-    if (tempId[0] !== "#") {
-      this._fardel.id = "#" + tempId.slice(0);
-    } else {
-      this._fardel.id = tempId;
-    }
+  set id(id) {
+    this._fardel.id = id;
   }
 
   /**
