@@ -181,11 +181,9 @@ class Catalog_Item extends Catalog_Object_Super {
     this._fardel.item_data.tax_ids.push(id);
   }
   set modifier_list_info(obj) {
-    // has one required value -- the subproperty modifier_overrides also has one required value
-    // todo remove if block
-    if (arrayify(this._fardel.item_data, "modifier_list_info")) {
-      this._fardel.item_data.modifier_list_info.push(obj);
-    }
+    // has one required value -- the sub-property modifier_overrides also has one required value
+    arrayify(this._fardel.item_data, "modifier_list_info");
+    this._fardel.item_data.modifier_list_info.push(obj);
   }
 
   // item_variation id should be "#item.name" + "item_variation.name"
@@ -274,12 +272,12 @@ class Catalog_Item extends Catalog_Object_Super {
   make() {
     return {
       self: this,
-      id: function (tempId) {
-        this.self.id = tempId;
+      id: function (id) {
+        this.self.id = id;
         return this;
       },
-      temp_id: function (tempId) {
-        this.self.id = "#" + tempId;
+      temp_id: function (temp_id) {
+        this.self.id = "#" + temp_id;
         return this;
       },
       name: function (str) {
