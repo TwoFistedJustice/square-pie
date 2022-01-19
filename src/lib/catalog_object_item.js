@@ -253,6 +253,9 @@ class Catalog_Item extends Catalog_Object_Super {
       appointment: function () {
         return this.appointments_service();
       },
+      appt: function () {
+        return this.appointments_service();
+      },
     };
   }
 
