@@ -21,7 +21,7 @@ const man =
 class Order_Line_Item {
   _display_name = "Order_Line_Item";
   _last_verified_square_api_version = "2021-07-21";
-
+  _help = this.display_name + ": " + man;
   constructor() {
     this._fardel = {
       uid: nanoid(uid_length),
@@ -31,12 +31,12 @@ class Order_Line_Item {
       variation_name: undefined,
       catalog_object_id: undefined,
       catalog_version: undefined, // integer
-      item_type: undefined, // FIXED
-      base_price_money: undefined, // HELPER MONEY
-      applied_discounts: undefined, // ARRAY
-      applied_taxes: undefined, // ARRAY
-      modifiers: undefined, // ARRAY
-      pricing_blocklists: undefined, // ARRAY
+      item_type: undefined, // enum
+      base_price_money: undefined, // Arche Money
+      applied_discounts: undefined, // [id...]
+      applied_taxes: undefined, // [id...]
+      modifiers: undefined, // [id...]
+      pricing_blocklists: undefined, // [id...]
       quantity_unit: undefined, // OBJECT
       metadata: undefined, // do not implement in v1
     };
@@ -155,9 +155,11 @@ class Order_Line_Item {
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
-  _help = this.display_name + ": " + man;
   get help() {
     return this._help;
+  }
+  get fardel() {
+    return this._fardel;
   }
   get uid() {
     return this._fardel.uid;
@@ -284,7 +286,7 @@ class Order_Line_Item {
   }
 
   set pricing_blocklists(obj) {
-    arrayify(this._fardel, "pricing_blocklist", this._display_name);
+    arrayify(this._fardel, "pricing_blocklists", this._display_name);
     this._fardel.pricing_blocklists.push(obj);
   }
   set quantity_unit(obj) {
