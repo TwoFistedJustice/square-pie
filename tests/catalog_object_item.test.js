@@ -58,6 +58,9 @@ describe("basic object class structures", () => {
 // abbrev
 // item_options array len
 // fardel getter
+// 53 product type auto set
+// 70-79 fardel error check
+// 154-157  label color error check
 
 /* --------------------------------------------------------*
  *                                                         *
@@ -73,13 +76,13 @@ describe("getters/setters", () => {
 
   test("make().id () should set ", () => {
     let expected = id;
-    make.name(id);
+    make.id(id);
     expect(item.id).toEqual(expected);
   });
 
   test("make().temp_id () should set ", () => {
     let expected = "#" + id;
-    make.name(id);
+    make.temp_id(id);
     expect(item.id).toEqual(expected);
   });
 
@@ -219,5 +222,11 @@ describe("getters/setters", () => {
     let expected = [{ item_option_id: id }];
     make.item_options(id);
     expect(item.item_options).toEqual(expected);
+  });
+
+  test("make().sort_name () should set ", () => {
+    let expected = "muffin";
+    make.sort_name("muffin");
+    expect(item.sort_name).toEqual(expected);
   });
 });
