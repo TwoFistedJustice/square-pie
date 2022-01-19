@@ -42,7 +42,7 @@ class Catalog_Item extends Catalog_Object_Super {
         label_color: undefined,
         available_online: undefined,
         available_for_pickup: undefined,
-        available_electroncially: undefined,
+        available_electronically: undefined,
         tax_ids: undefined, // => array of strings
         modifier_list_info: undefined, // [modifier, ...]
         variations: undefined, // [item_variation, ...]
@@ -105,7 +105,7 @@ class Catalog_Item extends Catalog_Object_Super {
     return this._fardel.item_data.available_for_pickup;
   }
   get available_electronically() {
-    return this._fardel.item_data.available_electroncially;
+    return this._fardel.item_data.available_electronically;
   }
   get tax_ids() {
     return this._fardel.item_data.tax_ids;
@@ -173,15 +173,14 @@ class Catalog_Item extends Catalog_Object_Super {
     this._fardel.item_data.available_for_pickup = bool;
   }
   set available_electronically(bool) {
-    this._fardel.item_data.available_electroncially = bool;
+    this._fardel.item_data.available_electronically = bool;
   }
   set category_id(id) {
     this._fardel.item_data.category_id = id;
   }
   set tax_ids(id) {
-    if (arrayify(this._fardel.item_data, "tax_ids")) {
-      this._fardel.item_data.tax_ids.push(id);
-    }
+    arrayify(this._fardel.item_data, "tax_ids", this._display_name);
+    this._fardel.item_data.tax_ids.push(id);
   }
   set modifier_list_info(obj) {
     // has one required value -- the subproperty modifier_overrides also has one required value
