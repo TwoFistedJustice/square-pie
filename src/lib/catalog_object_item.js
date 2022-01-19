@@ -32,6 +32,7 @@ class Catalog_Item extends Catalog_Object_Super {
     };
 
     this._fardel = {
+      id: undefined,
       type: "ITEM",
       item_data: {
         name: undefined,
@@ -75,6 +76,9 @@ class Catalog_Item extends Catalog_Object_Super {
       );
     }
     return this._fardel;
+  }
+  get id() {
+    return this._fardel.id;
   }
   get type() {
     return this._fardel.type;
@@ -126,6 +130,9 @@ class Catalog_Item extends Catalog_Object_Super {
   }
 
   // SETTERS
+  set id(id) {
+    this._fardel.id = id;
+  }
   set type(bool) {
     this._fardel.type = "ITEM";
   }
@@ -192,24 +199,30 @@ class Catalog_Item extends Catalog_Object_Super {
   set variations(obj) {
     // An item must have at least one variation.
     // If user didn't add an id, create an id for the variation by combining name fields
-    if (obj.id === undefined || obj.id === "") {
-      obj.id = `#${this.name}_${obj.item_variation_data.name}`;
+    // the ID is mentioned in the UPSERT docs
+    if (obj.item_id === undefined || obj.item_id === "") {
+      // obj.item_id = `#${this.name}_${obj.item_variation_data.name}`;
+      obj.item_id = this.id;
     }
-
+    // todo Arrayify
     if (!Array.isArray(this._fardel.item_data.variations)) {
       this._fardel.item_data.variations = [];
     }
+
     if (obj.item_variation_data.item_id !== this.id) {
       obj.item_variation_data.item_id = this.id;
     }
+
+    // if either property is set, change product_type to appointment
     if (
-      obj.available_for_booking !== undefined ||
-      obj.service_duration !== undefined
+      obj.item_variation_data.available_for_booking !== undefined ||
+      obj.item_variation_data.service_duration !== undefined
     ) {
       this.product_type = "APPOINTMENTS_SERVICE";
     }
     this._fardel.item_data.variations.push(obj);
   }
+
   set product_type(val) {
     this._fardel.item_data.product_type = val;
   }
@@ -263,6 +276,14 @@ class Catalog_Item extends Catalog_Object_Super {
   make() {
     return {
       self: this,
+      id: function (tempId) {
+        this.self.id = tempId;
+        return this;
+      },
+      temp_id: function (tempId) {
+        this.self.id = "#" + tempId;
+        return this;
+      },
       name: function (str) {
         this.self.name = str;
         return this;
@@ -273,10 +294,6 @@ class Catalog_Item extends Catalog_Object_Super {
       },
       present_at_all_locations_ids: function (id) {
         this.self.present_at_locations_ids = id;
-        return this;
-      },
-      id: function (tempId) {
-        this.self.id = tempId;
         return this;
       },
       description: function (str) {
