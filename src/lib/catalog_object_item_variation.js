@@ -12,7 +12,7 @@ const man =
 
 class Catalog_Item_Variation extends Catalog_Object_Super {
   _display_name = "Catalog_Item_Variation";
-  _last_verified_square_api_version = "2021-11-17";
+  _last_verified_square_api_version = "2021-15-15";
   _help = this.display_name + ": " + man;
   constructor() {
     super();
@@ -50,15 +50,6 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         user_data: 255,
       },
     };
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
-  get fardel() {
-    return this._fardel;
   }
   get item_id() {
     return this._fardel.item_variation_data.item_id;

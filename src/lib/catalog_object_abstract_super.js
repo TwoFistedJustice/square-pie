@@ -6,9 +6,15 @@ const { arrayify } = require("./utilities");
  * This class should own the "ID" value and automatically insert the required '#' character if the user does not provide it.
  * (check if the first character is a hash, and insert one if it's not there)
  */
+const man =
+  "Super class for all Catalog Objects.\n" +
+  "Follow the structure on the Square batch-upsert request page\n" +
+  "\nhttps://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects";
 
 class Catalog_Object_Super {
   _display_name = "Catalog_Object_Super";
+  _last_verified_square_api_version = "2021-15-15";
+  _help = this.display_name + ": " + man;
   /**
    * Create a catalog object
    */
@@ -23,7 +29,12 @@ class Catalog_Object_Super {
   get display_name() {
     return this._display_name;
   }
-
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
+  }
   /**
    * Gets catalog object id
    * @returns {string} id
@@ -31,7 +42,9 @@ class Catalog_Object_Super {
   get id() {
     return this._fardel.id;
   }
-
+  get fardel() {
+    return this._fardel;
+  }
   /**
    * Gets if object can be found at all locations
    * @returns {boolean}

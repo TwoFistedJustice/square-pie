@@ -15,7 +15,7 @@ const man =
 
 class Catalog_Item extends Catalog_Object_Super {
   _display_name = "Catalog_Item";
-  _last_verified_square_api_version = "2021-07-21";
+  _last_verified_square_api_version = "2021-15-15";
   _help = this.display_name + ": " + man;
   constructor() {
     super();
@@ -60,12 +60,6 @@ class Catalog_Item extends Catalog_Object_Super {
   }
 
   // GETTERS
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
   get fardel() {
     if (
       !Array.isArray(this._fardel.item_data.variations) ||
