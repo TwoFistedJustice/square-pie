@@ -60,9 +60,6 @@ class Catalog_Item extends Catalog_Object_Super {
   }
 
   // GETTERS
-  get display_name() {
-    return this._display_name;
-  }
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
@@ -79,9 +76,6 @@ class Catalog_Item extends Catalog_Object_Super {
       );
     }
     return this._fardel;
-  }
-  get id() {
-    return this._fardel.id;
   }
   get type() {
     return this._fardel.type;
@@ -133,9 +127,6 @@ class Catalog_Item extends Catalog_Object_Super {
   }
 
   // SETTERS
-  set id(id) {
-    this._fardel.id = id;
-  }
   set name(str) {
     let caller = "name";
     if (shazam_max_length(this.configuration.maximums.name, str, caller)) {
