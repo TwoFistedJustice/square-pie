@@ -42,6 +42,7 @@ describe("basic object class structures", () => {
  * ------------------------------------------------------- */
 
 // stockable_conversion
+// service_duration
 
 /* --------------------------------------------------------*
  *                                                         *
