@@ -12,7 +12,7 @@ const man =
 
 class Catalog_Item_Variation extends Catalog_Object_Super {
   _display_name = "Catalog_Item_Variation";
-  _last_verified_square_api_version = "2021-15-15";
+  _last_verified_square_api_version = "2021-12-15";
   _help = this.display_name + ": " + man;
   constructor() {
     super();

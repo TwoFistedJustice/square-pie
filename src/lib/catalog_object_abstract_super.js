@@ -13,7 +13,7 @@ const man =
 
 class Catalog_Object_Super {
   _display_name = "Catalog_Object_Super";
-  _last_verified_square_api_version = "2021-15-15";
+  _last_verified_square_api_version = "2021-12-15";
   _help = this.display_name + ": " + man;
   /**
    * Create a catalog object
