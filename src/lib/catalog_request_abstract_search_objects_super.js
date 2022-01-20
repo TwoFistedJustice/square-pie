@@ -16,7 +16,7 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
   _display_name = "Catalog_Search_Objects_Super";
   constructor() {
     super();
-    this._method = "post";
+    this._method = "POST";
     this._endpoint = "/search";
     this._body = {
       cursor: undefined,
