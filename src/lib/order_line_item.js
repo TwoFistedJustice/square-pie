@@ -52,7 +52,7 @@ class Order_Line_Item {
       },
       minimums: {
         quantity: 1,
-        uid: 1,
+        // uid: 1,
       },
     };
   }
@@ -62,10 +62,6 @@ class Order_Line_Item {
     this.#modifier = {
       uid: nanoid(uid_length),
     };
-  }
-
-  #init_quantity_unit() {
-    this._fardel.quantity_unit = {};
   }
 
   #bake_quantity_unit() {
@@ -141,13 +137,6 @@ class Order_Line_Item {
     return order_line_item_enum.item_type(this);
   }
 
-  #uid_length(uid) {
-    return shazam_min_length(this.configuration.minimums.uid, uid) &&
-      shazam_max_length(this.configuration.uid, uid)
-      ? true
-      : false;
-  }
-
   // GETTERS
   get display_name() {
     return this._display_name;
@@ -187,9 +176,6 @@ class Order_Line_Item {
   }
   get base_price_money() {
     return this._fardel.base_price_money;
-  }
-  get gross_sales_money() {
-    return this._fardel.gross_sales_money;
   }
   get applied_discounts() {
     return this._fardel.applied_discounts;
@@ -259,9 +245,6 @@ class Order_Line_Item {
   }
   set base_price_money(money) {
     this._fardel.base_price_money = money;
-  }
-  set gross_sales_money(money) {
-    this._fardel.gross_sales_money = money;
   }
   set applied_discounts(obj) {
     arrayify(this._fardel, "applied_discounts", this._display_name);
