@@ -265,8 +265,12 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
       object_type: function () {
         return this.self.enum_object_types();
       },
-      text_query: function (arr) {
-        this.self.text_query = arr;
+      text_query: function (word) {
+        this.self.text_query = word;
+        return this;
+      },
+      concat_text_query: function (arr) {
+        this.self.concat_text_query = arr;
         return this;
       },
       text_query_add: function (word) {
