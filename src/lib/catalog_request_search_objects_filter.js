@@ -277,6 +277,10 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         this.self.text_query_remove(word);
         return this;
       },
+      limit: function (int32) {
+        this.self.limit = int32;
+        return this;
+      },
     };
   }
 }

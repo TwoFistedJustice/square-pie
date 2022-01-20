@@ -1,5 +1,5 @@
 const Catalog_Request = require("./catalog_request_abstract");
-const { shazam_time_RFC3339 } = require("./utilities");
+const { shazam_time_RFC3339, shazam_integer } = require("./utilities");
 const catalog_search_objects_enum = require("./enum/catalog_search_objects_enum");
 
 /*
@@ -24,6 +24,7 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
       begin_time: undefined, // RFC 3339 format
       object_types: undefined, //[enum]
       query: {}, // A query to be used to filter or sort the results. If no query is specified, the entire catalog will be returned.
+      limit: undefined,
     };
   }
   get cursor() {
@@ -40,6 +41,9 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
   }
   get query() {
     return this._body.query;
+  }
+  get limit() {
+    return this._body.limit;
   }
   set cursor(token) {
     this._body.cursor = token;
@@ -62,6 +66,11 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
       throw new Error(`object_types array already contains ${type}`);
     }
     this._body.object_types.push(type);
+  }
+  set limit(int32) {
+    if (shazam_integer(int32, this._display_name, "limit")) {
+      this._body.limit = int32;
+    }
   }
   query_reset() {
     this._body.query = {};
