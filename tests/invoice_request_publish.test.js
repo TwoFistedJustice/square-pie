@@ -15,6 +15,7 @@ describe("Invoice_Publish", () => {
   let endpoint = `/${id}/publish`;
   let id2 = "ABC";
   let endpoint2 = `/${id2}/publish`;
+  let method = "POST"; //http method from Square docs
   beforeEach(function () {
     publish = new Invoice_Publish(id);
   });
@@ -39,7 +40,7 @@ describe("Invoice_Publish", () => {
   });
 
   test("should have the method defined by Square set", () => {
-    expect(publish.method).toEqual("POST");
+    expect(publish.method).toEqual(method);
   });
 
   test("display name should be same as class name", () => {

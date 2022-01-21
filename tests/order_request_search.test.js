@@ -11,6 +11,8 @@ const { helper_arrays } = require("./helper_arrays");
 describe("Order_Search", () => {
   let search;
   let id = "someId";
+  let method = "POST"; //http method from Square docs
+
   beforeEach(function () {
     search = new Order_Search();
   });
@@ -24,7 +26,9 @@ describe("Order_Search", () => {
   test("Order_Search should have an endpoint", () => {
     expect(search.endpoint).toEqual("search");
   });
-
+  test("should have the method defined by Square", () => {
+    expect(search.method).toEqual(method);
+  });
   test("Order_Search location_ids should be an array", () => {
     expect(Array.isArray(search.location_ids)).toEqual(true);
   });

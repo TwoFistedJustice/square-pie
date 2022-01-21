@@ -9,7 +9,7 @@ describe("Customer_List", () => {
   let list;
   let class_name = "Customer_List";
   let endpoint = ""; //copy and paste from Square docs
-  let method = "get"; //http method from Square docs
+  let method = "GET"; //http method from Square docs
   beforeEach(function () {
     list = new Customer_List();
   });

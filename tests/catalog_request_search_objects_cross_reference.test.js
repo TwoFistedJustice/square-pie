@@ -11,7 +11,7 @@ describe("Catalog_Search_Cross_Reference", () => {
   let xref;
   let class_name = "Catalog_Search_Cross_Reference";
   let endpoint = "/search"; //copy and paste from Square docs
-  let method = "post"; //http method from Square docs
+  let method = "POST"; //http method from Square docs
   beforeEach(function () {
     xref = new Catalog_Search_Cross_Reference();
   });
