@@ -1,9 +1,4 @@
 const Invoice_List = require("../src/lib/invoice_request_list");
-describe("silence test suite", () => {
-  test("", () => {
-    expect("").toEqual("");
-  });
-});
 
 /* --------------------------------------------------------*
  *                                                         *

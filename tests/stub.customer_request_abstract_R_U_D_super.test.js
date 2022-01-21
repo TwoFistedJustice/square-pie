@@ -8,7 +8,7 @@
 
 describe("Silence test suite", () => {
   test("", () => {
-    expect("a").toEqual("a");
+    expect("b").toEqual("a");
   });
 });
 

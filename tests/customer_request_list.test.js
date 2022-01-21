@@ -1,10 +1,5 @@
 const Customer_List = require("../src/lib/customer_request_list");
 
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
 /* --------------------------------------------------------*
  *                                                         *
  *                        Customer_List

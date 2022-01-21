@@ -1,11 +1,5 @@
 const Invoice_Search = require("../src/lib/invoice_request_search");
 
-describe("silence test suite", () => {
-  test("", () => {
-    expect("").toEqual("");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                        Invoice_Search

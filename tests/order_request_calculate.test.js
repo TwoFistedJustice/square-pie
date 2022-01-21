@@ -1,11 +1,6 @@
 const Order_Calculate = require("../src/lib/order_request_calculate");
 
 const { long_strings } = require("./helper_objects");
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
 /* --------------------------------------------------------*
  *                                                         *
  *                        Order_Calculate

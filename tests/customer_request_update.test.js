@@ -1,11 +1,5 @@
 const Customer_Update = require("../src/lib/customer_request_update");
 
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                        Customer_Update

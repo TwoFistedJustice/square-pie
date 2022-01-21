@@ -1,9 +1,4 @@
 const Invoice_Delete = require("../src/lib/invoice_request_delete");
-describe("silence test suite", () => {
-  test("", () => {
-    expect("").toEqual("");
-  });
-});
 
 /* --------------------------------------------------------*
  *                                                         *

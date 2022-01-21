@@ -2,11 +2,6 @@ const Order_Update = require("../src/lib/order_request_update");
 
 const { long_strings } = require("./helper_objects");
 const Order_Object = require("../src/lib/order_object");
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
 
 /* --------------------------------------------------------*
  *                                                         *

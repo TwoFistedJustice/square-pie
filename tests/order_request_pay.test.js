@@ -2,12 +2,6 @@ const Order_Pay = require("../src/lib/order_request_pay");
 
 const { long_strings } = require("./helper_objects");
 const { helper_arrays } = require("./helper_arrays");
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                        Order_Pay

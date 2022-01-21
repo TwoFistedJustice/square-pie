@@ -4,12 +4,6 @@ const customers = sampleCustomers;
 const buffy = customers.buffy;
 // const mikey = customers.mikey;
 
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                        Customer_Create

@@ -2,13 +2,6 @@
 
 const Catalog_List = require("../src/lib/catalog_request_list");
 
-// tack on .only to this empty test to silence all other tests
-describe("silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
-
 describe("Catalog_List basics", () => {
   let list;
   let class_name = "Catalog_List";

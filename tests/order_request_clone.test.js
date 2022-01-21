@@ -1,12 +1,6 @@
 const Order_Clone = require("../src/lib/order_request_clone");
 
 const { long_strings } = require("./helper_objects");
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                        Order_Clone

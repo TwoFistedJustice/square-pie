@@ -3,12 +3,6 @@ const Invoice_Update = require("../src/lib/invoice_request_update");
 const { long_strings, helper_invoice } = require("./helper_objects");
 const Invoice_Object = require("../src/lib/invoice_object");
 
-describe("silence test suite", () => {
-  test("", () => {
-    expect("").toEqual("");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                Invoice_Update Basic Structures

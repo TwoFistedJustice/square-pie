@@ -2,12 +2,6 @@ const Invoice_Publish = require("../src/lib/invoice_request_publish");
 
 const { long_strings } = require("./helper_objects");
 
-describe("silence test suite", () => {
-  test("", () => {
-    expect("").toEqual("");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                        Invoice_Publish

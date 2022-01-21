@@ -6,12 +6,6 @@ const Customer_Search = require("../src/lib/customer_request_search");
 // const buffy = customers.buffy;
 // const mikey = customers.mikey;
 
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                        Customer_Search

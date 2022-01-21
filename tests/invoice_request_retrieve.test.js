@@ -1,9 +1,4 @@
 const Invoice_Retrieve = require("../src/lib/invoice_request_retrieve");
-describe("silence test suite", () => {
-  test("", () => {
-    expect("").toEqual("");
-  });
-});
 
 /* --------------------------------------------------------*
  *                                                         *
