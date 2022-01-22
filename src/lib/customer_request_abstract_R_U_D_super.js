@@ -48,7 +48,7 @@ class Customer_Retrieve_Update_Delete_Super extends Customer_Request {
     let endpoint = this.endpoint;
     if (query_param_regex.version.test(endpoint)) {
       let replacement = "version=" + value;
-      endpoint.replace(query_param_regex.version, replacement);
+      endpoint = endpoint.replace(query_param_regex.version, replacement);
     } else {
       if (!query_param_regex.start.test(endpoint)) {
         endpoint += "?";
