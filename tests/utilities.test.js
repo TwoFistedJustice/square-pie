@@ -38,10 +38,11 @@ const { dateCodes } = require("./helper_objects");
 // const should = require("chai").should();
 // const { long_strings } = require("./helper_objects");
 
-describe("Silence test suite", () => {
-  test("", () => {});
-});
-
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        defineify
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("defineify", () => {
   test("should add property to object", () => {
     let value = { a: 1 };
@@ -56,6 +57,11 @@ describe("defineify", () => {
   });
 });
 
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        maxLength
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("maxLength", () => {
   test("", () => {});
 });
@@ -187,7 +193,11 @@ describe("arche_money", () => {
     expect(received).toMatchObject(expected);
   });
 });
-
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        generate_error_message
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("generate_error_message", () => {
   test("generate_error_message should generate the correct string", () => {
     let key = "some_key";
@@ -573,6 +583,11 @@ describe("endpoint string query builder", () => {
   });
 });
 
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        query_string_endpoint
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("query_string_endpoint", () => {
   let val1 = "VAL1";
   let val2 = "VAL2";
@@ -618,7 +633,11 @@ describe("query_string_endpoint", () => {
     expect(query_params).toMatchObject(expected);
   });
 });
-
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_object_has_property
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("shazam_object_has_property", () => {
   let obj = {
     attribute_name: "jolly",
@@ -648,7 +667,11 @@ describe("shazam_object_has_property", () => {
     }).toThrowError(expected);
   });
 });
-
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_is_array
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("shazam_is_array", () => {
   let emptyArray = [];
   let goodArray = [1, 2, 3];
@@ -674,7 +697,11 @@ describe("shazam_is_array", () => {
     }).toThrowError(expected);
   });
 });
-
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_max_length_array
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("shazam_max_length_array", () => {
   let arr = ["a", "b"];
   test("shazam_max_length_array should throw if an array meets or exceeds limit", () => {
@@ -688,7 +715,11 @@ describe("shazam_max_length_array", () => {
     expect(received).toEqual(true);
   });
 });
-
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        shazam_min_length_array
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("shazam_min_length_array", () => {
   let arr = ["a", "b"];
   test("shazam_min_length_array should throw if an array deceeds limit", () => {
@@ -702,7 +733,11 @@ describe("shazam_min_length_array", () => {
     expect(received).toEqual(true);
   });
 });
-
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        arche_time_start_end
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("arche_time_start_end", () => {
   test("arche_time_start_end should throw if start not RFC3339", () => {
     expect(() => {
