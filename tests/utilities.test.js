@@ -1,7 +1,5 @@
 "use strict";
 const {
-  arche_time_start_end,
-  // define,
   defineify,
   query_param_add_value,
   query_param_is_present,
@@ -9,22 +7,12 @@ const {
   query_param_replace_value,
   query_string_builder,
   query_string_endpoint,
-  // setter_chain_generator_config,
-  // setter_chain_generator_separate_arrays,
-  // shazam_max_length,
   normalize_email,
   arrayify,
-  arche_money,
-  is_integer,
   generate_error_message,
   shazam_time_RFC3339,
   shazam_date_human_readable,
-  shazam_integer,
-  shazam_boolean,
   shazam_object_has_property,
-  shazam_is_array,
-  shazam_max_length_array,
-  shazam_min_length_array,
   shazam_number_LT,
   shazam_number_LE,
   shazam_number_GT,
@@ -33,10 +21,6 @@ const {
 } = require("../src/lib/utilities");
 
 const { dateCodes } = require("./helper_objects");
-// const {expect} = require ("chai");
-
-// const should = require("chai").should();
-// const { long_strings } = require("./helper_objects");
 
 /* --------------------------------------------------------*
  *                                                         *
@@ -55,15 +39,6 @@ describe("defineify", () => {
 
     expect(patient).toMatchObject(expected);
   });
-});
-
-/* --------------------------------------------------------*
- *                                                         *
- *                        maxLength
- *                                                         *
- * ------------------------------------------------------- */
-describe("maxLength", () => {
-  test("", () => {});
 });
 
 /* --------------------------------------------------------*
@@ -94,103 +69,20 @@ describe("arrayify", () => {
     expect(obj).toMatchObject(expected);
   });
 
+  test("arrayify should throw correct error message", () => {
+    let not_an_enumerable_object = 2;
+    let expected = "describe.test Cannot create property 'test' on number '2'";
+    expect(() => {
+      arrayify(not_an_enumerable_object, "test", "describe");
+    }).toThrowError(expected);
+  });
+
   test("arrayify should set caller arg to property name arg if caller is not included", () => {
     let not_an_enumerable_object = 2;
-    let expected = "test.caller was unable to create a new array at caller";
+    let expected = "test.caller Cannot create property 'caller' on number '2'";
     expect(() => {
       arrayify(not_an_enumerable_object, "caller", "test");
-    }).toThrowError(
-      "test.caller Cannot create property 'caller' on number '2'"
-    );
-  });
-});
-/* --------------------------------------------------------*
- *                                                         *
- *                        arche_money
- *                                                         *
- * ------------------------------------------------------- */
-
-describe("arche_money", () => {
-  test("arche_money utility should throw when fed a non-coercible to number amount", () => {
-    let amt = "CAD";
-    let currency = "CAD";
-
-    expect(() => {
-      arche_money(amt, currency);
-    }).toThrow();
-  });
-
-  test("arche_money utility should  throw when fed a non-ISO 4217 compliant currency", () => {
-    let amt = "2195";
-    let currency = "CD";
-
-    expect(() => {
-      arche_money(amt, currency);
-    }).toThrow();
-  });
-
-  test('arche_money utility should return a compliant object with "USD" when not fed a currency argument', () => {
-    let amt = "2195";
-    let expected = {
-      amount: 2195,
-      currency: "USD",
-    };
-
-    let received = arche_money(amt);
-
-    expect(received).toMatchObject(expected);
-  });
-
-  test('arche_money utility should return a compliant object with "CAD"', () => {
-    let amt = "2195";
-    let currency = "CAD";
-    let expected = {
-      amount: 2195,
-      currency: "CAD",
-    };
-
-    let received = arche_money(amt, currency);
-
-    expect(received).toMatchObject(expected);
-  });
-
-  test('arche_money utility should return a compliant object with "CAD"', () => {
-    let amt = "2195";
-    let currency = "CAD";
-    let expected = {
-      amount: 2195,
-      currency: "CAD",
-    };
-
-    let received = arche_money(amt, currency);
-
-    expect(received).toMatchObject(expected);
-  });
-
-  test('arche_money utility currency argument should be case-insensitive"', () => {
-    let amt = "2195";
-    let currency = "Cad";
-    let expected = {
-      amount: 2195,
-      currency: "CAD",
-    };
-
-    let received = arche_money(amt, currency);
-
-    expect(received).toMatchObject(expected);
-  });
-
-  test('arche_money utility should trim white space off of currency"', () => {
-    let amt = "2195";
-    let currency = " CAD ";
-    let expected = {
-      amount: 2195,
-      currency: "CAD",
-    };
-
-    let received = arche_money(amt, currency);
-
-    expect(received).toMatchObject(expected);
+    }).toThrowError(expected);
   });
 });
 /* --------------------------------------------------------*
@@ -243,78 +135,6 @@ describe("shazam_33339 date code verification utility", () => {
   });
 });
 
-/* --------------------------------------------------------*
- *                                                         *
- *                        shazam_integer
- *                                                         *
- * ------------------------------------------------------- */
-describe("shazam_integer integer verification utility", () => {
-  test("should throw on a non-integer string", () => {
-    expect(() => {
-      shazam_integer("95.5", "utilities test suite", "should throw");
-    }).toThrow();
-
-    expect(() => {
-      shazam_integer(95.5, "utilities test suite", "should throw");
-    }).toThrow();
-  });
-
-  test("should accept an integer string", () => {
-    expect(() => {
-      shazam_integer("42", "utilities test suite", "should NOT throw");
-    }).not.toThrow();
-
-    expect(
-      shazam_integer("42", "utilities test suite", "should return true")
-    ).toEqual(true);
-  });
-
-  test("should accept an integer number", () => {
-    let num = 42;
-    expect(() => {
-      shazam_integer(num, "utilities test suite", "should NOT throw");
-    }).not.toThrow();
-
-    expect(
-      shazam_integer(num, "utilities test suite", "should return true")
-    ).toEqual(true);
-  });
-});
-/* --------------------------------------------------------*
- *                                                         *
- *               shazam_boolean
- *                                                         *
- * ------------------------------------------------------- */
-
-describe("shazam_boolean boolean verification utility", () => {
-  test("should throw when fed a non-boolean", () => {
-    expect(() => {
-      shazam_boolean("true", "utilities test suite", "should throw");
-    }).toThrow();
-  });
-
-  test("should throw when fed a 1 or a 0", () => {
-    expect(() => {
-      shazam_boolean(1, "utilities test suite", "should throw");
-    }).toThrow();
-
-    expect(() => {
-      shazam_boolean(0, "utilities test suite", "should throw");
-    }).toThrow();
-  });
-
-  test("should NOT throw when fed a boolean", () => {
-    expect(() => {
-      shazam_boolean(true, "utilities test suite", "should NOT throw");
-    }).not.toThrow();
-  });
-
-  test("should return true when fed a boolean", () => {
-    expect(
-      shazam_boolean(false, "utilities test suite", "should return true")
-    ).toEqual(true);
-  });
-});
 /* --------------------------------------------------------*
  *                                                         *
  *                        normalize_email
@@ -669,100 +489,6 @@ describe("shazam_object_has_property", () => {
 });
 /* --------------------------------------------------------*
  *                                                         *
- *                        shazam_is_array
- *                                                         *
- * ------------------------------------------------------- */
-describe("shazam_is_array", () => {
-  let emptyArray = [];
-  let goodArray = [1, 2, 3];
-  let notAnArray = "1,2,3";
-
-  test("shazam_is_array to return true when given an array with at least one member", () => {
-    expect(shazam_is_array(goodArray)).toEqual(true);
-  });
-
-  test("should throw error message when given an empty array", () => {
-    let expected =
-      "class.method expects an array with at least 1 member but received: empty array : ";
-    expect(() => {
-      shazam_is_array(emptyArray, "class", "method");
-    }).toThrowError(expected);
-  });
-
-  test("should throw error message on a non-array", () => {
-    let expected =
-      "unspecified class.unspecified method expects an array with at least 1 member but received: string : 1,2,3";
-    expect(() => {
-      shazam_is_array(notAnArray);
-    }).toThrowError(expected);
-  });
-});
-/* --------------------------------------------------------*
- *                                                         *
- *                        shazam_max_length_array
- *                                                         *
- * ------------------------------------------------------- */
-describe("shazam_max_length_array", () => {
-  let arr = ["a", "b"];
-  test("shazam_max_length_array should throw if an array meets or exceeds limit", () => {
-    expect(() => {
-      shazam_max_length_array(2, arr);
-    }).toThrow();
-  });
-
-  test("shazam_max_length_array should return true if an array deceeds limit", () => {
-    let received = shazam_max_length_array(3, arr);
-    expect(received).toEqual(true);
-  });
-});
-/* --------------------------------------------------------*
- *                                                         *
- *                        shazam_min_length_array
- *                                                         *
- * ------------------------------------------------------- */
-describe("shazam_min_length_array", () => {
-  let arr = ["a", "b"];
-  test("shazam_min_length_array should throw if an array deceeds limit", () => {
-    expect(() => {
-      shazam_min_length_array(3, arr);
-    }).toThrow();
-  });
-
-  test("shazam_min_length_array should return true if an array does not deceed limit", () => {
-    let received = shazam_min_length_array(2, arr);
-    expect(received).toEqual(true);
-  });
-});
-/* --------------------------------------------------------*
- *                                                         *
- *                        arche_time_start_end
- *                                                         *
- * ------------------------------------------------------- */
-describe("arche_time_start_end", () => {
-  test("arche_time_start_end should throw if start not RFC3339", () => {
-    expect(() => {
-      arche_time_start_end(dateCodes.notRFC3339, dateCodes.RFC3339);
-    }).toThrow();
-  });
-
-  test("arche_time_start_end should throw if end not RFC3339", () => {
-    expect(() => {
-      arche_time_start_end(dateCodes.RFC3339, dateCodes.notRFC3339);
-    }).toThrow();
-  });
-
-  test("arche_time_start_end should return a date time filter object", () => {
-    let expected = {
-      start_at: dateCodes.RFC3339,
-      end_at: dateCodes.RFC3339,
-    };
-    expect(
-      arche_time_start_end(dateCodes.RFC3339, dateCodes.RFC3339)
-    ).toMatchObject(expected);
-  });
-});
-/* --------------------------------------------------------*
- *                                                         *
  *                        shazam_number_LT
  *                                                         *
  * ------------------------------------------------------- */
@@ -927,37 +653,5 @@ describe("shazam_number_between_equals", () => {
   });
   test("shazam_number_between_equals should return true when patient is equal to upper", () => {
     expect(shazam_number_between_equals(9, 10, patient)).toEqual(true);
-  });
-});
-
-/* --------------------------------------------------------*
- *                                                         *
- *                        is_integer
- *                                                         *
- * ------------------------------------------------------- */
-
-describe("is_integer", () => {
-  test("should return false on a non-integer string", () => {
-    expect(is_integer("95.5")).toEqual(false);
-  });
-
-  test("should return false on a non-integer number ", () => {
-    expect(is_integer(95.5)).toEqual(false);
-  });
-
-  test("should return false on no argument", () => {
-    expect(is_integer()).toEqual(false);
-  });
-
-  test("should return false on an express undefined ", () => {
-    expect(is_integer(undefined)).toEqual(false);
-  });
-
-  test("should return true on an integer string", () => {
-    expect(is_integer("42")).toEqual(true);
-  });
-
-  test("should return true on an integer number", () => {
-    expect(is_integer(42)).toEqual(true);
   });
 });
