@@ -6,12 +6,6 @@ const Customer_Retrieve = require("../src/lib/customer_request_retrieve");
 // const buffy = customers.buffy;
 // const mikey = customers.mikey;
 
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                        Customer_Retrieve

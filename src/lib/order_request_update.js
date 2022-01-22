@@ -21,7 +21,7 @@ class Order_Update extends Order_Request {
 
   constructor(id = "") {
     super();
-    this._method = "put";
+    this._method = "PUT";
     this._endpoint = `/${id}`;
     this._body = {
       idempotency_key: nanoid(),

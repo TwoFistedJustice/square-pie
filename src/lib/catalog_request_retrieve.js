@@ -15,7 +15,7 @@ class Catalog_Retrieve extends Catalog_Request {
   _help = this.display_name + ": " + man;
   constructor() {
     super();
-    this._method = "post";
+    this._method = "POST";
     this._endpoint = "/batch-retrieve";
     this._body = {
       object_ids: [],
@@ -30,10 +30,6 @@ class Catalog_Retrieve extends Catalog_Request {
   }
   // SETTERS
   set object_ids(id) {
-    if (typeof id !== "string") {
-      console.log(id);
-      throw new TypeError("Object IDs must valid IDs. Received a " + typeof id);
-    }
     this._body.object_ids.push(id);
   }
 

@@ -1,11 +1,52 @@
 const Order_Discount = require("../src/lib/order_discount");
 const { long_strings } = require("./helper_objects");
 
-describe.only("Silence order discount tests", () => {
+describe("Silence order discount tests", () => {
   test("Should silence tests", () => {
     expect("a").toEqual("a");
   });
 });
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        Order_Discount basic structures
+ *                                                         *
+ * ------------------------------------------------------- */
+describe("Order_Discount structures", () => {
+  let disc;
+  let class_name = "Order_Discount";
+  beforeEach(function () {
+    disc = new Order_Discount();
+  });
+
+  test("should have display name", () => {
+    expect(disc._display_name).toBeDefined();
+  });
+  test("display name should be same as class name", () => {
+    expect(disc.display_name).toEqual(class_name);
+  });
+  test("should have defined square version", () => {
+    expect(disc.square_version).toBeDefined();
+  });
+  test("should have defined _help", () => {
+    expect(disc.help).toBeDefined();
+  });
+  test("should have _delivery", () => {
+    disc.delivery = { someProp: { a: 1 } };
+    expect(disc.delivery).toBeDefined();
+  });
+  // not every request class has these
+  test("should have defined _fardel", () => {
+    disc.make().type().fixed_amount();
+    expect(disc.fardel).toBeDefined();
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *               Order_Discount Error checking
+ *                                                         *
+ * ------------------------------------------------------- */
 
 describe("Error checking", () => {
   let discount;

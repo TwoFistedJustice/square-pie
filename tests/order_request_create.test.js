@@ -1,10 +1,5 @@
 const Order_Create = require("../src/lib/order_request_create");
 const { long_strings } = require("./helper_objects");
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
 
 // describe("Order Create Body formatting", () => {
 //   test("Create Order  should have properly formatted request.body", () => {

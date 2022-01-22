@@ -4,7 +4,7 @@ describe("Catalog_Retrieve", () => {
   let retrieve;
   let class_name = "Catalog_Retrieve";
   let endpoint = "/batch-retrieve"; //copy and paste from Square docs
-  let method = "post";
+  let method = "POST"; //http method from Square docs
   beforeEach(function () {
     retrieve = new Catalog_Retrieve();
   });

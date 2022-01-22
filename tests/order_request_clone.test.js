@@ -1,12 +1,6 @@
 const Order_Clone = require("../src/lib/order_request_clone");
 
 const { long_strings } = require("./helper_objects");
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                        Order_Clone
@@ -14,6 +8,8 @@ describe("Silence test suite", () => {
  * ------------------------------------------------------- */
 describe("Order_Clone", () => {
   let bobafett;
+  let method = "POST"; //http method from Square docs
+
   beforeEach(() => {
     bobafett = new Order_Clone();
   });
@@ -24,6 +20,9 @@ describe("Order_Clone", () => {
 
   test("Order_Clone should have a _body property", () => {
     expect(bobafett.body).toBeDefined();
+  });
+  test("should have the method defined by Square", () => {
+    expect(bobafett.method).toEqual(method);
   });
   test("Order_Clone should set and retrieve an order version", () => {
     let ver = 12;

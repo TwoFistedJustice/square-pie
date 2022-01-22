@@ -21,7 +21,7 @@ const man =
 class Order_Line_Item {
   _display_name = "Order_Line_Item";
   _last_verified_square_api_version = "2021-07-21";
-
+  _help = this.display_name + ": " + man;
   constructor() {
     this._fardel = {
       uid: nanoid(uid_length),
@@ -31,12 +31,12 @@ class Order_Line_Item {
       variation_name: undefined,
       catalog_object_id: undefined,
       catalog_version: undefined, // integer
-      item_type: undefined, // FIXED
-      base_price_money: undefined, // HELPER MONEY
-      applied_discounts: undefined, // ARRAY
-      applied_taxes: undefined, // ARRAY
-      modifiers: undefined, // ARRAY
-      pricing_blocklists: undefined, // ARRAY
+      item_type: undefined, // enum
+      base_price_money: undefined, // Arche Money
+      applied_discounts: undefined, // [id...]
+      applied_taxes: undefined, // [id...]
+      modifiers: undefined, // [id...]
+      pricing_blocklists: undefined, // [id...]
       quantity_unit: undefined, // OBJECT
       metadata: undefined, // do not implement in v1
     };
@@ -52,7 +52,7 @@ class Order_Line_Item {
       },
       minimums: {
         quantity: 1,
-        uid: 1,
+        // uid: 1,
       },
     };
   }
@@ -62,10 +62,6 @@ class Order_Line_Item {
     this.#modifier = {
       uid: nanoid(uid_length),
     };
-  }
-
-  #init_quantity_unit() {
-    this._fardel.quantity_unit = {};
   }
 
   #bake_quantity_unit() {
@@ -141,13 +137,6 @@ class Order_Line_Item {
     return order_line_item_enum.item_type(this);
   }
 
-  #uid_length(uid) {
-    return shazam_min_length(this.configuration.minimums.uid, uid) &&
-      shazam_max_length(this.configuration.uid, uid)
-      ? true
-      : false;
-  }
-
   // GETTERS
   get display_name() {
     return this._display_name;
@@ -155,9 +144,11 @@ class Order_Line_Item {
   get square_version() {
     return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
   }
-  _help = this.display_name + ": " + man;
   get help() {
     return this._help;
+  }
+  get fardel() {
+    return this._fardel;
   }
   get uid() {
     return this._fardel.uid;
@@ -185,9 +176,6 @@ class Order_Line_Item {
   }
   get base_price_money() {
     return this._fardel.base_price_money;
-  }
-  get gross_sales_money() {
-    return this._fardel.gross_sales_money;
   }
   get applied_discounts() {
     return this._fardel.applied_discounts;
@@ -258,9 +246,6 @@ class Order_Line_Item {
   set base_price_money(money) {
     this._fardel.base_price_money = money;
   }
-  set gross_sales_money(money) {
-    this._fardel.gross_sales_money = money;
-  }
   set applied_discounts(obj) {
     arrayify(this._fardel, "applied_discounts", this._display_name);
     this._fardel.applied_discounts.push(obj);
@@ -284,7 +269,7 @@ class Order_Line_Item {
   }
 
   set pricing_blocklists(obj) {
-    arrayify(this._fardel, "pricing_blocklist", this._display_name);
+    arrayify(this._fardel, "pricing_blocklists", this._display_name);
     this._fardel.pricing_blocklists.push(obj);
   }
   set quantity_unit(obj) {

@@ -28,7 +28,7 @@ class Order_Search extends Order_Request {
 
   constructor(id) {
     super();
-    this._method = "post";
+    this._method = "POST";
     this._endpoint = "search";
     this._body = {
       location_ids: [], // required: min1

@@ -26,8 +26,8 @@ class Customer_Search extends Customer_Request {
           field: "CREATED_AT",
           order: "ASC",
         },
-        limit: "",
       },
+      limit: undefined,
     };
     this._delivery;
   }

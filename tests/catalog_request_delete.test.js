@@ -3,6 +3,7 @@ const Catalog_Delete = require("../src/lib/catalog_request_delete");
 describe("Catalog_Delete basics", () => {
   let del;
   let class_name = "Catalog_Delete";
+  let method = "POST"; //http method from Square docs
   beforeEach(function () {
     del = new Catalog_Delete();
   });
@@ -16,7 +17,7 @@ describe("Catalog_Delete basics", () => {
   });
 
   test("should have the method defined by Square set", () => {
-    expect(del.method).toEqual("post");
+    expect(del.method).toEqual(method);
   });
   test("display name should be same as class name", () => {
     expect(del._display_name).toEqual(class_name);

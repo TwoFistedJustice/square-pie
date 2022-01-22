@@ -20,7 +20,7 @@ class Customer_List extends Customer_Request {
 
   constructor() {
     super();
-    this._method = "get";
+    this._method = "GET";
     this._delivery;
     this._endpoint = "";
   }

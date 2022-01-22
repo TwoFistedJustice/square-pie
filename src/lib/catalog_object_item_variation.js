@@ -6,19 +6,20 @@ const {
   shazam_integer,
 } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
-// https://developer.squareup.com/reference/square/objects/CatalogItemVariation
-
 const man =
   "Creates a Catalog Item-Variation which you must then add to an 'Item'.\n" +
   "\nhttps://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation";
 
 class Catalog_Item_Variation extends Catalog_Object_Super {
   _display_name = "Catalog_Item_Variation";
-  _last_verified_square_api_version = "2021-11-17";
+  _last_verified_square_api_version = "2021-12-15";
   _help = this.display_name + ": " + man;
   constructor() {
     super();
     this._fardel = {
+      id: undefined,
+      present_at_all_locations: undefined, // bool
+      present_at_location_ids: undefined, //[str]
       type: "ITEM_VARIATION",
       item_variation_data: {
         name: undefined,
@@ -26,10 +27,10 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         available_for_booking: undefined,
         service_duration: undefined, // int64
         item_id: "", // empty string to aid next step
-        item_options_values: undefined, // ARRAY of ids
+        item_option_values: undefined, // ARRAY of ids
         location_overrides: undefined, // [ CHAIN ]
         inventory_alert_type: undefined,
-        inventory_alert_type_threshold: undefined,
+        inventory_alert_threshold: undefined,
         track_inventory: undefined,
         measurement_unit_id: undefined,
         pricing_type: undefined, // REQUIRED FIELD
@@ -49,18 +50,6 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         user_data: 255,
       },
     };
-  }
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
-  get fardel() {
-    return this._fardel;
   }
   get item_id() {
     return this._fardel.item_variation_data.item_id;
@@ -89,8 +78,8 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   get inventory_alert_type() {
     return this._fardel.item_variation_data.inventory_alert_type;
   }
-  get inventory_alert_type_threshold() {
-    return this._fardel.item_variation_data.inventory_alert_type_threshold;
+  get inventory_alert_threshold() {
+    return this._fardel.item_variation_data.inventory_alert_threshold;
   }
   get user_data() {
     return this._fardel.item_variation_data.user_data;
@@ -101,8 +90,8 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   get available_for_booking() {
     return this._fardel.item_variation_data.available_for_booking;
   }
-  get item_options_values() {
-    return this._fardel.item_variation_data.item_options_values;
+  get item_option_values() {
+    return this._fardel.item_variation_data.item_option_values;
   }
   get measurement_unit_id() {
     return this._fardel.item_variation_data.measurement_unit_id;
@@ -123,7 +112,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    * @return sets the id
    * */
   set item_id(id) {
-    this._fardel.item_variation_data.id = id;
+    this._fardel.item_variation_data.item_id = id;
   }
   // overrides super
   set name(str) {
@@ -148,10 +137,11 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
       this._fardel.item_variation_data.service_duration = num * 60 * 1000;
     }
   }
-  set item_options_values(str) {
+  // todo - this is wrong, it takes an object
+  set item_option_values(obj) {
     // Square docs are unclear about this
-    arrayify(this._fardel.item_variation_data, "item_options_values");
-    this._fardel.item_variation_data.item_options_values.push(str);
+    arrayify(this._fardel.item_variation_data, "item_option_values");
+    this._fardel.item_variation_data.item_option_values.push(obj);
   }
   set location_overrides(obj) {
     // todo practically a subclass unto itself...
@@ -171,8 +161,11 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   set inventory_alert_type(str) {
     this._fardel.item_variation_data.inventory_alert_type = str;
   }
-  set inventory_alert_type_threshold(str) {
-    this._fardel.item_variation_data.inventory_alert_type_threshold = str;
+  set inventory_alert_threshold(int) {
+    if (shazam_integer(int, this._display_name, "inventory_alert_threshold"));
+    {
+      this._fardel.item_variation_data.inventory_alert_threshold = int;
+    }
   }
   set track_inventory(bool) {
     this._fardel.item_variation_data.track_inventory = bool;
@@ -194,9 +187,12 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.stockable_conversion = obj;
   }
   set team_member_ids(str) {
-    if (arrayify(this._fardel.item_variation_data, "team_member_ids")) {
-      this._fardel.item_variation_data.team_member_ids.push(str);
-    }
+    arrayify(
+      this._fardel.item_variation_data,
+      "team_member_ids",
+      this._display_name
+    );
+    this._fardel.item_variation_data.team_member_ids.push(str);
   }
   set upc(upc) {
     this._fardel.item_variation_data.upc = upc;
@@ -231,6 +227,8 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     };
   }
 
+  // todo change this so it can be used to set both fardel.pricing_type and location_override.pricing_type
+  //  won't need 'return this' since it only sets one value and doesn't stack with make() sub-methods
   #enum_pricing_type() {
     return {
       self: this,
@@ -275,17 +273,28 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         this.self.service_duration = num;
         return this;
       },
-      item_options_values: function (str) {
-        this.self.item_options_values = str;
+      item_id: function (id) {
+        this.self.item_id = id;
         return this;
       },
+      item_option_values: function (option_id, value_id) {
+        this.self.item_option_values = {
+          item_option_id: option_id,
+          item_option_value_id: value_id,
+        };
+        return this;
+      },
+      //todo complex
       location_overrides: function (obj) {
         this.self.location_overrides = obj;
         return this;
       },
-      inventory_alert_type_threshold: function (str) {
-        this.self.inventory_alert_type_threshold = str;
+      inventory_alert_threshold: function (int) {
+        this.self.inventory_alert_threshold = int;
         return this;
+      },
+      inventory_alert_type: function () {
+        return this.self.#enum_inventory_alert_type();
       },
       track_inventory: function (bool) {
         this.self.track_inventory = bool;
@@ -323,9 +332,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         this.self.user_data = str;
         return this;
       },
-      inventory_alert_type: function () {
-        return this.self.#enum_inventory_alert_type();
-      },
+
       pricing_type: function () {
         return this.self.#enum_pricing_type();
       },

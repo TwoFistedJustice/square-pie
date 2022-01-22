@@ -3,12 +3,6 @@ const Invoice_Update = require("../src/lib/invoice_request_update");
 const { long_strings, helper_invoice } = require("./helper_objects");
 const Invoice_Object = require("../src/lib/invoice_object");
 
-describe("silence test suite", () => {
-  test("", () => {
-    expect("").toEqual("");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                Invoice_Update Basic Structures
@@ -17,6 +11,7 @@ describe("silence test suite", () => {
 describe("Invoice_Update basic structures", () => {
   let update, pie_invoice_object, square_invoice;
   let class_name = "Invoice_Update";
+  let method = "PUT"; //http method from Square docs
   beforeEach(function () {
     // clone the helper invoice to a new object
     square_invoice = Object.assign({}, helper_invoice);
@@ -34,7 +29,7 @@ describe("Invoice_Update basic structures", () => {
   });
 
   test("should have the method defined by Square set", () => {
-    expect(update.method).toEqual("PUT");
+    expect(update.method).toEqual(method);
   });
 
   test("display name should be same as class name", () => {

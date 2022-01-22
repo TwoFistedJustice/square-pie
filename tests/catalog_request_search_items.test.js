@@ -3,13 +3,6 @@ const should = require("chai").should();
 const Catalog_Search_Items = require("../src/lib/catalog_request_search_items");
 const { helper_arrays } = require("./helper_arrays");
 
-// tack on .only to this empty test to silence all other tests
-describe("silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
-
 describe("Catalog_Search_Items", () => {
   let search;
   beforeEach(() => {

@@ -1,11 +1,5 @@
 const Customer_Delete = require("../src/lib/customer_request_delete");
 
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                        Customer_Delete

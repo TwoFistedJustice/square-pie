@@ -1,11 +1,5 @@
 const Invoice_Search = require("../src/lib/invoice_request_search");
 
-describe("silence test suite", () => {
-  test("", () => {
-    expect("").toEqual("");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                        Invoice_Search
@@ -17,6 +11,7 @@ describe("Invoice_Search", () => {
   let id = "123";
   let other_id = "ABC";
   let class_name = "Invoice_Search";
+  let method = "POST"; //http method from Square docs
   beforeEach(function () {
     search = new Invoice_Search();
   });
@@ -32,7 +27,7 @@ describe("Invoice_Search", () => {
   });
 
   test("should have the method defined by Square set", () => {
-    expect(search.method).toEqual("POST");
+    expect(search.method).toEqual(method);
   });
 
   test("display name should be same as class name", () => {

@@ -17,6 +17,7 @@ describe("Invoice_Cancel", () => {
   let endpoint = `/${id}/cancel`;
   let id2 = "ABC";
   let endpoint2 = `/${id2}/cancel`;
+  let method = "POST"; //http method from Square docs
   beforeEach(function () {
     cancel = new Invoice_Cancel(id);
   });
@@ -35,6 +36,9 @@ describe("Invoice_Cancel", () => {
 
   test("should have defined square version", () => {
     expect(cancel.square_version).toBeDefined();
+  });
+  test("should have the method defined by Square", () => {
+    expect(cancel.method).toEqual(method);
   });
   test("should have defined _body", () => {
     expect(cancel.body).toBeDefined();

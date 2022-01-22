@@ -1,9 +1,4 @@
 const Invoice_Delete = require("../src/lib/invoice_request_delete");
-describe("silence test suite", () => {
-  test("", () => {
-    expect("").toEqual("");
-  });
-});
 
 /* --------------------------------------------------------*
  *                                                         *
@@ -16,6 +11,7 @@ describe("Invoice_Delete", () => {
   let class_name = "Invoice_Delete";
   let id = "123";
   let endpoint = `/${id}`;
+  let method = "DELETE"; //http method from Square docs
   beforeEach(function () {
     del = new Invoice_Delete(id);
   });
@@ -29,7 +25,7 @@ describe("Invoice_Delete", () => {
   });
 
   test("should have the method defined by Square set", () => {
-    expect(del.method).toEqual("DELETE");
+    expect(del.method).toEqual(method);
   });
 
   test("display name should be same as class name", () => {

@@ -3,12 +3,6 @@ const Invoice_Create = require("../src/lib/invoice_request_create");
 const { long_strings } = require("./helper_objects");
 const Invoice_Object = require("../src/lib/invoice_object");
 
-describe("silence test suite", () => {
-  test("", () => {
-    expect("").toEqual("");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                        Invoice_Create
@@ -16,6 +10,7 @@ describe("silence test suite", () => {
  * ------------------------------------------------------- */
 describe("Invoice_Create", () => {
   let create;
+  let method = "POST"; //http method from Square docs
   beforeEach(function () {
     create = new Invoice_Create();
   });
@@ -29,6 +24,9 @@ describe("Invoice_Create", () => {
 
   test("should have defined help", () => {
     expect(create.help).toBeDefined();
+  });
+  test("should have the method defined by Square", () => {
+    expect(create.method).toEqual(method);
   });
 
   test("should have defined _body", () => {

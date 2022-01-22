@@ -2,12 +2,6 @@ const Order_Pay = require("../src/lib/order_request_pay");
 
 const { long_strings } = require("./helper_objects");
 const { helper_arrays } = require("./helper_arrays");
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                        Order_Pay
@@ -16,6 +10,8 @@ describe("Silence test suite", () => {
 describe("Order_Pay", () => {
   let pay;
   let id = "some_order";
+  let method = "POST"; //http method from Square docs
+
   beforeEach(() => {
     pay = new Order_Pay(id);
   });
@@ -26,6 +22,9 @@ describe("Order_Pay", () => {
 
   test('Order_Pay should have a display name "Order_Pay"', () => {
     expect(pay._display_name).toEqual("Order_Pay");
+  });
+  test("should have the method defined by Square", () => {
+    expect(pay.method).toEqual(method);
   });
 
   test("Order_Pay should have a _body property", () => {

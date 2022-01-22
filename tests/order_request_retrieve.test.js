@@ -1,9 +1,9 @@
 const Order_Retrieve = require("../src/lib/order_request_retrieve");
 const { long_arrays } = require("./helper_objects");
 
-describe("Silence test suite", () => {
+describe("Should fail to indicate that test suite is incomplete", () => {
   test("", () => {
-    expect("a").toEqual("a");
+    expect("b").toEqual("a");
   });
 });
 

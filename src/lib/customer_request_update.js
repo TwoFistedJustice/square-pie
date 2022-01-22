@@ -55,6 +55,13 @@ class Customer_Update extends Retrieve_Update_Delete {
       note: undefined,
       birthday: undefined, // RFC3339
       version: undefined, // int64 Square will automatically increment this on their end when update is made
+      tax_ids: undefined,
+    };
+    this.configuration = {
+      maximums: {
+        phone_number: 11,
+        tax_ids: 20,
+      },
     };
   }
 
@@ -94,6 +101,9 @@ class Customer_Update extends Retrieve_Update_Delete {
   }
   get version() {
     return this._body.version;
+  }
+  get tax_ids() {
+    return this._body.tax_ids;
   }
 
   // SETTERS
@@ -148,12 +158,12 @@ class Customer_Update extends Retrieve_Update_Delete {
   set city(city) {
     this._body.address.locality = city;
   }
-  set postalCode(val) {
+  set postal_code(val) {
     this.body.address.postal_code = val;
   }
 
   set state(province) {
-    this.body.administrative_district_level_1 = province;
+    this.body.address.administrative_district_level_1 = province;
   }
   /* sets Customer_Update.birthday
    * @param {string} time a date in RFC3339 format
@@ -183,6 +193,18 @@ class Customer_Update extends Retrieve_Update_Delete {
       this._body.version = int;
     }
   }
+  set tax_ids(eu_vat) {
+    if (
+      shazam_max_length(
+        this.configuration.tax_ids,
+        eu_vat,
+        this._display_name,
+        "tax_ids"
+      )
+    ) {
+      this._body.tax_ids = { eu_vat };
+    }
+  }
 
   // MAKER METHODS
   make() {
@@ -197,11 +219,15 @@ class Customer_Update extends Retrieve_Update_Delete {
         return this;
       },
       company_name: function (val) {
-        this.self._body.company_name = val;
+        this.self.company_name = val;
         return this;
       },
       nickname: function (val) {
-        this.self._body.nickname = val;
+        this.self.nickname = val;
+        return this;
+      },
+      address: function (val) {
+        this.self.address = val;
         return this;
       },
       email_address: function (val) {
@@ -212,6 +238,10 @@ class Customer_Update extends Retrieve_Update_Delete {
         this.self.phone_number = val;
         return this;
       },
+      reference_id: function (val) {
+        this.self.reference_id = val;
+        return this;
+      },
       note: function (val) {
         this.self.note = val;
         return this;
@@ -220,29 +250,44 @@ class Customer_Update extends Retrieve_Update_Delete {
         this.self.birthday = val;
         return this;
       },
-      first_name: function (val) {
-        this.given_name(val);
+      version: function (val) {
+        this.self.version = val;
         return this;
       },
-      last_name: function (val) {
-        this.family_name(val);
-        return this;
-      },
-      company: function (val) {
-        this.company_name(val);
-        return this;
-      },
-      email: function (val) {
-        this.email_address(val);
-        return this;
-      },
-      phone: function (val) {
-        this.phone_number(val);
+      tax_ids: function (val) {
+        this.self.tax_ids = val;
         return this;
       },
       customer: function (fardel) {
-        this.body = fardel;
+        this.self.body = fardel;
         return this;
+      },
+      city: function (val) {
+        this.self.city = val;
+        return this;
+      },
+      postal_code: function (val) {
+        this.self.postal_code = val;
+        return this;
+      },
+      state: function (val) {
+        this.self.state = val;
+        return this;
+      },
+      first_name: function (val) {
+        return this.given_name(val);
+      },
+      last_name: function (val) {
+        return this.family_name(val);
+      },
+      company: function (val) {
+        return this.company_name(val);
+      },
+      email: function (val) {
+        return this.email_address(val);
+      },
+      phone: function (val) {
+        return this.phone_number(val);
       },
     };
   }

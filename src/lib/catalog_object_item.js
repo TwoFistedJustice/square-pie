@@ -1,5 +1,10 @@
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
-const { shazam_max_length, arrayify } = require("./utilities");
+const {
+  shazam_boolean,
+  shazam_max_length,
+  shazam_max_length_array,
+  arrayify,
+} = require("./utilities");
 const { isHexColor } = require("validator");
 
 const man =
@@ -10,7 +15,7 @@ const man =
 
 class Catalog_Item extends Catalog_Object_Super {
   _display_name = "Catalog_Item";
-  _last_verified_square_api_version = "2021-07-21";
+  _last_verified_square_api_version = "2021-12-15";
   _help = this.display_name + ": " + man;
   constructor() {
     super();
@@ -22,11 +27,15 @@ class Catalog_Item extends Catalog_Object_Super {
         item_options: 6,
       },
       defaults: {
+        // todo move this to a user config file
         auto_set_appointment_service: false,
       },
     };
 
     this._fardel = {
+      id: undefined,
+      present_at_all_locations: undefined, // bool
+      present_at_location_ids: undefined, //[str]
       type: "ITEM",
       item_data: {
         name: undefined,
@@ -36,30 +45,21 @@ class Catalog_Item extends Catalog_Object_Super {
         label_color: undefined,
         available_online: undefined,
         available_for_pickup: undefined,
-        available_electroncially: undefined,
+        available_electronically: undefined,
         tax_ids: undefined, // => array of strings
         modifier_list_info: undefined, // [modifier, ...]
         variations: undefined, // [item_variation, ...]
         product_type: this.configuration.defaults.auto_set_appointment_service
           ? "APPOINTMENTS_SERVICE"
           : "REGULAR",
-        skip_modifier_screen: undefined, //default is false
-        item_options: undefined, // => array of strings
+        skip_modifier_screen: undefined, //defaults to false
+        item_options: undefined, // => array of objects
         sort_name: undefined, // supported in Japan only
       },
     };
   }
 
   // GETTERS
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
   get fardel() {
     if (
       !Array.isArray(this._fardel.item_data.variations) ||
@@ -96,7 +96,7 @@ class Catalog_Item extends Catalog_Object_Super {
     return this._fardel.item_data.available_for_pickup;
   }
   get available_electronically() {
-    return this._fardel.item_data.available_electroncially;
+    return this._fardel.item_data.available_electronically;
   }
   get tax_ids() {
     return this._fardel.item_data.tax_ids;
@@ -121,9 +121,6 @@ class Catalog_Item extends Catalog_Object_Super {
   }
 
   // SETTERS
-  set type(bool) {
-    this._fardel.type = "ITEM";
-  }
   set name(str) {
     let caller = "name";
     if (shazam_max_length(this.configuration.maximums.name, str, caller)) {
@@ -161,21 +158,19 @@ class Catalog_Item extends Catalog_Object_Super {
     this._fardel.item_data.available_for_pickup = bool;
   }
   set available_electronically(bool) {
-    this._fardel.item_data.available_electroncially = bool;
+    this._fardel.item_data.available_electronically = bool;
   }
   set category_id(id) {
     this._fardel.item_data.category_id = id;
   }
   set tax_ids(id) {
-    if (arrayify(this._fardel.item_data, "tax_ids")) {
-      this._fardel.item_data.tax_ids.push(id);
-    }
+    arrayify(this._fardel.item_data, "tax_ids", this._display_name);
+    this._fardel.item_data.tax_ids.push(id);
   }
   set modifier_list_info(obj) {
-    // has one required value -- the subproperty modifier_overrides also has one required value
-    if (arrayify(this._fardel.item_data, "modifier_list_info")) {
-      this._fardel.item_data.modifier_list_info.push(obj);
-    }
+    // has one required value -- the sub-property modifier_overrides also has one required value
+    arrayify(this._fardel.item_data, "modifier_list_info");
+    this._fardel.item_data.modifier_list_info.push(obj);
   }
 
   // item_variation id should be "#item.name" + "item_variation.name"
@@ -187,38 +182,50 @@ class Catalog_Item extends Catalog_Object_Super {
   set variations(obj) {
     // An item must have at least one variation.
     // If user didn't add an id, create an id for the variation by combining name fields
-    if (obj.id === undefined || obj.id === "") {
-      obj.id = `#${this.name}_${obj.item_variation_data.name}`;
+    // the ID is mentioned in the UPSERT docs
+    if (obj.item_id === undefined || obj.item_id === "") {
+      // obj.item_id = `#${this.name}_${obj.item_variation_data.name}`;
+      obj.item_id = this.id;
     }
-
+    // todo Arrayify
     if (!Array.isArray(this._fardel.item_data.variations)) {
       this._fardel.item_data.variations = [];
     }
+
     if (obj.item_variation_data.item_id !== this.id) {
       obj.item_variation_data.item_id = this.id;
     }
+
+    // if either property is set, change product_type to appointment
     if (
-      obj.available_for_booking !== undefined ||
-      obj.service_duration !== undefined
+      obj.item_variation_data.available_for_booking !== undefined ||
+      obj.item_variation_data.service_duration !== undefined
     ) {
       this.product_type = "APPOINTMENTS_SERVICE";
     }
     this._fardel.item_data.variations.push(obj);
   }
+
   set product_type(val) {
     this._fardel.item_data.product_type = val;
   }
+
+  set skip_modifier_screen(bool) {
+    if (shazam_boolean(bool, this._display_name, "skip_modifier_screen")) {
+      this._fardel.item_data.skip_modifier_screen = bool;
+    }
+  }
   set item_options(id) {
+    arrayify(this._fardel.item_data, "item_options", this._display_name);
     if (
-      arrayify(this._fardel.item_data, "item_options") &&
-      shazam_max_length(
-        this.item_options.length,
+      shazam_max_length_array(
         this.configuration.item_options,
+        this._fardel.item_data.item_options,
         this._display_name,
         "item_options"
       )
     ) {
-      this._fardel.item_data.item_options.push(id);
+      this._fardel.item_data.item_options.push({ item_option_id: id });
     }
   }
   set sort_name(str) {
@@ -242,6 +249,9 @@ class Catalog_Item extends Catalog_Object_Super {
       appointment: function () {
         return this.appointments_service();
       },
+      appt: function () {
+        return this.appointments_service();
+      },
     };
   }
 
@@ -249,8 +259,12 @@ class Catalog_Item extends Catalog_Object_Super {
   make() {
     return {
       self: this,
-      name: function (str) {
-        this.self.name = str;
+      id: function (id) {
+        this.self.id = id;
+        return this;
+      },
+      temp_id: function (temp_id) {
+        this.self.id = "#" + temp_id;
         return this;
       },
       present_at_all_locations: function (bool) {
@@ -258,11 +272,11 @@ class Catalog_Item extends Catalog_Object_Super {
         return this;
       },
       present_at_all_locations_ids: function (id) {
-        this.self.present_at_locations_ids = id;
+        this.self.present_at_location_ids = id;
         return this;
       },
-      id: function (tempId) {
-        this.self.id = tempId;
+      name: function (str) {
+        this.self.name = str;
         return this;
       },
       description: function (str) {
@@ -303,6 +317,10 @@ class Catalog_Item extends Catalog_Object_Super {
       },
       variations: function (obj) {
         this.self.variations = obj;
+        return this;
+      },
+      skip_modifier_screen: function (bool) {
+        this.self.skip_modifier_screen = bool;
         return this;
       },
       item_options: function (id) {

@@ -2,11 +2,6 @@ const Order_Update = require("../src/lib/order_request_update");
 
 const { long_strings } = require("./helper_objects");
 const Order_Object = require("../src/lib/order_object");
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
 
 /* --------------------------------------------------------*
  *                                                         *
@@ -17,6 +12,7 @@ describe("Silence test suite", () => {
 describe("Order_Update", () => {
   let update;
   let order_id = "some_order_Id";
+  let method = "PUT"; //http method from Square docs
   beforeEach(() => {
     update = new Order_Update(order_id);
   });
@@ -34,7 +30,9 @@ describe("Order_Update", () => {
     update.make().order_id(id);
     expect(update.endpoint).toEqual("/another_id");
   });
-
+  test("should have the method defined by Square", () => {
+    expect(update.method).toEqual(method);
+  });
   test("Order_Update should set array and value and fields to clear", () => {
     let expected = ["discounts", "line_items"];
     update.make().fields_to_clear("discounts").fields_to_clear("line_items");

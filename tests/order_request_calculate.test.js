@@ -1,11 +1,6 @@
 const Order_Calculate = require("../src/lib/order_request_calculate");
 
 const { long_strings } = require("./helper_objects");
-describe("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
 /* --------------------------------------------------------*
  *                                                         *
  *                        Order_Calculate
@@ -13,6 +8,7 @@ describe("Silence test suite", () => {
  * ------------------------------------------------------- */
 describe("Order_Calculate", () => {
   let calc;
+  let method = "POST";
   beforeEach(function () {
     calc = new Order_Calculate();
   });
@@ -22,6 +18,10 @@ describe("Order_Calculate", () => {
   test("should have defined square version", () => {
     expect(calc.square_version).toBeDefined();
   });
+  test("should have the method defined by Square set", () => {
+    expect(calc.method).toEqual(method);
+  });
+
   test("should have defined _body", () => {
     expect(calc.body).toBeDefined();
   });

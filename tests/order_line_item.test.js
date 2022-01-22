@@ -1,14 +1,178 @@
-// test modifier - prop on the class
 const Order_Line_Item = require("../src/lib/order_line_item");
-const should = require("chai").should();
-// const { long_strings } = require("./helper_objects");
 const { uid_length } = require("../src/lib/pie_defaults");
-
 const tax_discount_uid = "someId";
+const id = "123";
+const class_name = "Order_Line_Item";
 
-describe.only("should silence test suite", () => {
-  test("", () => {});
+let line, make;
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        common structures
+ *                                                         *
+ * ------------------------------------------------------- */
+describe("basic object class structures", () => {
+  beforeEach(() => {
+    line = new Order_Line_Item();
+    make = line.make();
+  });
+  test("should have display name", () => {
+    expect(line.display_name).toBeDefined();
+  });
+  test("display name should be same as class name", () => {
+    expect(line.display_name).toEqual(class_name);
+  });
+  test("should have help", () => {
+    expect(line.help).toBeDefined();
+  });
+  test("should have defined square version", () => {
+    expect(line.square_version).toBeDefined();
+  });
+  test("should have defined _fardel", () => {
+    expect(line.fardel).toBeDefined();
+  });
 });
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        Error Checking
+ *                                                         *
+ * ------------------------------------------------------- */
+// uid length
+// set catalog_version
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        getters/setters
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("getters/setters", () => {
+  beforeEach(() => {
+    line = new Order_Line_Item();
+    make = line.make();
+  });
+  test("make().uid () should set ", () => {
+    let expected = id;
+    make.uid(id);
+    expect(line.uid).toEqual(expected);
+  });
+  test("make().quantity () should set ", () => {
+    let expected = 12;
+    make.quantity(12);
+    expect(line.quantity).toEqual(expected);
+  });
+  test("make().name () should set ", () => {
+    let expected = "pencils";
+    make.name("pencils");
+    expect(line.name).toEqual(expected);
+  });
+  test("make().note () should set ", () => {
+    let expected = "Gosh darn that Tina Fey for being so gosh darned pretty!";
+    make.note("Gosh darn that Tina Fey for being so gosh darned pretty!");
+    expect(line.note).toEqual(expected);
+  });
+  test("make().variation_name () should set ", () => {
+    let expected = "TGS";
+    make.variation_name("TGS");
+    expect(line.variation_name).toEqual(expected);
+  });
+  test("make().catalog_object_id () should set ", () => {
+    let expected = id;
+    make.catalog_object_id(id);
+    expect(line.catalog_object_id).toEqual(expected);
+  });
+  test("make().catalog_version () should set ", () => {
+    let expected = 75;
+    make.catalog_version(75);
+    expect(line.catalog_version).toEqual(expected);
+  });
+  test("make().item_type () should set ", () => {
+    let expected = "ITEM";
+    make.item_type().item();
+    expect(line.item_type).toEqual(expected);
+  });
+  test("make().item_type () should set ", () => {
+    let expected = "CUSTOM_AMOUNT";
+    make.item_type().custom();
+    expect(line.item_type).toEqual(expected);
+  });
+  test("make().item_type () should set ", () => {
+    let expected = "GIFT_CARD";
+    make.item_type().gift();
+    expect(line.item_type).toEqual(expected);
+  });
+  test("make().base_price_money () should set ", () => {
+    let expected = { amount: 42, currency: "USD" };
+    make.base_price_money(42, "USD");
+    expect(line.base_price_money).toEqual(expected);
+  });
+  test("make().applied_discounts () should set ", () => {
+    let expected = id;
+    make.applied_discounts(id);
+    expect(line.applied_discounts[0].discount_uid).toEqual(expected);
+  });
+  test("make().applied_taxes () should set ", () => {
+    let expected = id;
+    make.applied_taxes(id);
+    expect(line.applied_taxes[0].tax_uid).toEqual(expected);
+  });
+  test("make().modifiers () should set ", () => {
+    let expected = [id];
+    make.modifiers(id);
+    expect(line.modifiers).toEqual(expected);
+  });
+  test("make().pricing_blocklists () should set ", () => {
+    let expected = {
+      blocked_discounts: [
+        {
+          discount_catalog_object_id: id,
+          discount_uid: id,
+          uid: id,
+        },
+      ],
+      blocked_taxes: [
+        {
+          tax_catalog_object_id: id,
+          tax_uid: id,
+          uid: id,
+        },
+      ],
+    };
+    make.pricing_blocklists({ build: "me" });
+    expect(line.pricing_blocklists).toMatchObject(expected);
+  });
+  test("make().quantity_unit () should set ", () => {
+    let arch_measure = { build: "me" };
+    let expected = {
+      catalog_object_id: id,
+      catalog_version: 4,
+      measurement_unit: arch_measure,
+      precision: 1,
+    };
+    make.quantity_unit({ build: "this is actualy already built..." });
+    expect(line.quantity_unit).toEqual(expected);
+  });
+
+  test("set quanity_unit should pass object", () => {
+    let arch_measure = { a: 1 };
+    let obj = {
+      catalog_object_id: id,
+      catalog_version: 4,
+      measurement_unit: arch_measure,
+      precision: 1,
+    };
+    let expected = {
+      catalog_object_id: id,
+      catalog_version: 4,
+      measurement_unit: arch_measure,
+      precision: 1,
+    };
+    line.quantity_unit = obj;
+    expect(line.quantity_unit).toMatchObject(expected);
+  });
+});
+
 describe("#enum_item_type()", () => {
   test("make().item_type().item_type() should set item_type to ITEM", () => {
     let line = new Order_Line_Item();
