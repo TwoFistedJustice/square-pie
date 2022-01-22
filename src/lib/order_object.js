@@ -4,7 +4,7 @@ const {
   define,
   shazam_max_length,
 } = require("./utilities");
-const order_object_enum = require("./enum/order_object_enum");
+const { order_object_enum } = require("./enum/index");
 const man =
   " builds a compliant Square order object. Too add discounts, line items or order fulfillments\n" +
   "first build them with the `Order_Discount`, `Order_Line_Item` and `Order_Fulfillment` classes. To add them to your/n" +
@@ -154,8 +154,7 @@ class Order_Object {
         "pricing_options arguments must be and object containing two booleans."
       );
     }
-    arrayify(this._fardel, "pricing_options", this._display_name);
-    this._fardel.pricing_options.push(obj);
+    this._fardel.pricing_options = obj;
   }
   set service_charges(obj) {
     arrayify(this._fardel, "service_charges", this._display_name);
