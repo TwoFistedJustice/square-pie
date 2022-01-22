@@ -81,6 +81,13 @@ describe("shazam_boolean boolean verification utility", () => {
     }).toThrow();
   });
 
+  test("should throw when the correct message a non-boolean", () => {
+    let expected = `describe.test expects a boolean. Received: true\nMake sure you didn't pass a string that looks like a boolean.`;
+    expect(() => {
+      shazam_boolean("true", "describe", "test");
+    }).toThrowError(expected);
+  });
+
   test("should NOT throw when fed a boolean", () => {
     expect(() => {
       shazam_boolean(true, "utilities test suite", "should NOT throw");
