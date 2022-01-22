@@ -28,7 +28,6 @@ class Customer_Retrieve_Update_Delete_Super extends Customer_Request {
   get delivery() {
     return this._delivery;
   }
-
   // SETTERS
   set delivery(parcel) {
     this._delivery = parcel.customer;
@@ -46,7 +45,7 @@ class Customer_Retrieve_Update_Delete_Super extends Customer_Request {
    * */
   append_query_param(param, value) {
     let endpoint = this.endpoint;
-    if (query_param_regex.version.test(endpoint)) {
+    if (param === "version" && query_param_regex.version.test(endpoint)) {
       let replacement = "version=" + value;
       endpoint = endpoint.replace(query_param_regex.version, replacement);
     } else {
