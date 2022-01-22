@@ -122,11 +122,19 @@ describe("shazam_is_array", () => {
     }).toThrowError(expected);
   });
 
-  test("should throw error message on a non-array", () => {
+  test("should throw correct error message on a non-array", () => {
     let expected =
       "unspecified class.unspecified method expects an array with at least 1 member but received: string : 1,2,3";
     expect(() => {
       shazam_is_array(notAnArray);
+    }).toThrowError(expected);
+  });
+
+  test("should throw correct error message on a empty-array", () => {
+    let expected =
+      "unspecified class.unspecified method expects an array with at least 1 member but received: empty array";
+    expect(() => {
+      shazam_is_array([]);
     }).toThrowError(expected);
   });
 });
