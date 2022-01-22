@@ -25,7 +25,6 @@ describe("shazam_integer integer verification utility", () => {
       "describe.test expects an integer or a string that can be coerced to an integer. Received: 95.5";
     expect(() => {
       shazam_integer("95.5", "describe", "test");
-      // }).toThrowError (expected);
     }).toThrowError(new TypeError(expected));
   });
 
