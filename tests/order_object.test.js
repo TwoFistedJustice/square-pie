@@ -3,12 +3,6 @@ const Order_Object = require("../src/lib/order_object");
 const should = require("chai").should();
 const { long_strings } = require("./helper_objects");
 
-describe("Silence order object tests", () => {
-  test("Should silence tests", () => {
-    expect("a").toEqual("a");
-  });
-});
-
 describe("service charges", () => {
   test('build_service_charge_amount return a compliant "amount_money" object when given two args', () => {
     let o = new Order_Object();
