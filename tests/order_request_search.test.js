@@ -29,6 +29,39 @@ describe("Order_Search", () => {
   test("should have the method defined by Square", () => {
     expect(search.method).toEqual(method);
   });
+
+  test("Delivery should set order_entry object if return_entries is set to true", () => {
+    let response_body = {
+      order_entries: [{ a: 1 }],
+      orders: [{ b: 2 }],
+      cursor: "123",
+    };
+    search.make().return_entries(true);
+    search.delivery = response_body;
+    expect(search.delivery).toMatchObject(response_body.order_entries);
+  });
+
+  test("Delivery should set order objects if return_entries is not set to true ", () => {
+    let response_body = {
+      order_entries: [{ a: 1 }],
+      orders: [{ b: 2 }],
+      cursor: "123",
+    };
+    search.make().return_entries = false;
+    search.delivery = response_body;
+    expect(search.delivery).toMatchObject(response_body.orders);
+  });
+
+  test("Delivery should set order objects if return_entries is undefined ", () => {
+    let response_body = {
+      order_entries: [{ a: 1 }],
+      orders: [{ b: 2 }],
+      cursor: "123",
+    };
+    search.delivery = response_body;
+    expect(search.delivery).toMatchObject(response_body.orders);
+  });
+
   test("Order_Search location_ids should be an array", () => {
     expect(Array.isArray(search.location_ids)).toEqual(true);
   });
