@@ -99,24 +99,6 @@ class Order_Retrieve extends Order_Request {
   set delivery(parcel) {
     this._delivery = parcel.orders;
   }
-  location(id) {
-    this.location = id;
-    return this;
-  }
-  clear_location() {
-    this.location = undefined;
-    return this;
-  }
-
-  add_order(id) {
-    this.order_ids = id;
-    return this;
-  }
-
-  add_array_of_orders(arr) {
-    this.order_array_concat = arr;
-    return this;
-  }
 
   make() {
     return {
