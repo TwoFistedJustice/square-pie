@@ -1,15 +1,10 @@
 const Order_Discount = require("../src/lib/order_discount");
 const { long_strings } = require("./helper_objects");
 
-describe("Silence order discount tests", () => {
-  test("Should silence tests", () => {
-    expect("a").toEqual("a");
-  });
-});
-
+const id = "123";
 /* --------------------------------------------------------*
  *                                                         *
- *                        Order_Discount basic structures
+ *               Order_Discount basic structures
  *                                                         *
  * ------------------------------------------------------- */
 describe("Order_Discount structures", () => {
@@ -94,6 +89,22 @@ describe("Error checking", () => {
     }).not.toThrow();
   });
 
+  test("percentage should throw if isNan", () => {
+    let expected =
+      "percentage expects strings that can be converted to a number and actual numbers.";
+    expect(() => {
+      discount.make().percentage("ABC");
+    }).toThrowError(expected);
+
+    expect(() => {
+      discount.make().percentage(null);
+    }).toThrowError(expected);
+
+    expect(() => {
+      discount.make().percentage(true);
+    }).toThrowError(expected);
+  });
+
   test("Discounts without a catalog_object_id should require type of FIXED_PERCENTAGE or FIXED_AMOUNT ", () => {
     discount.make().name("Super Chicken");
     expect(() => {
@@ -123,7 +134,12 @@ describe("Error checking", () => {
   });
 });
 
-describe("enums", () => {
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        getters/setters
+ *                                                         *
+ * ------------------------------------------------------- */
+describe("getters/setters", () => {
   let discount;
 
   beforeEach(() => {
@@ -172,6 +188,54 @@ describe("enums", () => {
     let expected = "ORDER";
     discount.make().scope().order();
     expect(discount.scope).toEqual(expected);
+  });
+
+  test("catalog_version should set", () => {
+    let expected = 5;
+    discount.make().catalog_version(5);
+    expect(discount.catalog_version).toEqual(expected);
+  });
+
+  test("amount_money should set", () => {
+    let expected = {
+      amount: 27,
+      currency: "EUR",
+    };
+    discount.make().amount_money(27, "EUR");
+    expect(discount.amount_money).toEqual(expected);
+  });
+
+  test("applied_money should set", () => {
+    let expected = {
+      amount: 27,
+      currency: "EUR",
+    };
+    discount.make().applied_money(27, "EUR");
+    expect(discount.applied_money).toEqual(expected);
+  });
+
+  test("uid should set", () => {
+    let expected = id;
+    discount.make().uid(id);
+    expect(discount.uid).toEqual(expected);
+  });
+
+  test("catalog_object_id should set", () => {
+    let expected = id;
+    discount.make().catalog_object_id(id);
+    expect(discount.catalog_object_id).toEqual(expected);
+  });
+
+  test("name should set", () => {
+    let expected = id;
+    discount.make().name(id);
+    expect(discount.name).toEqual(expected);
+  });
+
+  test("percentage should set", () => {
+    let expected = 5;
+    discount.make().percentage(5);
+    expect(discount.percentage).toEqual(expected);
   });
 });
 
