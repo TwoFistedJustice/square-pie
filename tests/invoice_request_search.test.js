@@ -1,4 +1,9 @@
+const util = require("../src/lib/utilities");
+const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
+const spy_shazam_number_LE = jest.spyOn(util, "shazam_number_LE");
+
 const Invoice_Search = require("../src/lib/invoice_request_search");
+let search;
 
 /* --------------------------------------------------------*
  *                                                         *
@@ -7,7 +12,6 @@ const Invoice_Search = require("../src/lib/invoice_request_search");
  * ------------------------------------------------------- */
 
 describe("Invoice_Search", () => {
-  let search;
   let id = "123";
   let other_id = "ABC";
   let class_name = "Invoice_Search";
@@ -62,25 +66,30 @@ describe("Invoice_Search", () => {
   });
 
   // limit
-  test("limit should throw on a non-integer", () => {
-    expect(() => {
-      search.limit = 95.5;
-    }).toThrow();
+  test("limit setter should call shazam_integer", () => {
+    let test_val = 95;
+    let caller = "limit";
+    search[caller] = test_val;
+    expect(spy_shazam_integer).toHaveBeenCalledWith(
+      test_val,
+      class_name,
+      caller
+    );
   });
 
-  test("limit should throw if it exceeds limit", () => {
-    expect(() => {
-      search.limit = 201;
-    }).toThrow();
+  test("limit setter should call shazam_number_LE", () => {
+    let klass = search;
+    let test_val = 95;
+    let caller = "limit";
+    let limit_val = klass.configuration.maximums[caller];
+    klass[caller] = test_val;
+    expect(spy_shazam_number_LE).toHaveBeenCalledWith(
+      test_val,
+      limit_val,
+      class_name,
+      caller
+    );
   });
-
-  test("limit should not throw if it deceeds limit", () => {
-    expect(() => {
-      search.limit = 199;
-    }).not.toThrow();
-  });
-
-  // Make()
 
   test("make().query() should set PRIMARY property", () => {
     let expected = { a: 1 };
