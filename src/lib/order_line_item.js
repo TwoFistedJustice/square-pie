@@ -5,6 +5,7 @@ const {
   arche_money,
   define,
   generate_error_message,
+  shazam_integer,
   shazam_min_length,
   shazam_max_length,
 } = require("./utilities");
@@ -235,10 +236,9 @@ class Order_Line_Item {
     }
   }
   set catalog_version(int) {
-    if (!Number.isInteger(int)) {
-      throw new TypeError("catalog_version expects an integer.");
+    if (shazam_integer(int, this.display_name, "catalog_version")) {
+      this._fardel.catalog_version = int;
     }
-    this._fardel.catalog_version = int;
   }
   set item_type(fixed) {
     this._fardel.item_type = fixed;
