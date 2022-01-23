@@ -1,3 +1,6 @@
+const util = require("../src/lib/utilities");
+const spy_integer = jest.spyOn(util, "shazam_integer");
+
 const Order_Line_Item = require("../src/lib/order_line_item");
 const { uid_length } = require("../src/lib/pie_defaults");
 const tax_discount_uid = "someId";
@@ -252,8 +255,33 @@ describe("make_modifier should build a compliant object", () => {
   });
 });
 
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        jest mocks
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("jest mocks", () => {
+  beforeEach(function () {
+    // line = new Order_Line_Item ();
+  });
+
+  test("catalog_version setter should call shazam_integer", () => {
+    let line = new Order_Line_Item();
+    let test_val = 5;
+    let caller = "catalog_version";
+    line[caller] = test_val;
+    expect(spy_integer).toHaveBeenCalledWith(test_val, class_name, caller);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                 quantity unit
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("quantity unit", () => {
-  test("precision and catalog_version should throw or not", () => {
+  test("precision should throw or not", () => {
     let line = new Order_Line_Item();
     let notAnInt = 5.1;
     let tooHigh = 6;
@@ -261,9 +289,6 @@ describe("quantity unit", () => {
     let top = 5;
     let bottom = 0;
     let make = line.make().quantity_unit();
-    expect(() => {
-      make.catalog_version(notAnInt);
-    }).toThrow();
 
     expect(() => {
       make.precision(notAnInt);
