@@ -36,7 +36,7 @@ class Order_Line_Item {
       base_price_money: undefined, // Arche Money
       applied_discounts: undefined, // [id...]
       applied_taxes: undefined, // [id...]
-      modifiers: undefined, // [id...]
+      modifiers: undefined, // [{}...]
       pricing_blocklists: undefined, // [id...]
       quantity_unit: undefined, // OBJECT
       metadata: undefined, // do not implement in v1
@@ -397,11 +397,16 @@ class Order_Line_Item {
       },
       catalog_version: function (int64) {
         let key = "catalog_version";
-        if (!Number.isInteger(int64)) {
-          throw new TypeError(generate_error_message(key, "integer", int64));
+        if (
+          shazam_integer(
+            int64,
+            this.display_name,
+            "make_modifier.catalog_version"
+          )
+        ) {
+          define(modifier, key, int64);
+          return this;
         }
-        define(modifier, key, int64);
-        return this;
       },
       name: function (val) {
         if (
