@@ -31,9 +31,15 @@ describe("Order_Pay", () => {
     expect(pay.body).toBeDefined();
   });
 
-  test("Order_Pay should push to the payment_ids array", () => {
+  test("make().payment_ids() should push to the payment_ids array", () => {
     let expected = ["one", "two", "three"];
     pay.make().payment_ids("one").payment_ids("two").payment_ids("three");
+    expect(pay.payment_ids).toMatchObject(expected);
+  });
+
+  test("make.pay() should push to the payment_ids array", () => {
+    let expected = ["one", "two", "three"];
+    pay.make().pay("one").pay("two").pay("three");
     expect(pay.payment_ids).toMatchObject(expected);
   });
 
@@ -54,6 +60,11 @@ describe("Order_Pay", () => {
 
   test("Order_Pay make() should set new id", () => {
     pay.make().order_id("cousin mikey");
+    expect(pay.order_id).toEqual("cousin mikey");
+  });
+
+  test("Order_Pay make() should set new id", () => {
+    pay.make().order("cousin mikey");
     expect(pay.order_id).toEqual("cousin mikey");
   });
 
