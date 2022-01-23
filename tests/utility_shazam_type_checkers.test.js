@@ -26,6 +26,10 @@ describe("shazam_integer integer verification utility", () => {
     expect(() => {
       shazam_integer("95.5", "describe", "test");
     }).toThrowError(new TypeError(expected));
+
+    expect(() => {
+      shazam_integer(95.5, "describe", "test");
+    }).toThrowError(new TypeError(expected));
   });
 
   test("should throw correct error message on a string that does not coercible to a number", () => {
@@ -33,6 +37,14 @@ describe("shazam_integer integer verification utility", () => {
       "describe.test expects an integer or a string that can be coerced to an integer. Received: ABC";
     expect(() => {
       shazam_integer("ABC", "describe", "test");
+    }).toThrowError(new TypeError(expected));
+  });
+
+  test("error should throw with correct defaults when name and caller not provided ", () => {
+    let expected =
+      "unspecified_class.unspecified_setter expects an integer or a string that can be coerced to an integer. Received: ABC";
+    expect(() => {
+      shazam_integer("ABC");
     }).toThrowError(new TypeError(expected));
   });
 
