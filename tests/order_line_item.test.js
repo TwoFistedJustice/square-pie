@@ -241,18 +241,14 @@ describe("make_modifier should build a compliant object", () => {
       .catalog_object_id(id)
       .price(2100, "EUR")
       .catalog_version(ver)
-      .name(name);
-    let mod = line.modifier;
-    // add the modifier object to the modifiers array
-    line.modifiers = mod;
+      .name(name)
+      .add();
     let pushed = line.modifiers[0];
-
-    expect(mod.uid.length).toEqual(10);
-    expect(mod.catalog_object_id).toEqual(id);
-    expect(mod.base_price_money).toMatchObject(price);
-    expect(mod.catalog_version).toEqual(ver);
-    expect(mod.name).toEqual(name);
+    expect(pushed.uid.length).toEqual(10);
     expect(pushed.catalog_object_id).toEqual(id);
+    expect(pushed.base_price_money).toMatchObject(price);
+    expect(pushed.catalog_version).toEqual(ver);
+    expect(pushed.name).toEqual(name);
   });
 });
 
