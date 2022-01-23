@@ -7,11 +7,11 @@
  * */
 const shazam_integer = function (
   num,
-  displayName = "unspecified class",
-  caller = "- unspecified class setter"
+  displayName = "unspecified_class",
+  caller = "unspecified_setter"
 ) {
   let parsed = parseInt(num);
-  if (isNaN(parsed) || num != parsed) {
+  if (num != parsed || isNaN(parsed)) {
     throw new TypeError(
       `${displayName}.${caller} expects an integer or a string that can be coerced to an integer. Received: ${num}`
     );
