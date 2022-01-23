@@ -1,18 +1,53 @@
-// "use strict";
-
+"use strict";
 const Order_Fulfillment = require("../src/lib/order_fulfillment");
-const should = require("chai").should();
 const { long_strings } = require("./helper_objects");
 
 const RFC339 = "2019-10-12T07:20:50.52Z";
 const nonCompliantTime = Date.now();
 
-describe("Silence Order Fulfillment tests", () => {
-  test("Should silence tests", () => {
-    expect("a").toEqual("a");
+let ful;
+const class_name = "Order_Fulfillment";
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        common structures
+ *                                                         *
+ * ------------------------------------------------------- */
+describe(`${class_name} basic object class structures`, () => {
+  beforeEach(() => {
+    ful = new Order_Fulfillment();
+  });
+  test("should have display name", () => {
+    expect(ful.display_name).toBeDefined();
+  });
+  test("display name should be same as class name", () => {
+    expect(ful.display_name).toEqual(class_name);
+  });
+  test("should have help", () => {
+    expect(ful.help).toBeDefined();
+  });
+  test("should have defined square version", () => {
+    expect(ful.square_version).toBeDefined();
+  });
+  test("should have defined _fardel", () => {
+    expect(ful.fardel).toBeDefined();
   });
 });
-
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        Error Checks
+ *                                                         *
+ * ------------------------------------------------------- */
+// describe (`${class_name} error checks`, () => {
+//   beforeEach (() => {
+//     ful = new Order_Fulfillment();
+//     make = ful.make ();
+//   });
+//   test ("", () => {
+//     expect (() => {
+//     }).toThrow ();
+//   });
+// });
 describe("make method ", () => {
   test("make().uid() should set property", () => {
     let ful = new Order_Fulfillment();
@@ -73,6 +108,15 @@ describe("make_pickup() strings should be set correctly.", () => {
   beforeEach(function () {
     fulfillment = new Order_Fulfillment();
     pickup = fulfillment.make_pickup();
+  });
+  //todo write a utility to build RFC3339 duration
+  // https://www.ietf.org/rfc/rfc3339.txt
+  test("auto_complete_duration should set", () => {
+    let duration = "P2DT12H30M15S"; //2 days, 12 hours, 30 minutes, and 15 seconds
+    pickup.auto_complete_duration(duration);
+    expect(fulfillment.fardel.pickup_details.auto_complete_duration).toEqual(
+      duration
+    );
   });
 
   test("type should be set to 'PICKUP' ", () => {
@@ -295,21 +339,39 @@ describe("make_shipment() strings should be set correctly.", () => {
     expect(fulfillment.state).toEqual(expected);
   });
 
-  test("Note should be set", () => {
-    let note = "This is a note.";
-    let expected = {
-      shipping_note: note,
-    };
-    shipment.note(note);
-    expect(fulfillment.shipment_details).toMatchObject(expected);
-  });
+  // test("Note should be set", () => {
+  //   let note = "This is a note.";
+  //   let expected = {
+  //     shipping_note: note,
+  //   };
+  //   shipment.note(note);
+  //   expect(fulfillment.shipment_details).toMatchObject(expected);
+  // });
 
-  test("Note should be set", () => {
+  test("shipping note should set", () => {
     let note = "This is a note.";
     let expected = {
       shipping_note: note,
     };
     shipment.shipping_note(note);
+    expect(fulfillment.shipment_details).toMatchObject(expected);
+  });
+
+  test("failure_reason should set", () => {
+    let note = "This is a note.";
+    let expected = {
+      failure_reason: note,
+    };
+    shipment.failure_reason(note);
+    expect(fulfillment.shipment_details).toMatchObject(expected);
+  });
+
+  test("tracking_url should set", () => {
+    let note = "This is a note.";
+    let expected = {
+      tracking_url: note,
+    };
+    shipment.tracking_url(note);
     expect(fulfillment.shipment_details).toMatchObject(expected);
   });
 
