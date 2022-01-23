@@ -24,8 +24,8 @@ class Order_Retrieve extends Order_Request {
    *  */
   constructor() {
     super();
-    this._method = "post";
-    this._endpoint = "batch-retrieve";
+    this._method = "POST";
+    this._endpoint = "/batch-retrieve";
     this._body = {
       location_id: undefined,
       order_ids: [], // [string,...]
