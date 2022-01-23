@@ -3,8 +3,8 @@ const order_discount_enum = require("./enum/order_discount_enum");
 const man =
   " builds a discount which will be applied to one or more line items in an order.\n" +
   "make().amount_money and .applied_money() take two arguments (amount, currency). Currency\n" +
-  'defaults to "USD".' +
-  "\n\nhttps://developer.squareup.com/reference/square/objects/OrderLineItemDiscount";
+  'defaults to "USD".\n' +
+  "\nhttps://developer.squareup.com/reference/square/objects/OrderLineItemDiscount";
 
 class Order_Discount {
   _display_name = "Order_Discount";
@@ -119,7 +119,7 @@ class Order_Discount {
   }
   set percentage(percent) {
     if (
-      (!typeof percent === "string" && !typeof percent === "number") ||
+      (typeof percent !== "string" && typeof percent !== "number") ||
       Number.isNaN(Number(percent))
     ) {
       throw new Error(
