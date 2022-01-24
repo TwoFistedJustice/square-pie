@@ -16,33 +16,36 @@ describe("Customer_Update", () => {
     update = new Customer_Update(arg);
   });
 
-  test("should have display name", () => {
+  test("should have _display_name", () => {
     expect(update._display_name).toBeDefined();
+  });
+  test("should have display name", () => {
+    expect(update.display_name).toBeDefined();
+  });
+
+  test("display_name should be same as class name", () => {
+    expect(update.display_name).toEqual(class_name);
+  });
+  test("_display_name should be same as class name", () => {
+    expect(update._display_name).toEqual(class_name);
   });
 
   test("should have the method defined by Square set", () => {
     expect(update.method).toEqual(method);
   });
-  test("display name should be same as class name", () => {
-    expect(update.display_name).toEqual(class_name);
-  });
-  test("display name should be same as class name", () => {
-    expect(update._display_name).toEqual(class_name);
-  });
+
   test("should have defined square version", () => {
     expect(update.square_version).toBeDefined();
   });
+
   test("should have defined square version", () => {
     expect(update._last_verified_square_api_version).toBeDefined();
   });
-  test("should have defined _help", () => {
+  test("should have defined help", () => {
     expect(update.help).toBeDefined();
   });
   test("should have defined _help", () => {
     expect(update._help).toBeDefined();
-  });
-  test("should have defined square version", () => {
-    expect(update.square_version).toBeDefined();
   });
 
   test("should have an endpoint", () => {

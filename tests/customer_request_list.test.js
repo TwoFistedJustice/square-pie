@@ -14,12 +14,18 @@ describe("Customer_List", () => {
     list = new Customer_List();
   });
 
-  test("should have display name", () => {
-    expect(list._display_name).toBeDefined();
-  });
   test("should have the method defined by Square set", () => {
     expect(list.method).toEqual(method);
   });
+
+  test("should have display_name", () => {
+    expect(list.display_name).toBeDefined();
+  });
+
+  test("should have _display_name", () => {
+    expect(list._display_name).toBeDefined();
+  });
+
   test("display name should be same as class name", () => {
     expect(list._display_name).toEqual(class_name);
   });
