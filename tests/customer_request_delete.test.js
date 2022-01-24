@@ -21,21 +21,37 @@ describe("Customer_Delete", () => {
     del = new Customer_Delete("123", 5);
   });
 
-  test("should have display name", () => {
+  test("should have _display name", () => {
     expect(del._display_name).toBeDefined();
   });
-  test("should have the method defined by Square set", () => {
-    expect(del.method).toEqual(method);
+  test("should have display name", () => {
+    expect(del.display_name).toBeDefined();
+  });
+  test("_display_name should be same as class name", () => {
+    expect(del._display_name).toEqual(class_name);
   });
   test("display name should be same as class name", () => {
     expect(del.display_name).toEqual(class_name);
   });
+
+  test("should have the method defined by Square set", () => {
+    expect(del.method).toEqual(method);
+  });
+
+  test("should have defined _last_verified_square_api_version", () => {
+    expect(del._last_verified_square_api_version).toBeDefined();
+  });
   test("should have defined square version", () => {
     expect(del.square_version).toBeDefined();
   });
-  test("should have defined _help", () => {
+
+  test("should have defined help", () => {
     expect(del.help).toBeDefined();
   });
+  test("should have defined _help", () => {
+    expect(del._help).toBeDefined();
+  });
+
   test("should have _delivery", () => {
     del.delivery = {};
     expect(del.delivery).toBeDefined();
