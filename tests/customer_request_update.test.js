@@ -19,17 +19,27 @@ describe("Customer_Update", () => {
   test("should have display name", () => {
     expect(update._display_name).toBeDefined();
   });
+
   test("should have the method defined by Square set", () => {
     expect(update.method).toEqual(method);
   });
   test("display name should be same as class name", () => {
     expect(update.display_name).toEqual(class_name);
   });
+  test("display name should be same as class name", () => {
+    expect(update._display_name).toEqual(class_name);
+  });
   test("should have defined square version", () => {
     expect(update.square_version).toBeDefined();
   });
+  test("should have defined square version", () => {
+    expect(update._last_verified_square_api_version).toBeDefined();
+  });
   test("should have defined _help", () => {
     expect(update.help).toBeDefined();
+  });
+  test("should have defined _help", () => {
+    expect(update._help).toBeDefined();
   });
   test("should have defined square version", () => {
     expect(update.square_version).toBeDefined();
@@ -208,5 +218,11 @@ describe("Customer Update body properties", () => {
     let expected = { postal_code: "94105" };
     make.postal_code("94105");
     expect(update.address).toMatchObject(expected);
+  });
+
+  test("make().customer() should replace body", () => {
+    let expected = { postal_code: "94105" };
+    make.customer(expected);
+    expect(update.body).toMatchObject(expected);
   });
 });
