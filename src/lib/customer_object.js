@@ -261,7 +261,7 @@ class Customer_Object {
    * * @throws Will throw and error if argument  cannot be coerced to integer
    * */
   set version(int) {
-    if (shazam_integer(int)) {
+    if (shazam_integer(int, this.display_name, "version")) {
       this._fardel.version = int;
     }
   }
