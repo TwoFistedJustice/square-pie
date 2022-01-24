@@ -1,7 +1,6 @@
 const Invoice_RUDCnP = require("./invoice_request_abstract_RUDCP_super");
 const {
   query_param_is_query_string,
-  query_param_is_present,
   query_param_replace_value,
   shazam_integer,
 } = require("./utilities");
@@ -51,16 +50,7 @@ class Invoice_Delete extends Invoice_RUDCnP {
       this.#endpoint = modified_endpoint;
       return false;
     } else {
-      // if it is modified - check for presence of param
-      if (!query_param_is_present(modified_endpoint, param)) {
-        // if param is not present- append &param=value and return false
-        modified_endpoint += "&" + param + "=" + value;
-        this.#endpoint = modified_endpoint;
-        return false;
-      } else {
-        // if param is present return true.
-        return true;
-      }
+      return true;
     }
   }
 

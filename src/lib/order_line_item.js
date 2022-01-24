@@ -5,6 +5,7 @@ const {
   arche_money,
   define,
   generate_error_message,
+  shazam_integer,
   shazam_min_length,
   shazam_max_length,
 } = require("./utilities");
@@ -35,7 +36,7 @@ class Order_Line_Item {
       base_price_money: undefined, // Arche Money
       applied_discounts: undefined, // [id...]
       applied_taxes: undefined, // [id...]
-      modifiers: undefined, // [id...]
+      modifiers: undefined, // [{}...]
       pricing_blocklists: undefined, // [id...]
       quantity_unit: undefined, // OBJECT
       metadata: undefined, // do not implement in v1
@@ -235,10 +236,9 @@ class Order_Line_Item {
     }
   }
   set catalog_version(int) {
-    if (!Number.isInteger(int)) {
-      throw new TypeError("catalog_version expects an integer.");
+    if (shazam_integer(int, this.display_name, "catalog_version")) {
+      this._fardel.catalog_version = int;
     }
-    this._fardel.catalog_version = int;
   }
   set item_type(fixed) {
     this._fardel.item_type = fixed;
@@ -397,11 +397,16 @@ class Order_Line_Item {
       },
       catalog_version: function (int64) {
         let key = "catalog_version";
-        if (!Number.isInteger(int64)) {
-          throw new TypeError(generate_error_message(key, "integer", int64));
+        if (
+          shazam_integer(
+            int64,
+            this.display_name,
+            "make_modifier.catalog_version"
+          )
+        ) {
+          define(modifier, key, int64);
+          return this;
         }
-        define(modifier, key, int64);
-        return this;
       },
       name: function (val) {
         if (

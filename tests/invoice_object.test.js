@@ -1,12 +1,10 @@
+const util = require("../src/lib/utilities");
+const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
 const Invoice_Object = require("../src/lib/invoice_object");
 const { long_strings, dateCodes } = require("./helper_objects");
 
 let class_name = "Invoice_Object";
 let invoice;
-
-describe("Silence test suite", () => {
-  test("", () => {});
-});
 
 /* --------------------------------------------------------*
  *                                                         *
@@ -45,16 +43,17 @@ describe("Error checking", () => {
   beforeEach(function () {
     invoice = new Invoice_Object();
   });
-  test("version should throw on ", () => {
-    expect(() => {
-      invoice.version = 3.1;
-    }).toThrow();
-  });
 
-  test("version should throw NOT on ", () => {
-    expect(() => {
-      invoice.version = 3;
-    }).not.toThrow();
+  test("setter should call shazam_integer", () => {
+    let klass = invoice;
+    let test_val = 95;
+    let caller = "version";
+    klass[caller] = test_val;
+    expect(spy_shazam_integer).toHaveBeenCalledWith(
+      test_val,
+      class_name,
+      caller
+    );
   });
 
   test("location_id should throw on string that exceeds length limit ", () => {

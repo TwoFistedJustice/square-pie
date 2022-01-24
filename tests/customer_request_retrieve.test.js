@@ -24,16 +24,28 @@ describe("Customer_Retrieve", () => {
   test("should have display name", () => {
     expect(retrieve._display_name).toBeDefined();
   });
+  test("should have display name", () => {
+    expect(retrieve.display_name).toBeDefined();
+  });
   test("should have the method defined by Square set", () => {
     expect(retrieve.method).toEqual(method);
   });
   test("display name should be same as class name", () => {
     expect(retrieve.display_name).toEqual(class_name);
   });
+  test("display name should be same as class name", () => {
+    expect(retrieve._display_name).toEqual(class_name);
+  });
+  test("should have defined _last_verified_square_api_version", () => {
+    expect(retrieve._last_verified_square_api_version).toBeDefined();
+  });
   test("should have defined square version", () => {
     expect(retrieve.square_version).toBeDefined();
   });
   test("should have defined _help", () => {
+    expect(retrieve._help).toBeDefined();
+  });
+  test("should have defined help", () => {
     expect(retrieve.help).toBeDefined();
   });
   test("should have an endpoint", () => {

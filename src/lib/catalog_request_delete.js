@@ -25,9 +25,6 @@ class Catalog_Delete extends Catalog_Request {
   }
   // SETTERS
   set object_ids(id) {
-    if (typeof id !== "string") {
-      throw new TypeError("Object IDs must valid IDs. Received a " + typeof id);
-    }
     this._body.object_ids.push(id);
   }
   set object_array_concat(arr) {

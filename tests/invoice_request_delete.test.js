@@ -1,3 +1,6 @@
+const util = require("../src/lib/utilities");
+const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
+
 const Invoice_Delete = require("../src/lib/invoice_request_delete");
 
 /* --------------------------------------------------------*
@@ -61,5 +64,17 @@ describe("Invoice_Delete", () => {
     let expected = `/${id}?version=3`;
     del.make().version(2).version(3);
     expect(del.endpoint).toEqual(expected);
+  });
+
+  test("version setter should call shazam_integer", () => {
+    let klass = del;
+    let test_val = 95;
+    let caller = "version";
+    klass[caller] = test_val;
+    expect(spy_shazam_integer).toHaveBeenCalledWith(
+      test_val,
+      class_name,
+      caller
+    );
   });
 });

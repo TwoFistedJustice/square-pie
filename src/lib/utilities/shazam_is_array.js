@@ -1,4 +1,4 @@
-/**
+/** @function shazam_is_array - verifies that the first argument is a populated array.
  * @param {array} arr - a value that SHOULD be an array. Maybe it is, maybe it ain't.
  * @param {string} display_name - the _display_name static from the calling class
  * @param {string} caller - the name variable from the calling function

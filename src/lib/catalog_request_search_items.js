@@ -84,10 +84,7 @@ class Catalog_Search_Items extends Catalog_Request {
       throw new Error('stock_levels only accepts "OUT" and "LOW"');
     }
     arrayify(this._body, "stock_levels", this._display_name);
-    // prevent more than two
-    if (this._body.stock_levels.length >= 2) {
-      throw new Error("stock_levels can contain a maximum of 2 entries.");
-    }
+    // prevent more than two - no point since duplicates are prevented and there are only two options
     // disallow duplicates
     if (
       this._body.stock_levels.length === 1 &&

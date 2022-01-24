@@ -39,6 +39,11 @@ class Order_Update extends Order_Request {
     }
     return this._endpoint;
   }
+
+  get idempotency_key() {
+    return this._body.idempotency_key;
+  }
+
   get fields_to_clear() {
     return this._body.fields_to_clear;
   }

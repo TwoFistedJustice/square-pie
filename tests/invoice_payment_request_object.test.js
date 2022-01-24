@@ -1,3 +1,10 @@
+const util = require("../src/lib/utilities");
+const spy_shazam_boolean = jest.spyOn(util, "shazam_boolean");
+const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
+// const spy_shazam_date_human_readable = jest.spyOn(util, "shazam_date_human_readable");
+// const spy_shazam_number_between_equals = jest.spyOn(util, "shazam_number_between_equals");
+// const spy_shazam_max_length = jest.spyOn(util, "shazam_max_length");
+
 const Invoice_Payment_Request_Object = require("../src/lib/invoice_payment_request_object");
 const { long_strings, dateCodes } = require("./helper_objects");
 // const {expect} = require ("chai");
@@ -80,11 +87,16 @@ describe("error checking", () => {
     }).toThrow();
   });
 
-  test("request_or_payment.tipping_enabled should throw on non boolean", () => {
-    let wrong = "yes";
-    expect(() => {
-      request_for_payment.tipping_enabled(wrong);
-    }).toThrow();
+  test("setter should call shazam_boolean", () => {
+    let klass = request_for_payment;
+    let test_val = true;
+    let caller = "tipping_enabled";
+    klass[caller] = test_val;
+    expect(spy_shazam_boolean).toHaveBeenCalledWith(
+      test_val,
+      class_name,
+      caller
+    );
   });
 
   test("request_or_payment.due_date should throw on wrong date format", () => {
@@ -106,17 +118,39 @@ describe("error checking", () => {
     }).not.toThrow();
   });
 
-  test("#build_reminder should throw on a non integer days argument", () => {
-    expect(() => {
-      make.reminder(message, 15.5);
-    }).toThrow();
+  test("#build_reminder should  call shazam_integer on whoa_nelly argument", () => {
+    let test_val = 95;
+    let caller = "#build_reminder";
+    make.reminder(message, 0, test_val);
+    expect(spy_shazam_integer).toHaveBeenCalledWith(
+      test_val,
+      class_name,
+      caller
+    );
   });
 
-  test("#build_reminder should throw on a non integer whoa_nelly argument ", () => {
-    expect(() => {
-      make.reminder(message, 0, 15.5);
-    }).toThrow();
+  test("#build_reminder should  call shazam_integer on days argument", () => {
+    let test_val = 95;
+    let caller = "#build_reminder";
+    make.reminder(message, test_val);
+    expect(spy_shazam_integer).toHaveBeenCalledWith(
+      test_val,
+      class_name,
+      caller
+    );
   });
+
+  // test("#build_reminder should throw on a non integer days argument", () => {
+  //   expect(() => {
+  //     make.reminder(message, 15.5);
+  //   }).toThrow();
+  // });
+
+  // test("#build_reminder should throw on a non integer whoa_nelly argument ", () => {
+  //   expect(() => {
+  //     make.reminder(message, 0, 15.5);
+  //   }).toThrow();
+  // });
 
   test("#build_reminder should throw on an above range days argument", () => {
     expect(() => {

@@ -24,8 +24,8 @@ class Order_Retrieve extends Order_Request {
    *  */
   constructor() {
     super();
-    this._method = "post";
-    this._endpoint = "batch-retrieve";
+    this._method = "POST";
+    this._endpoint = "/batch-retrieve";
     this._body = {
       location_id: undefined,
       order_ids: [], // [string,...]
@@ -98,24 +98,6 @@ class Order_Retrieve extends Order_Request {
 
   set delivery(parcel) {
     this._delivery = parcel.orders;
-  }
-  location(id) {
-    this.location = id;
-    return this;
-  }
-  clear_location() {
-    this.location = undefined;
-    return this;
-  }
-
-  add_order(id) {
-    this.order_ids = id;
-    return this;
-  }
-
-  add_array_of_orders(arr) {
-    this.order_array_concat = arr;
-    return this;
   }
 
   make() {

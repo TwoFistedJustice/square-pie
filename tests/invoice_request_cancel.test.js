@@ -1,9 +1,6 @@
+const util = require("../src/lib/utilities");
+const spy_integer = jest.spyOn(util, "shazam_integer");
 const Invoice_Cancel = require("../src/lib/invoice_request_cancel");
-describe("silence test suite", () => {
-  test("", () => {
-    expect("").toEqual("");
-  });
-});
 
 /* --------------------------------------------------------*
  *                                                         *
@@ -66,11 +63,11 @@ describe("Invoice_Cancel", () => {
     cancel.make().version(expected);
     expect(cancel.version).toEqual(expected);
   });
-  // version should throw if not an int
 
-  test("version should throw if not an int", () => {
-    expect(() => {
-      cancel.version = 95.5;
-    }).toThrow();
+  test("setter should call shazam_integer", () => {
+    let test_val = 95;
+    let caller = "version";
+    cancel[caller] = test_val;
+    expect(spy_integer).toHaveBeenCalledWith(test_val, class_name, caller);
   });
 });

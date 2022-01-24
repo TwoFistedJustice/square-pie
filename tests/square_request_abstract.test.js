@@ -33,10 +33,12 @@ describe("Square_Request", () => {
   });
 
   test("should have defined _secret", () => {
-    // expect (square.hasOwnProperty("_secret")).toEqual (true);
     expect(Object.prototype.hasOwnProperty.call(square, "_secret")).toEqual(
       true
     );
+  });
+  test("should return secret name", () => {
+    expect(square.secretName).toBeDefined();
   });
   test("Body should set", () => {
     let expected = { a: 1 };
@@ -58,5 +60,11 @@ describe("Square_Request", () => {
 
   test("url should be defined", () => {
     expect(square.url).toBeDefined();
+  });
+  test("headers should be defined", () => {
+    expect(square.headers()).toBeDefined();
+  });
+  test("options should be defined", () => {
+    expect(square.options()).toBeDefined();
   });
 });

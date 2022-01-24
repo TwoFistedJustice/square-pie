@@ -34,7 +34,7 @@ class Order_Search extends Order_Request {
       location_ids: [], // required: min1
       cursor: undefined,
       limit: undefined, // int
-      return_entries: undefined, //bool - if set to true returns only the object id,  location id, and version. If set to true returns complete order objects
+      return_entries: undefined, //bool - if set to true returns only the order entry objects {order_id, version, location_id},  location id, and version. If set to true returns complete order objects
       query: undefined, // {} (complex)
     };
     this.configuration = {

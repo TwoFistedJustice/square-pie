@@ -38,8 +38,13 @@ describe("Order_Clone", () => {
     expect(joeyfett.order_id).toEqual("Joey");
   });
 
-  test("Order_Clone make() should set new id", () => {
+  test("make().order_id() should set new id", () => {
     bobafett.make().order_id("cousin mikey");
+    expect(bobafett.order_id).toEqual("cousin mikey");
+  });
+
+  test("make().order_id() should set new id", () => {
+    bobafett.make().order("cousin mikey");
     expect(bobafett.order_id).toEqual("cousin mikey");
   });
 

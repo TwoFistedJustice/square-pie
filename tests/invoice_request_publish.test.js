@@ -1,7 +1,14 @@
+const util = require("../src/lib/utilities");
+const spy_integer = jest.spyOn(util, "shazam_integer");
+
 const Invoice_Publish = require("../src/lib/invoice_request_publish");
 
 const { long_strings } = require("./helper_objects");
+// const index = require ("../src/lib/utilities/index.js");
 
+const class_name = "Invoice_Publish";
+const id = "123";
+let publish;
 /* --------------------------------------------------------*
  *                                                         *
  *                        Invoice_Publish
@@ -9,9 +16,6 @@ const { long_strings } = require("./helper_objects");
  * ------------------------------------------------------- */
 
 describe("Invoice_Publish", () => {
-  let publish;
-  let class_name = "Invoice_Publish";
-  let id = "123";
   let endpoint = `/${id}/publish`;
   let id2 = "ABC";
   let endpoint2 = `/${id2}/publish`;
@@ -76,11 +80,27 @@ describe("Invoice_Publish", () => {
     publish.make().version(expected);
     expect(publish.version).toEqual(expected);
   });
-  // version should throw if not an int
 
-  test("version should throw if not an int", () => {
-    expect(() => {
-      publish.version = 95.5;
-    }).toThrow();
+  test("idempotency_key setter should set", () => {
+    publish.idempotency_key = id;
+    expect(publish.idempotency_key).toEqual(id);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        jest mocks
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("jest mocks", () => {
+  beforeEach(function () {
+    publish = new Invoice_Publish(id);
+  });
+  test("shazam_integer", () => {
+    let test_val = 95;
+    let caller = "version";
+    publish.make()[caller](test_val);
+    expect(spy_integer).toHaveBeenCalledWith(test_val, class_name, caller);
   });
 });

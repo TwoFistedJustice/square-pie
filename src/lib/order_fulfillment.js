@@ -11,8 +11,8 @@ const man =
   "This class has two specialized make-methods in addition to the normal one.." +
   "make_shipment() lets you add shipping details.\n" +
   "make_pickup() lets you add pickup details.\n" +
-  "They are both one and done type methods. You don't need to add their output to anything. It is automatic." +
-  "\n\nhttps://developer.squareup.com/reference/square/objects/OrderFulfillment";
+  "They are both one and done type methods. You don't need to add their output to anything. It is automatic.\n" +
+  "\nhttps://developer.squareup.com/reference/square/objects/OrderFulfillment";
 
 class Order_Fulfillment {
   _display_name = "Order_Fulfillment";
@@ -218,6 +218,8 @@ class Order_Fulfillment {
         this.cancel_reason(str);
         return this;
       },
+      // todo this won't pass because validator doesn't do durations
+      // need to write own utility to create
       auto_complete_duration: function (time) {
         let key = "auto_complete_duration";
         this.self.#time_date(fulfillment, key, time);

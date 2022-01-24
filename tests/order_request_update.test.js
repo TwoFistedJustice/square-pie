@@ -67,4 +67,9 @@ describe("Order_Update", () => {
       update.make().idempotency_key(long_strings.len_193);
     }).toThrow();
   });
+
+  test("Order_Update idempotency_key setter should set", () => {
+    update.make().idempotency_key(order_id);
+    expect(update.idempotency_key).toEqual(order_id);
+  });
 });

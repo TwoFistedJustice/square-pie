@@ -57,9 +57,6 @@ class Catalog_Category extends Catalog_Object_Super {
     return this._fardel;
   }
   // SETTERS
-  set type(any) {
-    this._fardel.type = "CATEGORY";
-  }
   set id(str) {
     str[0] !== "#" ? (this._fardel.id = "#" + str) : (this._fardel.id = str);
   }

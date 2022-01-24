@@ -24,13 +24,13 @@ describe("Customer_Create", () => {
     expect(create.method).toEqual(method);
   });
   test("display name should be same as class name", () => {
-    expect(create.display_name).toEqual(class_name);
+    expect(create._display_name).toEqual(class_name);
   });
   test("should have defined square version", () => {
-    expect(create.square_version).toBeDefined();
+    expect(create._last_verified_square_api_version).toBeDefined();
   });
   test("should have defined _help", () => {
-    expect(create.help).toBeDefined();
+    expect(create._help).toBeDefined();
   });
   test("should have _delivery", () => {
     create.delivery = { customer: { a: 1 } };

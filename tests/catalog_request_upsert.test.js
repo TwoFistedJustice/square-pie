@@ -60,4 +60,32 @@ describe("Catalog_Upsert", () => {
   test("should have defined _body.idempotency_key", () => {
     expect(upsert.body.idempotency_key).toBeDefined();
   });
+
+  test("make().add() should add to objects array", () => {
+    let fardel = { a: 1 };
+    let expected = {
+      idempotency_key: upsert._body.idempotency_key,
+      batches: [
+        {
+          objects: [fardel],
+        },
+      ],
+    };
+    upsert.make().add(fardel);
+    expect(upsert.body).toMatchObject(expected);
+  });
+
+  test("add should add to objects array", () => {
+    let fardel = { a: 1 };
+    let expected = {
+      idempotency_key: upsert._body.idempotency_key,
+      batches: [
+        {
+          objects: [fardel],
+        },
+      ],
+    };
+    upsert.add(fardel);
+    expect(upsert.body).toMatchObject(expected);
+  });
 });

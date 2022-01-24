@@ -2,7 +2,6 @@ const Retrieve_Update_Delete = require("./customer_request_abstract_R_U_D_super"
 const {
   shazam_integer,
   query_param_is_query_string,
-  query_param_is_present,
   query_param_replace_value,
 } = require("./utilities");
 const man =
@@ -55,16 +54,7 @@ class Customer_Delete extends Retrieve_Update_Delete {
       this.#endpoint = modified_endpoint;
       return false;
     } else {
-      // if it is modified - check for presence of param
-      if (!query_param_is_present(modified_endpoint, param)) {
-        // if param is not present- append &param=value and return false
-        modified_endpoint += "&" + param + "=" + value;
-        this.#endpoint = modified_endpoint;
-        return false;
-      } else {
-        // if param is present return true.
-        return true;
-      }
+      return true;
     }
   }
 

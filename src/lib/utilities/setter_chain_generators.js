@@ -22,7 +22,7 @@ there nonethless.
  * */
 
 /** @function  setter_chain_generator_config - deprecated but left in because frankly, I think this function is cool!
- * @param {object} config - the configuratin object on a class
+ * @param {object} config - the configuration object on a class
  * @param {object} methods - a factory function returned object you want to add methods to
  * @param {object} that - the enclosing class of the previous two arguments
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
@@ -44,7 +44,6 @@ there nonethless.
  * */
 
 const setter_chain_generator_config = function (config, methods, that) {
-  // const setter_chain_generator_config = function (that) {
   config.keys.forEach((key) => {
     methods[key] = function () {
       let channels = {};
@@ -60,6 +59,28 @@ const setter_chain_generator_config = function (config, methods, that) {
   });
 };
 
+/** /** @function  setter_chain_generator_separate_arrays - takes several arrays of strings and generates curried setters from them
+ * @param {object} keys - the configuratin object on a class
+ * @param {object} methods - a factory function returned object you want to add methods to
+ * @param {object} that - the enclosing class of the previous two arguments
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * @example
+ *
+ let keys = ["doe", "re", "mi"];
+ let values = {
+        doe: ["deer", "female_deer"],
+        re: ["golden_sun"],
+        mi: ["myself"],
+      };
+ let klass = {
+      methods: {},
+    };
+ 
+ setter_chain_generator_separate_arrays(keys, values, klass.methods, klass);
+ klass.methods.doe().deer(); => klass.doe = "deer"
+ klass.methods.re().golden_sun(); => klass.re = "golden_sun"
+ klass.methods.mi().myself(); => klass.mi = "myself"
+ * */
 const setter_chain_generator_separate_arrays = function (
   keys,
   values,

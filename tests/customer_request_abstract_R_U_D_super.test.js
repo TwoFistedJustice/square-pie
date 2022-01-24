@@ -1,6 +1,6 @@
 "use strict";
 const Customer_Retrieve_Update_Delete_Super = require("../src/lib/customer_request_abstract_R_U_D_super");
-let supes;
+let supes, make;
 const id = "123";
 const class_name = "Customer_Retrieve_Update_Delete_Super";
 let endpoint = "/123"; //copy and paste from Square docs
@@ -33,6 +33,9 @@ describe(`${class_name} basic request class structures`, () => {
     supes.delivery = { customer: { a: 1 } };
     expect(supes.delivery).toBeDefined();
   });
+  test("id should return endpoint", () => {
+    expect(supes.id).toEqual(endpoint);
+  });
 });
 
 /* --------------------------------------------------------*
@@ -60,6 +63,7 @@ describe(`${class_name} basic request class structures`, () => {
 describe(`${class_name} getters/setters`, () => {
   beforeEach(() => {
     supes = new Customer_Retrieve_Update_Delete_Super(id);
+    make = supes.make();
   });
   test("set id should set endpoint", () => {
     let expected = "/ABC";
@@ -88,5 +92,10 @@ describe(`${class_name} getters/setters`, () => {
     supes.append_query_param("poof", "silentbutdeadly");
     supes.append_query_param("hewhosmeltit", "dealtit");
     expect(supes.endpoint).toEqual(expected);
+  });
+
+  test("make.id should set endpoint", () => {
+    make.id("ABC");
+    expect(supes.endpoint).toEqual("/ABC");
   });
 });

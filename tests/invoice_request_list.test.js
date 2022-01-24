@@ -1,3 +1,6 @@
+const util = require("../src/lib/utilities");
+const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
+const spy_shazam_number_LE = jest.spyOn(util, "shazam_number_LE");
 const Invoice_List = require("../src/lib/invoice_request_list");
 
 /* --------------------------------------------------------*
@@ -97,23 +100,32 @@ describe("Invoice_List", () => {
     expect(list.endpoint).toEqual(expected);
   });
 
-  // limit
-  test("limit should throw on a non-integer", () => {
-    expect(() => {
-      list.limit = 95.5;
-    }).toThrow();
+  // limit mocks
+
+  test("limit setter should call shazam_integer", () => {
+    let klass = list;
+    let test_val = 95;
+    let caller = "limit";
+    klass[caller] = test_val;
+    expect(spy_shazam_integer).toHaveBeenCalledWith(
+      test_val,
+      class_name,
+      caller
+    );
   });
 
-  test("limit should throw if it exceeds limit", () => {
-    expect(() => {
-      list.limit = 201;
-    }).toThrow();
-  });
-
-  test("limit should not throw if it deceeds limit", () => {
-    expect(() => {
-      list.limit = 199;
-    }).not.toThrow();
+  test("limit setter should call shazam_number_LE", () => {
+    let klass = list;
+    let test_val = 95;
+    let caller = "limit";
+    let limit_val = klass.configuration.maximums[caller];
+    klass[caller] = test_val;
+    expect(spy_shazam_number_LE).toHaveBeenCalledWith(
+      test_val,
+      limit_val,
+      class_name,
+      caller
+    );
   });
 
   // Make()

@@ -1,3 +1,6 @@
+const util = require("../src/lib/utilities");
+const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
+
 const Customer_Delete = require("../src/lib/customer_request_delete");
 
 /* --------------------------------------------------------*
@@ -18,21 +21,37 @@ describe("Customer_Delete", () => {
     del = new Customer_Delete("123", 5);
   });
 
-  test("should have display name", () => {
+  test("should have _display name", () => {
     expect(del._display_name).toBeDefined();
   });
-  test("should have the method defined by Square set", () => {
-    expect(del.method).toEqual(method);
+  test("should have display name", () => {
+    expect(del.display_name).toBeDefined();
+  });
+  test("_display_name should be same as class name", () => {
+    expect(del._display_name).toEqual(class_name);
   });
   test("display name should be same as class name", () => {
     expect(del.display_name).toEqual(class_name);
   });
+
+  test("should have the method defined by Square set", () => {
+    expect(del.method).toEqual(method);
+  });
+
+  test("should have defined _last_verified_square_api_version", () => {
+    expect(del._last_verified_square_api_version).toBeDefined();
+  });
   test("should have defined square version", () => {
     expect(del.square_version).toBeDefined();
   });
-  test("should have defined _help", () => {
+
+  test("should have defined help", () => {
     expect(del.help).toBeDefined();
   });
+  test("should have defined _help", () => {
+    expect(del._help).toBeDefined();
+  });
+
   test("should have _delivery", () => {
     del.delivery = {};
     expect(del.delivery).toBeDefined();
@@ -53,5 +72,17 @@ describe("Customer_Delete", () => {
     let expected = "/123?version=19";
     del.make().version(19);
     expect(del.endpoint).toEqual(expected);
+  });
+
+  test("setter should call shazam_integer", () => {
+    let klass = del;
+    let test_val = 95;
+    let caller = "version";
+    klass[caller] = test_val;
+    expect(spy_shazam_integer).toHaveBeenCalledWith(
+      test_val,
+      class_name,
+      caller
+    );
   });
 });
