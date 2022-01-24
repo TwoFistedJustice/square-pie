@@ -260,6 +260,11 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
     expect(xref.query).toMatchObject(expected.modifiers);
   });
 
+  test("concat_modifiers", () => {
+    xref.concat_modifiers(arr);
+    expect(xref.query).toMatchObject(expected.modifiers);
+  });
+
   /* --------------------------------------------------------*
    *                                                         *
    *                        taxes
