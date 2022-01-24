@@ -80,6 +80,11 @@ describe("Invoice_Publish", () => {
     publish.make().version(expected);
     expect(publish.version).toEqual(expected);
   });
+
+  test("idempotency_key setter should set", () => {
+    publish.idempotency_key = id;
+    expect(publish.idempotency_key).toEqual(id);
+  });
 });
 
 /* --------------------------------------------------------*
