@@ -1,68 +1,69 @@
+const util = require("../src/lib/utilities");
+const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
+
 const Customer_Object = require("../src/lib/customer_object");
 const {
   long_strings,
   dateCodes,
   sampleCustomers,
 } = require("./helper_objects");
-// const {expect} = require ("chai");
-
-describe("Silence test suite", () => {
-  test("", () => {});
-});
 
 describe("length and type checks", () => {
-  let Customer;
+  let customer;
   beforeEach(() => {
-    Customer = new Customer_Object();
+    customer = new Customer_Object();
   });
 
   test("phone_number should respect length of 11", () => {
     expect(() => {
-      Customer.make().phone_number(long_strings.len_12);
+      customer.make().phone_number(long_strings.len_12);
     }).toThrow();
 
     expect(() => {
-      Customer.make().phone_number(long_strings.len_11);
+      customer.make().phone_number(long_strings.len_11);
     }).not.toThrow();
   });
 
   test("tax_ids should respect length of 20", () => {
     expect(() => {
-      Customer.make().tax_ids(long_strings.len_21);
+      customer.make().tax_ids(long_strings.len_21);
     }).toThrow();
 
     expect(() => {
-      Customer.make().tax_ids(long_strings.len_20);
+      customer.make().tax_ids(long_strings.len_20);
     }).not.toThrow();
   });
 
   test("birthday should respect RFC3339", () => {
     expect(() => {
-      Customer.make().birthday(dateCodes.notRFC3339);
+      customer.make().birthday(dateCodes.notRFC3339);
     }).toThrow();
 
     expect(() => {
-      Customer.make().birthday(dateCodes.RFC3339);
+      customer.make().birthday(dateCodes.RFC3339);
     }).not.toThrow();
   });
 
-  test("version should respect integer", () => {
-    expect(() => {
-      Customer.make().version("106.7");
-    }).toThrow();
-
-    expect(() => {
-      Customer.make().version("10");
-    }).not.toThrow();
+  test("setter should call shazam_integer", () => {
+    let class_name = "Customer_Object";
+    let klass = customer;
+    let test_val = 95;
+    let caller = "version";
+    klass[caller] = test_val;
+    expect(spy_shazam_integer).toHaveBeenCalledWith(
+      test_val,
+      class_name,
+      caller
+    );
   });
 
   test("preferences should respect boolean", () => {
     expect(() => {
-      Customer.make().preferences();
+      customer.make().preferences();
     }).toThrow();
 
     expect(() => {
-      Customer.make().preferences(false);
+      customer.make().preferences(false);
     }).not.toThrow();
   });
 });
