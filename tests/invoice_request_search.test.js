@@ -121,6 +121,12 @@ describe("Invoice_Search", () => {
     expect(search.location_ids).toEqual(expect.arrayContaining(expected));
   });
 
+  test("make().location alias should push to location_ids array", () => {
+    search.make().location(id).location(other_id);
+    let expected = [id, other_id];
+    expect(search.location_ids).toEqual(expect.arrayContaining(expected));
+  });
+
   test("make().customer_id should push to customer_ids array", () => {
     search.make().customer_id(id).customer_id(other_id);
     let expected = [id, other_id];
