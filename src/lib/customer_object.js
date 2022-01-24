@@ -265,7 +265,9 @@ class Customer_Object {
       this._fardel.version = int;
     }
   }
-
+  set creation_source(val) {
+    this._fardel.creation_source = val;
+  }
   set preferences(bool) {
     if (shazam_boolean(bool, this.display_name, "preferences")) {
       this._fardel.preferences = {
