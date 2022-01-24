@@ -53,9 +53,10 @@ describe("Catalog_Search_Items", () => {
     }).toThrow();
   });
 
-  test("stock_levels creates an array", () => {
-    search.stock_levels = "LOW";
-    search.stock_levels.should.be.an("array");
+  test("stock_levels should throw if given duplicate entries", () => {
+    expect(() => {
+      search.make().stock_levels().low().low();
+    }).toThrow();
   });
 
   test("category_ids creates an array", () => {
