@@ -1,4 +1,5 @@
 const normalize_email = require("./normalize_email");
+const clone_object = require("./object_clone");
 const define = require("./define");
 const defineify = require("./defineify");
 const query_param_add_value = require("./query_param_add_value");
@@ -36,6 +37,7 @@ const shazam_number_between_equals = require("./shazam_number_between_equals");
 
 module.exports = {
   arche_time_start_end,
+  clone_object,
   normalize_email,
   define,
   defineify,
