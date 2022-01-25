@@ -125,7 +125,6 @@ Square Docs
 
 class Order_Line_Item {
 this._fardel
-this._modifier
 this.configuration
 ==
 PRIVATE METHODS
@@ -138,8 +137,6 @@ PRIVATE METHODS
 +#uid_length()
 ...
 - validates min and max length for tax and discount uid
-
-+#init_modifier()
 ...
  - clears and initializes this._modifier with a new 'uid'
 
@@ -172,10 +169,8 @@ MAKER METHODS
 
 +make_modifier()
 ..
-- curried
-- builds out this._modifier
-- use before pushing this._modifier to modifiers array
-- re-initializes this._modifier when called
+- creates a compliant [[https://developer.squareup.com/reference/square/objects/OrderLineItemModifier OrderLineItemModifier]] object
+- you must call .add() as last step
 ==
 Square Docs
 [[https://developer.squareup.com/reference/square/objects/OrderLineItem Order Line Item ]]
