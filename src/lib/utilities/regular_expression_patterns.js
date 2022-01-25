@@ -1,4 +1,7 @@
 const regular_expression_patterns = {
+  id_patterns: {
+    temporary_id: /^(?:#temp_id_)[A-Za-z0-9_-]{8}$/,
+  },
   query_param_regex: {
     start: /\?+/, // presence of "?"
     continuation: /=+/, // presence of "="
