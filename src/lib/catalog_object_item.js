@@ -401,8 +401,14 @@ class Catalog_Item extends Catalog_Object_Super {
         this.self.tax_ids = id;
         return this;
       },
-      modifier_list_info: function (obj) {
-        this.self.modifier_list_info = obj;
+      /** @method  make().modifier_list_info() - use this to pass a fully formed modifier list object as an argument.
+       * To build one and push it to the array with one function use item.make_modifier_list()
+       * @param {object} mod - a fully constructed modifier list object.
+       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+       * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemModifierListInfo | Square Docs}
+       * */
+      modifier_list_info: function (mod) {
+        this.self.modifier_list_info = mod;
         return this;
       },
       variations: function (obj) {
