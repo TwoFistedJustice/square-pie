@@ -3,6 +3,7 @@ const { uid_length } = require("./pie_defaults");
 const {
   arrayify,
   arche_money,
+  clone_object,
   define,
   generate_error_message,
   shazam_integer,
@@ -25,7 +26,7 @@ class Order_Line_Item {
   _help = this.display_name + ": " + man;
   constructor() {
     this._fardel = {
-      uid: nanoid(uid_length),
+      uid: "uid_line_item_" + nanoid(uid_length),
       quantity: undefined, // 1-12 REQUIRED set auto min of 1
       name: undefined,
       note: undefined,
@@ -41,7 +42,6 @@ class Order_Line_Item {
       quantity_unit: undefined, // OBJECT
       metadata: undefined, // do not implement in v1
     };
-    this._modifier = {}; // this will get cleared when it is added to the modifiers array
     this.configuration = {
       maximums: {
         quantity: 12,
@@ -53,15 +53,7 @@ class Order_Line_Item {
       },
       minimums: {
         quantity: 1,
-        // uid: 1,
       },
-    };
-  }
-
-  //PRIVATE METHODS
-  #init_modifier() {
-    this.#modifier = {
-      uid: nanoid(uid_length),
     };
   }
 
@@ -254,18 +246,9 @@ class Order_Line_Item {
     arrayify(this._fardel, "applied_taxes", this._display_name);
     this._fardel.applied_taxes.push(obj);
   }
-  /** @private made private to prevent accidentally calling the wrong setter- should only be called by #init_modifier
-/** @private made private to prevent accidentally calling the wrong setter- should only be called by #init_modifier
- * */
-  set #modifier(obj) {
-    this._modifier = obj;
-  }
-
   set modifiers(obj) {
     arrayify(this._fardel, "modifiers", this._display_name);
     this._fardel.modifiers.push(obj);
-    // clear the modifier property after adding it the array
-    this.#init_modifier();
   }
 
   set pricing_blocklists(obj) {
@@ -370,59 +353,135 @@ class Order_Line_Item {
     };
   }
 
+  /** @function make_modifier() - method one Order API Line_Item class
+   * @method uid - This is set automatically. Only call this if you want to change it.
+   * @param {string} uid A unique ID that identifies the modifier only within this order. Max Length 60
+   * @method catalog_object_id - sets the id
+   * @param {string} The catalog object ID referencing CatalogModifier. Max Length 192
+   * @method catalog_version - sets teh catalog version
+   * @param {number} int64 an integer - The version of the catalog object that this modifier references.
+   * @method name - set the name of the modifier
+   * @param {string} The name of the item modifier. Max length 255
+   * @method price - set the base price and currency
+   * @param {number} amount - an integer - The base price for the modifier.
+   * @param {string} currency - three letter currency designation in ALL CAPS
+   * @method view - returns the modifier object under construction
+   * @method get_uid - returns the uid
+   * @method add - calls the modifier setter and passes a  new modifier object cloned from the the one you built.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link  https://developer.squareup.com/reference/square/objects/OrderLineItemModifier| Square Docs}
+   * @example
+   *
+   *  It is best to set the function call to a variable. Otherwise you may experience unwanted side effects.
+   *  const mod = line.make_modifier()
+   let obj1 = {
+      uid: "123",  // no need to set this unless you want to, unique-ish id set automatically
+      catalog_object_id: "456",
+      catalog_version: 4,
+      name: "Ethel",
+      base_price_money: {
+        amount: 428,
+        currency: "CAD"
+      }
+    };
+ 
+   let obj2 = {
+      uid: "DEF", // no need to set this unless you want to, unique-ish id set automatically
+      catalog_object_id: "ABC",
+      catalog_version: 42,
+      name: "Fred",
+      base_price_money: {
+        amount: 597,
+        currency: "EUR"
+      }
+    };
+   let ethel = line.make_modifier();
+   let fred = line.make_modifier();
+ 
+   ethel.uid("123").catalog_object_id("456").catalog_version(4).name("Ethel").price(428, "cad").add(); => pushes obj1
+   fred.uid("DEF").catalog_object_id("ABC").name("Fred").catalog_version(42).price(597, "eur").add();  => pushes obj2
+ 
+   line.modifiers => [obj1, obj2]
+   
+   ethel.view() => obj1 // returns the actual object in case you need to access it directly
+   ehtel.get_uid => "123" // in case you need the uid
+   
+   *
+   *
+   * */
   make_modifier() {
-    this.#init_modifier();
-    let caller = "order_line_item.make_modifier()";
-    let modifier = this._modifier;
+    let limits = this.configuration.maximums;
+    const name = this.display_name;
+    const caller = "order_line_item.make_modifier().";
+    let modifier = {
+      uid: "uid_modifier#" + nanoid(uid_length),
+      catalog_object_id: undefined,
+      catalog_version: undefined,
+      name: undefined,
+      base_price_money: undefined,
+    };
+    const reset = function () {
+      for (let prop in modifier) {
+        if (prop === "uid") {
+          modifier.uid = "uid_modifier_" + nanoid(uid_length);
+        } else {
+          modifier[prop] = undefined;
+        }
+      }
+    };
+
     return {
       self: this,
-      price: function (amount, currency) {
-        let key = "base_price_money";
-        let value = arche_money(amount, currency);
-        define(modifier, key, value);
+      uid: function (uid) {
+        if (shazam_max_length(limits.uid, uid, name, caller + "uid")) {
+          modifier.uid = uid;
+        }
         return this;
       },
       catalog_object_id: function (id) {
-        if (
-          shazam_max_length(
-            this.self.configuration.catalog_object_id,
-            id,
-            caller
-          )
-        ) {
-          let key = "catalog_object_id";
-          define(modifier, key, id);
+        let key = "catalog_object_id";
+        if (shazam_max_length(limits.catalog_object_id, id, caller + key)) {
+          modifier.catalog_object_id = id;
         }
         return this;
       },
       catalog_version: function (int64) {
         let key = "catalog_version";
-        if (
-          shazam_integer(
-            int64,
-            this.display_name,
-            "make_modifier.catalog_version"
-          )
-        ) {
-          define(modifier, key, int64);
-          return this;
-        }
-      },
-      name: function (val) {
-        if (
-          shazam_max_length(
-            this.self.configuration.catalog_object_id,
-            val,
-            caller
-          )
-        ) {
-          let key = "name";
-          define(modifier, key, val);
+        if (shazam_integer(int64, name, caller + key)) {
+          modifier.catalog_version = int64;
         }
         return this;
       },
+      name: function (val) {
+        let key = "name";
+        if (
+          shazam_max_length(limits.catalog_object_id, val, name, caller + key)
+        ) {
+          modifier.name = val;
+        }
+        return this;
+      },
+      price: function (amount, currency) {
+        let key = "base_price_money";
+        modifier.base_price_money = arche_money(
+          amount,
+          currency,
+          name,
+          caller + key
+        );
+        return this;
+      },
+
+      view: function () {
+        return modifier;
+      },
+
+      get_uid: function () {
+        return modifier.uid;
+      },
       add: function () {
-        this.self.modifiers = modifier;
+        this.self.modifiers = clone_object(modifier);
+        reset();
       },
     };
   }

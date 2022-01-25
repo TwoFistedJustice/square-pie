@@ -1,11 +1,14 @@
+const { uid_length } = require("../pie_defaults");
 const regular_expression_patterns = {
   id_patterns: {
     temporary_id: /^(?:#temp_id_)[A-Za-z0-9_-]{8}$/,
+    uid: new RegExp(`^(?:uid_)[a-z]{1,}#{1}[A-Za-z0-9_-]{${uid_length}}$`), // "uid_ a-word # ending with nanoid
   },
   query_param_regex: {
     start: /\?+/, // presence of "?"
     continuation: /=+/, // presence of "="
     version: /version=\d+/, // find 'version=' followed by one or more digit class characters
+
     /** @function query_param_capture captures the entire query param set specified. Use with
      * RegExp.prototype.exec()
      * @param {string} param - the name of the query parameter you want to capture

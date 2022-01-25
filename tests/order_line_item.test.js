@@ -43,6 +43,7 @@ describe("basic object class structures", () => {
  * ------------------------------------------------------- */
 // uid length
 // set catalog_version
+// modifier setter should check for that a least one property is present and no wrong properties are present
 
 /* --------------------------------------------------------*
  *                                                         *
@@ -120,11 +121,7 @@ describe("getters/setters", () => {
     make.applied_taxes(id);
     expect(line.applied_taxes[0].tax_uid).toEqual(expected);
   });
-  test("make().modifiers () should set ", () => {
-    let expected = [id];
-    make.modifiers(id);
-    expect(line.modifiers).toEqual(expected);
-  });
+
   test("make().pricing_blocklists () should set ", () => {
     let expected = {
       blocked_discounts: [
@@ -176,6 +173,122 @@ describe("getters/setters", () => {
   });
 });
 
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        make_modifier()
+ *                                                         *
+ * ------------------------------------------------------- */
+describe("make_modifier()", () => {
+  beforeEach(() => {
+    line = new Order_Line_Item();
+  });
+  test("make().modifier() build and should push one object to the array ", () => {
+    let obj1 = {
+      uid: id,
+      catalog_object_id: id,
+      catalog_version: 4,
+      name: id,
+      base_price_money: {
+        amount: 428,
+        currency: "CAD",
+      },
+    };
+    let expected = [obj1];
+    let mod = line.make_modifier();
+
+    mod
+      .uid(id)
+      .catalog_object_id(id)
+      .catalog_version(4)
+      .name(id)
+      .price(428, "cad")
+      .add();
+    expect(line.modifiers).toEqual(expected);
+  });
+
+  test("make().modifier() build and should push multiple unique objects to the array ", () => {
+    let obj1 = {
+      uid: id,
+      catalog_object_id: id,
+      catalog_version: 4,
+      name: id,
+      base_price_money: {
+        amount: 428,
+        currency: "CAD",
+      },
+    };
+
+    let obj2 = {
+      uid: "DEF",
+      catalog_object_id: "ABC",
+      catalog_version: 42,
+      name: undefined,
+      base_price_money: {
+        amount: 597,
+        currency: "EUR",
+      },
+    };
+    let expected = [obj1, obj2];
+
+    let mod1 = line.make_modifier();
+    let mod2 = line.make_modifier();
+
+    mod1
+      .uid(id)
+      .catalog_object_id(id)
+      .catalog_version(4)
+      .name(id)
+      .price(428, "cad")
+      .add();
+    mod2
+      .uid("DEF")
+      .catalog_object_id("ABC")
+      .catalog_version(42)
+      .price(597, "eur")
+      .add();
+
+    expect(line.modifiers).toEqual(expected);
+  });
+
+  test("make().modifier().view should get modifier under construction ", () => {
+    let obj1 = {
+      uid: id,
+      catalog_object_id: id,
+      catalog_version: 4,
+      name: undefined,
+      base_price_money: {
+        amount: 428,
+        currency: "CAD",
+      },
+    };
+    let expected = obj1;
+    let mod = line.make_modifier();
+
+    mod.uid(id).catalog_object_id(id).catalog_version(4).price(428, "cad");
+    expect(mod.view()).toEqual(expected);
+  });
+
+  test("make().modifier().get_uid() should get uid of modifier under construction ", () => {
+    let expected = id;
+    let mod = line.make_modifier();
+    mod.uid(id).catalog_object_id(id).catalog_version(4).price(428, "cad");
+    expect(mod.get_uid()).toEqual(expected);
+  });
+
+  test("make().modifier() should automatically set uid of modifier under construction with nanoid ", () => {
+    let pattern = util.regular_expression_patterns.id_patterns.uid;
+    let mod = line.make_modifier();
+    mod.catalog_object_id(id).catalog_version(4).price(428, "cad");
+    let uid = mod.get_uid();
+    expect(pattern.test(uid)).toEqual(true);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        #enum_item_type()
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("#enum_item_type()", () => {
   beforeEach(() => {
     line = new Order_Line_Item();
@@ -229,35 +342,6 @@ describe("add_applied_tax() and add_applied_discount() should add a compliant ob
     line.add_applied_discount(tax_discount_uid);
     let received = line.applied_discounts[0]["discount_uid"];
     expect(received).toEqual(tax_discount_uid);
-  });
-});
-
-describe("make_modifier should build a compliant object", () => {
-  beforeEach(() => {
-    line = new Order_Line_Item();
-  });
-
-  test("make_modifier() should build a compliant object at this._modifier", () => {
-    let id = "someID";
-    let price = {
-      amount: 2100,
-      currency: "EUR",
-    };
-    let name = "fred";
-    let ver = 2345;
-    line
-      .make_modifier()
-      .catalog_object_id(id)
-      .price(2100, "EUR")
-      .catalog_version(ver)
-      .name(name)
-      .add();
-    let pushed = line.modifiers[0];
-    expect(pushed.uid.length).toEqual(10);
-    expect(pushed.catalog_object_id).toEqual(id);
-    expect(pushed.base_price_money).toMatchObject(price);
-    expect(pushed.catalog_version).toEqual(ver);
-    expect(pushed.name).toEqual(name);
   });
 });
 
