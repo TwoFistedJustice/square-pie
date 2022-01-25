@@ -143,7 +143,72 @@ describe("getters/setters", () => {
     make.tax_ids(id);
     expect(item.tax_ids).toEqual(expected);
   });
-  test("make().modifier_list_info () should set ", () => {
+
+  test("make().modifier_list_info () should build one compliant object and send it to the array ", () => {
+    let expected = [
+      {
+        modifier_list_id: id,
+        enabled: false,
+        max_selected_modifiers: 15,
+        min_selected_modifiers: 5,
+        modifier_overrides: {
+          modifier_id: id,
+          on_by_default: true, // If true, this CatalogModifier should be selected by default for this CatalogItem
+        },
+      },
+    ];
+    item
+      .make_modifier_list()
+      .modifier_list_id(id)
+      .enabled(false)
+      .max_selected_modifiers(15)
+      .min_selected_modifiers(5)
+      .modifier_overrides(id, true)
+      .add();
+    expect(item.modifier_list_info).toMatchObject(expected);
+  });
+
+  test("make().modifier_list_info () should build two different compliant object and send it to the array ", () => {
+    let obj1 = {
+      modifier_list_id: id,
+      enabled: true,
+      max_selected_modifiers: 15,
+      min_selected_modifiers: 5,
+      modifier_overrides: {
+        modifier_id: id,
+        on_by_default: true,
+      },
+    };
+
+    let obj2 = {
+      modifier_list_id: "ABC",
+      enabled: undefined,
+      max_selected_modifiers: undefined,
+      min_selected_modifiers: undefined,
+      modifier_overrides: {
+        modifier_id: "DEF",
+        on_by_default: true,
+      },
+    };
+
+    let expected = [obj1, obj2];
+    item
+      .make_modifier_list()
+      .modifier_list_id(id)
+      .enabled()
+      .max_selected_modifiers(15)
+      .min_selected_modifiers(5)
+      .modifier_overrides(id, true)
+      .add();
+    item
+      .make_modifier_list()
+      .modifier_list_id("ABC")
+      .modifier_overrides("DEF", true)
+      .add();
+    expect(item.modifier_list_info).toMatchObject(expected);
+  });
+
+  test("make().modifier_list_info().view() should return the object under construction ", () => {
     let expected = {
       modifier_list_id: id,
       enabled: false,
@@ -154,8 +219,33 @@ describe("getters/setters", () => {
         on_by_default: true, // If true, this CatalogModifier should be selected by default for this CatalogItem
       },
     };
-    make.modifier_list_info({ build: "me" });
-    expect(item.modifier_list_info).toMatchObject(expected);
+    let mod = item.make_modifier_list();
+    mod
+      .modifier_list_id(id)
+      .enabled(false)
+      .max_selected_modifiers(15)
+      .min_selected_modifiers(5)
+      .modifier_overrides(id, true);
+    expect(mod.view()).toMatchObject(expected);
+  });
+
+  test("make().modifier_list_info().clear() should return the object under construction to its un-constructed state ", () => {
+    let expected = {
+      modifier_list_id: undefined,
+      modifier_overrides: undefined,
+      min_selected_modifiers: undefined,
+      max_selected_modifiers: undefined,
+      enabled: undefined,
+    };
+    let mod = item.make_modifier_list();
+    mod
+      .modifier_list_id(id)
+      .enabled(false)
+      .max_selected_modifiers(15)
+      .min_selected_modifiers(5)
+      .modifier_overrides(id, true)
+      .clear();
+    expect(mod.view()).toMatchObject(expected);
   });
 
   test("make().variations () should set ", () => {

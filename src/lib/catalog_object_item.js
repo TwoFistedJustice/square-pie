@@ -1,6 +1,8 @@
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
 const {
+  clone_object,
   shazam_boolean,
+  shazam_integer,
   shazam_max_length,
   shazam_max_length_array,
   arrayify,
@@ -169,6 +171,10 @@ class Catalog_Item extends Catalog_Object_Super {
   }
   set modifier_list_info(obj) {
     // has one required value -- the sub-property modifier_overrides also has one required value
+    // check for presence of modifier_list_id
+    // throw error if not
+    // check for presence of modifier_overrides.modifier_id
+    // throw error if parent is present but required child is not
     arrayify(this._fardel.item_data, "modifier_list_info");
     this._fardel.item_data.modifier_list_info.push(obj);
   }
@@ -251,6 +257,97 @@ class Catalog_Item extends Catalog_Object_Super {
       },
       appt: function () {
         return this.appointments_service();
+      },
+    };
+  }
+  /** @function make_modifier_list - builds a compliant modifier_list_Info object. To use the 'view' method you must set the function
+   * to a variable and call the method on the variable. If you don't do this, it will return an un-constructed  object.
+   *
+   *
+   * @method modifier_list_id
+   * @param{string} id
+   * @method modifier_overrides
+   * @param{string} id
+   * @param{boolean} bool - default value is false
+   * @throws{TypeError} throws an error if passed a non-boolean
+   * @method min_selected_modifiers
+   * @param{number} int32 - must be an integer
+   * @throws{TypeError} throws an error if passed a non-integer
+   * @method max_selected_modifiers
+   * @param{number} int32 - must be an integer
+   * @throws{TypeError} throws an error if passed a non-integer
+   * @method enabled
+   * @param{boolean} bool
+   * @throws{TypeError} throws an error if passed a non-boolean
+   * @method clear - clears your entries
+   * @method view - returns the catalog_modifier_list object under construction
+   * @method add - adds the catalog_modifier_list to the array and calls clear()
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemModifierListInfo | Square Docs}
+   * @example
+   *
+   * */
+  make_modifier_list() {
+    const name = this.display_name + ".make_modifier_list";
+    // todo need to create a totally new instance of the object else this retains access to the one in the array
+    //  once the object is added to the array, break the connection to the object
+    //  clone the object in add() before passing to the setter?
+    let catalog_modifier_list = {
+      modifier_list_id: undefined,
+      modifier_overrides: undefined,
+      min_selected_modifiers: undefined,
+      max_selected_modifiers: undefined,
+      enabled: undefined,
+    };
+    let reinitialize = function () {
+      for (let property in catalog_modifier_list) {
+        catalog_modifier_list[property] = undefined;
+      }
+    };
+
+    return {
+      self: this,
+      modifier_list_id: function (id) {
+        catalog_modifier_list.modifier_list_id = id;
+        return this;
+      },
+      modifier_overrides: function (id, bool = false) {
+        if (shazam_boolean(bool, name, "modifier_overrides")) {
+          catalog_modifier_list.modifier_overrides = {
+            modifier_id: id,
+            on_by_default: bool,
+          };
+        }
+        return this;
+      },
+      min_selected_modifiers: function (int32) {
+        if (shazam_integer(int32, name, "min_selected_modifiers")) {
+          catalog_modifier_list.min_selected_modifiers = int32;
+        }
+        return this;
+      },
+      max_selected_modifiers: function (int32) {
+        if (shazam_integer(int32, name, "max_selected_modifiers")) {
+          catalog_modifier_list.max_selected_modifiers = int32;
+        }
+        return this;
+      },
+      enabled: function (bool = true) {
+        if (shazam_boolean(bool, name, "enabled")) {
+          catalog_modifier_list.enabled = bool;
+        }
+        return this;
+      },
+      clear: function () {
+        reinitialize();
+      },
+      view: function () {
+        return catalog_modifier_list;
+      },
+      add: function () {
+        let copy = clone_object(catalog_modifier_list);
+        this.self.modifier_list_info = copy;
+        this.clear();
       },
     };
   }
