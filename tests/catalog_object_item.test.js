@@ -1,5 +1,9 @@
 const Catalog_Item = require("../src/lib/catalog_object_item");
 const Catalog_Item_Variation = require("../src/lib/catalog_object_item_variation");
+const {
+  id_patterns,
+} = require("../src/lib/utilities/regular_expression_patterns");
+
 // const { long_strings } = require("./helper_objects");
 // const {expect} = require ("chai");
 
@@ -45,6 +49,10 @@ describe("basic object class structures", () => {
   test("type should be ITEM", () => {
     expect(item.type).toEqual("ITEM");
   });
+
+  test("Should set a new temporary id if none is provided", () => {
+    expect(id_patterns.temporary_id.test(item.id)).toEqual(true);
+  });
 });
 
 /* --------------------------------------------------------*
@@ -53,11 +61,46 @@ describe("basic object class structures", () => {
  *                                                         *
  * ------------------------------------------------------- */
 
+describe(`${class_name} Error Checking`, () => {
+  beforeEach(() => {
+    item = new Catalog_Item();
+  });
+
+  test("fardel getter should throw if variations array does not exist  ", () => {
+    expect(() => {
+      item.fardel;
+    }).toThrowError(
+      new Error(
+        "Items must have at least one variation or Square will reject the request."
+      )
+    );
+  });
+
+  test("fardel getter should throw if variations array is empty ", () => {
+    item._fardel.item_data.variations = [];
+    expect(() => {
+      item.fardel;
+    }).toThrowError(
+      new Error(
+        "Items must have at least one variation or Square will reject the request."
+      )
+    );
+  });
+
+  test("set label color shoul throw if color is not a hex color", () => {
+    let hex = "chartreuse";
+    expect(() => {
+      item.label_color = hex;
+    }).toThrowError(
+      `label_color must be a valid hex color. /"${hex}/" is not a valid hex color.`
+    );
+  });
+});
+
 // name
 // description
 // abbrev
 // item_options array len
-// fardel getter
 // 53 product type auto set
 // 70-79 fardel error check
 // 154-157  label color error check
@@ -81,7 +124,7 @@ describe("getters/setters", () => {
   });
 
   test("make().temp_id () should set ", () => {
-    let expected = "#" + id;
+    let expected = "#temp_id_" + id;
     make.temp_id(id);
     expect(item.id).toEqual(expected);
   });
@@ -143,8 +186,9 @@ describe("getters/setters", () => {
     make.tax_ids(id);
     expect(item.tax_ids).toEqual(expected);
   });
-  test("make().modifier_list_info () should set ", () => {
-    let expected = {
+
+  test("make().modifier_list_info() should set", () => {
+    let mod = {
       modifier_list_id: id,
       enabled: false,
       max_selected_modifiers: 15,
@@ -154,7 +198,8 @@ describe("getters/setters", () => {
         on_by_default: true, // If true, this CatalogModifier should be selected by default for this CatalogItem
       },
     };
-    make.modifier_list_info({ build: "me" });
+    let expected = [mod];
+    make.modifier_list_info(mod);
     expect(item.modifier_list_info).toMatchObject(expected);
   });
 
@@ -228,5 +273,115 @@ describe("getters/setters", () => {
     let expected = "muffin";
     make.sort_name("muffin");
     expect(item.sort_name).toEqual(expected);
+  });
+
+  /* --------------------------------------------------------*
+   *                                                         *
+   *                make_modifier_list()
+   *                different from make().modifier_list_info()
+   *                                                         *
+   * ------------------------------------------------------- */
+  test("make_modifier_list_ () should build one compliant object and send it to the array ", () => {
+    let expected = [
+      {
+        modifier_list_id: id,
+        enabled: false,
+        max_selected_modifiers: 15,
+        min_selected_modifiers: 5,
+        modifier_overrides: {
+          modifier_id: id,
+          on_by_default: true, // If true, this CatalogModifier should be selected by default for this CatalogItem
+        },
+      },
+    ];
+    item
+      .make_modifier_list()
+      .modifier_list_id(id)
+      .enabled(false)
+      .max_selected_modifiers(15)
+      .min_selected_modifiers(5)
+      .modifier_overrides(id, true)
+      .add();
+    expect(item.modifier_list_info).toMatchObject(expected);
+  });
+
+  test("make_modifier_list  () should build two different compliant object and send it to the array ", () => {
+    let obj1 = {
+      modifier_list_id: id,
+      enabled: true,
+      max_selected_modifiers: 15,
+      min_selected_modifiers: 5,
+      modifier_overrides: {
+        modifier_id: id,
+        on_by_default: true,
+      },
+    };
+
+    let obj2 = {
+      modifier_list_id: "ABC",
+      enabled: undefined,
+      max_selected_modifiers: undefined,
+      min_selected_modifiers: undefined,
+      modifier_overrides: {
+        modifier_id: "DEF",
+        on_by_default: true,
+      },
+    };
+
+    let expected = [obj1, obj2];
+    item
+      .make_modifier_list()
+      .modifier_list_id(id)
+      .enabled()
+      .max_selected_modifiers(15)
+      .min_selected_modifiers(5)
+      .modifier_overrides(id, true)
+      .add();
+    item
+      .make_modifier_list()
+      .modifier_list_id("ABC")
+      .modifier_overrides("DEF", true)
+      .add();
+    expect(item.modifier_list_info).toMatchObject(expected);
+  });
+
+  test("make_modifier_list ().view() should return the object under construction ", () => {
+    let expected = {
+      modifier_list_id: id,
+      enabled: false,
+      max_selected_modifiers: 15,
+      min_selected_modifiers: 5,
+      modifier_overrides: {
+        modifier_id: id,
+        on_by_default: true, // If true, this CatalogModifier should be selected by default for this CatalogItem
+      },
+    };
+    let mod = item.make_modifier_list();
+    mod
+      .modifier_list_id(id)
+      .enabled(false)
+      .max_selected_modifiers(15)
+      .min_selected_modifiers(5)
+      .modifier_overrides(id, true);
+    expect(mod.view()).toMatchObject(expected);
+  });
+
+  test("make_modifier_list ().clear() should return the object under construction to its un-constructed state ", () => {
+    let expected = {
+      modifier_list_id: undefined,
+      modifier_overrides: undefined,
+      min_selected_modifiers: undefined,
+      max_selected_modifiers: undefined,
+      enabled: undefined,
+    };
+    let mod = item.make_modifier_list();
+    mod
+      .modifier_list_id(id)
+      .enabled(false)
+      .max_selected_modifiers(15)
+      .min_selected_modifiers(5)
+      .modifier_overrides(id, true)
+      .clear();
+    expect(mod.view()).toMatchObject(expected);
   });
 });
