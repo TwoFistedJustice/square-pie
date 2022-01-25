@@ -281,7 +281,7 @@ class Catalog_Item extends Catalog_Object_Super {
    * @throws{TypeError} throws an error if passed a non-boolean
    * @method clear - clears your entries
    * @method view - returns the catalog_modifier_list object under construction
-   * @method add - adds the catalog_modifier_list to the array and calls clear()
+   * @method add - adds a copy of the constructed catalog_modifier_list to the array and calls clear()
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemModifierListInfo | Square Docs}
    * @example
@@ -289,9 +289,6 @@ class Catalog_Item extends Catalog_Object_Super {
    * */
   make_modifier_list() {
     const name = this.display_name + ".make_modifier_list";
-    // todo need to create a totally new instance of the object else this retains access to the one in the array
-    //  once the object is added to the array, break the connection to the object
-    //  clone the object in add() before passing to the setter?
     let catalog_modifier_list = {
       modifier_list_id: undefined,
       modifier_overrides: undefined,
@@ -345,8 +342,7 @@ class Catalog_Item extends Catalog_Object_Super {
         return catalog_modifier_list;
       },
       add: function () {
-        let copy = clone_object(catalog_modifier_list);
-        this.self.modifier_list_info = copy;
+        this.self.modifier_list_info = clone_object(catalog_modifier_list);
         this.clear();
       },
     };
