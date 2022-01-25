@@ -1,5 +1,9 @@
 const Catalog_Item = require("../src/lib/catalog_object_item");
 const Catalog_Item_Variation = require("../src/lib/catalog_object_item_variation");
+const {
+  id_patterns,
+} = require("../src/lib/utilities/regular_expression_patterns");
+
 // const { long_strings } = require("./helper_objects");
 // const {expect} = require ("chai");
 
@@ -44,6 +48,10 @@ describe("basic object class structures", () => {
   // });
   test("type should be ITEM", () => {
     expect(item.type).toEqual("ITEM");
+  });
+
+  test("Should set a new temporary id if none is provided", () => {
+    expect(id_patterns.temporary_id.test(item.id)).toEqual(true);
   });
 });
 
@@ -116,7 +124,7 @@ describe("getters/setters", () => {
   });
 
   test("make().temp_id () should set ", () => {
-    let expected = "#" + id;
+    let expected = "#temp_id_" + id;
     make.temp_id(id);
     expect(item.id).toEqual(expected);
   });
