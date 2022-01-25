@@ -1,11 +1,11 @@
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
 const {
+  arrayify,
   clone_object,
   shazam_boolean,
   shazam_integer,
   shazam_max_length,
   shazam_max_length_array,
-  arrayify,
 } = require("./utilities");
 const { isHexColor } = require("validator");
 
@@ -193,10 +193,7 @@ class Catalog_Item extends Catalog_Object_Super {
       // obj.item_id = `#${this.name}_${obj.item_variation_data.name}`;
       obj.item_id = this.id;
     }
-    // todo Arrayify
-    if (!Array.isArray(this._fardel.item_data.variations)) {
-      this._fardel.item_data.variations = [];
-    }
+    arrayify(this._fardel.item_data, "variations", this.display_name);
 
     if (obj.item_variation_data.item_id !== this.id) {
       obj.item_variation_data.item_id = this.id;
