@@ -2,9 +2,8 @@ const util = require("../src/lib/utilities");
 const spy_integer = jest.spyOn(util, "shazam_integer");
 
 const Order_Line_Item = require("../src/lib/order_line_item");
-const { uid_length } = require("../src/lib/pie_defaults");
 const { regular_expression_patterns } = require("../src/lib/utilities");
-const tax_discount_uid = "someId";
+let pattern = util.regular_expression_patterns.id_patterns.uid;
 const id = "123";
 const class_name = "Order_Line_Item";
 
@@ -284,7 +283,6 @@ describe("make_modifier()", () => {
   });
 
   test("make().modifier() should automatically set uid of modifier under construction with nanoid ", () => {
-    let pattern = util.regular_expression_patterns.id_patterns.uid;
     let mod = line.make_modifier();
     mod.catalog_object_id(id).catalog_version(4).price(428, "cad");
     let uid = mod.get_uid();
@@ -304,12 +302,9 @@ describe("make_discount_blocklist()", () => {
   });
 
   test("make_discount_blocklist should automatically set a Pie UID on uid", () => {
-    let pattern = regular_expression_patterns.id_patterns.uid;
     let block = line.make_discount_blocklist();
     block.discount_catalog_object_id(id);
     let result = pattern.test(block.get_uid());
-    console.log(pattern.exec(block.get_uid()));
-    console.log(block.view());
     expect(result).toEqual(true);
   });
 
@@ -428,7 +423,6 @@ describe("make_tax_blocklist()", () => {
   });
 
   test("make_tax_blocklist should automatically set a Pie UID on uid", () => {
-    let pattern = regular_expression_patterns.id_patterns.uid;
     let block = line.make_tax_blocklist();
     block.tax_catalog_object_id(id);
     let result = pattern.test(block.get_uid());
@@ -544,22 +538,31 @@ describe("#enum_item_type()", () => {
  *     build_applied_tax() and  build_applied_discount()
  *                                                         *
  * ------------------------------------------------------- */
-
 describe("build_applied_tax() and  build_applied_discount() should return a compliant object", () => {
   // the Money object is on the response body
+  let pattern = regular_expression_patterns.id_patterns.uid;
   beforeEach(() => {
     line = new Order_Line_Item();
   });
 
-  test("check the uid is length equal to pie defaults uid_length", () => {
-    let obj = line.build_applied_tax(tax_discount_uid);
-    expect(obj.tax_uid).toEqual(tax_discount_uid);
-    expect(obj.uid.length).toEqual(uid_length);
+  test("build_applied_tax should set the uid", () => {
+    let obj = line.build_applied_tax(id);
+    expect(obj.tax_uid).toEqual(id);
   });
-  test("discount_uid should be set correctly", () => {
-    let obj = line.build_applied_discount(tax_discount_uid);
-    expect(obj.discount_uid).toEqual(tax_discount_uid);
-    expect(obj.uid.length).toEqual(uid_length);
+
+  test("build_applied_tax should automatically create a Pie uid", () => {
+    let obj = line.build_applied_tax(id);
+    expect(pattern.test(obj.uid)).toEqual(true);
+  });
+
+  test("build_applied_discount discount_uid should be set correctly", () => {
+    let obj = line.build_applied_discount(id);
+    expect(obj.discount_uid).toEqual(id);
+  });
+
+  test("build_applied_discount should automatically create a Pie uid", () => {
+    let obj = line.build_applied_discount(id);
+    expect(pattern.test(obj.uid)).toEqual(true);
   });
 });
 
@@ -569,16 +572,16 @@ describe("add_applied_tax() and add_applied_discount() should add a compliant ob
   });
 
   test("add_applied_tax", () => {
-    line.add_applied_tax(tax_discount_uid);
+    line.add_applied_tax(id);
     let arr = line.applied_taxes;
     let received = arr[0].tax_uid;
-    expect(received).toEqual(tax_discount_uid);
+    expect(received).toEqual(id);
   });
 
   test("add_applied_discount", () => {
-    line.add_applied_discount(tax_discount_uid);
+    line.add_applied_discount(id);
     let received = line.applied_discounts[0]["discount_uid"];
-    expect(received).toEqual(tax_discount_uid);
+    expect(received).toEqual(id);
   });
 });
 
