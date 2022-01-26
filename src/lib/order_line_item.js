@@ -309,6 +309,31 @@ class Order_Line_Item {
 
   // MAKER METHODS
 
+  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
+   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
+   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
+   * listed here.
+   * @method base_price_money
+   * @param {number} amount - an integer. Use the smallest currency, i.e. cents or pence. No decimals.
+   * @param {string} currency = the three character currency designation. Automatically converts to uppercase.
+   * @method applied_discounts
+   * @param {string} id- the discount id. It will automatically build the expected object.
+   * @method applied_taxes
+   * @param {string} id- the tax id. It will automatically build the expected object.
+   * @method modifiers - calls make_modifier()
+   * @method pricing_blocklists - has two submethods 'discount' and 'tax' which call  make_discount_blocklist and make_tax_blocklist
+   * @method quantity_unit
+   * @param {}
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,
@@ -361,9 +386,8 @@ class Order_Line_Item {
         this.self.applied_taxes = obj;
         return this;
       },
-      modifiers: function (obj) {
-        this.self.modifiers = obj;
-        return this;
+      modifiers: function () {
+        return this.self.make_modifier();
       },
       pricing_blocklists: function () {
         return {
