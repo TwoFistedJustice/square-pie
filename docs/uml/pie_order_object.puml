@@ -171,6 +171,13 @@ MAKER METHODS
 ..
 - creates a compliant [[https://developer.squareup.com/reference/square/objects/OrderLineItemModifier OrderLineItemModifier]] object
 - you must call .add() as last step
+
+
++make_discount_blocklist()
++make_tax_blocklist()
+..
+- creates compliant [[https://developer.squareup.com/reference/square/objects/OrderLineItemPricingBlocklists blocklist]] objects
+
 ==
 Square Docs
 [[https://developer.squareup.com/reference/square/objects/OrderLineItem Order Line Item ]]
