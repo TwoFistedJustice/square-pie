@@ -100,29 +100,28 @@ class Order_Line_Item {
     };
   }
 
-  #applied_tax_or_discount(type, tax_or_discount_uid) {
-    let caller = `#applied_tax_or_discount - ${type}`;
+  #applied_tax(uid) {
+    let caller = `#applied_tax`;
     if (
-      shazam_min_length(
-        this.configuration.minimums.uid,
-        tax_or_discount_uid,
-        caller
-      ) &&
-      shazam_max_length(
-        this.configuration.maximums.uid,
-        tax_or_discount_uid,
-        caller
-      )
+      shazam_min_length(this.configuration.minimums.uid, uid, caller) &&
+      shazam_max_length(this.configuration.maximums.uid, uid, caller)
     ) {
-      let key;
-      if (type === "discount" || type === "d") {
-        key = "discount_uid";
-      } else if (type === "tax" || type === "t") {
-        key = "tax_uid";
-      }
       return {
-        [key]: tax_or_discount_uid,
-        uid: nanoid(uid_length),
+        tax_uid: uid,
+        uid: "uid_applied_tax#" + nanoid(uid_length),
+      };
+    }
+  }
+
+  #applied_discount(uid) {
+    let caller = `#applied_discount`;
+    if (
+      shazam_min_length(this.configuration.minimums.uid, uid, caller) &&
+      shazam_max_length(this.configuration.maximums.uid, uid, caller)
+    ) {
+      return {
+        discount_uid: uid,
+        uid: "uid_applied_discount#" + nanoid(uid_length),
       };
     }
   }
@@ -283,26 +282,24 @@ class Order_Line_Item {
 
   // BUILDER METHODS
 
-  build_applied_tax(id) {
-    let type = "tax";
-    let obj = this.#applied_tax_or_discount(type, id);
+  build_applied_tax(uid) {
+    let obj = this.#applied_tax(uid);
     return obj;
   }
 
-  build_applied_discount(id) {
-    let type = "discount";
-    let obj = this.#applied_tax_or_discount(type, id);
+  build_applied_discount(uid) {
+    let obj = this.#applied_discount(uid);
     return obj;
   }
 
-  add_applied_tax(id) {
-    let obj = this.build_applied_tax(id);
+  add_applied_tax(uid) {
+    let obj = this.build_applied_tax(uid);
     this.applied_taxes = obj;
     return obj;
   }
 
-  add_applied_discount(id) {
-    let obj = this.build_applied_discount(id);
+  add_applied_discount(uid) {
+    let obj = this.build_applied_discount(uid);
     this.applied_discounts = obj;
     return obj;
   }
@@ -376,13 +373,13 @@ class Order_Line_Item {
        * easy to put the info in, but hard to reference it after
        * Use the Build methods if you need to reference it afterwards
        * */
-      applied_discounts: function (id) {
-        let obj = this.self.#applied_tax_or_discount("discount", id);
+      applied_discounts: function (uid) {
+        let obj = this.self.#applied_discount(uid);
         this.self.applied_discounts = obj;
         return this;
       },
-      applied_taxes: function (id) {
-        let obj = this.self.#applied_tax_or_discount("tax", id);
+      applied_taxes: function (uid) {
+        let obj = this.self.#applied_tax(uid);
         this.self.applied_taxes = obj;
         return this;
       },
