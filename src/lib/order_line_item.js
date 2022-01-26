@@ -9,6 +9,7 @@ const {
   shazam_integer,
   shazam_min_length,
   shazam_max_length,
+  object_does_not_have_property,
 } = require("./utilities");
 const order_line_item_enum = require("./enum/order_line_item_enum");
 const man =
@@ -38,7 +39,7 @@ class Order_Line_Item {
       applied_discounts: undefined, // [id...]
       applied_taxes: undefined, // [id...]
       modifiers: undefined, // [{}...]
-      pricing_blocklists: undefined, // [id...]
+      pricing_blocklists: undefined, // { }
       quantity_unit: undefined, // OBJECT
       metadata: undefined, // do not implement in v1
     };
@@ -251,10 +252,31 @@ class Order_Line_Item {
     this._fardel.modifiers.push(obj);
   }
 
-  set pricing_blocklists(obj) {
-    arrayify(this._fardel, "pricing_blocklists", this._display_name);
-    this._fardel.pricing_blocklists.push(obj);
+  set tax_blocklist(obj) {
+    let blocklists;
+    if (this._fardel.pricing_blocklists === undefined) {
+      this._fardel.pricing_blocklists = {};
+    }
+    blocklists = this._fardel.pricing_blocklists;
+    if (object_does_not_have_property(blocklists, "blocked_taxes")) {
+      define(blocklists, "blocked_taxes", []);
+    }
+    blocklists.blocked_taxes.push(obj);
   }
+
+  set discount_blocklist(obj) {
+    let blocklists;
+    if (this._fardel.pricing_blocklists === undefined) {
+      this._fardel.pricing_blocklists = {};
+    }
+    blocklists = this._fardel.pricing_blocklists;
+
+    if (object_does_not_have_property(blocklists, "blocked_discounts")) {
+      define(blocklists, "blocked_discounts", []);
+    }
+    blocklists.blocked_discounts.push(obj);
+  }
+
   set quantity_unit(obj) {
     this._fardel.quantity_unit = obj;
   }
@@ -343,6 +365,7 @@ class Order_Line_Item {
         this.self.modifiers = obj;
         return this;
       },
+      // todo - remove this or have it call the others
       pricing_blocklists: function (obj) {
         this.self.pricing_blocklists = obj;
         return this;
@@ -481,6 +504,111 @@ class Order_Line_Item {
       },
       add: function () {
         this.self.modifiers = clone_object(modifier);
+        reset();
+      },
+    };
+  }
+
+  /** @function make_tax_blocklist
+   * @method uid - A unique ID of the BlockedTax within the order. This is set automatically. Only call this method if you want to use your own uid. Max length 60.
+   * @param {string} uid - A unique ID of the BlockedTax within the order
+   * @method tax_catalog_object_id - The catalog_object_id of the tax that should be blocked. Use this field to block catalog taxes. For ad hoc taxes, use the tax_uid field. Max length 192.
+   * @param {string} id
+   * @method tax_object - alias of tax_catalog_object_id
+   * @method tax_uid - The uid of the tax that should be blocked. Use this field to block ad hoc taxes. For catalog, taxes use the tax_catalog_object_id field. Max length 60.
+   * @param {string} uid
+   * @method ad_hoc -alias of tax_uid
+   * @method view - returns the object under construction
+   * @method get_uid - returns the uid of the blocklist
+   * @method add - calls the tax_blocklist setter and passes a new tax_blocklist object cloned from the the one you built.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/OrderLineItemPricingBlocklistsBlockedTax | Square Docs}
+   * #example
+   let id = "alpha_numeric_gibberish"
+   let blocklist1 = {
+      uid: id,  // this is actually set automatically, but I didn't want it to feel left out, so I included it.
+      tax_uid:id
+    };
+   let blocklist2 = {
+      uid: id,
+      tax_catalog_object_id: id,
+    };
+ 
+   let block1 = line.make_tax_blocklist();
+   let block2 = line.make_tax_blocklist();
+   block1.uid(id).ad_hoc(id).add();
+   block2.uid(id).tax_object(id).add();
+   line.pricing_blocklists => {blocked_tax : [blocklist1, blocklist2]}
+   * */
+
+  make_tax_blocklist() {
+    let limits = this.configuration.maximums;
+    const name = this.display_name;
+    const caller = "order_line_item.make_tax_blocklist().";
+    let blocklist = {
+      uid: "uid_tax_blocklist#" + nanoid(uid_length),
+      tax_catalog_object_id: undefined,
+      tax_uid: undefined,
+    };
+
+    const reset = function () {
+      for (let prop in blocklist) {
+        if (prop === "uid") {
+          blocklist.uid = "uid_tax_blocklist#" + nanoid(uid_length);
+        } else {
+          blocklist[prop] = undefined;
+        }
+      }
+    };
+
+    return {
+      self: this,
+      uid: function (uid) {
+        if (shazam_max_length(limits.uid, uid, name, caller + "uid()")) {
+          blocklist.uid = uid;
+        }
+        return this;
+      },
+      tax_catalog_object_id: function (id) {
+        if (
+          shazam_max_length(
+            limits.catalog_object_id,
+            id,
+            name,
+            caller + "tax_catalog_object_id() / .tax_object()"
+          )
+        ) {
+          blocklist.tax_catalog_object_id = id;
+        }
+        return this;
+      },
+      tax_object: function (id) {
+        return this.tax_catalog_object_id(id);
+      },
+      tax_uid: function (uid) {
+        if (
+          shazam_max_length(
+            limits.uid,
+            uid,
+            name,
+            caller + "tax_uid() / .ad_hoc()"
+          )
+        ) {
+          blocklist.tax_uid = uid;
+        }
+        return this;
+      },
+      ad_hoc: function (uid) {
+        return this.tax_uid(uid);
+      },
+      view: function () {
+        return blocklist;
+      },
+      get_uid: function () {
+        return blocklist.uid;
+      },
+      add: function () {
+        this.self.tax_blocklist = clone_object(blocklist);
         reset();
       },
     };
