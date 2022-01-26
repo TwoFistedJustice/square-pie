@@ -365,10 +365,15 @@ class Order_Line_Item {
         this.self.modifiers = obj;
         return this;
       },
-      // todo - remove this or have it call the others
-      pricing_blocklists: function (obj) {
-        this.self.pricing_blocklists = obj;
-        return this;
+      pricing_blocklists: function () {
+        return {
+          discount: () => {
+            return this.self.make_discount_blocklist();
+          },
+          tax: () => {
+            return this.self.make_tax_blocklist();
+          },
+        };
       },
       quantity_unit: function () {
         return this.self.#bake_quantity_unit();
