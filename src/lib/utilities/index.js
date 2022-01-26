@@ -2,6 +2,8 @@ const normalize_email = require("./normalize_email");
 const clone_object = require("./object_clone");
 const define = require("./define");
 const defineify = require("./defineify");
+const object_does_not_have_property = require("./object_does_not_have_property");
+const object_has_property = require("./object_has_property");
 const query_param_add_value = require("./query_param_add_value");
 const query_param_is_present = require("./query_param_is_present");
 const query_param_is_query_string = require("./query_param_is_query_string");
@@ -41,6 +43,8 @@ module.exports = {
   normalize_email,
   define,
   defineify,
+  object_does_not_have_property,
+  object_has_property,
   query_param_add_value,
   query_param_is_present,
   query_param_is_query_string,
