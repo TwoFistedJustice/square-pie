@@ -268,10 +268,9 @@ class Order_Line_Item {
    * @param {string} id- the discount id. It will automatically build the expected object.
    * @method applied_taxes
    * @param {string} id- the tax id. It will automatically build the expected object.
-   * @method modifiers - calls make_modifier()
-   * @method pricing_blocklists - has two submethods 'discount' and 'tax' which call  make_discount_blocklist and make_tax_blocklist
-   * @method quantity_unit
-   * @param {}
+   * @method modifiers - calls make_modifier() - see entry for that.
+   * @method pricing_blocklists - has two submethods 'discount' and 'tax' which call  make_discount_blocklist and make_tax_blocklist. - See entries for those.
+   * @method quantity_unit - calls make_quantity_unit(). See entry for that.
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
