@@ -3,6 +3,7 @@ const spy_integer = jest.spyOn(util, "shazam_integer");
 
 const Order_Line_Item = require("../src/lib/order_line_item");
 const { uid_length } = require("../src/lib/pie_defaults");
+const { regular_expression_patterns } = require("../src/lib/utilities");
 const tax_discount_uid = "someId";
 const id = "123";
 const class_name = "Order_Line_Item";
@@ -301,6 +302,28 @@ describe("make_discount_blocklist()", () => {
   beforeEach(() => {
     line = new Order_Line_Item();
   });
+
+  test("make_discount_blocklist should automatically set a Pie UID on uid", () => {
+    let pattern = regular_expression_patterns.id_patterns.uid;
+    let block = line.make_discount_blocklist();
+    block.discount_catalog_object_id(id);
+    let result = pattern.test(block.get_uid());
+    console.log(pattern.exec(block.get_uid()));
+    console.log(block.view());
+    expect(result).toEqual(true);
+  });
+
+  test("make_discount_blocklist.view should return the object being built", () => {
+    let blocklist = {
+      uid: id,
+      discount_catalog_object_id: id,
+      discount_uid: undefined,
+    };
+    let block = line.make_discount_blocklist();
+    block.uid(id).discount_catalog_object_id(id);
+    expect(block.view()).toMatchObject(blocklist);
+  });
+
   test("make_discount_blocklist should build a compliant discount blocklist: discount_catalog_object_id", () => {
     let blocklist = {
       uid: id,
@@ -403,6 +426,26 @@ describe("make_tax_blocklist()", () => {
   beforeEach(() => {
     line = new Order_Line_Item();
   });
+
+  test("make_tax_blocklist should automatically set a Pie UID on uid", () => {
+    let pattern = regular_expression_patterns.id_patterns.uid;
+    let block = line.make_tax_blocklist();
+    block.tax_catalog_object_id(id);
+    let result = pattern.test(block.get_uid());
+    expect(result).toEqual(true);
+  });
+
+  test("make_tax_blocklist.view should return the object being built", () => {
+    let blocklist = {
+      uid: id,
+      tax_catalog_object_id: id,
+      tax_uid: undefined,
+    };
+    let block = line.make_tax_blocklist();
+    block.uid(id).tax_catalog_object_id(id);
+    expect(block.view()).toMatchObject(blocklist);
+  });
+
   test("make_tax_blocklist should build a compliant tax blocklist: tax_catalog_object_id", () => {
     let blocklist = {
       uid: id,
