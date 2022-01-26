@@ -58,51 +58,6 @@ class Order_Line_Item {
     };
   }
 
-  #bake_quantity_unit() {
-    this._fardel.quantity_unit = {};
-    let obj = this._fardel.quantity_unit;
-    let name = this.display_name + ".#bake_quantity_unit.";
-    return {
-      // The catalog object ID referencing the CatalogMeasurementUnit when the unit already exists in the db
-      catalog_object_id: function (id) {
-        let key = "catalog_object_id";
-        define(obj, key, id);
-        return this;
-      },
-      // int64"
-      catalog_version: function (int) {
-        let key = "catalog_version";
-        if (shazam_integer(int, name, key)) {
-          define(obj, key, int);
-        }
-        return this;
-      },
-      // Archetype https://developer.squareup.com/reference/square/objects/MeasurementUnit
-      measurement_unit: function (archetype) {
-        let key = "measurement_unit";
-        define(obj, key, archetype);
-        return this;
-      },
-      // int between 0 and 5
-      precision: function (int) {
-        if (!Number.isInteger(int) || int < 0 || int > 5) {
-          throw new TypeError(
-            generate_error_message("precision", "integer 0-5", int)
-          );
-        }
-        let key = "precision";
-        define(obj, key, int);
-        return this;
-      },
-      id: function (id) {
-        return this.catalog_object_id(id);
-      },
-      version: function (int) {
-        return this.catalog_version(int);
-      },
-    };
-  }
-
   #applied_tax(uid) {
     let caller = `#applied_tax`;
     if (
@@ -393,7 +348,7 @@ class Order_Line_Item {
         };
       },
       quantity_unit: function () {
-        return this.self.#bake_quantity_unit();
+        return this.self.make_quantity_unit();
       },
     };
   }
@@ -736,6 +691,64 @@ class Order_Line_Item {
       add: function () {
         this.self.tax_blocklist = clone_object(blocklist);
         reset();
+      },
+    };
+  }
+
+  /** @function #make_quantity_unit(). Can be called directly or via make().quantity_unit().
+   * @method catalog_object_id
+   * @param {string} id - - The catalog object ID referencing the CatalogMeasurementUnit when the unit already exists in the db
+   * @method catalog_version
+   * @param {number} int - an integer number.
+   * @method measurement_unit
+   * @param {object} archetype - A MeasurementUnit that represents the unit of measure for the quantity.
+   * @method precision
+   * @param {number} int - an integer number. the number of digits after the decimal point that are recorded for this quantity. See Square docs.
+   * @method id - alias of catalog_object_id
+   * @method version- alias of catalog_version
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/OrderQuantityUnit | Square Docs}
+   * */
+
+  make_quantity_unit() {
+    this._fardel.quantity_unit = {};
+    let obj = this._fardel.quantity_unit;
+    let name = this.display_name + ".make_quantity_unit.";
+    return {
+      catalog_object_id: function (id) {
+        let key = "catalog_object_id";
+        define(obj, key, id);
+        return this;
+      },
+      catalog_version: function (int) {
+        let key = "catalog_version";
+        if (shazam_integer(int, name, key)) {
+          define(obj, key, int);
+        }
+        return this;
+      },
+      // Archetype https://developer.squareup.com/reference/square/objects/MeasurementUnit
+      measurement_unit: function (archetype) {
+        let key = "measurement_unit";
+        define(obj, key, archetype);
+        return this;
+      },
+      // int between 0 and 5
+      precision: function (int) {
+        if (!Number.isInteger(int) || int < 0 || int > 5) {
+          throw new TypeError(
+            generate_error_message("precision", "integer 0-5", int)
+          );
+        }
+        let key = "precision";
+        define(obj, key, int);
+        return this;
+      },
+      id: function (id) {
+        return this.catalog_object_id(id);
+      },
+      version: function (int) {
+        return this.catalog_version(int);
       },
     };
   }

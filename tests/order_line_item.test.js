@@ -52,7 +52,7 @@ describe("Order Line Item Error Checking / Spies", () => {
   });
 
   test("#bake_quantity_unit().catalog_version should call shazam_integer", () => {
-    let name = class_name + ".#bake_quantity_unit.";
+    let name = class_name + ".make_quantity_unit.";
     let caller = "catalog_version";
     let test_val = 95;
     make.quantity_unit().catalog_version(test_val);
