@@ -508,6 +508,110 @@ class Order_Line_Item {
       },
     };
   }
+  /** @function make_discount_blocklist
+   * @method uid - A unique ID of the BlockedTax within the order. This is set automatically. Only call this method if you want to use your own uid. Max length 60.
+   * @param {string} uid - A unique ID of the BlockedTax within the order
+   * @method discount_catalog_object_id - The catalog_object_id of the discount that should be blocked. Use this field to block catalog discounts. For ad hoc discounts, use the discount_uid field. Max length 192.
+   * @param {string} id
+   * @method discount_object - alias of discount_catalog_object_id
+   * @method discount_uid - The uid of the discount that should be blocked. Use this field to block ad hoc discounts. For catalog, discounts use the discount_catalog_object_id field. Max length 60.
+   * @param {string} uid
+   * @method ad_hoc -alias of discount_uid
+   * @method view - returns the object under construction
+   * @method get_uid - returns the uid of the blocklist
+   * @method add - calls the discount_blocklist setter and passes a new discount_blocklist object cloned from the the one you built.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/OrderLineItemPricingBlocklistsBlockedTax | Square Docs}
+   * #example
+   let id = "alpha_numeric_gibberish"
+   let blocklist1 = {
+      uid: id,  // this is actually set automatically, but I didn't want it to feel left out, so I included it.
+      discount_uid:id
+    };
+   let blocklist2 = {
+      uid: id,
+      discount_catalog_object_id: id,
+    };
+   
+   let block1 = line.make_discount_blocklist();
+   let block2 = line.make_discount_blocklist();
+   block1.uid(id).ad_hoc(id).add();
+   block2.uid(id).discount_object(id).add();
+   line.pricing_blocklists => {blocked_discount : [blocklist1, blocklist2]}
+   * */
+
+  make_discount_blocklist() {
+    let limits = this.configuration.maximums;
+    const name = this.display_name;
+    const caller = "order_line_item.make_discount_blocklist().";
+    let blocklist = {
+      uid: "uid_discount_blocklist#" + nanoid(uid_length),
+      discount_catalog_object_id: undefined,
+      discount_uid: undefined,
+    };
+
+    const reset = function () {
+      for (let prop in blocklist) {
+        if (prop === "uid") {
+          blocklist.uid = "uid_discount_blocklist#" + nanoid(uid_length);
+        } else {
+          blocklist[prop] = undefined;
+        }
+      }
+    };
+
+    return {
+      self: this,
+      uid: function (uid) {
+        if (shazam_max_length(limits.uid, uid, name, caller + "uid()")) {
+          blocklist.uid = uid;
+        }
+        return this;
+      },
+      discount_catalog_object_id: function (id) {
+        if (
+          shazam_max_length(
+            limits.catalog_object_id,
+            id,
+            name,
+            caller + "discount_catalog_object_id() / .discount_object()"
+          )
+        ) {
+          blocklist.discount_catalog_object_id = id;
+        }
+        return this;
+      },
+      discount_object: function (id) {
+        return this.discount_catalog_object_id(id);
+      },
+      discount_uid: function (uid) {
+        if (
+          shazam_max_length(
+            limits.uid,
+            uid,
+            name,
+            caller + "discount_uid() / .ad_hoc()"
+          )
+        ) {
+          blocklist.discount_uid = uid;
+        }
+        return this;
+      },
+      ad_hoc: function (uid) {
+        return this.discount_uid(uid);
+      },
+      view: function () {
+        return blocklist;
+      },
+      get_uid: function () {
+        return blocklist.uid;
+      },
+      add: function () {
+        this.self.discount_blocklist = clone_object(blocklist);
+        reset();
+      },
+    };
+  }
 
   /** @function make_tax_blocklist
    * @method uid - A unique ID of the BlockedTax within the order. This is set automatically. Only call this method if you want to use your own uid. Max length 60.
