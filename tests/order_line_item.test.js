@@ -122,26 +122,33 @@ describe("getters/setters", () => {
     expect(line.applied_taxes[0].tax_uid).toEqual(expected);
   });
 
-  test("make().pricing_blocklists () should set ", () => {
-    let expected = {
-      blocked_discounts: [
-        {
-          discount_catalog_object_id: id,
-          discount_uid: id,
-          uid: id,
-        },
-      ],
-      blocked_taxes: [
-        {
-          tax_catalog_object_id: id,
-          tax_uid: id,
-          uid: id,
-        },
-      ],
+  test("make().pricing_blocklists() should call make_discount_blocklist() ", () => {
+    let blocklist = {
+      uid: id,
+      discount_catalog_object_id: id,
+      discount_uid: undefined,
     };
-    make.pricing_blocklists({ build: "me" });
+    let expected = { blocked_discounts: [blocklist] };
+    let make = line.make();
+    let block = make.pricing_blocklists().discount();
+    block.uid(id).discount_catalog_object_id(id).add();
     expect(line.pricing_blocklists).toMatchObject(expected);
   });
+
+  test("make().pricing_blocklists() should call make_tax_blocklist() ", () => {
+    let blocklist = {
+      uid: id,
+      tax_catalog_object_id: id,
+      tax_uid: undefined,
+    };
+    let expected = { blocked_taxes: [blocklist] };
+    let make = line.make();
+    let block = make.pricing_blocklists().tax();
+    block.uid(id).tax_object(id).add();
+
+    expect(line.pricing_blocklists).toMatchObject(expected);
+  });
+
   test("make().quantity_unit () should set ", () => {
     let arch_measure = { build: "me" };
     let expected = {
@@ -286,6 +293,187 @@ describe("make_modifier()", () => {
 
 /* --------------------------------------------------------*
  *                                                         *
+ *                        make_pricing_blocklist (discount)
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("make_discount_blocklist()", () => {
+  beforeEach(() => {
+    line = new Order_Line_Item();
+  });
+  test("make_discount_blocklist should build a compliant discount blocklist: discount_catalog_object_id", () => {
+    let blocklist = {
+      uid: id,
+      discount_catalog_object_id: id,
+      discount_uid: undefined,
+    };
+    let expected = { blocked_discounts: [blocklist] };
+    let block = line.make_discount_blocklist();
+    block.uid(id).discount_catalog_object_id(id).add();
+    expect(line.pricing_blocklists).toMatchObject(expected);
+  });
+
+  test("make_discount_blocklist should build a compliant discount blocklist: discount_catalog_object_id - alias discount_object", () => {
+    let blocklist = {
+      uid: id,
+      discount_catalog_object_id: id,
+      discount_uid: undefined,
+    };
+    let expected = { blocked_discounts: [blocklist] };
+    let block = line.make_discount_blocklist();
+    block.uid(id).discount_object(id).add();
+    expect(line.pricing_blocklists).toMatchObject(expected);
+  });
+
+  test("make_discount_blocklist should build a compliant discount blocklist: discount_uid", () => {
+    let blocklist = {
+      uid: id,
+      discount_catalog_object_id: undefined,
+      discount_uid: id,
+    };
+    let expected = { blocked_discounts: [blocklist] };
+    let block = line.make_discount_blocklist();
+    block.uid(id).discount_uid(id).add();
+    expect(line.pricing_blocklists).toMatchObject(expected);
+  });
+
+  test("make_discount_blocklist should build a compliant discount blocklist: discount_uid: alias ad_hoc", () => {
+    let blocklist = {
+      uid: id,
+      discount_catalog_object_id: undefined,
+      discount_uid: id,
+    };
+    let expected = { blocked_discounts: [blocklist] };
+    let block = line.make_discount_blocklist();
+    block.uid(id).ad_hoc(id).add();
+    expect(line.pricing_blocklists).toMatchObject(expected);
+  });
+
+  test("make_discount_blocklist should add mutliple compliant discount blocklists", () => {
+    let blocklist1 = {
+      uid: id,
+      discount_catalog_object_id: undefined,
+      discount_uid: id,
+    };
+    let blocklist2 = {
+      uid: id,
+      discount_catalog_object_id: id,
+      discount_uid: undefined,
+    };
+
+    let expected = { blocked_discounts: [blocklist1, blocklist2] };
+    let block1 = line.make_discount_blocklist();
+    let block2 = line.make_discount_blocklist();
+    block1.uid(id).ad_hoc(id).add();
+    block2.uid(id).discount_object(id).add();
+    expect(line.pricing_blocklists).toMatchObject(expected);
+  });
+
+  test("make_discount_blocklist should work alongside make_tax_blocklist", () => {
+    let discount_blocklist = {
+      uid: id,
+      discount_catalog_object_id: undefined,
+      discount_uid: id,
+    };
+    let tax_blocklist = {
+      uid: id,
+      tax_catalog_object_id: undefined,
+      tax_uid: id,
+    };
+    let expected = {
+      blocked_taxes: [tax_blocklist],
+      blocked_discounts: [discount_blocklist],
+    };
+
+    let discount_block = line.make_discount_blocklist();
+    let tax_block = line.make_tax_blocklist();
+    discount_block.uid(id).ad_hoc(id).add();
+    tax_block.uid(id).ad_hoc(id).add();
+    expect(line.pricing_blocklists).toMatchObject(expected);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        make_pricing_blocklist (tax)
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("make_tax_blocklist()", () => {
+  beforeEach(() => {
+    line = new Order_Line_Item();
+  });
+  test("make_tax_blocklist should build a compliant tax blocklist: tax_catalog_object_id", () => {
+    let blocklist = {
+      uid: id,
+      tax_catalog_object_id: id,
+      tax_uid: undefined,
+    };
+    let expected = { blocked_taxes: [blocklist] };
+    let block = line.make_tax_blocklist();
+    block.uid(id).tax_catalog_object_id(id).add();
+    expect(line.pricing_blocklists).toMatchObject(expected);
+  });
+
+  test("make_tax_blocklist should build a compliant tax blocklist: tax_catalog_object_id - alias tax_object", () => {
+    let blocklist = {
+      uid: id,
+      tax_catalog_object_id: id,
+      tax_uid: undefined,
+    };
+    let expected = { blocked_taxes: [blocklist] };
+    let block = line.make_tax_blocklist();
+    block.uid(id).tax_object(id).add();
+    expect(line.pricing_blocklists).toMatchObject(expected);
+  });
+
+  test("make_tax_blocklist should build a compliant tax blocklist: tax_uid", () => {
+    let blocklist = {
+      uid: id,
+      tax_catalog_object_id: undefined,
+      tax_uid: id,
+    };
+    let expected = { blocked_taxes: [blocklist] };
+    let block = line.make_tax_blocklist();
+    block.uid(id).tax_uid(id).add();
+    expect(line.pricing_blocklists).toMatchObject(expected);
+  });
+
+  test("make_tax_blocklist should build a compliant tax blocklist: tax_uid: alias ad_hoc", () => {
+    let blocklist = {
+      uid: id,
+      tax_catalog_object_id: undefined,
+      tax_uid: id,
+    };
+    let expected = { blocked_taxes: [blocklist] };
+    let block = line.make_tax_blocklist();
+    block.uid(id).ad_hoc(id).add();
+    expect(line.pricing_blocklists).toMatchObject(expected);
+  });
+
+  test("make_tax_blocklist should add mutliple compliant tax blocklists", () => {
+    let blocklist1 = {
+      uid: id,
+      tax_catalog_object_id: undefined,
+      tax_uid: id,
+    };
+    let blocklist2 = {
+      uid: id,
+      tax_catalog_object_id: id,
+      tax_uid: undefined,
+    };
+
+    let expected = { blocked_taxes: [blocklist1, blocklist2] };
+    let block1 = line.make_tax_blocklist();
+    let block2 = line.make_tax_blocklist();
+    block1.uid(id).ad_hoc(id).add();
+    block2.uid(id).tax_object(id).add();
+    expect(line.pricing_blocklists).toMatchObject(expected);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
  *                        #enum_item_type()
  *                                                         *
  * ------------------------------------------------------- */
@@ -307,6 +495,12 @@ describe("#enum_item_type()", () => {
     expect(line.item_type).toEqual("GIFT_CARD");
   });
 });
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *     build_applied_tax() and  build_applied_discount()
+ *                                                         *
+ * ------------------------------------------------------- */
 
 describe("build_applied_tax() and  build_applied_discount() should return a compliant object", () => {
   // the Money object is on the response body
