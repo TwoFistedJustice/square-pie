@@ -207,6 +207,27 @@ other request classes. Calling the request methods initiates the http request.
 
 <br/>
 
+# UID - Automatic UID Generation
+
+A lot of Square objects use UIDs rather than IDs. The practical difference between them is that an ID references a big object,
+and a UID references a small object that is contained within a big object. (Golly gee, I hope that wasn't too technical...).
+Square expects the user to generate their own UIDs. Square Pie does this automatically. It should be user-overridable by calling a
+setting function for that property. The syntax for an auto generated PIE uid is as follows:
+
+Anything in quotes is exact.
+
+# - denotes that the UID need only be unique only within a given object.
+
+(n) is the pie default value for uid lengths, as of jan 2022, it is 10.
+
+["uid"_] [type_of_object] ["#"] [nanoid(n)]
+
+examples:
+
+- uid_applied_tax#zYcLqTNe8r
+- uid_applied_discount#92HQVQbfDp
+- uid_modifier#8rFz3D8YmL
+
 # DEPRECATED
 
 ## Parcel - DEPRECATED - this is too complicated - just call the argument whatever it was in its past life
