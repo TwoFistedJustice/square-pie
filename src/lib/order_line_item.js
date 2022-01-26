@@ -9,6 +9,7 @@ const {
   shazam_integer,
   shazam_min_length,
   shazam_max_length,
+  object_does_not_have_property,
 } = require("./utilities");
 const order_line_item_enum = require("./enum/order_line_item_enum");
 const man =
@@ -38,7 +39,7 @@ class Order_Line_Item {
       applied_discounts: undefined, // [id...]
       applied_taxes: undefined, // [id...]
       modifiers: undefined, // [{}...]
-      pricing_blocklists: undefined, // [id...]
+      pricing_blocklists: undefined, // { }
       quantity_unit: undefined, // OBJECT
       metadata: undefined, // do not implement in v1
     };
@@ -57,71 +58,28 @@ class Order_Line_Item {
     };
   }
 
-  #bake_quantity_unit() {
-    this._fardel.quantity_unit = {};
-    let obj = this._fardel.quantity_unit;
-
-    return {
-      // The catalog object ID referencing the CatalogMeasurementUnit when the unit already exists in the db
-      catalog_object_id: function (val) {
-        let key = "catalog_object_id";
-        define(obj, key, val);
-        return this;
-      },
-      // int64"
-      catalog_version: function (int) {
-        if (!Number.isInteger(int)) {
-          throw new TypeError(
-            generate_error_message("catalog_version", "integer 64", int)
-          );
-        }
-        let key = "catalog_version";
-        define(obj, key, int);
-        return this;
-      },
-      // Archetype https://developer.squareup.com/reference/square/objects/MeasurementUnit
-      measurement_unit: function (archetype) {
-        let key = "measurement_unit";
-        define(obj, key, archetype);
-        return this;
-      },
-      // int between 0 and 5
-      precision: function (int) {
-        if (!Number.isInteger(int) || int < 0 || int > 5) {
-          throw new TypeError(
-            generate_error_message("precision", "integer 0-5", int)
-          );
-        }
-        let key = "precision";
-        define(obj, key, int);
-        return this;
-      },
-    };
+  #applied_tax(uid) {
+    let caller = `#applied_tax`;
+    if (
+      shazam_min_length(this.configuration.minimums.uid, uid, caller) &&
+      shazam_max_length(this.configuration.maximums.uid, uid, caller)
+    ) {
+      return {
+        tax_uid: uid,
+        uid: "uid_applied_tax#" + nanoid(uid_length),
+      };
+    }
   }
 
-  #applied_tax_or_discount(type, tax_or_discount_uid) {
-    let caller = `#applied_tax_or_discount - ${type}`;
+  #applied_discount(uid) {
+    let caller = `#applied_discount`;
     if (
-      shazam_min_length(
-        this.configuration.minimums.uid,
-        tax_or_discount_uid,
-        caller
-      ) &&
-      shazam_max_length(
-        this.configuration.maximums.uid,
-        tax_or_discount_uid,
-        caller
-      )
+      shazam_min_length(this.configuration.minimums.uid, uid, caller) &&
+      shazam_max_length(this.configuration.maximums.uid, uid, caller)
     ) {
-      let key;
-      if (type === "discount" || type === "d") {
-        key = "discount_uid";
-      } else if (type === "tax" || type === "t") {
-        key = "tax_uid";
-      }
       return {
-        [key]: tax_or_discount_uid,
-        uid: nanoid(uid_length),
+        discount_uid: uid,
+        uid: "uid_applied_discount#" + nanoid(uid_length),
       };
     }
   }
@@ -177,15 +135,8 @@ class Order_Line_Item {
     return this._fardel.applied_taxes;
   }
   get modifiers() {
-    // the array where modifiers are put
     return this._fardel.modifiers;
   }
-
-  get modifier() {
-    // gets the individual modifier object property which is a cache used to build the modifiers array
-    return this._modifier;
-  }
-
   get pricing_blocklists() {
     return this._fardel.pricing_blocklists;
   }
@@ -251,42 +202,85 @@ class Order_Line_Item {
     this._fardel.modifiers.push(obj);
   }
 
-  set pricing_blocklists(obj) {
-    arrayify(this._fardel, "pricing_blocklists", this._display_name);
-    this._fardel.pricing_blocklists.push(obj);
+  set tax_blocklist(obj) {
+    let blocklists;
+    if (this._fardel.pricing_blocklists === undefined) {
+      this._fardel.pricing_blocklists = {};
+    }
+    blocklists = this._fardel.pricing_blocklists;
+    if (object_does_not_have_property(blocklists, "blocked_taxes")) {
+      define(blocklists, "blocked_taxes", []);
+    }
+    blocklists.blocked_taxes.push(obj);
   }
+
+  set discount_blocklist(obj) {
+    let blocklists;
+    if (this._fardel.pricing_blocklists === undefined) {
+      this._fardel.pricing_blocklists = {};
+    }
+    blocklists = this._fardel.pricing_blocklists;
+
+    if (object_does_not_have_property(blocklists, "blocked_discounts")) {
+      define(blocklists, "blocked_discounts", []);
+    }
+    blocklists.blocked_discounts.push(obj);
+  }
+
   set quantity_unit(obj) {
     this._fardel.quantity_unit = obj;
   }
 
   // BUILDER METHODS
 
-  build_applied_tax(id) {
-    let type = "tax";
-    let obj = this.#applied_tax_or_discount(type, id);
+  build_applied_tax(uid) {
+    let obj = this.#applied_tax(uid);
     return obj;
   }
 
-  build_applied_discount(id) {
-    let type = "discount";
-    let obj = this.#applied_tax_or_discount(type, id);
+  build_applied_discount(uid) {
+    let obj = this.#applied_discount(uid);
     return obj;
   }
 
-  add_applied_tax(id) {
-    let obj = this.build_applied_tax(id);
+  add_applied_tax(uid) {
+    let obj = this.build_applied_tax(uid);
     this.applied_taxes = obj;
     return obj;
   }
 
-  add_applied_discount(id) {
-    let obj = this.build_applied_discount(id);
+  add_applied_discount(uid) {
+    let obj = this.build_applied_discount(uid);
     this.applied_discounts = obj;
     return obj;
   }
 
   // MAKER METHODS
 
+  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
+   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
+   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
+   * listed here.
+   * @method base_price_money
+   * @param {number} amount - an integer. Use the smallest currency, i.e. cents or pence. No decimals.
+   * @param {string} currency = the three character currency designation. Automatically converts to uppercase.
+   * @method applied_discounts
+   * @param {string} id- the discount id. It will automatically build the expected object.
+   * @method applied_taxes
+   * @param {string} id- the tax id. It will automatically build the expected object.
+   * @method modifiers - calls make_modifier() - see entry for that.
+   * @method pricing_blocklists - has two submethods 'discount' and 'tax' which call  make_discount_blocklist and make_tax_blocklist. - See entries for those.
+   * @method quantity_unit - calls make_quantity_unit(). See entry for that.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,
@@ -329,26 +323,31 @@ class Order_Line_Item {
        * easy to put the info in, but hard to reference it after
        * Use the Build methods if you need to reference it afterwards
        * */
-      applied_discounts: function (id) {
-        let obj = this.self.#applied_tax_or_discount("discount", id);
+      applied_discounts: function (uid) {
+        let obj = this.self.#applied_discount(uid);
         this.self.applied_discounts = obj;
         return this;
       },
-      applied_taxes: function (id) {
-        let obj = this.self.#applied_tax_or_discount("tax", id);
+      applied_taxes: function (uid) {
+        let obj = this.self.#applied_tax(uid);
         this.self.applied_taxes = obj;
         return this;
       },
-      modifiers: function (obj) {
-        this.self.modifiers = obj;
-        return this;
+      modifiers: function () {
+        return this.self.make_modifier();
       },
-      pricing_blocklists: function (obj) {
-        this.self.pricing_blocklists = obj;
-        return this;
+      pricing_blocklists: function () {
+        return {
+          discount: () => {
+            return this.self.make_discount_blocklist();
+          },
+          tax: () => {
+            return this.self.make_tax_blocklist();
+          },
+        };
       },
       quantity_unit: function () {
-        return this.self.#bake_quantity_unit();
+        return this.self.make_quantity_unit();
       },
     };
   }
@@ -482,6 +481,273 @@ class Order_Line_Item {
       add: function () {
         this.self.modifiers = clone_object(modifier);
         reset();
+      },
+    };
+  }
+  /** @function make_discount_blocklist
+   * @method uid - A unique ID of the BlockedTax within the order. This is set automatically. Only call this method if you want to use your own uid. Max length 60.
+   * @param {string} uid - A unique ID of the BlockedTax within the order
+   * @method discount_catalog_object_id - The catalog_object_id of the discount that should be blocked. Use this field to block catalog discounts. For ad hoc discounts, use the discount_uid field. Max length 192.
+   * @param {string} id
+   * @method discount_object - alias of discount_catalog_object_id
+   * @method discount_uid - The uid of the discount that should be blocked. Use this field to block ad hoc discounts. For catalog, discounts use the discount_catalog_object_id field. Max length 60.
+   * @param {string} uid
+   * @method ad_hoc -alias of discount_uid
+   * @method view - returns the object under construction
+   * @method get_uid - returns the uid of the blocklist
+   * @method add - calls the discount_blocklist setter and passes a new discount_blocklist object cloned from the the one you built.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/OrderLineItemPricingBlocklistsBlockedTax | Square Docs}
+   * #example
+   let id = "alpha_numeric_gibberish"
+   let blocklist1 = {
+      uid: id,  // this is actually set automatically, but I didn't want it to feel left out, so I included it.
+      discount_uid:id
+    };
+   let blocklist2 = {
+      uid: id,
+      discount_catalog_object_id: id,
+    };
+   
+   let block1 = line.make_discount_blocklist();
+   let block2 = line.make_discount_blocklist();
+   block1.uid(id).ad_hoc(id).add();
+   block2.uid(id).discount_object(id).add();
+   line.pricing_blocklists => {blocked_discount : [blocklist1, blocklist2]}
+   * */
+
+  make_discount_blocklist() {
+    let limits = this.configuration.maximums;
+    const name = this.display_name;
+    const caller = "order_line_item.make_discount_blocklist().";
+    let blocklist = {
+      uid: "uid_discount_blocklist#" + nanoid(uid_length),
+      discount_catalog_object_id: undefined,
+      discount_uid: undefined,
+    };
+
+    const reset = function () {
+      for (let prop in blocklist) {
+        if (prop === "uid") {
+          blocklist.uid = "uid_discount_blocklist#" + nanoid(uid_length);
+        } else {
+          blocklist[prop] = undefined;
+        }
+      }
+    };
+
+    return {
+      self: this,
+      uid: function (uid) {
+        if (shazam_max_length(limits.uid, uid, name, caller + "uid()")) {
+          blocklist.uid = uid;
+        }
+        return this;
+      },
+      discount_catalog_object_id: function (id) {
+        if (
+          shazam_max_length(
+            limits.catalog_object_id,
+            id,
+            name,
+            caller + "discount_catalog_object_id() / .discount_object()"
+          )
+        ) {
+          blocklist.discount_catalog_object_id = id;
+        }
+        return this;
+      },
+      discount_object: function (id) {
+        return this.discount_catalog_object_id(id);
+      },
+      discount_uid: function (uid) {
+        if (
+          shazam_max_length(
+            limits.uid,
+            uid,
+            name,
+            caller + "discount_uid() / .ad_hoc()"
+          )
+        ) {
+          blocklist.discount_uid = uid;
+        }
+        return this;
+      },
+      ad_hoc: function (uid) {
+        return this.discount_uid(uid);
+      },
+      view: function () {
+        return blocklist;
+      },
+      get_uid: function () {
+        return blocklist.uid;
+      },
+      add: function () {
+        this.self.discount_blocklist = clone_object(blocklist);
+        reset();
+      },
+    };
+  }
+
+  /** @function make_tax_blocklist
+   * @method uid - A unique ID of the BlockedTax within the order. This is set automatically. Only call this method if you want to use your own uid. Max length 60.
+   * @param {string} uid - A unique ID of the BlockedTax within the order
+   * @method tax_catalog_object_id - The catalog_object_id of the tax that should be blocked. Use this field to block catalog taxes. For ad hoc taxes, use the tax_uid field. Max length 192.
+   * @param {string} id
+   * @method tax_object - alias of tax_catalog_object_id
+   * @method tax_uid - The uid of the tax that should be blocked. Use this field to block ad hoc taxes. For catalog, taxes use the tax_catalog_object_id field. Max length 60.
+   * @param {string} uid
+   * @method ad_hoc -alias of tax_uid
+   * @method view - returns the object under construction
+   * @method get_uid - returns the uid of the blocklist
+   * @method add - calls the tax_blocklist setter and passes a new tax_blocklist object cloned from the the one you built.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/OrderLineItemPricingBlocklistsBlockedTax | Square Docs}
+   * #example
+   let id = "alpha_numeric_gibberish"
+   let blocklist1 = {
+      uid: id,  // this is actually set automatically, but I didn't want it to feel left out, so I included it.
+      tax_uid:id
+    };
+   let blocklist2 = {
+      uid: id,
+      tax_catalog_object_id: id,
+    };
+ 
+   let block1 = line.make_tax_blocklist();
+   let block2 = line.make_tax_blocklist();
+   block1.uid(id).ad_hoc(id).add();
+   block2.uid(id).tax_object(id).add();
+   line.pricing_blocklists => {blocked_tax : [blocklist1, blocklist2]}
+   * */
+
+  make_tax_blocklist() {
+    let limits = this.configuration.maximums;
+    const name = this.display_name;
+    const caller = "order_line_item.make_tax_blocklist().";
+    let blocklist = {
+      uid: "uid_tax_blocklist#" + nanoid(uid_length),
+      tax_catalog_object_id: undefined,
+      tax_uid: undefined,
+    };
+
+    const reset = function () {
+      for (let prop in blocklist) {
+        if (prop === "uid") {
+          blocklist.uid = "uid_tax_blocklist#" + nanoid(uid_length);
+        } else {
+          blocklist[prop] = undefined;
+        }
+      }
+    };
+
+    return {
+      self: this,
+      uid: function (uid) {
+        if (shazam_max_length(limits.uid, uid, name, caller + "uid()")) {
+          blocklist.uid = uid;
+        }
+        return this;
+      },
+      tax_catalog_object_id: function (id) {
+        if (
+          shazam_max_length(
+            limits.catalog_object_id,
+            id,
+            name,
+            caller + "tax_catalog_object_id() / .tax_object()"
+          )
+        ) {
+          blocklist.tax_catalog_object_id = id;
+        }
+        return this;
+      },
+      tax_object: function (id) {
+        return this.tax_catalog_object_id(id);
+      },
+      tax_uid: function (uid) {
+        if (
+          shazam_max_length(
+            limits.uid,
+            uid,
+            name,
+            caller + "tax_uid() / .ad_hoc()"
+          )
+        ) {
+          blocklist.tax_uid = uid;
+        }
+        return this;
+      },
+      ad_hoc: function (uid) {
+        return this.tax_uid(uid);
+      },
+      view: function () {
+        return blocklist;
+      },
+      get_uid: function () {
+        return blocklist.uid;
+      },
+      add: function () {
+        this.self.tax_blocklist = clone_object(blocklist);
+        reset();
+      },
+    };
+  }
+
+  /** @function #make_quantity_unit(). Can be called directly or via make().quantity_unit().
+   * @method catalog_object_id
+   * @param {string} id - - The catalog object ID referencing the CatalogMeasurementUnit when the unit already exists in the db
+   * @method catalog_version
+   * @param {number} int - an integer number.
+   * @method measurement_unit
+   * @param {object} archetype - A MeasurementUnit that represents the unit of measure for the quantity.
+   * @method precision
+   * @param {number} int - an integer number. the number of digits after the decimal point that are recorded for this quantity. See Square docs.
+   * @method id - alias of catalog_object_id
+   * @method version- alias of catalog_version
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/OrderQuantityUnit | Square Docs}
+   * */
+
+  make_quantity_unit() {
+    this._fardel.quantity_unit = {};
+    let obj = this._fardel.quantity_unit;
+    let name = this.display_name + ".make_quantity_unit.";
+    return {
+      catalog_object_id: function (id) {
+        let key = "catalog_object_id";
+        define(obj, key, id);
+        return this;
+      },
+      catalog_version: function (int) {
+        let key = "catalog_version";
+        if (shazam_integer(int, name, key)) {
+          define(obj, key, int);
+        }
+        return this;
+      },
+      // Archetype https://developer.squareup.com/reference/square/objects/MeasurementUnit
+      measurement_unit: function (archetype) {
+        let key = "measurement_unit";
+        define(obj, key, archetype);
+        return this;
+      },
+      // int between 0 and 5
+      precision: function (int) {
+        if (!Number.isInteger(int) || int < 0 || int > 5) {
+          throw new TypeError(
+            generate_error_message("precision", "integer 0-5", int)
+          );
+        }
+        let key = "precision";
+        define(obj, key, int);
+        return this;
+      },
+      id: function (id) {
+        return this.catalog_object_id(id);
+      },
+      version: function (int) {
+        return this.catalog_version(int);
       },
     };
   }

@@ -2,7 +2,7 @@ const { uid_length } = require("../pie_defaults");
 const regular_expression_patterns = {
   id_patterns: {
     temporary_id: /^(?:#temp_id_)[A-Za-z0-9_-]{8}$/,
-    uid: new RegExp(`^(?:uid_)[a-z]{1,}#{1}[A-Za-z0-9_-]{${uid_length}}$`), // "uid_ a-word # ending with nanoid
+    uid: new RegExp(`^(?:uid_)[a-z_]{1,}#{1}[A-Za-z0-9_-]{${uid_length}}$`), // "uid_ a-word # ending with nanoid // use the hash mark as an easy way to distinguish an order specific id
   },
   query_param_regex: {
     start: /\?+/, // presence of "?"
