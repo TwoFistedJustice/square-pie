@@ -1,4 +1,7 @@
+"use strict";
 const util = require("../src/lib/utilities");
+const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
+
 const spy_integer = jest.spyOn(util, "shazam_integer");
 
 const Order_Line_Item = require("../src/lib/order_line_item");
@@ -38,12 +41,32 @@ describe("basic object class structures", () => {
 
 /* --------------------------------------------------------*
  *                                                         *
- *                        Error Checking
+ *                        Error Checking / Spies
  *                                                         *
  * ------------------------------------------------------- */
-// uid length
-// set catalog_version
-// modifier setter should check for that a least one property is present and no wrong properties are present
+
+describe("Order Line Item Error Checking / Spies", () => {
+  beforeEach(() => {
+    line = new Order_Line_Item();
+    make = line.make();
+  });
+
+  test("#bake_quantity_unit().catalog_version should call shazam_integer", () => {
+    let name = class_name + ".#bake_quantity_unit.";
+    let caller = "catalog_version";
+    let test_val = 95;
+    make.quantity_unit().catalog_version(test_val);
+    expect(spy_shazam_integer).toHaveBeenCalledWith(test_val, name, caller);
+  });
+
+  test("set catalog_version should call shazam_integer", () => {
+    let name = class_name;
+    let caller = "catalog_version";
+    let test_val = 95;
+    line.catalog_version = test_val;
+    expect(spy_shazam_integer).toHaveBeenCalledWith(test_val, name, caller);
+  });
+});
 
 /* --------------------------------------------------------*
  *                                                         *
@@ -122,6 +145,30 @@ describe("getters/setters", () => {
     expect(line.applied_taxes[0].tax_uid).toEqual(expected);
   });
 
+  test("make().modifiers () should set ", () => {
+    let obj1 = {
+      uid: id,
+      catalog_object_id: id,
+      catalog_version: 4,
+      name: id,
+      base_price_money: {
+        amount: 428,
+        currency: "CAD",
+      },
+    };
+    let expected = [obj1];
+    let mod = line.make().modifiers();
+
+    mod
+      .uid(id)
+      .catalog_object_id(id)
+      .catalog_version(4)
+      .name(id)
+      .price(428, "cad")
+      .add();
+    expect(line.modifiers).toEqual(expected);
+  });
+
   test("make().pricing_blocklists() should call make_discount_blocklist() ", () => {
     let blocklist = {
       uid: id,
@@ -129,7 +176,7 @@ describe("getters/setters", () => {
       discount_uid: undefined,
     };
     let expected = { blocked_discounts: [blocklist] };
-    let make = line.make();
+    // let make = line.make();
     let block = make.pricing_blocklists().discount();
     block.uid(id).discount_catalog_object_id(id).add();
     expect(line.pricing_blocklists).toMatchObject(expected);
@@ -142,14 +189,14 @@ describe("getters/setters", () => {
       tax_uid: undefined,
     };
     let expected = { blocked_taxes: [blocklist] };
-    let make = line.make();
+    // let make = line.make();
     let block = make.pricing_blocklists().tax();
     block.uid(id).tax_object(id).add();
 
     expect(line.pricing_blocklists).toMatchObject(expected);
   });
 
-  test("make().quantity_unit () should set ", () => {
+  test("make().quantity_unit () should create and set a compliant object ", () => {
     let arch_measure = { build: "me" };
     let expected = {
       catalog_object_id: id,
@@ -157,11 +204,33 @@ describe("getters/setters", () => {
       measurement_unit: arch_measure,
       precision: 1,
     };
-    make.quantity_unit({ build: "this is actualy already built..." });
-    expect(line.quantity_unit).toEqual(expected);
+    make
+      .quantity_unit()
+      .catalog_object_id(id)
+      .catalog_version(4)
+      .measurement_unit(arch_measure)
+      .precision(1);
+    expect(line.quantity_unit).toMatchObject(expected);
   });
 
-  test("set quanity_unit should pass object", () => {
+  test("make().quantity_unit () alias methods should create and set a compliant object ", () => {
+    let arch_measure = { build: "me" };
+    let expected = {
+      catalog_object_id: id,
+      catalog_version: 4,
+      measurement_unit: arch_measure,
+      precision: 1,
+    };
+    make
+      .quantity_unit()
+      .id(id)
+      .version(4)
+      .measurement_unit(arch_measure)
+      .precision(1);
+    expect(line.quantity_unit).toMatchObject(expected);
+  });
+
+  test("set quanity_unit should set", () => {
     let arch_measure = { a: 1 };
     let obj = {
       catalog_object_id: id,
