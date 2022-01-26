@@ -61,23 +61,20 @@ class Order_Line_Item {
   #bake_quantity_unit() {
     this._fardel.quantity_unit = {};
     let obj = this._fardel.quantity_unit;
-
+    let name = this.display_name + ".#bake_quantity_unit.";
     return {
       // The catalog object ID referencing the CatalogMeasurementUnit when the unit already exists in the db
-      catalog_object_id: function (val) {
+      catalog_object_id: function (id) {
         let key = "catalog_object_id";
-        define(obj, key, val);
+        define(obj, key, id);
         return this;
       },
       // int64"
       catalog_version: function (int) {
-        if (!Number.isInteger(int)) {
-          throw new TypeError(
-            generate_error_message("catalog_version", "integer 64", int)
-          );
-        }
         let key = "catalog_version";
-        define(obj, key, int);
+        if (shazam_integer(int, name, key)) {
+          define(obj, key, int);
+        }
         return this;
       },
       // Archetype https://developer.squareup.com/reference/square/objects/MeasurementUnit
@@ -96,6 +93,12 @@ class Order_Line_Item {
         let key = "precision";
         define(obj, key, int);
         return this;
+      },
+      id: function (id) {
+        return this.catalog_object_id(id);
+      },
+      version: function (int) {
+        return this.catalog_version(int);
       },
     };
   }
@@ -177,15 +180,8 @@ class Order_Line_Item {
     return this._fardel.applied_taxes;
   }
   get modifiers() {
-    // the array where modifiers are put
     return this._fardel.modifiers;
   }
-
-  get modifier() {
-    // gets the individual modifier object property which is a cache used to build the modifiers array
-    return this._modifier;
-  }
-
   get pricing_blocklists() {
     return this._fardel.pricing_blocklists;
   }
