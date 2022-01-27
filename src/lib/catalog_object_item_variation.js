@@ -1,6 +1,7 @@
 const {
   arche_money,
   arrayify,
+  clone_object,
   shazam_max_length,
   shazam_boolean,
   shazam_integer,
@@ -22,13 +23,13 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
       present_at_location_ids: undefined, //[str]
       type: "ITEM_VARIATION",
       item_variation_data: {
-        name: undefined,
-        type: undefined,
+        name: undefined, // str 255
+        type: undefined, //
         available_for_booking: undefined,
         service_duration: undefined, // int64
         item_id: "", // empty string to aid next step
-        item_option_values: undefined, // ARRAY of ids
-        location_overrides: undefined, // [ CHAIN ]
+        item_option_values: undefined, // [ {}, {}, ... ]
+        location_overrides: undefined, // [ {}, {}, ... ]
         inventory_alert_type: undefined,
         inventory_alert_threshold: undefined,
         track_inventory: undefined,
@@ -144,8 +145,12 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.item_option_values.push(obj);
   }
   set location_overrides(obj) {
-    // todo practically a subclass unto itself...
-    this._fardel.item_variation_data.location_overrides = obj;
+    arrayify(
+      this._fardel.item_variation_data,
+      "location_overrides",
+      this.display_name
+    );
+    this._fardel.item_variation_data.location_overrides.push(obj);
   }
   set pricing_type(str) {
     if (str === "VARIABLE_PRICING") {
@@ -207,16 +212,34 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
 
   // PRIVATE METHODS
 
-  #enum_inventory_alert_type() {
+  #price_money_error(caller, price_money) {
+    let message =
+      this.display_name +
+      "." +
+      caller +
+      " attempted to set price_money to " +
+      "{amount: " +
+      price_money.amount +
+      ", currency: " +
+      '"' +
+      price_money.currency +
+      '"' +
+      "} and pricing_type " +
+      'to "VARIABLE_PRICING". This is not allowed.';
+
+    throw new Error(message);
+  }
+
+  #enum_inventory_alert_type(object_to_modify, calling_this) {
     return {
       self: this,
       none: function () {
-        this.self.inventory_alert_type = "NONE";
-        return this;
+        object_to_modify.inventory_alert_type = "NONE";
+        return calling_this;
       },
       low_quantity: function () {
-        this.self.inventory_alert_type = "LOW_QUANTITY";
-        return this;
+        object_to_modify.inventory_alert_type = "LOW_QUANTITY";
+        return calling_this;
       },
       low: function () {
         return this.low_quantity();
@@ -227,18 +250,17 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     };
   }
 
-  // todo change this so it can be used to set both fardel.pricing_type and location_override.pricing_type
   //  won't need 'return this' since it only sets one value and doesn't stack with make() sub-methods
-  #enum_pricing_type() {
+  #enum_pricing_type(object_to_modify, calling_this) {
     return {
       self: this,
       fixed_pricing: function () {
-        this.self.pricing_type = "FIXED_PRICING";
-        return this;
+        object_to_modify.pricing_type = "FIXED_PRICING";
+        return calling_this;
       },
       variable_pricing: function () {
-        this.self.pricing_type = "VARIABLE_PRICING";
-        return this;
+        object_to_modify.pricing_type = "VARIABLE_PRICING";
+        return calling_this;
       },
       fixed: function () {
         return this.fixed_pricing();
@@ -284,17 +306,15 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         };
         return this;
       },
-      //todo complex
-      location_overrides: function (obj) {
-        this.self.location_overrides = obj;
-        return this;
+      location_overrides: function () {
+        return this.make_location_overrides();
       },
       inventory_alert_threshold: function (int) {
         this.self.inventory_alert_threshold = int;
         return this;
       },
       inventory_alert_type: function () {
-        return this.self.#enum_inventory_alert_type();
+        return this.self.#enum_inventory_alert_type(this.self, this);
       },
       track_inventory: function (bool) {
         this.self.track_inventory = bool;
@@ -334,7 +354,62 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
       },
 
       pricing_type: function () {
-        return this.self.#enum_pricing_type();
+        return this.self.#enum_pricing_type(this.self, this);
+      },
+    };
+  }
+
+  make_location_override() {
+    let name = this.display_name + ".make_location_override().";
+    let override = {
+      location_id: undefined, // id
+      price_money: undefined, // money // arch money
+      pricing_type: undefined, // enum fixed or variable  // use #enum_pricing_type() {
+      track_inventory: undefined, //bool
+      inventory_alert_type: undefined, // none or low // #enum_inventory_alert_type() {
+      inventory_alert_threshold: undefined, // int
+    };
+    return {
+      self: this,
+      location_id: function (id) {
+        override.location_id = id;
+        return this;
+      },
+      price_money: function (amount, currency) {
+        override.pricing_type = "FIXED_PRICING";
+        override.price_money = arche_money(amount, currency);
+        return this;
+      },
+      pricing_type: function () {
+        return this.self.#enum_pricing_type(override, this);
+      },
+      track_inventory: function (bool) {
+        override.track_inventory = bool;
+        return this;
+      },
+      inventory_alert_type: function () {
+        return this.self.#enum_inventory_alert_type(override, this);
+      },
+      inventory_alert_threshold: function (int) {
+        if (shazam_integer(int, name, "inventory_alert_threshold")) {
+          override.inventory_alert_threshold = int;
+        }
+        return this;
+      },
+      view: function () {
+        return override;
+      },
+      add: function () {
+        if (
+          override.price_money !== undefined &&
+          override.pricing_type === "VARIABLE_PRICING"
+        ) {
+          this.self.#price_money_error(
+            "make_location_override().add()",
+            override.price_money
+          );
+        }
+        this.self.location_overrides = clone_object(override);
       },
     };
   }
