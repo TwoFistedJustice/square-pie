@@ -4,10 +4,6 @@ let variation, make;
 let id = "123";
 const class_name = "Catalog_Item_Variation";
 
-describe("Silence test suite", () => {
-  test("Catalog_Item_Variation", () => {});
-});
-
 /* --------------------------------------------------------*
  *                                                         *
  *                        common structures
@@ -43,6 +39,53 @@ describe("basic object class structures", () => {
 
 // stockable_conversion
 // service_duration
+
+describe("getters/setters", () => {
+  beforeEach(() => {
+    variation = new Catalog_Item_Variation();
+    make = variation.make();
+  });
+
+  test("make_location_override().add() should throw if price_money is set along with VARIABLE_PRICING", () => {
+    let override = {
+      location_id: undefined,
+      price_money: { amount: 42, currency: "USD" },
+      pricing_type: "VARIABLE_PRICING",
+      track_inventory: undefined,
+      inventory_alert_type: undefined,
+      inventory_alert_threshold: undefined,
+    };
+    let expected =
+      'Catalog_Item_Variation.make_location_override().add() attempted to set price_money to {amount: 42, currency: "USD"} and pricing_type to "VARIABLE_PRICING". This is not allowed.';
+
+    let ride_over = variation.make_location_override();
+    ride_over.price_money(42).pricing_type().variable();
+    expect(ride_over.view()).toMatchObject(override);
+    expect(() => {
+      ride_over.add();
+    }).toThrowError(expected);
+  });
+
+  test("make_location_override().add() should not throw if price_money is set along with FIXED_PRICING", () => {
+    let override = {
+      location_id: undefined,
+      price_money: { amount: 42, currency: "USD" },
+      pricing_type: "FIXED_PRICING",
+      track_inventory: undefined,
+      inventory_alert_type: undefined,
+      inventory_alert_threshold: undefined,
+    };
+
+    let ride_over = variation.make_location_override();
+    ride_over.price_money(42).pricing_type();
+    expect(ride_over.view()).toMatchObject(override);
+    expect(() => {
+      ride_over.add();
+    }).not.toThrow();
+  });
+
+  // set pricing_type should throw
+});
 
 /* --------------------------------------------------------*
  *                                                         *
@@ -209,5 +252,315 @@ describe("getters/setters", () => {
     expect(variation.pricing_type).toEqual(expected);
   });
 
+  test("pricing_type should stack with other functions", () => {
+    let pricing = "VARIABLE_PRICING";
+    let alert = "LOW_QUANTITY";
+    make
+      .pricing_type()
+      .variable()
+      .inventory_alert_type()
+      .low()
+      .track_inventory(true);
+    expect(variation.pricing_type).toEqual(pricing);
+    expect(variation.inventory_alert_type).toEqual(alert);
+    expect(variation.track_inventory).toEqual(true);
+  });
+
   // test ("make(). () should set ", () => {let expected = "";make. (expected); expect (variation.).toEqual (expected);});
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        Location Overrides
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe.only("Location Overrides", () => {
+  // https://developer.squareup.com/reference/square_2022-01-20/objects/ItemVariationLocationOverrides
+  beforeEach(() => {
+    variation = new Catalog_Item_Variation();
+    make = variation.make();
+  });
+
+  test("make_location_override().() should set value on key", () => {
+    let expected = {
+      location_id: id, // id
+      price_money: undefined, // money // arch money // fixed pricing only
+      pricing_type: undefined, // enum fixed or variable  // use #enum_pricing_type() {
+      track_inventory: undefined, //bool
+      inventory_alert_type: undefined, // none or low // #enum_inventory_alert_type() {
+      inventory_alert_threshold: undefined, // int
+    };
+
+    let ride_over = variation.make_location_override();
+    ride_over.location_id(id);
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
+  test("make_location_override().price_money() should set value on key and automatically set pricing type", () => {
+    let expected = {
+      location_id: undefined,
+      price_money: { amount: 42, currency: "USD" },
+      pricing_type: "FIXED_PRICING",
+      track_inventory: undefined,
+      inventory_alert_type: undefined,
+      inventory_alert_threshold: undefined,
+    };
+
+    let ride_over = variation.make_location_override();
+    ride_over.price_money(42);
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
+  test('make_location_override().pricing_type().fixed_pricing() should set "FIXED_PRICING" on key', () => {
+    let expected = {
+      location_id: undefined,
+      price_money: undefined,
+      pricing_type: "FIXED_PRICING",
+      track_inventory: undefined,
+      inventory_alert_type: undefined,
+      inventory_alert_threshold: undefined,
+    };
+    let ride_over = variation.make_location_override();
+    ride_over.pricing_type().fixed_pricing();
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
+  test('make_location_override().pricing_type().fixed() should set "FIXED_PRICING" on key', () => {
+    let expected = {
+      location_id: undefined,
+      price_money: undefined,
+      pricing_type: "FIXED_PRICING",
+      track_inventory: undefined,
+      inventory_alert_type: undefined,
+      inventory_alert_threshold: undefined,
+    };
+    let ride_over = variation.make_location_override();
+    ride_over.pricing_type().fixed();
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
+  test('make_location_override().pricing_type().variable_pricing() should set "VARIABLE_PRICING" on key', () => {
+    let expected = {
+      location_id: undefined,
+      price_money: undefined,
+      pricing_type: "VARIABLE_PRICING",
+      track_inventory: undefined,
+      inventory_alert_type: undefined,
+      inventory_alert_threshold: undefined,
+    };
+    let ride_over = variation.make_location_override();
+    ride_over.pricing_type().variable_pricing();
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
+  test('make_location_override().pricing_type().variable() should set "VARIABLE_PRICING" on key', () => {
+    let expected = {
+      location_id: undefined,
+      price_money: undefined,
+      pricing_type: "VARIABLE_PRICING",
+      track_inventory: undefined,
+      inventory_alert_type: undefined,
+      inventory_alert_threshold: undefined,
+    };
+    let ride_over = variation.make_location_override();
+    ride_over.pricing_type().variable();
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
+  test("make_location_override().track_inventory() should set value on key", () => {
+    let expected = {
+      location_id: undefined,
+      price_money: undefined,
+      pricing_type: undefined,
+      track_inventory: true,
+      inventory_alert_type: undefined,
+      inventory_alert_threshold: undefined,
+    };
+
+    let ride_over = variation.make_location_override();
+    ride_over.track_inventory(true);
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
+  test('make_location_override().inventory_alert_type().none() should set "NONE" on key', () => {
+    let expected = {
+      location_id: undefined,
+      price_money: undefined,
+      pricing_type: undefined,
+      track_inventory: undefined,
+      inventory_alert_type: "NONE",
+      inventory_alert_threshold: undefined,
+    };
+
+    let ride_over = variation.make_location_override();
+    ride_over.inventory_alert_type().none();
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
+  test('make_location_override().inventory_alert_type().out() should set "NONE" on key', () => {
+    let expected = {
+      location_id: undefined,
+      price_money: undefined,
+      pricing_type: undefined,
+      track_inventory: undefined,
+      inventory_alert_type: "NONE",
+      inventory_alert_threshold: undefined,
+    };
+
+    let ride_over = variation.make_location_override();
+    ride_over.inventory_alert_type().out();
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
+  test('make_location_override().inventory_alert_type().low_quantity() should set "LOW_QUANTITY" on key', () => {
+    let expected = {
+      location_id: undefined,
+      price_money: undefined,
+      pricing_type: undefined,
+      track_inventory: undefined,
+      inventory_alert_type: "LOW_QUANTITY",
+      inventory_alert_threshold: undefined,
+    };
+
+    let ride_over = variation.make_location_override();
+    ride_over.inventory_alert_type().low_quantity();
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
+  test('make_location_override().inventory_alert_type().low() should set "LOW_QUANTITY" on key', () => {
+    let expected = {
+      location_id: undefined,
+      price_money: undefined,
+      pricing_type: undefined,
+      track_inventory: undefined,
+      inventory_alert_type: "LOW_QUANTITY",
+      inventory_alert_threshold: undefined,
+    };
+
+    let ride_over = variation.make_location_override();
+    ride_over.inventory_alert_type().low();
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
+  test("make_location_override().inventory_alert_threshold() should set value on key", () => {
+    let expected = {
+      location_id: undefined,
+      price_money: undefined,
+      pricing_type: undefined,
+      track_inventory: undefined,
+      inventory_alert_type: undefined,
+      inventory_alert_threshold: 5,
+    };
+
+    let ride_over = variation.make_location_override();
+    ride_over.inventory_alert_threshold(5);
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
+  test("make_location_override() chaining should set values on key ", () => {
+    let override = {
+      location_id: id,
+      price_money: { amount: 42, currency: "USD" },
+      pricing_type: "FIXED_PRICING",
+      track_inventory: true,
+      inventory_alert_type: "NONE",
+      inventory_alert_threshold: 0,
+    };
+
+    let expected = override;
+    let ride_over = variation.make_location_override();
+    ride_over
+      .location_id(id)
+      .price_money(42)
+      .track_inventory(true)
+      .inventory_alert_type()
+      .none()
+      .inventory_alert_threshold(0);
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
+  test("make_location_override().add() add one object to array", () => {
+    let override = {
+      location_id: id,
+      price_money: { amount: 42, currency: "USD" },
+      pricing_type: "FIXED_PRICING",
+      track_inventory: true,
+      inventory_alert_type: "NONE",
+      inventory_alert_threshold: 0,
+    };
+
+    let expected = [override];
+    let ride_over = variation.make_location_override();
+    ride_over
+      .location_id(id)
+      .price_money(42)
+      .track_inventory(true)
+      .inventory_alert_type()
+      .none()
+      .inventory_alert_threshold(0)
+      .add();
+    expect(variation.location_overrides).toMatchObject(expected);
+  });
+
+  test("make_location_override().add() should add a cloned object to the array", () => {
+    let override = {
+      location_id: id,
+      price_money: { amount: 42, currency: "USD" },
+      pricing_type: "FIXED_PRICING",
+      track_inventory: true,
+      inventory_alert_type: "NONE",
+      inventory_alert_threshold: 0,
+    };
+    let expected = [override];
+    let ride_over = variation.make_location_override();
+    ride_over
+      .location_id(id)
+      .price_money(42)
+      .track_inventory(true)
+      .inventory_alert_type()
+      .none()
+      .inventory_alert_threshold(0)
+      .add();
+    expect(variation.location_overrides).toMatchObject(expected);
+    expect(variation.location_overrides[0] === ride_over.view()).toEqual(false);
+  });
+
+  test("make_location_override().add() add multiple different objects to array", () => {
+    let override = {
+      location_id: id,
+      price_money: { amount: 42, currency: "USD" },
+      pricing_type: "FIXED_PRICING",
+      track_inventory: true,
+      inventory_alert_type: "NONE",
+      inventory_alert_threshold: 0,
+    };
+
+    let expected = [override, override];
+    let ride_over = variation.make_location_override();
+    let over_ride = variation.make_location_override();
+    ride_over
+      .location_id(id)
+      .price_money(42)
+      .track_inventory(true)
+      .inventory_alert_type()
+      .none()
+      .inventory_alert_threshold(0)
+      .add();
+    over_ride
+      .location_id(id)
+      .price_money(42)
+      .track_inventory(true)
+      .inventory_alert_type()
+      .none()
+      .inventory_alert_threshold(0)
+      .add();
+    expect(variation.location_overrides).toMatchObject(expected);
+    expect(variation.location_overrides[0]).toEqual(
+      variation.location_overrides[0]
+    );
+    expect(
+      variation.location_overrides[0] === variation.location_overrides[1]
+    ).toEqual(false);
+  });
 });
