@@ -153,8 +153,8 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.location_overrides.push(obj);
   }
   set pricing_type(str) {
-    if (str === "VARIABLE_PRICING") {
-      this._fardel.item_variation_data.price_money = undefined;
+    if (str === "VARIABLE_PRICING" && this.price_money !== undefined) {
+      this.#price_money_error("pricing_type", this.price_money);
     }
     this._fardel.item_variation_data.pricing_type = str;
   }
