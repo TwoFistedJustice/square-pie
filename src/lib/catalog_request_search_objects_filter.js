@@ -41,14 +41,6 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     this._body.query.exact_query = obj;
   }
 
-  set set_query(obj) {
-    if (!Object.prototype.hasOwnProperty.call(this._body.query, "set_query")) {
-      define(this._body.query, "set_query", undefined);
-    }
-
-    this._body.query.set_query = obj;
-  }
-
   set prefix_query(obj) {
     if (
       !Object.prototype.hasOwnProperty.call(this._body.query, "prefix_query")
@@ -67,6 +59,14 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     }
 
     this._body.query.range_query = obj;
+  }
+
+  set set_query(obj) {
+    if (!Object.prototype.hasOwnProperty.call(this._body.query, "set_query")) {
+      define(this._body.query, "set_query", undefined);
+    }
+
+    this._body.query.set_query = obj;
   }
 
   set sorted_attribute_query(obj) {
