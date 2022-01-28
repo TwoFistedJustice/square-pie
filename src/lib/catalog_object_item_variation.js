@@ -1,3 +1,4 @@
+const { number_quantity_regex } = require("./regex");
 const {
   arche_money,
   arrayify,
@@ -187,7 +188,6 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
       this._fardel.item_variation_data.stockable = bool;
     }
   }
-  // todo opinionated object - archetype?
   set stockable_conversion(obj) {
     this._fardel.item_variation_data.stockable_conversion = obj;
   }
@@ -211,6 +211,62 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   }
 
   // PRIVATE METHODS
+
+  #build_stockable_conversion() {
+    if (this._fardel.item_variation_data.stockable_conversion === undefined) {
+      this._fardel.item_variation_data.stockable_conversion = {
+        stockable_item_variation_id: undefined,
+        nonstockable_quantity: undefined,
+        stockable_quantity: undefined,
+      };
+    }
+
+    let stockable_conversion =
+      this._fardel.item_variation_data.stockable_conversion;
+
+    return {
+      self: this,
+      stockable_item_variation_id: function (id) {
+        stockable_conversion.stockable_item_variation_id = id;
+        return this;
+      },
+      nonstockable_quantity: function (qty) {
+        if (
+          this.self.#stockable_quantity_validate(qty, "nonstockable_quantity")
+        ) {
+          stockable_conversion.nonstockable_quantity = qty;
+        }
+        return this;
+      },
+      stockable_quantity: function (qty) {
+        if (this.self.#stockable_quantity_validate(qty, "stockable_quantity")) {
+          stockable_conversion.stockable_quantity = qty;
+        }
+        return this;
+      },
+      id: function (id) {
+        return this.stockable_item_variation_id(id);
+      },
+    };
+  }
+
+  #stockable_quantity_validate(quantity, caller) {
+    let name = this.display_name + " stockable_conversions";
+    quantity = quantity + "";
+    if (number_quantity_regex.test(quantity) !== true) {
+      let message =
+        name +
+        "." +
+        caller +
+        " accepts a decimal number in a string format that can take up " +
+        "to 10 digits before the decimal point and up to 5 digits after the decimal point. Leading zeros are not allowed. " +
+        "Received: " +
+        quantity;
+      throw new Error(message);
+    } else {
+      return true;
+    }
+  }
 
   #price_money_error(caller, price_money) {
     let message =
@@ -307,7 +363,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         return this;
       },
       location_overrides: function () {
-        return this.make_location_overrides();
+        return this.self.make_location_override();
       },
       inventory_alert_threshold: function (int) {
         this.self.inventory_alert_threshold = int;
@@ -336,9 +392,8 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         this.self.stockable = bool;
         return this;
       },
-      stockable_conversion: function (obj) {
-        this.self.stockable_conversion = obj;
-        return this;
+      stockable_conversion: function () {
+        return this.self.#build_stockable_conversion();
       },
       team_member_ids: function (str) {
         this.self.team_member_ids = str;
@@ -396,6 +451,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         }
         return this;
       },
+
       view: function () {
         return override;
       },
