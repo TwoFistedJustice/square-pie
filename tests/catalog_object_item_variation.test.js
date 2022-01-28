@@ -90,6 +90,18 @@ describe("getters/setters", () => {
       variation.pricing_type = "VARIABLE_PRICING";
     }).toThrowError(/pricing_type/);
   });
+
+  test("make().stockable_conversion.().nonstockable_quantity() should throw ", () => {
+    expect(() => {
+      make.stockable_conversion().nonstockable_quantity("023.456");
+    }).toThrowError(/nonstockable_quantity/);
+  });
+
+  test("make().stockable_conversion.().stockable_quantity() should throw ", () => {
+    expect(() => {
+      make.stockable_conversion().stockable_quantity("023.456");
+    }).toThrowError(/stockable_quantity/);
+  });
 });
 
 /* --------------------------------------------------------*
@@ -140,21 +152,20 @@ describe("getters/setters", () => {
     expect(variation.item_option_values).toEqual(expected);
   });
   test("make().location_overrides () should set ", () => {
-    let expected = {
-      inventory_alert_threshold: 200,
-      inventory_alert_type: "LOW_QUANTITY",
-      location_id: id,
-      price_money: { amount: 42, currency: "EUR" },
-      pricing_type: "VARIABLE_PRICING",
-      track_inventory: true,
-    };
-    make
-      .location_overrides()
-      .inventory_alert_threshold(200)
-      .location_id(id)
-      .track_inventory(true);
-    make.location_overrides().alert().low();
-    make.location_overrides().pricing().variable();
+    let expected = [
+      {
+        inventory_alert_threshold: 200,
+        inventory_alert_type: "LOW_QUANTITY",
+        location_id: id,
+        price_money: { amount: 42, currency: "EUR" },
+        pricing_type: "FIXED_PRICING",
+        track_inventory: true,
+      },
+    ];
+    let over = make.location_overrides();
+    over.inventory_alert_threshold(200).location_id(id).track_inventory(true);
+    over.alert_type().low().price(42, "EUr");
+    over.add();
     expect(variation.location_overrides).toMatchObject(expected);
   });
   test("make().inventory_alert_type () should set ", () => {
@@ -208,15 +219,7 @@ describe("getters/setters", () => {
     make.stockable(expected);
     expect(variation.stockable).toEqual(expected);
   });
-  test("make().stockable_conversion () should set ", () => {
-    let expected = {
-      stockable_item_variation_id: id,
-      stockable_quantity: "456.123",
-      nonstockable_quantity: "123.456",
-    };
-    make.stockable_conversion(id, "456.123", "123.456non");
-    expect(variation.stockable_conversion).toEqual(expected);
-  });
+
   test("make().team_member_ids () should set ", () => {
     let expected = [id];
     make.team_member_ids(id);
@@ -463,6 +466,21 @@ describe("Location Overrides", () => {
     expect(ride_over.view()).toMatchObject(expected);
   });
 
+  test("make_location_override()._alert_threshold() alias should set value on key", () => {
+    let expected = {
+      location_id: undefined,
+      price_money: undefined,
+      pricing_type: undefined,
+      track_inventory: undefined,
+      inventory_alert_type: undefined,
+      inventory_alert_threshold: 5,
+    };
+
+    let ride_over = variation.make_location_override();
+    ride_over.alert_threshold(5);
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
   test("make_location_override() chaining should set values on key ", () => {
     let override = {
       location_id: id,
@@ -567,5 +585,100 @@ describe("Location Overrides", () => {
     expect(
       variation.location_overrides[0] === variation.location_overrides[1]
     ).toEqual(false);
+  });
+});
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        stockable_conversion
+ *                                                         *
+ * ------------------------------------------------------- */
+
+describe("stockable_conversion", () => {
+  beforeEach(() => {
+    variation = new Catalog_Item_Variation();
+    make = variation.make();
+  });
+
+  test("stockable_conversion should set", () => {
+    let expected = { a: 1 };
+    variation.stockable_conversion = expected;
+    expect(variation.stockable_conversion).toMatchObject(expected);
+  });
+
+  test("make().stockable_conversion.().stockable_item_variation_id() should set", () => {
+    let expected = {
+      stockable_item_variation_id: id,
+      nonstockable_quantity: undefined,
+      stockable_quantity: undefined,
+    };
+    make.stockable_conversion().stockable_item_variation_id(id);
+
+    expect(variation.stockable_conversion).toMatchObject(expected);
+  });
+
+  test("make().stockable_conversion.().nonstockable_quantity() should set", () => {
+    let expected = {
+      stockable_item_variation_id: undefined,
+      nonstockable_quantity: "123.456",
+      stockable_quantity: undefined,
+    };
+    make.stockable_conversion().nonstockable_quantity("123.456");
+
+    expect(variation.stockable_conversion).toMatchObject(expected);
+  });
+
+  test("make().stockable_conversion.().stockable_quantity() should set", () => {
+    let expected = {
+      stockable_item_variation_id: undefined,
+      nonstockable_quantity: undefined,
+      stockable_quantity: "234.567",
+    };
+    make.stockable_conversion().stockable_quantity("234.567");
+
+    expect(variation.stockable_conversion).toMatchObject(expected);
+  });
+
+  test("make().stockable_conversion.() methods should work same when done on separate lines ", () => {
+    let expected = {
+      stockable_item_variation_id: id,
+      nonstockable_quantity: "123.456",
+      stockable_quantity: "234.567",
+    };
+    make.stockable_conversion().stockable_item_variation_id(id);
+    make.stockable_conversion().nonstockable_quantity("123.456");
+    make.stockable_conversion().stockable_quantity("234.567");
+
+    expect(variation.stockable_conversion).toMatchObject(expected);
+  });
+
+  test("make().stockable_conversion.() methods should chain ", () => {
+    let expected = {
+      stockable_item_variation_id: id,
+      nonstockable_quantity: "123.456",
+      stockable_quantity: "234.567",
+    };
+    make
+      .stockable_conversion()
+      .stockable_item_variation_id(id)
+      .nonstockable_quantity("123.456")
+      .stockable_quantity("234.567");
+
+    expect(variation.stockable_conversion).toMatchObject(expected);
+  });
+
+  test("make().stockable_conversion.id() alias should set ", () => {
+    let expected = {
+      stockable_item_variation_id: id,
+      nonstockable_quantity: "123.456",
+      stockable_quantity: "234.567",
+    };
+    make
+      .stockable_conversion()
+      .id(id)
+      .nonstockable_quantity("123.456")
+      .stockable_quantity("234.567");
+
+    expect(variation.stockable_conversion).toMatchObject(expected);
   });
 });
