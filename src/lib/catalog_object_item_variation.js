@@ -160,6 +160,12 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.pricing_type = str;
   }
   // price_money is only used if pricing type is fixed. So set it to fixed and save a step.
+  /** @method `set price_money` - sets the price_money property of fardel. price_money is only used if pricing type is fixed.
+   *  So it also sets pricing_type to "FIXED_PRICING"
+   * @param {object} expects a Square Money object
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/Money | Square Docs}
+   * */
   set price_money(money) {
     this._fardel.item_variation_data.pricing_type = "FIXED_PRICING";
     this._fardel.item_variation_data.price_money = money;
@@ -212,44 +218,6 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
 
   // PRIVATE METHODS
 
-  #build_stockable_conversion() {
-    if (this._fardel.item_variation_data.stockable_conversion === undefined) {
-      this._fardel.item_variation_data.stockable_conversion = {
-        stockable_item_variation_id: undefined,
-        nonstockable_quantity: undefined,
-        stockable_quantity: undefined,
-      };
-    }
-
-    let stockable_conversion =
-      this._fardel.item_variation_data.stockable_conversion;
-
-    return {
-      self: this,
-      stockable_item_variation_id: function (id) {
-        stockable_conversion.stockable_item_variation_id = id;
-        return this;
-      },
-      nonstockable_quantity: function (qty) {
-        if (
-          this.self.#stockable_quantity_validate(qty, "nonstockable_quantity")
-        ) {
-          stockable_conversion.nonstockable_quantity = qty;
-        }
-        return this;
-      },
-      stockable_quantity: function (qty) {
-        if (this.self.#stockable_quantity_validate(qty, "stockable_quantity")) {
-          stockable_conversion.stockable_quantity = qty;
-        }
-        return this;
-      },
-      id: function (id) {
-        return this.stockable_item_variation_id(id);
-      },
-    };
-  }
-
   #stockable_quantity_validate(quantity, caller) {
     let name = this.display_name + " stockable_conversions";
     quantity = quantity + "";
@@ -286,6 +254,26 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     throw new Error(message);
   }
 
+  /** @function #enum_inventory_alert_type
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   * @method `none` sets value to "NONE"
+   * @method `out` alias of `none`
+   * @method `low_quantity` sets value to "LOW_QUANTITY"
+   * @method ``alias of `low_quantity`
+   
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square_2022-01-20/enums/InventoryAlertType | Square Docs}
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
   #enum_inventory_alert_type(object_to_modify, calling_this) {
     return {
       self: this,
@@ -306,7 +294,25 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     };
   }
 
-  //  won't need 'return this' since it only sets one value and doesn't stack with make() sub-methods
+  /** @function #enum_pricing_type()
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   * @method `fixed_pricing` - sets value to "FIXED_PRICING"
+   * @method `fixed` alias of `fixed_pricing`
+   * @method `variable_pricing` sets value to "VARIABLE_PRICING"
+   * @method ``alias of `variable_pricing`
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link  | Square Docs}
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
   #enum_pricing_type(object_to_modify, calling_this) {
     return {
       self: this,
@@ -328,6 +334,30 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   }
 
   //METHODS
+  /** @function make()  method of Catalog_Item_Variation - method names are exactly the same as the property names listed
+   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
+   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
+   * listed here.
+   * @method `item_option_values`
+   * @param {string} `option_id`
+   * @param {string} `value_id`
+   * @method `location_overrides` - calls `make_location_override()`. See that entry.
+   * @method  `inventory_alert_type - calls `#enum_inventory_alert_type`. See that entry.
+   * @method `price_money`
+   * @param {number} `amount` - an integer. The price in the smallest currency designation. Usually cents.
+   * @param {string} `currency` - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
+   * @method `stockable_conversion` - calls make_stockable_conversion(). See that entry.
+   * @method `pricing_type` - enumerated. Calls #enum_pricing_type. See that entry.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,
@@ -393,7 +423,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         return this;
       },
       stockable_conversion: function () {
-        return this.self.#build_stockable_conversion();
+        return this.self.make_stockable_conversion();
       },
       team_member_ids: function (str) {
         this.self.team_member_ids = str;
@@ -414,6 +444,44 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     };
   }
 
+  /** @function make_location_override()  method of Catalog_Item_Variation - Builds a compliant
+   * ItemVariationLocationOverrides object. You must call .add() as the last step. Note: every time
+   * you call this function it begins over again. So if you intend to build one object across several
+   * lines of code, you must first set the function call to a variable, and then work from that variable.
+   *
+   * method names are exactly the same as the property names listed
+   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
+   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters
+   * are listed here.  You must use parentheses with every call to make and with every sub-method.
+   * @method `price_money`
+   * @param {number} `amount` - an integer. The price in the smallest currency designation. Usually cents.
+   * @param {string} `currency` - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
+   * @method `price` alias of `price_money`
+   * @method `inventory_alert_type` Calls #enum_inventory_alert_type(). See entry for that.
+   * @method `alert_type` - alias of `inventory_alert_type`
+   * @method `alert_threshold` - alias of `inventory_alert_threshold`. See Square docs.
+   * @method `view` returns the location_override object under construction.
+   * @method `add` Adds the newly built object to the location_overrides array. Enforces rule on pricing_type and price.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/ItemVariationLocationOverrides | Square Docs}
+   * @example
+   *  let override = myVar.make_location_override().location_id("123").price_money(499, "CAD").add();
+   *  is the same as
+   *   override.location_id("123");
+   *   override.price(499, "cad");
+   *   override.add();
+   *  it builds:
+   *  {
+   *    location_id: "123",
+   *    price_money: {
+   *      amount: 499,
+   *      currency: "CAD"
+   *    },
+   *    pricing_type: "FIXED_PRICING"     // this value is set automatically when you set price_money
+   *  }
+   *
+   *  location_overrides: [{the object you built}]
+   * */
   make_location_override() {
     let name = this.display_name + ".make_location_override().";
     let override = {
@@ -475,6 +543,82 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
           );
         }
         this.self.location_overrides = clone_object(override);
+      },
+    };
+  }
+
+  /** @function make()  method of Catalog_Item_Variation -
+   *  Builds the stockable_conversion object on fardel. If called from make() will terminate a chain.
+   *  Can be called independently of make().
+   *
+   * method names are exactly the same as the property names listed
+   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
+   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
+   * listed here.
+   * @method `stockable_item_variation_id`
+   * @param {string} ``
+   * @method `id` alias of `stockable_item_variation_id`
+   * @method `nonstockable_quantity`
+   * @param {string} `quantity`  It accepts a decimal number in a string format that can take up to 10 digits before the decimal point and up to 5 digits after the decimal point.
+   * @method `stockable_quantity`
+   * @param {string} `quantity`  It accepts a decimal number in a string format that can take up to 10 digits before the decimal point and up to 5 digits after the decimal point.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogStockConversion | Square Docs}
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let convert = myVar.make_stockable_conversion();
+   *  convert.stockable_item_variation_id("123").nonstockable_quantity("123.456").stockable_quantity("234.567")
+   *
+   *  builds:
+   *  stockable_conversion: {
+   *    stockable_item_variation_id: "123",
+        nonstockable_quantity: "123.456" ,
+        stockable_quantity: "234.567"
+   *  }
+   *
+   * */
+
+  make_stockable_conversion() {
+    if (this._fardel.item_variation_data.stockable_conversion === undefined) {
+      this._fardel.item_variation_data.stockable_conversion = {
+        stockable_item_variation_id: undefined,
+        nonstockable_quantity: undefined,
+        stockable_quantity: undefined,
+      };
+    }
+
+    let stockable_conversion =
+      this._fardel.item_variation_data.stockable_conversion;
+
+    return {
+      self: this,
+      stockable_item_variation_id: function (id) {
+        stockable_conversion.stockable_item_variation_id = id;
+        return this;
+      },
+      nonstockable_quantity: function (quantity) {
+        if (
+          this.self.#stockable_quantity_validate(
+            quantity,
+            "nonstockable_quantity"
+          )
+        ) {
+          stockable_conversion.nonstockable_quantity = quantity;
+        }
+        return this;
+      },
+      stockable_quantity: function (quantity) {
+        if (
+          this.self.#stockable_quantity_validate(quantity, "stockable_quantity")
+        ) {
+          stockable_conversion.stockable_quantity = quantity;
+        }
+        return this;
+      },
+      id: function (id) {
+        return this.stockable_item_variation_id(id);
       },
     };
   }
