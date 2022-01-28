@@ -70,10 +70,17 @@ Setters
 PRIVATE METHODS
 
 +#enum_pricing_type()
++#enum_inventory_alert_type()
++#enum_pricing_type()
++#build_stockable_conversion()
++#stockable_quantity_validate()
++#price_money_error()
+
 ==
 MAKER METHODS
 
 +make()
++make_location_override()
 ==
 Square Docs
 [[https://developer.squareup.com/reference/square/objects/CatalogItemVariation Catalog Item]]
