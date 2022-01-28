@@ -84,7 +84,12 @@ describe("getters/setters", () => {
     }).not.toThrow();
   });
 
-  // set pricing_type should throw
+  test("pricing_type should throw", () => {
+    make.price_money(42);
+    expect(() => {
+      variation.pricing_type = "VARIABLE_PRICING";
+    }).toThrowError(/pricing_type/);
+  });
 });
 
 /* --------------------------------------------------------*
@@ -275,7 +280,7 @@ describe("getters/setters", () => {
  *                                                         *
  * ------------------------------------------------------- */
 
-describe.only("Location Overrides", () => {
+describe("Location Overrides", () => {
   // https://developer.squareup.com/reference/square_2022-01-20/objects/ItemVariationLocationOverrides
   beforeEach(() => {
     variation = new Catalog_Item_Variation();
