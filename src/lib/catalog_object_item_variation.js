@@ -12,6 +12,16 @@ const man =
   "Creates a Catalog Item-Variation which you must then add to an 'Item'.\n" +
   "\nhttps://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation";
 
+/** @class  Catalog_Item_Variation representing a CatalogItemVariation
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation | Square Docs}
+ * @example
+ * const variation = new Catalog_Item_Variation()
+ *  variation.make()...
+ *
+ *  variation.fardel => feed to Catalog_Item
+ * */
+
 class Catalog_Item_Variation extends Catalog_Object_Super {
   _display_name = "Catalog_Item_Variation";
   _last_verified_square_api_version = "2021-12-15";
