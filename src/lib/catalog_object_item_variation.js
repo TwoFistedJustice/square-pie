@@ -451,6 +451,15 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         }
         return this;
       },
+      price(amount, currency) {
+        return this.price_money(amount, currency);
+      },
+      alert_type: function () {
+        return this.inventory_alert_type();
+      },
+      alert_threshold: function (int) {
+        return this.inventory_alert_threshold(int);
+      },
 
       view: function () {
         return override;
