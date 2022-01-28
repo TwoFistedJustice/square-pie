@@ -1,5 +1,5 @@
 const Catalog_Search_Objects_Super = require("./catalog_request_abstract_search_objects_super");
-const { define, shazam_object_has_property } = require("./utilities");
+const { define } = require("./utilities");
 const man =
   "can search for any type of catalog objects\n" +
   "This is complicated. Read the Pie doc before you try to use it:\n" +
@@ -34,29 +34,6 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   // SETTERS
   set exact_query(obj) {
     if (
-      shazam_object_has_property(
-        obj,
-        "attribute_name",
-        this.display_name,
-        "exact_query"
-      ) ||
-      shazam_object_has_property(
-        obj,
-        "attribute_value",
-        this.display_name,
-        "exact_query"
-      )
-    ) {
-      if (
-        typeof obj.attribute_name != "string" ||
-        typeof obj.attribute_value != "string"
-      ) {
-        throw new TypeError(
-          "The object provided for an exact search must have string values in both properties."
-        );
-      }
-    }
-    if (
       !Object.prototype.hasOwnProperty.call(this._body.query, "exact_query")
     ) {
       define(this._body.query, "exact_query", undefined);
@@ -65,30 +42,6 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   set set_query(obj) {
-    if (
-      shazam_object_has_property(
-        obj,
-        "attribute_name",
-        this.display_name,
-        "set_query"
-      ) ||
-      shazam_object_has_property(
-        obj,
-        "attribute_values",
-        this.display_name,
-        "set_query"
-      )
-    ) {
-      if (typeof obj.attribute_name != "string") {
-        throw new TypeError(
-          'The object "attribute_name" provided for a set_query search must have string value.'
-        );
-      } else if (!Array.isArray(obj.attribute_values)) {
-        throw new TypeError(
-          "The object provided for a set_query search must have an array of string values."
-        );
-      }
-    }
     if (!Object.prototype.hasOwnProperty.call(this._body.query, "set_query")) {
       define(this._body.query, "set_query", undefined);
     }
@@ -97,29 +50,6 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   set prefix_query(obj) {
-    if (
-      shazam_object_has_property(
-        obj,
-        "attribute_name",
-        this.display_name,
-        "prefix_query"
-      ) ||
-      shazam_object_has_property(
-        obj,
-        "attribute_prefix",
-        this.display_name,
-        "prefix_query"
-      )
-    ) {
-      if (
-        typeof obj.attribute_name != "string" ||
-        typeof obj.attribute_prefix != "string"
-      ) {
-        throw new TypeError(
-          "The object provided for an exact search must have string values in both properties."
-        );
-      }
-    }
     if (
       !Object.prototype.hasOwnProperty.call(this._body.query, "prefix_query")
     ) {
@@ -131,25 +61,6 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
 
   set range_query(obj) {
     if (
-      shazam_object_has_property(
-        obj,
-        "attribute_name",
-        this.display_name,
-        "range_query"
-      )
-    ) {
-      if (typeof obj.attribute_name != "string") {
-        throw new TypeError(
-          'The object "attribute_name" provided for an set_query search must have string value.'
-        );
-      }
-    }
-    if (typeof obj.attribute_name != "string") {
-      throw new TypeError(
-        'The object "attribute_name" provided for an set_query search must have string value.'
-      );
-    }
-    if (
       !Object.prototype.hasOwnProperty.call(this._body.query, "range_query")
     ) {
       define(this._body.query, "range_query", undefined);
@@ -157,25 +68,8 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
 
     this._body.query.range_query = obj;
   }
+
   set sorted_attribute_query(obj) {
-    if (
-      shazam_object_has_property(
-        obj,
-        "attribute_name",
-        this.display_name,
-        "sorted_attribute_query"
-      )
-    ) {
-      if (
-        !!obj.sort_order &&
-        obj.sort_order !== "ASC" &&
-        obj.sort_order !== "DESC"
-      ) {
-        throw new Error(
-          'range query sort order must be set to either "ASC" or "DESC"'
-        );
-      }
-    }
     if (
       !Object.prototype.hasOwnProperty.call(
         this._body.query,
