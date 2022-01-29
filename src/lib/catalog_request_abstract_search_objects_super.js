@@ -5,7 +5,6 @@ const {
   shazam_time_RFC3339,
   shazam_integer,
 } = require("./utilities");
-const catalog_search_objects_enum = require("./enum/catalog_search_objects_enum");
 
 /*
  *  The query feature is INCOMPLETE
@@ -95,10 +94,6 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     );
     let replacement = this.object_types.concat(array_to_add);
     this._body.object_types = replacement;
-  }
-
-  enum_object_types() {
-    return catalog_search_objects_enum.object_types(this);
   }
 } // END class
 
