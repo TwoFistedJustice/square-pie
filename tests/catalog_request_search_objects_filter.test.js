@@ -179,6 +179,16 @@ describe("Catalog Request Search Filter", () => {
    *                                                         *
    * ------------------------------------------------------- */
 
+  test("set set_query() should set ", () => {
+    let expected = {
+      attribute_name: "name",
+      attribute_values: ["coffee"],
+    };
+
+    filter.set_query = expected;
+    expect(filter.set_query).toMatchObject(expected);
+  });
+
   test("make().set_query() should initialize with an empty array ", () => {
     let expected = {
       set_query: {
@@ -429,6 +439,9 @@ describe("Catalog Request Search Filter", () => {
 
     make.sorted_attribute_query().value("ITEM");
     expect(filter.query).toMatchObject(expected);
+    expect(filter.sorted_attribute_query).toMatchObject(
+      expected.sorted_attribute_query
+    );
   });
 
   test("make_sorted_attribute_query", () => {

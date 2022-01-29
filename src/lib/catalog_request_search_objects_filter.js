@@ -40,6 +40,10 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   get range_query() {
     return this._body.query.range_query;
   }
+  get set_query() {
+    return this._body.query.set_query;
+  }
+
   get sorted_attribute_query() {
     return this._body.query.sorted_attribute_query;
   }
