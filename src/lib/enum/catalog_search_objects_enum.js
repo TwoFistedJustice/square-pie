@@ -36,7 +36,8 @@ const catalog_search_objects_enum = {
 
   /** @function enum
    * @enum  enables a referencing class to set only allowable values on a property.
-   * @param {object} self - pass in 'this' from the referencing class.
+   * @param {object} self - the class on which the 'object_types' property sits.
+   * @param {object} calling_this - pass in 'this' from the calling function.
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
    * #enum_PROPERTY_NAME() {
@@ -44,75 +45,75 @@ const catalog_search_objects_enum = {
    * }
    * */
 
-  object_types: function (self) {
+  object_types: function (self, calling_this) {
     return {
       item: function () {
         self.object_types = "ITEM";
-        return this;
+        return calling_this;
       },
       item_variation: function () {
         self.object_types = "ITEM_VARIATION";
-        return this;
+        return calling_this;
       },
       item_option: function () {
         self.object_types = "ITEM_OPTION";
-        return this;
+        return calling_this;
       },
       item_option_val: function () {
         self.object_types = "ITEM_OPTION_VAL";
-        return this;
+        return calling_this;
       },
       image: function () {
         self.object_types = "IMAGE";
-        return this;
+        return calling_this;
       },
       category: function () {
         self.object_types = "CATEGORY";
-        return this;
+        return calling_this;
       },
       tax: function () {
         self.object_types = "TAX";
-        return this;
+        return calling_this;
       },
       discount: function () {
         self.object_types = "DISCOUNT";
-        return this;
+        return calling_this;
       },
       modifier: function () {
         self.object_types = "MODIFIER";
-        return this;
+        return calling_this;
       },
       modifier_list: function () {
         self.object_types = "MODIFIER_LIST";
-        return this;
+        return calling_this;
       },
       pricing_rule: function () {
         self.object_types = "PRICING_RULE";
-        return this;
+        return calling_this;
       },
       product_set: function () {
         self.object_types = "PRODUCT_SET";
-        return this;
+        return calling_this;
       },
       time_period: function () {
         self.object_types = "TIME_PERIOD";
-        return this;
+        return calling_this;
       },
       measurement_unit: function () {
         self.object_types = "MEASUREMENT_UNIT";
-        return this;
+        return calling_this;
       },
       subscription_plan: function () {
         self.object_types = "SUBSCRIPTION_PLAN";
-        return this;
+        return calling_this;
       },
       custom_attribute_definition: function () {
         self.object_types = "CUSTOM_ATTRIBUTE_DEFINITION";
-        return this;
+        return calling_this;
       },
       quick_amounts_setting: function () {
         self.object_types = "QUICK_AMOUNTS_SETTINGS";
-        return this;
+        return calling_this;
       },
     };
   },
