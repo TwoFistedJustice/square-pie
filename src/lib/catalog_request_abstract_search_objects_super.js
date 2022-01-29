@@ -1,6 +1,7 @@
 const Catalog_Request = require("./catalog_request_abstract");
 const {
   arrayify,
+  array_prevent_duplicate_strings,
   shazam_time_RFC3339,
   shazam_integer,
 } = require("./utilities");
@@ -61,11 +62,13 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     }
   }
   set object_types(type) {
-    let callback = (word) => word === type;
     arrayify(this._body, "object_types", this.display_name);
-    if (this.object_types.some(callback)) {
-      throw new Error(`object_types array already contains ${type}`);
-    }
+    array_prevent_duplicate_strings(
+      type,
+      this.object_types,
+      this.display_name,
+      "object_types"
+    );
     this._body.object_types.push(type);
   }
   set limit(int32) {
