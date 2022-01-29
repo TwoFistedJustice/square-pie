@@ -95,12 +95,6 @@ describe(`${class_name} getters/setters`, () => {
     expect(filter.range_query).toEqual(expected);
   });
 
-  test("make().object_type () should set ", () => {
-    let expected = "";
-    make.object_type(expected);
-    expect(filter.object_type).toEqual(expected);
-  });
-
   test("make().limit () should set ", () => {
     let expected = 5;
     make.limit(expected);
@@ -342,10 +336,28 @@ describe("Catalog Request Search Filter", () => {
     }).toThrowError(/not found in text_query.keywords/);
   });
 
+  /* --------------------------------------------------------*
+   *                                                         *
+   *                        object_types
+   *                                                         *
+   * ------------------------------------------------------- */
+
+  test("make().object_types() should push one value", () => {
+    let expected = ["ITEM"];
+    make.object_type().item();
+    expect(filter.object_types).toMatchObject(expected);
+  });
+
+  test("make().object_types() should chain  and push each value", () => {
+    let expected = ["ITEM", "CATEGORY"];
+    make.object_type().item().type().category();
+    expect(filter.object_types).toMatchObject(expected);
+  });
+
   test("set object_types should throw if user attempts to add a value that already exists", () => {
     expect(() => {
-      filter.make().object_type().category().item().item();
-    }).toThrow();
+      filter.make().object_type().category().type().item().type().item();
+    }).toThrowError(/object_types array already contains/);
   });
 
   /* --------------------------------------------------------*

@@ -5,7 +5,10 @@ const {
   shazam_integer,
   shazam_max_length_array,
 } = require("./utilities");
-const { arche_sorting_enum } = require("./enum/index");
+const {
+  arche_sorting_enum,
+  catalog_search_objects_enum,
+} = require("./enum/index");
 const man =
   "can search for any type of catalog objects\n" +
   "This is complicated. Read the Pie doc before you try to use it:\n" +
@@ -237,7 +240,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         return this.self.make_sorted_attribute_query();
       },
       object_type: function () {
-        return this.self.enum_object_types();
+        return catalog_search_objects_enum.object_types(this.self, this);
       },
       text_query: function (word) {
         this.self.text_query = word;
@@ -254,6 +257,9 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
       limit: function (int32) {
         this.self.limit = int32;
         return this;
+      },
+      type: function () {
+        return this.object_type();
       },
     };
   }
