@@ -1,5 +1,6 @@
 const Catalog_Search_Objects_Super = require("./catalog_request_abstract_search_objects_super");
 const { define, shazam_is_array } = require("./utilities");
+const { catalog_search_objects_enum } = require("./enum/index");
 const man =
   "can search for any type of catalog objects\n" +
   "This is complicated. Read the Pie doc before you try to use it: " +
@@ -172,7 +173,7 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
         return this;
       },
       object_types: function () {
-        return this.self.enum_object_types();
+        return catalog_search_objects_enum.object_types(this.self, this);
       },
       variations: function (id) {
         this.self.item_variations_for_item_option_values_query = id;
@@ -205,6 +206,9 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
       concat_taxes: function (arr) {
         this.self.concat_items_for_tax_query = arr;
         return this;
+      },
+      types: function () {
+        return this.object_types();
       },
     };
   }
