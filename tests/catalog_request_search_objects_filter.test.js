@@ -277,6 +277,7 @@ describe("Catalog Request Search Filter", () => {
     };
     make.text_query("coffee").text_query_concat(["pie", "cake"]);
     expect(filter.query).toMatchObject(expected);
+    expect(filter.text_query).toMatchObject(expected.text_query);
   });
 
   test("concat_text_query should NOT throw on an array with 3 elements", () => {
