@@ -376,6 +376,17 @@ describe("Catalog Request Search Filter", () => {
    *                                                         *
    * ------------------------------------------------------- */
 
+  test("set sorted_attribute_query", () => {
+    let expected = {
+      attribute_name: "type",
+      initial_attribute_value: undefined,
+      sort_order: "ASC",
+    };
+
+    filter.sorted_attribute_query = expected;
+    expect(filter.sorted_attribute_query).toMatchObject(expected);
+  });
+
   test("make_sorted_attribute_query", () => {
     let expected = {
       sorted_attribute_query: {
