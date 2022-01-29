@@ -80,7 +80,7 @@ describe(`${class_name} error checks`, () => {
   });
 
   test("object_types should prevent duplicates", () => {
-    let expected = "object_types array already contains ITEM";
+    let expected = 'array already contains "ITEM"';
     supes.object_types = "ITEM";
     expect(() => {
       supes.object_types = "ITEM";

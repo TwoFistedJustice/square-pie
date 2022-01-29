@@ -37,7 +37,7 @@ Simple Getters
 ==
 Simple Setters
 ==
-METHODS
+Public Methods
 
 +delete(id)
 ..
@@ -50,7 +50,8 @@ adds id to object_ids array
  Aliases of delete()
 
 ==
-MAKER METHODS
+Make Methods
+
 + make()
 ==
 Square Docs
@@ -80,14 +81,16 @@ Adds them to their own array if present
 Sets other properties as well.
 
 ==
-Private METHODS
+Private Methods
+
 #convertToJson()
 ...
 Stringifies standard unit description in Response
 
 ==
 ==
-MAKER METHODS
+Make Methods
+
 + make()
 ==
 Square Docs
@@ -115,11 +118,13 @@ Complex Setters (Computed Properties)
 ..
 concatenates types into a CSV list
 ==
-Private METHODS
+Private Methods
+
 +#enum_types()
 ==
 ==
-MAKER METHODS
+Make Methods
+
 + make()
 ==
 Square Docs
@@ -138,19 +143,15 @@ Simple Getters
 ==
 Simple Setters
 ==
-METHODS
+Public Methods
 
 +retrieve(id)
-..
-sets an object_id to be retrieved
-
-+get(id)
-..
-alias of retrieve()
++get(id) - alias of retrieve()
 
 ==
 ==
-MAKER METHODS
+Make Methods
+
 + make()
 ==
 Square Docs
@@ -182,7 +183,8 @@ Simple Setters
 Complex Setters (Computed Properties)
 + stock_levels(level)
 ==
-Private METHODS
+Private Methods
+
 +#init_filter()
 ...
 initializes this._attribute_filter
@@ -190,12 +192,9 @@ initializes this._attribute_filter
 +#enum_sort_order()
 +#enum_product_type()
 +#enum_stock_levels()
-...
-set respective properties with FIXED values
+==
+Make Methods
 
-==
-==
-MAKER METHODS
 + make()
 + make_custom_attribute_filter()
 ==
@@ -226,12 +225,14 @@ Getters
 ==
 Setters
 ==
-METHODS
+Public Methods
+
 +add( fardel )
 ..
 adds objects to body
 ==
-MAKER METHODS
+Make Methods
+
 + make()
 ==
 Square Docs
@@ -263,18 +264,14 @@ Simple Setters
 Complex Setters (Computed Properties)
 + object_types()
 ==
-METHODS
-+queryReset()
+Public Methods
+
++queryReset() => {}}
++queryRemove() => undefined
 ..
 sets body.query to empty object
 
-+queryRemove()
-sets body.query to undefined
-
-+enum_object_types()
-...
-set respective properties with FIXED values
-called from sub classes
++concat_object_types()
 ==
 }
 
@@ -287,38 +284,24 @@ Simple Getters
 ==
 Simple Setters
 ==
-METHODS
+==
+Private Methods
+
++ #init_query_array()
+==
+Public Methods
+
 +variations()
-..
-call queryRemove()
-create and set property: item_variations_for_item_option_values_query
-
 +items()
-..
-call queryRemove()
-create and set property: items_for_item_options_query
-
 +modifiers()
-..
-call queryRemove()
-create and set property: items_for_modifier_list_query
-
 +taxes()
-..
-call queryRemove()
-create and set property: items_for_tax_query
-
-+addId(id)
-..
-adds an id to the #id array
-
-+clearIds()
-..
-sets #clearIds to true
-
++ concat_variations()
++ concat_items()
++ concat_modifiers()
++ concat_taxes()
 ==
-==
-MAKER METHODS
+Make Methods
+
 + make()
 ==
 Square Docs
@@ -331,6 +314,7 @@ class Catalog_Search_Filter {
 super: Catalog_Search_Objects_Super
 this._method: "POST"
 this._endpoint
+this.configuration
 this._body
 ==
 Simple Getters
@@ -339,16 +323,24 @@ Simple Setters
 ==
 Complex Setters (Computed Properties)
 ==
-Private METHODS
+Private Methods
 
-+#enum_()
-...
-set respective properties with FIXED values
++ #init_set_query()
++ #init_text_query()
++ #init_sorted_attribute_query()
++ #build_range_query()
+==
+Public Methods
 
++text_query_remove()
++concat_text_query()
 ==
 ==
-MAKER METHODS
+Make Methods
+
 + make()
++ make_sorted_attribute_query()
++ make_set_query()
 ==
 Square Docs
 [[https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects Catalog Search]]

@@ -97,21 +97,37 @@ describe("Super inheritance", () => {
     make
       .object_types()
       .item()
+      .types()
       .item_variation()
+      .types()
       .item_option()
+      .types()
       .item_option_val()
+      .types()
       .image()
+      .types()
       .category()
+      .types()
       .tax()
+      .types()
       .discount()
+      .types()
       .modifier()
+      .types()
       .modifier_list()
+      .types()
       .pricing_rule()
+      .types()
       .product_set()
+      .types()
       .time_period()
+      .types()
       .measurement_unit()
+      .types()
       .subscription_plan()
+      .types()
       .custom_attribute_definition()
+      .types()
       .quick_amounts_setting();
 
     expect(xref.object_types).toEqual(expected);
@@ -300,5 +316,11 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
   test("concat_taxes", () => {
     xref.concat_taxes(arr);
     expect(xref.query).toMatchObject(expected.taxes);
+  });
+
+  test("make().object_types_concat() should set", () => {
+    let expected = ["ITEM", "CATEGORY"];
+    xref.concat_object_types(expected);
+    expect(xref.object_types).toMatchObject(expected);
   });
 });

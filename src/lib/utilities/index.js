@@ -1,3 +1,4 @@
+const array_prevent_duplicate_strings = require("./array_prevent_duplicate_strings");
 const normalize_email = require("./normalize_email");
 const clone_object = require("./object_clone");
 const define = require("./define");
@@ -39,6 +40,7 @@ const shazam_number_between_equals = require("./shazam_number_between_equals");
 
 module.exports = {
   arche_time_start_end,
+  array_prevent_duplicate_strings,
   clone_object,
   normalize_email,
   define,

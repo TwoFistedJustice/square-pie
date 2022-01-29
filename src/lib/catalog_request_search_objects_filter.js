@@ -1,5 +1,14 @@
 const Catalog_Search_Objects_Super = require("./catalog_request_abstract_search_objects_super");
-const { define } = require("./utilities");
+const {
+  clone_object,
+  define,
+  shazam_integer,
+  shazam_max_length_array,
+} = require("./utilities");
+const {
+  arche_sorting_enum,
+  catalog_search_objects_enum,
+} = require("./enum/index");
 const man =
   "can search for any type of catalog objects\n" +
   "This is complicated. Read the Pie doc before you try to use it:\n" +
@@ -14,6 +23,12 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   _help = this.display_name + ": " + man;
   constructor() {
     super();
+    this.configuration = {
+      maximums: {
+        attribute_values: 250,
+        text_query: 3,
+      },
+    };
   }
   // GETTERS
   get exact_query() {
@@ -25,6 +40,10 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   get range_query() {
     return this._body.query.range_query;
   }
+  get set_query() {
+    return this._body.query.set_query;
+  }
+
   get sorted_attribute_query() {
     return this._body.query.sorted_attribute_query;
   }
@@ -42,12 +61,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   set prefix_query(obj) {
-    if (
-      !Object.prototype.hasOwnProperty.call(this._body.query, "prefix_query")
-    ) {
-      define(this._body.query, "prefix_query", undefined);
-    }
-
+    this.#init_prefix_query();
     this._body.query.prefix_query = obj;
   }
 
@@ -62,70 +76,125 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   set set_query(obj) {
-    if (!Object.prototype.hasOwnProperty.call(this._body.query, "set_query")) {
-      define(this._body.query, "set_query", undefined);
-    }
-
+    this.#init_set_query();
     this._body.query.set_query = obj;
   }
 
   set sorted_attribute_query(obj) {
-    if (
-      !Object.prototype.hasOwnProperty.call(
-        this._body.query,
-        "sorted_attribute_query"
-      )
-    ) {
-      define(this._body.query, "sorted_attribute_query", undefined);
-    }
+    this.#init_sorted_attribute_query();
     this._body.query.sorted_attribute_query = obj;
   }
 
-  set text_query(arr) {
-    if (!Array.isArray(arr) || arr.length > 3) {
-      throw new Error(
-        "text_query requires an Array of no more than 3 strings."
-      );
+  set text_query(keyword) {
+    let limit = this.configuration.maximums.text_query;
+    this.#init_text_query();
+    if (this._body.query.text_query.keywords.length >= limit) {
+      let message = "text_query can hold a maximum of " + limit + " keywords.";
+      throw new Error(message);
     }
-    if (!Object.prototype.hasOwnProperty.call(this._body.query, "text_query")) {
+    this._body.query.text_query.keywords.push(keyword);
+  }
+
+  // PRIVATE METHODS
+
+  #init_set_query() {
+    if (!Object.prototype.hasOwnProperty.call(this._body.query, "set_query")) {
+      define(this._body.query, "set_query", {
+        attribute_name: undefined,
+        attribute_values: [],
+      });
+    }
+  }
+
+  #init_text_query() {
+    if (!Object.prototype.hasOwnProperty.call(this.body.query, "text_query")) {
+      define(this._body.query, "text_query", { keywords: [] });
+    }
+  }
+
+  #init_prefix_query() {
+    if (
+      !Object.prototype.hasOwnProperty.call(this.body.query, "prefix_query")
+    ) {
       define(this._body.query, "text_query", undefined);
     }
-    this._body.query.text_query = { keywords: arr };
   }
 
-  // TODO write a method for exact_query which takes two arguments (name, value) and parses them into
-  //  a setter friendly format and calls the exact_query setter.
-  // METHODS
-  text_query_add(word) {
-    let arr = [];
-    if (!Object.prototype.hasOwnProperty.call(this._body.query, "text_query")) {
-      define(this._body.query, "text_query", {});
+  #init_sorted_attribute_query() {
+    if (
+      !Object.prototype.hasOwnProperty.call(
+        this.body.query,
+        "sorted_attribute_query"
+      )
+    ) {
+      define(this._body.query, "sorted_attribute_query", {
+        attribute_name: undefined,
+        initial_attribute_value: undefined,
+        sort_order: "ASC",
+      });
     }
-    let textQuery = this.text_query;
-    if (Object.prototype.hasOwnProperty.call(textQuery, "keywords")) {
-      arr = textQuery.keywords;
-    }
-    if (arr.length > 2) {
-      // console.log(`Removing ${arr[2]} from text_query array.`);
-      arr = arr.slice(0, 2);
-    }
-    arr.push(word);
-    this.text_query = arr;
-    return this;
   }
+
+  #build_range_query(name, min, max) {
+    let caller = "range_query";
+    let range_query = {
+      attribute_name: name,
+      attribute_max_value: undefined,
+      attribute_min_value: undefined,
+    };
+
+    if (min !== undefined) {
+      if (shazam_integer(min, this.display_name, caller)) {
+        range_query.attribute_min_value = min;
+      }
+    }
+    if (max !== undefined) {
+      if (shazam_integer(max, this.display_name, caller)) {
+        range_query.attribute_max_value = max;
+      }
+    }
+    return clone_object(range_query);
+  }
+
+  // METHODS
 
   text_query_remove(word) {
-    if (
-      !Array.isArray(this._body.query.text_query.keywords) ||
-      this._body.query.text_query.keywords.length === 0
-    ) {
-      throw new Error("No words have been added to text_query yet.");
+    this.#init_text_query();
+    let existing_array = this._body.query.text_query.keywords;
+    if (!existing_array.includes(word)) {
+      let message =
+        '"' +
+        word +
+        '" not found in text_query.keywords. Current array: [' +
+        existing_array +
+        "]";
+      throw new Error(message);
     }
+
+    this.#init_text_query();
     let arr = this._body.query.text_query.keywords.filter(
       (exclude) => exclude !== word
     );
-    this.text_query = arr;
-    return this;
+    this._body.query.text_query.keywords = arr;
+  }
+
+  concat_text_query(arr, calling_this) {
+    this.#init_text_query();
+    let limit = this.configuration.maximums.text_query;
+    let text_query_array = this._body.query.text_query.keywords;
+    let combined = text_query_array.length + arr.length;
+    if (combined > limit) {
+      let message =
+        "text_query can hold a maximum of " +
+        limit +
+        " keywords. Concatenated length: " +
+        combined;
+      throw new Error(message);
+    }
+    let replacement = this._body.query.text_query.keywords.concat(arr);
+
+    this._body.query.text_query.keywords = replacement;
+    return calling_this;
   }
 
   make() {
@@ -140,43 +209,131 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         this.self.begin_time = time;
         return this;
       },
-      exact_query: function (obj) {
-        this.self.exact_query = obj;
+      // https://developer.squareup.com/reference/square/objects/CatalogQueryExact
+      exact_query: function (key, value) {
+        this.self.exact_query = {
+          attribute_name: key,
+          attribute_value: value,
+        };
         return this;
       },
-      prefix_query: function (obj) {
-        this.self.query.prefix_query = obj;
+      // https://developer.squareup.com/reference/square/objects/CatalogQueryPrefix
+      prefix_query: function (key, prefix) {
+        this.self.prefix_query = {
+          attribute_name: key,
+          attribute_prefix: prefix,
+        };
         return this;
       },
-      range_query: function (obj) {
-        this.self.query.range_query = obj;
+      // https://developer.squareup.com/reference/square/objects/CatalogQueryRange
+      range_query: function (name, min, max) {
+        this.self.range_query = this.self.#build_range_query(name, min, max);
         return this;
       },
-      sorted_attribute_query: function (obj) {
-        this.self.query.sorted_attribute_query = obj;
-        return this;
+      set_query: function () {
+        return this.self.make_set_query();
+      },
+      sorted_attribute_query: function () {
+        return this.self.make_sorted_attribute_query();
       },
       object_type: function () {
-        return this.self.enum_object_types();
+        return catalog_search_objects_enum.object_types(this.self, this);
       },
       text_query: function (word) {
         this.self.text_query = word;
         return this;
       },
-      concat_text_query: function (arr) {
-        this.self.concat_text_query = arr;
-        return this;
+      text_query_concat: function (arr) {
+        return this.self.concat_text_query(arr, this);
       },
-      text_query_add: function (word) {
-        this.self.text_query_add(word);
-        return this;
-      },
+
       text_query_remove: function (word) {
         this.self.text_query_remove(word);
         return this;
       },
       limit: function (int32) {
         this.self.limit = int32;
+        return this;
+      },
+      type: function () {
+        return this.object_type();
+      },
+      concat_object_types: function (array_to_add) {
+        this.self.concat_object_types(array_to_add);
+        return this;
+      },
+    };
+  }
+
+  make_sorted_attribute_query() {
+    this.#init_sorted_attribute_query();
+    let sorted_attribute_query = this._body.query.sorted_attribute_query;
+    return {
+      self: this,
+      attribute_name: function (key) {
+        sorted_attribute_query.attribute_name = key;
+        return this;
+      },
+      initial_attribute_value: function (value) {
+        sorted_attribute_query.initial_attribute_value = value;
+        return this;
+      },
+      sort_order: function () {
+        return arche_sorting_enum.sort_order(sorted_attribute_query, this);
+      },
+      key: function (key) {
+        return this.attribute_name(key);
+      },
+      name: function (key) {
+        return this.attribute_name(key);
+      },
+      value: function (value) {
+        return this.initial_attribute_value(value);
+      },
+      sort: function () {
+        return this.sort_order();
+      },
+    };
+  }
+
+  make_set_query() {
+    this.#init_set_query();
+    let limit = this.configuration.maximums.attribute_values;
+    let caller = "set_query";
+    let set_query_array = this._body.query.set_query.attribute_values;
+
+    return {
+      self: this,
+      name: function (name) {
+        this.self._body.query.set_query.attribute_name = name;
+        return this;
+      },
+      value: function (val) {
+        if (
+          shazam_max_length_array(
+            limit,
+            set_query_array,
+            this.self.display_name,
+            caller
+          )
+        ) {
+          set_query_array.push(val);
+        }
+        return this;
+      },
+      concat_values: function (arr) {
+        // if the sums of the lengths are equal or less than limit
+        let sum = set_query_array.length + arr.length;
+        if (sum > limit) {
+          let message =
+            "set_query holds an array with a maximum length of " +
+            limit +
+            " Concatenated length: " +
+            sum;
+          throw new Error(message);
+        }
+        let replacement = set_query_array.concat(arr);
+        this.self._body.query.set_query.attribute_values = replacement;
         return this;
       },
     };

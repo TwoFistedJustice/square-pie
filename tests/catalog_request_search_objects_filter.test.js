@@ -1,5 +1,6 @@
 "use strict";
 const Catalog_Search_Filter = require("../src/lib/catalog_request_search_objects_filter");
+const { helper_arrays } = require("./helper_arrays");
 let filter, make;
 const class_name = "Catalog_Search_Filter";
 const method = "POST"; //http method from Square docs
@@ -36,7 +37,6 @@ describe(`${class_name} basic request class structures`, () => {
     expect(filter.delivery).toBeDefined();
   });
 
-  // not every request class has these
   test("should have defined _body", () => {
     expect(filter.body).toBeDefined();
   });
@@ -47,16 +47,6 @@ describe(`${class_name} basic request class structures`, () => {
  *                        Error Checks
  *                                                         *
  * ------------------------------------------------------- */
-// describe (`${class_name} error checks`, () => {
-//   beforeEach (() => {
-//     myVar = new Catalog_Search_Filter();
-//     make = myVar.make ();
-//   });
-//   test ("", () => {
-//     expect (() => {
-//     }).toThrow ();
-//   });
-// });
 
 /* --------------------------------------------------------*
  *                                                         *
@@ -104,51 +94,7 @@ describe(`${class_name} getters/setters`, () => {
     make.range_query("amount", 5, 30);
     expect(filter.range_query).toEqual(expected);
   });
-  test("make().sorted_attribute_query () should set ", () => {
-    let expected = {
-      attribute_name: "name",
-      initial_attribute_value: "blueberry",
-      sort_order: "ASC",
-    };
-    make.sorted_attribute_query("name", "blueberry");
-    expect(filter.sorted_attribute_query).toEqual(expected);
-  });
-  test("make().object_type () should set ", () => {
-    let expected = "";
-    make.object_type(expected);
-    expect(filter.object_type).toEqual(expected);
-  });
-  test("make().text_query () should set ", () => {
-    let val1 = "muffin";
-    let val2 = "cookie";
-    let val3 = "asparagus";
-    let expected = [val1, val2, val3];
-    make.text_query(val1).text_query(val2).text_query(val3);
-    expect(filter.text_query).toEqual(expected);
-  });
-  test("make().concat_text_query () should set ", () => {
-    let val1 = "muffin";
-    let val2 = "cookie";
-    let val3 = "asparagus";
-    let expected = [val1, val2, val3];
-    make.text_query(val1).concat_text_query([val2, val3]);
-    expect(filter.text_query).toEqual(expected);
-  });
 
-  test("make().text_query_add () should set ", () => {
-    let expected = "";
-    make.text_query_add(expected);
-    expect(filter.text_query_add).toEqual(expected);
-  });
-  test("make().text_query_remove () should remove a word ", () => {
-    let val1 = "muffin";
-    let val2 = "cookie";
-    let val3 = "asparagus";
-    let expected = [val1, val3];
-    make.text_query(val1).text_query(val2).text_query(val3);
-    make.text_query_remove(val2);
-    expect(filter.text_query).toEqual(expected);
-  });
   test("make().limit () should set ", () => {
     let expected = 5;
     make.limit(expected);
@@ -157,192 +103,397 @@ describe(`${class_name} getters/setters`, () => {
 });
 
 describe("Catalog Request Search Filter", () => {
-  let filter;
   beforeEach(() => {
     filter = new Catalog_Search_Filter();
+    make = filter.make();
   });
+
+  /* --------------------------------------------------------*
+   *                                                         *
+   *                        exact_query
+   *                                                         *
+   * ------------------------------------------------------- */
+
   test(" set exact_query should NOT throw on a correctly formatted input", () => {
-    let obj = {
-      attribute_name: "name",
-      attribute_value: "Coffee",
+    let expected = {
+      exact_query: {
+        attribute_name: "name",
+        attribute_value: "Coffee",
+      },
     };
 
-    expect(() => {
-      filter.exact_query = obj;
-    }).not.toThrow();
+    make.exact_query("name", "Coffee");
+    expect(filter.query).toMatchObject(expected);
   });
 
-  test("set exact_query should throw on an incorrectly formatted input", () => {
-    let wrongProp = {
-      wrong_property_name: "this is a wrong property name",
-      attribute_value: "This is supposed to fail anyway",
-    };
-    let wrongType = {
-      attribute_name: "both should hold a string - oops",
-      attribute_value: 86,
-    };
-    expect(() => {
-      filter.exact_query = wrongProp;
-    }).toThrow();
-
-    expect(() => {
-      filter.exact_query = wrongType;
-    }).toThrow();
-  });
-
-  test("set set_query should NOT throw on a correctly formatted input", () => {
-    let obj = {
-      attribute_name: "name",
-      attribute_values: ["Coffee", "Pie"],
-    };
-    expect(() => {
-      filter.set_query = obj;
-    }).not.toThrow();
-  });
-
-  test("set set_query should throw on an incorrectly formatted input", () => {
-    let obj = {
-      attribute_name: "name",
-      attribute_values: "Coffee",
-    };
-    expect(() => {
-      filter.set_query = obj;
-    }).toThrow();
-  });
-
+  /* --------------------------------------------------------*
+   *                                                         *
+   *                prefix_query
+   *                                                         *
+   * ------------------------------------------------------- */
   test("set prefix_query should NOT throw on a correctly formatted input", () => {
-    let obj = {
+    let expected = {
+      prefix_query: {
+        attribute_name: "name",
+        attribute_prefix: "vista",
+      },
+    };
+    make.prefix_query("name", "vista");
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  /* --------------------------------------------------------*
+   *                                                         *
+   *                        range_query
+   *                                                         *
+   * ------------------------------------------------------- */
+
+  test("make()range_query() ", () => {
+    let expected = {
+      range_query: {
+        attribute_name: "amount",
+        attribute_min_value: 450,
+        attribute_max_value: 550,
+      },
+    };
+
+    make.range_query("amount", 450, 550);
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("set range_query should throw on if min is not an integer", () => {
+    expect(() => {
+      make.range_query("amount", 35.5, 36);
+    }).toThrowError(/range_query/);
+  });
+
+  test("set range_query should throw on if max is not an integer", () => {
+    expect(() => {
+      make.range_query("amount", 35, 35.5);
+    }).toThrowError(/range_query/);
+  });
+
+  /* --------------------------------------------------------*
+   *                                                         *
+   *                        set_query
+   *                                                         *
+   * ------------------------------------------------------- */
+
+  test("set set_query() should set ", () => {
+    let expected = {
       attribute_name: "name",
-      attribute_prefix: "vista",
+      attribute_values: ["coffee"],
     };
+
+    filter.set_query = expected;
+    expect(filter.set_query).toMatchObject(expected);
+  });
+
+  test("make().set_query() should initialize with an empty array ", () => {
+    let expected = {
+      set_query: {
+        attribute_name: undefined,
+        attribute_values: [],
+      },
+    };
+
+    make.set_query();
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make().set_query() should add single values to the array ", () => {
+    let expected = {
+      set_query: {
+        attribute_name: "name",
+        attribute_values: ["coffee"],
+      },
+    };
+
+    make.set_query().name("name").value("coffee");
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make().set_query() should add single values to the array ", () => {
+    let expected = {
+      set_query: {
+        attribute_name: "name",
+        attribute_values: ["coffee", "pie"],
+      },
+    };
+
+    make.set_query().name("name").value("coffee").value("pie");
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make().set_query() should concat arrays ", () => {
+    let expected = {
+      set_query: {
+        attribute_name: "name",
+        attribute_values: ["coffee", "pie", "tea", "cake"],
+      },
+    };
+
+    make
+      .set_query()
+      .name("name")
+      .value("coffee")
+      .value("pie")
+      .concat_values(["tea", "cake"]);
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make().set_query() should allow array equal to limit ", () => {
+    make.set_query().name("name").value("coffee");
     expect(() => {
-      filter.prefix_query = obj;
+      make.set_query().concat_values(helper_arrays.len_249);
     }).not.toThrow();
   });
 
-  test("set prefix_query should throw on an incorrectly formatted input", () => {
-    let wrong = {
-      attribute_nam: "name",
-      attribute_prefix: "vista",
-    };
+  test("make().set_query() should throw if array exceeds limit ", () => {
+    make.set_query().name("name").value("coffee").value("pie");
     expect(() => {
-      filter.prefix_query = wrong;
-    }).toThrow();
+      make.set_query().concat_values(helper_arrays.len_249);
+    }).toThrowError(/set_query holds an array with a maximum/);
   });
 
-  test("set range_query should NOT throw on a correctly formatted input", () => {
-    let obj = {
-      attribute_name: "amount",
-      attribute_min_value: 450,
-      attribute_max_value: 550,
+  /* --------------------------------------------------------*
+   *                                                         *
+   *                        text_query
+   *                                                         *
+   * ------------------------------------------------------- */
+
+  test("make().text_query() should add single values to the array ", () => {
+    let expected = {
+      text_query: {
+        keywords: ["coffee", "pie"],
+      },
     };
-    expect(() => {
-      filter.range_query = obj;
-    }).not.toThrow();
+
+    make.text_query("coffee").text_query("pie");
+    expect(filter.query).toMatchObject(expected);
   });
 
-  test("set range_query should throw on an incorrectly formatted input: missing attribute_name", () => {
-    let wrong = {
-      attribute_min_value: 450,
-      attribute_max_value: 550,
+  test("make().text_query() and make().text_query_concat() should work together ", () => {
+    let expected = {
+      text_query: {
+        keywords: ["coffee", "pie", "cake"],
+      },
     };
-    expect(() => {
-      filter.range_query = wrong;
-    }).toThrow();
+    make.text_query("coffee").text_query_concat(["pie", "cake"]);
+    expect(filter.query).toMatchObject(expected);
+    expect(filter.text_query).toMatchObject(expected.text_query);
   });
 
-  test("set range_query should throw on an incorrectly formatted input: missing ", () => {
-    let wrong = {
-      attribute_name: ["amount"],
-      attribute_min_value: 450,
-      attribute_max_value: 550,
-    };
-    expect(() => {
-      filter.range_query = wrong;
-    }).toThrow();
-  });
-
-  test("set text_query should NOT throw on an array with 1 - 3 elements", () => {
+  test("concat_text_query should NOT throw on an array with 3 elements", () => {
     let arr = ["Coffee", "Tea", "Life Force"];
     expect(() => {
-      filter.text_query = arr;
+      make.text_query_concat(arr);
     }).not.toThrow();
   });
 
-  test("set text_query should throw on an array longer than 3", () => {
+  test("concat_text_query  should throw on an array longer than 3", () => {
     let wrong = ["Zombies", "Vampires", "Goblins", "Karens"];
     expect(() => {
-      filter.text_query = wrong;
-    }).toThrow();
+      make.text_query_concat(wrong);
+    }).toThrowError(/text_query can hold a maximum of/);
   });
 
-  test("set sorted_attribute_query should NOT throw if 'sort_order' contains \"ASC\"", () => {
-    let obj = {
-      attribute_name: "description",
-      sort_order: "ASC",
+  test("concat_text_query  should throw on an array longer than 3", () => {
+    let wrong = ["Zombies", "Vampires", "Goblins", "Karens"];
+    expect(() => {
+      make.text_query_concat(wrong);
+    }).toThrowError(/text_query can hold a maximum of/);
+  });
+
+  test("make().text_query() and make().text_query_concat() should throw if concatenated length exceeds limit ", () => {
+    expect(() => {
+      make.text_query("coffee").text_query_concat(["pie", "cake", "vampires"]);
+    }).toThrowError(/text_query can hold a maximum of/);
+  });
+
+  test("make().text_query() should throw if length exceeds limit ", () => {
+    expect(() => {
+      make
+        .text_query("coffee")
+        .text_query("pie")
+        .text_query("cake")
+        .text_query("vampires");
+    }).toThrowError(/text_query can hold a maximum of/);
+  });
+
+  test("text_query_remove should remove a word", () => {
+    let expected = {
+      text_query: {
+        keywords: ["Coffee", "Life Force"],
+      },
     };
+    let arr = ["Coffee", "Tea", "Life Force"];
+    make.text_query_concat(arr);
+    make.text_query_remove("Tea");
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("text_query_remove should throw on an empty array", () => {
     expect(() => {
-      filter.sorted_attribute_query = obj;
-    }).not.toThrow();
+      make.text_query_remove("Tea");
+    }).toThrowError(/not found in text_query.keywords/);
   });
 
-  test("set sorted_attribute_query should throw if 'attribute_name' prop missing from arg", () => {
-    let wrong = {
-      sort_order: "ASC",
-    };
+  test("text_query_remove should throw if word not found in array", () => {
+    make.text_query("coffee").text_query("tea");
     expect(() => {
-      filter.sorted_attribute_query = wrong;
-    }).toThrow();
+      make.text_query_remove("Tea");
+    }).toThrowError(/not found in text_query.keywords/);
   });
 
-  test("set sorted_attribute_query should throw if 'sort_order' contains wrong value", () => {
-    let wrong = {
-      sort_order: "ASV",
-    };
-    expect(() => {
-      filter.sorted_attribute_query = wrong;
-    }).toThrow();
+  /* --------------------------------------------------------*
+   *                                                         *
+   *                        object_types
+   *                                                         *
+   * ------------------------------------------------------- */
+
+  test("make().object_types() should push one value", () => {
+    let expected = ["ITEM"];
+    make.object_type().item();
+    expect(filter.object_types).toMatchObject(expected);
   });
 
-  test("text_query_add should add a new element and remove the last element of query.text_area_keywords array it already has 3", () => {
-    let expected = { keywords: ["zero", "one", "three"] };
-    filter
-      .text_query_add("zero")
-      .text_query_add("one")
-      .text_query_add("two")
-      .text_query_add("three");
-
-    expect(filter.text_query).toMatchObject(expected);
-  });
-
-  test("text_query_remove should remove the specified word from the query.text_area_keywords array", () => {
-    // const filter = new Catalog_Search_Filter();
-    let expected = { keywords: ["zero", "two"] };
-    filter
-      .text_query_add("zero")
-      .text_query_add("one")
-      .text_query_add("two")
-      .text_query_remove("one");
-
-    expect(filter.text_query).toMatchObject(expected);
-  });
-
-  test("text_query_remove should throw an error if attempting to remove an element from an non-existent keywords array", () => {
-    expect(() => {
-      filter.text_query_remove("one");
-    }).toThrow();
-  });
-
-  test("text_query_remove should throw an error if attempting to remove an element from an empty keywords array", () => {
-    filter.text_query_add("a").text_query_remove("a");
-    expect(() => {
-      filter.text_query_remove("one");
-    }).toThrow();
+  test("make().object_types() should chain  and push each value", () => {
+    let expected = ["ITEM", "CATEGORY"];
+    make.object_type().item().type().category();
+    expect(filter.object_types).toMatchObject(expected);
   });
 
   test("set object_types should throw if user attempts to add a value that already exists", () => {
     expect(() => {
-      filter.make().object_type().category().item().item();
-    }).toThrow();
+      filter.make().object_type().category().type().item().type().item();
+    }).toThrowError(/object_types array already contains/);
+  });
+
+  test("make().object_types_concat() should set", () => {
+    let expected = ["ITEM", "CATEGORY"];
+    make.concat_object_types(expected);
+    expect(filter.object_types).toMatchObject(expected);
+  });
+
+  /* --------------------------------------------------------*
+   *                                                         *
+   *                        sorted_attribute_query
+   *                                                         *
+   * ------------------------------------------------------- */
+
+  test("set sorted_attribute_query", () => {
+    let expected = {
+      attribute_name: "type",
+      initial_attribute_value: undefined,
+      sort_order: "ASC",
+    };
+
+    filter.sorted_attribute_query = expected;
+    expect(filter.sorted_attribute_query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: "type",
+        initial_attribute_value: undefined,
+        sort_order: "ASC",
+      },
+    };
+
+    make.sorted_attribute_query().attribute_name("type");
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: undefined,
+        initial_attribute_value: "ITEM",
+        sort_order: "ASC",
+      },
+    };
+
+    make.sorted_attribute_query().initial_attribute_value("ITEM");
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: "type",
+        initial_attribute_value: undefined,
+        sort_order: "ASC",
+      },
+    };
+
+    make.sorted_attribute_query().key("type");
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: "type",
+        initial_attribute_value: undefined,
+        sort_order: "ASC",
+      },
+    };
+
+    make.sorted_attribute_query().name("type");
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: undefined,
+        initial_attribute_value: "ITEM",
+        sort_order: "ASC",
+      },
+    };
+
+    make.sorted_attribute_query().value("ITEM");
+    expect(filter.query).toMatchObject(expected);
+    expect(filter.sorted_attribute_query).toMatchObject(
+      expected.sorted_attribute_query
+    );
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: undefined,
+        initial_attribute_value: undefined,
+        sort_order: "DESC",
+      },
+    };
+    make.sorted_attribute_query().sort_order().descending();
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: undefined,
+        initial_attribute_value: undefined,
+        sort_order: "DESC",
+      },
+    };
+    make.sorted_attribute_query().sort().down();
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: "type",
+        initial_attribute_value: "ITEM",
+        sort_order: "DESC",
+      },
+    };
+    make.sorted_attribute_query().sort().down().key("type").value("ITEM");
+    expect(filter.query).toMatchObject(expected);
   });
 });

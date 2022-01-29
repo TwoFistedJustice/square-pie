@@ -1,6 +1,10 @@
 const Catalog_Request = require("./catalog_request_abstract");
-const { shazam_time_RFC3339, shazam_integer } = require("./utilities");
-const catalog_search_objects_enum = require("./enum/catalog_search_objects_enum");
+const {
+  arrayify,
+  array_prevent_duplicate_strings,
+  shazam_time_RFC3339,
+  shazam_integer,
+} = require("./utilities");
 
 /*
  *  The query feature is INCOMPLETE
@@ -57,14 +61,13 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     }
   }
   set object_types(type) {
-    let callback = (word) => word === type;
-    if (!Array.isArray(this.object_types)) {
-      this._body.object_types = [];
-    }
-
-    if (this.object_types.some(callback)) {
-      throw new Error(`object_types array already contains ${type}`);
-    }
+    arrayify(this._body, "object_types", this.display_name);
+    array_prevent_duplicate_strings(
+      type,
+      this.object_types,
+      this.display_name,
+      "object_types"
+    );
     this._body.object_types.push(type);
   }
   set limit(int32) {
@@ -82,8 +85,15 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
 
   // NOT PRIVATE METHODS = because you can't reference private functions from subclasses
 
-  enum_object_types() {
-    return catalog_search_objects_enum.object_types(this);
+  concat_object_types(array_to_add) {
+    arrayify(
+      this._body,
+      "object_types",
+      this.display_name,
+      "concat_object_types"
+    );
+    let replacement = this.object_types.concat(array_to_add);
+    this._body.object_types = replacement;
   }
 } // END class
 
