@@ -32,60 +32,60 @@ const arche_sorting_enum = {
    * }
    * */
 
-  sort_order: function (obj) {
+  sort_order: function (obj, calling_this) {
     return {
       ascending: function () {
         obj.sort_order = "ASC";
-        return this;
+        return calling_this;
       },
       up: function () {
         obj.sort_order = "ASC";
-        return this;
+        return calling_this;
       },
       oldest_first: function () {
         obj.sort_order = "ASC";
-        return this;
+        return calling_this;
       },
       descending: function () {
         obj.sort_order = "DESC";
-        return this;
+        return calling_this;
       },
       down: function () {
         obj.sort_order = "DESC";
-        return this;
+        return calling_this;
       },
       newest_first: function () {
         obj.sort_order = "DESC";
-        return this;
+        return calling_this;
       },
     };
   },
 
-  sort_field: function (obj) {
+  sort_field: function (obj, calling_this) {
     return {
       created_at: function () {
         obj.sort_field = "CREATED_AT";
-        return this;
+        return calling_this;
       },
       created: function () {
         obj.sort_field = "CREATED_AT";
-        return this;
+        return calling_this;
       },
       updated_at: function () {
         obj.sort_field = "UPDATED_AT";
-        return this;
+        return calling_this;
       },
       updated: function () {
         obj.sort_field = "UPDATED_AT";
-        return this;
+        return calling_this;
       },
       closed_at: function () {
         obj.sort_field = "CLOSED_AT";
-        return this;
+        return calling_this;
       },
       closed: function () {
         obj.sort_field = "CLOSED_AT";
-        return this;
+        return calling_this;
       },
     };
   },
