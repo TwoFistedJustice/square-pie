@@ -53,12 +53,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   set prefix_query(obj) {
-    if (
-      !Object.prototype.hasOwnProperty.call(this._body.query, "prefix_query")
-    ) {
-      define(this._body.query, "prefix_query", undefined);
-    }
-
+    this.#init_prefix_query();
     this._body.query.prefix_query = obj;
   }
 
@@ -113,6 +108,14 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   #init_text_query() {
     if (!Object.prototype.hasOwnProperty.call(this.body.query, "text_query")) {
       define(this._body.query, "text_query", { keywords: [] });
+    }
+  }
+
+  #init_prefix_query() {
+    if (
+      !Object.prototype.hasOwnProperty.call(this.body.query, "prefix_query")
+    ) {
+      define(this._body.query, "text_query", undefined);
     }
   }
 
@@ -243,7 +246,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
       },
       // https://developer.squareup.com/reference/square/objects/CatalogQueryPrefix
       prefix_query: function (key, prefix) {
-        this.self.query.prefix_query = {
+        this.self.prefix_query = {
           attribute_name: key,
           attribute_prefix: prefix,
         };
