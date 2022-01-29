@@ -347,4 +347,111 @@ describe("Catalog Request Search Filter", () => {
       filter.make().object_type().category().item().item();
     }).toThrow();
   });
+
+  /* --------------------------------------------------------*
+   *                                                         *
+   *                        sorted_attribute_query
+   *                                                         *
+   * ------------------------------------------------------- */
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: "type",
+        initial_attribute_value: undefined,
+        sort_order: "ASC",
+      },
+    };
+
+    make.sorted_attribute_query().attribute_name("type");
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: undefined,
+        initial_attribute_value: "ITEM",
+        sort_order: "ASC",
+      },
+    };
+
+    make.sorted_attribute_query().initial_attribute_value("ITEM");
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: "type",
+        initial_attribute_value: undefined,
+        sort_order: "ASC",
+      },
+    };
+
+    make.sorted_attribute_query().key("type");
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: "type",
+        initial_attribute_value: undefined,
+        sort_order: "ASC",
+      },
+    };
+
+    make.sorted_attribute_query().name("type");
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: undefined,
+        initial_attribute_value: "ITEM",
+        sort_order: "ASC",
+      },
+    };
+
+    make.sorted_attribute_query().value("ITEM");
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: undefined,
+        initial_attribute_value: undefined,
+        sort_order: "DESC",
+      },
+    };
+    make.sorted_attribute_query().sort_order().descending();
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: undefined,
+        initial_attribute_value: undefined,
+        sort_order: "DESC",
+      },
+    };
+    make.sorted_attribute_query().sort().down();
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: "type",
+        initial_attribute_value: "ITEM",
+        sort_order: "DESC",
+      },
+    };
+    make.sorted_attribute_query().sort().down().key("type").value("ITEM");
+    expect(filter.query).toMatchObject(expected);
+  });
 });

@@ -5,6 +5,7 @@ const {
   shazam_integer,
   shazam_max_length_array,
 } = require("./utilities");
+const { arche_sorting_enum } = require("./enum/index");
 const man =
   "can search for any type of catalog objects\n" +
   "This is complicated. Read the Pie doc before you try to use it:\n" +
@@ -119,47 +120,19 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     }
   }
 
-  #build_set_query() {
-    this.#init_set_query();
-    let limit = this.configuration.maximums.attribute_values;
-    let caller = "set_query";
-    let set_query_array = this._body.query.set_query.attribute_values;
-
-    return {
-      self: this,
-      name: function (name) {
-        this.self._body.query.set_query.attribute_name = name;
-        return this;
-      },
-      value: function (val) {
-        if (
-          shazam_max_length_array(
-            limit,
-            set_query_array,
-            this.self.display_name,
-            caller
-          )
-        ) {
-          set_query_array.push(val);
-        }
-        return this;
-      },
-      concat_values: function (arr) {
-        // if the sums of the lengths are equal or less than limit
-        let sum = set_query_array.length + arr.length;
-        if (sum > limit) {
-          let message =
-            "set_query holds an array with a maximum length of " +
-            limit +
-            " Concatenated length: " +
-            sum;
-          throw new Error(message);
-        }
-        let replacement = set_query_array.concat(arr);
-        this.self._body.query.set_query.attribute_values = replacement;
-        return this;
-      },
-    };
+  #init_sorted_attribute_query() {
+    if (
+      !Object.prototype.hasOwnProperty.call(
+        this.body.query,
+        "sorted_attribute_query"
+      )
+    ) {
+      define(this._body.query, "sorted_attribute_query", {
+        attribute_name: undefined,
+        initial_attribute_value: undefined,
+        sort_order: "ASC",
+      });
+    }
   }
 
   #build_range_query(name, min, max) {
@@ -258,11 +231,10 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         return this;
       },
       set_query: function () {
-        return this.self.#build_set_query();
+        return this.self.make_set_query();
       },
-      sorted_attribute_query: function (obj) {
-        this.self.query.sorted_attribute_query = obj;
-        return this;
+      sorted_attribute_query: function () {
+        return this.self.make_sorted_attribute_query();
       },
       object_type: function () {
         return this.self.enum_object_types();
@@ -281,6 +253,80 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
       },
       limit: function (int32) {
         this.self.limit = int32;
+        return this;
+      },
+    };
+  }
+
+  make_sorted_attribute_query() {
+    this.#init_sorted_attribute_query();
+    let sorted_attribute_query = this._body.query.sorted_attribute_query;
+    return {
+      self: this,
+      attribute_name: function (key) {
+        sorted_attribute_query.attribute_name = key;
+        return this;
+      },
+      initial_attribute_value: function (value) {
+        sorted_attribute_query.initial_attribute_value = value;
+        return this;
+      },
+      sort_order: function () {
+        return arche_sorting_enum.sort_order(sorted_attribute_query, this);
+      },
+      key: function (key) {
+        return this.attribute_name(key);
+      },
+      name: function (key) {
+        return this.attribute_name(key);
+      },
+      value: function (value) {
+        return this.initial_attribute_value(value);
+      },
+      sort: function () {
+        return this.sort_order();
+      },
+    };
+  }
+
+  make_set_query() {
+    this.#init_set_query();
+    let limit = this.configuration.maximums.attribute_values;
+    let caller = "set_query";
+    let set_query_array = this._body.query.set_query.attribute_values;
+
+    return {
+      self: this,
+      name: function (name) {
+        this.self._body.query.set_query.attribute_name = name;
+        return this;
+      },
+      value: function (val) {
+        if (
+          shazam_max_length_array(
+            limit,
+            set_query_array,
+            this.self.display_name,
+            caller
+          )
+        ) {
+          set_query_array.push(val);
+        }
+        return this;
+      },
+      concat_values: function (arr) {
+        // if the sums of the lengths are equal or less than limit
+        let sum = set_query_array.length + arr.length;
+        if (sum > limit) {
+          let message =
+            "set_query holds an array with a maximum length of " +
+            limit +
+            " Concatenated length: " +
+            sum;
+          throw new Error(message);
+        }
+        let replacement = set_query_array.concat(arr);
+        this.self._body.query.set_query.attribute_values = replacement;
         return this;
       },
     };
