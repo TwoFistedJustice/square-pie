@@ -370,6 +370,12 @@ describe("Catalog Request Search Filter", () => {
     }).toThrowError(/object_types array already contains/);
   });
 
+  test("make().object_types_concat() should set", () => {
+    let expected = ["ITEM", "CATEGORY"];
+    make.concat_object_types(expected);
+    expect(filter.object_types).toMatchObject(expected);
+  });
+
   /* --------------------------------------------------------*
    *                                                         *
    *                        sorted_attribute_query

@@ -317,4 +317,10 @@ describe("Catalog_Search_Cross_Reference: array builders", () => {
     xref.concat_taxes(arr);
     expect(xref.query).toMatchObject(expected.taxes);
   });
+
+  test("make().object_types_concat() should set", () => {
+    let expected = ["ITEM", "CATEGORY"];
+    xref.concat_object_types(expected);
+    expect(xref.object_types).toMatchObject(expected);
+  });
 });

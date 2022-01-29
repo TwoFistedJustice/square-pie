@@ -86,6 +86,17 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
 
   // NOT PRIVATE METHODS = because you can't reference private functions from subclasses
 
+  concat_object_types(array_to_add) {
+    arrayify(
+      this._body,
+      "object_types",
+      this.display_name,
+      "concat_object_types"
+    );
+    let replacement = this.object_types.concat(array_to_add);
+    this._body.object_types = replacement;
+  }
+
   enum_object_types() {
     return catalog_search_objects_enum.object_types(this);
   }

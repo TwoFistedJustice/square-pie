@@ -258,6 +258,10 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
       type: function () {
         return this.object_type();
       },
+      concat_object_types: function (array_to_add) {
+        this.self.concat_object_types(array_to_add);
+        return this;
+      },
     };
   }
 

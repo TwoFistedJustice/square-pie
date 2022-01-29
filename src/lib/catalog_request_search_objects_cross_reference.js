@@ -207,6 +207,10 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
         this.self.concat_items_for_tax_query = arr;
         return this;
       },
+      concat_object_types: function (array_to_add) {
+        this.self.concat_object_types(array_to_add);
+        return this;
+      },
       types: function () {
         return this.object_types();
       },
