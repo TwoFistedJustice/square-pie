@@ -22,6 +22,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     this.configuration = {
       maximums: {
         attribute_values: 250,
+        text_query: 3,
       },
     };
   }
@@ -89,14 +90,11 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   set text_query(keyword) {
-    if (!Object.prototype.hasOwnProperty.call(this._body.query, "text_query")) {
-      define(this._body.query, "text_query", { keywords: [] });
-    }
-    if (this._body.query.text_query.keywords.length >= 3) {
-      throw new Error(
-        "The maximum number of keywords allowed in a text_query is 3. You can remove a keyword " +
-          "by with the method `text_query_remove`."
-      );
+    let limit = this.configuration.maximums.text_query;
+    this.#init_text_query();
+    if (this._body.query.text_query.keywords.length >= limit) {
+      let message = "text_query can hold a maximum of " + limit + " keywords.";
+      throw new Error(message);
     }
     this._body.query.text_query.keywords.push(keyword);
   }
@@ -109,6 +107,12 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         attribute_name: undefined,
         attribute_values: [],
       });
+    }
+  }
+
+  #init_text_query() {
+    if (!Object.prototype.hasOwnProperty.call(this.body.query, "text_query")) {
+      define(this._body.query, "text_query", { keywords: [] });
     }
   }
 
@@ -179,16 +183,42 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   // METHODS
 
   text_query_remove(word) {
-    if (
-      !Array.isArray(this._body.query.text_query.keywords) ||
-      this._body.query.text_query.keywords.length === 0
-    ) {
-      throw new Error("No words have been added to text_query yet.");
+    this.#init_text_query();
+    let existing_array = this._body.query.text_query.keywords;
+    if (!existing_array.includes(word)) {
+      let message =
+        '"' +
+        word +
+        '" not found in text_query.keywords. Current array: [' +
+        existing_array +
+        "]";
+      throw new Error(message);
     }
+
+    this.#init_text_query();
     let arr = this._body.query.text_query.keywords.filter(
       (exclude) => exclude !== word
     );
     this._body.query.text_query.keywords = arr;
+  }
+
+  concat_text_query(arr, calling_this) {
+    this.#init_text_query();
+    let limit = this.configuration.maximums.text_query;
+    let text_query_array = this._body.query.text_query.keywords;
+    let combined = text_query_array.length + arr.length;
+    if (combined > limit) {
+      let message =
+        "text_query can hold a maximum of " +
+        limit +
+        " keywords. Concatenated length: " +
+        combined;
+      throw new Error(message);
+    }
+    let replacement = this._body.query.text_query.keywords.concat(arr);
+
+    this._body.query.text_query.keywords = replacement;
+    return calling_this;
   }
 
   make() {
@@ -238,14 +268,10 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         this.self.text_query = word;
         return this;
       },
-      concat_text_query: function (arr) {
-        this.self.concat_text_query = arr;
-        return this;
+      text_query_concat: function (arr) {
+        return this.self.concat_text_query(arr, this);
       },
-      text_query_add: function (word) {
-        this.self.text_query_add(word);
-        return this;
-      },
+
       text_query_remove: function (word) {
         this.self.text_query_remove(word);
         return this;
