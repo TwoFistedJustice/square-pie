@@ -1,5 +1,9 @@
 const Catalog_Request = require("./catalog_request_abstract");
-const { shazam_time_RFC3339, shazam_integer } = require("./utilities");
+const {
+  arrayify,
+  shazam_time_RFC3339,
+  shazam_integer,
+} = require("./utilities");
 const catalog_search_objects_enum = require("./enum/catalog_search_objects_enum");
 
 /*
@@ -58,10 +62,7 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
   }
   set object_types(type) {
     let callback = (word) => word === type;
-    if (!Array.isArray(this.object_types)) {
-      this._body.object_types = [];
-    }
-
+    arrayify(this._body, "object_types", this.display_name);
     if (this.object_types.some(callback)) {
       throw new Error(`object_types array already contains ${type}`);
     }
