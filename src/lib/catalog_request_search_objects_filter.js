@@ -81,14 +81,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   set sorted_attribute_query(obj) {
-    if (
-      !Object.prototype.hasOwnProperty.call(
-        this._body.query,
-        "sorted_attribute_query"
-      )
-    ) {
-      define(this._body.query, "sorted_attribute_query", undefined);
-    }
+    this.#init_sorted_attribute_query();
     this._body.query.sorted_attribute_query = obj;
   }
 
