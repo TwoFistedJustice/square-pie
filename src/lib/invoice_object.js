@@ -264,16 +264,16 @@ class Invoice_Object {
     }
   }
 
-  #delivery_method_enum() {
+  #delivery_method_enum(calling_this) {
     return {
       self: this,
       email: function () {
         this.self._fardel.delivery_method = "EMAIL";
-        return this;
+        return calling_this;
       },
       share_manually: function () {
         this.self._fardel.delivery_method = "SHARE_MANUALLY";
-        return this;
+        return calling_this;
       },
       manually: function () {
         return this.share_manually();
@@ -389,7 +389,7 @@ class Invoice_Object {
        * myVar.make().delivery_method().manually() - alias of share_manually
        * */
       delivery_method: function () {
-        return this.self.#delivery_method_enum();
+        return this.self.#delivery_method_enum(this);
       },
       invoice_number: function (inv_num) {
         this.self.invoice_number = inv_num;
