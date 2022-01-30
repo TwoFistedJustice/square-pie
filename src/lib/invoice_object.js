@@ -312,10 +312,10 @@ class Invoice_Object {
       },
     };
   }
-  #build_custom_field() {
+  make_custom_field() {
     let limit = this.configuration.maximums;
     let name = this._display_name;
-    let caller = "#build_custom_field";
+    let caller = "make_custom_field";
     let field = {
       label: undefined, // str 30
       placement: "ABOVE_LINE_ITEMS",
@@ -446,7 +446,7 @@ class Invoice_Object {
        *  custom_fields array
        * */
       custom_fields: function () {
-        return this.self.#build_custom_field();
+        return this.self.make_custom_field();
       },
       /** @method make.sale_or_service_date()    method of Invoice_Object
        * @param {date} The date of the transaction.  YYY-MM-DD format. Is displayed on invoice.
