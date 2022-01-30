@@ -210,8 +210,9 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
    * in the Square docs. If the method is not listed here it takes one argument of the type specified by
    * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
    * listed here.
-   * @method object_types - calls the object_types enum
-   * @method types - alias of object_types()
+   * @method object_type - enumerated function - method names are same as lower case allowable values.
+   *{@link https://developer.squareup.com/reference/square/enums/CatalogObjectType | Square Docs}
+   * @method type - alias of object_type
    * @method concat_variations - concatenates and array of ids
    * @param {array} an array of ids
    * @method concat_items- concatenates and array of ids
@@ -220,7 +221,7 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
    * @param {array} an array of ids
    * @method concat_taxes- concatenates and array of ids
    * @param {array} an array of ids
-   * @method concat_object_types- concatenates an arry of object types
+   * @method concat_object_types- concatenates an array of object types
    * @param {array} array_to_add -an array of of object type string values
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot

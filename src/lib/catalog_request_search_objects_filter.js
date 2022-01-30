@@ -17,6 +17,12 @@ const man =
 "https://github.com/TwoFistedJustice/square-pie/blob/main/docs/pie_catalog_request_search.md" +
   "\nhttps://developer.squareup.com/reference/square/catalog-api/search-catalog-objects";
 
+/** @class Catalog_Search_Filter
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects | Square Docs}
+ * @example
+ * */
+
 class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   _display_name = "Catalog_Search_Filter";
   _last_verified_square_api_version = "2021-07-21";
@@ -157,6 +163,13 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   // METHODS
+  /** @function text_query_remove - removes a keyword from text_query
+   * @param {string} word - a keyword to remove from the text_query. Case sensitive.
+   * @throws {Error} Throws error if word is not found.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link  | Square Docs}
+   * @example
+   * */
 
   text_query_remove(word) {
     this.#init_text_query();
@@ -197,6 +210,47 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     return calling_this;
   }
 
+  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
+   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
+   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
+   * listed here.
+   * @method exact_query
+   * @param {string} key - The exact name of the attribute to be searched
+   * @param {string} value - The value of the search attribute. Case insensitive and can be partial.
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryExact | Square Docs}
+   * @method prefix_query
+   * @param {string} key - The exact name of the attribute to be searched
+   * @param {string} prefix - The prefix of the attribute to be searched
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryPrefix | Square Docs}
+   * @method range_query
+   * @param {string} name - The exact name of the attribute to be searched
+   * @param {number} min - The desired minimum value for the search attribute (inclusive).
+   * @param {number} max - The desired maximum value for the search attribute (inclusive).
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryRange | Square Docs}
+   * @method set_query - calls make_set_query() - See that entry.
+   * @method sorted_attribute_query calls make_sorted_attribute_query() - See that entry.
+   * @method object_type - enumerated function - method names are same as lower case allowable values.
+   *{@link https://developer.squareup.com/reference/square/enums/CatalogObjectType | Square Docs}
+   * @method type - alias of object_type
+   * @method concat_object_types
+   * @param {array} array_to_add - array of Object Type values.
+   * @method text_query - builds a compliant text_query object.
+   * @param {string} word - a word ot add to a text query. You can add up three.
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryText | Square Docs}
+   * @method text_query_concat - adds and array of keywords for a text query. Three maximum.
+   * @param {array} arr - the array to concat.
+   * @method text_query_remove - removes a word from the text_query.
+   * @param {string} word - a word ot remove from  text query.  Must be exact.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     // any changes made to super modification methods should be replicated on Catalog_Search_Cross_Reference
     return {
@@ -209,7 +263,6 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         this.self.begin_time = time;
         return this;
       },
-      // https://developer.squareup.com/reference/square/objects/CatalogQueryExact
       exact_query: function (key, value) {
         this.self.exact_query = {
           attribute_name: key,
@@ -217,7 +270,6 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         };
         return this;
       },
-      // https://developer.squareup.com/reference/square/objects/CatalogQueryPrefix
       prefix_query: function (key, prefix) {
         this.self.prefix_query = {
           attribute_name: key,
@@ -225,7 +277,6 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         };
         return this;
       },
-      // https://developer.squareup.com/reference/square/objects/CatalogQueryRange
       range_query: function (name, min, max) {
         this.self.range_query = this.self.#build_range_query(name, min, max);
         return this;
@@ -265,6 +316,29 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     };
   }
 
+  /** @function make_sorted_attribute_query()  method of Catalog_Search_Filter
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQuerySortedAttribute | Square Docs}
+   * @method attribute_name - sets attribute_name
+   * @param {string} key The attribute whose value is used as the sort key.
+   * @method initial_attribute_value - sets initial_attribute_value
+   * @param {string} value - The first attribute value to be returned by the query
+   * @method sort_order - enumerated sort function
+   * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Square Docs}
+   * @method key - alias of initial_attribute_value()
+   * @param {string} key The attribute whose value is used as the sort key.
+   * @method name- alias of initial_attribute_value()
+   * @param {string} key The attribute whose value is used as the sort key.
+   * @param {}
+   ** @method value - alias of initial_attribute_value()
+   * @param {string} value - The first attribute value to be returned by the query
+   * @method sort - alias of sort_order()
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *
+   * */
   make_sorted_attribute_query() {
     this.#init_sorted_attribute_query();
     let sorted_attribute_query = this._body.query.sorted_attribute_query;
@@ -296,6 +370,21 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     };
   }
 
+  /** @function make_set_query()  method of Catalog_Search_Filter
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQuerySet | Square Docs}
+   * @method name - sets attribute_name
+   * @param {string} name - - The exact name (key) of the attribute to be searched
+   * @method value - adds a value to the attribute_values array
+   * @param {string} value - a value to search
+   * @method concat_values - concatenates an array to the attribute_values array
+   * @param {array} arr - an array of values to search.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *
+   * */
   make_set_query() {
     this.#init_set_query();
     let limit = this.configuration.maximums.attribute_values;
