@@ -8,6 +8,12 @@ const man =
   "This class uses ONE array of ids to cross reference your search.\n" +
   "To search by sets of key:value pairs use Catalog_Search_Filter" +
   "\nhttps://developer.squareup.com/reference/square/catalog-api/search-catalog-objects";
+
+/** @class Catalog_Search_Cross_Reference
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects | Square Docs}
+ * */
+
 class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   _display_name = "Catalog_Search_Cross_Reference";
   _last_verified_square_api_version = "2021-12-15";
@@ -126,40 +132,105 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
     }
   }
 
+  /** @function variations
+   * @param {string} id an ID of a an item variation.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * */
+
   variations(id) {
     this.item_variations_for_item_option_values_query = id;
     return this;
   }
+  /** @function items
+   * @param {string} id an ID of a an item
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * */
+
   items(id) {
     this.items_for_item_options_query = id;
     return this;
   }
+  /** @function modifiers
+   * @param {string} id an ID of a a modifier_list
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * */
+
   modifiers(id) {
     this.items_for_modifier_list_query = id;
     return this;
   }
+  /** @function taxes
+   * @param {string} id an ID of a a tax object
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * */
+
   taxes(id) {
     this.items_for_tax_query = id;
     return this;
   }
 
+  /** @function concat_variations
+   * @param {array} arr an array of IDs of Item Variations.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * */
+
   concat_variations(arr) {
     this.concat_item_variations_for_item_option_values_query = arr;
     return this;
   }
+  /** @function concat_item
+   * @param {array} arr an array of IDs of Item objects
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * */
+
   concat_items(arr) {
     this.concat_items_for_item_options_query = arr;
     return this;
   }
+  /** @function concat_modifiers
+   * @param {array} arr an array of IDs of Modifier List objects
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * */
+
   concat_modifiers(arr) {
     this.concat_items_for_modifier_list_query = arr;
     return this;
   }
+  /** @function concat_taxes
+   * @param {array} arr an array of IDs of Tax objects
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * */
+
   concat_taxes(arr) {
     this.concat_items_for_tax_query = arr;
     return this;
   }
 
+  /** @function make()  method of Catalog_Search_Cross_Reference - method names are exactly the same as the property names listed
+   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
+   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
+   * listed here.
+   * @method object_types - calls the object_types enum
+   * @method types - alias of object_types()
+   * @method concat_variations - concatenates and array of ids
+   * @param {array} an array of ids
+   * @method concat_items- concatenates and array of ids
+   * @param {array} an array of ids
+   * @method concat_modifiers- concatenates and array of ids
+   * @param {array} an array of ids
+   * @method concat_taxes- concatenates and array of ids
+   * @param {array} an array of ids
+   * @method concat_object_types- concatenates an arry of object types
+   * @param {array} array_to_add -an array of of object type string values
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     // any changes made to super modification methods should be replicated on Catalog_Search_Filter
     return {
