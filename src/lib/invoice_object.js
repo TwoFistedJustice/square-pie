@@ -284,13 +284,19 @@ class Invoice_Object {
   #accepted_payment_methods_enum(property_name) {
     return {
       self: this,
-      yes: function () {
+      true: function () {
         this.self._fardel.accepted_payment_methods[property_name] = true;
         return this;
       },
-      no: function () {
+      false: function () {
         this.self._fardel.accepted_payment_methods[property_name] = false;
         return this;
+      },
+      yes: function () {
+        return this.true();
+      },
+      no: function () {
+        return this.false();
       },
     };
   }
