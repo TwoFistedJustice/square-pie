@@ -281,16 +281,16 @@ class Invoice_Object {
     };
   }
 
-  #accepted_payment_methods_enum(property_name) {
+  #accepted_payment_methods_enum(property_name, calling_this) {
     return {
       self: this,
       true: function () {
         this.self._fardel.accepted_payment_methods[property_name] = true;
-        return this;
+        return calling_this;
       },
       false: function () {
         this.self._fardel.accepted_payment_methods[property_name] = false;
-        return this;
+        return calling_this;
       },
       yes: function () {
         return this.true();
@@ -306,15 +306,15 @@ class Invoice_Object {
       self: this,
       bank_account: function () {
         let property_name = "bank_account";
-        return this.self.#accepted_payment_methods_enum(property_name);
+        return this.self.#accepted_payment_methods_enum(property_name, this);
       },
       card: function () {
         let property_name = "card";
-        return this.self.#accepted_payment_methods_enum(property_name);
+        return this.self.#accepted_payment_methods_enum(property_name, this);
       },
       square_gift_card: function () {
         let property_name = "square_gift_card";
-        return this.self.#accepted_payment_methods_enum(property_name);
+        return this.self.#accepted_payment_methods_enum(property_name, this);
       },
     };
   }
