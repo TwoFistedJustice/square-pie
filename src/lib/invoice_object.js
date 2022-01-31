@@ -239,19 +239,6 @@ class Invoice_Object {
     }
   }
 
-  set conditions_de_paiement(chaine) {
-    if (
-      shazam_max_length(
-        this.configuration.maximums.payment_conditions,
-        chaine,
-        this._display_name,
-        "conditions_de_paiement"
-      )
-    ) {
-      this._fardel.payment_conditions = chaine;
-    }
-  }
-
   // PRIVATE METHODS
 
   #define_accepted_payment_methods() {
