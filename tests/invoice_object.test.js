@@ -254,10 +254,9 @@ describe("object setters", () => {
     invoice.payment_conditions = expected;
     expect(invoice.payment_conditions).toEqual(expected);
   });
-
-  test("conditions_de_paiement", () => {
+  test("conditions_de_paiement should get payment_conditions", () => {
     let expected = id;
-    invoice.conditions_de_paiement = expected;
+    invoice.payment_conditions = expected;
     expect(invoice.conditions_de_paiement).toEqual(expected);
   });
 });

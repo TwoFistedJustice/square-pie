@@ -10,7 +10,7 @@ const man =
   "creates a compliant Square invoice object. Follows standard Pie syntax.\n" +
   "\nhttps://developer.squareup.com/reference/square/objects/Invoice";
 
-/** @class Invoice_Object  representing an invoice
+/** @class Invoice_Object  makes a compliant invoice object
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/objects/Invoice | Square Docs}
  * @example
@@ -146,7 +146,7 @@ class Invoice_Object {
   set primary_recipient(customer_id) {
     this._fardel.primary_recipient = { customer_id: customer_id };
   }
-  // https://developer.squareup.com/docs/invoices-api/overview#payment-requests
+
   set payment_requests(payment_request_object) {
     arrayify(this._fardel, "payment_requests", this._display_name);
     this._fardel.payment_requests.push(payment_request_object);
@@ -239,19 +239,6 @@ class Invoice_Object {
     }
   }
 
-  set conditions_de_paiement(chaine) {
-    if (
-      shazam_max_length(
-        this.configuration.maximums.payment_conditions,
-        chaine,
-        this._display_name,
-        "conditions_de_paiement"
-      )
-    ) {
-      this._fardel.payment_conditions = chaine;
-    }
-  }
-
   // PRIVATE METHODS
 
   #define_accepted_payment_methods() {
@@ -264,16 +251,16 @@ class Invoice_Object {
     }
   }
 
-  #delivery_method_enum() {
+  #delivery_method_enum(calling_this) {
     return {
       self: this,
       email: function () {
         this.self._fardel.delivery_method = "EMAIL";
-        return this;
+        return calling_this;
       },
       share_manually: function () {
         this.self._fardel.delivery_method = "SHARE_MANUALLY";
-        return this;
+        return calling_this;
       },
       manually: function () {
         return this.share_manually();
@@ -281,41 +268,197 @@ class Invoice_Object {
     };
   }
 
-  #accepted_payment_methods_enum(property_name) {
+  #accepted_payment_methods_enum(property_name, calling_this) {
     return {
       self: this,
-      yes: function () {
+      true: function () {
         this.self._fardel.accepted_payment_methods[property_name] = true;
-        return this;
+        return calling_this;
+      },
+      false: function () {
+        this.self._fardel.accepted_payment_methods[property_name] = false;
+        return calling_this;
+      },
+      yes: function () {
+        return this.true();
       },
       no: function () {
-        this.self._fardel.accepted_payment_methods[property_name] = false;
-        return this;
+        return this.false();
       },
     };
   }
 
   #build_accepted_payment_methods() {
+    this.#define_accepted_payment_methods();
     return {
       self: this,
       bank_account: function () {
         let property_name = "bank_account";
-        return this.self.#accepted_payment_methods_enum(property_name);
+        return this.self.#accepted_payment_methods_enum(property_name, this);
       },
       card: function () {
         let property_name = "card";
-        return this.self.#accepted_payment_methods_enum(property_name);
+        return this.self.#accepted_payment_methods_enum(property_name, this);
       },
       square_gift_card: function () {
         let property_name = "square_gift_card";
-        return this.self.#accepted_payment_methods_enum(property_name);
+        return this.self.#accepted_payment_methods_enum(property_name, this);
       },
     };
   }
-  #build_custom_field() {
+
+  // MAKE METHODS
+
+  /** @function make()  method of Invoice_Object - method names are exactly the same as the property names listed
+   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
+   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
+   * listed here.
+   * @method version
+   * @param {number} int -
+   * @method location_id
+   * @param {string} id -
+   * @method order_id
+   * @param {string} id -
+   * @method primary_recipient
+   * @param {string} customer_id -
+   * @method payment_requests
+   * @param {object} payment_request_object -
+   * {@link https://developer.squareup.com/docs/invoices-api/overview#payment-requests | Square Docs}
+   * @method delivery_method - enumerated function
+   * @example
+   * myVar.make().delivery_method().email()
+   * myVar.make().delivery_method().share_manually()
+   * myVar.make().delivery_method().manually() - alias of share_manually
+   * @method invoice_number
+   * @param {string} inv_num -
+   * @method title
+   * @param {string} str255 -
+   * @method description
+   * @param {string} str65536 -
+   * @method scheduled_at
+   * @param {string} time -
+   * @method accepted_payment_methods
+   * @example
+   * myVar.make().accepted_payment_methods()[property you want to set].yes() => true
+   * myVar.make().accepted_payment_methods()[property you want to set].no() => false
+   *  Properties to choose from:
+   *  - bank_account
+   *  - card
+   *  - square_gift_card
+   * @method custom_fields
+   * @method sale_or_service_date
+   * @param {string} YYYYMMDD - The date of the transaction.  YYY-MM-DD format. Is displayed on invoice.
+   * @method conditions_de_paiement - seulement pour la France
+   * @param {string} str2000 -   un chaine de moins de 2,001 caracteres
+   * @method payment_conditions -  France Only
+   * @param {string} str2000 -   a string of up to 2,000 characters
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
+
+  make() {
+    return {
+      self: this,
+      version: function (int) {
+        this.self.version = int;
+        return this;
+      },
+      location_id: function (id) {
+        this.self.location_id = id;
+        return this;
+      },
+      order_id: function (id) {
+        this.self.order_id = id;
+        return this;
+      },
+      primary_recipient: function (customer_id) {
+        this.self.primary_recipient = customer_id;
+        return this;
+      },
+      payment_requests: function (payment_request_object) {
+        this.self.payment_requests = payment_request_object;
+        return this;
+      },
+      delivery_method: function () {
+        return this.self.#delivery_method_enum(this);
+      },
+      invoice_number: function (inv_num) {
+        this.self.invoice_number = inv_num;
+        return this;
+      },
+      title: function (str255) {
+        this.self.title = str255;
+        return this;
+      },
+      description: function (str65536) {
+        this.self.description = str65536;
+        return this;
+      },
+      scheduled_at: function (time) {
+        this.self.scheduled_at = time;
+        return this;
+      },
+      accepted_payment_methods: function () {
+        return this.self.#build_accepted_payment_methods();
+      },
+
+      custom_fields: function () {
+        return this.self.make_custom_field();
+      },
+      sale_or_service_date: function (YYYYMMDD) {
+        this.self.sale_or_service_date = YYYYMMDD;
+        return this;
+      },
+
+      conditions_de_paiement: function (str2000) {
+        this.self.payment_conditions = str2000;
+        return this;
+      },
+      payment_conditions: function (str2000) {
+        return this.conditions_de_paiement(str2000);
+      },
+    };
+  }
+
+  /** @method make.custom_fields    method of Invoice_Object
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   * Note: you must be subscribed to Square's Invoices Plus subscription.
+   * You can only have TWO custom fields per invoice,
+   *
+   * Note: Thou mustest call .add() as the last step else all shalt hath been for naught...
+   *
+   * Note: Every time you call custom_fields it starts over with an empty object, so either do it
+   * all with one chain or set a variable.
+   *
+   *  One chain:
+   *  myVar.make().custom_fields().label("coffee").value("decaf is evil").placement().above().add()
+   *
+   *  Setting a variable:
+   *  let custom =  myVar.make().custom_fields();
+   *  custom.label("coffee").value("decaf is evil")
+   *  custom.above()
+   *  custom.add() <- this adds the object to the array, if you don't do this, then it doesn't get saved.
+   *
+   *  Methods you can call:
+   *  .label(string) - 30 char max - REQUIRED
+   *  .value(sring) - 2,000 char max - optional
+   *  .above() - sets placement to: "ABOVE_LINE_ITEMS" - no need to call this if you want the default
+   *  .below() - sets placement to: "BELOW_LINE_ITEMS"
+   *  .add() - MUST BE CALLED LAST - calls the setter to push the custom fields item to the
+   *  custom_fields array
+   * */
+  make_custom_field() {
     let limit = this.configuration.maximums;
     let name = this._display_name;
-    let caller = "#build_custom_field";
+    let caller = "make_custom_field";
     let field = {
       label: undefined, // str 30
       placement: "ABOVE_LINE_ITEMS",
@@ -346,142 +489,6 @@ class Invoice_Object {
       above: function () {
         field.placement = "ABOVE_LINE_ITEMS";
         return this;
-      },
-    };
-  }
-
-  // MAKER METHODS
-  make() {
-    return {
-      self: this,
-      version: function (int) {
-        this.self.version = int;
-        return this;
-      },
-      location_id: function (id) {
-        this.self.location_id = id;
-        return this;
-      },
-      order_id: function (id) {
-        this.self.order_id = id;
-        return this;
-      },
-      primary_recipient: function (customer_id) {
-        this.self.primary_recipient = customer_id;
-        return this;
-      },
-      payment_requests: function (payment_request_object) {
-        this.self.payment_requests = payment_request_object;
-        return this;
-      },
-      /** @method make.delivery_method   method of Invoice_Object
-       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-       * @example
-       *
-       * myVar.make().delivery_method().email()
-       * myVar.make().delivery_method().share_manually()
-       * myVar.make().delivery_method().manually() - alias of share_manually
-       * */
-      delivery_method: function () {
-        return this.self.#delivery_method_enum();
-      },
-      invoice_number: function (inv_num) {
-        this.self.invoice_number = inv_num;
-        return this;
-      },
-      title: function (str255) {
-        this.self.title = str255;
-        return this;
-      },
-      description: function (str65536) {
-        this.self.description = str65536;
-        return this;
-      },
-      scheduled_at: function (time) {
-        this.self.scheduled_at = time;
-        return this;
-      },
-
-      /** @method make.accepted_payment_methods   method of Invoice_Object
-       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-       * @example
-       *
-       * myVar.make().accepted_payment_methods()[property you want to set].yes() => true
-       * myVar.make().accepted_payment_methods()[property you want to set].no() => false
-       *  Properties to choose from:
-       *  - bank_account
-       *  - card
-       *  - square_gift_card
-       * */
-      accepted_payment_methods: function () {
-        this.self.#define_accepted_payment_methods();
-        return this.self.#build_accepted_payment_methods();
-      },
-      /** @method make.custom_fields    method of Invoice_Object
-       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-       * @example
-       * Note: You can only have TWO custom fields per invoice, you must be subscribed to
-       * Square's Invoices Plus subscription.
-       *
-       * Note: Thou mustest call .add() as the last step else all shalt hath been for naught...
-       *
-       * Note: Every time you call custom_fields it starts over with an empty object, so either do it
-       * all with one chain or set a variable.
-       *
-       *  One chain:
-       *  myVar.make().custom_fields().label("coffee").value("decaf is evil").placement().above().add()
-       *
-       *  Setting a variable:
-       *  let custom =  myVar.make().custom_fields();
-       *  custom.label("coffee").value("decaf is evil")
-       *  custom.above()
-       *  custom.add() <- this adds the object to the array, if you don't do this, then it doesn't get saved.
-       *
-       *  Methods you can call:
-       *  .label(string) - 30 char max - REQUIRED
-       *  .value(sring) - 2,000 char max - optional
-       *  .above() - sets placement to: "ABOVE_LINE_ITEMS" - no need to call this if you want the default
-       *  .below() - sets placement to: "BELOW_LINE_ITEMS"
-       *  .add() - MUST BE CALLED LAST - calls the setter to push the custom fields item to the
-       *  custom_fields array
-       * */
-      custom_fields: function () {
-        return this.self.#build_custom_field();
-      },
-      /** @method make.sale_or_service_date()    method of Invoice_Object
-       * @param {date} The date of the transaction.  YYY-MM-DD format. Is displayed on invoice.
-       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-       * @example
-       *
-       * myVar.make().sale_or_service_date(1945-05-08)
-       *
-       * */
-      sale_or_service_date: function (YYYYMMDD) {
-        this.self.sale_or_service_date = YYYYMMDD;
-        return this;
-      },
-
-      /** @method make.conditions_de_paiement()    la France seulement methode de Invoice_Object
-       * @param {string} str2000   un chaine de moins de 2,001 caracteres
-       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-       * @example
-       *
-       * myVar.make().conditions_de_paiement("payer en liquide")
-       * */
-      conditions_de_paiement: function (str2000) {
-        this.self.payment_conditions = str2000;
-        return this;
-      },
-      /** @method make.payment_conditions()    France Only method of Invoice_Object
-       * @param {string} str2000   a string of up to 2,000 characters
-       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-       * @example
-       *
-       * myVar.make().payment_conditions("cash only")
-       * */
-
-      payment_conditions: function (str2000) {
-        return this.conditions_de_paiement(str2000);
       },
     };
   }
