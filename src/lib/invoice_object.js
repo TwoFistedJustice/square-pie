@@ -10,7 +10,7 @@ const man =
   "creates a compliant Square invoice object. Follows standard Pie syntax.\n" +
   "\nhttps://developer.squareup.com/reference/square/objects/Invoice";
 
-/** @class Invoice_Object  representing an invoice
+/** @class Invoice_Object  makes a compliant invoice object
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/objects/Invoice | Square Docs}
  * @example
@@ -146,7 +146,7 @@ class Invoice_Object {
   set primary_recipient(customer_id) {
     this._fardel.primary_recipient = { customer_id: customer_id };
   }
-  // https://developer.squareup.com/docs/invoices-api/overview#payment-requests
+
   set payment_requests(payment_request_object) {
     arrayify(this._fardel, "payment_requests", this._display_name);
     this._fardel.payment_requests.push(payment_request_object);
@@ -322,7 +322,8 @@ class Invoice_Object {
    * @method primary_recipient
    * @param {string} customer_id -
    * @method payment_requests
-   * param {object} payment_request_object -
+   * @param {object} payment_request_object -
+   * {@link https://developer.squareup.com/docs/invoices-api/overview#payment-requests | Square Docs}
    * @method delivery_method - enumerated function
    * @example
    * myVar.make().delivery_method().email()
