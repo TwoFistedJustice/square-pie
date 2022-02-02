@@ -218,11 +218,10 @@ class Order_Fulfillment {
         this.cancel_reason(str);
         return this;
       },
-      // todo this won't pass because validator doesn't do durations
-      // need to write own utility to create
+      // You can use one of the duration utilities to make a compliant string
       auto_complete_duration: function (time) {
         let key = "auto_complete_duration";
-        this.self.#time_date(fulfillment, key, time);
+        fulfillment[key] = time;
         return this;
       },
       expires_at: function (time) {

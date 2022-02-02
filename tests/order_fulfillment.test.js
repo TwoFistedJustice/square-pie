@@ -1,6 +1,7 @@
 "use strict";
 const Order_Fulfillment = require("../src/lib/order_fulfillment");
 const { long_strings } = require("./helper_objects");
+const { duration_days_hours_minutes } = require("../src/lib/utilities/index");
 
 const RFC339 = "2019-10-12T07:20:50.52Z";
 const nonCompliantTime = Date.now();
@@ -109,11 +110,10 @@ describe("make_pickup() strings should be set correctly.", () => {
     fulfillment = new Order_Fulfillment();
     pickup = fulfillment.make_pickup();
   });
-  //todo write a utility to build RFC3339 duration
-  // https://www.ietf.org/rfc/rfc3339.txt
+
   test("auto_complete_duration should set", () => {
-    let duration = "P2DT12H30M15S"; //2 days, 12 hours, 30 minutes, and 15 seconds
-    pickup.auto_complete_duration(duration);
+    let duration = "P2DT12H30M"; //2 days, 12 hours, 30 minutes, and 15 seconds
+    pickup.auto_complete_duration(duration_days_hours_minutes(2, 12, 30));
     expect(fulfillment.fardel.pickup_details.auto_complete_duration).toEqual(
       duration
     );
