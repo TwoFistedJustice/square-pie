@@ -17,6 +17,24 @@ describe("RFC3339 duration constructors", () => {
     expect(value).toEqual(expected);
   });
 
+  test("months_days should leave out months if set to zero", () => {
+    let expected = "P10D";
+    let value = duration_months_days(0, 10);
+    expect(value).toEqual(expected);
+  });
+
+  test("months_days should leave out days if set to zero", () => {
+    let expected = "P5M";
+    let value = duration_months_days(5, 0);
+    expect(value).toEqual(expected);
+  });
+
+  test("months_days should leave out days if omitted", () => {
+    let expected = "P5M";
+    let value = duration_months_days(5);
+    expect(value).toEqual(expected);
+  });
+
   /* --------------------------------------------------------*
    *                                                         *
    *                        days_hours_minutes
@@ -35,7 +53,7 @@ describe("RFC3339 duration constructors", () => {
    *                                                         *
    * ------------------------------------------------------- */
 
-  test.only("hours_minutes", () => {
+  test("hours_minutes", () => {
     let expected = "PT3H10M";
     let value = duration_hours_minutes(3, 10);
     expect(value).toEqual(expected);
