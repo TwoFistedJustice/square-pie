@@ -1,4 +1,5 @@
-/** @function hours_minutes() creates an ISO 8601 duration string. To omit a value, pass zero in its place.
+/** @function hours_minutes() creates an ISO 8601 duration string. To omit a value,
+ *  pass zero in its place. Especially useful when building Order_Fulfillment.
  * @param {number} hours - can be a integer or decimal
  * @param {number} minutes - can be a integer or decimal
  * @returns {string} Returns a string in the form of an ISO8601 duration.

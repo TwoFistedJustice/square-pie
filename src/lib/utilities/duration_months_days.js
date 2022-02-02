@@ -1,4 +1,5 @@
-/** @function duration_months_days() creates an ISO 8601 duration string. To omit a value, pass zero in its place.
+/** @function duration_months_days() creates an ISO 8601 duration string.
+ * To omit a value, pass zero in its place. Especially useful when building Order_Fulfillment.
  * @param {number} months - can be a integer or decimal. Pass the number zero to exclude.
  * @param {number} days - can be a integer or decimal. Pass the number zero to exclude.
  * @returns {string} Returns a string in the form of an ISO8601 duration.
