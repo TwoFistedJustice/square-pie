@@ -47,6 +47,36 @@ describe("RFC3339 duration constructors", () => {
     expect(value).toEqual(expected);
   });
 
+  test("days_hours_minutes", () => {
+    let expected = "P3D";
+    let value = duration_days_hours_minutes(3);
+    expect(value).toEqual(expected);
+  });
+
+  test("days_hours_minutes", () => {
+    let expected = "P3DT10H";
+    let value = duration_days_hours_minutes(3, 10);
+    expect(value).toEqual(expected);
+  });
+
+  test("days_hours_minutes", () => {
+    let expected = "P3DT30M";
+    let value = duration_days_hours_minutes(3, 0, 30);
+    expect(value).toEqual(expected);
+  });
+
+  test("days_hours_minutes", () => {
+    let expected = "PT10H";
+    let value = duration_days_hours_minutes(0, 10);
+    expect(value).toEqual(expected);
+  });
+
+  test("days_hours_minutes", () => {
+    let expected = "PT30M";
+    let value = duration_days_hours_minutes(0, 0, 30);
+    expect(value).toEqual(expected);
+  });
+
   /* --------------------------------------------------------*
    *                                                         *
    *                        hours_minutes
@@ -56,6 +86,18 @@ describe("RFC3339 duration constructors", () => {
   test("hours_minutes", () => {
     let expected = "PT3H10M";
     let value = duration_hours_minutes(3, 10);
+    expect(value).toEqual(expected);
+  });
+
+  test("hours_minutes", () => {
+    let expected = "PT3H";
+    let value = duration_hours_minutes(3, 0);
+    expect(value).toEqual(expected);
+  });
+
+  test("hours_minutes", () => {
+    let expected = "PT10M";
+    let value = duration_hours_minutes(0, 10);
     expect(value).toEqual(expected);
   });
 });
