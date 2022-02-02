@@ -3,6 +3,9 @@ const normalize_email = require("./normalize_email");
 const clone_object = require("./object_clone");
 const define = require("./define");
 const defineify = require("./defineify");
+const duration_months_days = require("./duration_months_days");
+const duration_hours_minutes = require("./duration_hours_minutes");
+const duration_days_hours_minutes = require("./duration_days_hours_minutes");
 const object_does_not_have_property = require("./object_does_not_have_property");
 const object_has_property = require("./object_has_property");
 const query_param_add_value = require("./query_param_add_value");
@@ -45,6 +48,9 @@ module.exports = {
   normalize_email,
   define,
   defineify,
+  duration_hours_minutes,
+  duration_months_days,
+  duration_days_hours_minutes,
   object_does_not_have_property,
   object_has_property,
   query_param_add_value,
