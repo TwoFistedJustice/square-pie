@@ -6,13 +6,19 @@ const {
   query_param_replace_value,
   shazam_integer,
 } = require("./utilities");
-// https://developer.squareup.com/reference/square/catalog-api/list-catalog
+
 const man =
   "fetches a list of all Catalog API documents in your db. You can filter that list by type." +
   "Add the types one at a time using  make().type().type_you_want_to_add(). Or even easier -  \n" +
   " make().type_you_want_to_add()\n" +
   "i.e. make().tax().category()" +
   "https://developer.squareup.com/reference/square/catalog-api/list-catalog";
+
+/** @class Catalog_List
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link  https://developer.squareup.com/reference/square/catalog-api/list-catalog | Square Docs}
+ * @example
+ * */
 
 class Catalog_List extends Catalog_Request {
   _display_name = "Catalog_List";
@@ -130,6 +136,30 @@ class Catalog_List extends Catalog_Request {
   // MAKER METHODS
   // this violates DRY - BUT it makes this class A LOT easier and more intuitive to use
   // while maintaining compliance with Pie standard syntax
+  /** @function make()  method of Catalog_List - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method catalog_version adds the respective query parameter to the request
+   * @param {number} version - an integer
+   * @method version - alias of catalog_version
+   * @method types adds the respective query parameter to the request
+   * @method item adds the respective query parameter to the request
+   * @method item_variation adds the respective query parameter to the request
+   * @method category adds the respective query parameter to the request
+   * @method discount adds the respective query parameter to the request
+   * @method tax adds the respective query parameter to the request
+   * @method modifier adds the respective query parameter to the request
+   * @method modifier_list adds the respective query parameter to the request
+   * @method image adds the respective query parameter to the request
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,

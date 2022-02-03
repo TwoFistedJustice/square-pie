@@ -5,6 +5,11 @@ const man =
   "class's fardel using make().add(fardel)\n" +
   "\nhttps://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects";
 
+/** @class Catalog_Upsert
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link  | Square Docs}
+ * */
+
 class Catalog_Upsert extends Catalog_Request {
   _display_name = "Catalog_Upsert";
   _last_verified_square_api_version = "2021-12-15";
@@ -45,6 +50,22 @@ class Catalog_Upsert extends Catalog_Request {
   }
 
   // MAKER METHODS
+  /** @function make()  method of Catalog_Upsert - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method body - adds an object fardel to be upserted
+   * @param {object} fardel - the fardel property of a Catalog Object
+   * @method add - alias of body
+   * @method
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,
