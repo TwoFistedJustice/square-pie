@@ -23,7 +23,7 @@ class Customer_Search extends Customer_Request {
       query: {
         filter: {},
         sort: {
-          field: "CREATED_AT",
+          field: "DEFAULT",
           order: "ASC",
         },
       },
@@ -41,16 +41,38 @@ class Customer_Search extends Customer_Request {
   set delivery(parcel) {
     this._delivery = parcel.customers;
   }
-  // METHODS
-  // this works like so:
-  // the 'this' inside  query() is the class
-  // call Search.query.fuzzy.the-method-you-want
-  // call Search.query.exact.the-method-you-want
-  /**
-   * @param {}
-   * @throws
-   * @return
+  /** @function query()  method of Customer_Search - Operates similarly to a make() method with one big difference.
+   *  Query has two top level methods: 'fuzzy' and 'exact', one of which must be called before calling the setting
+   *  sub-methods. Sub-method names are exactly the same as the property names listed in the Square docs. There may
+   *  be additional methods and/or shortened aliases of other methods. You may not mix fuzzy and exact searches.
+   * @method fuzzy - top-level method, all non-top-level methods are the same for both fuzzy() and exact()
+   * @method exact - top-level method, all non-top-level methods are the same for both fuzzy() and exact()
+   * @method email -
+   * @param {string} email -
+   * @method phone
+   * @param {string}  -
+   * @method id
+   * @param {string} id -
+   * @method limit
+   * @param {number} limit -
+   * @method sortUp - sets the sort order to "ASC" - this is the default value.
+   * @method sortDown - sets the sort order to "DESC"
+   * @method sortByFirstName  - sets the sort field to "DEFAULT" - this is the default value.
+   * @method sortByDate  - sets the sort field to "CREATED_AT"
+   * @method sortByMostRecent - sets the sort field to "CREATED_AT" and sort order to "ASC".
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/CustomerQuery | Square Docs}
+   * @example
+   *  You must use parentheses with every call to query and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set query() to a
+   *  variable.
+   *  let exact_query = myVar.query().exact();
+   *  let fuzzy_query = myVar.query().fuzzy();
+   *   exact_query.the-method-you-want().the-next-method-you-want();
+   *   fuzzy_query.the-method-you-want().the-next-method-you-want();
+   *
    * */
+
   query() {
     const methods = (fuzzacto) => {
       return {

@@ -108,6 +108,24 @@ class Customer_List extends Customer_Request {
     };
   }
 
+  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method limit
+   * @param {number} int -
+   * @method sort_field - enumerated
+   * {@link https://developer.squareup.com/reference/square/enums/CustomerSortField | Square Docs}
+   * @method sort_order enumerated
+   * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Square Docs}
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,
