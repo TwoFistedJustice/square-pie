@@ -41,7 +41,6 @@ class Invoice_Search extends Invoice_Request {
     this._body = {
       query: {
         filter: {
-          // todo write test - test both
           location_ids: typeof location_id === "undefined" ? [] : [location_id],
           customer_ids: undefined,
         },
@@ -133,6 +132,29 @@ class Invoice_Search extends Invoice_Request {
     this._body.query.filter.customer_ids = replacement_array;
   }
 
+  /** @function
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   *  @private
+   * @method ascending  sets value to "ASC"
+   * @method descending sets value to "DESC"
+   * @method up alias of `ascending`
+   * @method oldest_first alias of `ascending`
+   * @method down alias of `descending`
+   * @method newest_first alias of `descending`
+   
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Square Docs}
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
   #sort_order() {
     return {
       self: this,
@@ -158,7 +180,7 @@ class Invoice_Search extends Invoice_Request {
       },
     };
   }
-
+  // todo this seems to duplicate make() - can it just go away?
   build_query() {
     return {
       self: this,
@@ -184,7 +206,33 @@ class Invoice_Search extends Invoice_Request {
     };
   }
 
-  // MAKER METHODS
+  // MAKE METHODS
+  /** @function make()  method of Invoice_Search - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method limit - sets the limit property
+   * @param {number} val -
+   * @method query - DANGER WILL ROBINSON! This wil replace the entire query object with whatever you pass it.
+   * @param {object} val - a complete query object - no validation!!!
+   * @method location_id - adds an id the array on the filter object
+   * @param {string} id -
+   * @method customer_id - adds an id the array on the filter object
+   * @param {string} id -
+   * @method add_location_ids_array - adds the contents of an array of ids to filter object.
+   * @param {array} arr -
+   * @method add_customer_ids_array - adds the contents of an array of ids to filter object.
+   * @param {array} arr -
+   * @method sort - enumerated. Calls #sort_order()
+   * @method location - alias of location_id
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,

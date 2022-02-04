@@ -61,6 +61,20 @@ class Invoice_Delete extends Invoice_RUDCnP {
   }
 
   // MAKER METHODS
+  /** @function make()  method of Invoice_Delete - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method version - adds the version query parameter
+   * @param {number} int -
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,

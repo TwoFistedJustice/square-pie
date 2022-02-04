@@ -8,7 +8,6 @@ const man =
   "\nhttps://developer.squareup.com/reference/square/invoices-api/create-invoice";
 
 /** @class  Invoice_Create
- * @param {}
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/invoices-api/create-invoice | Square Docs}
  * */
@@ -55,11 +54,6 @@ class Invoice_Create extends Invoice_Request {
       this._body.idempotency_key = key;
     }
   }
-  /** @method invoice - setter checks for order_id, if not present, it throws an error
-   * @param {object} fardel - Invoice_Object.fardel
-   * @throws an error if order_id is not present on the object passed
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * */
   set invoice(fardel) {
     if (fardel.order_id === undefined || typeof fardel.order_id !== "string") {
       let message =
@@ -72,6 +66,23 @@ class Invoice_Create extends Invoice_Request {
   }
 
   // MAKER METHODS
+  /** @function make()  method of Invoice_Create - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method idempotency_key - this is automatically set
+   * @param {string} key -
+   * @method invoice
+   * @param {object} fardel - an invoice object fardel
+   * @throws an error if order_id is not present on the object passed
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,
