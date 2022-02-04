@@ -21,6 +21,11 @@ const man =
   "There are also standard Pie build and add methods for applied_tax and applied_discount.\n" +
   "\nhttps://developer.squareup.com/reference/square/objects/OrderLineItem";
 
+/** @class Order_Line_Item
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/objects/OrderLineItem | Square Docs}
+ * */
+
 class Order_Line_Item {
   _display_name = "Order_Line_Item";
   _last_verified_square_api_version = "2021-07-21";
@@ -255,15 +260,28 @@ class Order_Line_Item {
     return obj;
   }
 
-  // MAKER METHODS
+  // MAKE METHODS
 
-  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
-   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
-   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
-   * listed here.
-   * @method base_price_money
-   * @param {number} amount - an integer. Use the smallest currency, i.e. cents or pence. No decimals.
-   * @param {string} currency = the three character currency designation. Automatically converts to uppercase.
+  /** @function make()  method of Order_Line_Item - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method uid- uid is automatically set
+   * @param {string} val -
+   * @method quantity
+   * @param {string} val -
+   * @method name
+   * @param {string} val -
+   * @method note
+   * @param {string} val -
+   * @method variation_name
+   * @param {string} val -
+   * @method catalog_object_id
+   * @param {string} val -
+   * @method catalog_version
+   * @param {number}  val -
+   * @method item_type - Enumerated. Calls #enum_item_type()
+   * @method base_price_money - Standard compliant money object builder.
+   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
+   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
    * @method applied_discounts
    * @param {string} id- the discount id. It will automatically build the expected object.
    * @method applied_taxes
