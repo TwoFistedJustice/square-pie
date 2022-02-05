@@ -8,6 +8,10 @@ const man =
   "configuration by changing the parameter stored in `config.js` or in `.env`\n" +
   "\nhttps://developer.squareup.com/reference/square";
 
+/** @class Square_Request super class of all Square Pie Request classes
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * */
+
 class Square_Request {
   _display_name = "Square_Request";
   _help = this.display_name + ": " + man;

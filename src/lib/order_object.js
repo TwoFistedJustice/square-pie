@@ -179,9 +179,38 @@ class Order_Object {
 
   // METHODS
 
+  /** @function
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   * @method open sets value to "OPEN"
+   * @method completed sets value to "COMPLETED"
+   * @method canceled sets value to "CANCELED"
+   * @method draft sets value to "DRAFT"
+   
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link  | Square Docs}
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
   #enum_state() {
     return order_object_enum.state(this);
   }
+
+  /** @function build_service_charge_amount Returns the object. If you wan to build and add it use the 'add' version of this funcion.
+   *  Standard compliant money object builder.
+   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
+   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
+   * @return {object} service_charge - a standard Square Money Object
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/Money | Square Docs}
+   * */
 
   build_service_charge_amount(amount, currency) {
     let service_charge = {};
@@ -190,12 +219,31 @@ class Order_Object {
     return service_charge;
   }
 
+  /** @function build_service_charge_applied Returns the object. If you wan to build and add it use the 'add' version of this funcion.
+   *  Standard compliant money object builder.
+   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
+   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
+   * @return {object} service_charge - a standard Square Money Object
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/Money | Square Docs}
+   * */
+
   build_service_charge_applied(amount, currency) {
     let service_charge = {};
     let money = arche_money(amount, currency);
     define(service_charge, "applied_money", money);
     return service_charge;
   }
+
+  /** @function add_service_charge_amount Returns the object AND adds it to the appropriate array. If you want to just return the object without
+   * adding it, then use the 'build' version of this function.
+   *  Standard compliant money object builder.
+   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
+   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
+   * @return {object} service_charge - a standard Square Money Object
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/Money | Square Docs}
+   * */
 
   add_service_charge_amount(amount, currency) {
     let service_charge = {};
@@ -204,6 +252,15 @@ class Order_Object {
     this.service_charges = service_charge;
     return service_charge;
   }
+  /** @function add_service_charge_applied Returns the object AND adds it to the appropriate array. If you want to just return the object without
+   * adding it, then use the 'build' version of this function.
+   *  Standard compliant money object builder.
+   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
+   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
+   * @return {object} service_charge - a standard Square Money Object
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/Money | Square Docs}
+   * */
 
   add_service_charge_applied(amount, currency) {
     let service_charge = {};
@@ -213,6 +270,47 @@ class Order_Object {
     return service_charge;
   }
 
+  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method version
+   * @param {number} ver -
+   * @method id
+   * @param {string} id -
+   * @method location_id
+   * @param {string} id -
+   * @method reference_id
+   * @param {string} id -
+   * @method customer_id
+   * @param {string} id -
+   * @method ticket_name
+   * @param {string} name -
+   * @method state Enumerated. Calls #enum_state()
+   * @method source
+   * @param {string} val -
+   * @method pricing_options
+   * @param {bool} auto_apply_discounts -
+   * @param {bool} auto_apply_taxes -
+   * @method service_charges
+   * @param {object} obj -
+   * @method discounts
+   * @param {object} obj -
+   * @method taxes
+   * @param {object} obj -
+   * @method fulfillments
+   * @param {object} obj -
+   * @method line_items
+   * @param {object} obj -
+   
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,

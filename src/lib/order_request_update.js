@@ -52,9 +52,6 @@ class Order_Update extends Order_Request {
   }
 
   // SETTERS
-  /**  For more information, see https://developer.squareup.com/reference/square_2021-11-17/orders-api/update-order
-   * @param {string} field - The dot notation paths fields to clear. For example, "line_items[uid].note". OR "discounts"
-   * */
   set fields_to_clear(field) {
     arrayify(this._body, "fields_to_clear", this.display_name);
     this._body.fields_to_clear.push(field);
@@ -62,9 +59,6 @@ class Order_Update extends Order_Request {
   set order_id(id) {
     this._endpoint = `/${id}`;
   }
-  /**
-   * @param {object} sparse_order - an order object containing only the fields you want to update.
-   * */
   set order(sparse_order) {
     this._body.order = sparse_order;
   }
@@ -80,7 +74,28 @@ class Order_Update extends Order_Request {
       this._body.idempotency_key = key;
     }
   }
-  // MAKER METHODS
+  // MAKE METHODS
+  /** @function make()  method of Order_Update - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method order_id
+   * @param {string} id -
+   * @method order
+   * @param {object} sparse_order - an order object containing only the fields you want to update.
+   * @method fields_to_clear
+   * @param {string} field - The dot notation paths fields to clear. For example, "line_items[uid].note". OR "discounts"
+   * {@link https://developer.squareup.com/reference/square/orders-api/update-order | Square Docs}
+   * @method idempotency_key - automatically set
+   *@param {string} key -
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,
