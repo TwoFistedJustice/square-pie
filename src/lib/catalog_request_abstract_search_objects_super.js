@@ -12,7 +12,7 @@ const {
  *  Catalog_Search_Objects.prototype.query = function...
  *
  * */
-/** @class  Catalog_Search_Objects_Super - super class of catalog object search classes
+/** @class  Catalog_Search_Objects_Super - abstract super class of catalog object search classes
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects | Square Docs}
  * */
@@ -84,6 +84,13 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
   }
 
   // NOT PRIVATE METHODS = because you can't reference private functions from subclasses
+
+  /** @function concat_object_types - concatenates an array of objects to the object_types array. Inherited by its sub classes.
+   * @param {array} array_to_add - an array of object 'types' (strings)
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link  | Square Docs}
+   * @example
+   * */
 
   concat_object_types(array_to_add) {
     arrayify(

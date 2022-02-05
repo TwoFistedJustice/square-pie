@@ -11,9 +11,12 @@ const man =
   "or update an existing one. Follows standard Pie syntax. Use make(). to set values." +
   "\nhttps://developer.squareup.com/reference/square/objects/Customer";
 
-/** @class Customer_Object representing a Customer
- *  @author: Russ Bain
+/** @class Customer_Object
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/objects/Customer | Square Docs}
+ * @example
  * */
+
 class Customer_Object {
   _display_name = "Customer_Object";
   _last_verified_square_api_version = "2021-11-17";
@@ -214,19 +217,11 @@ class Customer_Object {
   set nickname(val) {
     this._fardel.nickname = val;
   }
-  /** sets Customer_Object.email_address
-   * @param {string} email expects a valid email address
-   * @throws Throws an error if email is not valid
-   * */
   set email_address(email) {
     let caller = "email_address";
     let shazam = normalize_email(email, this.display_name, caller);
     this._fardel.email_address = shazam;
   }
-  /** sets Customer_Object.phone_number
-   * @param {string }phone should be a phone number of no more than 11 characters
-   * @throws Throws an error is `phone` is longer than 11 characters
-   * */
   set phone_number(phone) {
     if (
       shazam_max_length(
@@ -241,10 +236,6 @@ class Customer_Object {
   set address(val) {
     this._fardel.address = val;
   }
-  /* sets Customer_Object.birthday
-   * @param {string} time a date in RFC3339 format
-   * * @throws Will throw and error if argument is not a valid RFC3339 date code
-   * */
   set birthday(time) {
     if (shazam_time_RFC3339(time, this._display_name, "birthday")) {
       this._fardel.birthday = time;
@@ -256,10 +247,6 @@ class Customer_Object {
   set note(val) {
     this._fardel.note = val;
   }
-  /* sets Customer_Object.version
-   * @param {string} int a string that can be coerced to integer
-   * * @throws Will throw and error if argument  cannot be coerced to integer
-   * */
   set version(int) {
     if (shazam_integer(int, this.display_name, "version")) {
       this._fardel.version = int;
@@ -274,15 +261,8 @@ class Customer_Object {
         email_unsubscribed: bool,
       };
     }
-
-    // check if object and property
-    // set to object, define property with bool
   }
-  /** sets Customer_Object.tax_ids - only for UK, Ireland, et la France. Vive la Republique! Vive Marieanne!
-   *
-   * @param id - a European Union VAT ID of no more than 20 characters
-   * @throws throws an error if the length is greater than 20
-   * */
+
   set tax_ids(id) {
     if (
       shazam_max_length(
@@ -298,8 +278,66 @@ class Customer_Object {
     }
   }
 
-  // MAKER METHODS
-  /** Standard Square Pie Make method*/
+  // MAKE METHODS
+  /** @function make()  method of Customer_Object - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method id
+   * @param {string} val -
+   * @method given_name
+   * @param {string} val -
+   * @method family_name
+   * @param {string} val -
+   * @method company_name
+   * @param {string} val -
+   * @method nickname
+   * @param {string} val -
+   * @method email_address
+   * @param {string} val -expects a valid email address
+   * @throws Throws an error if email is not valid
+   * @method phone_number
+   * @param {string} val -should be a phone number of no more than 11 characters
+   * @throws Throws an error is `phone` is longer than 11 characters
+   * @method address
+   * @param {object} val - an Address Object
+   * @method birthday
+   * @param {string} val -  time a date in RFC3339 format
+   * @throws Error Will throw and error if argument is not a valid RFC3339 date code
+   * @method reference_id
+   * @param {string} val -
+   * @method note
+   * @param {string} val -
+   * @method version
+   * @param {string} val -  int a string that can be coerced to integer
+   * @throws Will throw and error if argument  cannot be coerced to integer
+   * @method creation_source - enumerated
+   * {@link https://developer.squareup.com/reference/square/enums/CustomerCreationSource | Square Docs}
+   * @method preferences
+   * @param {bool} bool -
+   * @method tax_ids
+   * @param {string} eu_vat -a European Union VAT ID of no more than 20 characters
+   * @throws throws an error if the length is greater than 20
+   * @method first_name
+   * @param {string} val -
+   * @method last_name
+   * @param {string} val -
+   * @method company
+   * @param {string} val -
+   * @method email
+   * @param {string} val -
+   * @method phone
+   * @param {string} val -
+   * @method
+   * @param {string} val -
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,

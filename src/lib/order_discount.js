@@ -6,6 +6,11 @@ const man =
   'defaults to "USD".\n' +
   "\nhttps://developer.squareup.com/reference/square/objects/OrderLineItemDiscount";
 
+/** @class Order_Discount
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/objects/OrderLineItemDiscount | Square Docs}
+ * */
+
 class Order_Discount {
   _display_name = "Order_Discount";
   _last_verified_square_api_version = "2021-07-21";
@@ -145,15 +150,86 @@ class Order_Discount {
 
   // PRIVATE METHODS
 
+  /** @function #enum_type()
+   * @private
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   * @method unknown sets value to "UNKNOWN_DISCOUNT"
+   * @method fixed_percentage sets value to "FIXED_PERCENTAGE"
+   * @method fixed_amount sets value to "FIXED_AMOUNT"
+   * @method variable_percentage sets value to "VARIABLE_PERCENTAGE"
+   * @method variable_amount sets value to "VARIABLE_AMOUNT"
+   
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemDiscountType | Square Docs}
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
   #enum_type() {
     return order_discount_enum.type(this);
   }
+
+  /** @function
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   * @method other  sets value to "OTHER_DISCOUNT_SCOPE"
+   * @method line_item  sets value to "LINE_ITEM"
+   * @method order  sets value to "ORDER"
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link  | Square Docs}
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
 
   #enum_scope() {
     return order_discount_enum.scope(this);
   }
 
-  // MAKER METHODS
+  // MAKE METHODS
+  /** @function make()  method of Order_Discount - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method uid
+   * @param {string} val -
+   * @method catalog_object_id
+   * @param {string} val -
+   * @method catalog_version
+   * @param {number} val -
+   * @method name
+   * @param {string} val -
+   * @method type - enumerated. Calls #enum_type()
+   * @method percentage
+   * @param {number} val -
+   * @method amount_money Standard compliant money object builder.
+   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
+   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
+   * @method applied_money Standard compliant money object builder.
+   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
+   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
+   * @method scope - enumerated. Calls #enum_scope()
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,

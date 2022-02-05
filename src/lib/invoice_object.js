@@ -427,33 +427,24 @@ class Invoice_Object {
     };
   }
 
-  /** @method make.custom_fields    method of Invoice_Object
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * @example
-   * Note: you must be subscribed to Square's Invoices Plus subscription.
-   * You can only have TWO custom fields per invoice,
-   *
-   * Note: Thou mustest call .add() as the last step else all shalt hath been for naught...
-   *
+  /** @function make_custom_field()  method of Invoice_Object - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
    * Note: Every time you call custom_fields it starts over with an empty object, so either do it
    * all with one chain or set a variable.
-   *
-   *  One chain:
-   *  myVar.make().custom_fields().label("coffee").value("decaf is evil").placement().above().add()
-   *
-   *  Setting a variable:
+   * @method add - adds the constructed object to the array. Must be called as the last step.
+   * @method label
+   * @param {string} str -
+   * @method value
+   * @param {string} str -
+   * @method below - sets the 'placement' property value to "BELOW_LINE_ITEMS"
+   * @method above- sets the 'placement' property value to "ABOVE_LINE_ITEMS" - This is the default value.
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/InvoiceCustomField | Square Docs}
+   * @example
    *  let custom =  myVar.make().custom_fields();
    *  custom.label("coffee").value("decaf is evil")
    *  custom.above()
    *  custom.add() <- this adds the object to the array, if you don't do this, then it doesn't get saved.
-   *
-   *  Methods you can call:
-   *  .label(string) - 30 char max - REQUIRED
-   *  .value(sring) - 2,000 char max - optional
-   *  .above() - sets placement to: "ABOVE_LINE_ITEMS" - no need to call this if you want the default
-   *  .below() - sets placement to: "BELOW_LINE_ITEMS"
-   *  .add() - MUST BE CALLED LAST - calls the setter to push the custom fields item to the
-   *  custom_fields array
    * */
   make_custom_field() {
     let limit = this.configuration.maximums;

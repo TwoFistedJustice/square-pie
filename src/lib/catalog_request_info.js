@@ -1,7 +1,14 @@
 const Catalog_Request = require("./catalog_request_abstract");
 const man =
-  "fetches an object containing the limits that can be used by Catalog_Upsert.\n" +
+  "fetches an object containing the limits that can be used by Catalog_Upsert.n" +
+  "Has no make-function.\n" +
   "https://developer.squareup.com/reference/square/catalog-api/catalog-info";
+
+/** @class Catalog_Info
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/catalog-api/catalog-info | Square Docs}
+ * */
+
 class Catalog_Info extends Catalog_Request {
   _display_name = "Catalog_Info";
   _last_verified_square_api_version = "2021-07-21";

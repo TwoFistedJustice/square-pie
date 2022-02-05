@@ -2,7 +2,7 @@ const Catalog_Search_Objects_Super = require("./catalog_request_abstract_search_
 const { define, shazam_is_array } = require("./utilities");
 const { catalog_search_objects_enum } = require("./enum/index");
 const man =
-  "can search for any type of catalog objects\n" +
+  "can search for any type of catalog object\n" +
   "This is complicated. Read the Pie doc before you try to use it: " +
   "https://github.com/TwoFistedJustice/square-pie/blob/main/docs/pie_catalog_request_search.md\n" +
   "This class uses ONE array of ids to cross reference your search.\n" +
@@ -134,7 +134,6 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
 
   /** @function variations
    * @param {string} id an ID of a an item variation.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * */
 
   variations(id) {
@@ -143,7 +142,6 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   }
   /** @function items
    * @param {string} id an ID of a an item
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * */
 
   items(id) {
@@ -152,7 +150,6 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   }
   /** @function modifiers
    * @param {string} id an ID of a a modifier_list
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * */
 
   modifiers(id) {
@@ -161,7 +158,6 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   }
   /** @function taxes
    * @param {string} id an ID of a a tax object
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * */
 
   taxes(id) {
@@ -171,7 +167,6 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
 
   /** @function concat_variations
    * @param {array} arr an array of IDs of Item Variations.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * */
 
   concat_variations(arr) {
@@ -180,7 +175,6 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   }
   /** @function concat_item
    * @param {array} arr an array of IDs of Item objects
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * */
 
   concat_items(arr) {
@@ -189,7 +183,6 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   }
   /** @function concat_modifiers
    * @param {array} arr an array of IDs of Modifier List objects
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * */
 
   concat_modifiers(arr) {
@@ -198,7 +191,6 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   }
   /** @function concat_taxes
    * @param {array} arr an array of IDs of Tax objects
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * */
 
   concat_taxes(arr) {
@@ -207,22 +199,34 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   }
 
   /** @function make()  method of Catalog_Search_Cross_Reference - method names are exactly the same as the property names listed
-   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
-   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
-   * listed here.
-   * @method object_type - enumerated function - method names are same as lower case allowable values.
-   *{@link https://developer.squareup.com/reference/square/enums/CatalogObjectType | Square Docs}
-   * @method type - alias of object_type
-   * @method concat_variations - concatenates and array of ids
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method include_related_objects
+   * @param {bool} bool -
+   * @method begin_time
+   * @param {string} time - RFC3339 compliant time string. Will throw an error if not compliant.
+   * @method object_types - enumerated function
+   * {@link https://developer.squareup.com/reference/square/enums/CatalogObjectType | Square Docs}
+   * @method variations
+   * @param {string} id -
+   * @method items
+   * @param {string} id -
+   * @method modifiers
+   * @param {string} id -
+   * @method taxes
+   * @param {string} id -
+   * @method concat_variations - concatenates an array of ids
    * @param {array} an array of ids
-   * @method concat_items- concatenates and array of ids
+   * @method concat_items- concatenates an array of ids
    * @param {array} an array of ids
-   * @method concat_modifiers- concatenates and array of ids
+   * @method concat_modifiers- concatenates an array of ids
    * @param {array} an array of ids
-   * @method concat_taxes- concatenates and array of ids
+   * @method concat_taxes- concatenates an array of ids
    * @param {array} an array of ids
    * @method concat_object_types- concatenates an array of object types
    * @param {array} array_to_add -an array of of object type string values
+   * @method types - alias of object_type
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects | Square Docs}
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

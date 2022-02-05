@@ -9,6 +9,12 @@ const man =
   "You can mix and match any of these methods\n" +
   "https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects";
 
+/** @class Catalog_Retrieve
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects | Square Docs}
+ * @example
+ * */
+
 class Catalog_Retrieve extends Catalog_Request {
   _display_name = "Catalog_Retrieve";
   _last_verified_square_api_version = "2021-07-21";
@@ -55,6 +61,26 @@ class Catalog_Retrieve extends Catalog_Request {
     return this.retrieve(id);
   }
 
+  /** @function make()  method of Catalog_Retrieve - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method object_ids
+   * @param {string} id -
+   * @method retrieve
+   * @param {string} id -
+   * @method concat_object_ids - adds the contents of an array of ids to object_ids array.
+   * @param {array} arr -
+   * @method object
+   * @param {string} id -
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,

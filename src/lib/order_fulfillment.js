@@ -14,6 +14,11 @@ const man =
   "They are both one and done type methods. You don't need to add their output to anything. It is automatic.\n" +
   "\nhttps://developer.squareup.com/reference/square/objects/OrderFulfillment";
 
+/** @class Order_Fulfillment
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillment | Square Docs}
+ * */
+
 class Order_Fulfillment {
   _display_name = "Order_Fulfillment";
   _last_verified_square_api_version = "2021-07-21";
@@ -105,12 +110,35 @@ class Order_Fulfillment {
   }
 
   // PRIVATE METHODS
-
+  /** @function #enum_state
+   * @private
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   * @method proposed sets value to "PROPOSED"
+   * @method reserved sets value to "RESERVED"
+   * @method prepared sets value to "PREPARED"
+   * @method completed sets value to "COMPLETED"
+   * @method canceled sets value to "CANCELED"
+   * @method failed sets value to "FAILED"
+   
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/enums/OrderFulfillmentState | Square Docs}
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
   #enum_state() {
     return order_fulfillment_state.state(this);
   }
 
-  /**
+  /**@function  time_date
+   * @private
    * @param {fulfillment object} fulfillment
    * @param {string} key - the name of the property you want to create
    * @param {string} time - RFC3339 compliant date-time
@@ -126,7 +154,8 @@ class Order_Fulfillment {
     }
   }
 
-  /**
+  /**@function note
+   * @private
    * @param {fulfillment object} fulfillment
    * @param {string} key - the name of the property you want to create
    * @param {string} note - a string you want to persist
@@ -147,6 +176,22 @@ class Order_Fulfillment {
       ? define(fulfillment, key, value)
       : (fulfillment[key] = value);
   }
+
+  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method customer_id
+   * @param {string} val -
+   * @method display_name
+   * @param {string} val -
+   * @method email
+   * @param {string} val -
+   * @method phone
+   * @param {string} val -
+   * @method address
+   * @param {string} val -
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentRecipient | Square Docs}
+   * */
 
   #recipient(fulfillment) {
     let key = "recipient";
@@ -196,8 +241,46 @@ class Order_Fulfillment {
     };
   }
 
-  // MAKER METHODS
+  // MAKE METHODS
 
+  /** @function make_pickup()  method of Order_Fulfillment - Makes and sets a compliant pickup object.
+   *
+   * Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method state - Enumerated. Calls #enum_state().
+   * @method cancel_reason - sets `cancel_reason` to the value you pass and `state` to "CANCELED" and .
+   * @param {string} str -
+   * @method cancel - alias of cancel_reason
+   * @method auto_complete_duration
+   * @param {string} time - RFC3339 time string
+   * @method expires_at
+   * @param {string} time - RFC3339 time string
+   * @method pickup_at
+   * @param {string} time -
+   * @method pickup_window_duration
+   * @param {string} time - use one of the Pie duration utilities to easily construct a compliant duration string.
+   * @method prep_time_duration
+   * @param {string} time - use one of the Pie duration utilities to easily construct a compliant duration string.
+   * @method note
+   *@param {string} str -
+   * @method asap - sets `schedule_type` to "ASAP"
+   * @method scheduled - sets `schedule_type` to "SCHEDULED"
+   * @method recipient - calls #recipient()
+   * @param {string}  str -
+   * @method curbside_details - sets `curbside_details` to the value you pass and `is_curbside_pickup` to true.
+   * @param {string}  -
+   * @method buyer_arrived_at
+   * @param {string} time - RFC3339 time string
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make_pickup() {
     this.type = "PICKUP";
     this.pickup_details = {};
@@ -276,6 +359,41 @@ class Order_Fulfillment {
     };
   }
 
+  /** @function make_shipment()  method of Order_Fulfillment - Makes and sets a compliant shipment object.
+   *
+   * Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method state - Enumerated. Calls #enum_state().
+   * @method expected_shipped_at
+   * @param {string} time - RFC3339 time string
+   * @method cancel_reason - sets `cancel_reason` to the value you pass and `state` to "CANCELED" and .
+   * @param {string} str -
+   * @method cancel - alias of cancel_reason
+   * @method failure_reason
+   * @param {string} str -
+   * @method tracking_number
+   * @param {string} str -
+   * @method shipping_note
+   * @param {string} str -
+   * @method note
+   * @param {string} str -
+   * @method tracking_url
+   * @param {string} str -
+   * @method shipping_type
+   * @param {string} str -
+   * @method carrier
+   * @param {string} str -
+   * @method recipient - calls #recipient()
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentShipmentDetails | Square Docs}
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   * */
   make_shipment() {
     this.type = "SHIPMENT";
     this.shipment_details = {};
@@ -301,6 +419,7 @@ class Order_Fulfillment {
         this.cancel_reason(str);
         return this;
       },
+      //todo auto set state to failed
       failure_reason: function (str) {
         let key = "failure_reason";
         this.self.#note(fulfillment, key, str);
@@ -342,6 +461,30 @@ class Order_Fulfillment {
     };
   }
 
+  /** @function make()  method of Order_Fulfillment - Do not use this unless you have pre-built pickup or
+   * shipment objects. Rather use make_pickup() or make_shipment().
+   *
+   * Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method uid - automatically set. Use this to replace the generated uid.
+   * @param {string} val -
+   * @method state
+   * @param {string} val -
+   * @method type
+   * @param {string} val -
+   * @method pickup_details
+   * @param {object} val - a fully formed compliant pickup object. Use only if you already have a compliant object. Otherwise, use make_pickup().
+   * @method shipment_details
+   * @param {object} val - a fully formed compliant shipment object. Use only if you already have a compliant object. Otherwise, use make_shipment().
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   * */
   make() {
     return {
       self: this,

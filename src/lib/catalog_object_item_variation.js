@@ -12,7 +12,7 @@ const man =
   "Creates a Catalog Item-Variation which you must then add to an 'Item'.\n" +
   "\nhttps://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation";
 
-/** @class  Catalog_Item_Variation representing a CatalogItemVariation
+/** @class  Catalog_Item_Variation
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation | Square Docs}
  * @example
@@ -343,20 +343,50 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     };
   }
 
-  //METHODS
+  //MAKE METHODS
+
   /** @function make()  method of Catalog_Item_Variation - method names are exactly the same as the property names listed
-   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
-   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
-   * listed here.
-   * @method `item_option_values`
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method name
+   * @param {string} str -
+   * @method present_at_all_locations
+   *@param {bool} bool -
+   * @method present_at_location_ids
+   *
+   * @method available_for_booking
+   *@param {bool} bool -
+   * @method service_duration
+   * @param {number} num -
+   * @method item_id
+   * @param {string} id -
+   * @method item_option_values
    * @param {string} `option_id`
    * @param {string} `value_id`
    * @method `location_overrides` - calls `make_location_override()`. See that entry.
+   * @method inventory_alert_threshold
+   * @param {number} int -
    * @method  `inventory_alert_type - calls `#enum_inventory_alert_type`. See that entry.
    * @method `price_money`
    * @param {number} `amount` - an integer. The price in the smallest currency designation. Usually cents.
+   * @param {string} `currency` - Three letter currency designation. Enforces ISO 4217 format. Case insens
+   * @method track_inventory
+   *@param {bool} bool -
+   * @method measurement_unit_id
+   * @param {string} id -
+   * @method price_money - Standard compliant money object builder.
+   * @param {number} `amount` - an integer. The price in the smallest currency designation. Usually cents.
    * @param {string} `currency` - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
+   * @method sku
+   * @param {string} sku -
+   * @method stockable
+   * @param {bool} bool -
    * @method `stockable_conversion` - calls make_stockable_conversion(). See that entry.
+   * @method team_member_ids
+   * @param {string} str -
+   * @method upc
+   * @param {string} upc -
+   * @method user_data
+   * @param {string} str -
    * @method `pricing_type` - enumerated. Calls #enum_pricing_type. See that entry.
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
@@ -368,6 +398,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    *   make.gremlin()
    *
    * */
+
   make() {
     return {
       self: this,
@@ -463,10 +494,16 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    * in the Square docs. If the method is not listed here it takes one argument of the type specified by
    * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters
    * are listed here.  You must use parentheses with every call to make and with every sub-method.
-   * @method `price_money`
+   * @method location_id
+   * @param {string} id -
+   * @method price_money - Standard compliant money object builder.
    * @param {number} `amount` - an integer. The price in the smallest currency designation. Usually cents.
    * @param {string} `currency` - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
    * @method `price` alias of `price_money`
+   * @method pricing_type - calls enum_pricing_type().
+   * @method track_inventory
+   * @method inventory_alert_threshold
+   * @param {number} int -
    * @method `inventory_alert_type` Calls #enum_inventory_alert_type(). See entry for that.
    * @method `alert_type` - alias of `inventory_alert_type`
    * @method `alert_threshold` - alias of `inventory_alert_threshold`. See Square docs.

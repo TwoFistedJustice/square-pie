@@ -11,8 +11,8 @@ const man =
   "creats a Payment Request OBJECT. This is NOT a 'http-request' class.\n" +
   "tipping: if tipping is enabled request_type must be BALANCE or INSTALLMENT\n" +
   "percentage_requested: You cannot specify percentage_requested when the payment request_type is BALANCE or\n" +
-  "when the payment request specifies the fixed_amount_requested_money field." +
-  "\n\nhttps://developer.squareup.com/reference/square/objects/InvoicePaymentRequest";
+  "when the payment request specifies the fixed_amount_requested_money field.\n" +
+  "\nhttps://developer.squareup.com/reference/square/objects/InvoicePaymentRequest";
 
 /** @class Invoice_Payment_Request_Object representing a payment request for an invoice
  * @param {}  You must do this before calling .request()
@@ -135,20 +135,9 @@ class Invoice_Payment_Request_Object {
   set fixed_amount_requested_money(val) {
     this._fardel.fixed_amount_requested_money = val;
   }
-  /** @method setter percentage_requested: You cannot specify percentage_requested when the payment request_type is BALANCE or
-   * when the payment request specifies the fixed_amount_requested_money field
-   * @param {number}  percent
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * */
   set percentage_requested(percent) {
     this._fardel.percentage_requested = percent;
   }
-  /** @method setter: tipping_enabled - This field is allowed only on the final payment request and the payment request_type must
-   *  be BALANCE or INSTALLMENT. If set to true, the Square-hosted invoice page (the public_url field
-   *  of the invoice) provides a place for the customer to pay a tip.
-   * @param {boolean} bool
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * */
   set tipping_enabled(bool) {
     if (shazam_boolean(bool, this._display_name, "tipping_enabled")) {
       this._fardel.tipping_enabled = bool;
@@ -166,6 +155,26 @@ class Invoice_Payment_Request_Object {
   }
 
   // PRIVATE ENUM METHODS
+  /** @function #request_type_enum()
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   * @private
+   * @method balance sets value to "BALANCE"
+   * @method deposit sets value to "DEPOSIT"
+   * @method installment sets value to "INSTALLMENT"
+   
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/enums/InvoiceRequestType | Square Docs}
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
   #request_type_enum() {
     return {
       self: this,
@@ -184,6 +193,26 @@ class Invoice_Payment_Request_Object {
     };
   }
 
+  /** @function
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   * @private
+   * @method none  sets value to "NONE"
+   * @method card  sets value to "CARD_ON_FILE"
+   * @method bank sets value to "BANK_ON_FILE"
+   
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/enums/InvoiceAutomaticPaymentSource | Square Docs}
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
   #automatic_payment_source_enum() {
     return {
       self: this,
@@ -209,8 +238,8 @@ class Invoice_Payment_Request_Object {
    * to have square send a reminder 89 years before or after a payment is due, this is the one to use. The third argument
    * completely overrides the second. If you pass a number as the third argument, whatever you passed as the second argument
    * will be ignored.
-   *
-   * @param {string}  The reminder message - 1,000 char max
+   * @private
+   * @param {string}  message The reminder message - 1,000 char max
    * @param {int32}  days - Max: +-365 - The number of days before (negative number)  or after (positive number) the reminder is sent.
    * @param {int32}  whoa_nelly - Slow down thar! If you need less than one year, use 'days' and leave this field empty. Max:  +-32,767 The number of days before (negative number)  or after (positive number) the reminder is sent. If whoa_nelly is specified, the 'days' argument is ignored.
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
@@ -250,6 +279,41 @@ class Invoice_Payment_Request_Object {
   }
 
   // MAKER METHODS
+  /** @function make()  method of Invoice_Payment_Request_Object - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method uid
+   *@param {string} id - The Square-generated ID
+   * @method request_type - enumerated - calls #request_type_enum()
+   * @method due_date
+   * @param {string} YYYYMMDD -
+   * @method fixed_amount_requested_money - Standard compliant money object builder.
+   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
+   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
+   * @method percentage_requested - You cannot specify percentage_requested when the payment request_type is BALANCE or
+   * when the payment request specifies the fixed_amount_requested_money field
+   * @param {number}  percent
+   * @method tipping_enabled - This field is allowed only on the final payment request and the payment request_type must
+   *  be BALANCE or INSTALLMENT. If set to true, the Square-hosted invoice page (the public_url field
+   *  of the invoice) provides a place for the customer to pay a tip.
+   * @param {boolean} bool
+   * @method automatic_payment_source - enumerated - shortened names. Calls #automatic_payment_source_enum().
+   * @method card_id
+   * @param {string} id -
+   * @method reminder
+   * @param {string}  message The reminder message - 1,000 char max
+   * @param {int32}  days - Max: +-365 - The number of days before (negative number)  or after (positive number) the reminder is sent.
+   * @param {int32}  whoa_nelly - Slow down thar! If you need less than one year, use 'days' and leave this field empty. Max:  +-32,767 The number of days before (negative number)  or after (positive number) the reminder is sent. If whoa_nelly is specified, the 'days' argument is ignored.
+   
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,
@@ -268,21 +332,10 @@ class Invoice_Payment_Request_Object {
         this.self.fixed_amount_requested_money = arche_money(amount, currency);
         return this;
       },
-      /** @method make().setter percentage_requested(): You cannot specify percentage_requested when the payment request_type is BALANCE or
-       * when the payment request specifies the fixed_amount_requested_money field
-       * @param {number}  percent
-       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-       * */
       percentage_requested: function (percent) {
         this.self.percentage_requested = percent;
         return this;
       },
-      /** @method make().tipping_enabled() - This field is allowed only on the final payment request and the payment request_type must
-       *  be BALANCE or INSTALLMENT. If set to true, the Square-hosted invoice page (the public_url field
-       *  of the invoice) provides a place for the customer to pay a tip.
-       * @param {boolean} bool
-       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-       * */
       tipping_enabled: function (bool) {
         this.self.tipping_enabled = bool;
         return this;

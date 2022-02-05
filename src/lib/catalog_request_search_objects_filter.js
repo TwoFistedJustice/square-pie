@@ -214,6 +214,24 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
    * in the Square docs. If the method is not listed here it takes one argument of the type specified by
    * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
    * listed here.
+   
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
+
+  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method include_related_objects
+   * @param {bool} bool -
+   * @method begin_time
+   * @param {string} time - an RFC3339 compliant time string.
    * @method exact_query
    * @param {string} key - The exact name of the attribute to be searched
    * @param {string} value - The value of the search attribute. Case insensitive and can be partial.
@@ -231,6 +249,9 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
    * @method sorted_attribute_query calls make_sorted_attribute_query() - See that entry.
    * @method object_type - enumerated function - method names are same as lower case allowable values.
    *{@link https://developer.squareup.com/reference/square/enums/CatalogObjectType | Square Docs}
+   * @method type - alias of object_type
+   * @method concat_object_types -add the contents of an array of object types
+   * @param {array} array_to_add - an array of object types (strings)
    * @method type - alias of object_type
    * @method concat_object_types
    * @param {array} array_to_add - array of Object Type values.
@@ -251,6 +272,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
    *   make.gremlin()
    *
    * */
+
   make() {
     // any changes made to super modification methods should be replicated on Catalog_Search_Cross_Reference
     return {

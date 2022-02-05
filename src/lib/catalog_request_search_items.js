@@ -13,6 +13,12 @@ const man =
   "Follow standard Pie syntax and reference the Square docs for names of properties and allowable values.\n" +
   "https://developer.squareup.com/reference/square/catalog-api/search-catalog-items";
 
+/** @class Catalog_Search_Items
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-items | Square Docs}
+ * @example
+ * */
+
 class Catalog_Search_Items extends Catalog_Request {
   _display_name = "Catalog_Search_Items";
   _last_verified_square_api_version = "2021-07-21";
@@ -221,6 +227,45 @@ class Catalog_Search_Items extends Catalog_Request {
   }
 
   // MAKER METHODS
+  /** @function make()  method of Catalog_Search_Items - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method sort_order calls enum_sort_order()
+   * @method stock_levels calls enum_stock_levels()
+   * @method text_filter
+   * @param {string} str -
+   * @method product_types calls enum_product_type()
+   * @method category_ids
+   * @param {string} id -
+   * @method enabled_location_ids
+   * @param {string} id -
+   * @method custom_attribute_filters
+   * @param {object} obj - make using make_custom_attribute_filter()
+   * @method sort -  alias of sort_order
+   * @method stock - alias of product_types
+   * @method stock -  alias of sort_order
+   * @method text -  alias of text_filter
+   * @param {string} str -
+   * @method custom - alias of custom_attribute_filters
+   * @param {object} obj -
+   * @method category - alias of category_ids
+   * @param {string} id -
+   * @method location alias of enabled_location_ids
+   * @method concat_categories - adds the contents of an array of category ids
+   * @param {array} arr - array of ids (strings)
+   * @method concat_enabled_locations  - adds the contents of an array of location ids
+   * @param {array} arr - array of ids (strings)
+   * @method concat_custom_attribute_filters - adds the contents of an array of custom attribute filter objects
+   * @param {array} arr - array of objects
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,
@@ -284,7 +329,35 @@ class Catalog_Search_Items extends Catalog_Request {
       },
     };
   }
-  // https://developer.squareup.com/reference/square/objects/CustomAttributeFilter
+  /** @function make_custom_attribute_filter()  method of Catalog_Search_Items - use this to make
+   * compliant Custom Attribute Filter objects.
+   *
+   * - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method custom_attribute_definition_id
+   * @param {string} id -
+   * @method key
+   * @param {string} str -
+   * @method string_filter
+   * @param {string} str -
+   * @method number_filter
+   * @param {number} num1 -
+   * @param {number} num2 -
+   * @method selection_uids_filter
+   * @param {string} str -
+   * @method bool_filter
+   * @param {bool} bool -
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/objects/CustomAttributeFilter | Square Docs}
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make_custom_attribute_filter() {
     this.#init_filter();
     let filter = this._attribute_filter;

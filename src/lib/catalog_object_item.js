@@ -19,6 +19,13 @@ const man =
   "or skip make() and just call the setter `.variations = variation.fardel`" +
   "\nhttps://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItem";
 
+/** @class Catalog_Item
+ * @param {string} id -  Optional. A temporary id will be assigned if you omit this.
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link  | Square Docs}
+ * @example
+ * */
+
 class Catalog_Item extends Catalog_Object_Super {
   _display_name = "Catalog_Item";
   _last_verified_square_api_version = "2021-12-15";
@@ -242,6 +249,26 @@ class Catalog_Item extends Catalog_Object_Super {
 
   // PRIVATE METHODS
 
+  /** @function enum_product_type
+   * @private
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   * @method regular - sets value to "REGULAR"
+   * @method appointments_service - sets value to "APPOINTMENTS_SERVICE"
+   * @method appointment alias of appointments_service
+   * @method appt alias of appointments_service
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/enums/CatalogItemProductType | Square Docs}
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
   #enum_product_type() {
     return {
       self: this,
@@ -261,6 +288,8 @@ class Catalog_Item extends Catalog_Object_Super {
       },
     };
   }
+
+  // MAKE METHODS
   /** @function make_modifier_list - builds a compliant modifier_list_Info object. To use the 'view' method you must set the function
    * to a variable and call the method on the variable. If you don't do this, it will return an un-constructed  object.
    *
@@ -349,7 +378,54 @@ class Catalog_Item extends Catalog_Object_Super {
     };
   }
 
-  //MAKER METHODS
+  /** @function make()  method of Catalog_Item - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method id
+   * @param {string} id -
+   * @method temp_id
+   * @param {string} temp_id - will concatenate the argument to "#temp_id_"
+   * @method present_at_all_locations
+   * @param {bool} bool -
+   * @method present_at_all_locations_ids
+   * @param {string} id -
+   * @method name
+   * @param {string} str -
+   * @method description
+   * @param {string} str -
+   * @method abbreviation
+   * @param {string} str -
+   * @method label_color
+   * @param {string} hex - a hexadecimal color
+   * @method available_online
+   * @param {bool} bool -
+   * @method available_for_pickup
+   * @param {bool} bool -
+   * @method available_electronically
+   * @param {bool} bool -
+   * @method category_id
+   * @param {string} id -
+   * @method tax_ids
+   * @param {string} id -
+   * @method modifier_list_info
+   * @param {object} mod - a modifier list object
+   * @method variations
+   * @param {object} obj - an item_variation object
+   * @method skip_modifier_screen
+   * @param {bool} bool -
+   * @method item_options
+   * @param {string} id -
+   * @method sort_name
+   * @method product_type - enumerated function
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,

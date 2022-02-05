@@ -7,6 +7,11 @@ const man =
   "You can mix and match methods.\n" +
   "\nhttps://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects";
 
+/** @class Catalog_Delete
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects | Square Docs}
+ * */
+
 class Catalog_Delete extends Catalog_Request {
   _display_name = "Catalog_Delete";
   _last_verified_square_api_version = "2021-07-21";
@@ -39,7 +44,22 @@ class Catalog_Delete extends Catalog_Request {
     }
   }
   //MAKER METHODS
-
+  /** @function make()  method of Catalog_Delete - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method object_ids
+   * @param {string} id - object ids of documents you wish to delete. Must add at least one.
+   * @method concat_object_ids
+   * @param {array} arr - array of ids (strings)
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,
@@ -54,16 +74,40 @@ class Catalog_Delete extends Catalog_Request {
     };
   }
 
+  /** @function delete - adds a single object id to the delete request
+   * @param {string} id
+   * @example
+   * myVar.delete(id)
+   * */
+
   delete(id) {
     this.object_ids = id;
     return this;
   }
+  /** @function effacer - ajouter un seule object id au requete effacer
+   * @param {string} id
+   * @example
+   * myVar.effacer(id)
+   * */
+
   effacer(id) {
     return this.delete(id);
   }
+
+  /** @function nix - alias of delete
+   * @param {string} id
+   * @example
+   * myVar.nix(id)
+   * */
+
   nix(id) {
     return this.delete(id);
   }
+  /** @function disintegrate - alias of delete
+   * @param {string} id
+   * @example
+   * myVar.disintegrate(id)
+   * */
 
   disintegrate(id) {
     return this.delete(id);

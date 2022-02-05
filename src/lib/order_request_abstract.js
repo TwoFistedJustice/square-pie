@@ -1,5 +1,9 @@
 const Square_Request = require("./square_request_abstract");
 
+/** @class Order_Request super class of all Order Request classes
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * */
+
 class Order_Request extends Square_Request {
   _display_name = "Order_Request";
   constructor() {

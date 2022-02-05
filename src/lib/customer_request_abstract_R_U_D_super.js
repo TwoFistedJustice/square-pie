@@ -7,8 +7,6 @@ const {
 
 /** @class Customer_Retrieve_Update_Delete_Super super class of Customer API request classes to retrieve, update, and delete customer records
  * @param {id} id is fed in via the sub class constructor argument
- *
- *
  *  @see Customer_Request
  *  @author Russ Bain
  *  */
@@ -38,7 +36,7 @@ class Customer_Retrieve_Update_Delete_Super extends Customer_Request {
 
   /** @function  append_query_param - adds query parameters - for Customer_Delete sub class only.
    * First it checks to see if the parameter is already set on the endpoint, and if it is, replaces it.
-   * If the parameter is not set, it sppends a new query parameter to the endpoint.
+   * If the parameter is not set, it appends a new query parameter to the endpoint.
    * @param {string}  param - the name of the parameter
    * @param {integer}  value - the value to set the parameter to
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
@@ -60,7 +58,21 @@ class Customer_Retrieve_Update_Delete_Super extends Customer_Request {
     this._endpoint = endpoint;
   }
 
-  // MAKER METHODS
+  // MAKE METHODS
+  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method id
+   * @param {string} id - Sets the id portion of the endpoint
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,

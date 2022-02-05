@@ -54,6 +54,22 @@ class Order_Calculate extends Order_Request {
     }
   }
 
+  /** @function make()  method of Order_Calculate - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method idempotency_key - this is set automatically
+   * @param {string} key -
+   * @method order
+   *  @param {object} fardel - an Order_Object fardel property
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,

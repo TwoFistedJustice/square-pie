@@ -326,11 +326,32 @@ class Order_Search extends Order_Request {
   }
 
   // BUILDER METHODS
-  /** @method  make_query -
+  // todo need to be able to add whole arrays with length validation
+  /** @function make_query()  method of Order_Search - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method customer_filter
+   * @param {string} id -
+   * @method source_filter
+   * @param {string} id -
+   * @method date_time_filter - calls #build_date_time_filter()
+   *
+   * @method fulfillment_filter - calls #build_fulfillment_filter()
+   *
+   * @method state_filter - calls #build_state_filter()
+   *
+   * @method sort
+   *
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery  | Square Docs}
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
    * */
-  // todo need to be able to add whole arrays with length validation
   make_query() {
     const name = this.display_name + ".make_query";
     this.#define_query();
@@ -404,6 +425,29 @@ class Order_Search extends Order_Request {
     };
   }
 
+  /** @function make()  method of Order_Search - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method location_ids
+   * @param {string} location_id -
+   * @method limit
+   * @param {number} int -
+   * @method return_entries
+   * @param {bool} bool -
+   * @method query
+   *  @param {object} search_orders_query -
+   * @method location - alias of `location_ids`
+   * @method concat_locations - adds the contents of an array of IDs to the `location_ids` array
+   @param {array} arr - an array of location_ids
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,

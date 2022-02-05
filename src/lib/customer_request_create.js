@@ -10,8 +10,7 @@ const man =
 
 /** @class Customer_Create representing an http request to create a customer record
  * You can pass a customer object in either via the customer setter or via the constructor
- *
- *  @param {customer object} pass a compliant customer object when you instantiate
+ *  @param {customer object} pass a compliant customer object when you instantiate this class
  *  @see Customer_Request
  *  @author Russ Bain
  *  */

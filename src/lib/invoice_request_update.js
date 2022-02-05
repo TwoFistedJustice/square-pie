@@ -5,12 +5,12 @@ const { shazam_max_length, arrayify } = require("./utilities");
 const man =
   "http request to upate an invoice by modifying fields, clearing fields, or both. \n" +
   "Pass the invoice_id as a string argument when you instantiate the class. There is no option to do it later.\n" +
-  "If you want to change values on invoice fields, create a sparse invoice using Invoice_Object class. If the invoice" +
+  "If you want to change values on invoice fields, create a sparse invoice using Invoice_Object class. If the invoice\n" +
   "has illegal updates this class will throw an error. To aid in debugging, the specific reason will be stashed at myVar.reason.\n" +
-  "You can also manually validate a sparse invoice by passing it to myVar.validate(fardel). Then check myVar.reason." +
-  "You may not update the order_id or location_id. You may not update the primary_recipient on a published invoice." +
-  "\n\nhttps://developer.squareup.com/reference/square/invoices-api/update-invoice" +
-  "\n\nhttps://developer.squareup.com/docs/invoices-api/overview#update-an-invoice";
+  "You can also manually validate a sparse invoice by passing it to myVar.validate(fardel). Then check myVar.reason.\n" +
+  "You may not update the order_id or location_id. You may not update the primary_recipient on a published invoice.\n" +
+  "\nhttps://developer.squareup.com/reference/square/invoices-api/update-invoice" +
+  "\nhttps://developer.squareup.com/docs/invoices-api/overview#update-an-invoice";
 
 /** @class Invoice_Update
  * @param {object}  invoice_document Get the invoice you want to update from Square and pass it as an argument.
@@ -270,7 +270,26 @@ class Invoice_Update extends Invoice_RUDCnP {
     return is_legal;
   }
 
-  // MAKER METHODS
+  // MAKE METHODS
+  /** @function make()  method of Invoice_Update - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method idempotency_key - this is set automatically
+   * @param {string} key -
+   * @method invoice
+   * @param {object} fardel  - a sparse invoice object fardel containing only the fields to be changed.
+   * @method fields_to_clear
+   * @param {string} field - the key of the key:value pair to be cleard.
+   
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
   make() {
     return {
       self: this,

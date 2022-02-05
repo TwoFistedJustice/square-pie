@@ -11,13 +11,16 @@ const man =
   "Follow the structure on the Square batch-upsert request page\n" +
   "\nhttps://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects";
 
+/** @class Catalog_Object_Super - super class of Catalog API objects
+ * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link  | Square Docs}
+ * @example
+ * */
+
 class Catalog_Object_Super {
   _display_name = "Catalog_Object_Super";
   _last_verified_square_api_version = "2021-12-15";
   _help = this.display_name + ": " + man;
-  /**
-   * Create a catalog object
-   */
   constructor() {
     // do not add a constructor argument as it will interfere with subclasses
     this._fardel = {
@@ -35,56 +38,28 @@ class Catalog_Object_Super {
   get help() {
     return this._help;
   }
-  /**
-   * Gets catalog object id
-   * @returns {string} id
-   */
   get id() {
     return this._fardel.id;
   }
   get fardel() {
     return this._fardel;
   }
-  /**
-   * Gets if object can be found at all locations
-   * @returns {boolean}
-   */
   get present_at_all_locations() {
     return this._fardel.present_at_all_locations;
   }
 
-  /**
-   * Gets list of ids for locations that have object
-   * @returns {(string[])} of location ids
-   */
   get present_at_location_ids() {
     return this._fardel.present_at_location_ids;
   }
 
-  /**
-   * Sets the catalog object id
-   * @param {string} id
-   */
   set id(id) {
     this._fardel.id = id;
   }
 
-  /**
-   * Sets if object can be found at all locations
-   *
-   * @param {boolean} bool
-   * @returns {boolean} true or false
-   */
   set present_at_all_locations(bool) {
     this._fardel.present_at_all_locations = bool;
   }
 
-  /**
-   * Sets locations by id of were the object is stocked
-   *
-   * @param {string[]} id
-   * @returns {string[]} list of location ids
-   */
   set present_at_location_ids(id) {
     arrayify(this._fardel, "present_at_location_ids", this._display_name);
     this._fardel.present_at_location_ids.push(id);
