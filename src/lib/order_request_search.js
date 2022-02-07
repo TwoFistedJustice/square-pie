@@ -406,16 +406,29 @@ class Order_Search extends Order_Request {
         return this.self.#build_state_filter();
       },
 
-      /** @method sort_field
+      /** @function sort_order()  enumerated function of arche_sorting_enum -
+       * @method ascending - sets sort_order to "ASC"
+       * @method up - alias of `ascending`
+       * @method oldest_first - alias of `ascending`
+       * @method descending - sets sort_order to "DESC"
+       * @method down - alias of `descending`
+       * @method newest_first - alias of `descending`
        * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
        * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery | Square Docs}
-       *  Default values are set. If you want to change them use this.
-       *  sort values of "CREATED_AT" and "ASC" (ascending - oldest first)
-       *
        * */
+
       sort_order: function () {
         return arche_sorting_enum.sort_order(sort, this);
       },
+      /** @function sort_field()  enumerated function of arche_sorting_enum
+       * @method created_at sets sort_field to "CREATED_AT"
+       * @method created - alias of created_at
+       * @method updated_at sets sort_field to "UPDATED_AT"
+       * @method updated - alias of updated_at
+       * @method closed_at sets sort_field to "CLOSED_AT"
+       * @method closed - alias of closed_at
+       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+       * */
       sort_field: function () {
         return arche_sorting_enum.sort_field(sort, this);
       },

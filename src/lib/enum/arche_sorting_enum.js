@@ -33,8 +33,7 @@ const arche_sorting_enum = {
    * }
    * */
 
-  /** @function sort_order()  enumerated function of arche_sorting_enum - method names are exactly the same as the property names listed
-   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+  /** @function sort_order()  enumerated function of arche_sorting_enum -
    * @method ascending - sets sort_order to "ASC"
    * @method up - alias of `ascending`
    * @method oldest_first - alias of `ascending`
@@ -43,7 +42,6 @@ const arche_sorting_enum = {
    * @method newest_first - alias of `descending`
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * */
-
   sort_order: function (obj, calling_this) {
     return {
       ascending: function () {
@@ -69,8 +67,7 @@ const arche_sorting_enum = {
     };
   },
 
-  /** @function sort_field()  enumerated function of arche_sorting_enum - method names are exactly the same as the property names listed
-   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+  /** @function sort_field()  enumerated function of arche_sorting_enum
    * @method created_at sets sort_field to "CREATED_AT"
    * @method created - alias of created_at
    * @method updated_at sets sort_field to "UPDATED_AT"
