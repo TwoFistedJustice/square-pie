@@ -339,7 +339,8 @@ class Order_Search extends Order_Request {
    *
    * @method state_filter - calls #build_state_filter()
    *
-   * @method sort
+   * @method sort_order  Enumerated. Calls on arche_sorting_enum module.
+   * @method sort_field  Enumerated. Calls on arche_sorting_enum module.
    *
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery  | Square Docs}
