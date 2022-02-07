@@ -414,10 +414,10 @@ class Order_Search extends Order_Request {
        *
        * */
       sort_order: function () {
-        return arche_sorting_enum.sort_order(sort);
+        return arche_sorting_enum.sort_order(sort, this);
       },
       sort_field: function () {
-        return arche_sorting_enum.sort_field(sort);
+        return arche_sorting_enum.sort_field(sort, this);
       },
     };
   }

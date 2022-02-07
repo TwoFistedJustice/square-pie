@@ -464,6 +464,27 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expect(search.query.sort).toMatchObject(expected_sort);
   });
 
+  test("sort.sort_field and sort_order should curry with other methods ", () => {
+    let expected = {
+      filter: {
+        customer_filter: {
+          customer_ids: ["1"],
+        },
+        date_time_filter: undefined,
+        fulfillment_filter: undefined,
+        source_filter: undefined,
+        state_filter: undefined,
+      },
+      sort: {
+        sort_field: "CLOSED_AT",
+        sort_order: "DESC",
+      },
+    };
+
+    query.sort_field().closed_at().sort_order().down().customer_filter("1");
+    expect(search.query).toMatchObject(expected);
+  });
+
   /* --------------------------------------------------------*
    *                                                         *
    *                        date_time_filter
