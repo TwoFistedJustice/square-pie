@@ -5,13 +5,13 @@ const man =
   "creates a new order document in a DRAFT state by copying core fields from an existing order.\n" +
   'Add the order_id of the one you want to clone by calling make().order("order_id")' +
   "\nhttps://developer.squareup.com/reference/square/orders-api/clone-order";
-/** @class Order_clone representing a call to clone an existing order.
+/** @class Order_Clone representing a call to clone an existing order.
  * @param {string} id - the id of the order you want to clone. You can also add this later. You must do this before calling .request()
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/orders-api/clone-order | Square Docs}
  * */
 
-class Order_clone extends Order_Request {
+class Order_Clone extends Order_Request {
   _display_name = "Order_Clone";
   _last_verified_square_api_version = "2021-12-15";
   _help = this.display_name + ": " + man;
@@ -55,7 +55,7 @@ class Order_clone extends Order_Request {
   }
 
   // MAKE METHODS
-  /** @function make()  method of Order_clone - method names are exactly the same as the property names listed
+  /** @function make()  method of Order_Clone - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
    * @method idempotency_key - set automatically
    * @param {string} key -
@@ -100,4 +100,4 @@ class Order_clone extends Order_Request {
   }
 }
 
-module.exports = Order_clone;
+module.exports = Order_Clone;
