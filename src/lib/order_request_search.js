@@ -354,8 +354,8 @@ class Order_Search extends Order_Request {
    * */
   make_query() {
     const name = this.display_name + ".make_query";
-    const sort = this.self.query.sort;
     this.#define_query();
+    const sort = this.query.sort;
     return {
       self: this,
       customer_filter: function (id) {
@@ -412,17 +412,6 @@ class Order_Search extends Order_Request {
        *  sort values of "CREATED_AT" and "ASC" (ascending - oldest first)
        *
        * */
-      // sort: function () {
-      //
-      //   return {
-      //     sort_order: function () {
-      //       return arche_sorting_enum.sort_order(sort);
-      //     },
-      //     sort_field: function () {
-      //       return arche_sorting_enum.sort_field(sort);
-      //     },
-      //   };
-      // },
       sort_order: function () {
         return arche_sorting_enum.sort_order(sort);
       },
