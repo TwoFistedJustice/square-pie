@@ -161,7 +161,7 @@ class Order_object_service_charge {
 
   // PRIVATE METHODS
 
-  /** @function
+  /** @function #enum_calculation_phase
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
