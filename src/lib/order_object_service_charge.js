@@ -181,7 +181,7 @@ class Order_object_service_charge {
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
-  #calculation_phase_enum(calling_this) {
+  #enum_calculation_phase(calling_this) {
     return {
       self: this,
       subtotal_phase: function () {
@@ -217,7 +217,7 @@ class Order_object_service_charge {
    * @method amount_money Standard compliant money object builder.
    * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
    * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
-   * @method calculation_phase Enumerated. Calls #calculation_phase_enum
+   * @method calculation_phase Enumerated. Calls #enum_calculation_phase
    * @method taxable
    * @param {bool} bool -
    * @method applied_taxes
@@ -261,7 +261,7 @@ class Order_object_service_charge {
         return this;
       },
       calculation_phase: function () {
-        return this.self.#calculation_phase_enum(this);
+        return this.self.#enum_calculation_phase(this);
       },
       taxable: function (bool) {
         this.self.taxable = bool;
