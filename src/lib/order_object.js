@@ -7,12 +7,12 @@ const {
 const { order_object_enum } = require("./enum/index");
 const man =
   " builds a compliant Square order object. Too add discounts, line items or order fulfillments\n" +
-  "first build them with the `Order_Discount`, `Order_Line_Item` and `Order_Fulfillment` classes. To add them to your/n" +
-  "order object call the appropriate make() sub-method and pass their fardel as an argument./n" +
-  "There are `build` and `add` methods for service_charge_amount and service_charge applied. Use only/n" +
-  "one per addition or you risk double adding. Each takes the arguments `(amount, currency)` with a default/n" +
-  'currency of "USD". See Pie docs for more details. ' +
-  "\nhttps://developer.squareup.com/reference/square/objects/Order";
+  "first build them with the `Order_Discount`, `Order_Line_Item` and `Order_Fulfillment` classes. To add them to your\n" +
+  "order object call the appropriate make() sub-method and pass their fardel as an argument.\n" +
+  "There are `build` and `add` methods for service_charge_amount and service_charge applied. Use only\n" +
+  "one per addition or you risk double adding. Each takes the arguments `(amount, currency)` with a default\n" +
+  'currency of "USD". See Pie docs for more details.\n' +
+  "https://developer.squareup.com/reference/square/objects/Order";
 
 /** @class  representing a
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
