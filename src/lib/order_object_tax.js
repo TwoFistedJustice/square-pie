@@ -5,8 +5,8 @@ const { arche_money } = require("./utilities/");
 const man =
   "build one Line Item Tax for an order. (goes in taxes array of Order_Object) \n" +
   "Uses standard Pie syntax. There is nothing unusual about this class.\n" +
-  "uid is set automatically. But you can change it using make().uid()\n";
-("https://developer.squareup.com/reference/square_2022-01-20/objects/OrderLineItemTax");
+  "uid is set automatically. But you can change it using make().uid()\n" +
+  "https://developer.squareup.com/reference/square_2022-01-20/objects/OrderLineItemTax";
 
 /** @class Order_Tax representing an OrderLineItemTax
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
