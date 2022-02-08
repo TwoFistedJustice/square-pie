@@ -201,7 +201,7 @@ class Order_object_service_charge {
     };
   }
 
-  // MAKER METHODS
+  // MAKE METHODS
   /** @function make()  method of Order_Service_Charge - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
    * @method uid
@@ -230,7 +230,6 @@ class Order_object_service_charge {
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
    * */
 
   make() {
