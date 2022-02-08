@@ -12,7 +12,7 @@ const man =
   "build one service charge for an order.  \n" +
   "\nhttps://developer.squareup.com/reference/square_2022-01-20/objects/OrderServiceCharge";
 
-/** @class Order_Service_Charge representing a
+/** @class Order_Service_Charge build a service charge to add to an Order Object
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * @example
  *  const myVar = new Order_Service_Charge()
@@ -158,6 +158,27 @@ class Order_Service_Charge {
   }
 
   // PRIVATE METHODS
+
+  /** @function
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   * @method subtotal_phase  sets value to "SUBTOTAL_PHASE"
+   * @method total_phase  sets value to "TOTAL_PHASE"
+   * @method subtotal alias of `subtotal_phase`
+   * @method total  alias of `total_phase`
+   
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square_2022-01-20/enums/OrderServiceChargeCalculationPhase | Square Docs}
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
   #calculation_phase_enum(calling_this) {
     return {
       self: this,
@@ -179,6 +200,37 @@ class Order_Service_Charge {
   }
 
   // MAKER METHODS
+  /** @function make()  method of Order_Service_Charge - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method uid
+   * @param {string} uid - this is automatically set.
+   * @method name
+   * @param {string} name -
+   * @method catalog_object_id
+   * @param {string} id -
+   * @method catalog_version
+   * @param {number} ver -
+   * @method percentage
+   * @param {string} percent - a percentage amount in the form of a string.
+   * @method amount_money Standard compliant money object builder.
+   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
+   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
+   * @method calculation_phase Enumerated. Calls #calculation_phase_enum
+   * @method taxable
+   * @param {bool} bool -
+   * @method applied_taxes
+   * @param {string} id -
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
+
   make() {
     return {
       self: this,
