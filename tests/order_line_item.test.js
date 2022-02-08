@@ -4,7 +4,7 @@ const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
 
 const spy_integer = jest.spyOn(util, "shazam_integer");
 
-const Order_Line_Item = require("../src/lib/order_line_item");
+const Order_Line_Item = require("../src/lib/order_object_line_item");
 const { regular_expression_patterns } = require("../src/lib/utilities");
 let pattern = util.regular_expression_patterns.id_patterns.uid;
 const id = "123";

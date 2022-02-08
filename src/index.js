@@ -31,9 +31,9 @@ const Invoice_Search = require("./lib/invoice_request_search");
 const Invoice_Update = require("./lib/invoice_request_update");
 // Order API
 const Order_Object = require("./lib/order_object");
-const Order_Discount = require("./lib/order_discount");
-const Order_Fulfillment = require("./lib/order_fulfillment");
-const Order_Line_Item = require("./lib/order_line_item");
+const Order_Discount = require("./lib/order_object_discount");
+const Order_Fulfillment = require("./lib/order_object_fulfillment");
+const Order_Line_Item = require("./lib/order_object_line_item");
 const Order_Calculate = require("./lib/order_request_calculate");
 const Order_Clone = require("./lib/order_request_clone");
 const Order_Create = require("./lib/order_request_create");
