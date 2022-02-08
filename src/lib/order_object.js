@@ -219,15 +219,15 @@ class Order_Object {
    * @param {bool} auto_apply_discounts -
    * @param {bool} auto_apply_taxes -
    * @method service_charges
-   * @param {object} obj - an Order_Service_Charge fardel property.
+   * @param {object} fardel - an Order_Service_Charge fardel property.
    * @method discounts
-   * @param {object} obj -an Order_Discount fardel property
+   * @param {object} fardel -an Order_Discount fardel property
    * @method taxes
-   * @param {object} obj -an Order_Tax fardel property
+   * @param {object} fardel -an Order_Tax fardel property
    * @method fulfillments
-   * @param {object} obj - an Order_Fulfillment fardel property
+   * @param {object} fardel - an Order_Fulfillment fardel property
    * @method line_items
-   * @param {object} obj - an Order_Line_Item fardel property
+   * @param {object} fardel - an Order_Line_Item fardel property
    
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
@@ -280,24 +280,24 @@ class Order_Object {
         };
         return this;
       },
-      service_charges: function (obj) {
-        this.self.service_charges = obj;
+      service_charges: function (fardel) {
+        this.self.service_charges = fardel;
         return this;
       },
-      discounts: function (obj) {
-        this.self.discounts = obj;
+      discounts: function (fardel) {
+        this.self.discounts = fardel;
         return this;
       },
-      taxes: function (obj) {
-        this.self.taxes = obj;
+      taxes: function (fardel) {
+        this.self.taxes = fardel;
         return this;
       },
-      fulfillments: function (obj) {
-        this.self.fulfillments = obj;
+      fulfillments: function (fardel) {
+        this.self.fulfillments = fardel;
         return this;
       },
-      line_items: function (obj) {
-        this.self.line_items = obj;
+      line_items: function (fardel) {
+        this.self.line_items = fardel;
         return this;
       },
     };
