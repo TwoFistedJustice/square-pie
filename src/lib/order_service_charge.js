@@ -10,7 +10,9 @@ const { uid_length } = require("./pie_defaults");
 
 const man =
   "build one service charge for an order.  \n" +
-  "\nhttps://developer.squareup.com/reference/square_2022-01-20/objects/OrderServiceCharge";
+  "Uses standard Pie syntax. There is nothing unusual about this class.\n" +
+  "uid is set automatically. But you can change it using make().uid()\n";
+("\nhttps://developer.squareup.com/reference/square_2022-01-20/objects/OrderServiceCharge");
 
 /** @class Order_Service_Charge build a service charge to add to an Order Object
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
