@@ -1,18 +1,13 @@
-const {
-  arche_money,
-  arrayify,
-  define,
-  shazam_max_length,
-} = require("./utilities");
+const { arrayify, shazam_max_length } = require("./utilities");
 const { order_object_enum } = require("./enum/index");
 const man =
   " builds a compliant Square order object. Too add discounts, line items or order fulfillments\n" +
-  "first build them with the `Order_Discount`, `Order_Line_Item` and `Order_Fulfillment` classes. To add them to your/n" +
-  "order object call the appropriate make() sub-method and pass their fardel as an argument./n" +
-  "There are `build` and `add` methods for service_charge_amount and service_charge applied. Use only/n" +
-  "one per addition or you risk double adding. Each takes the arguments `(amount, currency)` with a default/n" +
-  'currency of "USD". See Pie docs for more details. ' +
-  "\nhttps://developer.squareup.com/reference/square/objects/Order";
+  "first build them with the `Order_Discount`, `Order_Line_Item` and `Order_Fulfillment` classes. To add them to your\n" +
+  "order object call the appropriate make() sub-method and pass their fardel as an argument.\n" +
+  "There are `build` and `add` methods for service_charge_amount and service_charge applied. Use only\n" +
+  "one per addition or you risk double adding. Each takes the arguments `(amount, currency)` with a default\n" +
+  'currency of "USD". See Pie docs for more details.\n' +
+  "https://developer.squareup.com/reference/square/objects/Order";
 
 /** @class  representing a
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
@@ -203,73 +198,6 @@ class Order_Object {
     return order_object_enum.state(this);
   }
 
-  /** @function build_service_charge_amount Returns the object. If you wan to build and add it use the 'add' version of this funcion.
-   *  Standard compliant money object builder.
-   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
-   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
-   * @return {object} service_charge - a standard Square Money Object
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/objects/Money | Square Docs}
-   * */
-
-  build_service_charge_amount(amount, currency) {
-    let service_charge = {};
-    let money = arche_money(amount, currency);
-    define(service_charge, "amount_money", money);
-    return service_charge;
-  }
-
-  /** @function build_service_charge_applied Returns the object. If you wan to build and add it use the 'add' version of this funcion.
-   *  Standard compliant money object builder.
-   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
-   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
-   * @return {object} service_charge - a standard Square Money Object
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/objects/Money | Square Docs}
-   * */
-
-  build_service_charge_applied(amount, currency) {
-    let service_charge = {};
-    let money = arche_money(amount, currency);
-    define(service_charge, "applied_money", money);
-    return service_charge;
-  }
-
-  /** @function add_service_charge_amount Returns the object AND adds it to the appropriate array. If you want to just return the object without
-   * adding it, then use the 'build' version of this function.
-   *  Standard compliant money object builder.
-   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
-   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
-   * @return {object} service_charge - a standard Square Money Object
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/objects/Money | Square Docs}
-   * */
-
-  add_service_charge_amount(amount, currency) {
-    let service_charge = {};
-    let money = arche_money(amount, currency);
-    define(service_charge, "amount_money", money);
-    this.service_charges = service_charge;
-    return service_charge;
-  }
-  /** @function add_service_charge_applied Returns the object AND adds it to the appropriate array. If you want to just return the object without
-   * adding it, then use the 'build' version of this function.
-   *  Standard compliant money object builder.
-   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
-   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
-   * @return {object} service_charge - a standard Square Money Object
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/objects/Money | Square Docs}
-   * */
-
-  add_service_charge_applied(amount, currency) {
-    let service_charge = {};
-    let money = arche_money(amount, currency);
-    define(service_charge, "applied_money", money);
-    this.service_charges = service_charge;
-    return service_charge;
-  }
-
   /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
    * @method version
@@ -291,15 +219,15 @@ class Order_Object {
    * @param {bool} auto_apply_discounts -
    * @param {bool} auto_apply_taxes -
    * @method service_charges
-   * @param {object} obj -
+   * @param {object} fardel - an Order_Service_Charge fardel property.
    * @method discounts
-   * @param {object} obj -
+   * @param {object} fardel -an Order_Discount fardel property
    * @method taxes
-   * @param {object} obj -
+   * @param {object} fardel -an Order_Tax fardel property
    * @method fulfillments
-   * @param {object} obj -
+   * @param {object} fardel - an Order_Fulfillment fardel property
    * @method line_items
-   * @param {object} obj -
+   * @param {object} fardel - an Order_Line_Item fardel property
    
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
@@ -352,24 +280,24 @@ class Order_Object {
         };
         return this;
       },
-      service_charges: function (obj) {
-        this.self.service_charges = obj;
+      service_charges: function (fardel) {
+        this.self.service_charges = fardel;
         return this;
       },
-      discounts: function (obj) {
-        this.self.discounts = obj;
+      discounts: function (fardel) {
+        this.self.discounts = fardel;
         return this;
       },
-      taxes: function (obj) {
-        this.self.taxes = obj;
+      taxes: function (fardel) {
+        this.self.taxes = fardel;
         return this;
       },
-      fulfillments: function (obj) {
-        this.self.fulfillments = obj;
+      fulfillments: function (fardel) {
+        this.self.fulfillments = fardel;
         return this;
       },
-      line_items: function (obj) {
-        this.self.line_items = obj;
+      line_items: function (fardel) {
+        this.self.line_items = fardel;
         return this;
       },
     };

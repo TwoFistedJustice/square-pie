@@ -1,4 +1,4 @@
-const Order_Discount = require("../src/lib/order_discount");
+const Order_Discount = require("../src/lib/order_object_discount");
 const { long_strings } = require("./helper_objects");
 
 const id = "123";
