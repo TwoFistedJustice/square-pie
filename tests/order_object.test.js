@@ -137,68 +137,6 @@ describe(`${class_name} getters/setters`, () => {
 
 /* --------------------------------------------------------*
  *                                                         *
- *                        service charges
- *                                                         *
- * ------------------------------------------------------- */
-describe("service charges", () => {
-  beforeEach(() => {
-    order = new Order_Object();
-    make = order.make();
-  });
-  test('build_service_charge_amount return a compliant "amount_money" object when given two args', () => {
-    let expected = {
-      amount_money: {
-        amount: 42,
-        currency: "AUD",
-      },
-    };
-    let received = order.build_service_charge_amount("42", "AUD");
-    expect(received).toMatchObject(expected);
-  });
-
-  test('build_service_charge_applied should build a compliant "applied_money" object when given two args', () => {
-    let expected = {
-      applied_money: {
-        amount: 46,
-        currency: "AUD",
-      },
-    };
-
-    let received = order.build_service_charge_applied(46, "AUD");
-    expect(received).toMatchObject(expected);
-  });
-
-  test('add_service_charge_amount return a compliant "amount_money" object and add it to the array on fardel.', () => {
-    let expected = {
-      amount_money: {
-        amount: 42,
-        currency: "AUD",
-      },
-    };
-    let arr = [expected];
-    let received = order.add_service_charge_amount("42", "AUD");
-
-    expect(received).toMatchObject(expected);
-    expect(order.service_charges).toMatchObject(arr);
-  });
-
-  test('add_service_charge_applied return a compliant "amount_money" object and add it to the array on fardel.', () => {
-    let expected = {
-      applied_money: {
-        amount: 42,
-        currency: "AUD",
-      },
-    };
-    let arr = [expected];
-    let received = order.add_service_charge_applied("42", "AUD");
-
-    expect(received).toMatchObject(expected);
-    expect(order.service_charges).toMatchObject(arr);
-  });
-});
-
-/* --------------------------------------------------------*
- *                                                         *
  *                        Error checkers
  *                                                         *
  * ------------------------------------------------------- */

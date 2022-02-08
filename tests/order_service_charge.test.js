@@ -1,4 +1,4 @@
-const Order_Service_Charge = require("../src/lib/order_service_charge");
+const Order_Service_Charge = require("../src/lib/order_object_service_charge");
 
 let service_charge, make;
 const id = "123";
