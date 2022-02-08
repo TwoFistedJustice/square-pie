@@ -68,7 +68,7 @@ BUILDER METHODS
 
 
 ==
-MAKER METHODS
+Make Methods
 + make()
 ==
 Square Docs
@@ -109,7 +109,7 @@ Private METHODS
 - adds a set of curried setters for recipient properties to the shipment and pickup builder mehtods
 
 ==
-MAKER METHODS
+Make Methods
 + make()
 
 + make_shipment()
@@ -164,7 +164,7 @@ ADD METHODS
 ...
 - Same as Builders but in addition it adds the compliant object to fardel
 ==
-MAKER METHODS
+Make Methods
 + make()
 
 +make_modifier()
@@ -229,13 +229,39 @@ Private METHODS
 - curried
 - sets scope property with restricted values
 ==
-MAKER METHODS
+Make Methods
 + make()
 ==
 Square Docs
 [[https://developer.squareup.com/reference/square/objects/OrderLineItemDiscount Order Discount]]
 ==
 }
+
+
+
+class Order_Service_Charge {
+this._fardel
+this.configuration
+==
+==
+Simple Getters
+==
+Simple Setters
+==
+==
+Private METHODS
++#calculation_phase_enum()
+
+==
+Make Methods
++ make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square_2022-01-20/objects/OrderServiceCharge Order Line Item ]]
+==
+}
+
+
 
 
 
