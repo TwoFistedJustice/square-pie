@@ -416,8 +416,7 @@ class Order_Fulfillment {
         return this;
       },
       cancel: function (str) {
-        this.cancel_reason(str);
-        return this;
+        return this.cancel_reason(str);
       },
       //todo auto set state to failed
       failure_reason: function (str) {
