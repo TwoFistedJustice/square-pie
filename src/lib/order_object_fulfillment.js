@@ -418,9 +418,9 @@ class Order_Fulfillment {
       cancel: function (str) {
         return this.cancel_reason(str);
       },
-      //todo auto set state to failed
       failure_reason: function (str) {
         let key = "failure_reason";
+        this.self.#enum_state().failed();
         this.self.#note(fulfillment, key, str);
         return this;
       },

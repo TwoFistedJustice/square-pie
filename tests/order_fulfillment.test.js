@@ -370,6 +370,16 @@ describe("make_shipment() strings should be set correctly.", () => {
     expect(fulfillment.shipment_details).toMatchObject(expected);
   });
 
+  test.only("failure_reason should set state to FAILED", () => {
+    let note = "This is a note.";
+    let expected = {
+      failure_reason: note,
+    };
+    shipment.failure_reason(note);
+    expect(fulfillment.shipment_details).toMatchObject(expected);
+    expect(fulfillment.state).toEqual("FAILED");
+  });
+
   test("tracking_url should set", () => {
     let note = "This is a note.";
     let expected = {
