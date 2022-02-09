@@ -298,8 +298,7 @@ class Order_Fulfillment {
         return this;
       },
       cancel: function (str) {
-        this.cancel_reason(str);
-        return this;
+        return this.cancel_reason(str);
       },
       // You can use one of the duration utilities to make a compliant string
       auto_complete_duration: function (time) {
