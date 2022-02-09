@@ -6,7 +6,7 @@ const { duration_days_hours_minutes } = require("../src/lib/utilities/index");
 const RFC339 = "2019-10-12T07:20:50.52Z";
 const nonCompliantTime = Date.now();
 
-let ful, fulfillment; 
+let fulfillment;
 const class_name = "Order_Fulfillment";
 
 /* --------------------------------------------------------*
@@ -16,22 +16,22 @@ const class_name = "Order_Fulfillment";
  * ------------------------------------------------------- */
 describe(`${class_name} basic object class structures`, () => {
   beforeEach(() => {
-    ful = new Order_Fulfillment();
+    fulfillment = new Order_Fulfillment();
   });
   test("should have display name", () => {
-    expect(ful.display_name).toBeDefined();
+    expect(fulfillment.display_name).toBeDefined();
   });
   test("display name should be same as class name", () => {
-    expect(ful.display_name).toEqual(class_name);
+    expect(fulfillment.display_name).toEqual(class_name);
   });
   test("should have help", () => {
-    expect(ful.help).toBeDefined();
+    expect(fulfillment.help).toBeDefined();
   });
   test("should have defined square version", () => {
-    expect(ful.square_version).toBeDefined();
+    expect(fulfillment.square_version).toBeDefined();
   });
   test("should have defined _fardel", () => {
-    expect(ful.fardel).toBeDefined();
+    expect(fulfillment.fardel).toBeDefined();
   });
 });
 /* --------------------------------------------------------*
@@ -41,8 +41,8 @@ describe(`${class_name} basic object class structures`, () => {
  * ------------------------------------------------------- */
 // describe (`${class_name} error checks`, () => {
 //   beforeEach (() => {
-//     ful = new Order_Fulfillment();
-//     make = ful.make ();
+//     fulfillment = new Order_Fulfillment();
+//     make = fulfillment.make ();
 //   });
 //   test ("", () => {
 //     expect (() => {
@@ -51,41 +51,41 @@ describe(`${class_name} basic object class structures`, () => {
 // });
 describe("make method ", () => {
   beforeEach(() => {
-    ful = new Order_Fulfillment();
+    fulfillment = new Order_Fulfillment();
   });
-  
+
   test("make().uid() should set property", () => {
     let expected = "some id";
-    ful.make().uid(expected);
-    expect(ful.uid).toEqual(expected);
+    fulfillment.make().uid(expected);
+    expect(fulfillment.uid).toEqual(expected);
   });
 
   test("make().state() should set property", () => {
     let expected = "PROPOSED";
-    ful.make().state().proposed();
-    expect(ful.state).toEqual(expected);
+    fulfillment.make().state().proposed();
+    expect(fulfillment.state).toEqual(expected);
   });
 
   test("make().type() should set property", () => {
     let expected = "awesome";
-    ful.make().type(expected);
-    expect(ful.type).toEqual(expected);
+    fulfillment.make().type(expected);
+    expect(fulfillment.type).toEqual(expected);
   });
 
   test("make().shipment_details() should set property", () => {
     let expected = {
       cancel_reason: "some reason",
     };
-    ful.make().shipment_details(expected);
-    expect(ful.shipment_details).toMatchObject(expected);
+    fulfillment.make().shipment_details(expected);
+    expect(fulfillment.shipment_details).toMatchObject(expected);
   });
 
   test("make().pickup_details() should set property", () => {
     let expected = {
       cancel_reason: "some reason",
     };
-    ful.make().pickup_details(expected);
-    expect(ful.pickup_details).toMatchObject(expected);
+    fulfillment.make().pickup_details(expected);
+    expect(fulfillment.pickup_details).toMatchObject(expected);
   });
 
   test("cancel_reason should set all cancellation properties", () => {
@@ -93,9 +93,11 @@ describe("make method ", () => {
     let expected_shipment_details = {
       cancel_reason: note,
     };
-    ful.make_shipment().cancel_reason(note);
-    expect(ful.state).toEqual("CANCELED");
-    expect(ful.shipment_details).toMatchObject(expected_shipment_details);
+    fulfillment.make_shipment().cancel_reason(note);
+    expect(fulfillment.state).toEqual("CANCELED");
+    expect(fulfillment.shipment_details).toMatchObject(
+      expected_shipment_details
+    );
   });
 });
 
@@ -224,7 +226,6 @@ describe("make_pickup() strings should be set correctly.", () => {
 });
 
 describe("#time_date should reject non RFC339 time formats.", () => {
-  
   beforeEach(() => {
     fulfillment = new Order_Fulfillment();
   });
@@ -299,7 +300,7 @@ describe("Private functions Type and Conformity checking", () => {
 
 describe("make_shipment() strings should be set correctly.", () => {
   let shipment;
-  
+
   beforeEach(() => {
     fulfillment = new Order_Fulfillment();
     shipment = fulfillment.make_shipment();
@@ -398,7 +399,7 @@ describe("make_shipment() strings should be set correctly.", () => {
     expect(ful.state).toEqual("CANCELED");
     expect(ful.shipment_details).toMatchObject(expected);
   });
-  
+
   test("shipping_type should be set to PRIORITY ", () => {
     let ful = new Order_Fulfillment();
     let type = "PRIORITY";
@@ -422,12 +423,12 @@ describe("make_shipment() strings should be set correctly.", () => {
 
 describe("make_shipment should handle time formats correctly", () => {
   let shipment;
-  
+
   beforeEach(() => {
     fulfillment = new Order_Fulfillment();
     shipment = fulfillment.make_shipment();
   });
-  
+
   test("expected_shipped_at  should throw when fed non RFC339 time.", () => {
     expect(() => {
       shipment.expected_shipped_at(nonCompliantTime);
@@ -445,11 +446,10 @@ describe("make_shipment should handle time formats correctly", () => {
 });
 
 describe("Compliant recipient objects should be added to shipment and pickups.", () => {
-  
   beforeEach(() => {
     fulfillment = new Order_Fulfillment();
   });
-  
+
   test("make_pickup should accept a properly formatted recipient object", () => {
     let customer_id = "some id";
     let display_name = "Josephine";
