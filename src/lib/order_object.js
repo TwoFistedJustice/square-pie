@@ -127,11 +127,11 @@ class Order_Object {
       this._fardel.ticket_name = name;
     }
   }
-  set state(val) {
-    this._fardel.state = val;
+  set state(str) {
+    this._fardel.state = str;
   }
-  set source(val) {
-    this._fardel.source = val;
+  set source(str) {
+    this._fardel.source = { name: str };
   }
   set pricing_options(obj) {
     if (
