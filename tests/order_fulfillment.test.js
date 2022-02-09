@@ -352,12 +352,30 @@ describe("make_shipment() strings should be set correctly.", () => {
     expect(fulfillment.state).toEqual(expected);
   });
 
+  test("tracking numer should set", () => {
+    let note = "This is a note.";
+    let expected = {
+      tracking_number: note,
+    };
+    shipment.tracking_number(note);
+    expect(fulfillment.shipment_details).toMatchObject(expected);
+  });
+
   test("shipping note should set", () => {
     let note = "This is a note.";
     let expected = {
       shipping_note: note,
     };
     shipment.shipping_note(note);
+    expect(fulfillment.shipment_details).toMatchObject(expected);
+  });
+
+  test("shipping note should set", () => {
+    let note = "This is a note.";
+    let expected = {
+      shipping_note: note,
+    };
+    shipment.note(note);
     expect(fulfillment.shipment_details).toMatchObject(expected);
   });
 
