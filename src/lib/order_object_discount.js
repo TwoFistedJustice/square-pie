@@ -1,4 +1,6 @@
 const { shazam_max_length, arche_money } = require("./utilities");
+const { nanoid } = require("nanoid");
+const { uid_length } = require("./pie_defaults");
 const order_discount_enum = require("./enum/order_discount_enum");
 const man =
   " builds a discount which will be applied to one or more line items in an order.\n" +
@@ -18,7 +20,7 @@ class Order_Discount {
 
   constructor() {
     this._fardel = {
-      uid: undefined, // str60
+      uid: "uid_order_discount_" + nanoid(uid_length), // str60
       catalog_object_id: undefined, // str192  Discounts that do not reference a catalog object ID must have a type of FIXED_PERCENTAGE or FIXED_AMOUNT.
       catalog_version: undefined, // int64
       name: undefined, // str255
@@ -202,7 +204,7 @@ class Order_Discount {
   // MAKE METHODS
   /** @function make()  method of Order_Discount - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method uid
+   * @method uid - set automatically. Use this if you want to change it.
    * @param {string} val -
    * @method catalog_object_id
    * @param {string} val -

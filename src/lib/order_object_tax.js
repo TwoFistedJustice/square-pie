@@ -22,7 +22,7 @@ class Order_Tax {
 
   constructor() {
     this._fardel = {
-      uid: "#order_tax_uid_" + nanoid(uid_length),
+      uid: "uid_order_tax_" + nanoid(uid_length),
       name: undefined, //str 255
       catalog_object_id: undefined, // id 192
       catalog_version: undefined, //int
