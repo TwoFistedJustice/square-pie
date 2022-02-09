@@ -433,10 +433,8 @@ class Order_Fulfillment {
         this.self.#note(fulfillment, key, str);
         return this;
       },
-
       note: function (str) {
-        this.shipping_note(str);
-        return this;
+        return this.shipping_note(str);
       },
       tracking_url: function (str) {
         let key = "tracking_url";
