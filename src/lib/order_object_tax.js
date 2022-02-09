@@ -1,7 +1,10 @@
 const { nanoid } = require("nanoid");
-const { shazam_max_length, shazam_integer } = require("./utilities");
+const {
+  arche_money,
+  shazam_max_length,
+  shazam_integer,
+} = require("./utilities");
 const { uid_length } = require("./pie_defaults");
-const { arche_money } = require("./utilities/");
 const man =
   "build one Line Item Tax for an order. (goes in taxes array of Order_Object) \n" +
   "Uses standard Pie syntax. There is nothing unusual about this class.\n" +
@@ -10,6 +13,7 @@ const man =
 
 /** @class Order_Tax representing an OrderLineItemTax
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * {@link https://developer.squareup.com/reference/square_2022-01-20/objects/OrderLineItemTax | Square Docs}
  * @example
  *  const myVar = new Order_Tax()
  *  myVar.fardel => pass this to a request class to send your data
