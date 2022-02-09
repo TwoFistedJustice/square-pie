@@ -465,7 +465,7 @@ class Order_Fulfillment {
    *
    * Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method uid - automatically set. Use this to replace the generated uid.
+   * @method uid - automatically set. Use this only to replace the generated uid.
    * @param {string} uid -
    * @method state
    * @param {string} str -
