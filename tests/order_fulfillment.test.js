@@ -36,19 +36,9 @@ describe(`${class_name} basic object class structures`, () => {
 });
 /* --------------------------------------------------------*
  *                                                         *
- *                        Error Checks
+ *                        make()
  *                                                         *
  * ------------------------------------------------------- */
-// describe (`${class_name} error checks`, () => {
-//   beforeEach (() => {
-//     fulfillment = new Order_Fulfillment();
-//     make = fulfillment.make ();
-//   });
-//   test ("", () => {
-//     expect (() => {
-//     }).toThrow ();
-//   });
-// });
 describe("make method ", () => {
   beforeEach(() => {
     fulfillment = new Order_Fulfillment();
@@ -101,6 +91,11 @@ describe("make method ", () => {
   });
 });
 
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        make_pickup()
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("make_pickup() strings should be set correctly.", () => {
   // +PROPOSED + RESERVED + PREPARED + COMPLETED + CANCELED + FAILED;
 
@@ -225,6 +220,11 @@ describe("make_pickup() strings should be set correctly.", () => {
   });
 });
 
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        time_date
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("#time_date should reject non RFC339 time formats.", () => {
   beforeEach(() => {
     fulfillment = new Order_Fulfillment();
@@ -271,6 +271,11 @@ describe("#time_date should reject non RFC339 time formats.", () => {
   });
 });
 
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        Private functions
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("Private functions Type and Conformity checking", () => {
   // private functions only need to be tested once each.
   // private functions only need to be tested once each.
@@ -298,6 +303,11 @@ describe("Private functions Type and Conformity checking", () => {
   });
 });
 
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        make_shipment()
+ *                                                         *
+ * ------------------------------------------------------- */
 describe("make_shipment() strings should be set correctly.", () => {
   let shipment;
 
@@ -341,15 +351,6 @@ describe("make_shipment() strings should be set correctly.", () => {
     shipment.state().failed();
     expect(fulfillment.state).toEqual(expected);
   });
-
-  // test("Note should be set", () => {
-  //   let note = "This is a note.";
-  //   let expected = {
-  //     shipping_note: note,
-  //   };
-  //   shipment.note(note);
-  //   expect(fulfillment.shipment_details).toMatchObject(expected);
-  // });
 
   test("shipping note should set", () => {
     let note = "This is a note.";
@@ -420,6 +421,12 @@ describe("make_shipment() strings should be set correctly.", () => {
     expect(ful.shipment_details).toMatchObject(expected);
   });
 });
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        make_shipment time
+ *                                                         *
+ * ------------------------------------------------------- */
 
 describe("make_shipment should handle time formats correctly", () => {
   let shipment;
@@ -520,6 +527,12 @@ describe("Compliant recipient objects should be added to shipment and pickups.",
     expect(fulfillment.shipment_details).toMatchObject(expected);
   });
 });
+
+/* --------------------------------------------------------*
+ *                                                         *
+ *                        curbside pickups
+ *                                                         *
+ * ------------------------------------------------------- */
 
 describe("curbside pickups", () => {
   test("Adding a curbside_details note should also set is_curbside to true", () => {
