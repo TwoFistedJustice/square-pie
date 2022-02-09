@@ -26,7 +26,7 @@ class Order_Fulfillment {
 
   constructor() {
     this._fardel = {
-      uid: nanoid(uid_length),
+      uid: "uid_order_fulfillment_" + nanoid(uid_length),
       state: undefined,
       type: undefined,
       pickup_details: undefined,
@@ -111,13 +111,13 @@ class Order_Fulfillment {
 
   // PRIVATE METHODS
   /** @function #enum_state
-   * @private
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
+   * @private
    * @method proposed sets value to "PROPOSED"
    * @method reserved sets value to "RESERVED"
    * @method prepared sets value to "PREPARED"
@@ -179,16 +179,17 @@ class Order_Fulfillment {
 
   /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @private
    * @method customer_id
-   * @param {string} val -
+   * @param {string} id -
    * @method display_name
-   * @param {string} val -
+   * @param {string} name -
    * @method email
-   * @param {string} val -
+   * @param {string} email -
    * @method phone
-   * @param {string} val -
+   * @param {string} phone -
    * @method address
-   * @param {string} val -
+   * @param {object} address_object - a fully formed and compliant Square Address Object
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentRecipient | Square Docs}
    * */
@@ -208,33 +209,35 @@ class Order_Fulfillment {
 
     return {
       self: this,
-      customer_id: function (val) {
-        if (shazam_max_length(this.self.configuration.customer_id, val)) {
-          fulfillment.recipient.customer_id = val;
+      customer_id: function (id) {
+        if (shazam_max_length(this.self.configuration.customer_id, id)) {
+          fulfillment.recipient.customer_id = id;
           return this;
         }
       },
-      display_name: function (val) {
-        if (shazam_max_length(this.self.configuration.display_name, val)) {
-          fulfillment.recipient.display_name = val;
+      display_name: function (name) {
+        if (shazam_max_length(this.self.configuration.display_name, name)) {
+          fulfillment.recipient.display_name = name;
           return this;
         }
       },
-      email: function (val) {
-        if (shazam_max_length(this.self.configuration.email_address, val)) {
-          fulfillment.recipient.email_address = val;
+      email: function (email) {
+        if (shazam_max_length(this.self.configuration.email_address, email)) {
+          fulfillment.recipient.email_address = email;
           return this;
         }
       },
-      phone: function (val) {
-        if (shazam_max_length(this.self.configuration.phone_number, val)) {
-          fulfillment.recipient.phone_number = val;
+      phone: function (phone) {
+        if (shazam_max_length(this.self.configuration.phone_number, phone)) {
+          fulfillment.recipient.phone_number = phone;
           return this;
         }
       },
-      address: function (val) {
-        if (shazam_max_length(this.self.configuration.address, val)) {
-          fulfillment.recipient.address = val;
+      address: function (address_object) {
+        if (
+          shazam_max_length(this.self.configuration.address, address_object)
+        ) {
+          fulfillment.recipient.address = address_object;
           return this;
         }
       },
@@ -262,7 +265,7 @@ class Order_Fulfillment {
    * @method prep_time_duration
    * @param {string} time - use one of the Pie duration utilities to easily construct a compliant duration string.
    * @method note
-   *@param {string} str -
+   * @param {string} str -
    * @method asap - sets `schedule_type` to "ASAP"
    * @method scheduled - sets `schedule_type` to "SCHEDULED"
    * @method recipient - calls #recipient()
@@ -298,8 +301,7 @@ class Order_Fulfillment {
         return this;
       },
       cancel: function (str) {
-        this.cancel_reason(str);
-        return this;
+        return this.cancel_reason(str);
       },
       // You can use one of the duration utilities to make a compliant string
       auto_complete_duration: function (time) {
@@ -369,7 +371,7 @@ class Order_Fulfillment {
    * @method cancel_reason - sets `cancel_reason` to the value you pass and `state` to "CANCELED" and .
    * @param {string} str -
    * @method cancel - alias of cancel_reason
-   * @method failure_reason
+   * @method failure_reason - sets failure_reason to value passed and state to "FAILED"
    * @param {string} str -
    * @method tracking_number
    * @param {string} str -
@@ -416,12 +418,11 @@ class Order_Fulfillment {
         return this;
       },
       cancel: function (str) {
-        this.cancel_reason(str);
-        return this;
+        return this.cancel_reason(str);
       },
-      //todo auto set state to failed
       failure_reason: function (str) {
         let key = "failure_reason";
+        this.self.#enum_state().failed();
         this.self.#note(fulfillment, key, str);
         return this;
       },
@@ -435,10 +436,8 @@ class Order_Fulfillment {
         this.self.#note(fulfillment, key, str);
         return this;
       },
-
       note: function (str) {
-        this.shipping_note(str);
-        return this;
+        return this.shipping_note(str);
       },
       tracking_url: function (str) {
         let key = "tracking_url";
@@ -466,16 +465,16 @@ class Order_Fulfillment {
    *
    * Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method uid - automatically set. Use this to replace the generated uid.
-   * @param {string} val -
+   * @method uid - automatically set. Use this only to replace the generated uid.
+   * @param {string} uid -
    * @method state
-   * @param {string} val -
+   * @param {string} str -
    * @method type
-   * @param {string} val -
+   * @param {string} str -
    * @method pickup_details
-   * @param {object} val - a fully formed compliant pickup object. Use only if you already have a compliant object. Otherwise, use make_pickup().
+   * @param {object} obj - a fully formed compliant pickup object. Use only if you already have a compliant object. Otherwise, use make_pickup().
    * @method shipment_details
-   * @param {object} val - a fully formed compliant shipment object. Use only if you already have a compliant object. Otherwise, use make_shipment().
+   * @param {object} obj - a fully formed compliant shipment object. Use only if you already have a compliant object. Otherwise, use make_shipment().
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
@@ -488,23 +487,23 @@ class Order_Fulfillment {
   make() {
     return {
       self: this,
-      uid: function (val) {
-        this.self.uid = val;
+      uid: function (uid) {
+        this.self.uid = uid;
         return this;
       },
       state: function () {
         return this.self.#enum_state();
       },
-      type: function (val) {
-        this.self.type = val;
+      type: function (str) {
+        this.self.type = str;
         return this;
       },
-      pickup_details: function (val) {
-        this.self.pickup_details = val;
+      pickup_details: function (obj) {
+        this.self.pickup_details = obj;
         return this;
       },
-      shipment_details: function (val) {
-        this.self.shipment_details = val;
+      shipment_details: function (obj) {
+        this.self.shipment_details = obj;
         return this;
       },
     };
