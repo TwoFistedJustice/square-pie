@@ -28,7 +28,7 @@ class Order_Object_Service_Charge {
 
   constructor() {
     this._fardel = {
-      uid: "uid_service_charge_" + nanoid(uid_length), // pie uid
+      uid: "uid_service_charge#" + nanoid(uid_length), // pie uid
       name: undefined, //str 255
       catalog_object_id: undefined, // id 192
       catalog_version: undefined, //int

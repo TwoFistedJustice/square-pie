@@ -32,7 +32,7 @@ class Order_Line_Item {
   _help = this.display_name + ": " + man;
   constructor() {
     this._fardel = {
-      uid: "uid_line_item_" + nanoid(uid_length),
+      uid: "uid_line_item#" + nanoid(uid_length),
       quantity: undefined, // 1-12 REQUIRED set auto min of 1
       name: undefined,
       note: undefined,
@@ -440,7 +440,7 @@ class Order_Line_Item {
     const reset = function () {
       for (let prop in modifier) {
         if (prop === "uid") {
-          modifier.uid = "uid_modifier_" + nanoid(uid_length);
+          modifier.uid = "uid_modifier#" + nanoid(uid_length);
         } else {
           modifier[prop] = undefined;
         }

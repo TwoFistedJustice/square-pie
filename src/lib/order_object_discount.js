@@ -20,7 +20,7 @@ class Order_Discount {
 
   constructor() {
     this._fardel = {
-      uid: "uid_order_discount_" + nanoid(uid_length), // str60
+      uid: "uid_order_discount#" + nanoid(uid_length), // str60
       catalog_object_id: undefined, // str192  Discounts that do not reference a catalog object ID must have a type of FIXED_PERCENTAGE or FIXED_AMOUNT.
       catalog_version: undefined, // int64
       name: undefined, // str255

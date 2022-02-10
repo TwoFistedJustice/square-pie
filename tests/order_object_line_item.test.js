@@ -5,7 +5,7 @@ const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
 const spy_integer = jest.spyOn(util, "shazam_integer");
 
 const Order_Line_Item = require("../src/lib/order_object_line_item");
-const { regular_expression_patterns } = require("../src/lib/utilities");
+const uid_regex = require("../src/lib/regex/uid_rx");
 let pattern = util.regular_expression_patterns.id_patterns.uid;
 const id = "123";
 const class_name = "Order_Line_Item";
@@ -609,7 +609,8 @@ describe("#enum_item_type()", () => {
  * ------------------------------------------------------- */
 describe("build_applied_tax() and  build_applied_discount() should return a compliant object", () => {
   // the Money object is on the response body
-  let pattern = regular_expression_patterns.id_patterns.uid;
+  // let pattern = regular_expression_patterns.id_patterns.uid;
+  let pattern = uid_regex;
   beforeEach(() => {
     line = new Order_Line_Item();
   });
