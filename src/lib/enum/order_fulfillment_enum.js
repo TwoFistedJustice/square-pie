@@ -29,6 +29,12 @@ const order_fulfillment_enum = {
    * @param {object} self - pass in 'this' from the referencing class.
    * @param {object} calling_this - pass in the calling function's 'this'
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @method proposed sets value to "PROPOSED"
+   * @method reserved sets value to "RESERVED"
+   * @method prepared sets value to "PREPARED"
+   * @method completed sets value to "COMPLETED"
+   * @method canceled sets value to "CANCELED"
+   * @method failed sets value to "FAILED"
    * @example
    * #state() {
    *   return order_fulfillment_enum.state(this)
@@ -89,6 +95,12 @@ const order_fulfillment_enum = {
    * @param {object} obj - pass in the object containing the array (NOT the array itself)
    * @param {object} calling_this - pass in the calling function's 'this'
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @method proposed pushes value "PROPOSED"
+   * @method reserved pushes value "RESERVED"
+   * @method prepared pushes value "PREPARED"
+   * @method completed pushes value "COMPLETED"
+   * @method canceled pushes value "CANCELED"
+   * @method failed pushes value "FAILED"
    * @example
    *  `return order_fulfillment_enum.fulfillment_state_arrays(filter);`
    * */

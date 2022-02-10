@@ -13,8 +13,7 @@ const { arche_sorting_enum, order_fulfillment_enum } = require("./enum/index");
 const man =
   "searches all orders based on up to ten locations. Add location_ids by calling make().location(location_id)\n" +
   "You can also add an array of location_ids by calling make().concat_location(array).\n" +
-  "" +
-  "\nhttps://developer.squareup.com/reference/square/orders-api/search-orders";
+  "https://developer.squareup.com/reference/square/orders-api/search-orders";
 
 /** @class Order_Search representing a search for an existing order.
  * @param {string | array} id - the id or array of ids of an order(s) you want to search for. You can also add this later. You must do this before calling .request()
@@ -216,52 +215,114 @@ class Order_Search extends Order_Request {
     }
   }
 
-  /**@private
-   * @method  build_fulfillment_filter
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersFulfillmentFilter | Square Docs}
-   *
-   * */
-  #build_fulfillment_filter() {
+  #init_fulfillment_filter() {
     if (this._body.query.filter.fulfillment_filter === undefined) {
       this._body.query.filter.fulfillment_filter = {};
     }
-    let filter = this._body.query.filter.fulfillment_filter;
-    return {
-      // check if prop exists
-      // if not define it, set to empty array
-      fulfillment_types: function () {
-        if (
-          !Object.prototype.hasOwnProperty.call(filter, "fulfillment_types")
-        ) {
-          define(filter, "fulfillment_types", []);
-        }
-        return order_fulfillment_enum.fulfillment_types_arrays(filter);
-      },
-      fulfillment_states: () => {
-        if (
-          !Object.prototype.hasOwnProperty.call(filter, "fulfillment_states")
-        ) {
-          define(filter, "fulfillment_states", []);
-        }
-        return order_fulfillment_enum.fulfillment_state_arrays(filter);
-      },
-    };
   }
 
-  #build_state_filter() {
+  /** @function
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   * @private
+   * @method proposed pushes value "PROPOSED"
+   * @method reserved pushes value "RESERVED"
+   * @method prepared pushes value "PREPARED"
+   * @method completed pushes value "COMPLETED"
+   * @method canceled pushes value "CANCELED"
+   * @method failed pushes value "FAILED"
+   
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link  | Square Docs}
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
+  #build_fulfillment_types(calling_this) {
+    this.#init_fulfillment_filter();
+    let filter = this._body.query.filter.fulfillment_filter;
+    if (!Object.prototype.hasOwnProperty.call(filter, "fulfillment_types")) {
+      define(filter, "fulfillment_types", []);
+    }
+    return order_fulfillment_enum.fulfillment_types_arrays(
+      filter,
+      calling_this
+    );
+  }
+
+  /** @function #build_fulfillment_states
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   * @private
+   * @param {object} calling_this - pass in the calling function's 'this'
+   * @method proposed sets value to "PROPOSED"
+   * @method reserved sets value to "RESERVED"
+   * @method prepared sets value to "PREPARED"
+   * @method completed sets value to "COMPLETED"
+   * @method canceled sets value to "CANCELED"
+   * @method failed sets value to "FAILED"
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/enums/OrderState | Square Docs}
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
+  #build_fulfillment_states(calling_this) {
+    this.#init_fulfillment_filter();
+    let filter = this._body.query.filter.fulfillment_filter;
+    if (!Object.prototype.hasOwnProperty.call(filter, "fulfillment_states")) {
+      define(filter, "fulfillment_states", []);
+    }
+    return order_fulfillment_enum.fulfillment_state_arrays(
+      filter,
+      calling_this
+    );
+  }
+
+  /** @function
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   * @method proposed pushes value "PROPOSED"
+   * @method reserved pushes value "RESERVED"
+   * @method prepared pushes value "PREPARED"
+   * @method completed pushes value "COMPLETED"
+   * @method canceled pushes value "CANCELED"
+   * @method failed pushes value "FAILED"
+   
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * {@link https://developer.squareup.com/reference/square/enums/OrderState | Square Docs}
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
+
+  #build_state_filter(calling_this) {
     if (this._body.query.filter.state_filter === undefined) {
       this._body.query.filter.state_filter = {};
     }
     let filter = this._body.query.filter.state_filter;
-    return {
-      state: function () {
-        if (!Object.prototype.hasOwnProperty.call(filter, "states")) {
-          define(filter, "states", []);
-        }
-        return order_fulfillment_enum.state_filter_arrays(filter);
-      },
-    };
+    if (!Object.prototype.hasOwnProperty.call(filter, "states")) {
+      define(filter, "states", []);
+    }
+    return order_fulfillment_enum.state_filter_arrays(filter, calling_this);
   }
 
   /** @method  build_date_time_filter
@@ -334,14 +395,13 @@ class Order_Search extends Order_Request {
    * @method source_filter
    * @param {string} id -
    * @method date_time_filter - calls #build_date_time_filter()
-   *
-   * @method fulfillment_filter - calls #build_fulfillment_filter()
-   *
+   * @method fulfillment_states - calls #build_fulfillment_states()
+   * @method f_states - alias of `fulfillment_states`
+   * @method fulfillment_types - calls #build_fulfillment_types()
+   * @method f_types - alias of `fulfillment_types`
    * @method state_filter - calls #build_state_filter()
-   *
    * @method sort_order  Enumerated. Calls on arche_sorting_enum module.
    * @method sort_field  Enumerated. Calls on arche_sorting_enum module.
-   *
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery  | Square Docs}
    * @example
@@ -395,15 +455,24 @@ class Order_Search extends Order_Request {
       date_time_filter: function () {
         return this.self.#build_date_time_filter();
       },
-      fulfillment_filter: function () {
-        return this.self.#build_fulfillment_filter();
+      fulfillment_states: function () {
+        return this.self.#build_fulfillment_states(this);
+      },
+      fulfillment_types: function () {
+        return this.self.#build_fulfillment_types(this);
+      },
+      f_states: function () {
+        return this.fulfillment_states();
+      },
+      f_types: function () {
+        return this.fulfillment_types();
       },
       /** @method state_filter
        * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
        * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersStateFilter | Square Docs}
        * */
       state_filter: function () {
-        return this.self.#build_state_filter();
+        return this.self.#build_state_filter(this);
       },
 
       /** @function sort_order()  enumerated function of arche_sorting_enum -
