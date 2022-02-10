@@ -1,4 +1,6 @@
 const { shazam_max_length, arche_money } = require("./utilities");
+const { nanoid } = require("nanoid");
+const { uid_length } = require("./pie_defaults");
 const order_discount_enum = require("./enum/order_discount_enum");
 const man =
   " builds a discount which will be applied to one or more line items in an order.\n" +
@@ -18,7 +20,7 @@ class Order_Discount {
 
   constructor() {
     this._fardel = {
-      uid: undefined, // str60
+      uid: "uid_order_discount#" + nanoid(uid_length), // str60
       catalog_object_id: undefined, // str192  Discounts that do not reference a catalog object ID must have a type of FIXED_PERCENTAGE or FIXED_AMOUNT.
       catalog_version: undefined, // int64
       name: undefined, // str255
@@ -89,34 +91,34 @@ class Order_Discount {
     return this._fardel.scope;
   }
   // SETTERS
-  set uid(val) {
+  set uid(uid) {
     let caller = "uid";
-    if (shazam_max_length(this.configuration.maximums.uid, val, caller));
+    if (shazam_max_length(this.configuration.maximums.uid, uid, caller));
     {
-      this._fardel.uid = val;
+      this._fardel.uid = uid;
     }
   }
-  set catalog_object_id(val) {
+  set catalog_object_id(id) {
     let caller = "catalog_object_id";
     if (
       shazam_max_length(
         this.configuration.maximums.catalog_object_id,
-        val,
+        id,
         caller
       )
     );
     {
-      this._fardel.catalog_object_id = val;
+      this._fardel.catalog_object_id = id;
     }
   }
-  set catalog_version(val) {
-    this._fardel.catalog_version = val;
+  set catalog_version(ver) {
+    this._fardel.catalog_version = ver;
   }
-  set name(val) {
+  set name(str) {
     let caller = "name";
-    if (shazam_max_length(this.configuration.maximums.name, val, caller));
+    if (shazam_max_length(this.configuration.maximums.name, str, caller));
     {
-      this._fardel.name = val;
+      this._fardel.name = str;
     }
   }
   set type(val) {
@@ -138,14 +140,14 @@ class Order_Discount {
       this._fardel.percentage = percent;
     }
   }
-  set amount_money(val) {
-    this._fardel.amount_money = val;
+  set amount_money(money_object) {
+    this._fardel.amount_money = money_object;
   }
-  set applied_money(val) {
-    this._fardel.applied_money = val;
+  set applied_money(money_object) {
+    this._fardel.applied_money = money_object;
   }
-  set scope(val) {
-    this._fardel.scope = val;
+  set scope(str) {
+    this._fardel.scope = str;
   }
 
   // PRIVATE METHODS
@@ -202,17 +204,17 @@ class Order_Discount {
   // MAKE METHODS
   /** @function make()  method of Order_Discount - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method uid
-   * @param {string} val -
+   * @method uid - set automatically. Use this if you want to change it.
+   * @param {string} uid -
    * @method catalog_object_id
-   * @param {string} val -
+   * @param {string} id -
    * @method catalog_version
-   * @param {number} val -
+   * @param {number} ver -
    * @method name
-   * @param {string} val -
+   * @param {string} str -
    * @method type - enumerated. Calls #enum_type()
    * @method percentage
-   * @param {number} val -
+   * @param {string} percent -
    * @method amount_money Standard compliant money object builder.
    * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
    * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
@@ -233,27 +235,27 @@ class Order_Discount {
   make() {
     return {
       self: this,
-      uid: function (val) {
-        this.self.uid = val;
+      uid: function (uid) {
+        this.self.uid = uid;
         return this;
       },
-      catalog_object_id: function (val) {
-        this.self.catalog_object_id = val;
+      catalog_object_id: function (id) {
+        this.self.catalog_object_id = id;
         return this;
       },
-      catalog_version: function (val) {
-        this.self.catalog_version = val;
+      catalog_version: function (ver) {
+        this.self.catalog_version = ver;
         return this;
       },
-      name: function (val) {
-        this.self.name = val;
+      name: function (str) {
+        this.self.name = str;
         return this;
       },
       type: function () {
         return this.self.#enum_type();
       },
-      percentage: function (val) {
-        this.self.percentage = val;
+      percentage: function (percent) {
+        this.self.percentage = percent;
         return this;
       },
       amount_money: function (amount, currency) {

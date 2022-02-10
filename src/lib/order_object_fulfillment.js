@@ -26,7 +26,7 @@ class Order_Fulfillment {
 
   constructor() {
     this._fardel = {
-      uid: "uid_order_fulfillment_" + nanoid(uid_length),
+      uid: "uid_order_fulfillment#" + nanoid(uid_length),
       state: undefined,
       type: undefined,
       pickup_details: undefined,
@@ -87,8 +87,8 @@ class Order_Fulfillment {
   }
 
   // SETTERS
-  set uid(id) {
-    this._fardel.uid = id;
+  set uid(uid) {
+    this._fardel.uid = uid;
   }
   set state(str) {
     this._fardel.state = str;

@@ -127,11 +127,11 @@ class Order_Object {
       this._fardel.ticket_name = name;
     }
   }
-  set state(val) {
-    this._fardel.state = val;
+  set state(str) {
+    this._fardel.state = str;
   }
-  set source(val) {
-    this._fardel.source = val;
+  set source(str) {
+    this._fardel.source = { name: str };
   }
   set pricing_options(obj) {
     if (
@@ -214,7 +214,7 @@ class Order_Object {
    * @param {string} name -
    * @method state Enumerated. Calls #enum_state()
    * @method source
-   * @param {string} val -
+   * @param {string} str - The name used to identify the place (physical or digital) whence an order originates.
    * @method pricing_options
    * @param {bool} auto_apply_discounts -
    * @param {bool} auto_apply_taxes -
@@ -269,8 +269,8 @@ class Order_Object {
       state: function () {
         return this.self.#enum_state();
       },
-      source: function (val) {
-        this.self.source = val;
+      source: function (str) {
+        this.self.source = str;
         return this;
       },
       pricing_options: function (auto_apply_discounts, auto_apply_taxes) {

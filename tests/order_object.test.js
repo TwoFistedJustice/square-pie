@@ -95,10 +95,12 @@ describe(`${class_name} getters/setters`, () => {
     expect(order.state).toEqual(expected);
   });
 
-  test("make().source () should set ", () => {
-    let expected = "";
-    make.source(expected);
-    expect(order.source).toEqual(expected);
+  test.only("make().source () should set ", () => {
+    let expected = {
+      name: id,
+    };
+    make.source(id);
+    expect(order.source).toMatchObject(expected);
   });
   test("make().pricing_options () should set ", () => {
     let expected = {

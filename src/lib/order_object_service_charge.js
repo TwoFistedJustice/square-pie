@@ -14,21 +14,21 @@ const man =
   "uid is set automatically. But you can change it using make().uid()\n";
 ("\nhttps://developer.squareup.com/reference/square_2022-01-20/objects/OrderServiceCharge");
 
-/** @class Order_object_service_charge build a service charge to add to an Order Object
+/** @class Order_Object_Service_Charge build a service charge to add to an Order Object
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * @example
  *  const myVar = new Order_Service_Charge()
  *  myVar.fardel => pass this to a request class to send your data
  * */
 
-class Order_object_service_charge {
+class Order_Object_Service_Charge {
   _display_name = "Order_Service_Charge";
   _last_verified_square_api_version = "2022-01-20";
   _help = this.display_name + ": " + man;
 
   constructor() {
     this._fardel = {
-      uid: "#service_charge_uid_" + nanoid(uid_length), // pie uid
+      uid: "uid_service_charge#" + nanoid(uid_length), // pie uid
       name: undefined, //str 255
       catalog_object_id: undefined, // id 192
       catalog_version: undefined, //int
@@ -274,4 +274,4 @@ class Order_object_service_charge {
   }
 }
 
-module.exports = Order_object_service_charge;
+module.exports = Order_Object_Service_Charge;

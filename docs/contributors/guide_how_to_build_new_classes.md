@@ -156,6 +156,12 @@ class simply ports that data to the `.delivery` property so the end-coder need n
 [Idempotency Keys](https://developer.squareup.com/docs/working-with-apis/idempotency) need to be unique within a given action. They need not be unique in all the world. These are not security keys to keep hackers at bay.
 So we use [nanoid non-secure](https://github.com/ai/nanoid#non-secure) to prioritize performance.
 
+## UIDs
+
+Sometimes Square object have a property called "uid". These are generally meant to be unique within a given transaction. These should be set automatically using nanoid. The format
+should follow "uid\_" + [the_type_of_object] + "#" + nanoid(uid_length); where uid_lenght is a setting in pie_defaults. The hash mark is important for regex validation in testing. It is does
+NOT have leading or following underscores. A generated uid will look something like: `uid_order_discount#BfrsCfagre`
+
 ## Names of Documents and Sub-documents
 
 Square often asks for a `name` or `uid` property. These are generally to identify a sub-document within a larger document. These are like mini-idempotency keys. They need only be unique within
