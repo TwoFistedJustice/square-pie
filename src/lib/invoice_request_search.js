@@ -182,9 +182,9 @@ class Invoice_Search extends Invoice_Request {
   /** @function make()  method of Invoice_Search - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
    * @method limit - sets the limit property
-   * @param {number} val -
+   * @param {number} limit - an integer up to 200 - default is 100
    * @method query - DANGER WILL ROBINSON! This wil replace the entire query object with whatever you pass it.
-   * @param {object} val - a complete query object - no validation!!!
+   * @param {object} query_object - a complete query object - no validation!!!
    * @method location_id - adds an id the array on the filter object
    * @param {string} id -
    * @method customer_id - adds an id the array on the filter object
@@ -208,12 +208,12 @@ class Invoice_Search extends Invoice_Request {
   make() {
     return {
       self: this,
-      limit: function (val) {
-        this.self.limit = val;
+      limit: function (limit) {
+        this.self.limit = limit;
         return this;
       },
-      query: function (val) {
-        this.self.query = val;
+      query: function (query_object) {
+        this.self.query = query_object;
         return this;
       },
       location_id: function (id) {
