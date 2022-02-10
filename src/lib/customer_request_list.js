@@ -2,7 +2,7 @@ const Customer_Request = require("./customer_request_abstract");
 const {
   query_param_is_present,
   query_param_replace_value,
-  shazam_integer,
+  shazam_is_integer,
 } = require("./utilities/index");
 const man =
   "fetches a list of customers\n" +
@@ -47,7 +47,7 @@ class Customer_List extends Customer_Request {
 
   set limit(value) {
     let param = "limit";
-    if (shazam_integer(value, this._display_name, "limit")) {
+    if (shazam_is_integer(value, this._display_name, "limit")) {
       this.#endpoint_setter(param, value);
     }
   }

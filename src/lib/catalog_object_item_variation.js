@@ -4,8 +4,8 @@ const {
   arrayify,
   clone_object,
   shazam_max_length,
-  shazam_boolean,
-  shazam_integer,
+  shazam_is_boolean,
+  shazam_is_integer,
 } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
 const man =
@@ -133,7 +133,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     }
   }
   set available_for_booking(bool) {
-    if (shazam_boolean(bool, this._display_name, "available_for_booking")) {
+    if (shazam_is_boolean(bool, this._display_name, "available_for_booking")) {
       this.pricing_type = "VARIABLE_PRICING";
       this._fardel.item_variation_data.available_for_booking = bool;
     }
@@ -144,7 +144,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    * @return Sets pricing_type to "VARIABLE_PRICING" and sets service_duration to duration in milliseconds
    * */
   set service_duration(num) {
-    if (shazam_integer(num, this._display_name, "service_duration")) {
+    if (shazam_is_integer(num, this._display_name, "service_duration")) {
       this.pricing_type = "VARIABLE_PRICING";
       this._fardel.item_variation_data.service_duration = num * 60 * 1000;
     }
@@ -184,7 +184,9 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.inventory_alert_type = str;
   }
   set inventory_alert_threshold(int) {
-    if (shazam_integer(int, this._display_name, "inventory_alert_threshold"));
+    if (
+      shazam_is_integer(int, this._display_name, "inventory_alert_threshold")
+    );
     {
       this._fardel.item_variation_data.inventory_alert_threshold = int;
     }
@@ -200,7 +202,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.sku = sku;
   }
   set stockable(bool) {
-    if (shazam_boolean(bool, this._display_name, "stockable")) {
+    if (shazam_is_boolean(bool, this._display_name, "stockable")) {
       this._fardel.item_variation_data.stockable = bool;
     }
   }
@@ -561,7 +563,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
         return this.self.#enum_inventory_alert_type(override, this);
       },
       inventory_alert_threshold: function (int) {
-        if (shazam_integer(int, name, "inventory_alert_threshold")) {
+        if (shazam_is_integer(int, name, "inventory_alert_threshold")) {
           override.inventory_alert_threshold = int;
         }
         return this;

@@ -2,8 +2,8 @@ const Catalog_Request = require("./catalog_request_abstract");
 const {
   arrayify,
   array_prevent_duplicate_strings,
-  shazam_time_RFC3339,
-  shazam_integer,
+  shazam_is_time_RFC3339,
+  shazam_is_integer,
 } = require("./utilities");
 
 /*
@@ -56,7 +56,7 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     this._body.include_related_objects = bool;
   }
   set begin_time(time) {
-    if (shazam_time_RFC3339(time, this.display_name, "begin_time")) {
+    if (shazam_is_time_RFC3339(time, this.display_name, "begin_time")) {
       this._body.begin_time = time;
     }
   }
@@ -71,7 +71,7 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     this._body.object_types.push(type);
   }
   set limit(int32) {
-    if (shazam_integer(int32, this._display_name, "limit")) {
+    if (shazam_is_integer(int32, this._display_name, "limit")) {
       this._body.limit = int32;
     }
   }

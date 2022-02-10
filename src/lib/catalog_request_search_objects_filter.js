@@ -2,7 +2,7 @@ const Catalog_Search_Objects_Super = require("./catalog_request_abstract_search_
 const {
   clone_object,
   define,
-  shazam_integer,
+  shazam_is_integer,
   shazam_max_length_array,
 } = require("./utilities");
 const {
@@ -150,12 +150,12 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     };
 
     if (min !== undefined) {
-      if (shazam_integer(min, this.display_name, caller)) {
+      if (shazam_is_integer(min, this.display_name, caller)) {
         range_query.attribute_min_value = min;
       }
     }
     if (max !== undefined) {
-      if (shazam_integer(max, this.display_name, caller)) {
+      if (shazam_is_integer(max, this.display_name, caller)) {
         range_query.attribute_max_value = max;
       }
     }

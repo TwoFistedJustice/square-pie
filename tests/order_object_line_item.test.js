@@ -1,8 +1,8 @@
 "use strict";
 const util = require("../src/lib/utilities");
-const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
+const spy_shazam_integer = jest.spyOn(util, "shazam_is_integer");
 
-const spy_integer = jest.spyOn(util, "shazam_integer");
+const spy_integer = jest.spyOn(util, "shazam_is_integer");
 
 const Order_Line_Item = require("../src/lib/order_object_line_item");
 const uid_regex = require("../src/lib/regex/uid_rx");
@@ -51,7 +51,7 @@ describe("Order Line Item Error Checking / Spies", () => {
     make = line.make();
   });
 
-  test("#bake_quantity_unit().catalog_version should call shazam_integer", () => {
+  test("#bake_quantity_unit().catalog_version should call shazam_is_integer", () => {
     let name = class_name + ".make_quantity_unit.";
     let caller = "catalog_version";
     let test_val = 95;
@@ -59,7 +59,7 @@ describe("Order Line Item Error Checking / Spies", () => {
     expect(spy_shazam_integer).toHaveBeenCalledWith(test_val, name, caller);
   });
 
-  test("set catalog_version should call shazam_integer", () => {
+  test("set catalog_version should call shazam_is_integer", () => {
     let name = class_name;
     let caller = "catalog_version";
     let test_val = 95;
@@ -675,7 +675,7 @@ describe("jest mocks", () => {
     line = new Order_Line_Item();
   });
 
-  test("catalog_version setter should call shazam_integer", () => {
+  test("catalog_version setter should call shazam_is_integer", () => {
     let test_val = 5;
     let caller = "catalog_version";
     line[caller] = test_val;

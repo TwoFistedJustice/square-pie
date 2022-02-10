@@ -1,4 +1,4 @@
-/** shazam_boolean strictly verifies argument is a boolean. Does not allow for type coercion.
+/** shazam_is_boolean strictly verifies argument is a boolean. Does not allow for type coercion.
  * Will throw an error on every value except true and false.
  *
  * @param {boolean} bool - expects a boolean
@@ -6,9 +6,9 @@
  * @param {string} caller - the name variable from the calling function
  * @throws throws an error if the `bool` argument is not a boolean.
  * @return {boolean} returns true  if the `bool` argument is a boolean.
- * @example if(shazam_boolean(arg, "Some_Class", "some_method")) {do stuff}
+ * @example if(shazam_is_boolean(arg, "Some_Class", "some_method")) {do stuff}
  * */
-const shazam_boolean = function (
+const shazam_is_boolean = function (
   bool,
   displayName = "unspecified class",
   caller = "- unspecified class setter"
@@ -21,4 +21,4 @@ const shazam_boolean = function (
   return true;
 };
 
-module.exports = shazam_boolean;
+module.exports = shazam_is_boolean;

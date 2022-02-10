@@ -4,7 +4,7 @@ const {
   query_param_is_query_string,
   query_param_add_value,
   query_param_replace_value,
-  shazam_integer,
+  shazam_is_integer,
 } = require("./utilities");
 
 const man =
@@ -49,7 +49,7 @@ class Catalog_List extends Catalog_Request {
    * @throws {TypeError} Throw and error if you give it a non-integer or a string that cannot be coerced to an integer.
    * */
   set catalog_version(version) {
-    if (shazam_integer(version, this.display_name, "catalog_version")) {
+    if (shazam_is_integer(version, this.display_name, "catalog_version")) {
       // this.#query_param_builder("catalog_version", version);
       this.#query_param_replace("catalog_version", version);
     }

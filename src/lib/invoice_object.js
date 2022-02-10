@@ -2,9 +2,9 @@ const {
   arrayify,
   shazam_max_length,
   shazam_max_length_array,
-  shazam_time_RFC3339,
+  shazam_is_time_RFC3339,
   shazam_date_human_readable,
-  shazam_integer,
+  shazam_is_integer,
 } = require("./utilities");
 const man =
   "creates a compliant Square invoice object. Follows standard Pie syntax.\n" +
@@ -115,7 +115,7 @@ class Invoice_Object {
 
   // FARDEL SETTERS
   set version(int) {
-    if (shazam_integer(int, this.display_name, "version")) {
+    if (shazam_is_integer(int, this.display_name, "version")) {
       this._fardel.version = int;
     }
   }
@@ -192,7 +192,7 @@ class Invoice_Object {
     }
   }
   set scheduled_at(time) {
-    if (shazam_time_RFC3339(time, this._display_name, "scheduled_at")) {
+    if (shazam_is_time_RFC3339(time, this._display_name, "scheduled_at")) {
       this._fardel.scheduled_at = time;
     }
   }

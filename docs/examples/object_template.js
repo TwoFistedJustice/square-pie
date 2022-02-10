@@ -3,9 +3,9 @@
 // define,
 // shazam_max_length,
 // normalize_email,
-// shazam_time_RFC3339,
-// shazam_integer,
-// shazam_boolean,
+// shazam_is_time_RFC3339,
+// shazam_is_integer,
+// shazam_is_boolean,
 // } = require("./utilities/aaa_index");
 // const { uid_length } = require("./pie_defaults");
 

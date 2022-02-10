@@ -1,5 +1,9 @@
 const Invoice_Request = require("./invoice_request_abstract");
-const { shazam_integer, shazam_number_LE, arrayify } = require("./utilities");
+const {
+  shazam_is_integer,
+  shazam_number_LE,
+  arrayify,
+} = require("./utilities");
 const man =
   "http request to search for invoices for a given location\n" +
   "Pass the location_id as a string argument when you instantiate the class. You can also pass it later by calling\n" +
@@ -87,7 +91,7 @@ class Invoice_Search extends Invoice_Request {
     let name = this.display_name;
     let caller = "limit";
     if (
-      shazam_integer(int, name, caller) &&
+      shazam_is_integer(int, name, caller) &&
       shazam_number_LE(int, this.configuration.maximums.limit, name, caller)
     ) {
       this._body.limit = int;

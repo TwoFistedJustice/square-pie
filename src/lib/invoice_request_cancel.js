@@ -1,5 +1,5 @@
 const Invoice_RUDCnP = require("./invoice_request_abstract_RUDCP_super");
-const { shazam_integer } = require("./utilities");
+const { shazam_is_integer } = require("./utilities");
 const man =
   "http request to cancel an invoic. Pass the id of the invoice to cancel as an argument\n" +
   "when you instantiate the class.\n" +
@@ -41,7 +41,7 @@ class Invoice_Cancel extends Invoice_RUDCnP {
   }
 
   set version(ver) {
-    if (shazam_integer(ver, this._display_name, "version")) {
+    if (shazam_is_integer(ver, this._display_name, "version")) {
       this._body.version = ver;
     }
   }

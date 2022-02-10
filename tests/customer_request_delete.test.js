@@ -1,5 +1,5 @@
 const util = require("../src/lib/utilities");
-const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
+const spy_shazam_integer = jest.spyOn(util, "shazam_is_integer");
 
 const Customer_Delete = require("../src/lib/customer_request_delete");
 
@@ -74,7 +74,7 @@ describe("Customer_Delete", () => {
     expect(del.endpoint).toEqual(expected);
   });
 
-  test("setter should call shazam_integer", () => {
+  test("setter should call shazam_is_integer", () => {
     let klass = del;
     let test_val = 95;
     let caller = "version";

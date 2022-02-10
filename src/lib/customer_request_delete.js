@@ -1,6 +1,6 @@
 const Retrieve_Update_Delete = require("./customer_request_abstract_R_U_D_super");
 const {
-  shazam_integer,
+  shazam_is_integer,
   query_param_is_query_string,
   query_param_replace_value,
 } = require("./utilities");
@@ -41,7 +41,7 @@ class Customer_Delete extends Retrieve_Update_Delete {
     this._endpoint = str;
   }
   set version(int) {
-    if (shazam_integer(int, this.display_name, "version"))
+    if (shazam_is_integer(int, this.display_name, "version"))
       this.#query_param_replace("version", int + "");
   }
   // PRIVATE METHODS

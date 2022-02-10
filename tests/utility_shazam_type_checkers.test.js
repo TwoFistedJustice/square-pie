@@ -1,22 +1,22 @@
 "use strict";
 const {
-  shazam_integer,
-  shazam_boolean,
+  shazam_is_integer,
+  shazam_is_boolean,
   shazam_is_array,
 } = require("../src/lib/utilities");
 /* --------------------------------------------------------*
  *                                                         *
- *                        shazam_integer
+ *                        shazam_is_integer
  *                                                         *
  * ------------------------------------------------------- */
-describe("shazam_integer integer verification utility", () => {
+describe("shazam_is_integer integer verification utility", () => {
   test("should throw on a non-integer string", () => {
     expect(() => {
-      shazam_integer("95.5", "utilities test suite", "should throw");
+      shazam_is_integer("95.5", "utilities test suite", "should throw");
     }).toThrow();
 
     expect(() => {
-      shazam_integer(95.5, "utilities test suite", "should throw");
+      shazam_is_integer(95.5, "utilities test suite", "should throw");
     }).toThrow();
   });
 
@@ -24,11 +24,11 @@ describe("shazam_integer integer verification utility", () => {
     let expected =
       "describe.test expects an integer or a string that can be coerced to an integer. Received: 95.5";
     expect(() => {
-      shazam_integer("95.5", "describe", "test");
+      shazam_is_integer("95.5", "describe", "test");
     }).toThrowError(new TypeError(expected));
 
     expect(() => {
-      shazam_integer(95.5, "describe", "test");
+      shazam_is_integer(95.5, "describe", "test");
     }).toThrowError(new TypeError(expected));
   });
 
@@ -36,7 +36,7 @@ describe("shazam_integer integer verification utility", () => {
     let expected =
       "describe.test expects an integer or a string that can be coerced to an integer. Received: ABC";
     expect(() => {
-      shazam_integer("ABC", "describe", "test");
+      shazam_is_integer("ABC", "describe", "test");
     }).toThrowError(new TypeError(expected));
   });
 
@@ -44,70 +44,70 @@ describe("shazam_integer integer verification utility", () => {
     let expected =
       "unspecified_class.unspecified_setter expects an integer or a string that can be coerced to an integer. Received: ABC";
     expect(() => {
-      shazam_integer("ABC");
+      shazam_is_integer("ABC");
     }).toThrowError(new TypeError(expected));
   });
 
   test("should accept an integer string", () => {
     expect(() => {
-      shazam_integer("42", "utilities test suite", "should NOT throw");
+      shazam_is_integer("42", "utilities test suite", "should NOT throw");
     }).not.toThrow();
 
     expect(
-      shazam_integer("42", "utilities test suite", "should return true")
+      shazam_is_integer("42", "utilities test suite", "should return true")
     ).toEqual(true);
   });
 
   test("should accept an integer number", () => {
     let num = 42;
     expect(() => {
-      shazam_integer(num, "utilities test suite", "should NOT throw");
+      shazam_is_integer(num, "utilities test suite", "should NOT throw");
     }).not.toThrow();
 
     expect(
-      shazam_integer(num, "utilities test suite", "should return true")
+      shazam_is_integer(num, "utilities test suite", "should return true")
     ).toEqual(true);
   });
 });
 /* --------------------------------------------------------*
  *                                                         *
- *               shazam_boolean
+ *               shazam_is_boolean
  *                                                         *
  * ------------------------------------------------------- */
 
-describe("shazam_boolean boolean verification utility", () => {
+describe("shazam_is_boolean boolean verification utility", () => {
   test("should throw when fed a non-boolean", () => {
     expect(() => {
-      shazam_boolean("true", "utilities test suite", "should throw");
+      shazam_is_boolean("true", "utilities test suite", "should throw");
     }).toThrow();
   });
 
   test("should throw when fed a 1 or a 0", () => {
     expect(() => {
-      shazam_boolean(1, "utilities test suite", "should throw");
+      shazam_is_boolean(1, "utilities test suite", "should throw");
     }).toThrow();
 
     expect(() => {
-      shazam_boolean(0, "utilities test suite", "should throw");
+      shazam_is_boolean(0, "utilities test suite", "should throw");
     }).toThrow();
   });
 
   test("should throw when the correct message a non-boolean", () => {
     let expected = `describe.test expects a boolean. Received: true\nMake sure you didn't pass a string that looks like a boolean.`;
     expect(() => {
-      shazam_boolean("true", "describe", "test");
+      shazam_is_boolean("true", "describe", "test");
     }).toThrowError(expected);
   });
 
   test("should NOT throw when fed a boolean", () => {
     expect(() => {
-      shazam_boolean(true, "utilities test suite", "should NOT throw");
+      shazam_is_boolean(true, "utilities test suite", "should NOT throw");
     }).not.toThrow();
   });
 
   test("should return true when fed a boolean", () => {
     expect(
-      shazam_boolean(false, "utilities test suite", "should return true")
+      shazam_is_boolean(false, "utilities test suite", "should return true")
     ).toEqual(true);
   });
 });

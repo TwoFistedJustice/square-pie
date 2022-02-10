@@ -2,8 +2,8 @@ const Order_Request = require("./order_request_abstract");
 const {
   arche_time_start_end,
   define,
-  shazam_boolean,
-  shazam_integer,
+  shazam_is_boolean,
+  shazam_is_integer,
   shazam_max_length_array,
   shazam_min_length_array,
   shazam_is_array,
@@ -147,12 +147,12 @@ class Order_Search extends Order_Request {
     this._body.cursor = pagination_cursor;
   }
   set limit(int) {
-    if (shazam_integer(int, this._display_name, "limit")) {
+    if (shazam_is_integer(int, this._display_name, "limit")) {
       this._body.limit = int;
     }
   }
   set return_entries(bool) {
-    if (shazam_boolean(bool, this.display_name, "return_entries")) {
+    if (shazam_is_boolean(bool, this.display_name, "return_entries")) {
       this._body.return_entries = bool;
     }
   }

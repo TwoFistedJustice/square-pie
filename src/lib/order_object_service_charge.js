@@ -3,8 +3,8 @@ const {
   arche_money,
   arrayify,
   shazam_max_length,
-  shazam_integer,
-  shazam_boolean,
+  shazam_is_integer,
+  shazam_is_boolean,
 } = require("./utilities/");
 const { uid_length } = require("./pie_defaults");
 
@@ -127,7 +127,7 @@ class Order_Object_Service_Charge {
     }
   }
   set catalog_version(ver) {
-    if (shazam_integer(ver, this.display_name, "catalog_version")) {
+    if (shazam_is_integer(ver, this.display_name, "catalog_version")) {
       this._fardel.catalog_version = ver;
     }
   }
@@ -150,7 +150,7 @@ class Order_Object_Service_Charge {
     this._fardel.calculation_phase = str;
   }
   set taxable(bool) {
-    if (shazam_boolean(bool, this.display_name, "taxable")) {
+    if (shazam_is_boolean(bool, this.display_name, "taxable")) {
       this._fardel.taxable = bool;
     }
   }

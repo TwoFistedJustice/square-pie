@@ -1,5 +1,5 @@
 const util = require("../src/lib/utilities");
-const spy_integer = jest.spyOn(util, "shazam_integer");
+const spy_integer = jest.spyOn(util, "shazam_is_integer");
 
 const Invoice_Publish = require("../src/lib/invoice_request_publish");
 
