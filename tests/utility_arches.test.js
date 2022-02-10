@@ -13,8 +13,8 @@ describe("arche_money", () => {
     let currency = "CAD";
 
     expect(() => {
-      arche_money(amt, currency);
-    }).toThrow();
+      arche_money(amt, currency, "bit", "coin");
+    }).toThrowError(/bit.coin/);
   });
 
   test("arche_money utility should  throw when fed a non-ISO 4217 compliant currency", () => {
