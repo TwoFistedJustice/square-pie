@@ -190,6 +190,13 @@ describe("getters/setters", () => {
     expect(discount.scope).toEqual(expected);
   });
 
+  test("#enum_type should curry", () => {
+    let expected = "VARIABLE_AMOUNT";
+    discount.make().type().variable_amount().catalog_version(5);
+    expect(discount.type).toEqual(expected);
+    expect(discount.catalog_version).toEqual(5);
+  });
+
   test("catalog_version should set", () => {
     let expected = 5;
     discount.make().catalog_version(5);

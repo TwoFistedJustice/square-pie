@@ -174,8 +174,8 @@ class Order_Discount {
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
-  #enum_type() {
-    return order_discount_enum.type(this);
+  #enum_type(calling_this) {
+    return order_discount_enum.type(this, calling_this);
   }
 
   /** @function
@@ -197,8 +197,8 @@ class Order_Discount {
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
 
-  #enum_scope() {
-    return order_discount_enum.scope(this);
+  #enum_scope(calling_this) {
+    return order_discount_enum.scope(this, calling_this);
   }
 
   // MAKE METHODS
@@ -252,7 +252,7 @@ class Order_Discount {
         return this;
       },
       type: function () {
-        return this.self.#enum_type();
+        return this.self.#enum_type(this);
       },
       percentage: function (percent) {
         this.self.percentage = percent;
@@ -267,7 +267,7 @@ class Order_Discount {
         return this;
       },
       scope: function () {
-        return this.self.#enum_scope();
+        return this.self.#enum_scope(this);
       },
     };
   }
