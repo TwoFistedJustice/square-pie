@@ -4,10 +4,10 @@ const man =
   "http request to search for invoices for a given location\n" +
   "Pass the location_id as a string argument when you instantiate the class. You can also pass it later by calling\n" +
   'make().location("id")' +
-  "Build a query using the build_query() method. Only call the setter or make().query() if you are passing a fully formed query object as it will replace everything." +
-  "For this class only, you can also use the make() sub-methods to build your query: location_id(), customer_id(), and sort() - these are exactly the same as the build_query methods." +
-  "\nLimit has a default of 100 and max of 200.\nDelivery is an array because this endpoint has a pagination cursor.";
-("\n\nhttps://developer.squareup.com/reference/square/invoices-api/search-invoices");
+  "Build a query using the build_query() method. Only call the setter or make().query() if you are passing a fully formed query object as it will replace everything.\n" +
+  "For this class only, you can also use the make() sub-methods to build your query: location_id(), customer_id(), and sort() - these are exactly the same as the build_query methods.\n" +
+  "Limit has a default of 100 and max of 200.\nDelivery is an array because this endpoint has a pagination cursor.\n" +
+  "https://developer.squareup.com/reference/square/invoices-api/search-invoices";
 
 /** @class  Invoice_Search
  * @param {string} location_id - useful if you only need to search one location. You can leave it out and add location_ids using make() or build_query()
@@ -25,8 +25,6 @@ const man =
  * await search.request() // tells it to go
  *
  *  search.delivery // where you will find the returned results stored in an array - each call places one big object of results on the array
- *
- *
  * */
 class Invoice_Search extends Invoice_Request {
   _display_name = "Invoice_Search";
