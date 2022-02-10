@@ -191,11 +191,6 @@ class Catalog_Item extends Catalog_Object_Super {
   }
 
   // item_variation id should be "#item.name" + "item_variation.name"
-  /**
-   * @param {}
-   * @throws
-   * @return
-   * */
   set variations(obj) {
     // An item must have at least one variation.
     // If user didn't add an id, create an id for the variation by combining name fields
@@ -257,6 +252,7 @@ class Catalog_Item extends Catalog_Object_Super {
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
+   * @param {object} calling_this - pass in the calling function's 'this'
    * @method regular - sets value to "REGULAR"
    * @method appointments_service - sets value to "APPOINTMENTS_SERVICE"
    * @method appointment alias of appointments_service
@@ -269,16 +265,16 @@ class Catalog_Item extends Catalog_Object_Super {
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
-  #enum_product_type() {
+  #enum_product_type(calling_this) {
     return {
       self: this,
       regular: function () {
         this.self.product_type = "REGULAR";
-        return this;
+        return calling_this;
       },
       appointments_service: function () {
         this.self.product_type = "APPOINTMENTS_SERVICE";
-        return this;
+        return calling_this;
       },
       appointment: function () {
         return this.appointments_service();
@@ -292,8 +288,6 @@ class Catalog_Item extends Catalog_Object_Super {
   // MAKE METHODS
   /** @function make_modifier_list - builds a compliant modifier_list_Info object. To use the 'view' method you must set the function
    * to a variable and call the method on the variable. If you don't do this, it will return an un-constructed  object.
-   *
-   *
    * @method modifier_list_id
    * @param{string} id
    * @method modifier_overrides
@@ -508,7 +502,7 @@ class Catalog_Item extends Catalog_Object_Super {
         return this;
       },
       product_type: function () {
-        return this.self.#enum_product_type();
+        return this.self.#enum_product_type(this);
       },
     };
   }

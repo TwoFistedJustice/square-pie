@@ -33,43 +33,43 @@ const order_discount_enum = {
    * }
    * */
 
-  type: function (self) {
+  type: function (self, calling_this) {
     return {
       unknown: function () {
         self.type = "UNKNOWN_DISCOUNT";
-        return this;
+        return calling_this;
       },
       fixed_percentage: function () {
         self.type = "FIXED_PERCENTAGE";
-        return this;
+        return calling_this;
       },
       fixed_amount: function () {
         self.type = "FIXED_AMOUNT";
-        return this;
+        return calling_this;
       },
       variable_percentage: function () {
         self.type = "VARIABLE_PERCENTAGE";
-        return this;
+        return calling_this;
       },
       variable_amount: function () {
         self.type = "VARIABLE_AMOUNT";
-        return this;
+        return calling_this;
       },
     };
   },
-  scope: function (self) {
+  scope: function (self, calling_this) {
     return {
       other: function () {
         self.scope = "OTHER_DISCOUNT_SCOPE";
-        return this;
+        return calling_this;
       },
       line_item: function () {
         self.scope = "LINE_ITEM";
-        return this;
+        return calling_this;
       },
       order: function () {
         self.scope = "ORDER";
-        return this;
+        return calling_this;
       },
     };
   },

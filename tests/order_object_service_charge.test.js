@@ -78,7 +78,7 @@ describe(`${class_name} getters/setters`, () => {
       currency: "EUR",
     };
     make.amount_money(4200, "eur");
-    expect(service_charge.amount_money).toEqual(expected);
+    expect(service_charge.amount_money).toMatchObject(expected);
   });
   test("make().calculation_phase() should set ", () => {
     let expected = "SUBTOTAL_PHASE";
@@ -102,6 +102,17 @@ describe(`${class_name} getters/setters`, () => {
     let expected = "TOTAL_PHASE";
     make.calculation_phase().total();
     expect(service_charge.calculation_phase).toEqual(expected);
+  });
+
+  test("make().calculation_phase() should curry-over ", () => {
+    let expected = "TOTAL_PHASE";
+    let money = {
+      amount: 4200,
+      currency: "EUR",
+    };
+    make.calculation_phase().total().amount_money(4200, "eur");
+    expect(service_charge.calculation_phase).toEqual(expected);
+    expect(service_charge.amount_money).toMatchObject(money);
   });
 
   test("make().taxable() should set ", () => {

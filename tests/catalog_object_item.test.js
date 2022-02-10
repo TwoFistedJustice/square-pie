@@ -254,8 +254,15 @@ describe("getters/setters", () => {
 
   test("make().product_type().regular() should set ", () => {
     let expected = "REGULAR";
-    make.product_type().appt().regular();
+    item.product_type = "STEEE-RANNNNGE";
+    expect(item.product_type).toEqual("STEEE-RANNNNGE");
+    make.product_type().regular();
     expect(item.product_type).toEqual(expected);
+  });
+  test("make().product_type() should curry-over ", () => {
+    make.product_type().regular().skip_modifier_screen(true);
+    expect(item.skip_modifier_screen).toEqual(true);
+    expect(item.product_type).toEqual("REGULAR");
   });
 
   test("make().skip_modifier_screen () should set ", () => {

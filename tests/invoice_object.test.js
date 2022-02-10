@@ -319,6 +319,14 @@ describe("object make methods", () => {
     expect(invoice.delivery_method).toEqual(expected);
   });
 
+  test("make().delivery_method() should curry-over", () => {
+    let expected = "EMAIL";
+    let recipient = { customer_id: id };
+    make.delivery_method().email().primary_recipient(id);
+    expect(invoice.delivery_method).toEqual(expected);
+    expect(invoice.primary_recipient).toEqual(recipient);
+  });
+
   test("make().invoice_number() should set property", () => {
     let expected = id;
     make.invoice_number(expected);
@@ -350,6 +358,30 @@ describe("object make methods", () => {
     make.accepted_payment_methods().square_gift_card().yes();
     expect(invoice.accepted_payment_methods).toEqual(expected);
   });
+
+  test.only("make().accepted_payment_methods() should curry-over", () => {
+    let expected = {
+      bank_account: false,
+      card: false,
+      square_gift_card: true,
+    };
+    let time = dateCodes.RFC3339;
+    // it's ugly, but it works.
+    make
+      .accepted_payment_methods()
+      .square_gift_card()
+      .yes()
+      .scheduled_at(time)
+      .accepted_payment_methods()
+      .card()
+      .no()
+      .accepted_payment_methods()
+      .bank_account()
+      .no();
+    expect(invoice.accepted_payment_methods).toEqual(expected);
+    expect(invoice.scheduled_at).toEqual(time);
+  });
+
   test("make().custom_fields() should set property - with below()", () => {
     let expected = [
       {

@@ -17,6 +17,7 @@ const order_line_item_enum = {
   /** @function enum_state
    * @enum_state  enables a referencing class to set only allowable values on a property.
    * @param {object} self - pass in 'this' from the referencing class.
+   * @param {object} calling_this - pass in the calling function's 'this'
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
    * #enum_PROPERTY_NAME() {
@@ -24,19 +25,19 @@ const order_line_item_enum = {
    * }
    * */
 
-  item_type: function (self) {
+  item_type: function (self, calling_this) {
     return {
       item: function () {
         self.item_type = "ITEM";
-        return this;
+        return calling_this;
       },
       custom: function () {
         self.item_type = "CUSTOM_AMOUNT";
-        return this;
+        return calling_this;
       },
       gift: function () {
         self.item_type = "GIFT_CARD";
-        return this;
+        return calling_this;
       },
     };
   },

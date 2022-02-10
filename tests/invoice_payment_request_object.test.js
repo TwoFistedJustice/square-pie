@@ -267,6 +267,14 @@ describe("object make methods", () => {
     make.request_type().installment();
     expect(request_for_payment.request_type).toEqual(expected);
   });
+
+  test("make().request_type() should curry-over", () => {
+    let expected = "INSTALLMENT";
+    make.request_type().installment().uid("str");
+    expect(request_for_payment.uid).toEqual("str");
+    expect(request_for_payment.request_type).toEqual(expected);
+  });
+
   test("make().due_date() setter should set property", () => {
     let expected = "1918-11-11";
     make.due_date(expected);
@@ -304,6 +312,13 @@ describe("object make methods", () => {
     let expected = "BANK_ON_FILE";
     make.automatic_payment_source().bank();
     expect(request_for_payment.automatic_payment_source).toEqual(expected);
+  });
+
+  test("make().automatic_payment_source()should curry-over", () => {
+    let expected = "BANK_ON_FILE";
+    make.automatic_payment_source().bank().tipping_enabled(true);
+    expect(request_for_payment.automatic_payment_source).toEqual(expected);
+    expect(request_for_payment.tipping_enabled).toEqual(true);
   });
 
   test("make().card_id() setter should set property", () => {

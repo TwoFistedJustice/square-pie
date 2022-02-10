@@ -94,8 +94,14 @@ describe(`${class_name} getters/setters`, () => {
     make.state().draft();
     expect(order.state).toEqual(expected);
   });
+  test("make().state () should curry-over ", () => {
+    let expected = "DRAFT";
+    make.state().draft().ticket_name(id);
+    expect(order.ticket_name).toEqual(id);
+    expect(order.state).toEqual(expected);
+  });
 
-  test.only("make().source () should set ", () => {
+  test("make().source () should set ", () => {
     let expected = {
       name: id,
     };

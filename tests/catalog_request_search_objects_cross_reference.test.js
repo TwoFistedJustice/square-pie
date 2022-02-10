@@ -132,6 +132,19 @@ describe("Super inheritance", () => {
 
     expect(xref.object_types).toEqual(expected);
   });
+
+  test("make().object_types() should curry-over", () => {
+    let expected = ["ITEM", "ITEM_VARIATION"];
+
+    make
+      .object_types()
+      .item()
+      .begin_time(dateCodes.RFC3339)
+      .types()
+      .item_variation();
+    expect(xref.begin_time).toEqual(dateCodes.RFC3339);
+    expect(xref.object_types).toEqual(expected);
+  });
 });
 
 /* --------------------------------------------------------*

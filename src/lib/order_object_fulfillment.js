@@ -118,6 +118,7 @@ class Order_Fulfillment {
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
    * @private
+   * @param {object} calling_this - pass in the calling function's 'this'
    * @method proposed sets value to "PROPOSED"
    * @method reserved sets value to "RESERVED"
    * @method prepared sets value to "PREPARED"
@@ -133,8 +134,8 @@ class Order_Fulfillment {
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
-  #enum_state() {
-    return order_fulfillment_state.state(this);
+  #enum_state(self, calling_this) {
+    return order_fulfillment_state.state(self, calling_this);
   }
 
   /**@function  time_date
@@ -292,11 +293,11 @@ class Order_Fulfillment {
     return {
       self: this,
       state: function () {
-        return this.self.#enum_state();
+        return this.self.#enum_state(this.self, this);
       },
       cancel_reason: function (str) {
         let key = "cancel_reason";
-        this.self.#enum_state().canceled();
+        this.self.#enum_state(this.self, this).canceled();
         this.self.#note(fulfillment, key, str);
         return this;
       },
@@ -404,7 +405,7 @@ class Order_Fulfillment {
     return {
       self: this,
       state: function () {
-        return this.self.#enum_state();
+        return this.self.#enum_state(this.self, this);
       },
       expected_shipped_at: function (time) {
         let key = "expected_shipped_at";
@@ -413,7 +414,7 @@ class Order_Fulfillment {
       },
       cancel_reason: function (str) {
         let key = "cancel_reason";
-        this.self.#enum_state().canceled();
+        this.self.#enum_state(this.self, this).canceled();
         this.self.#note(fulfillment, key, str);
         return this;
       },
@@ -422,7 +423,7 @@ class Order_Fulfillment {
       },
       failure_reason: function (str) {
         let key = "failure_reason";
-        this.self.#enum_state().failed();
+        this.self.#enum_state(this.self, this).failed();
         this.self.#note(fulfillment, key, str);
         return this;
       },
@@ -492,7 +493,7 @@ class Order_Fulfillment {
         return this;
       },
       state: function () {
-        return this.self.#enum_state();
+        return this.self.#enum_state(this.self, this);
       },
       type: function (str) {
         this.self.type = str;

@@ -16,6 +16,7 @@ const order_object_enum = {
   /** @function enum
    * @enum  enables a referencing class to set only allowable values on a property.
    * @param {object} self - pass in 'this' from the referencing class.
+   * @param {object} calling_this - pass in the calling function's 'this'
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
    * #enum_PROPERTY_NAME() {
@@ -23,23 +24,23 @@ const order_object_enum = {
    * }
    * */
 
-  state: function (self) {
+  state: function (self, calling_this) {
     return {
       open: function () {
         self.state = "OPEN";
-        return this;
+        return calling_this;
       },
       completed: function () {
         self.state = "COMPLETED";
-        return this;
+        return calling_this;
       },
       canceled: function () {
         self.state = "CANCELED";
-        return this;
+        return calling_this;
       },
       draft: function () {
         self.state = "DRAFT";
-        return this;
+        return calling_this;
       },
     };
   },

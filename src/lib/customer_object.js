@@ -51,40 +51,40 @@ class Customer_Object {
    *  @private
    *  Sets fixed string values on fardel.creation_source
    */
-  #enum_creation_source() {
+  #enum_creation_source(calling_this) {
     return {
       self: this,
       other: function () {
         this.self.creation_source = "OTHER";
-        return this;
+        return calling_this;
       },
       appointments: function () {
         this.self.creation_source = "APPOINTMENTS";
-        return this;
+        return calling_this;
       },
       coupon: function () {
         this.self.creation_source = "COUPON";
-        return this;
+        return calling_this;
       },
       deletion_recovery: function () {
         this.self.creation_source = "DELETION_RECOVERY";
-        return this;
+        return calling_this;
       },
       directory: function () {
         this.self.creation_source = "DIRECTORY";
-        return this;
+        return calling_this;
       },
       egifting: function () {
         this.self.creation_source = "EGIFTING";
-        return this;
+        return calling_this;
       },
       email_collection: function () {
         this.self.creation_source = "EMAIL_COLLECTION";
-        return this;
+        return calling_this;
       },
       feedback: function () {
         this.self.creation_source = "FEEDBACK";
-        return this;
+        return calling_this;
       },
       import: function () {
         this.self.creation_source = "IMPORT";
@@ -92,43 +92,43 @@ class Customer_Object {
       },
       invoices: function () {
         this.self.creation_source = "INVOICES";
-        return this;
+        return calling_this;
       },
       loyalty: function () {
         this.self.creation_source = "LOYALTY";
-        return this;
+        return calling_this;
       },
       marketing: function () {
         this.self.creation_source = "MARKETING";
-        return this;
+        return calling_this;
       },
       merge: function () {
         this.self.creation_source = "MERGE";
-        return this;
+        return calling_this;
       },
       online_store: function () {
         this.self.creation_source = "ONLINE_STORE";
-        return this;
+        return calling_this;
       },
       instant_profile: function () {
         this.self.creation_source = "INSTANT_PROFILE";
-        return this;
+        return calling_this;
       },
       terminal: function () {
         this.self.creation_source = "TERMINAL";
-        return this;
+        return calling_this;
       },
       third_party: function () {
         this.self.creation_source = "THIRD_PARTY";
-        return this;
+        return calling_this;
       },
       third_party_import: function () {
         this.self.creation_source = "THIRD_PARTY_IMPORT";
-        return this;
+        return calling_this;
       },
       unmerge_recovery: function () {
         this.self.creation_source = "UNMERGE_RECOVERY";
-        return this;
+        return calling_this;
       },
       appt: function () {
         return this.appointments();
@@ -396,7 +396,7 @@ class Customer_Object {
        * @see this.#enum_creation_source()
        * */
       creation_source: function () {
-        return this.self.#enum_creation_source();
+        return this.self.#enum_creation_source(this);
       },
       preferences: function (bool) {
         this.self.preferences = bool;

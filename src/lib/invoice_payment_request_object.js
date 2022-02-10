@@ -15,7 +15,6 @@ const man =
   "\nhttps://developer.squareup.com/reference/square/objects/InvoicePaymentRequest";
 
 /** @class Invoice_Payment_Request_Object representing a payment request for an invoice
- * @param {}  You must do this before calling .request()
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/objects/InvoicePaymentRequest | Square Docs}
  * @example
@@ -163,6 +162,7 @@ class Invoice_Payment_Request_Object {
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
    * @private
+   * @param {object} calling_this - pass in the calling function's 'this'
    * @method balance sets value to "BALANCE"
    * @method deposit sets value to "DEPOSIT"
    * @method installment sets value to "INSTALLMENT"
@@ -175,20 +175,20 @@ class Invoice_Payment_Request_Object {
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
-  #request_type_enum() {
+  #request_type_enum(calling_this) {
     return {
       self: this,
       balance: function () {
         this.self.request_type = "BALANCE";
-        return this;
+        return calling_this;
       },
       deposit: function () {
         this.self.request_type = "DEPOSIT";
-        return this;
+        return calling_this;
       },
       installment: function () {
         this.self.request_type = "INSTALLMENT";
-        return this;
+        return calling_this;
       },
     };
   }
@@ -201,6 +201,7 @@ class Invoice_Payment_Request_Object {
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
    * @private
+   * @param {object} calling_this - pass in the calling function's 'this'
    * @method none  sets value to "NONE"
    * @method card  sets value to "CARD_ON_FILE"
    * @method bank sets value to "BANK_ON_FILE"
@@ -213,20 +214,20 @@ class Invoice_Payment_Request_Object {
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
-  #automatic_payment_source_enum() {
+  #automatic_payment_source_enum(calling_this) {
     return {
       self: this,
       none: function () {
         this.self.automatic_payment_source = "NONE";
-        return this;
+        return calling_this;
       },
       card: function () {
         this.self.automatic_payment_source = "CARD_ON_FILE";
-        return this;
+        return calling_this;
       },
       bank: function () {
         this.self.automatic_payment_source = "BANK_ON_FILE";
-        return this;
+        return calling_this;
       },
     };
   }
@@ -322,7 +323,7 @@ class Invoice_Payment_Request_Object {
         return this;
       },
       request_type: function () {
-        return this.self.#request_type_enum();
+        return this.self.#request_type_enum(this);
       },
       due_date: function (YYYMMDD) {
         this.self.due_date = YYYMMDD;
@@ -341,7 +342,7 @@ class Invoice_Payment_Request_Object {
         return this;
       },
       automatic_payment_source: function () {
-        return this.self.#automatic_payment_source_enum();
+        return this.self.#automatic_payment_source_enum(this);
       },
       card_id: function (id) {
         this.self.card_id = id;
