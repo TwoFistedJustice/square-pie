@@ -5,7 +5,7 @@
  * @throws throws and error if the `num` argument cannot be coerced to an integer
  * @return {boolean} returns true if the `num` argument can be coerced to an integer
  * */
-const shazam_integer = function (
+const shazam_is_integer = function (
   num,
   displayName = "unspecified_class",
   caller = "unspecified_setter"
@@ -19,4 +19,4 @@ const shazam_integer = function (
   return true;
 };
 
-module.exports = shazam_integer;
+module.exports = shazam_is_integer;

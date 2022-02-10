@@ -2,7 +2,7 @@ const { nanoid } = require("nanoid");
 const {
   arche_money,
   shazam_max_length,
-  shazam_integer,
+  shazam_is_integer,
 } = require("./utilities");
 const { uid_length } = require("./pie_defaults");
 const man =
@@ -119,7 +119,7 @@ class Order_Tax {
     }
   }
   set catalog_version(ver) {
-    if (shazam_integer(ver, this.display_name, "catalog_version")) {
+    if (shazam_is_integer(ver, this.display_name, "catalog_version")) {
       this._fardel.catalog_version = ver;
     }
   }

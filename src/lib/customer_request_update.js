@@ -3,7 +3,7 @@ const {
   shazam_max_length,
   normalize_email,
   shazam_time_RFC3339,
-  shazam_integer,
+  shazam_is_integer,
 } = require("./utilities");
 const man =
   "updates a Square customer record.\n" +
@@ -185,7 +185,7 @@ class Customer_Update extends Retrieve_Update_Delete {
    * * @throws Will throw and error if argument  cannot be coerced to integer
    * */
   set version(int) {
-    if (shazam_integer(int)) {
+    if (shazam_is_integer(int)) {
       this._body.version = int;
     }
   }

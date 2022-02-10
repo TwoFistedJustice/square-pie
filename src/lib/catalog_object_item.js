@@ -4,7 +4,7 @@ const {
   arrayify,
   clone_object,
   shazam_boolean,
-  shazam_integer,
+  shazam_is_integer,
   shazam_max_length,
   shazam_max_length_array,
 } = require("./utilities");
@@ -342,13 +342,13 @@ class Catalog_Item extends Catalog_Object_Super {
         return this;
       },
       min_selected_modifiers: function (int32) {
-        if (shazam_integer(int32, name, "min_selected_modifiers")) {
+        if (shazam_is_integer(int32, name, "min_selected_modifiers")) {
           catalog_modifier_list.min_selected_modifiers = int32;
         }
         return this;
       },
       max_selected_modifiers: function (int32) {
-        if (shazam_integer(int32, name, "max_selected_modifiers")) {
+        if (shazam_is_integer(int32, name, "max_selected_modifiers")) {
           catalog_modifier_list.max_selected_modifiers = int32;
         }
         return this;

@@ -1,5 +1,5 @@
 const util = require("../src/lib/utilities");
-const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
+const spy_shazam_integer = jest.spyOn(util, "shazam_is_integer");
 const Invoice_Object = require("../src/lib/invoice_object");
 const { long_strings, dateCodes } = require("./helper_objects");
 
@@ -44,7 +44,7 @@ describe("Error checking", () => {
     invoice = new Invoice_Object();
   });
 
-  test("setter should call shazam_integer", () => {
+  test("setter should call shazam_is_integer", () => {
     let klass = invoice;
     let test_val = 95;
     let caller = "version";

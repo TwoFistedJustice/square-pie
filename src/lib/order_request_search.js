@@ -3,7 +3,7 @@ const {
   arche_time_start_end,
   define,
   shazam_boolean,
-  shazam_integer,
+  shazam_is_integer,
   shazam_max_length_array,
   shazam_min_length_array,
   shazam_is_array,
@@ -147,7 +147,7 @@ class Order_Search extends Order_Request {
     this._body.cursor = pagination_cursor;
   }
   set limit(int) {
-    if (shazam_integer(int, this._display_name, "limit")) {
+    if (shazam_is_integer(int, this._display_name, "limit")) {
       this._body.limit = int;
     }
   }

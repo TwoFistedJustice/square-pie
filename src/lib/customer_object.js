@@ -2,7 +2,7 @@ const {
   shazam_max_length,
   normalize_email,
   shazam_time_RFC3339,
-  shazam_integer,
+  shazam_is_integer,
   shazam_boolean,
 } = require("./utilities");
 
@@ -248,7 +248,7 @@ class Customer_Object {
     this._fardel.note = val;
   }
   set version(int) {
-    if (shazam_integer(int, this.display_name, "version")) {
+    if (shazam_is_integer(int, this.display_name, "version")) {
       this._fardel.version = int;
     }
   }

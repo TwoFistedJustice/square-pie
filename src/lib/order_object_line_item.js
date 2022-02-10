@@ -6,7 +6,7 @@ const {
   clone_object,
   define,
   generate_error_message,
-  shazam_integer,
+  shazam_is_integer,
   shazam_min_length,
   shazam_max_length,
   object_does_not_have_property,
@@ -184,7 +184,7 @@ class Order_Line_Item {
     }
   }
   set catalog_version(int) {
-    if (shazam_integer(int, this.display_name, "catalog_version")) {
+    if (shazam_is_integer(int, this.display_name, "catalog_version")) {
       this._fardel.catalog_version = int;
     }
   }
@@ -464,7 +464,7 @@ class Order_Line_Item {
       },
       catalog_version: function (int64) {
         let key = "catalog_version";
-        if (shazam_integer(int64, name, caller + key)) {
+        if (shazam_is_integer(int64, name, caller + key)) {
           modifier.catalog_version = int64;
         }
         return this;
@@ -739,7 +739,7 @@ class Order_Line_Item {
       },
       catalog_version: function (int) {
         let key = "catalog_version";
-        if (shazam_integer(int, name, key)) {
+        if (shazam_is_integer(int, name, key)) {
           define(obj, key, int);
         }
         return this;

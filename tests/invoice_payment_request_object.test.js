@@ -1,6 +1,6 @@
 const util = require("../src/lib/utilities");
 const spy_shazam_boolean = jest.spyOn(util, "shazam_boolean");
-const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
+const spy_shazam_integer = jest.spyOn(util, "shazam_is_integer");
 // const spy_shazam_date_human_readable = jest.spyOn(util, "shazam_date_human_readable");
 // const spy_shazam_number_between_equals = jest.spyOn(util, "shazam_number_between_equals");
 // const spy_shazam_max_length = jest.spyOn(util, "shazam_max_length");
@@ -118,7 +118,7 @@ describe("error checking", () => {
     }).not.toThrow();
   });
 
-  test("#build_reminder should  call shazam_integer on whoa_nelly argument", () => {
+  test("#build_reminder should  call shazam_is_integer on whoa_nelly argument", () => {
     let test_val = 95;
     let caller = "#build_reminder";
     make.reminder(message, 0, test_val);
@@ -129,7 +129,7 @@ describe("error checking", () => {
     );
   });
 
-  test("#build_reminder should  call shazam_integer on days argument", () => {
+  test("#build_reminder should  call shazam_is_integer on days argument", () => {
     let test_val = 95;
     let caller = "#build_reminder";
     make.reminder(message, test_val);

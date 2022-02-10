@@ -1,6 +1,6 @@
 const Invoice_RUDCnP = require("./invoice_request_abstract_RUDCP_super");
 const { nanoid } = require("nanoid");
-const { shazam_integer, shazam_max_length } = require("./utilities");
+const { shazam_is_integer, shazam_max_length } = require("./utilities");
 const man =
   "http request to publish an invoice.\n" +
   "A published invoice MUST have a customer_id set in the primary_recipient field. This must be done before calling Publish endpoint.\n" +
@@ -63,7 +63,7 @@ class Invoice_Publish extends Invoice_RUDCnP {
   }
 
   set version(ver) {
-    if (shazam_integer(ver, this._display_name, "version")) {
+    if (shazam_is_integer(ver, this._display_name, "version")) {
       this._body.version = ver;
     }
   }

@@ -1,5 +1,5 @@
 const util = require("../src/lib/utilities");
-const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
+const spy_shazam_integer = jest.spyOn(util, "shazam_is_integer");
 
 const Customer_Object = require("../src/lib/customer_object");
 const {
@@ -190,7 +190,7 @@ describe("length and type checks", () => {
     }).not.toThrow();
   });
 
-  test("setter should call shazam_integer", () => {
+  test("setter should call shazam_is_integer", () => {
     let class_name = "Customer_Object";
     let klass = customer;
     let test_val = 95;

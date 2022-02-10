@@ -3,7 +3,7 @@ const {
   query_param_is_present,
   query_param_is_query_string,
   query_param_replace_value,
-  shazam_integer,
+  shazam_is_integer,
   shazam_number_LE,
 } = require("./utilities");
 const man =
@@ -53,7 +53,7 @@ class Invoice_List extends Invoice_Request {
     let name = this.display_name;
     let caller = "limit";
     if (
-      shazam_integer(int, name, caller) &&
+      shazam_is_integer(int, name, caller) &&
       shazam_number_LE(int, this.configuration.maximums.limit, name, caller)
     ) {
       this.#query_param_replace("limit", int + "");

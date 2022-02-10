@@ -1,5 +1,5 @@
 const util = require("../src/lib/utilities");
-const spy_shazam_integer = jest.spyOn(util, "shazam_integer");
+const spy_shazam_integer = jest.spyOn(util, "shazam_is_integer");
 const spy_shazam_number_LE = jest.spyOn(util, "shazam_number_LE");
 
 const Invoice_Search = require("../src/lib/invoice_request_search");
@@ -66,7 +66,7 @@ describe("Invoice_Search", () => {
   });
 
   // limit
-  test("limit setter should call shazam_integer", () => {
+  test("limit setter should call shazam_is_integer", () => {
     let test_val = 95;
     let caller = "limit";
     search[caller] = test_val;

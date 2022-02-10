@@ -1,5 +1,5 @@
 const util = require("../src/lib/utilities");
-const spy_integer = jest.spyOn(util, "shazam_integer");
+const spy_integer = jest.spyOn(util, "shazam_is_integer");
 const Invoice_Cancel = require("../src/lib/invoice_request_cancel");
 
 /* --------------------------------------------------------*
@@ -64,7 +64,7 @@ describe("Invoice_Cancel", () => {
     expect(cancel.version).toEqual(expected);
   });
 
-  test("setter should call shazam_integer", () => {
+  test("setter should call shazam_is_integer", () => {
     let test_val = 95;
     let caller = "version";
     cancel[caller] = test_val;

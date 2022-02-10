@@ -3,7 +3,7 @@ const {
   shazam_boolean,
   arche_money,
   shazam_date_human_readable,
-  shazam_integer,
+  shazam_is_integer,
   shazam_number_between_equals,
   shazam_max_length,
 } = require("./utilities");
@@ -255,14 +255,17 @@ class Invoice_Payment_Request_Object {
     let schedule_limit =
       this.configuration.maximums.pie_relative_scheduled_days;
 
-    if (whoa_nelly !== undefined && shazam_integer(whoa_nelly, name, caller)) {
+    if (
+      whoa_nelly !== undefined &&
+      shazam_is_integer(whoa_nelly, name, caller)
+    ) {
       send_delay = whoa_nelly;
       schedule_limit = this.configuration.maximums.relative_scheduled_days;
     }
     // if message is less than limit and send_delay shazams an integer and  if send_delay is within bounds
     if (
       shazam_max_length(limits.message, message, name, caller) &&
-      shazam_integer(send_delay, name, caller) &&
+      shazam_is_integer(send_delay, name, caller) &&
       shazam_number_between_equals(
         -schedule_limit,
         schedule_limit,

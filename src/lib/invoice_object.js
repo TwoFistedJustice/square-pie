@@ -4,7 +4,7 @@ const {
   shazam_max_length_array,
   shazam_time_RFC3339,
   shazam_date_human_readable,
-  shazam_integer,
+  shazam_is_integer,
 } = require("./utilities");
 const man =
   "creates a compliant Square invoice object. Follows standard Pie syntax.\n" +
@@ -115,7 +115,7 @@ class Invoice_Object {
 
   // FARDEL SETTERS
   set version(int) {
-    if (shazam_integer(int, this.display_name, "version")) {
+    if (shazam_is_integer(int, this.display_name, "version")) {
       this._fardel.version = int;
     }
   }

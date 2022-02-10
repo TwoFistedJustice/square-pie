@@ -2,7 +2,7 @@ const Invoice_RUDCnP = require("./invoice_request_abstract_RUDCP_super");
 const {
   query_param_is_query_string,
   query_param_replace_value,
-  shazam_integer,
+  shazam_is_integer,
 } = require("./utilities");
 const man =
   " http request to delete an invoice.\n" +
@@ -37,7 +37,7 @@ class Invoice_Delete extends Invoice_RUDCnP {
   }
 
   set version(int) {
-    if (shazam_integer(int, this.display_name, "version"))
+    if (shazam_is_integer(int, this.display_name, "version"))
       this.#query_param_replace("version", int + "");
   }
 
