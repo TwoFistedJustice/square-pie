@@ -359,7 +359,7 @@ describe("object make methods", () => {
     expect(invoice.accepted_payment_methods).toEqual(expected);
   });
 
-  test.only("make().accepted_payment_methods() should curry-over", () => {
+  test("make().accepted_payment_methods() should curry-over", () => {
     let expected = {
       bank_account: false,
       card: false,
