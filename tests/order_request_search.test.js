@@ -154,7 +154,7 @@ describe("Order_Search", () => {
  *                        Order_Search Query
  *                                                         *
  * ------------------------------------------------------- */
-describe("Order_Search Query - yes it's so special it get's its own separate set of tests!", () => {
+describe("Order_Search Query -", () => {
   let search, expected_filter, expected_sort, query;
   const date = dateCodes.RFC3339;
   const date_set = {
@@ -256,14 +256,14 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
   test('fulfillment_filter- fulfillment_types - should set "PICKUP" ', () => {
     expected_filter.fulfillment_filter = { fulfillment_types: ["PICKUP"] };
     let query = search.make_query();
-    query.fulfillment_filter().fulfillment_types().pickup();
+    query.fulfillment_types().pickup();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
 
   test('fulfillment_filter- fulfillment_types - should set "SHIPMENT"', () => {
     expected_filter.fulfillment_filter = { fulfillment_types: ["SHIPMENT"] };
     let query = search.make_query();
-    query.fulfillment_filter().fulfillment_types().shipment();
+    query.fulfillment_types().shipment();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
 
@@ -272,7 +272,7 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
       fulfillment_types: ["SHIPMENT", "PICKUP"],
     };
     let query = search.make_query();
-    query.fulfillment_filter().fulfillment_types().shipment().pickup();
+    query.fulfillment_types().shipment().f_types().pickup();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
 
@@ -280,7 +280,7 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expected_filter.fulfillment_filter = {
       fulfillment_states: ["PROPOSED"],
     };
-    query.fulfillment_filter().fulfillment_states().proposed();
+    query.fulfillment_states().proposed();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
 
@@ -288,7 +288,7 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expected_filter.fulfillment_filter = {
       fulfillment_states: ["RESERVED"],
     };
-    query.fulfillment_filter().fulfillment_states().reserved();
+    query.fulfillment_states().reserved();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
 
@@ -296,28 +296,28 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expected_filter.fulfillment_filter = {
       fulfillment_states: ["PREPARED"],
     };
-    query.fulfillment_filter().fulfillment_states().prepared();
+    query.fulfillment_states().prepared();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
   test('fulfillment_filter- fulfillment_states -"COMPLETED"', () => {
     expected_filter.fulfillment_filter = {
       fulfillment_states: ["COMPLETED"],
     };
-    query.fulfillment_filter().fulfillment_states().completed();
+    query.fulfillment_states().completed();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
   test('fulfillment_filter- fulfillment_states -"CANCELED"', () => {
     expected_filter.fulfillment_filter = {
       fulfillment_states: ["CANCELED"],
     };
-    query.fulfillment_filter().fulfillment_states().canceled();
+    query.fulfillment_states().canceled();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
   test('fulfillment_filter- fulfillment_states -"FAILED"', () => {
     expected_filter.fulfillment_filter = {
       fulfillment_states: ["FAILED"],
     };
-    query.fulfillment_filter().fulfillment_states().failed();
+    query.fulfillment_states().failed();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
 
@@ -326,10 +326,25 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
       fulfillment_states: ["FAILED", "CANCELED", "COMPLETED"],
     };
     query
-      .fulfillment_filter()
       .fulfillment_states()
       .failed()
+      .f_states()
       .canceled()
+      .f_states()
+      .completed();
+    expect(search.query.filter).toMatchObject(expected_filter);
+  });
+
+  test("fulfillment_states - should set", () => {
+    expected_filter.fulfillment_filter = {
+      fulfillment_states: ["FAILED", "CANCELED", "COMPLETED"],
+    };
+    query
+      .fulfillment_states()
+      .failed()
+      .fulfillment_states()
+      .canceled()
+      .fulfillment_states()
       .completed();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
@@ -340,7 +355,7 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expected_filter.state_filter = {
       states: ["OPEN"],
     };
-    query.state_filter().state().open();
+    query.state_filter().open();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
 
@@ -348,21 +363,21 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expected_filter.state_filter = {
       states: ["COMPLETED"],
     };
-    query.state_filter().state().completed();
+    query.state_filter().completed();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
   test('state_filter should set "CANCELED"', () => {
     expected_filter.state_filter = {
       states: ["CANCELED"],
     };
-    query.state_filter().state().canceled();
+    query.state_filter().canceled();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
   test('state_filter should set "DRAFT" ', () => {
     expected_filter.state_filter = {
       states: ["DRAFT"],
     };
-    query.state_filter().state().draft();
+    query.state_filter().draft();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
 
@@ -370,7 +385,14 @@ describe("Order_Search Query - yes it's so special it get's its own separate set
     expected_filter.state_filter = {
       states: ["OPEN", "CANCELED", "COMPLETED"],
     };
-    query.state_filter().state().open().canceled().completed();
+    // line ~~250
+    query
+      .state_filter()
+      .open()
+      .state_filter()
+      .canceled()
+      .state_filter()
+      .completed();
     expect(search.query.filter).toMatchObject(expected_filter);
   });
 
