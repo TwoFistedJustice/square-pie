@@ -2,7 +2,7 @@ const {
   arrayify,
   shazam_max_length,
   shazam_max_length_array,
-  shazam_time_RFC3339,
+  shazam_is_time_RFC3339,
   shazam_date_human_readable,
   shazam_is_integer,
 } = require("./utilities");
@@ -192,7 +192,7 @@ class Invoice_Object {
     }
   }
   set scheduled_at(time) {
-    if (shazam_time_RFC3339(time, this._display_name, "scheduled_at")) {
+    if (shazam_is_time_RFC3339(time, this._display_name, "scheduled_at")) {
       this._fardel.scheduled_at = time;
     }
   }

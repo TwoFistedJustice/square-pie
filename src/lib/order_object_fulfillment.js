@@ -2,7 +2,7 @@ const { nanoid } = require("nanoid");
 const {
   define,
   shazam_max_length,
-  shazam_time_RFC3339,
+  shazam_is_time_RFC3339,
 } = require("./utilities");
 const { uid_length } = require("./pie_defaults");
 const order_fulfillment_state = require("./enum/order_fulfillment_enum");
@@ -148,7 +148,7 @@ class Order_Fulfillment {
    * */
 
   #time_date(fulfillment, key, time) {
-    if (shazam_time_RFC3339(time, this.display_name, "#time_date")) {
+    if (shazam_is_time_RFC3339(time, this.display_name, "#time_date")) {
       !Object.prototype.hasOwnProperty.call(fulfillment, key)
         ? define(fulfillment, key, time)
         : (fulfillment[key] = time);

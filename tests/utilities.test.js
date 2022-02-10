@@ -10,7 +10,7 @@ const {
   normalize_email,
   arrayify,
   generate_error_message,
-  shazam_time_RFC3339,
+  shazam_is_time_RFC3339,
   shazam_date_human_readable,
   shazam_object_has_property,
   shazam_number_LT,
@@ -106,7 +106,7 @@ describe("generate_error_message", () => {
 describe("shazam_33339 date code verification utility", () => {
   test("should throw when fed a non-RFC3339 date code", () => {
     expect(() => {
-      shazam_time_RFC3339(
+      shazam_is_time_RFC3339(
         dateCodes.notRFC3339,
         "utilities test suite",
         "should throw"
@@ -116,7 +116,7 @@ describe("shazam_33339 date code verification utility", () => {
 
   test("should NOT throw when fed an RFC3339 date code", () => {
     expect(() => {
-      shazam_time_RFC3339(
+      shazam_is_time_RFC3339(
         dateCodes.RFC3339,
         "utilities test suite",
         "should NOT throw"
@@ -126,7 +126,7 @@ describe("shazam_33339 date code verification utility", () => {
 
   test("should return true when fed an RFC3339 date code", () => {
     expect(
-      shazam_time_RFC3339(
+      shazam_is_time_RFC3339(
         dateCodes.RFC3339,
         "utilities test suite",
         "should return true"

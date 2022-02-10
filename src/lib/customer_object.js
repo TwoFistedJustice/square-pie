@@ -1,7 +1,7 @@
 const {
   shazam_max_length,
   normalize_email,
-  shazam_time_RFC3339,
+  shazam_is_time_RFC3339,
   shazam_is_integer,
   shazam_is_boolean,
 } = require("./utilities");
@@ -237,7 +237,7 @@ class Customer_Object {
     this._fardel.address = val;
   }
   set birthday(time) {
-    if (shazam_time_RFC3339(time, this._display_name, "birthday")) {
+    if (shazam_is_time_RFC3339(time, this._display_name, "birthday")) {
       this._fardel.birthday = time;
     }
   }
