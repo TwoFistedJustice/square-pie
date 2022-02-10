@@ -80,8 +80,8 @@ class Invoice_Search extends Invoice_Request {
   }
   // SETTERS
 
-  set query(val) {
-    this._body.query = val;
+  set query(query_object) {
+    this._body.query = query_object;
   }
   set limit(int) {
     let name = this.display_name;
