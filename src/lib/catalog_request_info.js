@@ -1,12 +1,18 @@
 const Catalog_Request = require("./catalog_request_abstract");
 const man =
   "fetches an object containing the limits that can be used by Catalog_Upsert.n" +
+  "Makes some response information accessible on a property of the same name\n" +
   "Has no make-function.\n" +
   "https://developer.squareup.com/reference/square/catalog-api/catalog-info";
 
 /** @class Catalog_Info
+ * Makes some response information accessible on a property of the same name
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/catalog-api/catalog-info | Square Docs}
+ * @method get standard_unit_descriptions
+ * @method get standard_unit_json
+ * @method get language_code
+ * @method get limits
  * */
 
 class Catalog_Info extends Catalog_Request {
