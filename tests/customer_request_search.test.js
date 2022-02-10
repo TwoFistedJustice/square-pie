@@ -84,7 +84,7 @@ describe("Customer_Search query - fuzzy", () => {
           },
         },
         sort: {
-          field: "CREATED_AT",
+          field: "DEFAULT",
           order: "ASC",
         },
       },
@@ -103,7 +103,7 @@ describe("Customer_Search query - fuzzy", () => {
           },
         },
         sort: {
-          field: "CREATED_AT",
+          field: "DEFAULT",
           order: "ASC",
         },
       },
@@ -123,7 +123,7 @@ describe("Customer_Search query - fuzzy", () => {
           },
         },
         sort: {
-          field: "CREATED_AT",
+          field: "DEFAULT",
           order: "ASC",
         },
       },
@@ -143,7 +143,7 @@ describe("Customer_Search query - fuzzy", () => {
           },
         },
         sort: {
-          field: "CREATED_AT",
+          field: "DEFAULT",
           order: "ASC",
         },
       },
@@ -158,7 +158,7 @@ describe("Customer_Search query - fuzzy", () => {
     expected = {
       query: {
         sort: {
-          field: "CREATED_AT",
+          field: "DEFAULT",
           order: "ASC",
         },
       },
@@ -173,7 +173,7 @@ describe("Customer_Search query - fuzzy", () => {
     expected = {
       query: {
         sort: {
-          field: "CREATED_AT",
+          field: "DEFAULT",
           order: val,
         },
       },
@@ -187,7 +187,7 @@ describe("Customer_Search query - fuzzy", () => {
     expected = {
       query: {
         sort: {
-          field: "CREATED_AT",
+          field: "DEFAULT",
           order: val,
         },
       },
