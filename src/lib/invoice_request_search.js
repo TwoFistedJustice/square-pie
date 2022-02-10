@@ -4,8 +4,7 @@ const man =
   "http request to search for invoices for a given location\n" +
   "Pass the location_id as a string argument when you instantiate the class. You can also pass it later by calling\n" +
   'make().location("id")' +
-  "Build a query using the build_query() method. Only call the setter or make().query() if you are passing a fully formed query object as it will replace everything.\n" +
-  "For this class only, you can also use the make() sub-methods to build your query: location_id(), customer_id(), and sort() - these are exactly the same as the build_query methods.\n" +
+  "Build a query using the make() method. Only call the setter or make().query() if you are passing a fully formed query object as it will replace everything.\n" +
   "Limit has a default of 100 and max of 200.\nDelivery is an array because this endpoint has a pagination cursor.\n" +
   "https://developer.squareup.com/reference/square/invoices-api/search-invoices";
 
@@ -175,31 +174,6 @@ class Invoice_Search extends Invoice_Request {
       },
       newest_first: function () {
         return this.descending();
-      },
-    };
-  }
-  // todo this seems to duplicate make() - can it just go away?
-  build_query() {
-    return {
-      self: this,
-      location_id: function (id) {
-        this.self.#location_id = id;
-        return this;
-      },
-      customer_id: function (id) {
-        this.self.#customer_id = id;
-        return this;
-      },
-      add_location_ids_array: function (arr) {
-        this.self.#location_ids_array = arr;
-        return this;
-      },
-      add_customer_ids_array: function (arr) {
-        this.self.#customer_ids_array = arr;
-        return this;
-      },
-      sort: function () {
-        return this.self.#sort_order();
       },
     };
   }
