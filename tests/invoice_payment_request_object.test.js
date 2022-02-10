@@ -1,5 +1,5 @@
 const util = require("../src/lib/utilities");
-const spy_shazam_boolean = jest.spyOn(util, "shazam_boolean");
+const spy_shazam_boolean = jest.spyOn(util, "shazam_is_boolean");
 const spy_shazam_integer = jest.spyOn(util, "shazam_is_integer");
 // const spy_shazam_date_human_readable = jest.spyOn(util, "shazam_date_human_readable");
 // const spy_shazam_number_between_equals = jest.spyOn(util, "shazam_number_between_equals");
@@ -87,7 +87,7 @@ describe("error checking", () => {
     }).toThrow();
   });
 
-  test("setter should call shazam_boolean", () => {
+  test("setter should call shazam_is_boolean", () => {
     let klass = request_for_payment;
     let test_val = true;
     let caller = "tipping_enabled";

@@ -1,6 +1,6 @@
 const {
   arrayify,
-  shazam_boolean,
+  shazam_is_boolean,
   arche_money,
   shazam_date_human_readable,
   shazam_is_integer,
@@ -138,7 +138,7 @@ class Invoice_Payment_Request_Object {
     this._fardel.percentage_requested = percent;
   }
   set tipping_enabled(bool) {
-    if (shazam_boolean(bool, this._display_name, "tipping_enabled")) {
+    if (shazam_is_boolean(bool, this._display_name, "tipping_enabled")) {
       this._fardel.tipping_enabled = bool;
     }
   }

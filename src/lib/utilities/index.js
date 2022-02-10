@@ -29,7 +29,7 @@ const regular_expression_patterns = require("./regular_expression_patterns");
 const shazam_time_RFC3339 = require("./shazam_time_RFC3339");
 const shazam_date_human_readable = require("./shazam_date_human_readable");
 const shazam_is_integer = require("./shazam_is_integer");
-const shazam_boolean = require("./shazam_boolean");
+const shazam_is_boolean = require("./shazam_is_boolean");
 const shazam_object_has_property = require("./shazam_object_has_property");
 const shazam_is_array = require("./shazam_is_array");
 const shazam_max_length_array = require("./shazam_max_length_array");
@@ -71,7 +71,7 @@ module.exports = {
   shazam_time_RFC3339,
   shazam_date_human_readable,
   shazam_is_integer,
-  shazam_boolean,
+  shazam_is_boolean,
   shazam_object_has_property,
   shazam_is_array,
   shazam_max_length_array,

@@ -1,7 +1,7 @@
 "use strict";
 const {
   shazam_is_integer,
-  shazam_boolean,
+  shazam_is_boolean,
   shazam_is_array,
 } = require("../src/lib/utilities");
 /* --------------------------------------------------------*
@@ -71,43 +71,43 @@ describe("shazam_is_integer integer verification utility", () => {
 });
 /* --------------------------------------------------------*
  *                                                         *
- *               shazam_boolean
+ *               shazam_is_boolean
  *                                                         *
  * ------------------------------------------------------- */
 
-describe("shazam_boolean boolean verification utility", () => {
+describe("shazam_is_boolean boolean verification utility", () => {
   test("should throw when fed a non-boolean", () => {
     expect(() => {
-      shazam_boolean("true", "utilities test suite", "should throw");
+      shazam_is_boolean("true", "utilities test suite", "should throw");
     }).toThrow();
   });
 
   test("should throw when fed a 1 or a 0", () => {
     expect(() => {
-      shazam_boolean(1, "utilities test suite", "should throw");
+      shazam_is_boolean(1, "utilities test suite", "should throw");
     }).toThrow();
 
     expect(() => {
-      shazam_boolean(0, "utilities test suite", "should throw");
+      shazam_is_boolean(0, "utilities test suite", "should throw");
     }).toThrow();
   });
 
   test("should throw when the correct message a non-boolean", () => {
     let expected = `describe.test expects a boolean. Received: true\nMake sure you didn't pass a string that looks like a boolean.`;
     expect(() => {
-      shazam_boolean("true", "describe", "test");
+      shazam_is_boolean("true", "describe", "test");
     }).toThrowError(expected);
   });
 
   test("should NOT throw when fed a boolean", () => {
     expect(() => {
-      shazam_boolean(true, "utilities test suite", "should NOT throw");
+      shazam_is_boolean(true, "utilities test suite", "should NOT throw");
     }).not.toThrow();
   });
 
   test("should return true when fed a boolean", () => {
     expect(
-      shazam_boolean(false, "utilities test suite", "should return true")
+      shazam_is_boolean(false, "utilities test suite", "should return true")
     ).toEqual(true);
   });
 });

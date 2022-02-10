@@ -3,7 +3,7 @@ const { nanoid } = require("nanoid");
 const {
   arrayify,
   clone_object,
-  shazam_boolean,
+  shazam_is_boolean,
   shazam_is_integer,
   shazam_max_length,
   shazam_max_length_array,
@@ -220,7 +220,7 @@ class Catalog_Item extends Catalog_Object_Super {
   }
 
   set skip_modifier_screen(bool) {
-    if (shazam_boolean(bool, this._display_name, "skip_modifier_screen")) {
+    if (shazam_is_boolean(bool, this._display_name, "skip_modifier_screen")) {
       this._fardel.item_data.skip_modifier_screen = bool;
     }
   }
@@ -333,7 +333,7 @@ class Catalog_Item extends Catalog_Object_Super {
         return this;
       },
       modifier_overrides: function (id, bool = false) {
-        if (shazam_boolean(bool, name, "modifier_overrides")) {
+        if (shazam_is_boolean(bool, name, "modifier_overrides")) {
           catalog_modifier_list.modifier_overrides = {
             modifier_id: id,
             on_by_default: bool,
@@ -354,7 +354,7 @@ class Catalog_Item extends Catalog_Object_Super {
         return this;
       },
       enabled: function (bool = true) {
-        if (shazam_boolean(bool, name, "enabled")) {
+        if (shazam_is_boolean(bool, name, "enabled")) {
           catalog_modifier_list.enabled = bool;
         }
         return this;

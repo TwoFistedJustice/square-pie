@@ -3,7 +3,7 @@ const {
   normalize_email,
   shazam_time_RFC3339,
   shazam_is_integer,
-  shazam_boolean,
+  shazam_is_boolean,
 } = require("./utilities");
 
 const man =
@@ -256,7 +256,7 @@ class Customer_Object {
     this._fardel.creation_source = val;
   }
   set preferences(bool) {
-    if (shazam_boolean(bool, this.display_name, "preferences")) {
+    if (shazam_is_boolean(bool, this.display_name, "preferences")) {
       this._fardel.preferences = {
         email_unsubscribed: bool,
       };

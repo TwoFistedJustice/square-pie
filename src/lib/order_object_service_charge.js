@@ -4,7 +4,7 @@ const {
   arrayify,
   shazam_max_length,
   shazam_is_integer,
-  shazam_boolean,
+  shazam_is_boolean,
 } = require("./utilities/");
 const { uid_length } = require("./pie_defaults");
 
@@ -150,7 +150,7 @@ class Order_Object_Service_Charge {
     this._fardel.calculation_phase = str;
   }
   set taxable(bool) {
-    if (shazam_boolean(bool, this.display_name, "taxable")) {
+    if (shazam_is_boolean(bool, this.display_name, "taxable")) {
       this._fardel.taxable = bool;
     }
   }

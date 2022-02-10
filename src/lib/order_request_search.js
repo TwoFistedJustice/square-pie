@@ -2,7 +2,7 @@ const Order_Request = require("./order_request_abstract");
 const {
   arche_time_start_end,
   define,
-  shazam_boolean,
+  shazam_is_boolean,
   shazam_is_integer,
   shazam_max_length_array,
   shazam_min_length_array,
@@ -152,7 +152,7 @@ class Order_Search extends Order_Request {
     }
   }
   set return_entries(bool) {
-    if (shazam_boolean(bool, this.display_name, "return_entries")) {
+    if (shazam_is_boolean(bool, this.display_name, "return_entries")) {
       this._body.return_entries = bool;
     }
   }

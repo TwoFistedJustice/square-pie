@@ -4,7 +4,7 @@ const {
   arrayify,
   clone_object,
   shazam_max_length,
-  shazam_boolean,
+  shazam_is_boolean,
   shazam_is_integer,
 } = require("./utilities");
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
@@ -133,7 +133,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     }
   }
   set available_for_booking(bool) {
-    if (shazam_boolean(bool, this._display_name, "available_for_booking")) {
+    if (shazam_is_boolean(bool, this._display_name, "available_for_booking")) {
       this.pricing_type = "VARIABLE_PRICING";
       this._fardel.item_variation_data.available_for_booking = bool;
     }
@@ -202,7 +202,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.sku = sku;
   }
   set stockable(bool) {
-    if (shazam_boolean(bool, this._display_name, "stockable")) {
+    if (shazam_is_boolean(bool, this._display_name, "stockable")) {
       this._fardel.item_variation_data.stockable = bool;
     }
   }
