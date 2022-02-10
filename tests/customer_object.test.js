@@ -354,4 +354,11 @@ describe("#enum_creation_source()", () => {
     make.creation_source().undelete();
     expect(customer.creation_source).toEqual("DELETION_RECOVERY");
   });
+
+  test("#enum_creation_source should curry-over", () => {
+    let email = "yopaulwassup@mailinator.com";
+    make.creation_source().undelete().email(email);
+    expect(customer.creation_source).toEqual("DELETION_RECOVERY");
+    expect(customer.email_address).toEqual(email);
+  });
 });

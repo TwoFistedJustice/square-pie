@@ -129,6 +129,15 @@ describe("getters/setters", () => {
     make.item_type().gift();
     expect(line.item_type).toEqual(expected);
   });
+
+  test("make().item_type () should curry-over", () => {
+    let expected = "GIFT_CARD";
+    let money = { amount: 42, currency: "USD" };
+    make.item_type().gift().base_price_money(42, "USD");
+    expect(line.item_type).toEqual(expected);
+    expect(line.base_price_money).toEqual(money);
+  });
+
   test("make().base_price_money () should set ", () => {
     let expected = { amount: 42, currency: "USD" };
     make.base_price_money(42, "USD");

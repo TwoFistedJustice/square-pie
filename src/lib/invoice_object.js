@@ -288,21 +288,30 @@ class Invoice_Object {
     };
   }
 
-  #build_accepted_payment_methods() {
+  #build_accepted_payment_methods(calling_this) {
     this.#define_accepted_payment_methods();
     return {
       self: this,
       bank_account: function () {
         let property_name = "bank_account";
-        return this.self.#accepted_payment_methods_enum(property_name, this);
+        return this.self.#accepted_payment_methods_enum(
+          property_name,
+          calling_this
+        );
       },
       card: function () {
         let property_name = "card";
-        return this.self.#accepted_payment_methods_enum(property_name, this);
+        return this.self.#accepted_payment_methods_enum(
+          property_name,
+          calling_this
+        );
       },
       square_gift_card: function () {
         let property_name = "square_gift_card";
-        return this.self.#accepted_payment_methods_enum(property_name, this);
+        return this.self.#accepted_payment_methods_enum(
+          property_name,
+          calling_this
+        );
       },
     };
   }
@@ -406,7 +415,7 @@ class Invoice_Object {
         return this;
       },
       accepted_payment_methods: function () {
-        return this.self.#build_accepted_payment_methods();
+        return this.self.#build_accepted_payment_methods(this);
       },
 
       custom_fields: function () {

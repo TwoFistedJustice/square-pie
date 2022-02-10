@@ -56,6 +56,13 @@ describe("make method ", () => {
     expect(fulfillment.state).toEqual(expected);
   });
 
+  test("make().state() should curry-over", () => {
+    let expected = "PROPOSED";
+    fulfillment.make().state().proposed().uid("123");
+    expect(fulfillment.uid).toEqual("123");
+    expect(fulfillment.state).toEqual(expected);
+  });
+
   test("make().type() should set property", () => {
     let expected = "awesome";
     fulfillment.make().type(expected);
@@ -118,22 +125,28 @@ describe("make_pickup() strings should be set correctly.", () => {
     expect(fulfillment.type).toEqual("PICKUP");
   });
 
-  test("state should be set to PROPOSED", () => {
+  test("pickup state should be set to PROPOSED", () => {
     let expected = "PROPOSED";
     pickup.state().proposed();
     expect(fulfillment.state).toEqual(expected);
   });
+
+  test("pickup state should curry-over", () => {
+    let expected = "PROPOSED";
+    let asap = {
+      schedule_type: "ASAP",
+    };
+    pickup.state().proposed().asap();
+    expect(fulfillment.pickup_details).toMatchObject(asap);
+    expect(fulfillment.state).toEqual(expected);
+  });
+
   test("state should be set to RESERVED", () => {
     let expected = "RESERVED";
     pickup.state().reserved();
     expect(fulfillment.state).toEqual(expected);
   });
 
-  test("state should be set to PREPARED", () => {
-    let expected = "PREPARED";
-    pickup.state().reserved().prepared();
-    expect(fulfillment.state).toEqual(expected);
-  });
   test("state should be set to COMPLETED", () => {
     let expected = "COMPLETED";
     pickup.state().completed();
@@ -350,6 +363,17 @@ describe("make_shipment() strings should be set correctly.", () => {
     let expected = "FAILED";
     shipment.state().failed();
     expect(fulfillment.state).toEqual(expected);
+  });
+
+  test("shipment state should curry-over", () => {
+    let note = "This is a note.";
+    let da_note = {
+      shipping_note: note,
+    };
+    let state = "FAILED";
+    shipment.state().failed().note(note);
+    expect(fulfillment.state).toEqual(state);
+    expect(fulfillment.shipment_details).toMatchObject(da_note);
   });
 
   test("tracking numer should set", () => {

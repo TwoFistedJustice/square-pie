@@ -9,7 +9,7 @@ const man =
   'currency of "USD". See Pie docs for more details.\n' +
   "https://developer.squareup.com/reference/square/objects/Order";
 
-/** @class  representing a
+/** @class  Order_Object
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/objects/Order | Square Docs}
  * */
@@ -181,6 +181,7 @@ class Order_Object {
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
+   * @param {object} calling_this - pass in the calling function's 'this'
    * @method open sets value to "OPEN"
    * @method completed sets value to "COMPLETED"
    * @method canceled sets value to "CANCELED"
@@ -194,12 +195,13 @@ class Order_Object {
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
-  #enum_state() {
-    return order_object_enum.state(this);
+  #enum_state(calling_this) {
+    return order_object_enum.state(this, calling_this);
   }
 
   /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @param {object} calling_this - pass in the calling function's 'this'
    * @method version
    * @param {number} ver -
    * @method id
@@ -267,7 +269,7 @@ class Order_Object {
         return this;
       },
       state: function () {
-        return this.self.#enum_state();
+        return this.self.#enum_state(this);
       },
       source: function (str) {
         this.self.source = str;

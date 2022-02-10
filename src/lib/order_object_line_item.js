@@ -89,8 +89,8 @@ class Order_Line_Item {
     }
   }
 
-  #enum_item_type() {
-    return order_line_item_enum.item_type(this);
+  #enum_item_type(self, calling_this) {
+    return order_line_item_enum.item_type(self, calling_this);
   }
 
   // GETTERS
@@ -331,7 +331,7 @@ class Order_Line_Item {
         return this;
       },
       item_type: function () {
-        return this.self.#enum_item_type();
+        return this.self.#enum_item_type(this.self, this);
       },
       base_price_money: function (amount, currency) {
         this.self.base_price_money = arche_money(amount, currency);

@@ -101,6 +101,13 @@ describe("Catalog_Search_Items", () => {
     search.make().sort().down();
     expect(search.sort_order).toEqual("DESC");
   });
+
+  test('sort_order() should curry over"', () => {
+    search.make().sort().down().text("words on a page");
+    expect(search.text_filter).toEqual("words on a page");
+    expect(search.sort_order).toEqual("DESC");
+  });
+
   test("make().text() should set text_filter", () => {
     search.make().text("words on a page");
     expect(search.text_filter).toEqual("words on a page");
@@ -126,6 +133,13 @@ describe("Catalog_Search_Items", () => {
   test('.stock().any() should set stock_levels to ["LOW", "OUT"]', () => {
     let expected = ["LOW", "OUT"];
     search.make().stock().any();
+    expect(search.stock_levels).toMatchObject(expected);
+  });
+
+  test("stock_levels() should curry-over", () => {
+    let expected = ["LOW"];
+    search.make().stock_levels().low().text("words on a page");
+    expect(search.text_filter).toEqual("words on a page");
     expect(search.stock_levels).toMatchObject(expected);
   });
 

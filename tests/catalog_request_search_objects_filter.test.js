@@ -358,7 +358,7 @@ describe("Catalog Request Search Filter", () => {
     expect(filter.object_types).toMatchObject(expected);
   });
 
-  test("make().object_types() should chain  and push each value", () => {
+  test("make().object_types() should curry-over", () => {
     let expected = ["ITEM", "CATEGORY"];
     make.object_type().item().type().category();
     expect(filter.object_types).toMatchObject(expected);
@@ -494,6 +494,22 @@ describe("Catalog Request Search Filter", () => {
       },
     };
     make.sorted_attribute_query().sort().down().key("type").value("ITEM");
+    expect(filter.query).toMatchObject(expected);
+  });
+
+  test("make_sorted_attribute_query should curry-over", () => {
+    let expected = {
+      sorted_attribute_query: {
+        attribute_name: undefined,
+        initial_attribute_value: "ITEM",
+        sort_order: "DESC",
+      },
+    };
+    make
+      .sorted_attribute_query()
+      .sort_order()
+      .descending()
+      .initial_attribute_value("ITEM");
     expect(filter.query).toMatchObject(expected);
   });
 });

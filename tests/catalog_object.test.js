@@ -8,10 +8,6 @@ const Catalog_Item_Variation = require("../src/lib/catalog_object_item_variation
 
 // https://www.browserling.com/tools/random-string
 
-describe.only("Silence test suite", () => {
-  test("", () => {});
-});
-
 // --------------------------------------------------------------
 //                         CATALOG OBJECT SUPER
 // --------------------------------------------------------------

@@ -169,16 +169,16 @@ class Catalog_Search_Items extends Catalog_Request {
     };
   }
 
-  #enum_sort_order() {
+  #enum_sort_order(calling_this) {
     return {
       self: this,
       asc: function () {
         this.self.sort_order = "ASC";
-        return this;
+        return calling_this;
       },
       desc: function () {
         this.self.sort_order = "DESC";
-        return this;
+        return calling_this;
       },
       up: function () {
         return this.asc();
@@ -189,16 +189,16 @@ class Catalog_Search_Items extends Catalog_Request {
     };
   }
 
-  #enum_product_type() {
+  #enum_product_type(calling_this) {
     return {
       self: this,
       regular: function () {
         this.self.product_types = "REGULAR";
-        return this;
+        return calling_this;
       },
       appointments_service: function () {
         this.self.product_types = "APPOINTMENTS_SERVICE";
-        return this;
+        return calling_this;
       },
       appt: function () {
         return this.appointments_service();
@@ -207,21 +207,21 @@ class Catalog_Search_Items extends Catalog_Request {
   }
 
   // stock_levels is an ARRAY. It can take multiple values.
-  #enum_stock_levels() {
+  #enum_stock_levels(calling_this) {
     return {
       self: this,
       low: function () {
         this.self.stock_levels = "LOW";
-        return this;
+        return calling_this;
       },
       out: function () {
         this.self.stock_levels = "OUT";
-        return this;
+        return calling_this;
       },
       any: function () {
         this.self.stock_levels = "LOW";
         this.self.stock_levels = "OUT";
-        return this;
+        return calling_this;
       },
     };
   }
@@ -270,17 +270,17 @@ class Catalog_Search_Items extends Catalog_Request {
     return {
       self: this,
       sort_order: function () {
-        return this.self.#enum_sort_order();
+        return this.self.#enum_sort_order(this);
       },
       stock_levels: function () {
-        return this.self.#enum_stock_levels();
+        return this.self.#enum_stock_levels(this);
       },
       text_filter: function (str) {
         this.self.text_filter = str;
         return this;
       },
       product_types: function () {
-        return this.self.#enum_product_type();
+        return this.self.#enum_product_type(this);
       },
       category_ids: function (id) {
         this.self.category_ids = id;

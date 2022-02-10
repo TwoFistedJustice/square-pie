@@ -189,6 +189,13 @@ describe("getters/setters", () => {
     expect(variation.inventory_alert_type).toEqual(expected);
   });
 
+  test("make().inventory_alert_type () should curry-over ", () => {
+    let expected = "NONE";
+    make.inventory_alert_type().out().track_inventory(true);
+    expect(variation.track_inventory).toEqual(true);
+    expect(variation.inventory_alert_type).toEqual(expected);
+  });
+
   test("make().inventory_alert_threshold () should set ", () => {
     let expected = 5;
     make.inventory_alert_threshold(expected);
@@ -260,7 +267,7 @@ describe("getters/setters", () => {
     expect(variation.pricing_type).toEqual(expected);
   });
 
-  test("pricing_type should stack with other functions", () => {
+  test("pricing_type should curry-over", () => {
     let pricing = "VARIABLE_PRICING";
     let alert = "LOW_QUANTITY";
     make
@@ -373,6 +380,20 @@ describe("Location Overrides", () => {
     };
     let ride_over = variation.make_location_override();
     ride_over.pricing_type().variable();
+    expect(ride_over.view()).toMatchObject(expected);
+  });
+
+  test("make_location_override().pricing_type() should curry-over", () => {
+    let expected = {
+      location_id: undefined,
+      price_money: undefined,
+      pricing_type: "VARIABLE_PRICING",
+      track_inventory: true,
+      inventory_alert_type: undefined,
+      inventory_alert_threshold: undefined,
+    };
+    let ride_over = variation.make_location_override();
+    ride_over.pricing_type().variable().track_inventory(true);
     expect(ride_over.view()).toMatchObject(expected);
   });
 
