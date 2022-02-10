@@ -133,18 +133,6 @@ describe("Invoice_Search", () => {
     expect(search.customer_ids).toEqual(expect.arrayContaining(expected));
   });
 
-  test("build_query().location_id should push to location_ids array", () => {
-    search.build_query().location_id(id).location_id(other_id);
-    let expected = [id, other_id];
-    expect(search.location_ids).toEqual(expect.arrayContaining(expected));
-  });
-
-  test("build_query().customer_id should push to customer_ids array", () => {
-    search.build_query().customer_id(id).customer_id(other_id);
-    let expected = [id, other_id];
-    expect(search.customer_ids).toEqual(expect.arrayContaining(expected));
-  });
-
   // query sort
 
   test("should have default query sort value", () => {
@@ -182,16 +170,6 @@ describe("Invoice_Search", () => {
     expect(search.sort).toMatchObject(sort);
   });
 
-  test("build_query().sort().ascending() should set sort order - check one method", () => {
-    let sort = {
-      field: "INVOICE_SORT_DATE",
-      order: "ASC",
-    };
-    search.make().sort().descending();
-    search.build_query().sort().ascending();
-    expect(search.sort).toMatchObject(sort);
-  });
-
   test("make().sort().up() should set sort order", () => {
     let sort = {
       field: "INVOICE_SORT_DATE",
@@ -221,27 +199,11 @@ describe("Invoice_Search", () => {
     expect(search.location_ids).toEqual(expected);
   });
 
-  test("should be able to add an array of ids to an existing location_ids array using build_query()", () => {
-    let id_array = ["doreymefaso", "latte"];
-    let expected = [id, other_id, "doreymefaso", "latte"];
-    search.make().location_id(id).location_id(other_id);
-    search.build_query().add_location_ids_array(id_array);
-    expect(search.location_ids).toEqual(expected);
-  });
-
   test("should be able to add an array of ids to an existing customer_ids array using make()", () => {
     let id_array = ["doreymefaso", "latte"];
     let expected = [id, other_id, "doreymefaso", "latte"];
     search.make().customer_id(id).customer_id(other_id);
     search.make().add_customer_ids_array(id_array);
-    expect(search.customer_ids).toEqual(expected);
-  });
-
-  test("should be able to add an array of ids to an existing location_ids array using build_query()", () => {
-    let id_array = ["doreymefaso", "latte"];
-    let expected = [id, other_id, "doreymefaso", "latte"];
-    search.make().customer_id(id).customer_id(other_id);
-    search.build_query().add_customer_ids_array(id_array);
     expect(search.customer_ids).toEqual(expected);
   });
 });

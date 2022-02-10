@@ -41,8 +41,7 @@ super: Invoice_Request
 _display_name
 this._endpoint = `/${id}`
 ==
-MAKER METHODS
-
+Make Methods
 +make()
 ==
 }
@@ -83,8 +82,7 @@ Private Methods
 +#build_accepted_payment_methods()
 +#build_custom_field()
 ==
-MAKER METHODS
-
+Make Methods
 +make()
 ==
 Square Docs
@@ -120,8 +118,7 @@ Private Methods
 +#automatic_payment_source_enum()
 +#build_reminder(message, days, whoa_nelly)
 ==
-MAKER METHODS
-
+Make Methods
 +make()
 ==
 Square Docs
@@ -150,8 +147,7 @@ Getters
 ==
 Setters
 ==
-MAKER METHODS
-
+Make Methods
 +make()
 ==
 Square Docs
@@ -178,8 +174,7 @@ Getters
 ==
 Setters
 ==
-MAKER METHODS
-
+Make Methods
 +make()
 ==
 Square Docs
@@ -204,8 +199,7 @@ Getters
 ==
 Setters
 ==
-MAKER METHODS
-
+Make Methods
 +make()
 ==
 Square Docs
@@ -249,8 +243,7 @@ Getters
 ==
 Setters
 ==
-MAKER METHODS
-
+Make Methods
 +make()
 ==
 Square Docs
@@ -292,12 +285,9 @@ Getters
 Setters
 ==
 Private Methods
-==
 +#sort_order()
-+#build_query()
 ==
-MAKER METHODS
-
+MAKE METHODS
 +make()
 ==
 Square Docs
@@ -338,7 +328,7 @@ Private Methods
 Public Methods
 +validate(fardel = this._body.invoice)
 ==
-MAKER Methods
+Make Methods
 +make()
 ==
 Square Docs

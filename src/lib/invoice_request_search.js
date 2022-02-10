@@ -4,10 +4,9 @@ const man =
   "http request to search for invoices for a given location\n" +
   "Pass the location_id as a string argument when you instantiate the class. You can also pass it later by calling\n" +
   'make().location("id")' +
-  "Build a query using the build_query() method. Only call the setter or make().query() if you are passing a fully formed query object as it will replace everything." +
-  "For this class only, you can also use the make() sub-methods to build your query: location_id(), customer_id(), and sort() - these are exactly the same as the build_query methods." +
-  "\nLimit has a default of 100 and max of 200.\nDelivery is an array because this endpoint has a pagination cursor.";
-("\n\nhttps://developer.squareup.com/reference/square/invoices-api/search-invoices");
+  "Build a query using the make() method. Only call the setter or make().query() if you are passing a fully formed query object as it will replace everything.\n" +
+  "Limit has a default of 100 and max of 200.\nDelivery is an array because this endpoint has a pagination cursor.\n" +
+  "https://developer.squareup.com/reference/square/invoices-api/search-invoices";
 
 /** @class  Invoice_Search
  * @param {string} location_id - useful if you only need to search one location. You can leave it out and add location_ids using make() or build_query()
@@ -25,8 +24,6 @@ const man =
  * await search.request() // tells it to go
  *
  *  search.delivery // where you will find the returned results stored in an array - each call places one big object of results on the array
- *
- *
  * */
 class Invoice_Search extends Invoice_Request {
   _display_name = "Invoice_Search";
@@ -83,8 +80,8 @@ class Invoice_Search extends Invoice_Request {
   }
   // SETTERS
 
-  set query(val) {
-    this._body.query = val;
+  set query(query_object) {
+    this._body.query = query_object;
   }
   set limit(int) {
     let name = this.display_name;
@@ -180,39 +177,14 @@ class Invoice_Search extends Invoice_Request {
       },
     };
   }
-  // todo this seems to duplicate make() - can it just go away?
-  build_query() {
-    return {
-      self: this,
-      location_id: function (id) {
-        this.self.#location_id = id;
-        return this;
-      },
-      customer_id: function (id) {
-        this.self.#customer_id = id;
-        return this;
-      },
-      add_location_ids_array: function (arr) {
-        this.self.#location_ids_array = arr;
-        return this;
-      },
-      add_customer_ids_array: function (arr) {
-        this.self.#customer_ids_array = arr;
-        return this;
-      },
-      sort: function () {
-        return this.self.#sort_order();
-      },
-    };
-  }
 
   // MAKE METHODS
   /** @function make()  method of Invoice_Search - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
    * @method limit - sets the limit property
-   * @param {number} val -
+   * @param {number} limit - an integer up to 200 - default is 100
    * @method query - DANGER WILL ROBINSON! This wil replace the entire query object with whatever you pass it.
-   * @param {object} val - a complete query object - no validation!!!
+   * @param {object} query_object - a complete query object - no validation!!!
    * @method location_id - adds an id the array on the filter object
    * @param {string} id -
    * @method customer_id - adds an id the array on the filter object
@@ -236,12 +208,12 @@ class Invoice_Search extends Invoice_Request {
   make() {
     return {
       self: this,
-      limit: function (val) {
-        this.self.limit = val;
+      limit: function (limit) {
+        this.self.limit = limit;
         return this;
       },
-      query: function (val) {
-        this.self.query = val;
+      query: function (query_object) {
+        this.self.query = query_object;
         return this;
       },
       location_id: function (id) {
