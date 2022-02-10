@@ -1,4 +1,4 @@
-/**
+/**function shazam_is_integer
  * @param {string} num - expects a string that can be converted to an integer
  * @param {string} displayName - the _display_name static from the calling class
  * @param {string} caller - the name variable from the calling function
