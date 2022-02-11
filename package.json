@@ -4,13 +4,14 @@
   "description": "an easy to use class based chainable interface for accessing the Square API.",
   "main": "index.js",
   "scripts": {
+    "t": "jest",
+    "async": "node tests/data_preparation/setup_test.js & npx jest tests/async/",
     "settest": "node tests/data_preparation/setup_test.js",
+    "s": "node tests/data_preparation/setup_test.js",
+    "asynctest": "npx jest tests/async/",
+    "clunk": "nodemon tests/manual/catalog_test.js",
     "lint-staged": "lint-staged",
     "markdownlint": "markdownlint",
-    "test": "jest",
-    "async": "node tests/data_preparation/setup_test.js & npx jest tests/async/",
-    "t": "jest",
-    "clunk": "nodemon tests/manual/catalog_test.js",
     "prettier:check": "prettier --ignore-path .prettierignore --check '**/*.{js,jsw,jsx, json,md}'",
     "prettier:fix": "prettier --ignore-path .prettierignore --write '**/*.{js,jsw,jsx,json,md}'",
     "prepare": "husky install"
