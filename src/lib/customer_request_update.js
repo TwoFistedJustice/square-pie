@@ -142,8 +142,8 @@ class Customer_Update extends Retrieve_Update_Delete {
   set phone_number(phone) {
     if (
       shazam_max_length(
-        this.configuration.maximums.phone_number,
         phone,
+        this.configuration.maximums.phone_number,
         this.display_name,
         "phone_number"
       )
@@ -192,8 +192,8 @@ class Customer_Update extends Retrieve_Update_Delete {
   set tax_ids(eu_vat) {
     if (
       shazam_max_length(
-        this.configuration.tax_ids,
         eu_vat,
+        this.configuration.tax_ids,
         this._display_name,
         "tax_ids"
       )

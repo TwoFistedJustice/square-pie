@@ -136,14 +136,26 @@ class Catalog_Item extends Catalog_Object_Super {
   // SETTERS
   set name(str) {
     let caller = "name";
-    if (shazam_max_length(this.configuration.maximums.name, str, caller)) {
+    if (
+      shazam_max_length(
+        str,
+        this.configuration.maximums.name,
+        this.display_name,
+        caller
+      )
+    ) {
       this._fardel.item_data.name = str;
     }
   }
   set description(str) {
     let caller = "description";
     if (
-      shazam_max_length(this.configuration.maximums.description, str, caller)
+      shazam_max_length(
+        str,
+        this.configuration.maximums.description,
+        this.display_name,
+        caller
+      )
     ) {
       this._fardel.item_data.description = str;
     }
@@ -151,7 +163,12 @@ class Catalog_Item extends Catalog_Object_Super {
   set abbreviation(str) {
     let caller = "abbreviation";
     if (
-      shazam_max_length(this.configuration.maximums.abbreviation, str, caller)
+      shazam_max_length(
+        str,
+        this.configuration.maximums.abbreviation,
+        this.display_name,
+        caller
+      )
     ) {
       this._fardel.item_data.abbreviation = str;
     }
@@ -228,8 +245,8 @@ class Catalog_Item extends Catalog_Object_Super {
     arrayify(this._fardel.item_data, "item_options", this._display_name);
     if (
       shazam_max_length_array(
-        this.configuration.item_options,
         this._fardel.item_data.item_options,
+        this.configuration.item_options,
         this._display_name,
         "item_options"
       )

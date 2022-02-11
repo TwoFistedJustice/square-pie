@@ -3,8 +3,8 @@
 
 /** shazam_min_length_array checks if an array at least the minimum allowable length.
  *
- * @param {number} min is the upper limit.
  * @param {arr}  arr is the array you want to test
+ * @param {number} min is the upper limit.
  * @param {string} display_name is the name of the class making the function call
  * @param {string} caller  is the name of the method making the function call
  * @throws Throws an error if `arr` is under minimum
@@ -15,8 +15,8 @@
  * */
 
 const shazam_min_length_array = function (
-  min,
   arr,
+  min,
   display_name = "unspecified class",
   caller = "unspecified method"
 ) {

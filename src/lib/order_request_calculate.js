@@ -44,8 +44,8 @@ class Order_Calculate extends Order_Request {
   set idempotency_key(key) {
     if (
       shazam_max_length(
-        this.configuration.maximums.idempotency_key,
         key,
+        this.configuration.maximums.idempotency_key,
         this.display_name,
         "idempotency_key"
       )

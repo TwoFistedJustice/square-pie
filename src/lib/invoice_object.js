@@ -122,8 +122,8 @@ class Invoice_Object {
   set location_id(id) {
     if (
       shazam_max_length(
-        this.configuration.maximums.ids,
         id,
+        this.configuration.maximums.ids,
         this._display_name,
         "location_id"
       )
@@ -134,8 +134,8 @@ class Invoice_Object {
   set order_id(id) {
     if (
       shazam_max_length(
-        this.configuration.maximums.ids,
         id,
+        this.configuration.maximums.ids,
         this._display_name,
         "order_id"
       )
@@ -158,8 +158,8 @@ class Invoice_Object {
   set invoice_number(inv_num) {
     if (
       shazam_max_length(
-        this.configuration.maximums.invoice_number,
         inv_num,
+        this.configuration.maximums.invoice_number,
         this._display_name,
         "invoice_number"
       )
@@ -170,8 +170,8 @@ class Invoice_Object {
   set title(str) {
     if (
       shazam_max_length(
-        this.configuration.maximums.title,
         str,
+        this.configuration.maximums.title,
         this._display_name,
         "title"
       )
@@ -182,8 +182,8 @@ class Invoice_Object {
   set description(str) {
     if (
       shazam_max_length(
-        this.configuration.maximums.description,
         str,
+        this.configuration.maximums.description,
         this._display_name,
         "description"
       )
@@ -205,8 +205,8 @@ class Invoice_Object {
     arrayify(this._fardel, "custom_fields", this._display_name);
     if (
       shazam_max_length_array(
-        this.configuration.maximums.custom_fields,
         this._fardel.custom_fields,
+        this.configuration.maximums.custom_fields,
         this._display_name,
         "custom_fields"
       )
@@ -229,8 +229,8 @@ class Invoice_Object {
   set payment_conditions(str) {
     if (
       shazam_max_length(
-        this.configuration.maximums.payment_conditions,
         str,
+        this.configuration.maximums.payment_conditions,
         this._display_name,
         "payment_conditions"
       )

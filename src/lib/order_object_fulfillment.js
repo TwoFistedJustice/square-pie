@@ -165,7 +165,7 @@ class Order_Fulfillment {
    * */
   #note(fulfillment, key, note) {
     let limit = this.configuration.maximums[key];
-    if (shazam_max_length(limit, note)) {
+    if (shazam_max_length(note, limit, this.display_name, "#note")) {
       !Object.prototype.hasOwnProperty.call(fulfillment, key)
         ? define(fulfillment, key, note)
         : (fulfillment[key] = note);
@@ -196,6 +196,7 @@ class Order_Fulfillment {
    * */
 
   #recipient(fulfillment) {
+    let display_name = this.display_name;
     let key = "recipient";
     let recipient = {
       customer_id: undefined,
@@ -211,36 +212,60 @@ class Order_Fulfillment {
     return {
       self: this,
       customer_id: function (id) {
-        if (shazam_max_length(this.self.configuration.customer_id, id)) {
+        if (
+          shazam_max_length(
+            id,
+            this.self.configuration.customer_id,
+            display_name,
+            key
+          )
+        ) {
           fulfillment.recipient.customer_id = id;
           return this;
         }
       },
       display_name: function (name) {
-        if (shazam_max_length(this.self.configuration.display_name, name)) {
+        if (
+          shazam_max_length(
+            name,
+            this.self.configuration.display_name,
+            display_name,
+            key
+          )
+        ) {
           fulfillment.recipient.display_name = name;
           return this;
         }
       },
       email: function (email) {
-        if (shazam_max_length(this.self.configuration.email_address, email)) {
+        if (
+          shazam_max_length(
+            email,
+            this.self.configuration.email_address,
+            display_name,
+            key
+          )
+        ) {
           fulfillment.recipient.email_address = email;
           return this;
         }
       },
       phone: function (phone) {
-        if (shazam_max_length(this.self.configuration.phone_number, phone)) {
+        if (
+          shazam_max_length(
+            phone,
+            this.self.configuration.phone_number,
+            display_name,
+            key
+          )
+        ) {
           fulfillment.recipient.phone_number = phone;
           return this;
         }
       },
       address: function (address_object) {
-        if (
-          shazam_max_length(this.self.configuration.address, address_object)
-        ) {
-          fulfillment.recipient.address = address_object;
-          return this;
-        }
+        fulfillment.recipient.address = address_object;
+        return this;
       },
     };
   }

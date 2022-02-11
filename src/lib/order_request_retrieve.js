@@ -53,8 +53,8 @@ class Order_Retrieve extends Order_Request {
     let arr = this._body.order_ids.length;
     if (
       shazam_max_length_array(
-        this.configuration.maximums.order_ids,
         arr,
+        this.configuration.maximums.order_ids,
         this.display_name,
         "order_ids"
       )
@@ -75,8 +75,8 @@ class Order_Retrieve extends Order_Request {
     if (
       shazam_is_array(arr, this.display_name, caller) &&
       shazam_max_length_array(
-        limit,
         this._body.order_ids,
+        limit,
         this.display_name,
         `${caller}.existing_length`
       )
@@ -85,8 +85,8 @@ class Order_Retrieve extends Order_Request {
       // check that joined array is less than limit + 1 (bc joined can be UP TO the limit)
       if (
         shazam_max_length_array(
-          limit + 1,
           joined_array,
+          limit + 1,
           this.display_name,
           `${caller}.combined_length`
         )

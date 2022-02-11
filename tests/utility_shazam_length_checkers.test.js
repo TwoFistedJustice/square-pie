@@ -24,7 +24,7 @@ describe("shazam_max_length", () => {
   test("shazam_max_length should return true", () => {
     let max = 4;
 
-    expect(shazam_max_length(max, str, name, caller)).toEqual(true);
+    expect(shazam_max_length(str, max, name, caller)).toEqual(true);
   });
 
   test("shazam_max_length should throw correct message", () => {
@@ -32,7 +32,7 @@ describe("shazam_max_length", () => {
     let len = str.length;
     let expected = `${name}.${caller} -length ${len} surpasses maximum character limit of ${max}.\nReceived: ${str}`;
     expect(() => {
-      shazam_max_length(max, str, name, caller);
+      shazam_max_length(str, max, name, caller);
     }).toThrowError(expected);
   });
 
@@ -42,7 +42,7 @@ describe("shazam_max_length", () => {
     let truncated = first20 + "..." + last20;
     let expected = `${name}.${caller} -length ${len} surpasses maximum character limit of ${max}.\nReceived: ${truncated}`;
     expect(() => {
-      shazam_max_length(max, long_string, name, caller);
+      shazam_max_length(long_string, max, name, caller);
     }).toThrowError(expected);
   });
 });
@@ -57,14 +57,14 @@ describe("shazam_min_length", () => {
   test("shazam_min_length should return true", () => {
     let min = 2;
 
-    expect(shazam_min_length(min, str, name, caller)).toEqual(true);
+    expect(shazam_min_length(str, min, name, caller)).toEqual(true);
   });
 
   test("shazam_min_length should throw correct message", () => {
     let min = 4;
     let expected = `${name}.${caller} - failed to meet minimum character count of ${min}.\n${str}`;
     expect(() => {
-      shazam_min_length(min, str, name, caller);
+      shazam_min_length(str, min, name, caller);
     }).toThrowError(expected);
   });
 });
@@ -78,12 +78,12 @@ describe("shazam_max_length_array", () => {
   let arr = ["a", "b"];
   test("shazam_max_length_array should throw if an array meets or exceeds limit", () => {
     expect(() => {
-      shazam_max_length_array(2, arr);
+      shazam_max_length_array(arr, 2);
     }).toThrow();
   });
 
   test("shazam_max_length_array should return true if an array deceeds limit", () => {
-    let received = shazam_max_length_array(3, arr);
+    let received = shazam_max_length_array(arr, 3);
     expect(received).toEqual(true);
   });
 });
@@ -96,12 +96,12 @@ describe("shazam_min_length_array", () => {
   let arr = ["a", "b"];
   test("shazam_min_length_array should throw if an array deceeds limit", () => {
     expect(() => {
-      shazam_min_length_array(3, arr);
+      shazam_min_length_array(arr, 3);
     }).toThrow();
   });
 
   test("shazam_min_length_array should return true if an array does not deceed limit", () => {
-    let received = shazam_min_length_array(2, arr);
+    let received = shazam_min_length_array(arr, 2);
     expect(received).toEqual(true);
   });
 });

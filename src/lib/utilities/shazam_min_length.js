@@ -4,8 +4,8 @@
  * usage:
  *  `if( shazam_min_length(...) { do stuff }`
  *
- * @param {number} min is the lower limit of allowable string length
  * @param {string} str is the string you want to validate
+ * @param {number} min is the lower limit of allowable string length
  * @param {string} displayName is the name of the class making the function call
  * @param {string} caller  is the name of the method making the function call
  * @throws Throws and error is the string is shorter than allowed
@@ -14,8 +14,8 @@
  *  To check for maximum length use shazam_max_length
  * */
 const shazam_min_length = function (
-  min,
   str = "",
+  min,
   displayName = "unspecified class",
   caller = "- unspecified class setter"
 ) {

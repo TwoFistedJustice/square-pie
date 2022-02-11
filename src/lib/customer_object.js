@@ -225,8 +225,8 @@ class Customer_Object {
   set phone_number(phone) {
     if (
       shazam_max_length(
-        this.configuration.maximums.phone_number,
         phone,
+        this.configuration.maximums.phone_number,
         this.display_name,
         "phone_number"
       )
@@ -266,8 +266,8 @@ class Customer_Object {
   set tax_ids(id) {
     if (
       shazam_max_length(
-        this.configuration.maximums.tax_ids,
         id,
+        this.configuration.maximums.tax_ids,
         this.display_name,
         "tax_ids"
       )
