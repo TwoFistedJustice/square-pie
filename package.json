@@ -8,7 +8,7 @@
     "lint-staged": "lint-staged",
     "markdownlint": "markdownlint",
     "test": "jest",
-    "s": "node tests/data_preparation/setup_test.js",
+    "async": "node tests/data_preparation/setup_test.js & npx jest tests/customer_request_async.test.js",
     "t": "jest",
     "clunk": "nodemon tests/manual/catalog_test.js",
     "prettier:check": "prettier --ignore-path .prettierignore --check '**/*.{js,jsw,jsx, json,md}'",

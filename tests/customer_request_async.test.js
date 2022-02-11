@@ -18,9 +18,23 @@ const mikey = customers.mikey;
 // Hardcoded http requests for the hooks
 // Do not use the request classes to test themselves!
 // ---------------------------------------------------
-// setting new timeout bc terrible rural internet keeps causing then test to time out and fail.
-// despite whatever Jest docs say, this timer thing does not work AT. ALL.
-beforeAll(() => jest.setTimeout(10 * 1000));
+// setting a timer bc terrible rural internet keeps causing the tests to time out and fail.
+
+/** @function wait - delays synchronous execution. Very heavy CPU use. Do not use in production code.
+ * @param {number} sec - the number of seconds to wait before continuing synchronous execution
+ * @author ThinkBonobo https://stackoverflow.com/users/2668545/thinkbonobo
+ * {@link https://stackoverflow.com/questions/6921895/synchronous-delay-in-code-execution | Stackoverflow}
+ * */
+
+(function wait(sec) {
+  const ms = sec * 1000;
+  let start = Date.now(); // set baseline ms
+  let now = start; // set now to equal baseline
+  while (now - start < ms) {
+    // measure difference between baseline and 'now'
+    now = Date.now(); // reset 'now' to later time and repeat
+  }
+})(30);
 
 describe.only("Silence test suite", () => {
   test("", () => {
