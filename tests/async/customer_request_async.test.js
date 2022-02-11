@@ -43,6 +43,7 @@ describe("Customer Request Classes", () => {
   describe("Customer List", () => {
     test("Should fetch the list of customers", async () => {
       let customerList = new Customer_List();
+      console.log(customerList._secret);
       await customerList.request();
       customerList.delivery.should.be.an("Array").that.has.lengthOf(4);
       // console.log(customerList.delivery)
@@ -55,7 +56,7 @@ describe("Customer Request Classes", () => {
     });
   });
 
-  describe.only("Customer Search", () => {
+  describe("Customer Search", () => {
     // disabled this test because Square does not seem to sort them into ANY order. They seem to randomly
     // placed into the array.
     // test("Should execute a fuzzy Search and sort the results in descending order.", async () => {
