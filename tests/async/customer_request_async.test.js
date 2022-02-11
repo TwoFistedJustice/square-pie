@@ -1,14 +1,14 @@
 "use strict";
 const should = require("chai").should();
-const Customer_List = require("../src/lib/customer_request_list");
-const Customer_Search = require("../src/lib/customer_request_search");
-const Customer_Create = require("../src/lib/customer_request_create");
-const Customer_Retrieve = require("../src/lib/customer_request_retrieve");
-const Customer_Update = require("../src/lib/customer_request_update");
-const Customer_Delete = require("../src/lib/customer_request_delete");
-const Customer_Retrieve_Update_Delete_Super = require("../src/lib/customer_request_abstract_R_U_D_super");
-const Customer_Object = require("../src/lib/customer_object");
-const { sampleCustomers } = require("./helper_objects");
+const Customer_List = require("../../src/lib/customer_request_list");
+const Customer_Search = require("../../src/lib/customer_request_search");
+const Customer_Create = require("../../src/lib/customer_request_create");
+const Customer_Retrieve = require("../../src/lib/customer_request_retrieve");
+const Customer_Update = require("../../src/lib/customer_request_update");
+const Customer_Delete = require("../../src/lib/customer_request_delete");
+const Customer_Retrieve_Update_Delete_Super = require("../../src/lib/customer_request_abstract_R_U_D_super");
+const Customer_Object = require("../../src/lib/customer_object");
+const { sampleCustomers } = require("../helper_objects");
 // const {expect} = require ("chai");
 const customers = sampleCustomers;
 const buffy = customers.buffy;
@@ -35,12 +35,6 @@ const mikey = customers.mikey;
     now = Date.now(); // reset 'now' to later time and repeat
   }
 })(30);
-
-describe.only("Silence test suite", () => {
-  test("", () => {
-    expect("a").toEqual("a");
-  });
-});
 
 describe("Customer Request Classes", () => {
   let dbBuffy, mikeId;
