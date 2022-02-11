@@ -93,7 +93,14 @@ class Order_Discount {
   // SETTERS
   set uid(uid) {
     let caller = "uid";
-    if (shazam_max_length(this.configuration.maximums.uid, uid, caller));
+    if (
+      shazam_max_length(
+        uid,
+        this.configuration.maximums.uid,
+        this.display_name,
+        caller
+      )
+    );
     {
       this._fardel.uid = uid;
     }
@@ -102,8 +109,9 @@ class Order_Discount {
     let caller = "catalog_object_id";
     if (
       shazam_max_length(
-        this.configuration.maximums.catalog_object_id,
         id,
+        this.configuration.maximums.catalog_object_id,
+        this.display_name,
         caller
       )
     );
@@ -116,7 +124,14 @@ class Order_Discount {
   }
   set name(str) {
     let caller = "name";
-    if (shazam_max_length(this.configuration.maximums.name, str, caller));
+    if (
+      shazam_max_length(
+        str,
+        this.configuration.maximums.name,
+        this.display_name,
+        caller
+      )
+    );
     {
       this._fardel.name = str;
     }
@@ -135,7 +150,12 @@ class Order_Discount {
     }
     let caller = "percentage";
     if (
-      shazam_max_length(this.configuration.maximums.percentage, percent, caller)
+      shazam_max_length(
+        percent,
+        this.configuration.maximums.percentage,
+        this.display_name,
+        caller
+      )
     ) {
       this._fardel.percentage = percent;
     }

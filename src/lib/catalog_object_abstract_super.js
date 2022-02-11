@@ -13,7 +13,7 @@ const man =
 
 /** @class Catalog_Object_Super - super class of Catalog API objects
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link  | Square Docs}
+ * {@link https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects | Square Docs}
  * @example
  * */
 

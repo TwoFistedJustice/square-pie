@@ -9,7 +9,7 @@ const man =
 
 /** @class  Catalog_Category
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link  | Square Docs}
+ * {@link https://developer.squareup.com/reference/square/objects/CatalogCategory | Square Docs}
  * @example
  * */
 
@@ -68,7 +68,14 @@ class Catalog_Category extends Catalog_Object_Super {
   }
   set name(str) {
     let caller = "name";
-    if (shazam_max_length(this.configuration.maximums.name, str, caller)) {
+    if (
+      shazam_max_length(
+        str,
+        this.configuration.maximums.name,
+        this.display_name,
+        caller
+      )
+    ) {
       this._fardel.category_data.name = str;
     }
   }

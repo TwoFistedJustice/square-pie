@@ -264,7 +264,7 @@ class Invoice_Payment_Request_Object {
     }
     // if message is less than limit and send_delay shazams an integer and  if send_delay is within bounds
     if (
-      shazam_max_length(limits.message, message, name, caller) &&
+      shazam_max_length(message, limits.message, name, caller) &&
       shazam_is_integer(send_delay, name, caller) &&
       shazam_number_between_equals(
         -schedule_limit,

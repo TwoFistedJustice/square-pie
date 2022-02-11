@@ -114,7 +114,12 @@ class Order_Object {
   set customer_id(id) {
     let caller = "customer_id";
     if (
-      shazam_max_length(this.configuration.maximums.customer_id, id, caller)
+      shazam_max_length(
+        id,
+        this.configuration.maximums.customer_id,
+        this.display_name,
+        caller
+      )
     ) {
       this._fardel.customer_id = id;
     }
@@ -122,7 +127,12 @@ class Order_Object {
   set ticket_name(name) {
     let caller = "ticket_name";
     if (
-      shazam_max_length(this.configuration.maximums.ticket_name, name, caller)
+      shazam_max_length(
+        name,
+        this.configuration.maximums.ticket_name,
+        this.display_name,
+        caller
+      )
     ) {
       this._fardel.ticket_name = name;
     }

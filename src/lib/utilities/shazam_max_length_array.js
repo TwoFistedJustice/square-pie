@@ -7,9 +7,8 @@
  * array.
  * * usage:
  *  `if( shazam_max_length_array(20 , ['a', 'b'], display_name, caller) { do stuff }`
- *
- * @param {number} max is the upper limit.
  * @param {arr}  arr is the array you want to test
+ * @param {number} max is the upper limit.
  * @param {string} display_name is the name of the class making the function call
  * @param {string} caller  is the name of the method making the function call
  * @throws Throws an error if `arr` exceeds limit
@@ -19,8 +18,8 @@
  * */
 
 const shazam_max_length_array = function (
-  max,
   arr,
+  max,
   display_name = "unspecified class",
   caller = "unspecified method"
 ) {

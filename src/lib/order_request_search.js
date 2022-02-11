@@ -59,8 +59,8 @@ class Order_Search extends Order_Request {
     // if loc ids doesn't have at least 1 entry, throw
     if (
       shazam_min_length_array(
-        this.configuration.minimums.location_ids,
         this._body.location_ids,
+        this.configuration.minimums.location_ids,
         this.display_name,
         "body"
       )
@@ -105,7 +105,7 @@ class Order_Search extends Order_Request {
     let name = this._display_name;
     let limit = this.configuration.maximums.location_ids;
     // check that array does not exceed allowable length
-    if (shazam_max_length_array(limit, this._body.location_ids, name, caller)) {
+    if (shazam_max_length_array(this._body.location_ids, limit, name, caller)) {
       this._body.location_ids.push(location_id);
     }
   }
@@ -123,8 +123,8 @@ class Order_Search extends Order_Request {
     if (
       shazam_is_array(arr, name, caller) &&
       shazam_max_length_array(
-        limit,
         this._body.location_ids,
+        limit,
         name,
         `${caller}.unmodified_length`
       )
@@ -134,8 +134,8 @@ class Order_Search extends Order_Request {
       if (
         // check that joined array is less than limit + 1 (bc joined can be UP TO the limit)
         shazam_max_length_array(
-          limit + 1,
           joined_array,
+          limit + 1,
           name,
           `${caller}.combined_length`
         )
@@ -425,8 +425,8 @@ class Order_Search extends Order_Request {
         // if array is within limits
         if (
           shazam_max_length_array(
-            this.self.configuration.maximums.filter_array,
             this.self._body.query.filter.customer_filter.customer_ids,
+            this.self.configuration.maximums.filter_array,
             name,
             caller
           )
@@ -441,8 +441,8 @@ class Order_Search extends Order_Request {
         // if array is within limits
         if (
           shazam_max_length_array(
-            this.self.configuration.maximums.filter_array,
             this.self._body.query.filter.source_filter.source_name,
+            this.self.configuration.maximums.filter_array,
             name,
             caller
           )
