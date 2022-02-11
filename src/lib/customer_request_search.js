@@ -8,6 +8,7 @@ const man =
 
 /** @class Customer_Search representing an http request to retrieve to search customer records
  *  @see Customer_Request
+ *  {@link https://developer.squareup.com/reference/square/customers-api/search-customers | Square Docs}
  *  @author Russ Bain
  *  */
 class Customer_Search extends Customer_Request {
