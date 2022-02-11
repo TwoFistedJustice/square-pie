@@ -19,7 +19,6 @@ class Square_Request {
     this._method = "";
     this._body;
     this._endpoint = "";
-    this._secret = secret;
     this._delivery;
   }
 
@@ -59,8 +58,7 @@ class Square_Request {
     this._delivery = parcel;
   }
   // COMPUTED PROPERTIES
-  // todo, make this private
-  get secretName() {
+  get #secretName() {
     return process.env.NODE_ENV === "production"
       ? `${config.secrets.production_secret_name}`
       : `${config.secrets.sandbox_secret_name}`;
@@ -75,18 +73,17 @@ class Square_Request {
   }
 
   // METHODS
-  headers() {
+  #headers() {
     return {
       "Square-Version": `${config.square.api_version}`,
       "Content-Type": `${config.http_headers.content_type}`,
       Accept: `${config.http_headers.Accept}`,
-      Authorization: `Bearer ${this._secret}`,
+      // Authorization: `Bearer ${this._secret}`,
+      Authorization: `Bearer ${secret}`,
     };
   }
   request() {
     let http_request = async (url, options) => {
-      // console.log(options.body);
-      // console.log(options);
       const httpResponse = await fetch(url, options);
       this.delivery = await httpResponse.json();
       if (!httpResponse.ok) {
@@ -99,12 +96,12 @@ class Square_Request {
       // save the data returned from the server AND return it.
       return this.delivery;
     };
-    return http_request(this.url, this.options());
+    return http_request(this.url, this.#options());
   }
-  options() {
+  #options() {
     return {
       method: this._method,
-      headers: this.headers(),
+      headers: this.#headers(),
       body: JSON.stringify(this._body),
     };
   }
