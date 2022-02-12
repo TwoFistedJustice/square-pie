@@ -123,8 +123,8 @@ an even shorter version (the order you chain the sub-methods does not matter)
 const myThing = new Big_Thing();
 myThing
   .make()
-  .name("some name you made up")
   .big_thing_ids("abc123")
+  .name("some name you made up")
   .big_thing_ids("def456")
   .big_thing_ids("ghi789");
 ```
