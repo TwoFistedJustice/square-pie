@@ -22,47 +22,6 @@ for now the installation method is "copy and paste"
 npm install the last words of Joseph of Arimathea
 ```
 
-## Unit tests
-
-### Writing tests
-
-We use Jest and Chai. You should be able to use jest and chai versions of `expect` concurrently without modification.
-However, in order to keep some syntactical separation between them, we use `should` for running Chai assertions and
-`expect` for running Jest assertions.
-
-### Running the tests
-
-Unit tests are run against the actual Squareup.com sandbox server. This causes some problems with timeouts. We have a
-workaround. Before running the tests we clean and re-populate the database with the command:
-
-```npm
-npm run setTest
-```
-
-Then we wait. Square's database doesn't update all lickety split like we would hope. While deletes are quick, writes
-can take up to a minute to show up. So go refill your cup or go potty. Or do both simultaneously if you are one of
-those East Bay folks into that sort of thing. After you return to your 'pooter run the tests with the command:
-
-```npm
-npm run test
-```
-
-Tests may still fail due to timeout. Supposedly Jest has a way to extend the timeout, but the method outlined in
-their docs does not seem to actually affect anything. That or I did it wrong.
-
-## Testing on Wix Velo
-
-Test functions exist. They must be run from the 'backend' in a .jsw file. Click the little green arrow. To write
-new test functions, use the syntax
-
-```js
-// your test function must return the expected value
-export async function yourFunction() {
-  // set up your calls
-  return await doSomeStuff.makeRequest();
-}
-```
-
 ## Author
 
 👤 **Russ Bain**
@@ -103,15 +62,146 @@ Give a ⭐️ if this project helped you!
 
 ---
 
-## Basic usage - how to make a request
+## Basic usage -
 
-There is no need to know the full variety of specifics of Square's http return values. The important bits sit on the "delivery" property
+Square Pie is divided into discrete classes and has a standardized syntax that works the same way across nearly every class.
+
+Request classes have a "body".
+
+Object classes have a "fardel". A fardel will eventually get added to a body or to another fardel.
+
+Object classes sometimes stack. That is one helps to build another. In this case the fardel of one gets added to the fardel of the other.
+
+To construct a body or a fardel, you will want to have the Square Docs open in front of you. They will explain in depth the structure you are working on.
+Square Pie will help you build that structure without having to think too hard about how to build the internal structure.
+
+Whenever a class helps you build a complex structure (i.e. an object) it will have a method called "make". Some object classes are designed to help you
+construct fairly complicated sub-objects (objects inside objects inside objects). These may have additional "make"-like functions. They will generally be
+named after the object they create, for example "make_complicated_thing".
+
+Each "make" method will have at least a few sub-methods. They will always closely mimic the property names of the object they build. For example:
+You want to build a (pretend) Square Object called "BigThing". So you would go to the Square Docs for that.
+BigThing has a bajillion properties. Two example-pretend-properties are: "name" and" bigThingIds".
+
+"name" expects an object that looks like {name: { name: "some name you made up"} }.
+"bigThingIds" expects an array of Ids like ["abc123", "def456", "ghi789"]
+
+Note that name has a property, also called name, that expects a string.
+
+To create that in the longest most verbose way possible:
 
 ```js
-async someFunction()
-{
-  var someVar = new someClass (); // Create a variable set to new class instance - may require an argument
-  await someClass.makeRequest ();  // make the http request
-  console.log (someClass.fardel) // log the results of the call - they reside on the "delivery" property
-}
+const myThing = new Big_Thing();
+myThing.make().name("some name you made up");
+myThing.make().bigThingIds("abc123");
+myThing.make().bigThingIds("def456");
+myThing.make().bigThingIds("ghi789");
 ```
+
+A slightly shorter version:
+
+```js
+const myThing = new Big_Thing();
+myThing.make().name("some name you made up");
+myThing
+  .make()
+  .bigThingIds("abc123")
+  .bigThingIds("def456")
+  .bigThingIds("ghi789");
+```
+
+an even shorter version (the order you chain the sub-methods does not matter)
+
+```js
+const myThing = new Big_Thing();
+myThing
+  .make()
+  .name("some name you made up")
+  .bigThingIds("abc123")
+  .bigThingIds("def456")
+  .bigThingIds("ghi789");
+```
+
+an even SHORTER version using the included concat-type method...
+
+```js
+const myThing = new Big_Thing();
+myThing
+  .make()
+  .name("some name you made up")
+  .bigThingIdsConcat(["abc123", "def456", "ghi789"]);
+```
+
+Now you've built it. How do you get at it?
+
+```js
+myThing.fardel;
+```
+
+Which will contain
+
+```js
+{
+  name: {
+    name: "some name you made up"
+  },
+  bigThingIds: ["abc123", "def456", "ghi789"]
+}
+
+```
+
+So now you want to upsert your Thing to the (pretend) Upsert-Thing endpoint.
+
+First you need to create an instance of the (pretend) Upsert_Thing class and add your Thing to it.
+
+There are several ways you can do that.
+
+You can use the body setter:
+
+```js
+const upsert = new Upsert_Thing();
+upsert.body = myThing.fardel;
+```
+
+Or you can use Upsert_Thing's make method.
+
+```js
+const upsert = new Upsert_Thing();
+upsert.make().body(myThing.fardel);
+```
+
+How do you send it on up to Square? Firstly, you must be working in an asynchronous function.
+Then you call the "request" method. Any return results from Square will be stored on the "delivery"
+property.
+
+```js
+const myAsyncFunc = async function () {
+  await upsert.request();
+  return upsert.delivery;
+};
+let results = myAsyncFunc();
+```
+
+The whole thing all put together looks like:
+
+```js
+const upsert = new Upsert_Thing();
+const myThing = new Big_Thing();
+
+myThing
+  .make()
+  .name("some name you made up")
+  .bigThingIdsConcat(["abc123", "def456", "ghi789"]);
+upsert.make().body(myThing.fardel);
+
+const myAsyncFunc = async function () {
+  await upsert.request();
+  return upsert.delivery;
+};
+
+let results = myAsyncFunc();
+```
+
+Note:  
+It is vital to return the "delivery" property from an asynchronous function or it will whine about being `undefined`.
+It's easier to just give it what it wants. Trust me on this.
