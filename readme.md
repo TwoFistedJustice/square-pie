@@ -5,6 +5,13 @@
 
 > "an easy to use class based (sometimes) chainable interface for accessing the Square API."
 
+## Table of Contents
+
+- [About](#about)
+- [Installation](#install)
+- [Contributing Code](#contributing-code)
+- [Basic Usage](#basic-usage)
+
 ## About
 
 This project came into existence because my former housemate who is a talented front end designer is opening a
@@ -62,7 +69,7 @@ Give a ⭐️ if this project helped you!
 
 ---
 
-## Basic usage -
+## Basic Usage
 
 Square Pie is divided into discrete classes and has a standardized syntax that works the same way across nearly every class.
 
@@ -93,9 +100,9 @@ To create that in the longest most verbose way possible:
 ```js
 const myThing = new Big_Thing();
 myThing.make().name("some name you made up");
-myThing.make().bigThingIds("abc123");
-myThing.make().bigThingIds("def456");
-myThing.make().bigThingIds("ghi789");
+myThing.make().big_thing_ids("abc123");
+myThing.make().big_thing_ids("def456");
+myThing.make().big_thing_ids("ghi789");
 ```
 
 A slightly shorter version:
@@ -105,9 +112,9 @@ const myThing = new Big_Thing();
 myThing.make().name("some name you made up");
 myThing
   .make()
-  .bigThingIds("abc123")
-  .bigThingIds("def456")
-  .bigThingIds("ghi789");
+  .big_thing_ids("abc123")
+  .big_thing_ids("def456")
+  .big_thing_ids("ghi789");
 ```
 
 an even shorter version (the order you chain the sub-methods does not matter)
@@ -117,9 +124,9 @@ const myThing = new Big_Thing();
 myThing
   .make()
   .name("some name you made up")
-  .bigThingIds("abc123")
-  .bigThingIds("def456")
-  .bigThingIds("ghi789");
+  .big_thing_ids("abc123")
+  .big_thing_ids("def456")
+  .big_thing_ids("ghi789");
 ```
 
 an even SHORTER version using the included concat-type method...
@@ -129,7 +136,7 @@ const myThing = new Big_Thing();
 myThing
   .make()
   .name("some name you made up")
-  .bigThingIdsConcat(["abc123", "def456", "ghi789"]);
+  .big_thing_ids_concat(["abc123", "def456", "ghi789"]);
 ```
 
 Now you've built it. How do you get at it?
