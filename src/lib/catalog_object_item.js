@@ -22,7 +22,7 @@ const man =
 /** @class Catalog_Item
  * @param {string} id -  Optional. A temporary id will be assigned if you omit this.
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link  | Square Docs}
+ * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItem | Square Docs}
  * @example
  * */
 

@@ -73,11 +73,13 @@ Give a ⭐️ if this project helped you!
 
 Square Pie is divided into discrete classes and has a standardized syntax that works the same way across nearly every class.
 
-Request classes have a "body".
+There are two broad Class categories: Object and Request.
 
-Object classes have a "fardel". A fardel will eventually get added to a body or to another fardel.
+Request classes are **asynchronous** and help you store, fetch, and manipulate data in Square's database. Request classes have a "body".
 
-Object classes sometimes stack. That is one helps to build another. In this case the fardel of one gets added to the fardel of the other.
+Object classes are **synchronous** and help you format the data to store in Square's database. Object classes have a "fardel". A fardel will eventually get added to a body or fardel belonging to another class.
+
+Object classes sometimes stack. That is one may help to build another. In this case the fardel of one gets added to the fardel of the other.
 
 To construct a body or a fardel, you will want to have the Square Docs open in front of you. They will explain in depth the structure you are working on.
 Square Pie will help you build that structure without having to think too hard about how to build the internal structure.
@@ -87,8 +89,8 @@ construct fairly complicated sub-objects (objects inside objects inside objects)
 named after the object they create, for example "make_complicated_thing".
 
 Each "make" method will have at least a few sub-methods. They will always closely mimic the property names of the object they build. For example:
-You want to build a (pretend) Square Object called "BigThing". So you would go to the Square Docs for that.
-BigThing has a bajillion properties. Two example-pretend-properties are: "name" and" bigThingIds".
+You want to interface with the (pretend)Thing API. So first you need to build a (pretend) BigThing object called "BigThing". So you would go to the Square
+Docs for that. BigThing has a bajillion properties. Two example-pretend-properties are: "name" and" bigThingIds".
 
 "name" expects an object that looks like {name: { name: "some name you made up"} }.
 "bigThingIds" expects an array of Ids like ["abc123", "def456", "ghi789"]
@@ -184,9 +186,8 @@ property.
 ```js
 const myAsyncFunc = async function () {
   await upsert.request();
-  return upsert.delivery;
+  let response_data = upsert.delivery;
 };
-let results = myAsyncFunc();
 ```
 
 The whole thing all put together looks like:
@@ -199,14 +200,20 @@ myThing
   .make()
   .name("some name you made up")
   .bigThingIdsConcat(["abc123", "def456", "ghi789"]);
-upsert.make().body(myThing.fardel);
 
 const myAsyncFunc = async function () {
+  upsert.make().body(myThing.fardel);
   await upsert.request();
-  return upsert.delivery;
+  // do something with the returned data
+  console.log(upsert.delivery);
+
+  // you could see what Things you have...
+  const list = new List_Things();
+  await list.request();
+  console.log(list.delivery);
 };
 
-let results = myAsyncFunc();
+myAsyncFunc();
 ```
 
 Note:  
