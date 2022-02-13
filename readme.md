@@ -11,12 +11,13 @@
 - [Installation](#install)
 - [Contributing Code](#contributing-code)
 - [Basic Usage](#basic-usage)
+- [Patterns Used Throughout](#patterns-used-throughout)
 
 ## About
 
 This project came into existence because my former housemate who is a talented front end designer is opening a
-[family run pie bakery in Texas](https://www.pievilleusa.com/) and the fam wants to use Square with Wix.
-The existing tools for that are not very user friendly for people not skilled in backend devlopment. So I
+[family run pie bakery in Texas](https://www.pievilleusa.com/) and the fam wanted to use Square with Wix.
+The existing tools for that are not very user-friendly for people not skilled in backend development. So I
 decided to make a toolset that is easier to grok and use (grokootilize?). As far as I know they don't actually
 make square pies. But they do take requests...
 
@@ -75,9 +76,9 @@ Square Pie is divided into discrete classes and has a standardized syntax that w
 
 There are two broad Class categories: Object and Request.
 
-Request classes are **asynchronous** and help you store, fetch, and manipulate data in Square's database. Request classes have a "body".
+Request classes are **asynchronous** and help you store, fetch, and manipulate data in Square's database. Request classes have a "body". Remember to always use asynchronous functions for them.
 
-Object classes are **synchronous** and help you format the data to store in Square's database. Object classes have a "fardel". A fardel will eventually get added to a body or fardel belonging to another class.
+Object classes are **synchronous** and help you format the data to store in Square's database. Object classes have a "fardel". A fardel will eventually get added to a body or fardel belonging to another class. Object classes can be used inside either regular or async functions.
 
 Object classes sometimes stack. That is one may help to build another. In this case the fardel of one gets added to the fardel of the other.
 
@@ -216,6 +217,48 @@ const myAsyncFunc = async function () {
 myAsyncFunc();
 ```
 
-Note:  
-It is vital to return the "delivery" property from an asynchronous function or it will whine about being `undefined`.
-It's easier to just give it what it wants. Trust me on this.
+## Patterns Used Throughout
+
+###
+
+Square Pie uses snake_case because it's easier for me to read. When you see something that is in camelCase, it's because old habits die hard.
+
+### Curry Is Good
+
+Much of Square Pie is curried, meaning you can chain functions like in jquery.
+
+### make methods
+
+- most classes have at least one. A few don't have any.
+- sub-methods mimic the keys of the Square object they help build.
+- sometimes there are simplified alias methods, example the method `object_ids` might have an alias titled `id`. Or `concat_object_ids` might have one called `concat`.
+
+### HTTP Reponse Body Data
+
+- The "important" data is always stored on the `.delivery` property of any given Request class. If you fetch a list of customers, they will be stored there.
+
+### Enums
+
+Square frequently has properties that expect values chosen from a list of acceptable value. It is often from a list of words. Whenever this is the case,
+we use a function we call an "enum" or "enumerated function" (our own terminology). These will have methods titled as lower_snake_case versions of the values they set. They will automatically set the
+value in the form that Square expects. Some of these may be aliases that are quicker to type. For example `.true()` or `.false()` may have the aliases .`yes()` and `.no()`. There may even be aliases that make it
+easier to reason about the values to set. For example `.sort().ascending()` and `.sort().descending()` may have the aliases like `sort().oldest_first()` and `sort().newest_first()`
+
+Enums use a currying style we refer to as "curry-over". (I picture a pot of curry boiling over on the stove, thus the name). It simply means that there are additional sub-methods and you must complete an entire chain of sub-methods before
+chaining the next method. For example, lets say you have a Thing object. You want to set the `name`, `sort`, and `id` properties. The make() methods will have each of those methods. The sort property accepts only the values "ASCENDING" or
+"DESCENDING". Therefore the `sort` method of `make()` would be curried over. It will have a methods called `ascending()`and `descending()`. Once you enter the sort method, you must call one of those methods BEFORE calling either `name` or
+`id`
+
+```js
+//this will work
+thing.make().name("fred").sort().ascending().id("123abc");
+
+// this will throw an error because the sort method was shorted.
+thing.make().name("fred").sort().id("123abc");
+```
+
+### Arrays of Strings
+
+Sometimes a Square object or endpoint will expect an array of strings. In those instances there will be functions to allow you to add individual stringss or whole arrays of strings or both. Generally
+the functions that allow you to enter an array will have be similar to the one that adds individual values, but will either start with the word 'concat'. Occasionally one will end with 'concat' instead or
+simpy not exist. Those are errors and we would appreciate if you went to our github repo and created an issue for that so we can fix it.
