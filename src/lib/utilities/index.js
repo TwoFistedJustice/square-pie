@@ -25,6 +25,7 @@ const {
 } = require("./setter_chain_generators");
 const regular_expression_patterns = require("./regular_expression_patterns");
 const shazam_date_human_readable = require("./shazam_date_human_readable");
+const shazam_exact_length = require("./shazam_exact_length");
 const shazam_is_array = require("./shazam_is_array");
 const shazam_is_boolean = require("./shazam_is_boolean");
 const shazam_is_integer = require("./shazam_is_integer");
@@ -67,6 +68,7 @@ module.exports = {
   regular_expression_patterns,
   shazam_is_time_RFC3339,
   shazam_date_human_readable,
+  shazam_exact_length,
   shazam_is_integer,
   shazam_is_boolean,
   shazam_object_has_property,
