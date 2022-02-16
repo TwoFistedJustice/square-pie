@@ -1,5 +1,5 @@
 "use strict";
-const Location_Object = require("../src/lib/stub.location_object");
+const Location_Object = require("../src/lib/location_object");
 const { long_strings } = require("./helper_objects");
 
 let location, make;
