@@ -1,6 +1,14 @@
 // https://www.browserling.com/tools/random-string
 // used for testing length respection (I made up a new word variant! Yay me!)
 const long_strings = {
+  url_255:
+    "https://www.facebook.com/CrimsonCustomGuitarszcjzhuiufanjqspmxdskndjpopeomudzzhszrevzncfsjnszedbpnwzkxbntxpgcsmmjjhciyxvxemeggfuwsjdaxxzvvfdekzdnxirfmkcrawhnluufokavwchftefoechchwrhlkmjjwokktaihyxqirvszinlatdlnjrsganulkpezwrcdqrcsktucqsnisvaxnhoricmxgrggn",
+  url_256:
+    "https://www.facebook.com/CrimsonCustomGuitarszcjzhuiufanjqspmxdskndjpopeomudzzhszrevzncfsjnszedbpnwzkxbntxpgcsmmjjhciyxvxemeggfuwsjdaxxzvvfdekzdnxirfmkcrawhnluufokavwchftefoechchwrhlkmjjwokktaihyxqirvszinlatdlnjrsganulkpezwrcdqrcsktucqsnisvaxnhoricmxgrggnd",
+  email_255:
+    "xwpbhquwqjrlqxvttsecdjxfwtkqnwaobpupgwynzqsjizirqheqjtbvluaowsxjeeuudlbyikgoryrgncdobmgmqlmfrxghjufneovmypckgwhtxhusckntyvaqtonxvpzcpyiiphrrdoyccogjloqtbrcbtefbljdhrkyxrsmzivvznglkibadgdzojegjqfgiekogggmhgewdksvbisubgtvkhgxygkomnrepbgumxulpmtqtz@gmail.com",
+  email_256:
+    "lxwpbhquwqjrlqxvttsecdjxfwtkqnwaobpupgwynzqsjizirqheqjtbvluaowsxjeeuudlbyikgoryrgncdobmgmqlmfrxghjufneovmypckgwhtxhusckntyvaqtonxvpzcpyiiphrrdoyccogjloqtbrcbtefbljdhrkyxrsmzivvznglkibadgdzojegjqfgiekogggmhgewdksvbisubgtvkhgxygkomnrepbgumxulpmtqtz@gmail.com",
   len_10: "izkyrcrxzh",
   len_11: "vizkyrcrxzh",
   len_12: "avizkyrcrxzh",
