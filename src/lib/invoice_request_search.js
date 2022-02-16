@@ -99,10 +99,14 @@ class Invoice_Search extends Invoice_Request {
   }
 
   set delivery(parcel) {
-    if (Object.prototype.hasOwnProperty.call(parcel, "cursor")) {
-      this._body.cursor = parcel.cursor;
+    if (Object.prototype.hasOwnProperty.call(parcel, "invoices")) {
+      if (Object.prototype.hasOwnProperty.call(parcel, "cursor")) {
+        this._body.cursor = parcel.cursor;
+      }
+      this._delivery.push(parcel.invoices);
+    } else {
+      this._delivery = parcel;
     }
-    this._delivery.push(parcel.invoices);
   }
 
   // PRIVATE SETTERS

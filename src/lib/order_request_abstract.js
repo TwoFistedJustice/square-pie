@@ -20,7 +20,11 @@ class Order_Request extends Square_Request {
     return this._delivery;
   }
   set delivery(parcel) {
-    this._delivery = parcel.order;
+    if (Object.prototype.hasOwnProperty.call(parcel, "order")) {
+      this._delivery = parcel.order;
+    } else {
+      this._delivery = parcel;
+    }
   }
 }
 

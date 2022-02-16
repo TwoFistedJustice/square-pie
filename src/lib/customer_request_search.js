@@ -40,7 +40,11 @@ class Customer_Search extends Customer_Request {
 
   // SETTERS
   set delivery(parcel) {
-    this._delivery = parcel.customers;
+    if (Object.prototype.hasOwnProperty.call(parcel, "customers")) {
+      this._delivery = parcel.customers;
+    } else {
+      this._delivery = parcel;
+    }
   }
   /** @function query()  method of Customer_Search - Operates similarly to a make() method with one big difference.
    *  Query has two top level methods: 'fuzzy' and 'exact', one of which must be called before calling the setting

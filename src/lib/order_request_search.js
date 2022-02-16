@@ -92,12 +92,15 @@ class Order_Search extends Order_Request {
   // SETTERS
 
   set delivery(parcel) {
-    this._body.return_entries === true
-      ? (this._delivery = parcel.order_entries)
-      : (this._delivery = parcel.orders);
-
     if (Object.hasOwnProperty.call(parcel, "cursor")) {
       this._body.cursor = parcel.cursor;
+    }
+    if (Object.prototype.hasOwnProperty.call(parcel, "order_entries")) {
+      this._delivery = parcel.order_entries;
+    } else if (Object.prototype.hasOwnProperty.call(parcel, "orders")) {
+      this._delivery = parcel.orders;
+    } else {
+      this._delivery = parcel;
     }
   }
   set location_ids(location_id) {

@@ -28,7 +28,11 @@ class Customer_Retrieve_Update_Delete_Super extends Customer_Request {
   }
   // SETTERS
   set delivery(parcel) {
-    this._delivery = parcel.customer;
+    if (Object.prototype.hasOwnProperty.call(parcel, "customer")) {
+      this._delivery = parcel.customer;
+    } else {
+      this._delivery = parcel;
+    }
   }
   set id(someId) {
     this._endpoint = `/${someId}`;

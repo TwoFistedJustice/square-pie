@@ -17,7 +17,11 @@ class Invoice_Request extends Square_Request {
   }
 
   set delivery(parcel) {
-    this._delivery = parcel.invoice;
+    if (Object.prototype.hasOwnProperty.call(parcel, "invoice")) {
+      this._delivery = parcel.invoice;
+    } else {
+      this._delivery = parcel;
+    }
   }
 }
 module.exports = Invoice_Request;

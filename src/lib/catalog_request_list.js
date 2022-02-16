@@ -39,9 +39,13 @@ class Catalog_List extends Catalog_Request {
     this._endpoint = str;
   }
   set delivery(parcel) {
-    this._delivery = parcel.objects;
-    if (Object.prototype.hasOwnProperty.call(parcel, "cursor")) {
-      this.cursor = parcel.cursor;
+    if (Object.prototype.hasOwnProperty.call(parcel, "objects")) {
+      this._delivery = parcel.objects;
+      if (Object.prototype.hasOwnProperty.call(parcel, "cursor")) {
+        this.cursor = parcel.cursor;
+      }
+    } else {
+      this._delivery = parcel;
     }
   }
   /** use if you want to retrieve historical copies.

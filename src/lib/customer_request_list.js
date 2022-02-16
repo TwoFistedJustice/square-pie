@@ -39,9 +39,13 @@ class Customer_List extends Customer_Request {
     this._endpoint = str;
   }
   set delivery(parcel) {
-    this._delivery = parcel.customers;
-    if (Object.prototype.hasOwnProperty.call(parcel, "cursor")) {
-      this.cursor = parcel.cursor;
+    if (Object.prototype.hasOwnProperty.call(parcel, "customers")) {
+      this._delivery = parcel.customers;
+      if (Object.prototype.hasOwnProperty.call(parcel, "cursor")) {
+        this.cursor = parcel.cursor;
+      }
+    } else {
+      this._delivery = parcel;
     }
   }
 

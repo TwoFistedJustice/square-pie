@@ -40,6 +40,12 @@ describe(`${class_name} basic request class structures`, () => {
     expect(retrieve.delivery).toMatchObject({ a: 1 });
   });
 
+  test("Delivery should trap errors ", () => {
+    let expected = { a: 1 };
+    retrieve.delivery = { errors: [expected] };
+    expect(retrieve.delivery.errors[0]).toMatchObject(expected);
+  });
+
   // not every request class has these
   test("should have defined _body", () => {
     expect(retrieve.body).toBeDefined();

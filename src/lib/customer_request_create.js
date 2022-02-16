@@ -35,7 +35,11 @@ class Customer_Create extends Customer_Request {
 
   // SETTERS
   set delivery(parcel) {
-    this._delivery = parcel.customer;
+    if (Object.prototype.hasOwnProperty.call(parcel, "customer")) {
+      this._delivery = parcel.customer;
+    } else {
+      this._delivery = parcel;
+    }
   }
 
   // COMPUTED PROPERTIES
