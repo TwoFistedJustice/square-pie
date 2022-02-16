@@ -30,6 +30,10 @@ class Location_Update extends Location_RU {
   make() {
     return {
       self: this,
+      id: function (id) {
+        this.self.id = id;
+        return this;
+      },
       location: function (fardel) {
         this.self.location = fardel;
         return this;

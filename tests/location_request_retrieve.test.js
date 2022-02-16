@@ -42,4 +42,9 @@ describe(`${class_name} basic request class structures`, () => {
     retrieve.delivery = { location: expected };
     expect(retrieve.delivery).toMatchObject(expected);
   });
+
+  test("should be able to set set id after instantiatino", () => {
+    retrieve.id = "abc";
+    expect(retrieve.id).toEqual("/abc");
+  });
 });

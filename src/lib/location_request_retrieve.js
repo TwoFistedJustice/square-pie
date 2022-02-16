@@ -2,7 +2,8 @@ const Location_RU = require("./location_request_abstract_RU_super");
 const man =
   "http request to retrieve one location. \n" +
   "Pass the id of the location to be retrieved as a string argument when you instantiate the class. Then\n" +
-  "call .request() This class has no make() method.\n" +
+  "call .request() This class has no make() method.  You can change or add the id after instantiation by\n" +
+  " using the `id` setter.\n" +
   "https://developer.squareup.com/reference/square/locations-api/retrieve-location";
 
 /** @class Location_Retrieve - represents an http request to GET an invoice. (calling it "retrieve" to be

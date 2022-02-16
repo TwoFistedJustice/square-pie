@@ -54,6 +54,12 @@ describe(`${class_name} getters/setters`, () => {
     update = new Location_Update(id);
     make = update.make();
   });
+  test("make().id () should set ", () => {
+    let expected = "/abc";
+    make.id("abc");
+    expect(update.id).toEqual(expected);
+  });
+
   test("make().location () should set ", () => {
     let expected = { a: 1 };
     make.location(expected);
