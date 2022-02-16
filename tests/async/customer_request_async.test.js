@@ -27,7 +27,7 @@ const mikey = customers.mikey;
  * */
 
 describe.only("silence async", () => {
-  test(() => {
+  test("", () => {
     expect(true).toEqual(true);
   });
 });
