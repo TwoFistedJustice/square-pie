@@ -1,6 +1,6 @@
 const Location_RU = require("./location_request_abstract_RU_super");
 const man =
-  "\n" +
+  "Updates an existing location. Add only the fields you want to change.\n" +
   "https://developer.squareup.com/reference/square/locations-api/update-location";
 
 /** @class Location_Update

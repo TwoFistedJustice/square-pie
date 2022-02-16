@@ -1,5 +1,3 @@
-//https://developer.squareup.com/reference/square/locations-api/list-locations
-
 const Location_Request = require("./location_request_abstract");
 
 const man =
