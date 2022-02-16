@@ -18,7 +18,11 @@ class Location_Request extends Square_Request {
   }
 
   set delivery(parcel) {
-    this._delivery = parcel.location;
+    if (Object.prototype.hasOwnProperty.call(parcel, "location")) {
+      this._delivery = parcel.location;
+    } else {
+      this._delivery = parcel;
+    }
   }
 }
 module.exports = Location_Request;

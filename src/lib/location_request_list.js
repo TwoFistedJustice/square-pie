@@ -24,7 +24,11 @@ class Location_List extends Location_Request {
     return this._delivery;
   }
   set delivery(parcel) {
-    this._delivery = parcel.locations;
+    if (Object.prototype.hasOwnProperty.call(parcel, "locations")) {
+      this._delivery = parcel.locations;
+    } else {
+      this._delivery = parcel;
+    }
   }
 }
 module.exports = Location_List;
