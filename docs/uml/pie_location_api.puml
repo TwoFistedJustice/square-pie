@@ -1,0 +1,167 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+skinparam groupInheritance 2
+' arrows with one dash display horizontally
+' arrows with two dashes display vertically
+
+namespace requests {
+.Square_Request <|- .Location_Request
+
+.Location_Request <|- .Location_R_U
+
+.Location_Request <|-- .Location_Create
+.Location_Request <|-- .Location_List
+
+.Location_R_U <|-- .Location_Retrieve
+.Location_R_U <|-- .Location_Update
+}
+
+abstract class Square_Request {}
+
+abstract class Location_Request {
+super: Square_Request
+this._apiName = "location";
+}
+
+
+abstract class Location_R_U {
+super: Location_Request
+constructor(id)
+_displayName
+this._endpoint:  `/${id}`
+this._delivery
+==
+Simple Getters
+==
+Simple Setters
+==
+Complex Setters
+
++id (id)
+..
+adds the id to the URL endpoint
+==
+}
+
+class Location_List {
+super: Location_Request
+_displayName
+this._method: "GET"
+this._delivery
+==
+Simple Getters
+==
+Simple Setters
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/locations-api/list-locations List Location]]
+==
+}
+
+
+class Location_Retrieve {
+super: Location_R_U
+constructor(id)
+_displayName
+this._method: "GET"
+this._delivery
+==
+Simple Getters
+==
+Simple Setters
+==
+Square Docs
+ [[https://developer.squareup.com/reference/square/locations-api/retrieve-location Retrieve Location]]
+==
+}
+
+
+class Location_Update {
+super: Location_R_U
+constructor(id)
+_displayName
+this._method: "PUT"
+this._body
+==
+Simple Getters
+==
+Simple Setters
+==
+==
+Make Methods
++make()
+..
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/locations-api/update-location Update Location]]
+==
+}
+
+class Location_Create {
+super: Location_Request
+constructor()
+_displayName
+this._method: "POST"
+this._delivery
+==
+Simple Getters
+==
+Simple Setters
+==
+Make Methods
++make()
+==
+Square Docs
+[[https://developer.squareup.com/reference/square/invoices-api/create-invoice Create Location]]
+==
+}
+
+namespace objects{
+class  Location_Object {
+constructor()
+super: none
+_display_name
+_last_verified_square_api_version
+_help
+this.configuration
+this._fardel
+..
+-_fardel.name
+-_fardel.address
+-_fardel.timezone
+-_fardel.phone_number
+-_fardel.business_name
+-_fardel.business_email
+-_fardel.business_hours
+-_fardel.description
+-_fardel.language_code
+-_fardel.type
+-_fardel.status
+-_fardel.twitter_username
+-_fardel.instagram_username
+-_fardel.facebook_url
+-_fardel.website_url
+-_fardel.coordinates
+-_fardel.mcc
+-_fardel.tax_ids
+==
+Getters
+==
+Setters
+==
+Private Methods
++#enum_type()
++#enum_status()
+==
+Make Methods
++make()
+==
+Square Docs
+[[ Location_Object ]]
+
+}
+
+}
+
+@enduml
