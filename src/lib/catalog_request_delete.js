@@ -50,6 +50,8 @@ class Catalog_Delete extends Catalog_Request {
    * @param {string} id - object ids of documents you wish to delete. Must add at least one.
    * @method concat_object_ids
    * @param {array} arr - array of ids (strings)
+   * @method  id- alias of `object_ids`
+   * @method concat - alias of `concat_object_ids`
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
@@ -67,9 +69,15 @@ class Catalog_Delete extends Catalog_Request {
         this.self.object_ids = id;
         return this;
       },
+      id: function (id) {
+        return this.object_ids(id);
+      },
       concat_object_ids: function (arr) {
         this.self.object_array_concat = arr;
         return this;
+      },
+      concat: function (arr) {
+        return this.concat_object_ids(arr);
       },
     };
   }

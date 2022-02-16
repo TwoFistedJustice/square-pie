@@ -65,6 +65,13 @@ describe("Catalog_Delete basics", () => {
     expect(del.object_ids).toEqual(expected);
   });
 
+  test("make().id() should add ids to array", () => {
+    let id = "someId";
+    let expected = [id];
+    del.make().id(id);
+    expect(del.object_ids).toEqual(expected);
+  });
+
   test("make().concat_object_ids() should concat an array to an existing array", () => {
     let id1 = "someId1";
     let id2 = "someId2";
@@ -72,6 +79,16 @@ describe("Catalog_Delete basics", () => {
     let arr = [id2, id3];
     let expected = [id1, id2, id3];
     del.make().object_ids(id1).concat_object_ids(arr);
+    expect(del.object_ids).toEqual(expected);
+  });
+
+  test("make().concat_() should concat an array to an existing array", () => {
+    let id1 = "someId1";
+    let id2 = "someId2";
+    let id3 = "someId3";
+    let arr = [id2, id3];
+    let expected = [id1, id2, id3];
+    del.make().object_ids(id1).concat(arr);
     expect(del.object_ids).toEqual(expected);
   });
 
