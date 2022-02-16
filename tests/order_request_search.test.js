@@ -30,36 +30,37 @@ describe("Order_Search", () => {
     expect(search.method).toEqual(method);
   });
 
-  test("Delivery should set order_entry object if return_entries is set to true", () => {
+  test("Delivery should set order_entries", () => {
     let response_body = {
       order_entries: [{ a: 1 }],
-      orders: [{ b: 2 }],
       cursor: "123",
     };
-    search.make().return_entries(true);
     search.delivery = response_body;
     expect(search.delivery).toMatchObject(response_body.order_entries);
   });
 
-  test("Delivery should set order objects if return_entries is not set to true ", () => {
+  test("Delivery should set orders ", () => {
     let response_body = {
-      order_entries: [{ a: 1 }],
       orders: [{ b: 2 }],
       cursor: "123",
     };
-    search.make().return_entries = false;
     search.delivery = response_body;
     expect(search.delivery).toMatchObject(response_body.orders);
   });
 
-  test("Delivery should set order objects if return_entries is undefined ", () => {
+  test("Delivery should set cursor ", () => {
     let response_body = {
-      order_entries: [{ a: 1 }],
       orders: [{ b: 2 }],
       cursor: "123",
     };
     search.delivery = response_body;
-    expect(search.delivery).toMatchObject(response_body.orders);
+    expect(search.cursor).toEqual("123");
+  });
+
+  test("Delivery should trap errors ", () => {
+    let expected = { a: 1 };
+    search.delivery = { errors: [expected] };
+    expect(search.delivery.errors[0]).toMatchObject(expected);
   });
 
   test("Order_Search location_ids should be an array", () => {
