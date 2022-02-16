@@ -25,8 +25,12 @@ const {
 } = require("./setter_chain_generators");
 const regular_expression_patterns = require("./regular_expression_patterns");
 const shazam_date_human_readable = require("./shazam_date_human_readable");
+const shazam_exact_length = require("./shazam_exact_length");
 const shazam_is_array = require("./shazam_is_array");
 const shazam_is_boolean = require("./shazam_is_boolean");
+const shazam_is_coords = require("./shazam_is_coords");
+const shazam_is_url = require("./shazam_is_url");
+const shazam_is_url_facebook = require("./shazam_is_url_facebook");
 const shazam_is_integer = require("./shazam_is_integer");
 const shazam_is_time_RFC3339 = require("./shazam_is_time_RFC3339");
 const shazam_object_has_property = require("./shazam_object_has_property");
@@ -67,8 +71,12 @@ module.exports = {
   regular_expression_patterns,
   shazam_is_time_RFC3339,
   shazam_date_human_readable,
+  shazam_exact_length,
+  shazam_is_coords,
   shazam_is_integer,
   shazam_is_boolean,
+  shazam_is_url,
+  shazam_is_url_facebook,
   shazam_object_has_property,
   shazam_is_array,
   shazam_min_length,

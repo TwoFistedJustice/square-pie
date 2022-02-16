@@ -26,6 +26,12 @@ const mikey = customers.mikey;
  * {@link https://stackoverflow.com/questions/6921895/synchronous-delay-in-code-execution | Stackoverflow}
  * */
 
+describe.only("silence async", () => {
+  test(() => {
+    expect(true).toEqual(true);
+  });
+});
+
 (function wait(sec) {
   const ms = sec * 1000;
   let start = Date.now(); // set baseline ms
