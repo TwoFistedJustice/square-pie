@@ -51,9 +51,22 @@ describe("Customer_Search", () => {
   test("should have an endpoint", () => {
     expect(search.endpoint).toEqual(endpoint);
   });
+
   test("should have _delivery", () => {
     search.delivery = { customers: [{ a: 1 }] };
     expect(search.delivery).toBeDefined();
+  });
+
+  test("Delivery should trap return values", () => {
+    let expected = { a: 1 };
+    search.delivery = { customers: expected };
+    expect(search.delivery).toMatchObject(expected);
+  });
+
+  test("Delivery should trap errors ", () => {
+    let expected = { a: 1 };
+    search.delivery = { errors: [expected] };
+    expect(search.delivery.errors[0]).toMatchObject(expected);
   });
 
   // not every request class has these

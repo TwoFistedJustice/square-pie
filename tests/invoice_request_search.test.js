@@ -55,6 +55,18 @@ describe("Invoice_Search", () => {
     expect(search.delivery).toEqual(expect.arrayContaining(expected));
   });
 
+  test("Delivery should trap return values", () => {
+    let expected = { a: 1 };
+    search.delivery = { invoices: expected };
+    expect(search.delivery).toMatchObject([expected]);
+  });
+
+  test("Delivery should trap errors ", () => {
+    let expected = { a: 1 };
+    search.delivery = { errors: [expected] };
+    expect(search.delivery.errors[0]).toMatchObject(expected);
+  });
+
   test("Cursor should be set automatically if it's in the response", () => {
     let cursor = "123";
     let parcel = {

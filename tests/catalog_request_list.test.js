@@ -30,8 +30,16 @@ describe("Catalog_List basics", () => {
     expect(list.endpoint).toEqual(endpoint);
   });
   test("should have _delivery", () => {
-    list.delivery = { objects: { a: 1 } };
-    expect(list.delivery).toBeDefined();
+    let expected = { a: 1 };
+    list.delivery = { objects: expected };
+    expect(list.delivery).toMatchObject(expected);
+  });
+
+  test("Delivery should trap errors ", () => {
+    let expected = { a: 1 };
+    list.delivery = { errors: [expected] };
+    console.log(list.delivery);
+    expect(list.delivery.errors[0]).toMatchObject(expected);
   });
 });
 

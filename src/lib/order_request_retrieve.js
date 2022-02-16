@@ -97,7 +97,11 @@ class Order_Retrieve extends Order_Request {
   }
 
   set delivery(parcel) {
-    this._delivery = parcel.orders;
+    if (Object.prototype.hasOwnProperty.call(parcel, "orders")) {
+      this._delivery = parcel.orders;
+    } else {
+      this._delivery = parcel;
+    }
   }
 
   /** @function make()  method of Order_Retrieve - method names are exactly the same as the property names listed

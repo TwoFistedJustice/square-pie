@@ -50,6 +50,19 @@ describe("Customer_List", () => {
     list.delivery = { customers: { a: 1 } };
     expect(list.delivery).toBeDefined();
   });
+
+  test("Delivery should trap return values", () => {
+    let expected = { a: 1 };
+    list.delivery = { customers: expected };
+    expect(list.delivery).toMatchObject(expected);
+  });
+
+  test("Delivery should trap errors ", () => {
+    let expected = { a: 1 };
+    list.delivery = { errors: [expected] };
+    expect(list.delivery.errors[0]).toMatchObject(expected);
+  });
+
   test("should have an endpoint", () => {
     expect(list.endpoint).toEqual(endpoint);
   });

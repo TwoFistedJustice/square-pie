@@ -39,6 +39,18 @@ describe("Order_Create", () => {
     expect(create.delivery).toBeDefined();
   });
 
+  test("Delivery should trap return values", () => {
+    let expected = { a: 1 };
+    create.delivery = { order: expected };
+    expect(create.delivery).toMatchObject(expected);
+  });
+
+  test("Delivery should trap errors ", () => {
+    let expected = { a: 1 };
+    create.delivery = { errors: [expected] };
+    expect(create.delivery.errors[0]).toMatchObject(expected);
+  });
+
   // not every request class has these
   test("should have defined _body", () => {
     expect(create.body).toBeDefined();

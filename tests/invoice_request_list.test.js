@@ -89,6 +89,18 @@ describe("Invoice_List", () => {
     expect(list.delivery).toEqual(expect.arrayContaining(expected));
   });
 
+  test("Delivery should trap return values", () => {
+    let expected = { a: 1 };
+    list.delivery = { invoices: expected };
+    expect(list.delivery).toMatchObject([expected]);
+  });
+
+  test("Delivery should trap errors ", () => {
+    let expected = { a: 1 };
+    list.delivery = { errors: [expected] };
+    expect(list.delivery.errors[0]).toMatchObject(expected);
+  });
+
   test("Cursor should be set automatically if it's in the response", () => {
     let cursor = "123";
     let expected = `?location_id=${location_id}&cursor=${cursor}`;
