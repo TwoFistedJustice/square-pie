@@ -4,7 +4,7 @@ const man =
   "Create the location using the Location_Create class. Pass its fardel as an argument to make().location(myVar.fardel)\n" +
   "https://developer.squareup.com/reference/square/invoices-api/create-invoice";
 
-/** @class  Location_Create
+/** @class  Location_Create - upserts a location object.
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/locations-api/create-location | Square Docs}
  * */

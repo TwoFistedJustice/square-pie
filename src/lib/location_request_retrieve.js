@@ -6,8 +6,7 @@ const man =
   " using the `id` setter.\n" +
   "https://developer.squareup.com/reference/square/locations-api/retrieve-location";
 
-/** @class Location_Retrieve - represents an http request to GET an invoice. (calling it "retrieve" to be
- * consistent with the rest of the API.
+/** @class Location_Retrieve - http request to GET a location. Has no make() method.
  * @param {string} id The invoice_id of the invoice you want
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * * {@link https://developer.squareup.com/reference/square/invoices-api/get-invoice | Square Docs}

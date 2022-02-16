@@ -1,4 +1,3 @@
-// https://developer.squareup.com/reference/square/objects/Location
 const { language_code_enum } = require("./enum");
 const {
   normalize_email,
@@ -9,7 +8,8 @@ const {
   shazam_max_length,
 } = require("./utilities");
 const man =
-  "\n" + "https://developer.squareup.com/reference/square/objects/Location";
+  "Builds a compliant Location Object\n" +
+  "https://developer.squareup.com/reference/square/objects/Location";
 
 /** @class Location_Object builds a compliant Location object
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
@@ -344,7 +344,56 @@ class Location_Object {
     };
   }
 
-  // MAKER METHODS
+  // MAKE METHODS
+  /** @function make()  method of Location_Object - method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   * @method name
+   * @param {string} name -
+   * @method address
+   *  @param {object} address_object -
+   * @method timezone
+   * @param {string} IANA_timezone -
+   * @method phone_number
+   * @param {string} phone -
+   * @method business_name
+   * @param {string} name -
+   * @method business_email
+   * @param {string} email -
+   * @method business_hours
+   * @param {string} day - The day of the week. Must be either first three letters in all caps (SUN, MON, etc) or first letter capitalized, eg(Sunday, Monday, etc)
+   * @param {string} start - start of business hours in 24 hour format, omitting the leading zero. You should append ":00" for seconds to the end.
+   * @param {string} end - end of business hours in 24 hour format, omitting the leading zero. You should append ":00" for seconds to the end.
+   * @method description
+   * @param {string} description -
+   * @method language_code - Enumerated function. Calls language_code_enum.language_code()
+   * @method type Enumerated function. Calls #enum_type()
+   * @method status Enumerated function. Calls #enum_status()
+   * @method twitter_username
+   * @param {string} tweety -
+   * @method instagram_username
+   * @param {string}  ig -
+   * @method facebook_url
+   * @param {string} url - must contain "facebook.com"
+   * @method website_url
+   * @param {string} url -
+   * @method coordinates
+   * @param {number} latitude - will also accept it as a string
+   * @param {number} longitude -  will also accept it as a string
+   * @method mcc
+   * @param {string} mcc -
+   * @method tax_ids
+   * @param {string} eu_vat -
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *
+   * */
+
   make() {
     return {
       self: this,
@@ -409,10 +458,10 @@ class Location_Object {
         this.self.website_url = url;
         return this;
       },
-      coordinates: function (lat, lon) {
+      coordinates: function (latitude, longitude) {
         this.self.coordinates = {
-          latitude: lat,
-          longitude: lon,
+          latitude: latitude,
+          longitude: longitude,
         };
         return this;
       },
