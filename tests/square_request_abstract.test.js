@@ -32,13 +32,13 @@ describe("Square_Request", () => {
     expect(square.delivery).toBeDefined();
   });
 
-  test("should have defined _secret", () => {
-    expect(Object.prototype.hasOwnProperty.call(square, "_secret")).toEqual(
-      true
-    );
-  });
-  test("should return secret name", () => {
-    expect(square.secretName).toBeDefined();
+  // test("should have defined _secret", () => {
+  //   expect(Object.prototype.hasOwnProperty.call(square, "_secret")).toEqual(
+  //     true
+  //   );
+  // });
+  test("should not return secret name", () => {
+    expect(square.secretName).not.toBeDefined();
   });
   test("Body should set", () => {
     let expected = { a: 1 };
@@ -50,8 +50,8 @@ describe("Square_Request", () => {
     square.method = expected;
     expect(square.method).toEqual(expected);
   });
-  test("secret should be defined", () => {
-    expect(square.secretName).toBeDefined();
+  test("secret should be private", () => {
+    expect(square.secretName).not.toBeDefined();
   });
 
   test("baseUrl should be defined", () => {
@@ -60,11 +60,5 @@ describe("Square_Request", () => {
 
   test("url should be defined", () => {
     expect(square.url).toBeDefined();
-  });
-  test("headers should be defined", () => {
-    expect(square.headers()).toBeDefined();
-  });
-  test("options should be defined", () => {
-    expect(square.options()).toBeDefined();
   });
 });

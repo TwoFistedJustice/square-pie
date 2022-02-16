@@ -27,20 +27,20 @@ const mikey = customers.mikey;
  * */
 
 describe.only("silence async", () => {
-  test("", () => {
+  test("un-comment the iife function before enabling other tests", () => {
     expect(true).toEqual(true);
   });
 });
 
-(function wait(sec) {
-  const ms = sec * 1000;
-  let start = Date.now(); // set baseline ms
-  let now = start; // set now to equal baseline
-  while (now - start < ms) {
-    // measure difference between baseline and 'now'
-    now = Date.now(); // reset 'now' to later time and repeat
-  }
-})(30);
+// (function wait(sec) {
+//   const ms = sec * 1000;
+//   let start = Date.now(); // set baseline ms
+//   let now = start; // set now to equal baseline
+//   while (now - start < ms) {
+//     // measure difference between baseline and 'now'
+//     now = Date.now(); // reset 'now' to later time and repeat
+//   }
+// })(30);
 
 describe("Customer Request Classes", () => {
   let dbBuffy, mikeId;
