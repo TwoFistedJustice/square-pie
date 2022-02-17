@@ -1,4 +1,5 @@
 const Customer_Request = require("./customer_request_abstract");
+
 const {
   query_param_regex,
 } = require("./utilities/regular_expression_patterns");
@@ -14,7 +15,7 @@ const {
 class Customer_Retrieve_Update_Delete_Super extends Customer_Request {
   _display_name = "Customer_Retrieve_Update_Delete_Super";
   _last_verified_square_api_version = "2021-07-21";
-  constructor(id = "you_still_need_to_set_the _id") {
+  constructor(id = "you_still_need_to_set_the_id") {
     super();
     this._endpoint = `/${id}`;
     this._delivery;

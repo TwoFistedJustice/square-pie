@@ -74,6 +74,19 @@ describe("Customer_Delete", () => {
     expect(del.endpoint).toEqual(expected);
   });
 
+  test("make().id() should replace endpoint when query params are present", () => {
+    let expected = "/abc?version=5";
+    del.make().id("abc");
+    expect(del.endpoint).toEqual(expected);
+  });
+
+  test("make().id() should set endpoint when no starting id was provided", () => {
+    let deletio = new Customer_Delete();
+    let expected = "/abc";
+    deletio.make().id("abc");
+    expect(deletio.endpoint).toEqual(expected);
+  });
+
   test("setter should call shazam_is_integer", () => {
     let klass = del;
     let test_val = 95;
