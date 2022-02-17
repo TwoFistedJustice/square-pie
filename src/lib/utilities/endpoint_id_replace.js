@@ -1,4 +1,4 @@
-const id_matching_regex = /(^\/[\w]*)/i; // matches the `/${id}` portion
+const id_matching_regex = /(^\/[\w]*)?/i; // matches the `/${id}` portion
 
 /** @function endpoint_id_replace
  *  replaces the `/${id}` portion of an endpoint. Enables rapid multiple actions with a single class using iteration.
