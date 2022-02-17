@@ -9,6 +9,7 @@ const defineify = require("./defineify");
 const duration_months_days = require("./duration_months_days");
 const duration_hours_minutes = require("./duration_hours_minutes");
 const duration_days_hours_minutes = require("./duration_days_hours_minutes");
+const endpoint_id_replace = require("./endpoint_id_replace");
 const is_integer = require("./is_integer");
 const generate_error_message = require("./generate_error_message");
 const object_does_not_have_property = require("./object_does_not_have_property");
@@ -55,6 +56,7 @@ module.exports = {
   duration_hours_minutes,
   duration_months_days,
   duration_days_hours_minutes,
+  endpoint_id_replace,
   generate_error_message,
   is_integer,
   normalize_email,
