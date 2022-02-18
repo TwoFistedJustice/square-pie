@@ -262,3 +262,14 @@ thing.make().name("fred").sort().id("123abc");
 Sometimes a Square object or endpoint will expect an array of strings. In those instances there will be functions to allow you to add individual stringss or whole arrays of strings or both. Generally
 the functions that allow you to enter an array will have be similar to the one that adds individual values, but will either start with the word 'concat'. Occasionally one will end with 'concat' instead or
 simpy not exist. Those are errors and we would appreciate if you went to our github repo and created an issue for that so we can fix it.
+
+### Getting Just the Document Ids from your Square Database
+
+After you make an http request, Square may send back copies of the documents you worked on. Sometimes you just need the document ids.
+
+Every Square pie Request class has a built-in (inherited) method that allows you to retrieve just the ids of the ids of whatever objects
+came back in the response body. To get an array of just the ids is two stop process (this assumes you have already made your .request() call
+and received a 200 'ok' status.)
+
+yourVar.cache_ids() - iterates over the response body and adds all the document ids to the id_array
+your.var.id_array => gets the id_array // use the class getter

@@ -20,6 +20,7 @@ class Square_Request {
     this._body;
     this._endpoint = "";
     this._delivery;
+    this._id_array = [];
   }
 
   // GETTERS
@@ -45,6 +46,9 @@ class Square_Request {
   get delivery() {
     return this._delivery;
   }
+  get id_array() {
+    return this._id_array;
+  }
 
   // SETTERS
   set body(val) {
@@ -57,6 +61,7 @@ class Square_Request {
   set delivery(parcel) {
     this._delivery = parcel;
   }
+
   // COMPUTED PROPERTIES
   get #secretName() {
     return process.env.NODE_ENV === "production"
@@ -104,6 +109,45 @@ class Square_Request {
       headers: this.#headers(),
       body: JSON.stringify(this._body),
     };
+  }
+
+  /** @function cache_ids - extracts the top layer of object ids out of the .delivery property
+   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *  After you have made your http request
+   *
+   *  yourVar.cache_ids()
+   *  yourVar.id_array => [id2, id2, id3]
+   *
+   *  if you wanted to use the output do some other action
+   *  list.cache_ids()
+   *  yourvar.make().concat(list.id_array)
+   *
+   * */
+
+  cache_ids() {
+    // if delivery is an array of ids, grab them
+    if (Array.isArray(this._delivery)) {
+      if (typeof this._delivery[0] === "string") {
+        this.delivery.forEach((element) => {
+          this._id_array.push(element);
+        });
+      } else {
+        // if delivery is an array of objects, grab the ids
+        this.delivery.forEach((doc) => {
+          if (Object.prototype.hasOwnProperty.call(doc, "id")) {
+            this._id_array.push(doc.id);
+          }
+        });
+      }
+    } else if (
+      // if delivery is just one object, grab the id
+      typeof this._delivery === "object" &&
+      this._delivery !== null &&
+      Object.hasOwnProperty.call(this._delivery, "id")
+    ) {
+      this._id_array.push(this.delivery.id);
+    }
   }
 } // END class
 

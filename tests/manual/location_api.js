@@ -42,6 +42,8 @@ const list = async function () {
   await list.request();
   console.log("list:");
   console.log(list.delivery);
+  list.cache_ids();
+  console.log(list.id_array);
 };
 
 const retrieve = async function () {
