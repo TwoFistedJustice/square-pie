@@ -38,7 +38,6 @@ describe("Catalog_List basics", () => {
   test("Delivery should trap errors ", () => {
     let expected = { a: 1 };
     list.delivery = { errors: [expected] };
-    console.log(list.delivery);
     expect(list.delivery.errors[0]).toMatchObject(expected);
   });
 });
