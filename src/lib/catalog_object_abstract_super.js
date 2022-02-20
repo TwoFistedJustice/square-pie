@@ -11,10 +11,9 @@ const man =
   "Follow the structure on the Square batch-upsert request page\n" +
   "\nhttps://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects";
 
-/** @class Catalog_Object_Super - super class of Catalog API objects
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects | Square Docs}
- * @example
+/** @class  Catalog_Object_Super - super class of Catalog API objects
+ *  @abstract
+ * {@link https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects | Link To Square Docs}
  * */
 
 class Catalog_Object_Super {

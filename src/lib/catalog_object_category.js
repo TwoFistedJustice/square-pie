@@ -8,9 +8,7 @@ const man =
   "\nhttps://developer.squareup.com/reference/square/objects/CatalogCategory";
 
 /** @class  Catalog_Category
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/objects/CatalogCategory | Square Docs}
- * @example
+ * {@link https://developer.squareup.com/reference/square/objects/CatalogCategory | Link To Square Docs}
  * */
 
 class Catalog_Category extends Catalog_Object_Super {
@@ -81,26 +79,35 @@ class Catalog_Category extends Catalog_Object_Super {
   }
 
   //MAKER METHODS
-  /** @function make()  method of Catalog_Category - method names are exactly the same as the property names listed
+  /**
+   *  make() method of Catalog_Category
+   *
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method name
-   * @param {string} str -
-   * @method id
-   * @param {string} str -
-   * @method present_at_all_locations
-   * @param {bool}  -
-   * @method present_at_location_ids
-   * @param {string} id -
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Catalog_Category.make
+   * @method
+   * @public
+   * @memberOf Catalog_Category
+   * @property {string} name(str) -
+   * @property {string} id(str) -
+   * @property {boolean} present_at_all_locations(bool) -
+   * @property {string} present_at_location_ids(id) -
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,

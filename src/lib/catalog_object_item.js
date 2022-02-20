@@ -19,11 +19,10 @@ const man =
   "or skip make() and just call the setter `.variations = variation.fardel`" +
   "\nhttps://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItem";
 
-/** @class Catalog_Item
+/**
+ * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItem | Link To Square Docs}
+ * @class Catalog_Item
  * @param {string} id -  Optional. A temporary id will be assigned if you omit this.
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItem | Square Docs}
- * @example
  * */
 
 class Catalog_Item extends Catalog_Object_Super {
@@ -261,21 +260,23 @@ class Catalog_Item extends Catalog_Object_Super {
 
   // PRIVATE METHODS
 
-  /** @function enum_product_type
-   * @private
+  /** * {@link https://developer.squareup.com/reference/square_2021-12-15/enums/CatalogItemProductType | Link To Square Docs}
+   *
+   *  #enum_product_type
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   * @param {object} calling_this - pass in the calling function's 'this'
-   * @method regular - sets value to "REGULAR"
-   * @method appointments_service - sets value to "APPOINTMENTS_SERVICE"
-   * @method appointment alias of appointments_service
-   * @method appt alias of appointments_service
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square_2021-12-15/enums/CatalogItemProductType | Square Docs}
+   *  @typedef {function} Catalog_Item.enum_product_type
+   * @private
+   * @abstract
+   * @memberOf Catalog_Item
+   * @property regular() sets value to "REGULAR"
+   * @property appointments_service() sets value to "APPOINTMENTS_SERVICE"
+   * @property appointment() alias of appointments_service
+   * @property appt() alias of appointments_service
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
    *  value of `clint` on the object 'western'
@@ -303,31 +304,48 @@ class Catalog_Item extends Catalog_Object_Super {
   }
 
   // MAKE METHODS
-  /** @function make_modifier_list - builds a compliant modifier_list_Info object. To use the 'view' method you must set the function
-   * to a variable and call the method on the variable. If you don't do this, it will return an un-constructed  object.
-   * @method modifier_list_id
-   * @param{string} id
-   * @method modifier_overrides
-   * @param{string} id
-   * @param{boolean} bool - default value is false
-   * @throws{TypeError} throws an error if passed a non-boolean
-   * @method min_selected_modifiers
-   * @param{number} int32 - must be an integer
-   * @throws{TypeError} throws an error if passed a non-integer
-   * @method max_selected_modifiers
-   * @param{number} int32 - must be an integer
-   * @throws{TypeError} throws an error if passed a non-integer
-   * @method enabled
-   * @param{boolean} bool
-   * @throws{TypeError} throws an error if passed a non-boolean
+  /**
+   
    * @method clear - clears your entries
    * @method view - returns the catalog_modifier_list object under construction
    * @method add - adds a copy of the constructed catalog_modifier_list to the array and calls clear()
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemModifierListInfo | Square Docs}
-   * @example
-   *
    * */
+
+  /**
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemModifierListInfo | Link To Square Docs}
+   *  make_modifier_list() builds a compliant modifier_list_Info object. To use the 'view' method you must set the function
+   * to a variable and call the method on the variable. If you don't do this, it will return an un-constructed  object.
+   *
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Catalog_Item.make_modifier_list
+   * @method
+   * @public
+   * @memberOf Catalog_Item
+   * @property {string} modifier_list_id(id) -
+   * @property {string,boolean} modifier_overrides(id,bool) - boolean defaults to false
+   * @property {number} min_selected_modifiers(int32) -must be an integer
+   * @property {number} max_selected_modifiers(int32) -must be an integer
+   * @property {boolean} enabled(bool) -
+   * @property  clear() - clears your entries
+   * @property  view() - returns the catalog_modifier_list object under construction
+   * @property  add() - adds a copy of the constructed catalog_modifier_list to the array and calls clear()
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
+   * */
+
   make_modifier_list() {
     const name = this.display_name + ".make_modifier_list";
     let catalog_modifier_list = {
@@ -391,52 +409,68 @@ class Catalog_Item extends Catalog_Object_Super {
 
   /** @function make()  method of Catalog_Item - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method id
-   * @param {string} id -
-   * @method temp_id
-   * @param {string} temp_id - will concatenate the argument to "#temp_id_"
-   * @method present_at_all_locations
-   * @param {bool} bool -
-   * @method present_at_all_locations_ids
-   * @param {string} id -
-   * @method name
-   * @param {string} str -
-   * @method description
-   * @param {string} str -
-   * @method abbreviation
-   * @param {string} str -
-   * @method label_color
-   * @param {string} hex - a hexadecimal color
-   * @method available_online
-   * @param {bool} bool -
-   * @method available_for_pickup
-   * @param {bool} bool -
-   * @method available_electronically
-   * @param {bool} bool -
-   * @method category_id
-   * @param {string} id -
-   * @method tax_ids
-   * @param {string} id -
-   * @method modifier_list_info
-   * @param {object} mod - a modifier list object
-   * @method variations
-   * @param {object} obj - an item_variation object
+  
+  
+  
+   
+  
    * @method skip_modifier_screen
    * @param {bool} bool -
+  
    * @method item_options
    * @param {string} id -
+  
    * @method sort_name
+  
    * @method product_type - enumerated function
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * */
+
+  /**
+   *  make() method of Catalog_Item
+   *
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Catalog_Item.make
+   * @method
+   * @public
+   * @memberOf Catalog_Item
+   * @property {string} id(id) -
+   * @property {string} temp_id(temp_id) - will concatenate the argument to "#temp_id_"
+   * @property {boolean} present_at_all_locations()
+   * @property {string} present_at_all_locations_ids(id) -
+   * @property {string} name(str) -
+   * @property {string} description(str) -
+   * @property {string} abbreviation(str) -
+   * @property {string} label_color(hex) - a hexadecimal color
+   * @property {boolean} available_online(bool)
+   * @property {boolean} available_for_pickup(bool)
+   * @property {boolean} available_electronically(bool)
+   * @property {string} category_id(id) -
+   * @property {string} tax_ids(id) -
+   * @property {object} modifier_list_info(mod)  a modifier list object
+   * @property {object} variations(obj) - an item_variation object
+   * @property {boolean} skip_modifier_screen(bool)
+   * @property {boolean} item_options(bool)
+   * @property sort_name()
+   * @property {Enumerated} item_options()
+   *
+   *
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,
@@ -492,12 +526,6 @@ class Catalog_Item extends Catalog_Object_Super {
         this.self.tax_ids = id;
         return this;
       },
-      /** @method  make().modifier_list_info() - use this to pass a fully formed modifier list object as an argument.
-       * To build one and push it to the array with one function use item.make_modifier_list()
-       * @param {object} mod - a fully constructed modifier list object.
-       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-       * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemModifierListInfo | Square Docs}
-       * */
       modifier_list_info: function (mod) {
         this.self.modifier_list_info = mod;
         return this;
