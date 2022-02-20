@@ -15,7 +15,8 @@
     "prettier:check": "prettier --ignore-path .prettierignore --check '**/*.{js,jsw,jsx, json,md}'",
     "prettier:fix": "prettier --ignore-path .prettierignore --write '**/*.{js,jsw,jsx,json,md}'",
     "prepare": "husky install",
-    "pre-release": "standard-version --prerelease alpha --no-verify"
+    "pre-release": "standard-version --prerelease alpha --no-verify",
+    "jsdoc": "jsdoc -a all -c jsdoc.json -r -R readme.md src/index.js -d pie_docs/jsdoc && jsdoc2md --files src/index.js > pie_md_docs/PIE.md"
   },
   "author": "Russ Bain",
   "license": "ISC",
