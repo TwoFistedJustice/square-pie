@@ -9,10 +9,11 @@ const man =
   'currency of "USD". See Pie docs for more details.\n' +
   "https://developer.squareup.com/reference/square/objects/Order";
 
-/** @class  Order_Object
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/objects/Order | Square Docs}
- * */
+/**
+ * @class Order_Object
+ * {@link https://developer.squareup.com/reference/square/objects/Order | Link to Square Docs}
+ */
+
 class Order_Object {
   _display_name = "Order_Object";
   _last_verified_square_api_version = "2021-07-21";
@@ -184,72 +185,62 @@ class Order_Object {
 
   // METHODS
 
-  /** @function
+  /** #enum_state
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   * @param {object} calling_this - pass in the calling function's 'this'
-   * @method open sets value to "OPEN"
-   * @method completed sets value to "COMPLETED"
-   * @method canceled sets value to "CANCELED"
-   * @method draft sets value to "DRAFT"
-   
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link  | Square Docs}
+   * @typedef {function} Order_Object.#enum_state
+   * @private
+   * @abstract
+   * @memberOf Order_Object
+   * @property open() sets value to "OPEN"
+   * @property completed() sets value to "COMPLETED"
+   * @property canceled() sets value to "CANCELED"
+   * @property draft() sets value to "DRAFT"
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
    *  value of `clint` on the object 'western'
    *
-   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   *  vyMar.make_western().clint.().good() =>  spaghetti: {western : {clint: "GOOD"}}
    * */
   #enum_state(calling_this) {
     return order_object_enum.state(this, calling_this);
   }
 
-  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
+  /** make()  method of SOME_CLASS - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @param {object} calling_this - pass in the calling function's 'this'
-   * @method version
-   * @param {number} ver -
-   * @method id
-   * @param {string} id -
-   * @method location_id
-   * @param {string} id -
-   * @method reference_id
-   * @param {string} id -
-   * @method customer_id
-   * @param {string} id -
-   * @method ticket_name
-   * @param {string} name -
-   * @method state Enumerated. Calls #enum_state()
-   * @method source
-   * @param {string} str - The name used to identify the place (physical or digital) whence an order originates.
-   * @method pricing_options
-   * @param {bool} auto_apply_discounts -
-   * @param {bool} auto_apply_taxes -
-   * @method service_charges
-   * @param {object} fardel - an Order_Service_Charge fardel property.
-   * @method discounts
-   * @param {object} fardel -an Order_Discount fardel property
-   * @method taxes
-   * @param {object} fardel -an Order_Tax fardel property
-   * @method fulfillments
-   * @param {object} fardel - an Order_Fulfillment fardel property
-   * @method line_items
-   * @param {object} fardel - an Order_Line_Item fardel property
+   * @typedef {function} Order_Object.make
+   * @method
+   * @public
+   * @memberOf Order_Object
+   * @property {number }version(ver)
+   * @property {string} id(id)
+   * @property {string} location_id(id)
+   * @property {string} reference_id(id)
+   * @property {string} customer_id(id)
+   * @property {string} ticket_name(name)
+   * @property state {Enumerated} Calls #enum_state()
+   * @property {string} source(str) The name used to identify the place (physical or digital) whence an order originates.
+   * @property {boolean | boolean} pricing_options(auto_apply_discounts,auto_apply_taxes)
+   * @property {fardel} service_charges(fardel) an Order_Service_Charge fardel property.
+   * @property {fardel} discounts(fardel) an Order_Discount fardel property
+   * @property {fardel} taxes(fardel) an Order_Tax fardel property
+   * @property {fardel} fulfillments(fardel) an Order_Fulfillment fardel property
+   * @property {fardel} line_items(fardel) an Order_Line_Item fardel property
    
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
   make() {
     return {
