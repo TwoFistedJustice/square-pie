@@ -9,7 +9,6 @@ const {
 /** @class Customer_Retrieve_Update_Delete_Super super class of Customer API request classes to retrieve, update, and delete customer records
  * @param {id} id is fed in via the sub class constructor argument
  *  @see Customer_Request
- *  @author Russ Bain
  *  */
 
 class Customer_Retrieve_Update_Delete_Super extends Customer_Request {

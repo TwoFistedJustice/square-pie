@@ -172,8 +172,10 @@ class Order_Discount {
 
   // PRIVATE METHODS
 
-  /** @function #enum_type()
-   * @private
+  /**@private
+   *  @function #enum_type()
+   *
+   *
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
@@ -186,7 +188,6 @@ class Order_Discount {
    * @method variable_percentage sets value to "VARIABLE_PERCENTAGE"
    * @method variable_amount sets value to "VARIABLE_AMOUNT"
    
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemDiscountType | Square Docs}
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the

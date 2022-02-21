@@ -15,9 +15,7 @@ const man =
   "https://developer.squareup.com/reference/square/catalog-api/list-catalog";
 
 /** @class Catalog_List
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link  https://developer.squareup.com/reference/square/catalog-api/list-catalog | Square Docs}
- * @example
  * */
 
 class Catalog_List extends Catalog_Request {

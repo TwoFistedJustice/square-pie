@@ -11,9 +11,7 @@ const man =
   "\nhttps://developer.squareup.com/reference/square/objects/Invoice";
 
 /** @class Invoice_Object  makes a compliant invoice object
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/objects/Invoice | Square Docs}
- * @example
  * */
 class Invoice_Object {
   _display_name = "Invoice_Object";

@@ -379,7 +379,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    * @property inventory_alert_type() {Enumerated} - calls `#enum_inventory_alert_type()`
    * @property track_inventory(bool) {boolean}
    * @property measurement_unit_id() {string}
-   * @property price_money(amount, currency) {string,integer} = Standard Square Pie money object builder.
+   * @property price_money(amount,currency) {string|integer} = Standard Square Pie money object builder.
    * @property sku() {string}
    * @property stockable(bool) {boolean}
    * @property stockable_conversion() - calls `make_stockable_conversion()`

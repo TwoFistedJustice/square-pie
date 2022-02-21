@@ -18,9 +18,7 @@ const man =
   "\nhttps://developer.squareup.com/reference/square/catalog-api/search-catalog-objects";
 
 /** @class Catalog_Search_Filter
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects | Square Docs}
- * @example
  * */
 
 class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
@@ -166,9 +164,6 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   /** @function text_query_remove - removes a keyword from text_query
    * @param {string} word - a keyword to remove from the text_query. Case sensitive.
    * @throws {Error} Throws error if word is not found.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link  | Square Docs}
-   * @example
    * */
 
   text_query_remove(word) {
@@ -215,7 +210,6 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
    * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
    * listed here.
    
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

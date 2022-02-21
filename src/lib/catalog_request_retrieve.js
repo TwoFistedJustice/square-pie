@@ -10,9 +10,7 @@ const man =
   "https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects";
 
 /** @class Catalog_Retrieve
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects | Square Docs}
- * @example
  * */
 
 class Catalog_Retrieve extends Catalog_Request {

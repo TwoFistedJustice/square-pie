@@ -12,9 +12,7 @@ const man =
   "\nhttps://developer.squareup.com/reference/square/objects/Customer";
 
 /** @class Customer_Object
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link https://developer.squareup.com/reference/square/objects/Customer | Square Docs}
- * @example
  * */
 
 class Customer_Object {
@@ -47,10 +45,6 @@ class Customer_Object {
     };
   }
   // ENUMS
-  /**
-   *  @private
-   *  Sets fixed string values on fardel.creation_source
-   */
   #enum_creation_source(calling_this) {
     return {
       self: this,

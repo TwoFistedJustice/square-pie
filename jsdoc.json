@@ -29,6 +29,11 @@
   },
   "source": {
     "include": ["./src"],
-    "exclude": ["./src/lib/utilities", "./src/lib/enum", "./src/lib/regex"]
+    "exclude": [
+      "./src/lib/utilities",
+      "./src/lib/enum",
+      "./src/lib/regex",
+      "./src/lib/temp.js"
+    ]
   }
 }

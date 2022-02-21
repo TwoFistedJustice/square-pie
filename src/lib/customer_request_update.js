@@ -25,7 +25,7 @@ const man =
  *  yourUpdate.body = yourCustomer.fardel
  *
  *  @see Retrieve_Update_Delete
- *  @param {customer id} pass the Square id of the customer you want ot update to the class on instantiation
+ *  @param {customer_id} pass the Square id of the customer you want ot update to the class on instantiation
  *  @author Russ Bain
  *  */
 class Customer_Update extends Retrieve_Update_Delete {
@@ -107,7 +107,7 @@ class Customer_Update extends Retrieve_Update_Delete {
 
   // SETTERS
   /** @function set body - If you already have a compliant customer object you can just call the body setter
-   * @param {customer object} add the Customer_Object fardel
+   * @param {customer_object} add the Customer_Object fardel
    * */
   set body(fardel) {
     for (let prop in fardel) {
