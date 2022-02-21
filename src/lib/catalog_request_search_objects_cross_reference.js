@@ -9,9 +9,14 @@ const man =
   "To search by sets of key:value pairs use Catalog_Search_Filter" +
   "\nhttps://developer.squareup.com/reference/square/catalog-api/search-catalog-objects";
 
-/** @class Catalog_Search_Cross_Reference
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects | Link To Square Docs}
+ * @class Catalog_Search_Cross_Reference
+ * @typedef {class}  Catalog_Search_Cross_Reference
+ * @classdesc
+ * This is complicated. Read the {@link https://github.com/TwoFistedJustice/square-pie/blob/main/docs/pie_catalog_request_search.md | Pie Doc} before you try to use it.
+ * This class uses ONE array of ids to cross reference your search
+ * To search by sets of key:value pairs use `Catalog_Search_Filter`
  * */
 
 class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
@@ -132,32 +137,58 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
     }
   }
 
-  /** @function variations
+  /**
+   * @typedef {function}  variations
+   * @member Catalog_Search_Cross_Reference
+   * @method
+   * @public
    * @param {string} id an ID of a an item variation.
+   * @describe
+   * add an item_variation id to your query
    * */
 
   variations(id) {
     this.item_variations_for_item_option_values_query = id;
     return this;
   }
-  /** @function items
-   * @param {string} id an ID of a an item
-   * */
 
+  /**
+   * @typedef {function}  Catalog_Search_Cross_Reference.items
+   * @member Catalog_Search_Cross_Reference
+   * @method
+   * @public
+   * @param {string} id an ID of a an item
+   * @describe
+   * Add an item id to your query.
+   * */
   items(id) {
     this.items_for_item_options_query = id;
     return this;
   }
-  /** @function modifiers
+
+  /**
+   * @typedef {function}  Catalog_Search_Cross_Reference.modifiers
+   * @member Catalog_Search_Cross_Reference
+   * @method
+   * @public
    * @param {string} id an ID of a a modifier_list
+   * @describe
+   * add a modifier list id to your query
    * */
 
   modifiers(id) {
     this.items_for_modifier_list_query = id;
     return this;
   }
-  /** @function taxes
+
+  /**
+   * @typedef {function}  Catalog_Search_Cross_Reference.taxes
+   * @member Catalog_Search_Cross_Reference
+   * @method
+   * @public
    * @param {string} id an ID of a a tax object
+   * @describe
+   * Add a tax id to your query
    * */
 
   taxes(id) {
@@ -165,32 +196,56 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
     return this;
   }
 
-  /** @function concat_variations
+  /**
+   * @typedef {function}  Catalog_Search_Cross_Reference.concat_variations
+   * @member Catalog_Search_Cross_Reference
+   * @method
+   * @public
    * @param {array} arr an array of IDs of Item Variations.
+   * @describe
+   * Add the contents of an array of item variation ids to your query.
    * */
 
   concat_variations(arr) {
     this.concat_item_variations_for_item_option_values_query = arr;
     return this;
   }
-  /** @function concat_item
+  /**
+   * @typedef{function}  Catalog_Search_Cross_Reference.concat_item
+   * @member Catalog_Search_Cross_Reference
+   * @method
+   * @public
    * @param {array} arr an array of IDs of Item objects
+   * @describe
+   * Add the contents of an array of item_option ids to your query.
    * */
 
   concat_items(arr) {
     this.concat_items_for_item_options_query = arr;
     return this;
   }
-  /** @function concat_modifiers
+  /**
+   * @typedef {function}  Catalog_Search_Cross_Reference.concat_modifiers
+   * @member Catalog_Search_Cross_Reference
+   * @method
+   * @public
    * @param {array} arr an array of IDs of Modifier List objects
+   * @describe
+   * Add the contents of an array of modifier list ids to your query.
    * */
 
   concat_modifiers(arr) {
     this.concat_items_for_modifier_list_query = arr;
     return this;
   }
-  /** @function concat_taxes
+  /**
+   * @typedef {function}  Catalog_Search_Cross_Reference.concat_taxes
+   * @member Catalog_Search_Cross_Reference
+   * @method
+   * @public
    * @param {array} arr an array of IDs of Tax objects
+   * @describe
+   * Add the contents of an array of tax ids to your query.
    * */
 
   concat_taxes(arr) {
@@ -198,43 +253,43 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
     return this;
   }
 
-  /** @function make()  method of Catalog_Search_Cross_Reference - method names are exactly the same as the property names listed
+  /**
+   *  make() method of Catalog_Search_Cross_Reference
+   *
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method include_related_objects
-   * @param {bool} bool -
-   * @method begin_time
-   * @param {string} time - RFC3339 compliant time string. Will throw an error if not compliant.
-   * @method object_types - enumerated function
-   * {@link https://developer.squareup.com/reference/square/enums/CatalogObjectType | Square Docs}
-   * @method variations
-   * @param {string} id -
-   * @method items
-   * @param {string} id -
-   * @method modifiers
-   * @param {string} id -
-   * @method taxes
-   * @param {string} id -
-   * @method concat_variations - concatenates an array of ids
-   * @param {array} an array of ids
-   * @method concat_items- concatenates an array of ids
-   * @param {array} an array of ids
-   * @method concat_modifiers- concatenates an array of ids
-   * @param {array} an array of ids
-   * @method concat_taxes- concatenates an array of ids
-   * @param {array} an array of ids
-   * @method concat_object_types- concatenates an array of object types
-   * @param {array} array_to_add -an array of of object type string values
-   * @method types - alias of object_type
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects | Square Docs}
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Catalog_Search_Cross_Reference.make
+   * @method
+   * @public
+   * @memberOf Catalog_Search_Cross_Reference
+   * @property include_related_objects(bool) {boolean}
+   * @property begin_time(id) {string} -
+   * @property  object_types() {Enumerated}
+   * @property variations (id) {string} -
+   * @property items(id) {string} -
+   * @property modifiers(id) {string} -
+   * @property taxes(arr) {array} -
+   * @property concat_variations(arr) {array} - adds the contents of an array of ids
+   * @property concat_items(arr) {array} - adds the contents of an array of ids
+   * @property concat_modifiers(arr) {array} - adds the contents of an array of ids
+   * @property concat_taxes(arr) {array} - adds the contents of an array of ids
+   * @property  concat_object_types() - adds the contents of an array of object types
+   * @property  types() - alias of object_type
+   
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
   make() {
     // any changes made to super modification methods should be replicated on Catalog_Search_Filter
