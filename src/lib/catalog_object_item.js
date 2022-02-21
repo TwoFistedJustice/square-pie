@@ -326,11 +326,11 @@ class Catalog_Item extends Catalog_Object_Super {
    * @method
    * @public
    * @memberOf Catalog_Item
-   * @property {string} modifier_list_id(id) -
-   * @property {string,boolean} modifier_overrides(id,bool) - boolean defaults to false
-   * @property {number} min_selected_modifiers(int32) -must be an integer
-   * @property {number} max_selected_modifiers(int32) -must be an integer
-   * @property {boolean} enabled(bool) -
+   * @property  modifier_list_id(id) {string} -
+   * @property  modifier_overrides(id,bool) {string|boolean} - boolean defaults to false
+   * @property  min_selected_modifiers(int32) {number} -must be an integer
+   * @property  max_selected_modifiers(int32) {number} -must be an integer
+   * @property  enabled(bool) {boolean} -
    * @property  clear() - clears your entries
    * @property  view() - returns the catalog_modifier_list object under construction
    * @property  add() - adds a copy of the constructed catalog_modifier_list to the array and calls clear()
@@ -407,24 +407,6 @@ class Catalog_Item extends Catalog_Object_Super {
     };
   }
 
-  /** @function make()  method of Catalog_Item - method names are exactly the same as the property names listed
-   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-  
-  
-  
-   
-  
-   * @method skip_modifier_screen
-   * @param {bool} bool -
-  
-   * @method item_options
-   * @param {string} id -
-  
-   * @method sort_name
-  
-   * @method product_type - enumerated function
-   * */
-
   /**
    *  make() method of Catalog_Item
    *
@@ -438,23 +420,23 @@ class Catalog_Item extends Catalog_Object_Super {
    * @method
    * @public
    * @memberOf Catalog_Item
-   * @property {string} id(id) -
-   * @property {string} temp_id(temp_id) - will concatenate the argument to "#temp_id_"
-   * @property {boolean} present_at_all_locations()
-   * @property {string} present_at_all_locations_ids(id) -
-   * @property {string} name(str) -
-   * @property {string} description(str) -
-   * @property {string} abbreviation(str) -
-   * @property {string} label_color(hex) - a hexadecimal color
-   * @property {boolean} available_online(bool)
-   * @property {boolean} available_for_pickup(bool)
-   * @property {boolean} available_electronically(bool)
-   * @property {string} category_id(id) -
-   * @property {string} tax_ids(id) -
-   * @property {object} modifier_list_info(mod)  a modifier list object
-   * @property {object} variations(obj) - an item_variation object
-   * @property {boolean} skip_modifier_screen(bool)
-   * @property {boolean} item_options(bool)
+   * @property  id(id) {string} -
+   * @property  temp_id(temp_id) {string} - will concatenate the argument to "#temp_id_"
+   * @property  present_at_all_locations()
+   * @property  present_at_all_locations_ids(id) {boolean} -
+   * @property  name(str) {string} -
+   * @property  description(str) {string} -
+   * @property  abbreviation(str) {string} -
+   * @property  label_color(hex) {string} - a hexadecimal color
+   * @property  available_online(bool) {boolean}
+   * @property  available_for_pickup(bool) {boolean}
+   * @property  available_electronically(bool) {boolean}
+   * @property  category_id(id) {string} -
+   * @property  tax_ids(id) {string} -
+   * @property  modifier_list_info(mod) {object}  a modifier list object
+   * @property  variations(obj) {object} - an item_variation object
+   * @property  skip_modifier_screen(bool) {boolean}
+   * @property  item_options(bool) {boolean}
    * @property sort_name()
    * @property {Enumerated} item_options()
    *
