@@ -2,7 +2,7 @@ const Catalog_Request = require("./catalog_request_abstract");
 const { arrayify, shazam_is_array } = require("./utilities");
 const man =
   "deletes one or more Catalog API objects. Add the id of the objects you want to delete using " +
-  'make().object_ids("id") or you can also skip make() and jut call .delete("id"), .nix("id"), ou en francais' +
+  'make().object_ids("id") or you can also skip make() and just call .delete("id"), .nix("id"), ou en francais' +
   '.effacer("id"). You can also add an array of ids to delete by calling make().concat_object_ids(["id", ...]). ' +
   "You can mix and match methods.\n" +
   "\nhttps://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects";
@@ -11,8 +11,8 @@ const man =
  * {@link https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects | Link To Square Docs}
  * @class Catalog_Delete
  * @classdesc
- * Deletes one or more Catalog API objects.</br> Add the id of the objects you want to delete using make().object_ids("id") or
- * you can also skip make() and jut call .delete("id"), .nix("id"), ou en francais .effacer("id"). You can also add an array
+ * Deletes one or more Catalog API objects.<br> Add the id of the objects you want to delete using make().object_ids("id") or
+ * you can also skip make() and just call .delete("id"), .nix("id"), ou en francais .effacer("id").<br>You can also add an array
  * of ids to delete by calling make().concat_object_ids(["id", ...]). You can mix and match methods.
  * */
 
@@ -99,27 +99,59 @@ class Catalog_Delete extends Catalog_Request {
   }
 
   /**
+   * Adds the id of an object to be deleted.
    * @typedef {function} Catalog_Delete.delete
-   * @member Catalog_Delete
+   * @memberOf Catalog_Delete
    * @public
    * @method
    * @param {string} id
-   * @describe
-   * Adds an id to be deleted.
    * @example
-   * myVar.delete(id)
+   * myVar.delete("some_id")
    * */
-
   delete(id) {
     this.object_ids = id;
     return this;
   }
+
+  /**
+   * Ajoute l'identifiant d'un objet à supprimer.
+   * @typedef {function} Catalog_Delete.effacer
+   * @memberOf Catalog_Delete
+   * @public
+   * @method
+   * @param {string} id
+   * @example
+   * myVar.effacer("quelque_id")
+   * */
+
   effacer(id) {
     return this.delete(id);
   }
+  /**
+   * Adds the id of an object to be deleted.
+   * @typedef {function} Catalog_Delete.nix
+   * @memberOf Catalog_Delete
+   * @public
+   * @method
+   * @param {string} id
+   * @example
+   * myVar.nix("some_id")
+   * */
+
   nix(id) {
     return this.delete(id);
   }
+  /**
+   * Adds the id of an object to be deleted.
+   * @typedef {function} Catalog_Delete.disintegrate
+   * @memberOf Catalog_Delete
+   * @public
+   * @method
+   * @param {string} id
+   * @example
+   * myVar.disintegrate("Alderaan")
+   * */
+
   disintegrate(id) {
     return this.delete(id);
   }
