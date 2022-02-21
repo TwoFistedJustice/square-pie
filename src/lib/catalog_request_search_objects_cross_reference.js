@@ -10,9 +10,8 @@ const man =
   "\nhttps://developer.squareup.com/reference/square/catalog-api/search-catalog-objects";
 
 /**
- * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects | Link To Square Docs}
+ * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects |  **-------> Link To Square Docs <-------**}
  * @class Catalog_Search_Cross_Reference
- * @typedef {class}  Catalog_Search_Cross_Reference
  * @classdesc
  * This is complicated. Read the {@link https://github.com/TwoFistedJustice/square-pie/blob/main/docs/pie_catalog_request_search.md | Pie Doc} before you try to use it.
  * This class uses ONE array of ids to cross reference your search
@@ -138,13 +137,12 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   }
 
   /**
-   * @typedef {function}  variations
-   * @member Catalog_Search_Cross_Reference
+   * add an item_variation id to your query
+   *  @typedef {function}  Catalog_Search_Cross_Reference.variations
+   * @memberOf Catalog_Search_Cross_Reference
    * @method
    * @public
    * @param {string} id an ID of a an item variation.
-   * @describe
-   * add an item_variation id to your query
    * */
 
   variations(id) {
@@ -153,13 +151,12 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   }
 
   /**
+   * Add an item id to your query.
    * @typedef {function}  Catalog_Search_Cross_Reference.items
-   * @member Catalog_Search_Cross_Reference
+   * @memberOf Catalog_Search_Cross_Reference
    * @method
    * @public
    * @param {string} id an ID of a an item
-   * @describe
-   * Add an item id to your query.
    * */
   items(id) {
     this.items_for_item_options_query = id;
@@ -167,13 +164,12 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   }
 
   /**
+   * add a modifier list id to your query
    * @typedef {function}  Catalog_Search_Cross_Reference.modifiers
-   * @member Catalog_Search_Cross_Reference
+   * @memberOf Catalog_Search_Cross_Reference
    * @method
    * @public
    * @param {string} id an ID of a a modifier_list
-   * @describe
-   * add a modifier list id to your query
    * */
 
   modifiers(id) {
@@ -182,13 +178,12 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   }
 
   /**
+   * Add a tax id to your query
    * @typedef {function}  Catalog_Search_Cross_Reference.taxes
-   * @member Catalog_Search_Cross_Reference
+   * @memberOf Catalog_Search_Cross_Reference
    * @method
    * @public
    * @param {string} id an ID of a a tax object
-   * @describe
-   * Add a tax id to your query
    * */
 
   taxes(id) {
@@ -197,13 +192,12 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
   }
 
   /**
+   * Add the contents of an array of item variation ids to your query.
    * @typedef {function}  Catalog_Search_Cross_Reference.concat_variations
-   * @member Catalog_Search_Cross_Reference
+   * @memberOf Catalog_Search_Cross_Reference
    * @method
    * @public
    * @param {array} arr an array of IDs of Item Variations.
-   * @describe
-   * Add the contents of an array of item variation ids to your query.
    * */
 
   concat_variations(arr) {
@@ -211,13 +205,12 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
     return this;
   }
   /**
+   * Add the contents of an array of item_option ids to your query.
    * @typedef{function}  Catalog_Search_Cross_Reference.concat_item
-   * @member Catalog_Search_Cross_Reference
+   * @memberOf Catalog_Search_Cross_Reference
    * @method
    * @public
    * @param {array} arr an array of IDs of Item objects
-   * @describe
-   * Add the contents of an array of item_option ids to your query.
    * */
 
   concat_items(arr) {
@@ -225,13 +218,12 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
     return this;
   }
   /**
+   * Add the contents of an array of modifier list ids to your query.
    * @typedef {function}  Catalog_Search_Cross_Reference.concat_modifiers
-   * @member Catalog_Search_Cross_Reference
+   * @memberOf Catalog_Search_Cross_Reference
    * @method
    * @public
    * @param {array} arr an array of IDs of Modifier List objects
-   * @describe
-   * Add the contents of an array of modifier list ids to your query.
    * */
 
   concat_modifiers(arr) {
@@ -239,13 +231,12 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
     return this;
   }
   /**
+   * Add the contents of an array of tax ids to your query.
    * @typedef {function}  Catalog_Search_Cross_Reference.concat_taxes
-   * @member Catalog_Search_Cross_Reference
+   * @memberOf Catalog_Search_Cross_Reference
    * @method
    * @public
    * @param {array} arr an array of IDs of Tax objects
-   * @describe
-   * Add the contents of an array of tax ids to your query.
    * */
 
   concat_taxes(arr) {

@@ -7,8 +7,12 @@ const man =
   'Give your category a name up to 255 characters long. Use make().name("name")' +
   "\nhttps://developer.squareup.com/reference/square/objects/CatalogCategory";
 
-/** @class  Catalog_Category
- * {@link https://developer.squareup.com/reference/square/objects/CatalogCategory | Link To Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/objects/CatalogCategory | **-------> Link To Square Docs <-------**}
+ * @class  Catalog_Category
+ * @classdesc
+ * Creates a Catalog Object.<br>
+ * Give it temporary ID. Use the same temporary ID in other objects being inserted or updated within the same request to link them together.
  * */
 
 class Catalog_Category extends Catalog_Object_Super {

@@ -18,6 +18,19 @@ const man =
  * {@link  https://developer.squareup.com/reference/square/catalog-api/list-catalog | Square Docs}
  * */
 
+/**
+ * {@link  https://developer.squareup.com/reference/square/catalog-api/list-catalog | Link To Square Docs}
+ * @class Catalog_List
+ * @classdesc
+ * Fetches a list of all Catalog API documents in your db. You can filter that list by type.<br>
+ * This class is unusual in that it has both a standard enumerated type() function as well as
+ * individual types-as-methods on make().
+ * @example
+ *  myvar.make().type().type_you_want_to_add()
+ *  //would be the same as (for Catalog_List class only)
+ *  myvar.make().type_you_want_to_add()
+ * */
+
 class Catalog_List extends Catalog_Request {
   _display_name = "Catalog_List";
   _last_verified_square_api_version = "2021-11-17";
@@ -46,9 +59,15 @@ class Catalog_List extends Catalog_Request {
       this._delivery = parcel;
     }
   }
-  /** use if you want to retrieve historical copies.
+  /** Use this setter if you want to retrieve historical copies.<br>
+   * This is a setter so you use myVar.setter = 'somevalue'
+   * @typedef Catalog_List.catalog_version
+   * @function
    * @param {number} version - the object version you want to retrieve.
    * @throws {TypeError} Throw and error if you give it a non-integer or a string that cannot be coerced to an integer.
+   * @example
+   * myList.catalog_version = 5
+   *
    * */
   set catalog_version(version) {
     if (shazam_is_integer(version, this.display_name, "catalog_version")) {
@@ -97,7 +116,35 @@ class Catalog_List extends Catalog_Request {
     }
   }
 
-  // these are actually case-insensitive - using uppercase for consisency
+  /** * {@link https://developer.squareup.com/reference/square/catalog-api/list-catalog | Link To Square Docs}
+   *
+   *  #enum_types<br>
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   *  @typedef {function} Catalog_List.enum_types
+   *  @enum
+   * @private
+   * @abstract
+   * @memberOf Catalog_List
+   * @property item() sets query parameter to "ITEM"
+   * @property item_variation() sets query parameter to "ITEM_VARIATION"
+   * @property category() sets query parameter to "CATEGORY"
+   * @property discount() sets query parameter to "DISCOUNT"
+   * @property tax() sets query parameter to "TAX"
+   * @property modifier() sets query parameter to "MODIFIER"
+   * @property modifier_list() sets query parameter to "MODIFIER_LIST"
+   * @property image() sets query parameter to "IMAGE"
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
+
   #enum_types() {
     return {
       self: this,
@@ -135,33 +182,40 @@ class Catalog_List extends Catalog_Request {
       },
     };
   }
-  // MAKER METHODS
+  // MAKE METHODS
+
+  /**
+   *  make() method of Catalog_List
+   *
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} Which query parameter is set
+   *
+   * @typedef {function} Catalog_List.make
+   * @method
+   * @public
+   * @memberOf Catalog_List
+   * @property catalog_version(ver) {integer} - adds the catalog version to the query parameters
+   * @property types() {Enumerated} - calls `#enum_types()` - Duplicated by methods below.
+   * @property item() sets query parameter to "ITEM"
+   * @property item_variation() sets query parameter to "ITEM_VARIATION"
+   * @property category() sets query parameter to "CATEGORY"
+   * @property discount() sets query parameter to "DISCOUNT"
+   * @property tax() sets query parameter to "TAX"
+   * @property modifier() sets query parameter to "MODIFIER"
+   * @property modifier_list() sets query parameter to "MODIFIER_LIST"
+   * @property image() sets query parameter to "IMAGE"
+   * @example
+   *  myvar.make().type().item()
+   *  //would be the same as (for Catalog_List class only)
+   *  myvar.make().item()
+   * */
+
   // this violates DRY - BUT it makes this class A LOT easier and more intuitive to use
   // while maintaining compliance with Pie standard syntax
-  /** @function make()  method of Catalog_List - method names are exactly the same as the property names listed
-   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method catalog_version adds the respective query parameter to the request
-   * @param {number} version - an integer
-   * @method version - alias of catalog_version
-   * @method types adds the respective query parameter to the request
-   * @method item adds the respective query parameter to the request
-   * @method item_variation adds the respective query parameter to the request
-   * @method category adds the respective query parameter to the request
-   * @method discount adds the respective query parameter to the request
-   * @method tax adds the respective query parameter to the request
-   * @method modifier adds the respective query parameter to the request
-   * @method modifier_list adds the respective query parameter to the request
-   * @method image adds the respective query parameter to the request
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * @example
-   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
-   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
-   *  variable.
-   *  let make = myVar.make();
-   *   make.gizmo()
-   *   make.gremlin()
-   *
-   * */
+
   make() {
     return {
       self: this,

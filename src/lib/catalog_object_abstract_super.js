@@ -12,7 +12,8 @@ const man =
   "\nhttps://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects";
 
 /**
- * {@link https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects | Link To Square Docs}
+ * {@link https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects |  **-------> Link To Square Docs <-------**}
+ 
  *  @class  Catalog_Object_Super - super class of Catalog API objects
  *  @abstract
  * */

@@ -13,7 +13,7 @@ const man =
   "\nhttps://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation";
 
 /**
- * * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation | Link To Square Docs}
+ * * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation |  **-------> Link To Square Docs <-------**}
  * @class Catalog_Item_Variation
  *
  * @classdesc

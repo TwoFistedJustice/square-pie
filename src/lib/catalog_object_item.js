@@ -20,7 +20,7 @@ const man =
   "\nhttps://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItem";
 
 /**
- * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItem | Link To Square Docs}
+ * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItem |  **-------> Link To Square Docs <-------**}
  * @class Catalog_Item
  * @param {string} id -  Optional. A temporary id will be assigned if you omit this.
  * */

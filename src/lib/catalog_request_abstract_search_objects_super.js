@@ -7,7 +7,7 @@ const {
 } = require("./utilities");
 
 /**
- * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects | Link To Square Docs}
+ * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects |  **-------> Link To Square Docs <-------**}
  * @class Catalog_Search_Objects_Super
  * @classdesc super class of catalog object search classes
  * */

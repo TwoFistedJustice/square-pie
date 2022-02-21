@@ -6,15 +6,22 @@ const {
 } = require("./utilities");
 const man =
   "Can only search for Item and Item Variation type objects. To find another type use one of the\n" +
-  "the other Catalog Search classes.  \n" +
+  "other Catalog Search classes.\n" +
   "Searches by category_id, enabled_location_id and lets you build custom attribute filters. \n" +
   'For adding ids follow standard Pie syntax (make().name_of_id( "someId"). To build custom filters use the \n' +
   "make_custom_attribute_filter() function, which works just like make(), but is an entirely separate function.\n" +
   "Follow standard Pie syntax and reference the Square docs for names of properties and allowable values.\n" +
   "https://developer.squareup.com/reference/square/catalog-api/search-catalog-items";
 
-/** @class Catalog_Search_Items
- * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-items | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-items |  **-------> Link To Square Docs <-------**}
+ * @class Catalog_Search_Items
+ * @classdesc
+ * Search only for Item and Item Variation type objects. To find another type use one of the other Catalog Search classes.<br>
+ * Searches by category_id, enabled_location_id and lets you build custom attribute filters.<br>
+ * For adding ids follow standard Pie syntax (make().name_of_id( "someId"). To build custom filters use the
+ * `make_custom_attribute_filter()` function, which works just like `make()`, but is an entirely separate function.<br>
+ * Follow standard Pie syntax and reference the Square docs for names of properties and allowable values.
  * */
 
 class Catalog_Search_Items extends Catalog_Request {
@@ -167,6 +174,30 @@ class Catalog_Search_Items extends Catalog_Request {
     };
   }
 
+  /** * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Link To Square Docs}
+   *
+   *  #enum_sort_order
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   *  @typedef {function} Catalog_Search_Items.enum_sort_order
+   * @private
+   * @abstract
+   * @memberOf Catalog_Search_Items
+   * @property asc() sets value to "ASC"
+   * @property desc() sets value to "DESC"
+   * @property up() alias of `asc`
+   * @property down() alias of `desc`
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
+
   #enum_sort_order(calling_this) {
     return {
       self: this,
@@ -187,6 +218,29 @@ class Catalog_Search_Items extends Catalog_Request {
     };
   }
 
+  /** * {@link https://developer.squareup.com/reference/square/enums/CatalogItemProductType | Link To Square Docs}
+   *
+   *  #enum_product_type
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   *  @typedef {function} Catalog_Search_Items.enum_product_type
+   * @private
+   * @abstract
+   * @memberOf Catalog_Search_Items
+   * @property regular() sets value to "REGULAR"
+   * @property appointments_service() sets value to "APPOINTMENTS_SERVICE"
+   * @property appt() alias of `appointments_service`
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
+
   #enum_product_type(calling_this) {
     return {
       self: this,
@@ -204,7 +258,31 @@ class Catalog_Search_Items extends Catalog_Request {
     };
   }
 
-  // stock_levels is an ARRAY. It can take multiple values.
+  /** * {@link https://developer.squareup.com/reference/square/enums/SearchCatalogItemsRequestStockLevel | Link To Square Docs}
+   *
+   *  #enum_stock_levels
+   *  stock_levels is an ARRAY. It can take multiple values.
+   *
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   *  @typedef {function} Catalog_Search_Items.enum_stock_levels
+   * @private
+   * @abstract
+   * @memberOf Catalog_Search_Items
+   * @property low() adds value to array:  "LOW"
+   * @property out() adds value to array:  "OUT"
+   * @property any() adds both values to array:  "LOW", "OUT"
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
+
   #enum_stock_levels(calling_this) {
     return {
       self: this,
@@ -224,46 +302,50 @@ class Catalog_Search_Items extends Catalog_Request {
     };
   }
 
-  // MAKER METHODS
-  /** @function make()  method of Catalog_Search_Items - method names are exactly the same as the property names listed
+  // MAKE METHODS
+  /**
+   *  make() method of Catalog_Search_Items
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method sort_order calls enum_sort_order()
-   * @method stock_levels calls enum_stock_levels()
-   * @method text_filter
-   * @param {string} str -
-   * @method product_types calls enum_product_type()
-   * @method category_ids
-   * @param {string} id -
-   * @method enabled_location_ids
-   * @param {string} id -
-   * @method custom_attribute_filters
-   * @param {object} obj - make using make_custom_attribute_filter()
-   * @method sort -  alias of sort_order
-   * @method stock - alias of product_types
-   * @method stock -  alias of sort_order
-   * @method text -  alias of text_filter
-   * @param {string} str -
-   * @method custom - alias of custom_attribute_filters
-   * @param {object} obj -
-   * @method category - alias of category_ids
-   * @param {string} id -
-   * @method location alias of enabled_location_ids
-   * @method concat_categories - adds the contents of an array of category ids
-   * @param {array} arr - array of ids (strings)
-   * @method concat_enabled_locations  - adds the contents of an array of location ids
-   * @param {array} arr - array of ids (strings)
-   * @method concat_custom_attribute_filters - adds the contents of an array of custom attribute filter objects
-   * @param {array} arr - array of objects
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Catalog_Search_Items.make
+   * @method
+   * @public
+   * @memberOf Some_Class
+   * @property sort_order() {Enumerated} - calls `#enum_sort_order`
+   * @property stock_levels() {Enumerated} -- calls `#enum_stock_levels`
+   * @property text_filter(id) {string} -
+   * @property product_types() {Enumerated} -- calls `#enum_product_type`
+   * @property category_ids(id) {string} -
+   * @property enabled_location_ids(id) {string} -
+   * @property custom_attribute_filters(obj) {object} - Takes a **complete** custom attribute filter object.
+   * @property (obj) {object}
+   * @property sort() alias of `sort_order`
+   * @property product() alias of `product_types`
+   * @property stock() alias of `stock_levels`
+   * @property text() alias of `text_filter`
+   * @property custom() alias of `custom_attribute_filters`
+   * @property category() alias of `category_ids`
+   * @property location() alias of `enabled_location_ids`
+   * @property concat_categories(arr) {array} - adds the contents of an array of category ids
+   * @property concat_enabled_locations(arr) {array} - adds the contents of an array of location ids
+   * @property concat_custom_attribute_filters(arr) {array} - adds the contents of an array of custom attribute filter objects
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,
@@ -327,35 +409,40 @@ class Catalog_Search_Items extends Catalog_Request {
       },
     };
   }
-  /** @function make_custom_attribute_filter()  method of Catalog_Search_Items - use this to make
-   * compliant Custom Attribute Filter objects.
-   *
-   * - method names are exactly the same as the property names listed
-   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method custom_attribute_definition_id
-   * @param {string} id -
-   * @method key
-   * @param {string} str -
-   * @method string_filter
-   * @param {string} str -
-   * @method number_filter
-   * @param {number} num1 -
-   * @param {number} num2 -
-   * @method selection_uids_filter
-   * @param {string} str -
-   * @method bool_filter
-   * @param {bool} bool -
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+
+  /**
    * {@link https://developer.squareup.com/reference/square/objects/CustomAttributeFilter | Square Docs}
+   *  make_custom_attribute_filter() method of Catalog_Search_Items
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Catalog_Search_Items.make_custom_attribute_filter
+   * @method
+   * @public
+   * @memberOf Catalog_Search_Items
+   * @property custom_attribute_definition_id(id) {string} -
+   * @property key(id) {string} -
+   * @property string_filter(id) {string} -
+   * @property number_filter(num1,num2) {number|number}
+   * @property selection_uids_filter(id) {string} -
+   * @property bool_filter(bool) {boolean}
+   * @property add() - NOT IMPLEMENTED
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make_custom_attribute_filter() {
     this.#init_filter();
     let filter = this._attribute_filter;
