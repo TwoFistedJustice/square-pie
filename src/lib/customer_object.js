@@ -188,14 +188,14 @@ class Customer_Object {
 
   /** * {@link https://developer.squareup.com/reference/square/enums/CustomerCreationSource | Link To Square Docs}
    *
-   *  #ENUM_CHANGE_ME
+   *  #enum_creation_source
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   *  @typedef {function} Customer_Object.ENUM_CHANGE_ME
+   *  @typedef {function} Customer_Object.enum_creation_source
    * @private
    * @abstract
    * @memberOf Customer_Object
@@ -320,15 +320,50 @@ class Customer_Object {
   }
   // MAKE METHODS
   /**
-   * @param {string} val -should be a phone number of no more than 11 characters
-   * @param {object} val - an Address Object
-   * @method birthday
-   * @param {string} val -  time a date in RFC3339 format
-   * @method creation_source - enumerated
-   * {@link https://developer.squareup.com/reference/square/enums/CustomerCreationSource | Square Docs}
-   * @param {string} eu_vat -a European Union VAT ID of no more than 20 characters
+   *  make() method of Customer_Object
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
    *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Customer_Object.make
+   * @method
+   * @public
+   * @memberOf Customer_Object
+   * @property id(id) {string} -
+   * @property given_name(first_name) {string} -
+   * @property family_name(last_name) {string} -
+   * @property company_name(company) {string} -
+   * @property nickname(nick) {string} -
+   * @property email_address(email) {string} -
+   * @property phone_number(phone) {string} - should be a phone number of no more than 11 characters
+   * @property address(address_object) {object} - an Address Object
+   * @property birthday(time) {string} - a date in RFC3339 format
+   * @property reference_id(id) {string} -
+   * @property note(note) {string}
+   * @property version(int) {integer}
+   * @property creation_source() {Enumerated} -
+   * @property preferences() {string}
+   * @property tax_ids(eu_vat) {string} - a European Union VAT ID of no more than 20 characters
+   * @property first_name(first_name) {string} - alias of `given_name`
+   * @property last_name(last_name) {string} - alias of `family_name`
+   * @property company(company) {string} - alias of `company_name`
+   * @property email(email) {string} - alias of `email_address`
+   * @property phone(phone) {string} - alias of `phone_number`
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,
@@ -380,12 +415,6 @@ class Customer_Object {
         this.self.version = int;
         return this;
       },
-      /**
-       *
-       * Returns a set of curried functions that set the value of creation_source such that the name
-       * of the function is the lowercase analog of the value set.
-       * @see this.#enum_creation_source()
-       * */
       creation_source: function () {
         return this.self.#enum_creation_source(this);
       },
