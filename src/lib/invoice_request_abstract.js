@@ -1,7 +1,13 @@
 const Square_Request = require("./square_request_abstract");
 
-/** @class Invoice_Request super class of all Invoice API request classes
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+/**
+ * {@link https://developer.squareup.com/reference/square/invoices-api |  **-------> Link To Square Docs <-------**}
+ * @class Invoice_Request
+ * @abstract
+ * @ignore
+ * @classdesc
+ *
+ * super class of all Invoice API request classes
  * */
 
 class Invoice_Request extends Square_Request {

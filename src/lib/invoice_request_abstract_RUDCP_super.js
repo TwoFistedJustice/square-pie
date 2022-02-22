@@ -1,8 +1,14 @@
 const Invoice_Request = require("./invoice_request_abstract");
 
-/** @class Invoice_RUDCnP super class of Invoice: Retrieve, Update, Delete,  Cancel, Delete
+/**
+ * {@link https://developer.squareup.com/reference/square/invoices-api |  **-------> Link To Square Docs <-------**}
+ * @class Invoice_RUDCnP
  * @param {id}  Sets the endpoint to the id your pass in.
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * @abstract
+ * @ignore
+ * @classdesc
+ *
+ * super class of Invoice: Retrieve, Update, Delete,  Cancel, Delete
  * */
 class Invoice_RUDCnP extends Invoice_Request {
   _display_name = "Invoice_RUDCnP";

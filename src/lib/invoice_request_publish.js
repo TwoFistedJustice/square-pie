@@ -15,7 +15,7 @@ const man =
  * @classdesc
  *
  * http request to publish an invoice.<br>
- * A published invoice MUST have a customer_id set in the primary_recipient field. This must be done before calling Publish endpoint.<br>
+ * A published invoice **MUST** have a customer_id set in the primary_recipient field. This must be done before calling Publish endpoint.<br>
  * You **MUST** provide the invoice VERSION. If you do not know the version, use Invoice_Retrieve or Invoice_List to get it.<br>
  * You can add the invoice_id either as an argument when you instantiate the class, calling the .id setter, or calling make().id()<br>
  * */

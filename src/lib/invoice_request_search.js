@@ -12,10 +12,17 @@ const man =
   "Limit has a default of 100 and max of 200.\nDelivery is an array because this endpoint has a pagination cursor.\n" +
   "https://developer.squareup.com/reference/square/invoices-api/search-invoices";
 
-/** @class  Invoice_Search
+/**
+ * {@link https://developer.squareup.com/reference/square/invoices-api/search-invoices |  **-------> Link To Square Docs <-------**}
+ * @class Invoice_Search
  * @param {string} location_id - useful if you only need to search one location. You can leave it out and add location_ids using make() or build_query()
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/invoices-api/search-invoices | Square Docs}
+ * @classdesc
+ *
+ * http request to search for invoices for a given location.<br>
+ * Pass the location_id as a string argument when you instantiate the class. You can also pass it later by calling `make().location(id)`<br>
+ *  Build a query using the make() method. Only call the setter or make().query() if you are passing a fully formed query object as it will replace everything. <br>
+ * Limit has a default of 100 and max of 200. Delivery is an array because this endpoint has a pagination cursor.<br>
+ *
  * @example
  *  const search = new Invoice_Search("some_location_id");  // creates a search with one location_id added to the location_ids array
  *  const search = new Invoice_Search();  // creates a search with an empty location_ids array
@@ -24,11 +31,14 @@ const man =
  *
  *  search.make().customer_id("some_customer_id").customer_id("OTHER_customer_id") // add several customer ids to the customer_ids array
  *  search.make().add_customer_ids_array(["id2", "id3"]) // adds an the values in the passed array of ids to the existing array of ids
- *   ^ use the same syntax but substitute 'location' for 'customer' to work with the location_ids array
- * await search.request() // tells it to go
+ *   // ^ use the same syntax but substitute 'location' for 'customer' to work with the location_ids array
+ *
+ *  await search.request() // tells it to go
  *
  *  search.delivery // where you will find the returned results stored in an array - each call places one big object of results on the array
+ 
  * */
+
 class Invoice_Search extends Invoice_Request {
   _display_name = "Invoice_Search";
   _last_verified_square_api_version = "2021-12-15";
@@ -137,29 +147,32 @@ class Invoice_Search extends Invoice_Request {
     this._body.query.filter.customer_ids = replacement_array;
   }
 
-  /** @function
+  /** * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Link To Square Docs}
+   *
+   *  #sort_order
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   *  @private
-   * @method ascending  sets value to "ASC"
-   * @method descending sets value to "DESC"
-   * @method up alias of `ascending`
-   * @method oldest_first alias of `ascending`
-   * @method down alias of `descending`
-   * @method newest_first alias of `descending`
-   
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Square Docs}
+   *  @typedef {function} Invoice_Search.sort_order
+   * @private
+   * @abstract
+   * @memberOf Invoice_Search
+   * @property ascending() sets value to "ASC"
+   * @property up() alias of `ascending`
+   * @property oldest_first() alias of `ascending`
+   * @property descending() sets value to "DESC"
+   * @property down() alias of `descending`
+   * @property newest_first() alias of `descending`
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
    *  value of `clint` on the object 'western'
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
+
   #sort_order() {
     return {
       self: this,
@@ -187,31 +200,37 @@ class Invoice_Search extends Invoice_Request {
   }
 
   // MAKE METHODS
-  /** @function make()  method of Invoice_Search - method names are exactly the same as the property names listed
+  /**
+   *  make() method of Invoice_Search
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method limit - sets the limit property
-   * @param {number} limit - an integer up to 200 - default is 100
-   * @method query - DANGER WILL ROBINSON! This wil replace the entire query object with whatever you pass it.
-   * @param {object} query_object - a complete query object - no validation!!!
-   * @method location_id - adds an id the array on the filter object
-   * @param {string} id -
-   * @method customer_id - adds an id the array on the filter object
-   * @param {string} id -
-   * @method add_location_ids_array - adds the contents of an array of ids to filter object.
-   * @param {array} arr -
-   * @method add_customer_ids_array - adds the contents of an array of ids to filter object.
-   * @param {array} arr -
-   * @method sort - enumerated. Calls #sort_order()
-   * @method location - alias of location_id
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Invoice_Search.make
+   * @method
+   * @public
+   * @memberOf Invoice_Search
+   * @property limit(limit) {integer} - an integer up to 200 - default is 100
+   * @property query(query_object) {object} **DANGER WILL ROBINSON!** This wil replace the entire query object withwhatever you pass it. Only pass in a complete query object.
+   * @property location_id(id) {string} - adds an id the array on the filter object
+   * @property customer_id(id) {string} - adds an id the array on the filter object
+   * @property add_location_ids_array(arr) {array} - (concat) adds the contents of an array of ids to filter object.
+   * @property add_customer_ids_array(arr) {array} - (concat) adds the contents of an array of ids to filter object.
+   * @property sort() {Enumerated} - Calls `#sort_order()`
+   * @property location(id - alias of `location_id`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
   make() {
     return {

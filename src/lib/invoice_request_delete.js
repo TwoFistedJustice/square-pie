@@ -5,15 +5,21 @@ const {
   shazam_is_integer,
 } = require("./utilities");
 const man =
-  " http request to delete an invoice.\n" +
+  "http request to delete an invoice.\n" +
   "Pass the id of the invoice to be deleted as a string argument when you instantiate the class.\n" +
   "There is no option to add it afterwards. The make() method on this class only sets the version to delete.\n" +
-  "\nhttps://developer.squareup.com/reference/square/invoices-api/delete-invoice";
-/** @class Invoice_Delete
+  "https://developer.squareup.com/reference/square/invoices-api/delete-invoice";
+/**
+ * {@link https://developer.squareup.com/reference/square/invoices-api/delete-invoice |  **-------> Link To Square Docs <-------**}
+ * @class Invoice_Delete
  * @param {string} id The invoice_id of the invoice you want
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * * {@link https://developer.squareup.com/reference/square/invoices-api/delete-invoice | Square Docs}
+ * @classdesc
+ *
+ * http request to delete an invoice.<br>
+ * Pass the id of the invoice to be deleted as a string argument when you instantiate the class.<br>
+ * There is no option to add it afterwards. The make() method on this class only sets the version to delete.<br>
  * */
+
 class Invoice_Delete extends Invoice_RUDCnP {
   _display_name = "Invoice_Delete";
   _last_verified_square_api_version = "2021-12-15";
@@ -61,19 +67,31 @@ class Invoice_Delete extends Invoice_RUDCnP {
   }
 
   // MAKER METHODS
-  /** @function make()  method of Invoice_Delete - method names are exactly the same as the property names listed
+
+  /**
+   *  make() method of Invoice_Delete
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method version - adds the version query parameter
-   * @param {number} int -
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Invoice_Delete.make
+   * @method
+   * @public
+   * @memberOf Invoice_Delete
+   * @property version(int) {integer} -
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
   make() {
     return {
