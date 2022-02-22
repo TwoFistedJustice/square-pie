@@ -343,32 +343,32 @@ class Order_Line_Item {
   make() {
     return {
       self: this,
-      uid: function (val) {
-        this.self.uid = val;
+      uid: function (uid) {
+        this.self.uid = uid;
         return this;
       },
-      quantity: function (val) {
-        this.self.quantity = val;
+      quantity: function (qty) {
+        this.self.quantity = qty;
         return this;
       },
-      name: function (val) {
-        this.self.name = val;
+      name: function (name) {
+        this.self.name = name;
         return this;
       },
-      note: function (val) {
-        this.self.note = val;
+      note: function (note) {
+        this.self.note = note;
         return this;
       },
-      variation_name: function (val) {
-        this.self.variation_name = val;
+      variation_name: function (name) {
+        this.self.variation_name = name;
         return this;
       },
-      catalog_object_id: function (val) {
-        this.self.catalog_object_id = val;
+      catalog_object_id: function (id) {
+        this.self.catalog_object_id = id;
         return this;
       },
-      catalog_version: function (val) {
-        this.self.catalog_version = val;
+      catalog_version: function (int) {
+        this.self.catalog_version = int;
         return this;
       },
       item_type: function () {
