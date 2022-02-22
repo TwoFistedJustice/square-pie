@@ -8,11 +8,14 @@ const {
 
 const man =
   "creates a compliant customer object for sending to Square. Can be used to create a new record,\n" +
-  "or update an existing one. Follows standard Pie syntax. Use make(). to set values." +
-  "\nhttps://developer.squareup.com/reference/square/objects/Customer";
+  "or update an existing one. Follows standard Pie syntax. Use make(). to set values.\n" +
+  "https://developer.squareup.com/reference/square/objects/Customer";
 
-/** @class Customer_Object
- * {@link https://developer.squareup.com/reference/square/objects/Customer | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/objects/Customer |  **-------> Link To Square Docs <-------**}
+ * @class Customer_Object
+ * @classdesc
+ * Creates a compliant customer object for sending to Square. Can be used to create a new record or update an existing one.
  * */
 
 class Customer_Object {
@@ -45,6 +48,49 @@ class Customer_Object {
     };
   }
   // ENUMS
+
+  /** * {@link https://developer.squareup.com/reference/square/enums/CustomerCreationSource | Link To Square Docs}
+   *
+   *  #ENUM_CHANGE_ME
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   *  @typedef {function} Customer_Object.ENUM_CHANGE_ME
+   * @private
+   * @abstract
+   * @memberOf Customer_Object
+   * @property other() sets value to "OTHER"
+   * @property appointments() sets value to "APPOINTMENTS"
+   * @property coupon() sets value to "COUPON"
+   * @property deletion_recovery() sets value to "DELETION_RECOVERY"
+   * @property directory() sets value to "DIRECTORY"
+   * @property egifting() sets value to "EGIFTING"
+   * @property email_collection() sets value to "EMAIL_COLLECTION"
+   * @property feedback() sets value to "FEEDBACK"
+   * @property import() sets value to "IMPORT"
+   * @property invoices() sets value to "INVOICES"
+   * @property loyalty() sets value to "LOYALTY"
+   * @property marketing() sets value to "MARKETING"
+   * @property merge() sets value to "MERGE"
+   * @property online_store() sets value to "ONLINE_STORE"
+   * @property instant_profile() sets value to "INSTANT_PROFILE"
+   * @property terminal() sets value to "TERMINAL"
+   * @property third_party() sets value to "THIRD_PARTY"
+   * @property third_party_import() sets value to "THIRD_PARTY_IMPORT"
+   * @property unmerge_recovery() sets value to "UNMERGE_RECOVERY"
+   * @property appt() alias of `appointments`
+   * @property unmerge() alias of `unmerge_recovery`
+   * @property undelete() alias of `deletion_recovery`
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
+
   #enum_creation_source(calling_this) {
     return {
       self: this,
@@ -196,20 +242,20 @@ class Customer_Object {
 
   // SETTERS
 
-  set id(val) {
-    this._fardel.id = val;
+  set id(id) {
+    this._fardel.id = id;
   }
-  set given_name(val) {
-    this._fardel.given_name = val;
+  set given_name(first_name) {
+    this._fardel.given_name = first_name;
   }
-  set family_name(val) {
-    this._fardel.family_name = val;
+  set family_name(last_name) {
+    this._fardel.family_name = last_name;
   }
-  set company_name(val) {
-    this._fardel.company_name = val;
+  set company_name(company) {
+    this._fardel.company_name = company;
   }
-  set nickname(val) {
-    this._fardel.nickname = val;
+  set nickname(nick) {
+    this._fardel.nickname = nick;
   }
   set email_address(email) {
     let caller = "email_address";
@@ -227,27 +273,27 @@ class Customer_Object {
     )
       this._fardel.phone_number = phone;
   }
-  set address(val) {
-    this._fardel.address = val;
+  set address(address_object) {
+    this._fardel.address = address_object;
   }
   set birthday(time) {
     if (shazam_is_time_RFC3339(time, this._display_name, "birthday")) {
       this._fardel.birthday = time;
     }
   }
-  set reference_id(val) {
-    this._fardel.reference_id = val;
+  set reference_id(id) {
+    this._fardel.reference_id = id;
   }
-  set note(val) {
-    this._fardel.note = val;
+  set note(note) {
+    this._fardel.note = note;
   }
   set version(int) {
     if (shazam_is_integer(int, this.display_name, "version")) {
       this._fardel.version = int;
     }
   }
-  set creation_source(val) {
-    this._fardel.creation_source = val;
+  set creation_source(source) {
+    this._fardel.creation_source = source;
   }
   set preferences(bool) {
     if (shazam_is_boolean(bool, this.display_name, "preferences")) {
@@ -257,17 +303,17 @@ class Customer_Object {
     }
   }
 
-  set tax_ids(id) {
+  set tax_ids(eu_vat) {
     if (
       shazam_max_length(
-        id,
+        eu_vat,
         this.configuration.maximums.tax_ids,
         this.display_name,
         "tax_ids"
       )
     ) {
       this._fardel.tax_ids = {
-        eu_vat: id,
+        eu_vat: eu_vat,
       };
     }
   }
@@ -335,52 +381,52 @@ class Customer_Object {
   make() {
     return {
       self: this,
-      id: function (val) {
-        this.self.id = val;
+      id: function (id) {
+        this.self.id = id;
         return this;
       },
-      given_name: function (val) {
-        this.self.given_name = val;
+      given_name: function (first_name) {
+        this.self.given_name = first_name;
         return this;
       },
-      family_name: function (val) {
-        this.self.family_name = val;
+      family_name: function (last_name) {
+        this.self.family_name = last_name;
         return this;
       },
-      company_name: function (val) {
-        this.self.company_name = val;
+      company_name: function (company) {
+        this.self.company_name = company;
         return this;
       },
-      nickname: function (val) {
-        this.self.nickname = val;
+      nickname: function (nick) {
+        this.self.nickname = nick;
         return this;
       },
-      email_address: function (val) {
-        this.self.email_address = val;
+      email_address: function (email) {
+        this.self.email_address = email;
         return this;
       },
-      phone_number: function (val) {
-        this.self.phone_number = val;
+      phone_number: function (phone) {
+        this.self.phone_number = phone;
         return this;
       },
-      address: function (val) {
-        this.self.address = val;
+      address: function (address_object) {
+        this.self.address = address_object;
         return this;
       },
-      birthday: function (val) {
-        this.self.birthday = val;
+      birthday: function (time) {
+        this.self.birthday = time;
         return this;
       },
-      reference_id: function (val) {
-        this.self.reference_id = val;
+      reference_id: function (id) {
+        this.self.reference_id = id;
         return this;
       },
-      note: function (val) {
-        this.self.note = val;
+      note: function (note) {
+        this.self.note = note;
         return this;
       },
-      version: function (val) {
-        this.self.version = val;
+      version: function (int) {
+        this.self.version = int;
         return this;
       },
       /**
@@ -400,25 +446,20 @@ class Customer_Object {
         this.self.tax_ids = eu_vat;
         return this;
       },
-      first_name: function (val) {
-        this.given_name(val);
-        return this;
+      first_name: function (first_name) {
+        return this.given_name(first_name);
       },
-      last_name: function (val) {
-        this.family_name(val);
-        return this;
+      last_name: function (last_name) {
+        return this.family_name(last_name);
       },
-      company: function (val) {
-        this.company_name(val);
-        return this;
+      company: function (company) {
+        return this.company_name(company);
       },
-      email: function (val) {
-        this.email_address(val);
-        return this;
+      email: function (email) {
+        return this.email_address(email);
       },
-      phone: function (val) {
-        this.phone_number(val);
-        return this;
+      phone: function (phone) {
+        return this.phone_number(phone);
       },
     };
   }
