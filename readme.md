@@ -229,6 +229,9 @@ Much of Square Pie is curried, meaning you can chain functions like in jquery.
 
 ### make methods
 
+"Make-methods" are special curried methods used throughout Square Pie. They enable you to quickly build structures that will comply with Square's specifications. In
+addition to being quick and easy to use, they also result in concise, easily understandable code.
+
 - most classes have at least one. A few don't have any.
 - sub-methods mimic the keys of the Square object they help build.
 - sometimes there are simplified alias methods, example the method `object_ids` might have an alias titled `id`. Or `concat_object_ids` might have one called `concat`.
