@@ -1,9 +1,16 @@
 const Location_Request = require("./location_request_abstract");
 
-/** @class Location_RU super class of Location: Retrieve, Update
+/**
+ * {@link https://developer.squareup.com/reference/square/locations-api |  **-------> Link To Square Docs <-------**}
+ * @class Location_RU
  * @param {id}  Sets the endpoint to the id your pass in.
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * @abstract
+ * @ignore
+ * @classdesc
+ *
+ * Super class of Location: Retrieve, Update
  * */
+
 class Location_RU extends Location_Request {
   _display_name = "Location_RU";
   constructor(id) {

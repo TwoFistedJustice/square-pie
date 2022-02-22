@@ -6,10 +6,20 @@ const man =
   " using the `id` setter.\n" +
   "https://developer.squareup.com/reference/square/locations-api/retrieve-location";
 
-/** @class Location_Retrieve - http request to GET a location. Has no make() method.
- * @param {string} id The invoice_id of the invoice you want
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * * {@link https://developer.squareup.com/reference/square/invoices-api/get-invoice | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/invoices-api/get-invoice |  **-------> Link To Square Docs <-------**}
+ * @class Location_Retrieve
+ * @classdesc
+ *
+ * An http request to retrieve one location.<br><br>
+ * Pass the id of the location to be retrieved as a string argument when you instantiate the class. Then call .request()<br> <br>
+ *You can change or add the id after instantiation by using the `id` setter.<br><br>
+ * Has no make() method.
+ *
+ * @example
+ * const retrieve = new Location_Retrieve("some_location_id");
+ * await retrieve.request();
+ * retrieve.delivery => where the response is kept
  *
  * */
 class Location_Retrieve extends Location_RU {
