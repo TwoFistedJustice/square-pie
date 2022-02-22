@@ -5,12 +5,19 @@ const man =
   "http request to publish an invoice.\n" +
   "A published invoice MUST have a customer_id set in the primary_recipient field. This must be done before calling Publish endpoint.\n" +
   "You MUST provide the invoice VERSION. If you do not know the version, call Invoice_Retrieve or Invoice_List.\n" +
-  "You can add the invoice_id either as an argument when you instantiate the class, calling the .id setter, or calling make().id()" +
-  "\n\nhttps://developer.squareup.com/reference/square/invoices-api/publish-invoice";
-/** @class Invoice_Publish
- * @param {string} id The invoice_id of the invoice you want
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * * {@link https://developer.squareup.com/reference/square/invoices-api/publish-invoice | Square Docs}
+  "You can add the invoice_id either as an argument when you instantiate the class, calling the .id setter, or calling make().id()\n" +
+  "https://developer.squareup.com/reference/square/invoices-api/publish-invoice";
+
+/**
+ * {@link https://developer.squareup.com/reference/square/invoices-api/publish-invoice |  **-------> Link To Square Docs <-------**}
+ * @class Invoice_Publish
+ * @param {string} id The invoice_id of the invoice to be published
+ * @classdesc
+ *
+ * http request to publish an invoice.<br>
+ * A published invoice MUST have a customer_id set in the primary_recipient field. This must be done before calling Publish endpoint.<br>
+ * You **MUST** provide the invoice VERSION. If you do not know the version, use Invoice_Retrieve or Invoice_List to get it.<br>
+ * You can add the invoice_id either as an argument when you instantiate the class, calling the .id setter, or calling make().id()<br>
  * */
 
 class Invoice_Publish extends Invoice_RUDCnP {
@@ -68,27 +75,43 @@ class Invoice_Publish extends Invoice_RUDCnP {
     }
   }
 
-  // MAKER METHODS
-  /** @function make()  method of Invoice_Publish - method names are exactly the same as the property names listed
+  // MAKE METHODS
+
+  /**
+   *  make() method of Invoice_Publish
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method id
-   * @param {string} id -
-   * @method version
-   * @param {number} ver -
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Invoice_Publish.make
    * @method
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @public
+   * @memberOf Invoice_Publish
+   * @property idempotency_key(key) {string} - use only if you want to use your own key in place of the automatically generated one.
+   * @property id(id) {string} -
+   * @property version(ver) {integer} -
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,
+      idempotency_key: function (key) {
+        this.self.idempotency_key = key;
+        return this;
+      },
       id: function (id) {
         this.self.id = id;
         return this;
