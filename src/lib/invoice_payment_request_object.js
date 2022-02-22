@@ -8,21 +8,19 @@ const {
   shazam_max_length,
 } = require("./utilities");
 const man =
-  "creats a Payment Request OBJECT. This is NOT a 'http-request' class.\n" +
+  "creates a Payment Request OBJECT. This is NOT a 'http-request' class.\n" +
   "tipping: if tipping is enabled request_type must be BALANCE or INSTALLMENT\n" +
   "percentage_requested: You cannot specify percentage_requested when the payment request_type is BALANCE or\n" +
   "when the payment request specifies the fixed_amount_requested_money field.\n" +
-  "\nhttps://developer.squareup.com/reference/square/objects/InvoicePaymentRequest";
+  "https://developer.squareup.com/reference/square/objects/InvoicePaymentRequest";
 
-/** @class Invoice_Payment_Request_Object representing a payment request for an invoice
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/objects/InvoicePaymentRequest | Square Docs}
- * @example
- *
- *  const myVar = new Generic_Object()
- *
- *  myVar.fardel => pass this to a request class to send your data
- *
+/**
+ * {@link https://developer.squareup.com/reference/square/objects/InvoicePaymentRequest  |  **-------> Link To Square Docs <-------**}
+ * @class Invoice_Payment_Request_Object
+ * @classdesc
+ * Creates a Payment-Request OBJECT. This is **NOT an 'http-request' class**.<br>
+ * Tipping: if tipping is enabled request_type must be "BALANCE" or "INSTALLMENT"<br>
+ * Percentage_requested: You cannot specify percentage_requested when the payment request_type is BALANCE or when the payment request specifies the fixed_amount_requested_money field.
  * */
 
 class Invoice_Payment_Request_Object {
@@ -36,8 +34,8 @@ class Invoice_Payment_Request_Object {
       request_type: undefined, // str ENUM BALANCE, DEPOSIT, [INSTALLMENT (subscription only value)]
       due_date: undefined, // str  YYYY-MM-DD //
       fixed_amount_requested_money: undefined, // ARCHE MONEY
-      percentage_requested: undefined, // str - SPECIAL see DOCS // todo in fardel getter
-      tipping_enabled: undefined, // boolean - SPECIAL //todo in fardel getter
+      percentage_requested: undefined, // str - SPECIAL see DOCS // enforced in fardel getter
+      tipping_enabled: undefined, // boolean - SPECIAL //enforced in fardel getter
       automatic_payment_source: undefined, // str ENUM
       card_id: undefined, // str Square generated ID
       reminder: undefined, // [{}, ...] complex //
@@ -154,27 +152,31 @@ class Invoice_Payment_Request_Object {
   }
 
   // PRIVATE ENUM METHODS
-  /** @function #request_type_enum()
+
+  /**
+   * {@link https://developer.squareup.com/reference/square/enums/InvoiceRequestType | Link To Square Docs}
+   *
+   *  #request_type_enum
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
+   *  @typedef {function} Invoice_Payment_Request_Object.request_type_enum
    * @private
-   * @param {object} calling_this - pass in the calling function's 'this'
-   * @method balance sets value to "BALANCE"
-   * @method deposit sets value to "DEPOSIT"
-   * @method installment sets value to "INSTALLMENT"
-   
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/enums/InvoiceRequestType | Square Docs}
+   * @abstract
+   * @memberOf Invoice_Payment_Request_Object
+   * @property balance() sets value to "BALANCE"
+   * @property deposit() sets value to "DEPOSIT"
+   * @property installment() sets value to "INSTALLMENT"
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
    *  value of `clint` on the object 'western'
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
+
   #request_type_enum(calling_this) {
     return {
       self: this,
@@ -193,27 +195,29 @@ class Invoice_Payment_Request_Object {
     };
   }
 
-  /** @function
+  /** * {@link https://developer.squareup.com/reference/square/enums/InvoiceAutomaticPaymentSource | Link To Square Docs}
+   *
+   *  #automatic_payment_source_enum
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
+   *  @typedef {function} Invoice_Payment_Request_Object.automatic_payment_source_enum
    * @private
-   * @param {object} calling_this - pass in the calling function's 'this'
-   * @method none  sets value to "NONE"
-   * @method card  sets value to "CARD_ON_FILE"
-   * @method bank sets value to "BANK_ON_FILE"
-   
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/enums/InvoiceAutomaticPaymentSource | Square Docs}
+   * @abstract
+   * @memberOf Invoice_Payment_Request_Object
+   * @property none() sets value to "NONE"
+   * @property card() sets value to "CARD_ON_FILE"
+   * @property bank() sets value to "BANK_ON_FILE"
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
    *  value of `clint` on the object 'western'
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
+
   #automatic_payment_source_enum(calling_this) {
     return {
       self: this,
@@ -232,19 +236,32 @@ class Invoice_Payment_Request_Object {
     };
   }
 
-  /** @method #build_reminder - creates a Square compliant reminder object. Square allows reminders to be sent as much as
+  /**
+   * {@link  https://developer.squareup.com/reference/square/objects/InvoicePaymentReminder | Link To Square Docs}
+   *
+   * #build_reminder - creates a Square compliant reminder object. Square allows reminders to be sent as much as
    * EIGHTY NINE YEARS, before or after a payment is due. Square Pie finds this, ummm, impractical...
    *
-   * Square-Pie limits the days to plus or minus 365. There is a third argument which is NOT limited. If you really want
-   * to have square send a reminder 89 years before or after a payment is due, this is the one to use. The third argument
+   * Square-Pie limits the days to plus or minus 365 because most companies have payment cycles much shorter than a year.
+   * An error will be thrown if days argument is outside the 365 day limit. <br><br>
+   * There is a third argument which is NOT limited. If you really want to have square send a reminder 89 years before
+   * or after a payment is due, this is the one to use. The third argument
    * completely overrides the second. If you pass a number as the third argument, whatever you passed as the second argument
    * will be ignored.
+   * @typedef {function} Invoice_Payment_Request_Object.build_reminder
+   * @memberOf Invoice_Payment_Request_Object
    * @private
+   * @abstract
+   * @method
    * @param {string}  message The reminder message - 1,000 char max
    * @param {int32}  days - Max: +-365 - The number of days before (negative number)  or after (positive number) the reminder is sent.
    * @param {int32}  whoa_nelly - Slow down thar! If you need less than one year, use 'days' and leave this field empty. Max:  +-32,767 The number of days before (negative number)  or after (positive number) the reminder is sent. If whoa_nelly is specified, the 'days' argument is ignored.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link  https://developer.squareup.com/reference/square/objects/InvoicePaymentReminder | Square Docs}
+   * @throws Error if `days` argument is greater than 365 or less than -365.
+   * @example
+   *
+   * myVar.make().reminder("some note", 30) - sets a reminder 30 days AFTER the due date
+   * myVar.make().reminder("some note", -30) - sets a reminder 30 days before the due date (negative number)
+   * myVar.make().reminder("some note", "this will be ignored because of that arg right there -->", 32,767) - sets a reminder 89.7 years after the due date
    * */
 
   #build_reminder(message, days, whoa_nelly) {
@@ -283,41 +300,41 @@ class Invoice_Payment_Request_Object {
   }
 
   // MAKER METHODS
-  /** @function make()  method of Invoice_Payment_Request_Object - method names are exactly the same as the property names listed
+
+  /**
+   *  make() method of Invoice_Payment_Request_Object
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method uid
-   *@param {string} id - The Square-generated ID
-   * @method request_type - enumerated - calls #request_type_enum()
-   * @method due_date
-   * @param {string} YYYYMMDD -
-   * @method fixed_amount_requested_money - Standard compliant money object builder.
-   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
-   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
-   * @method percentage_requested - You cannot specify percentage_requested when the payment request_type is BALANCE or
-   * when the payment request specifies the fixed_amount_requested_money field
-   * @param {number}  percent
-   * @method tipping_enabled - This field is allowed only on the final payment request and the payment request_type must
-   *  be BALANCE or INSTALLMENT. If set to true, the Square-hosted invoice page (the public_url field
-   *  of the invoice) provides a place for the customer to pay a tip.
-   * @param {boolean} bool
-   * @method automatic_payment_source - enumerated - shortened names. Calls #automatic_payment_source_enum().
-   * @method card_id
-   * @param {string} id -
-   * @method reminder
-   * @param {string}  message The reminder message - 1,000 char max
-   * @param {int32}  days - Max: +-365 - The number of days before (negative number)  or after (positive number) the reminder is sent.
-   * @param {int32}  whoa_nelly - Slow down thar! If you need less than one year, use 'days' and leave this field empty. Max:  +-32,767 The number of days before (negative number)  or after (positive number) the reminder is sent. If whoa_nelly is specified, the 'days' argument is ignored.
-   
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Invoice_Payment_Request_Object.make
+   * @method
+   * @public
+   * @memberOf Invoice_Payment_Request_Object
+   * @property uid(id) {string} - The Square-generated ID
+   * @property request_type() {Enumerated} - Calls `#request_type_enum`
+   * @property due_date(YYYMMDD) {string} -
+   * @property fixed_amount_requested_money(amount,currency) {integer|string} - Standard compliant money object builder.
+   * @property percentage_requested(percent) {string} - You cannot specify percentage_requested when the payment request_type is BALANCE or when the payment request specifies the fixed_amount_requested_money field
+   * @property tipping_enabled(bool) {boolean} -This field is allowed only on the final payment request and the payment request_type must be BALANCE or INSTALLMENT. If set to true, the Square-hosted invoice page (the public_url field of the invoice) provides a place for the customer to pay a tip.
+   * @property automatic_payment_source() {Enumerated} - Calls `#automatic_payment_source_enum`
+   * @property card_id(id) {string} -
+   * @property reminder(message,days,whoa_nelly) {string|integer|integer} - The third arg overrides the second. Read the section about `#build_reminder`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,
