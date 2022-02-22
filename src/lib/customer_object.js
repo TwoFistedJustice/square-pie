@@ -47,140 +47,7 @@ class Customer_Object {
       },
     };
   }
-  // ENUMS
 
-  /** * {@link https://developer.squareup.com/reference/square/enums/CustomerCreationSource | Link To Square Docs}
-   *
-   *  #ENUM_CHANGE_ME
-   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
-   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
-   *  exist abbreviated aliases.
-   *
-   *  Enumerated methods are usually called by other functions and set the value on the object on which
-   *  the calling function operates.
-   *  @typedef {function} Customer_Object.ENUM_CHANGE_ME
-   * @private
-   * @abstract
-   * @memberOf Customer_Object
-   * @property other() sets value to "OTHER"
-   * @property appointments() sets value to "APPOINTMENTS"
-   * @property coupon() sets value to "COUPON"
-   * @property deletion_recovery() sets value to "DELETION_RECOVERY"
-   * @property directory() sets value to "DIRECTORY"
-   * @property egifting() sets value to "EGIFTING"
-   * @property email_collection() sets value to "EMAIL_COLLECTION"
-   * @property feedback() sets value to "FEEDBACK"
-   * @property import() sets value to "IMPORT"
-   * @property invoices() sets value to "INVOICES"
-   * @property loyalty() sets value to "LOYALTY"
-   * @property marketing() sets value to "MARKETING"
-   * @property merge() sets value to "MERGE"
-   * @property online_store() sets value to "ONLINE_STORE"
-   * @property instant_profile() sets value to "INSTANT_PROFILE"
-   * @property terminal() sets value to "TERMINAL"
-   * @property third_party() sets value to "THIRD_PARTY"
-   * @property third_party_import() sets value to "THIRD_PARTY_IMPORT"
-   * @property unmerge_recovery() sets value to "UNMERGE_RECOVERY"
-   * @property appt() alias of `appointments`
-   * @property unmerge() alias of `unmerge_recovery`
-   * @property undelete() alias of `deletion_recovery`
-   * @example
-   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
-   *  value of `clint` on the object 'western'
-   *
-   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
-   * */
-
-  #enum_creation_source(calling_this) {
-    return {
-      self: this,
-      other: function () {
-        this.self.creation_source = "OTHER";
-        return calling_this;
-      },
-      appointments: function () {
-        this.self.creation_source = "APPOINTMENTS";
-        return calling_this;
-      },
-      coupon: function () {
-        this.self.creation_source = "COUPON";
-        return calling_this;
-      },
-      deletion_recovery: function () {
-        this.self.creation_source = "DELETION_RECOVERY";
-        return calling_this;
-      },
-      directory: function () {
-        this.self.creation_source = "DIRECTORY";
-        return calling_this;
-      },
-      egifting: function () {
-        this.self.creation_source = "EGIFTING";
-        return calling_this;
-      },
-      email_collection: function () {
-        this.self.creation_source = "EMAIL_COLLECTION";
-        return calling_this;
-      },
-      feedback: function () {
-        this.self.creation_source = "FEEDBACK";
-        return calling_this;
-      },
-      import: function () {
-        this.self.creation_source = "IMPORT";
-        return this;
-      },
-      invoices: function () {
-        this.self.creation_source = "INVOICES";
-        return calling_this;
-      },
-      loyalty: function () {
-        this.self.creation_source = "LOYALTY";
-        return calling_this;
-      },
-      marketing: function () {
-        this.self.creation_source = "MARKETING";
-        return calling_this;
-      },
-      merge: function () {
-        this.self.creation_source = "MERGE";
-        return calling_this;
-      },
-      online_store: function () {
-        this.self.creation_source = "ONLINE_STORE";
-        return calling_this;
-      },
-      instant_profile: function () {
-        this.self.creation_source = "INSTANT_PROFILE";
-        return calling_this;
-      },
-      terminal: function () {
-        this.self.creation_source = "TERMINAL";
-        return calling_this;
-      },
-      third_party: function () {
-        this.self.creation_source = "THIRD_PARTY";
-        return calling_this;
-      },
-      third_party_import: function () {
-        this.self.creation_source = "THIRD_PARTY_IMPORT";
-        return calling_this;
-      },
-      unmerge_recovery: function () {
-        this.self.creation_source = "UNMERGE_RECOVERY";
-        return calling_this;
-      },
-      appt: function () {
-        return this.appointments();
-      },
-      unmerge: function () {
-        return this.unmerge_recovery();
-      },
-      undelete: function () {
-        return this.deletion_recovery();
-      },
-    };
-  }
   // GETTERS
   get display_name() {
     return this._display_name;
@@ -317,65 +184,149 @@ class Customer_Object {
       };
     }
   }
+  // ENUMS
 
+  /** * {@link https://developer.squareup.com/reference/square/enums/CustomerCreationSource | Link To Square Docs}
+   *
+   *  #ENUM_CHANGE_ME
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   *  @typedef {function} Customer_Object.ENUM_CHANGE_ME
+   * @private
+   * @abstract
+   * @memberOf Customer_Object
+   * @property other() sets value to "OTHER"
+   * @property appointments() sets value to "APPOINTMENTS"
+   * @property coupon() sets value to "COUPON"
+   * @property deletion_recovery() sets value to "DELETION_RECOVERY"
+   * @property directory() sets value to "DIRECTORY"
+   * @property egifting() sets value to "EGIFTING"
+   * @property email_collection() sets value to "EMAIL_COLLECTION"
+   * @property feedback() sets value to "FEEDBACK"
+   * @property import() sets value to "IMPORT"
+   * @property invoices() sets value to "INVOICES"
+   * @property loyalty() sets value to "LOYALTY"
+   * @property marketing() sets value to "MARKETING"
+   * @property merge() sets value to "MERGE"
+   * @property online_store() sets value to "ONLINE_STORE"
+   * @property instant_profile() sets value to "INSTANT_PROFILE"
+   * @property terminal() sets value to "TERMINAL"
+   * @property third_party() sets value to "THIRD_PARTY"
+   * @property third_party_import() sets value to "THIRD_PARTY_IMPORT"
+   * @property unmerge_recovery() sets value to "UNMERGE_RECOVERY"
+   * @property appt() alias of `appointments`
+   * @property unmerge() alias of `unmerge_recovery`
+   * @property undelete() alias of `deletion_recovery`
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
+
+  #enum_creation_source(calling_this) {
+    return {
+      self: this,
+      other: function () {
+        this.self.creation_source = "OTHER";
+        return calling_this;
+      },
+      appointments: function () {
+        this.self.creation_source = "APPOINTMENTS";
+        return calling_this;
+      },
+      coupon: function () {
+        this.self.creation_source = "COUPON";
+        return calling_this;
+      },
+      deletion_recovery: function () {
+        this.self.creation_source = "DELETION_RECOVERY";
+        return calling_this;
+      },
+      directory: function () {
+        this.self.creation_source = "DIRECTORY";
+        return calling_this;
+      },
+      egifting: function () {
+        this.self.creation_source = "EGIFTING";
+        return calling_this;
+      },
+      email_collection: function () {
+        this.self.creation_source = "EMAIL_COLLECTION";
+        return calling_this;
+      },
+      feedback: function () {
+        this.self.creation_source = "FEEDBACK";
+        return calling_this;
+      },
+      import: function () {
+        this.self.creation_source = "IMPORT";
+        return this;
+      },
+      invoices: function () {
+        this.self.creation_source = "INVOICES";
+        return calling_this;
+      },
+      loyalty: function () {
+        this.self.creation_source = "LOYALTY";
+        return calling_this;
+      },
+      marketing: function () {
+        this.self.creation_source = "MARKETING";
+        return calling_this;
+      },
+      merge: function () {
+        this.self.creation_source = "MERGE";
+        return calling_this;
+      },
+      online_store: function () {
+        this.self.creation_source = "ONLINE_STORE";
+        return calling_this;
+      },
+      instant_profile: function () {
+        this.self.creation_source = "INSTANT_PROFILE";
+        return calling_this;
+      },
+      terminal: function () {
+        this.self.creation_source = "TERMINAL";
+        return calling_this;
+      },
+      third_party: function () {
+        this.self.creation_source = "THIRD_PARTY";
+        return calling_this;
+      },
+      third_party_import: function () {
+        this.self.creation_source = "THIRD_PARTY_IMPORT";
+        return calling_this;
+      },
+      unmerge_recovery: function () {
+        this.self.creation_source = "UNMERGE_RECOVERY";
+        return calling_this;
+      },
+      appt: function () {
+        return this.appointments();
+      },
+      unmerge: function () {
+        return this.unmerge_recovery();
+      },
+      undelete: function () {
+        return this.deletion_recovery();
+      },
+    };
+  }
   // MAKE METHODS
-  /** @function make()  method of Customer_Object - method names are exactly the same as the property names listed
-   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method id
-   * @param {string} val -
-   * @method given_name
-   * @param {string} val -
-   * @method family_name
-   * @param {string} val -
-   * @method company_name
-   * @param {string} val -
-   * @method nickname
-   * @param {string} val -
-   * @method email_address
-   * @param {string} val -expects a valid email address
-   * @throws Throws an error if email is not valid
-   * @method phone_number
+  /**
    * @param {string} val -should be a phone number of no more than 11 characters
-   * @throws Throws an error is `phone` is longer than 11 characters
-   * @method address
    * @param {object} val - an Address Object
    * @method birthday
    * @param {string} val -  time a date in RFC3339 format
-   * @throws Error Will throw and error if argument is not a valid RFC3339 date code
-   * @method reference_id
-   * @param {string} val -
-   * @method note
-   * @param {string} val -
-   * @method version
-   * @param {string} val -  int a string that can be coerced to integer
-   * @throws Will throw and error if argument  cannot be coerced to integer
    * @method creation_source - enumerated
    * {@link https://developer.squareup.com/reference/square/enums/CustomerCreationSource | Square Docs}
-   * @method preferences
-   * @param {bool} bool -
-   * @method tax_ids
    * @param {string} eu_vat -a European Union VAT ID of no more than 20 characters
-   * @throws throws an error if the length is greater than 20
-   * @method first_name
-   * @param {string} val -
-   * @method last_name
-   * @param {string} val -
-   * @method company
-   * @param {string} val -
-   * @method email
-   * @param {string} val -
-   * @method phone
-   * @param {string} val -
-   * @method
-   * @param {string} val -
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * @example
-   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
-   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
-   *  variable.
-   *  let make = myVar.make();
-   *   make.gizmo()
-   *   make.gremlin()
    *
    * */
   make() {
