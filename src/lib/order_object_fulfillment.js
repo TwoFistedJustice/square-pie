@@ -12,12 +12,19 @@ const man =
   "make_shipment() lets you add shipping details.\n" +
   "make_pickup() lets you add pickup details.\n" +
   "They are both one and done type methods. You don't need to add their output to anything. It is automatic.\n" +
-  "\nhttps://developer.squareup.com/reference/square/objects/OrderFulfillment";
+  "https://developer.squareup.com/reference/square/objects/OrderFulfillment";
 
 /**
- *  @class Order_Fulfillment
- *  {@link https://developer.squareup.com/reference/square/objects/OrderFulfillment | Link to Square Docs}
- */
+ * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillment |  **-------> Link To Square Docs <-------**}
+ * @class Order_Fulfillment
+ * @classdesc
+ *
+ * Sets up details on how to fulfill the order.<br><br>
+ * This class has two specialized make-methods in addition to the normal one:<br>
+ * 1-   make_shipment() lets you add shipping details.<br>
+ * 2-   make_pickup() lets you add pickup details.<br><br>
+ * They are both one and done type methods. You don't need to add their output to anything. It is automatic.
+ * */
 
 class Order_Fulfillment {
   _display_name = "Order_Fulfillment";
@@ -281,7 +288,8 @@ class Order_Fulfillment {
 
   // MAKE METHODS
 
-  /**  {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentPickupDetails |  Link To Square Docs}
+  /**
+   * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentPickupDetails |  Link To Square Docs}
    *
    * make_pickup()  method of Order_Fulfillment - Makes and sets a compliant pickup object.
    *

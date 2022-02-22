@@ -4,15 +4,17 @@ const man =
   " builds a compliant Square order object. Too add discounts, line items or order fulfillments\n" +
   "first build them with the `Order_Discount`, `Order_Line_Item` and `Order_Fulfillment` classes. To add them to your\n" +
   "order object call the appropriate make() sub-method and pass their fardel as an argument.\n" +
-  "There are `build` and `add` methods for service_charge_amount and service_charge applied. Use only\n" +
-  "one per addition or you risk double adding. Each takes the arguments `(amount, currency)` with a default\n" +
-  'currency of "USD". See Pie docs for more details.\n' +
   "https://developer.squareup.com/reference/square/objects/Order";
 
 /**
+ * {@link https://developer.squareup.com/reference/square/objects/Order |  **-------> Link To Square Docs <-------**}
  * @class Order_Object
- * {@link https://developer.squareup.com/reference/square/objects/Order | Link to Square Docs}
- */
+ * @classdesc
+ *
+ * Builds a compliant Square order object. <br><br>
+ * To add discounts, line items or order fulfillments first build them with the `Order_Discount`, `Order_Line_Item` and `Order_Fulfillment` classes.  <br><br>
+ * To add them to your order object call the appropriate make() sub-method and pass their fardel as an argument. <br><br>
+ * */
 
 class Order_Object {
   _display_name = "Order_Object";
@@ -210,7 +212,7 @@ class Order_Object {
     return order_object_enum.state(this, calling_this);
   }
 
-  /** make()  method of SOME_CLASS - method names are exactly the same as the property names listed
+  /** make()  method of Order_Object - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
    * @typedef {function} Order_Object.make
    * @method

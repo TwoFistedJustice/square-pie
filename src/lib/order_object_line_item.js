@@ -19,11 +19,18 @@ const man =
   " it into the modifiers array unless you tell it to. Call it's `add()` sub-method\n" +
   " last, with no arguments to insert the object\n\n" +
   "There are also standard Pie build and add methods for applied_tax and applied_discount.\n" +
-  "\nhttps://developer.squareup.com/reference/square/objects/OrderLineItem";
+  "https://developer.squareup.com/reference/square/objects/OrderLineItem";
 
-/** @class Order_Line_Item
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/objects/OrderLineItem | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/objects/OrderLineItem |  **-------> Link To Square Docs <-------**}
+ * @class Order_Line_Item
+ * @classdesc
+ *
+ * Build one line item for an order.<br><br>
+ * There are two make() methods here: The normal one. And make_modifier()<br><br>
+ * The make_modifier method builds a modifier object. But it does not insert it into the modifiers array unless you tell it to. Call it's `add()` sub-method last, with no arguments to insert the object <br><br>
+ * There are also standard Pie build and add methods for applied_tax and applied_discount.
+ 
  * */
 
 class Order_Line_Item {
@@ -89,6 +96,30 @@ class Order_Line_Item {
     }
   }
 
+  /** * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemItemType | Link To Square Docs}
+   *
+   *  #Order_Line_Item
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   *  @typedef {function} Order_Line_Item.enum_item_type
+   * @private
+   * @abstract
+   * @memberOf Order_Line_Item
+   * @property item() sets value to "ITEM"
+   * @property custom_amount() sets value to "CUSTOM_AMOUNT"
+   * @property gift_card() sets value to "GIFT_CARD"
+   * @property custom() - `alias of custom_amount`
+   * @property gift() - alias of gift_card`
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
   #enum_item_type(self, calling_this) {
     return order_line_item_enum.item_type(self, calling_this);
   }
@@ -297,26 +328,9 @@ class Order_Line_Item {
 
   // MAKE METHODS
 
-  /** @function make()  method of Order_Line_Item - method names are exactly the same as the property names listed
-   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+  /**
    * @method uid- uid is automatically set
-   * @param {string} val -
-   * @method quantity
-   * @param {string} val -
-   * @method name
-   * @param {string} val -
-   * @method note
-   * @param {string} val -
-   * @method variation_name
-   * @param {string} val -
-   * @method catalog_object_id
-   * @param {string} val -
-   * @method catalog_version
-   * @param {number}  val -
    * @method item_type - Enumerated. Calls #enum_item_type()
-   * @method base_price_money - Standard compliant money object builder.
-   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
-   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
    * @method applied_discounts
    * @param {string} id- the discount id. It will automatically build the expected object.
    * @method applied_taxes
@@ -324,16 +338,8 @@ class Order_Line_Item {
    * @method modifiers - calls make_modifier() - see entry for that.
    * @method pricing_blocklists - has two submethods 'discount' and 'tax' which call  make_discount_blocklist and make_tax_blocklist. - See entries for those.
    * @method quantity_unit - calls make_quantity_unit(). See entry for that.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * @example
-   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
-   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
-   *  variable.
-   *  let make = myVar.make();
-   *   make.gizmo()
-   *   make.gremlin()
-   *
    * */
+
   make() {
     return {
       self: this,

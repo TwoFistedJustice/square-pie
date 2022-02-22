@@ -31,13 +31,19 @@ const order_line_item_enum = {
         self.item_type = "ITEM";
         return calling_this;
       },
-      custom: function () {
+      custom_amount: function () {
         self.item_type = "CUSTOM_AMOUNT";
         return calling_this;
       },
-      gift: function () {
+      gift_card: function () {
         self.item_type = "GIFT_CARD";
         return calling_this;
+      },
+      custom: function () {
+        return this.custom_amount();
+      },
+      gift: function () {
+        return this.gift_card();
       },
     };
   },

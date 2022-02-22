@@ -6,11 +6,14 @@ const man =
   " builds a discount which will be applied to one or more line items in an order.\n" +
   "make().amount_money and .applied_money() take two arguments (amount, currency). Currency\n" +
   'defaults to "USD".\n' +
-  "\nhttps://developer.squareup.com/reference/square/objects/OrderLineItemDiscount";
+  "https://developer.squareup.com/reference/square/objects/OrderLineItemDiscount";
 
-/** @class Order_Discount
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/objects/OrderLineItemDiscount | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/objects/OrderLineItemDiscount|  **-------> Link To Square Docs <-------**}
+ * @class Order_Discount
+ * @classdesc
+ *
+ * Builds a discount which will be applied to one or more line items in an order.
  * */
 
 class Order_Discount {
@@ -172,87 +175,97 @@ class Order_Discount {
 
   // PRIVATE METHODS
 
-  /**@private
-   *  @function #enum_type()
+  /**
+   * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemDiscountType | Square Docs}
    *
-   *
+   *  ##enum_type
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   * @method unknown sets value to "UNKNOWN_DISCOUNT"
-   * @method fixed_percentage sets value to "FIXED_PERCENTAGE"
-   * @method fixed_amount sets value to "FIXED_AMOUNT"
-   * @method variable_percentage sets value to "VARIABLE_PERCENTAGE"
-   * @method variable_amount sets value to "VARIABLE_AMOUNT"
-   
-   * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemDiscountType | Square Docs}
+   *  @typedef {function} Order_Discount.#enum_type()
+   * @private
+   * @abstract
+   * @memberOf  Order_Discount
+   * @property unknown() - sets value to "UNKNOWN_DISCOUNT"
+   * @property fixed_percentage() - sets value to "FIXED_PERCENTAGE"
+   * @property fixed_amount() - sets value to "FIXED_AMOUNT"
+   * @property variable_percentage() - sets value to "VARIABLE_PERCENTAGE"
+   * @property variable_amount() - sets value to "VARIABLE_AMOUNT"
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
    *  value of `clint` on the object 'western'
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
+
   #enum_type(calling_this) {
     return order_discount_enum.type(this, calling_this);
   }
 
-  /** @function
+  /** * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemDiscountScope | Link To Square Docs}
+   *
+   *  #enum_scope
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   * @method other  sets value to "OTHER_DISCOUNT_SCOPE"
-   * @method line_item  sets value to "LINE_ITEM"
-   * @method order  sets value to "ORDER"
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link  | Square Docs}
+   *  @typedef {function} Order_Discount.enum_scope
+   * @private
+   * @abstract
+   * @memberOf  Order_Discount
+   * @property other() -sets value to "OTHER_DISCOUNT_SCOPE"
+   * @property line_item() -sets value to "LINE_ITEM"
+   * @property order() -sets value to "ORDER"
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
    *  value of `clint` on the object 'western'
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
-
   #enum_scope(calling_this) {
     return order_discount_enum.scope(this, calling_this);
   }
 
   // MAKE METHODS
-  /** @function make()  method of Order_Discount - method names are exactly the same as the property names listed
+  /**
+   *  make() method of Order_Discount
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method uid - set automatically. Use this if you want to change it.
-   * @param {string} uid -
-   * @method catalog_object_id
-   * @param {string} id -
-   * @method catalog_version
-   * @param {number} ver -
-   * @method name
-   * @param {string} str -
-   * @method type - enumerated. Calls #enum_type()
-   * @method percentage
-   * @param {string} percent -
-   * @method amount_money Standard compliant money object builder.
-   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
-   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
-   * @method applied_money Standard compliant money object builder.
-   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
-   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
-   * @method scope - enumerated. Calls #enum_scope()
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Order_Discount.make
+   * @method
+   * @public
+   * @memberOf Order_Discount
+   * @property uid(uid) {string} - set automatically. Use this if you want to change it.
+   * @property catalog_object_id(id) {string} -
+   * @property catalog_version(ver) {integer} -
+   * @property name(str) {string} -
+   * @property type() {Enumerated} - Calls `#enum_type()`
+   * @property percentage(percent) {string} -
+   * @property amount_money_money(amount,currency) {integer|string} - Standard compliant money object builder.
+   * @property applied_money_money(amount,currency) {integer|string} - Standard compliant money object builder.
+   * @property scope() {Enumerated} - Calls `#enum_scope()`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,
