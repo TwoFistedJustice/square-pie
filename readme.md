@@ -219,7 +219,14 @@ myAsyncFunc();
 
 ## Patterns Used Throughout
 
-###
+### Getters and Setters
+
+Square Pie was built using ES6 class syntax. There will be a getter and a setter for each property on a Square object or request body.
+
+If you are not familiar with that syntax please review the MDN docs on [**Classes**. ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
+And more importantly, paying special attention to how to access **[Getters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/get)** and **[Setters](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/set)**.
+
+### Case
 
 Square Pie uses snake_case because it's easier for me to read. When you see something that is in camelCase, it's because old habits die hard.
 
@@ -276,3 +283,13 @@ and received a 200 'ok' status.)
 
 yourVar.cache_ids() - iterates over the response body and adds all the document ids to the id_array
 your.var.id_array => gets the id_array // use the class getter
+
+### Idempotency Keys
+
+Square Pie automatically generates idempotency keys wherever Square expects them. We use nanoid at the default setting. If you want to use your own key instead, you can easily
+change it by using the idempotency_key setter or with the idempotency_key-method on `make()`.
+
+### UIDs
+
+When objects stack, Square will always require a way to identify one object within another or within a given http request. Square Pie will automatically
+generate one for you. These can always be changed by you using that class's `make()` method.
