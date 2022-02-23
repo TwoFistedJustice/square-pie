@@ -254,7 +254,7 @@ class Invoice_Object {
     }
   }
 
-  /** * {@link https://developer.squareup.com/reference/square/enums/InvoiceDeliveryMethod | Link To Square Docs}
+  /** * {@link https://developer.squareup.com/reference/square/enums/InvoiceDeliveryMethod | Link To Square Docs}<br>
    *
    *  #delivery_method_enum
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
@@ -344,7 +344,7 @@ class Invoice_Object {
   // MAKE METHODS
 
   /**
-   * {@link https://developer.squareup.com/docs/invoices-api/overview#payment-requests | Square Docs}
+   * {@link https://developer.squareup.com/docs/invoices-api/overview#payment-requests | Square Docs}<br>
    * @example
    * myVar.make().accepted_payment_methods()[property you want to set].yes() => true
    * myVar.make().accepted_payment_methods()[property you want to set].no() => false
@@ -460,11 +460,8 @@ class Invoice_Object {
     };
   }
 
-  /** @function make_custom_field()  method of Invoice_Object - method names are exactly the same as the property names listed
-   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   
   /**
-   * {@link https://developer.squareup.com/reference/square/objects/InvoiceCustomField | Square Docs}
+   * {@link https://developer.squareup.com/reference/square/objects/InvoiceCustomField | Square Docs}<br>
    *
    *  make_custom_field() method of Invoice_Object
    *

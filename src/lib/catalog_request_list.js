@@ -113,7 +113,7 @@ class Catalog_List extends Catalog_Request {
     }
   }
 
-  /** * {@link https://developer.squareup.com/reference/square/catalog-api/list-catalog | Link To Square Docs}
+  /** * {@link https://developer.squareup.com/reference/square/catalog-api/list-catalog | Link To Square Docs}<br>
    *
    *  #enum_types<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.

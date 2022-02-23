@@ -148,7 +148,7 @@ class Invoice_Search extends Invoice_Request {
     this._body.query.filter.customer_ids = replacement_array;
   }
 
-  /** * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Link To Square Docs}
+  /** * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Link To Square Docs}<br>
    *
    *  #sort_order
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.

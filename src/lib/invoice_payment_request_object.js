@@ -154,7 +154,7 @@ class Invoice_Payment_Request_Object {
   // PRIVATE ENUM METHODS
 
   /**
-   * {@link https://developer.squareup.com/reference/square/enums/InvoiceRequestType | Link To Square Docs}
+   * {@link https://developer.squareup.com/reference/square/enums/InvoiceRequestType | Link To Square Docs}<br>
    *
    *  #request_type_enum
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
@@ -195,7 +195,7 @@ class Invoice_Payment_Request_Object {
     };
   }
 
-  /** * {@link https://developer.squareup.com/reference/square/enums/InvoiceAutomaticPaymentSource | Link To Square Docs}
+  /** * {@link https://developer.squareup.com/reference/square/enums/InvoiceAutomaticPaymentSource | Link To Square Docs}<br>
    *
    *  #automatic_payment_source_enum
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
@@ -237,7 +237,7 @@ class Invoice_Payment_Request_Object {
   }
 
   /**
-   * {@link  https://developer.squareup.com/reference/square/objects/InvoicePaymentReminder | Link To Square Docs}
+   * {@link  https://developer.squareup.com/reference/square/objects/InvoicePaymentReminder | Link To Square Docs}<br>
    *
    * #build_reminder - creates a Square compliant reminder object. Square allows reminders to be sent as much as
    * EIGHTY NINE YEARS, before or after a payment is due. Square Pie finds this, ummm, impractical...

@@ -167,7 +167,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     this._fardel.item_variation_data.pricing_type = str;
   }
   /**
-   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/Money | Square Docs}
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/Money | Link To Square Docs}<br>
    * @method
    * @memberOf Catalog_Item_Variation
    * @param {object} money expects a Square Money object

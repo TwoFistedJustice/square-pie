@@ -55,7 +55,7 @@ class Customer_Search extends Customer_Request {
   // attn devs: In this class, the make-analog "query" pulls double duty as a multi-setter
   // because of the necessity of prefaceing all queries with fuzzy or exact.
   /**
-   * {@link https://developer.squareup.com/reference/square/objects/CustomerQuery | Square Docs}
+   * {@link https://developer.squareup.com/reference/square/objects/CustomerQuery | Square Docs}<br>
    *
    *  query() method of Customer_Search
    *  Operates similarly to a make() method with one big difference.

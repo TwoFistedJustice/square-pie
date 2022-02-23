@@ -94,7 +94,7 @@ class Customer_List extends Customer_Request {
   }
 
   /**
-   *  {@link https://developer.squareup.com/reference/square/enums/CustomerSortField | Square Docs}
+   *  {@link https://developer.squareup.com/reference/square/enums/CustomerSortField | Square Docs}<br>
    *  #sort_field_enum
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
@@ -127,7 +127,7 @@ class Customer_List extends Customer_Request {
   }
 
   /**
-   * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Square Docs}
+   * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Square Docs}<br>
    *  #sort_order_enum
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also

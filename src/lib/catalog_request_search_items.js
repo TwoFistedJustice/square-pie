@@ -175,7 +175,7 @@ class Catalog_Search_Items extends Catalog_Request {
     };
   }
 
-  /** * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Link To Square Docs}
+  /** * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Link To Square Docs}<br>
    *
    *  #enum_sort_order
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
@@ -412,7 +412,7 @@ class Catalog_Search_Items extends Catalog_Request {
   }
 
   /**
-   * {@link https://developer.squareup.com/reference/square/objects/CustomAttributeFilter | Square Docs}
+   * {@link https://developer.squareup.com/reference/square/objects/CustomAttributeFilter | Square Docs}<br>
    *  make_custom_attribute_filter() method of Catalog_Search_Items
    *  Make sure to have the Square Docs open in front of you.
    * Sub-Method names are exactly the same as the property names listed

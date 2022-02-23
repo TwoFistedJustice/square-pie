@@ -186,7 +186,8 @@ class Customer_Object {
   }
   // ENUMS
 
-  /** * {@link https://developer.squareup.com/reference/square/enums/CustomerCreationSource | Link To Square Docs}
+  /**
+   * {@link https://developer.squareup.com/reference/square/enums/CustomerCreationSource | Link To Square Docs}<br>
    *
    *  #enum_creation_source
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
