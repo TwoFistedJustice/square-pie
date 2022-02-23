@@ -15,7 +15,6 @@ const man =
 /**
  * * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation |  **-------> Link To Square Docs <-------**}
  * @class Catalog_Item_Variation
- *
  * @classdesc
  *
  * The property `item_id` will be set automatically when you add your variation fardel to an item.
@@ -265,7 +264,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     throw new Error(message);
   }
   /**
-   * {@link https://developer.squareup.com/reference/square_2022-01-20/enums/InventoryAlertType | Link To Square Docs}
+   * {@link https://developer.squareup.com/reference/square_2022-01-20/enums/InventoryAlertType | Link To Square Docs}<br>
    *  #enum_inventory_alert_type
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
@@ -274,6 +273,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
    *  @typedef {function} Catalog_Item_Variation.#enum_inventory_alert_type
+   *  @enum {string}
    * @private
    * @abstract
    * @memberOf Catalog_Item_Variation
@@ -309,7 +309,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     };
   }
 
-  /** * {@link https://developer.squareup.com/reference/square_2021-12-15/enums/CatalogPricingType | Link To Square Docs}
+  /** * {@link https://developer.squareup.com/reference/square_2021-12-15/enums/CatalogPricingType | Link To Square Docs}<br>
    *
    *  #enum_pricing_type
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
@@ -486,7 +486,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   }
 
   /**
-   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/ItemVariationLocationOverrides | Link To Square Docs}
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/ItemVariationLocationOverrides | Link To Square Docs}<br>
    *  make_location_override() method of Catalog_Item_Variation
    * Builds a compliant ItemVariationLocationOverrides object. You must call .add() as the last step. Note: every time
    * you call this function it begins over again. So if you intend to build one object across several
@@ -598,7 +598,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   }
 
   /**
-   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogStockConversion | Link To Square Docs}
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogStockConversion | Link To Square Docs}<br>
    *  make_stockable_conversion() method of Catalog_Item_Variation
    *
    * Sub-Method names are exactly the same as the property names listed

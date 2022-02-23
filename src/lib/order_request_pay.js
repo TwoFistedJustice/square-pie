@@ -106,7 +106,7 @@ class Order_Pay extends Order_Request {
    * @property order_id(id) {string} -
    * @property order(id) {string} -alias of order_id
    * @property pay(id) {string} -alias of payment_ids
-   * @property concat_payments(arr) {array} - adds the contents of an array of IDs to the payment_ids array.
+   * @property concat_payments(arr) {array<id>} - adds the contents of an array of IDs to the payment_ids array.
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

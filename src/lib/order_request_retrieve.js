@@ -68,7 +68,7 @@ class Order_Retrieve extends Order_Request {
   /**
    * @ignore
    * @function  set order_array_concat
-   * @param {array} arr - an array of ids not longer than 100
+   * @param {array<id>} arr - an array of ids not longer than 100
    * @throws {Error} Throws an error if the any array or combination of arrays exceeds a length of 100
    * @throws {Error} Throws an error if the argument is not an array
    * @return Replaces the existing array with a new one consisting of the old one plus the one you passed in.
@@ -126,7 +126,7 @@ class Order_Retrieve extends Order_Request {
    * @property order_ids(id) {string} -
    * @property order(id) {string} - alias of `order_ids`
    * @property location(id) {string} - alias of `location_ids`
-   * @property concat_orders(array) {array} - adds the contents of an array of IDs to the order_ids array
+   * @property concat_orders(array) {array<id>} - adds the contents of an array of IDs to the order_ids array
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

@@ -243,10 +243,10 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
    * @property object_type() {Enumerated} - Calls 'catalog_search_objects_enum.object_types' - Different page.
    * @property text_query(word) {string} - adds a word onto the text query array
    * @property text_query_remove(word) {string} - A word to remove from the text query.  Must be exact.
-   * @property text_query_concat(arr) {array} -adds the contents of an array of words onto the text query array
+   * @property text_query_concat(arr) {array<string>} -adds the contents of an array of words onto the text query array
    * @property limit(int32) {integer}
    * @property type() alias of `object_type`
-   * @property concat_object_types(array_to_add) {array} - adds the contents of an array of object type strings to th object_types array. Three maximum.
+   * @property concat_object_types(array_to_add) {array<enum>} - adds the contents of an array of object type strings to th object_types array. Three maximum.
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
@@ -390,7 +390,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   /**
-   * {@link https://developer.squareup.com/reference/square/objects/CatalogQuerySet | Square Docs}
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQuerySet | Square Docs}<br>
    *  make_set_query() method of Catalog_Search_Filter
    *  Make sure to have the Square Docs open in front of you.
    * Sub-Method names are exactly the same as the property names listed
@@ -405,7 +405,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
    * @memberOf Catalog_Search_Filter
    * @property name(name) {string} -The exact name (key) of the attribute to be searched
    * @property value(val) {string} - adds a value to the attribute_values array
-   * @property concat_values(arr) {array} - concatenates an array to the attribute_values array
+   * @property concat_values(arr) {array<string>} - concatenates an array to the attribute_values array
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

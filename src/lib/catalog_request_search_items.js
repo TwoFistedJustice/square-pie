@@ -316,7 +316,7 @@ class Catalog_Search_Items extends Catalog_Request {
    * @typedef {function} Catalog_Search_Items.make
    * @method
    * @public
-   * @memberOf Some_Class
+   * @memberOf Catalog_Search_Items
    * @property sort_order() {Enumerated} - calls `#enum_sort_order`
    * @property stock_levels() {Enumerated} -- calls `#enum_stock_levels`
    * @property text_filter(id) {string} -
@@ -332,9 +332,9 @@ class Catalog_Search_Items extends Catalog_Request {
    * @property custom() alias of `custom_attribute_filters`
    * @property category() alias of `category_ids`
    * @property location() alias of `enabled_location_ids`
-   * @property concat_categories(arr) {array} - adds the contents of an array of category ids
-   * @property concat_enabled_locations(arr) {array} - adds the contents of an array of location ids
-   * @property concat_custom_attribute_filters(arr) {array} - adds the contents of an array of custom attribute filter objects
+   * @property concat_categories(arr) {array<id>} - adds the contents of an array of category ids
+   * @property concat_enabled_locations(arr) {array<id>} - adds the contents of an array of location ids
+   * @property concat_custom_attribute_filters(arr) {array<fardel>} - adds the contents of an array of custom attribute filter objects
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

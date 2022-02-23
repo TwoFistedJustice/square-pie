@@ -65,8 +65,8 @@ class Catalog_Delete extends Catalog_Request {
    * @memberOf Catalog_Delete
    * @property object_ids(id) {string} - object ids of documents you wish to delete. Must add at least one.
    * @property id(id) {string} -alias of `object_ids`
-   * @property concat_object_ids(arr) {array} - adds contents of an array of ids to the object_ids array
-   * @property concat(arr) {array} - alias of `concat_object_ids`
+   * @property concat_object_ids(arr) {array<id>} - adds contents of an array of ids to the object_ids array
+   * @property concat(arr) {array<id>} - alias of `concat_object_ids`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

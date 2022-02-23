@@ -100,8 +100,8 @@ class Catalog_Retrieve extends Catalog_Request {
    * @property object_ids(id) {string} -
    * @property object(id) {string} - alias of `object_ids`
    * @property retrieve(id) {string} -
-   * @property concat_object_ids(arr) {array}
-   * @property concat(arr) {array} - alias of `concat_object_ids`
+   * @property concat_object_ids(arr) {array<id>}
+   * @property concat(arr) {array<id>} - alias of `concat_object_ids`
    
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot

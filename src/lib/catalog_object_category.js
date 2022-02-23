@@ -4,8 +4,8 @@ const man =
   "creates a Catalog Object.\n" +
   "Give it temporary ID. Use the same temporary ID in other objects being inserted or updated within\n" +
   " the same request to link them together.\n" +
-  'Give your category a name up to 255 characters long. Use make().name("name")' +
-  "\nhttps://developer.squareup.com/reference/square/objects/CatalogCategory";
+  'Give your category a name up to 255 characters long. Use make().name("name")\n' +
+  "https://developer.squareup.com/reference/square/objects/CatalogCategory";
 
 /**
  * {@link https://developer.squareup.com/reference/square/objects/CatalogCategory | **-------> Link To Square Docs <-------**}

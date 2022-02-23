@@ -260,7 +260,7 @@ class Catalog_Item extends Catalog_Object_Super {
 
   // PRIVATE METHODS
 
-  /** * {@link https://developer.squareup.com/reference/square_2021-12-15/enums/CatalogItemProductType | Link To Square Docs}
+  /** * {@link https://developer.squareup.com/reference/square_2021-12-15/enums/CatalogItemProductType | Link To Square Docs}<br>
    *
    *  #enum_product_type
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
@@ -306,7 +306,7 @@ class Catalog_Item extends Catalog_Object_Super {
   // MAKE METHODS
 
   /**
-   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemModifierListInfo | Link To Square Docs}
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemModifierListInfo | Link To Square Docs}<br>
    *  make_modifier_list() builds a compliant modifier_list_Info object. To use the 'view' method you must set the function
    * to a variable and call the method on the variable. If you don't do this, it will return an un-constructed  object.
    *
@@ -433,8 +433,6 @@ class Catalog_Item extends Catalog_Object_Super {
    * @property  item_options(bool) {boolean}
    * @property sort_name()
    * @property {Enumerated} item_options()
-   *
-   *
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

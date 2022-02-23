@@ -218,8 +218,8 @@ class Invoice_Search extends Invoice_Request {
    * @property query(query_object) {object} **DANGER WILL ROBINSON!** This wil replace the entire query object withwhatever you pass it. Only pass in a complete query object.
    * @property location_id(id) {string} - adds an id the array on the filter object
    * @property customer_id(id) {string} - adds an id the array on the filter object
-   * @property add_location_ids_array(arr) {array} - (concat) adds the contents of an array of ids to filter object.
-   * @property add_customer_ids_array(arr) {array} - (concat) adds the contents of an array of ids to filter object.
+   * @property add_location_ids_array(arr) {array<id>} - (concat) adds the contents of an array of ids to filter object.
+   * @property add_customer_ids_array(arr) {array<id>} - (concat) adds the contents of an array of ids to filter object.
    * @property sort() {Enumerated} - Calls `#sort_order()`
    * @property location(id - alias of `location_id`
    * @example

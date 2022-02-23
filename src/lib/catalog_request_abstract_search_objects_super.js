@@ -87,7 +87,7 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
   /**
    * concat_object_types - concatenates an array of objects to the object_types array. Inherited from Catalog_Search_Objects_Super.
    * @function
-   * @param {array} array_to_add - an array of object 'types' (strings)
+   * @param {array<enum>} array_to_add - an array of object 'types' (strings)
    * @memberOf Catalog_Search_Filter
    * @memberOf  Catalog_Search_Cross_Reference
    * @memberOf Catalog_Search_Objects_Super

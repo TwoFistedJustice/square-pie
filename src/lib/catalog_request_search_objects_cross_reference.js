@@ -198,7 +198,7 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
    * @memberOf Catalog_Search_Cross_Reference
    * @method
    * @public
-   * @param {array} arr an array of IDs of Item Variations.
+   * @param {array<id>} arr an array of IDs of Item Variations.
    * */
 
   concat_variations(arr) {
@@ -211,7 +211,7 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
    * @memberOf Catalog_Search_Cross_Reference
    * @method
    * @public
-   * @param {array} arr an array of IDs of Item objects
+   * @param {array<id>} arr an array of IDs of Item objects
    * */
 
   concat_items(arr) {
@@ -224,7 +224,7 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
    * @memberOf Catalog_Search_Cross_Reference
    * @method
    * @public
-   * @param {array} arr an array of IDs of Modifier List objects
+   * @param {array<id>} arr an array of IDs of Modifier List objects
    * */
 
   concat_modifiers(arr) {
@@ -237,7 +237,7 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
    * @memberOf Catalog_Search_Cross_Reference
    * @method
    * @public
-   * @param {array} arr an array of IDs of Tax objects
+   * @param {array<id>} arr an array of IDs of Tax objects
    * */
 
   concat_taxes(arr) {
@@ -264,11 +264,11 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
    * @property variations (id) {string} -
    * @property items(id) {string} -
    * @property modifiers(id) {string} -
-   * @property taxes(arr) {array} -
-   * @property concat_variations(arr) {array} - adds the contents of an array of ids
-   * @property concat_items(arr) {array} - adds the contents of an array of ids
-   * @property concat_modifiers(arr) {array} - adds the contents of an array of ids
-   * @property concat_taxes(arr) {array} - adds the contents of an array of ids
+   * @property taxes(id) {string} -
+   * @property concat_variations(arr) {array<id>} - adds the contents of an array of ids
+   * @property concat_items(arr) {array<id>} - adds the contents of an array of ids
+   * @property concat_modifiers(arr) {array<id>} - adds the contents of an array of ids
+   * @property concat_taxes(arr) {array<id>} - adds the contents of an array of ids
    * @property  concat_object_types() - adds the contents of an array of object types
    * @property  types() - alias of object_type
    

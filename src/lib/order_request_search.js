@@ -122,7 +122,7 @@ class Order_Search extends Order_Request {
   /**
    * @ignore
    * @function
-   * @param {array} arr - an array of ids not longer than 10
+   * @param {array<id>} arr - an array of ids not longer than 10
    * @throws {Error} Throws an error if the any array or combination of arrays exceeds a length of 10
    * @throws {Error} Throws an error if the argument is not an array
    * @return Replaces the existing array with a new one consisting of the old one plus the one you passed in.
@@ -543,7 +543,7 @@ class Order_Search extends Order_Request {
    * @property return_entries(bool) {boolean}
    * @property query(search_orders_query) {object}
    * @property location(location_id) {string} - alias of `location_ids`
-   * @property concat_locations(arr) {array}- adds the contents of an array of IDs to the `location_ids` array
+   * @property concat_locations(arr) {array<id>}- adds the contents of an array of IDs to the `location_ids` array
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
