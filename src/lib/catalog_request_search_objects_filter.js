@@ -13,9 +13,9 @@ const man =
   "can search for any type of catalog objects\n" +
   "This is complicated. Read the Pie doc before you try to use it:\n" +
   "This is the class to use if you want to search by key:value pairs.\n" +
-  "To cross reference by Square document ids use Catalog_Search_Cross_Reference";
-"https://github.com/TwoFistedJustice/square-pie/blob/main/docs/pie_catalog_request_search.md" +
-  "\nhttps://developer.squareup.com/reference/square/catalog-api/search-catalog-objects";
+  "To cross reference by Square document ids use Catalog_Search_Cross_Reference" +
+  "https://github.com/TwoFistedJustice/square-pie/blob/main/docs/pie_catalog_request_search.md\n" +
+  "https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects";
 
 /**
  * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects  |  **-------> Link To Square Docs <-------**}
@@ -215,11 +215,11 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   /**
-   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryExact | Square Docs: Exact Query}
-   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryPrefix | Square Docs: Prefix Query  }
-   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryRange | Square Docs: Range Query}
-   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryText | Square Docs: Text Query}
-   * {@link https://developer.squareup.com/reference/square/enums/CatalogObjectType | Square Docs: Object Types}
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryExact | Square Docs: Exact Query}<br>
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryPrefix | Square Docs: Prefix Query}<br>
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryRange | Square Docs: Range Query}<br>
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryText | Square Docs: Text Query}<br>
+   * {@link https://developer.squareup.com/reference/square/enums/CatalogObjectType | Square Docs: Object Types}<br>
    *  make() method of Catalog_Search_Filter
    *  Make sure to have the Square Docs open in front of you.
    * Sub-Method names are exactly the same as the property names listed
@@ -324,8 +324,8 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   /**
-   * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Square Docs: Sort Order}
-   * {@link https://developer.squareup.com/reference/square/objects/CatalogQuerySortedAttribute | Square Docs: Sorted Attribute Query}
+   * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Square Docs: Sort Order}<br>
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQuerySortedAttribute | Square Docs: Sorted Attribute Query}<br>
    *  make_sorted_attribute_query() method of Catalog_Search_Filter
    *  Make sure to have the Square Docs open in front of you.
    * Sub-Method names are exactly the same as the property names listed
@@ -389,16 +389,6 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   /**
-   * @method name - sets attribute_name
-   * @param {string} name - - The exact name (key) of the attribute to be searched
-   * @method value - adds a value to the attribute_values array
-   * @param {string} value - a value to search
-   * @method concat_values - concatenates an array to the attribute_values array
-   * @param {array} arr - an array of values to search.
-   *
-   * */
-
-  /**
    * {@link https://developer.squareup.com/reference/square/objects/CatalogQuerySet | Square Docs}
    *  make_set_query() method of Catalog_Search_Filter
    *  Make sure to have the Square Docs open in front of you.
@@ -412,9 +402,9 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
    * @method
    * @public
    * @memberOf Catalog_Search_Filter
-   * @property name(name) {string} -
-   * @property value(val) {string} -
-   * @property concat_values(arr) {array}
+   * @property name(name) {string} -The exact name (key) of the attribute to be searched
+   * @property value(val) {string} - adds a value to the attribute_values array
+   * @property concat_values(arr) {array} - concatenates an array to the attribute_values array
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

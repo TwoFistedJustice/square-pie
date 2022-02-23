@@ -3,15 +3,23 @@ const fetch = require("node-fetch");
 const config = require("../config");
 const secret = process.env[`${config.secrets.sandbox_secret_name}`];
 const man =
-  "\nis the super class for all Square Pie REQUEST classes. It handles the actual http request when you call\n" +
+  "is the super class for all Square Pie REQUEST classes. It handles the actual http request when you call\n" +
   "subclass.request(). It also contains the GETTERS common to all request classes. You can customize your\n" +
   "configuration by changing the parameter stored in `config.js` or in `.env`\n" +
-  "\nhttps://developer.squareup.com/reference/square";
+  "https://developer.squareup.com/reference/square";
 
-/** @class Square_Request super class of all Square Pie Request classes
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+/**
+ * {@link https://developer.squareup.com/reference/square |  **-------> Link To Square Docs <-------**}
+ * @class Square_Request
+ * @abstract
+ * @classdesc
+ *
+ * **Super class of all Square Pie Request classes**<br><br>
+ * This is the super class for all Square Pie REQUEST classes. It handles the actual http request when you call
+ *subclass.request(). It also contains the GETTERS common to all request classes. You can customize your
+ * configuration by changing the parameter stored in `config.js` or in `.env`
+ *
  * */
-
 class Square_Request {
   _display_name = "Square_Request";
   _help = this.display_name + ": " + man;
@@ -87,6 +95,17 @@ class Square_Request {
       Authorization: `Bearer ${secret}`,
     };
   }
+
+  /**
+   * This makes the actual http request.<br>
+   * Inherited by all Request classes.
+   * @typedef {function} Square_Request.request
+   * @memberOf Square_Request
+   * @public
+   * @method
+   * @example
+   * await myVar.request()
+   * */
   request() {
     let http_request = async (url, options) => {
       const httpResponse = await fetch(url, options);
@@ -111,8 +130,13 @@ class Square_Request {
     };
   }
 
-  /** @function cache_ids - extracts the top layer of object ids out of the .delivery property
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+  /**
+   * Extracts the top layer of object ids out of the .delivery property.<br>
+   * Inherited by all Request classes.
+   * @typedef {function} Square_Request.cache_ids
+   * @memberOf Square_Request
+   * @public
+   * @method
    * @example
    *  After you have made your http request
    *
@@ -122,7 +146,6 @@ class Square_Request {
    *  if you wanted to use the output do some other action
    *  list.cache_ids()
    *  yourvar.make().concat(list.id_array)
-   *
    * */
 
   cache_ids() {

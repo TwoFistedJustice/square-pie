@@ -172,9 +172,10 @@ class Order_Search extends Order_Request {
   }
 
   // PRIVATE METHODS
-  /** @method  define_query
+  /** define_query
+   * @method
    * @private
-   * @ignroe
+   * @ignore
    *
    *  Creates a new Query Object with the `filter` property set to a filter object with
    *  all properties set to undefined.

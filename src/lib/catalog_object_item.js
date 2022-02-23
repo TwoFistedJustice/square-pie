@@ -304,12 +304,6 @@ class Catalog_Item extends Catalog_Object_Super {
   }
 
   // MAKE METHODS
-  /**
-   
-   * @method clear - clears your entries
-   * @method view - returns the catalog_modifier_list object under construction
-   * @method add - adds a copy of the constructed catalog_modifier_list to the array and calls clear()
-   * */
 
   /**
    * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemModifierListInfo | Link To Square Docs}
