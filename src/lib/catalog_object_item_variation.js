@@ -22,7 +22,7 @@ const man =
  *
  * The property `service_duration` is tied to the property pricing_type and will automatically change its value to "VARIABLE_PRICING" when you set a service-duration
  *
- * The `price_money` property is tied to the the property pricing_type and will automatically change its value to "FIXED_PRICING" when you set a price.
+ * The `price_money` property is tied to the the property pricing_type and will automatically change its value to "FIXED_PRICING" when you set a base_price_money.
  * */
 
 class Catalog_Item_Variation extends Catalog_Object_Super {
@@ -508,16 +508,16 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    * @property track_inventory(bool) {} -
    * @property inventory_alert_type() {Enumerated} - Calls `#enum_inventory_alert_type()`
    * @property inventory_alert_threshold(int) {integer} -
-   * @property price(amount,currency) {integer|string} - alias of `price_money`
+   * @property base_price_money(amount,currency) {integer|string} - alias of `price_money`
    * @property alert_type() {} -  alias of `inventory_alert_type`
    * @property alert_threshold(int) {integer} - alias of `inventory_alert_threshold`
    * @property view()) {} - returns the location_override object under construction.
-   * @property add() - Adds the newly built object to the location_overrides array. Enforces rule on pricing_type and price.
+   * @property add() - Adds the newly built object to the location_overrides array. Enforces rule on pricing_type and base_price_money.
    * @example
    *  let override = myVar.make_location_override().location_id("123").price_money(499, "CAD").add();
    *  is the same as
    *   override.location_id("123");
-   *   override.price(499, "cad");
+   *   override.base_price_money(499, "cad");
    *   override.add();
    *  it builds:
    *  {

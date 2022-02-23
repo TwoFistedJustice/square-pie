@@ -5,14 +5,21 @@ const man =
   "send a sparse order object with only the fields you want to update. Pass the id of the order you want to update\n" +
   "as an argument when you instantiate the class. You can add the id anytime prior to sending the update by calling\n" +
   'make().order_id("id")\n' +
-  "Build your sparse order object using the Order_Object class. Add it to update by passing the fardel to make().order(fardel)." +
+  "Build your sparse order object using the Order_Object class. Add it to update by passing the fardel to make().order(fardel).\n" +
   'If you want to clear fields in your order, then pass the field names as strings to make().fields_to_clear("some_property_name")\n' +
-  "\n\nhttps://developer.squareup.com/reference/square/orders-api/update-order";
+  "https://developer.squareup.com/reference/square/orders-api/update-order";
 
-/** @class Order_Update representing a desired update to an existing order.
+/**
+ * {@link https://developer.squareup.com/reference/square/orders-api/update-order |  **-------> Link To Square Docs <-------**}
+ * @class Order_Update
  * @param {string} id - the id of the order you want to update. You can also add this later. You must do this before calling .request()
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/orders-api/update-order | Square Docs}
+ * @classdesc
+ *
+ * Update an order.<br><br>
+ * Send a sparse order object with only the fields you want to update. Pass the id of the order you want to update
+ * as an argument when you instantiate the class. You can add the id anytime prior to sending the update by calling make().order_id(id)'<br><br>
+ * Build your sparse order object using the Order_Object class. Add it to update by passing the fardel to make().order(fardel).<br><br>
+ * If you want to clear fields in your order, then pass the field names as strings to make().fields_to_clear(some_property_name)'
  * */
 class Order_Update extends Order_Request {
   _display_name = "Order_Update";
@@ -75,30 +82,44 @@ class Order_Update extends Order_Request {
     }
   }
   // MAKE METHODS
-  /** @function make()  method of Order_Update - method names are exactly the same as the property names listed
+
+  /**
+   * {@link https://developer.squareup.com/reference/square/orders-api/update-order | Square Docs}<br>
+   *  make() method of Order_Update
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method order_id
-   * @param {string} id -
-   * @method order
-   * @param {object} sparse_order - an order object containing only the fields you want to update.
-   * @method fields_to_clear
-   * @param {string} field - The dot notation paths fields to clear. For example, "line_items[uid].note". OR "discounts"
-   * {@link https://developer.squareup.com/reference/square/orders-api/update-order | Square Docs}
-   * @method idempotency_key - automatically set
-   *@param {string} key -
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Order_Update.make
+   * @method
+   * @public
+   * @memberOf Order_Update
+   * @property idempotency_key(key) {string} - use only if you want to use your own key in place of the automatically generated one.
+   * @property order_id(id) {string} -
+   * @property order(sparse_order) {object}
+   * @property fields_to_clear(field) {string} -
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,
+      idempotency_key: function (key) {
+        this.self.idempotency_key = key;
+        return this;
+      },
       order_id: function (id) {
         this.self.order_id = id;
         return this;
@@ -109,10 +130,6 @@ class Order_Update extends Order_Request {
       },
       fields_to_clear: function (field) {
         this.self.fields_to_clear = field;
-        return this;
-      },
-      idempotency_key: function (key) {
-        this.self.idempotency_key = key;
         return this;
       },
     };

@@ -200,7 +200,7 @@ class Order_Tax {
    * @method percentage
    * @param {string} percent - a percentage amount in the form of a string.
    * @method applied_money Standard compliant money object builder.
-   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
+   * @param {number} amount - an integer. The base_price_money in the smallest currency designation. Usually cents.
    * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
    * @method scope Enumerated. Calls #enum_scope
    * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/

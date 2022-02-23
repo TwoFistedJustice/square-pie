@@ -52,7 +52,7 @@ class Order_Line_Item {
       applied_taxes: undefined, // [id...]
       modifiers: undefined, // [{}...]
       pricing_blocklists: undefined, // { }
-      quantity_unit: undefined, // OBJECT
+      quantity_unit: undefined, // { }
       metadata: undefined, // do not implement in v1
     };
     this.configuration = {
@@ -98,7 +98,7 @@ class Order_Line_Item {
 
   /** * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemItemType | Link To Square Docs}
    *
-   *  #Order_Line_Item
+   *  #enum_item_type<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
@@ -304,21 +304,60 @@ class Order_Line_Item {
 
   // BUILDER METHODS
 
+  /**
+   * Builds a compliant applied_tax object and returns it.
+   * @typedef {function} Order_Line_Item.build_applied_tax
+   * @memberOf Order_Line_Item
+   * @public
+   * @method
+   * @param {string} uid - The UID of the tax you want to apply
+   * @returns A compliant tax object
+   * */
   build_applied_tax(uid) {
     let obj = this.#applied_tax(uid);
     return obj;
   }
+
+  /**
+   * Builds a compliant applied_discount object and returns it.
+   * @typedef {function} Order_Line_Item.build_applied_discount
+   * @memberOf Order_Line_Item
+   * @public
+   * @method
+   * @param {string} uid - The UID of the discount you want to apply
+   * @returns A compliant discount object
+   * */
 
   build_applied_discount(uid) {
     let obj = this.#applied_discount(uid);
     return obj;
   }
 
+  /**
+   * Builds a compliant applied_tax object, adds it to the array and returns the object.
+   * @typedef {function} Order_Line_Item.add_applied_tax
+   * @memberOf Order_Line_Item
+   * @public
+   * @method
+   * @param {string} uid - The UID of the tax you want to apply
+   * @returns A compliant tax object
+   * */
+
   add_applied_tax(uid) {
     let obj = this.build_applied_tax(uid);
     this.applied_taxes = obj;
     return obj;
   }
+
+  /**
+   * Builds a compliant applied_discount object, adds it to the array and returns the object.
+   * @typedef {function} Order_Line_Item.add_applied_discount
+   * @memberOf Order_Line_Item
+   * @public
+   * @method
+   * @param {string} uid - The UID of the discount you want to apply
+   * @returns A compliant discount object
+   * */
 
   add_applied_discount(uid) {
     let obj = this.build_applied_discount(uid);
@@ -329,15 +368,45 @@ class Order_Line_Item {
   // MAKE METHODS
 
   /**
-   * @method uid- uid is automatically set
-   * @method item_type - Enumerated. Calls #enum_item_type()
-   * @method applied_discounts
-   * @param {string} id- the discount id. It will automatically build the expected object.
-   * @method applied_taxes
-   * @param {string} id- the tax id. It will automatically build the expected object.
-   * @method modifiers - calls make_modifier() - see entry for that.
-   * @method pricing_blocklists - has two submethods 'discount' and 'tax' which call  make_discount_blocklist and make_tax_blocklist. - See entries for those.
-   * @method quantity_unit - calls make_quantity_unit(). See entry for that.
+   *  make() method of Order_Line_Item
+   *  Make sure to have the Square Docs open in front of you.
+   *
+   *  Special: pricing_blocklists - has two submethods 'discount' and 'tax' which call  make_discount_blocklist and make_tax_blocklist. - See entries for those.
+   *
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Order_Line_Item.make
+   * @method
+   * @public
+   * @memberOf Some_Class
+   * @property uid(uid) {string} - uid is automatically set
+   * @property quantity(qty) {string} -
+   * @property name(name) {string} -
+   * @property note(note) {string} -
+   * @property variation_name(name) {string} -
+   * @property catalog_object_id(id) {string} -
+   * @property catalog_version(int) {integer} -
+   * @property item_type() {Enumerated} - Calls `#enum_item_type()
+   * @property base_price_money(amount,currency) {integer|string} - Standard compliant money object builder.
+   * @property applied_discounts(uid) {string} -
+   * @property applied_taxes(uid) {string} -
+   * @property pricing_blocklists().discount() - Calls `make_discount_blocklist()`
+   * @property pricing_blocklists().tax() - Calls `make_tax_blocklist()`
+   * @property quantity_unit() - Calls `make_quantity_unit()`
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
 
   make() {
@@ -411,62 +480,64 @@ class Order_Line_Item {
     };
   }
 
-  /** @function make_modifier() - method one Order API Line_Item class
-   * @method uid - This is set automatically. Only call this if you want to change it.
-   * @param {string} uid A unique ID that identifies the modifier only within this order. Max Length 60
-   * @method catalog_object_id - sets the id
-   * @param {string} The catalog object ID referencing CatalogModifier. Max Length 192
-   * @method catalog_version - sets teh catalog version
-   * @param {number} int64 an integer - The version of the catalog object that this modifier references.
-   * @method name - set the name of the modifier
-   * @param {string} The name of the item modifier. Max length 255
-   * @method price - set the base price and currency
-   * @param {number} amount - an integer - The base price for the modifier.
-   * @param {string} currency - three letter currency designation in ALL CAPS
-   * @method view - returns the modifier object under construction
-   * @method get_uid - returns the uid
-   * @method add - calls the modifier setter and passes a  new modifier object cloned from the the one you built.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link  https://developer.squareup.com/reference/square/objects/OrderLineItemModifier| Square Docs}
-   * @example
+  /**
+   * {@link  https://developer.squareup.com/reference/square/objects/OrderLineItemModifier| Link To Square Docs}<br>
+   *  make_modifier() method of Order_Line_Item
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
    *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Order_Line_Item.make_modifier
+   * @method
+   * @public
+   * @memberOf Order_Line_Item
+   * @property uid(uid) {string} - UID is set automatically. Only call this if you want to change it.
+   * @property catalog_object_id(id) {string} -
+   * @property catalog_version(int64) {integer} -
+   * @property name(val) {string} -
+   * @property base_price_money(amount,currency) {integer|string} - Standard compliant money object builder.
+   * @property view - returns the modifier object under construction
+   * @property get_uid - returns the uid
+   * @property add - calls the modifier setter and passes a  new modifier object cloned from the the one you built.
+   * @example
    *  It is best to set the function call to a variable. Otherwise you may experience unwanted side effects.
    *  const mod = line.make_modifier()
-   let obj1 = {
-      uid: "123",  // no need to set this unless you want to, unique-ish id set automatically
-      catalog_object_id: "456",
-      catalog_version: 4,
-      name: "Ethel",
-      base_price_money: {
-        amount: 428,
-        currency: "CAD"
-      }
-    };
- 
-   let obj2 = {
-      uid: "DEF", // no need to set this unless you want to, unique-ish id set automatically
-      catalog_object_id: "ABC",
-      catalog_version: 42,
-      name: "Fred",
-      base_price_money: {
-        amount: 597,
-        currency: "EUR"
-      }
-    };
-   let ethel = line.make_modifier();
-   let fred = line.make_modifier();
- 
-   ethel.uid("123").catalog_object_id("456").catalog_version(4).name("Ethel").price(428, "cad").add(); => pushes obj1
-   fred.uid("DEF").catalog_object_id("ABC").name("Fred").catalog_version(42).price(597, "eur").add();  => pushes obj2
- 
-   line.modifiers => [obj1, obj2]
-   
-   ethel.view() => obj1 // returns the actual object in case you need to access it directly
-   ehtel.get_uid => "123" // in case you need the uid
-   
+   *    let obj1 = {
+   *       uid: "123",  // no need to set this unless you want to, unique-ish id set automatically
+   *       catalog_object_id: "456",
+   *       catalog_version: 4,
+   *       name: "Ethel",
+   *       base_price_money: {
+   *         amount: 428,
+   *         currency: "CAD"
+   *       }
+   *     };
    *
+   *    let obj2 = {
+   *       uid: "DEF", // no need to set this unless you want to, unique-ish id set automatically
+   *       catalog_object_id: "ABC",
+   *       catalog_version: 42,
+   *       name: "Fred",
+   *       base_price_money: {
+   *         amount: 597,
+   *         currency: "EUR"
+   *       }
+   *      };
+   *     let ethel = line.make_modifier();
+   *     let fred = line.make_modifier();
    *
-   * */
+   *     ethel.uid("123").catalog_object_id("456").catalog_version(4).name("Ethel").base_price_money(428, "cad").add(); => pushes obj1
+   *     fred.uid("DEF").catalog_object_id("ABC").name("Fred").catalog_version(42).base_price_money(597, "eur").add();  => pushes obj2
+   *
+   *    line.modifiers => [obj1, obj2]
+   *
+   *    ethel.view() => obj1 // returns the actual object in case you need to access it directly
+   *    ethel.get_uid => "123" // in case you need the uid
+   *    * */
+
   make_modifier() {
     let limits = this.configuration.maximums;
     const name = this.display_name;
@@ -519,7 +590,7 @@ class Order_Line_Item {
         }
         return this;
       },
-      price: function (amount, currency) {
+      base_price_money: function (amount, currency) {
         let key = "base_price_money";
         modifier.base_price_money = arche_money(
           amount,
@@ -543,36 +614,45 @@ class Order_Line_Item {
       },
     };
   }
-  /** @function make_discount_blocklist
-   * @method uid - A unique ID of the BlockedTax within the order. This is set automatically. Only call this method if you want to use your own uid. Max length 60.
-   * @param {string} uid - A unique ID of the BlockedTax within the order
-   * @method discount_catalog_object_id - The catalog_object_id of the discount that should be blocked. Use this field to block catalog discounts. For ad hoc discounts, use the discount_uid field. Max length 192.
-   * @param {string} id
-   * @method discount_object - alias of discount_catalog_object_id
-   * @method discount_uid - The uid of the discount that should be blocked. Use this field to block ad hoc discounts. For catalog, discounts use the discount_catalog_object_id field. Max length 60.
-   * @param {string} uid
-   * @method ad_hoc -alias of discount_uid
-   * @method view - returns the object under construction
-   * @method get_uid - returns the uid of the blocklist
-   * @method add - calls the discount_blocklist setter and passes a new discount_blocklist object cloned from the the one you built.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/objects/OrderLineItemPricingBlocklistsBlockedTax | Square Docs}
-   * #example
-   let id = "alpha_numeric_gibberish"
-   let blocklist1 = {
-      uid: id,  // this is actually set automatically, but I didn't want it to feel left out, so I included it.
-      discount_uid:id
-    };
-   let blocklist2 = {
-      uid: id,
-      discount_catalog_object_id: id,
-    };
-   
-   let block1 = line.make_discount_blocklist();
-   let block2 = line.make_discount_blocklist();
-   block1.uid(id).ad_hoc(id).add();
-   block2.uid(id).discount_object(id).add();
-   line.pricing_blocklists => {blocked_discount : [blocklist1, blocklist2]}
+
+  /**
+   * {@link https://developer.squareup.com/reference/square/objects/OrderLineItemPricingBlocklistsBlockedTax | Link To Square Docs}<br>
+   *  make_discount_blocklist() method of Order_Line_Item
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Order_Line_Item.make_discount_blocklist
+   * @method
+   * @public
+   * @memberOf Order_Line_Item
+   * @property uid(uid) {string} - UID is set automatically. Only call this if you want to change it.
+   * @property discount_catalog_object_id(id) {string} - The catalog_object_id of the discount that should be blocked. Use this field to block catalog discounts. For ad hoc discounts, use the discount_uid field. Max length 192.
+   * @property discount_object(id) {string} - alias of `discount_catalog_object_id`
+   * @property discount_uid(uid) {string} - The uid of the discount that should be blocked. Use this field to block ad hoc discounts. For catalog, discounts use the discount_catalog_object_id field. Max length 60.
+   * @property ad_hoc(id) {string}-alias of `discount_uid`
+   * @property view() - returns the object under construction
+   * @property get_uid() - returns the uid of the blocklist
+   * @property add() - calls the discount_blocklist setter and passes a new discount_blocklist object cloned from the the one you built.
+   * @example
+   * let id = "alpha_numeric_gibberish"
+   *    let blocklist1 = {
+   *       uid: id,  // this is actually set automatically, but I didn't want it to feel left out, so I included it.
+   *       discount_uid:id
+   *     };
+   *    let blocklist2 = {
+   *       uid: id,
+   *       discount_catalog_object_id: id,
+   *     };
+   *
+   *    let block1 = line.make_discount_blocklist();
+   *    let block2 = line.make_discount_blocklist();
+   *    block1.uid(id).ad_hoc(id).add();
+   *    block2.uid(id).discount_object(id).add();
+   *    line.pricing_blocklists => {blocked_discount : [blocklist1, blocklist2]}
    * */
 
   make_discount_blocklist() {
@@ -648,38 +728,45 @@ class Order_Line_Item {
     };
   }
 
-  /** @function make_tax_blocklist
-   * @method uid - A unique ID of the BlockedTax within the order. This is set automatically. Only call this method if you want to use your own uid. Max length 60.
-   * @param {string} uid - A unique ID of the BlockedTax within the order
-   * @method tax_catalog_object_id - The catalog_object_id of the tax that should be blocked. Use this field to block catalog taxes. For ad hoc taxes, use the tax_uid field. Max length 192.
-   * @param {string} id
-   * @method tax_object - alias of tax_catalog_object_id
-   * @method tax_uid - The uid of the tax that should be blocked. Use this field to block ad hoc taxes. For catalog, taxes use the tax_catalog_object_id field. Max length 60.
-   * @param {string} uid
-   * @method ad_hoc -alias of tax_uid
-   * @method view - returns the object under construction
-   * @method get_uid - returns the uid of the blocklist
-   * @method add - calls the tax_blocklist setter and passes a new tax_blocklist object cloned from the the one you built.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/objects/OrderLineItemPricingBlocklistsBlockedTax | Square Docs}
-   * #example
-   let id = "alpha_numeric_gibberish"
-   let blocklist1 = {
-      uid: id,  // this is actually set automatically, but I didn't want it to feel left out, so I included it.
-      tax_uid:id
-    };
-   let blocklist2 = {
-      uid: id,
-      tax_catalog_object_id: id,
-    };
- 
-   let block1 = line.make_tax_blocklist();
-   let block2 = line.make_tax_blocklist();
-   block1.uid(id).ad_hoc(id).add();
-   block2.uid(id).tax_object(id).add();
-   line.pricing_blocklists => {blocked_tax : [blocklist1, blocklist2]}
+  /**
+   * {@link https://developer.squareup.com/reference/square/objects/OrderLineItemPricingBlocklistsBlockedTax | Link To Square Docs}<br>
+   *  make_tax_blocklist() method of Order_Line_Item
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Order_Line_Item.make_tax_blocklist
+   * @method
+   * @public
+   * @memberOf Order_Line_Item
+   * @property uid(uid) {string} - UID is set automatically. Only call this if you want to change it.
+   * @property tax_catalog_object_id(id) {string} -The catalog_object_id of the tax that should be blocked. Use this field to block catalog taxes. For ad hoc taxes, use the tax_uid field. Max length 192.
+   * @property tax_object(id) {string} - alias of `tax_catalog_object_id`
+   * @property tax_uid(uid) {string} -The uid of the tax that should be blocked. Use this field to block ad hoc taxes. For catalog, taxes use the tax_catalog_object_id field. Max length 60.
+   * @property ad_hoc(uid) {string} - alias of `tax_uid`
+   * @property view - returns the object under construction
+   * @property get_uid - returns the uid of the blocklist
+   * @property add - calls the tax_blocklist setter and passes a new tax_blocklist object cloned from the the one you built.
+   * @example
+   * let id = "alpha_numeric_gibberish"
+   * let blocklist1 = {
+   *    uid: id,  // this is actually set automatically, but I didn't want it to feel left out, so I included it.
+   *    tax_uid:id
+   *  };
+   * let blocklist2 = {
+   *    uid: id,
+   *       tax_catalog_object_id: id,
+   *     };
+   *
+   *    let block1 = line.make_tax_blocklist();
+   *    let block2 = line.make_tax_blocklist();
+   *    block1.uid(id).ad_hoc(id).add();
+   *    block2.uid(id).tax_object(id).add();
+   *    line.pricing_blocklists => {blocked_tax : [blocklist1, blocklist2]}
    * */
-
   make_tax_blocklist() {
     let limits = this.configuration.maximums;
     const name = this.display_name;
@@ -753,19 +840,36 @@ class Order_Line_Item {
     };
   }
 
-  /** @function #make_quantity_unit(). Can be called directly or via make().quantity_unit().
-   * @method catalog_object_id
-   * @param {string} id - - The catalog object ID referencing the CatalogMeasurementUnit when the unit already exists in the db
-   * @method catalog_version
-   * @param {number} int - an integer number.
-   * @method measurement_unit
-   * @param {object} archetype - A MeasurementUnit that represents the unit of measure for the quantity.
-   * @method precision
-   * @param {number} int - an integer number. the number of digits after the decimal point that are recorded for this quantity. See Square docs.
-   * @method id - alias of catalog_object_id
-   * @method version- alias of catalog_version
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/objects/OrderQuantityUnit | Square Docs}
+  /**
+   * {@link https://developer.squareup.com/reference/square/objects/OrderQuantityUnit | Link To Square Docs}<br>
+   *  make_quantity_unit() method of Order_Line_Item
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Order_Line_Item.make_quantity_unit
+   * @method
+   * @public
+   * @memberOf Order_Line_Item
+   * @property catalog_object_id(id) {string} -The catalog object ID referencing the CatalogMeasurementUnit when the unit already exists in the db
+   * @property catalog_version(int) {integer} -
+   * @property measurement_unit(archetype) {object} - A MeasurementUnit  objectthat represents the unit of measure for the quantity.
+   * @property precision(int) {integer} - an integer number. the number of digits after the decimal point that are recorded for this quantity. See Square docs.
+   * @property id(id) {string} - alias of `catalog_object_id`
+   * @property version(int) {integer} - alias of `catalog_version`
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
 
   make_quantity_unit() {

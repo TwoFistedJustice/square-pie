@@ -1,7 +1,13 @@
 const Square_Request = require("./square_request_abstract");
 
-/** @class Order_Request super class of all Order Request classes
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+/**
+ * {@link https://developer.squareup.com/reference/square/orders-api |  **-------> Link To Square Docs <-------**}
+ * @class Order_Request
+ * @absract
+ * @ignore
+ * @classdesc
+ *
+ * Super class of all Order Request classes
  * */
 
 class Order_Request extends Square_Request {
