@@ -227,7 +227,7 @@ class Invoice_Update extends Invoice_RUDCnP {
   }
 
   /**
-   * {@link https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice | Square Docs}
+   * {@link https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice | Square Docs}<br>
    *
    * Determines if an update is legal. If it is legal it returns true. If it is illegal,
    * it returns false and the reason can be accessed at yourVar.reason. This method is run automatically when

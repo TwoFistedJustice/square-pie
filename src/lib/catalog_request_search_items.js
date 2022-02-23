@@ -219,7 +219,7 @@ class Catalog_Search_Items extends Catalog_Request {
     };
   }
 
-  /** * {@link https://developer.squareup.com/reference/square/enums/CatalogItemProductType | Link To Square Docs}
+  /** * {@link https://developer.squareup.com/reference/square/enums/CatalogItemProductType | Link To Square Docs}<br>
    *
    *  #enum_product_type
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
@@ -259,7 +259,7 @@ class Catalog_Search_Items extends Catalog_Request {
     };
   }
 
-  /** * {@link https://developer.squareup.com/reference/square/enums/SearchCatalogItemsRequestStockLevel | Link To Square Docs}
+  /** * {@link https://developer.squareup.com/reference/square/enums/SearchCatalogItemsRequestStockLevel | Link To Square Docs}<br>
    *
    *  #enum_stock_levels
    *  stock_levels is an ARRAY. It can take multiple values.

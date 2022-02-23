@@ -15,7 +15,7 @@ const man =
   "https://developer.squareup.com/reference/square/catalog-api/list-catalog";
 
 /**
- * {@link  https://developer.squareup.com/reference/square/catalog-api/list-catalog | Link To Square Docs}
+ * {@link  https://developer.squareup.com/reference/square/catalog-api/list-catalog |  **-------> Link To Square Docs <-------**}
  * @class Catalog_List
  * @extends Square_Request
  * @classdesc

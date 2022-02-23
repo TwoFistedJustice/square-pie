@@ -502,7 +502,7 @@ class Order_Search extends Order_Request {
         return this.fulfillment_types();
       },
       /**
-       * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersStateFilter | Square Docs}
+       * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersStateFilter | Square Docs}<br>
        * @ignore
        * */
       state_filter: function () {
@@ -510,7 +510,7 @@ class Order_Search extends Order_Request {
       },
 
       /**
-       * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery | Square Docs}
+       * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery | Square Docs}<br>
        * @ignore
        * */
 

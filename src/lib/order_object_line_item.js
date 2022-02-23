@@ -96,7 +96,7 @@ class Order_Line_Item {
     }
   }
 
-  /** * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemItemType | Link To Square Docs}
+  /** * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemItemType | Link To Square Docs}<br>
    *
    *  #enum_item_type<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.

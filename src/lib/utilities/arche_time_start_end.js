@@ -7,7 +7,7 @@ const { isRFC3339 } = require("validator");
  * @param {string} caller  is the name of the method making the function call
  * @throws {error} Throws an error if either time argument is not in RFC3339 format.
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersDateTimeFilter | Square Docs}
+ * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersDateTimeFilter | Square Docs}<br>
  *  @example
  *
  *

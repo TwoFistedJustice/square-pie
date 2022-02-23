@@ -117,7 +117,7 @@ class Order_Fulfillment {
   }
 
   // PRIVATE METHODS
-  /** * {@link https://developer.squareup.com/reference/square/enums/OrderFulfillmentState | Link To Square Docs}
+  /** * {@link https://developer.squareup.com/reference/square/enums/OrderFulfillmentState | Link To Square Docs}<br>
    *
    *  #enum_state
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
@@ -195,7 +195,7 @@ class Order_Fulfillment {
       : (fulfillment[key] = value);
   }
   /**
-   * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentRecipient | Square Docs}
+   * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentRecipient | Square Docs}<br>
    *
    *  #recipient()  method of Order_Object - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
@@ -289,7 +289,7 @@ class Order_Fulfillment {
   // MAKE METHODS
 
   /**
-   * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentPickupDetails |  Link To Square Docs}
+   * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentPickupDetails |  Link To Square Docs}<br>
    *
    * make_pickup()  method of Order_Fulfillment - Makes and sets a compliant pickup object.
    *
@@ -404,7 +404,7 @@ class Order_Fulfillment {
   }
 
   /**
-   * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentShipmentDetails | Link To Square Docs}
+   * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentShipmentDetails | Link To Square Docs}<br>
    *
    * make_shipment()  method of Order_Fulfillment - Makes and sets a compliant shipment object.
    *

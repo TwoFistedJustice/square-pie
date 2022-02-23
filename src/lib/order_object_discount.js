@@ -176,7 +176,7 @@ class Order_Discount {
   // PRIVATE METHODS
 
   /**
-   * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemDiscountType | Square Docs}
+   * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemDiscountType | Square Docs}<br>
    *
    *  ##enum_type
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
@@ -205,7 +205,7 @@ class Order_Discount {
     return order_discount_enum.type(this, calling_this);
   }
 
-  /** * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemDiscountScope | Link To Square Docs}
+  /** * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemDiscountScope | Link To Square Docs}<br>
    *
    *  #enum_scope
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.

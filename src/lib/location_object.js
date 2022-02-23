@@ -318,7 +318,7 @@ class Location_Object {
   }
   // Private Methods
 
-  /** * {@link https://developer.squareup.com/reference/square/enums/LocationType | Link To Square Docs}
+  /** * {@link https://developer.squareup.com/reference/square/enums/LocationType | Link To Square Docs}<br>
    *
    *  #enum_type
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
@@ -353,7 +353,7 @@ class Location_Object {
     };
   }
 
-  /** * {@link https://developer.squareup.com/reference/square/enums/LocationStatus | Link To Square Docs}
+  /** * {@link https://developer.squareup.com/reference/square/enums/LocationStatus | Link To Square Docs}<br>
    *
    *  #enum_status
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
@@ -391,7 +391,7 @@ class Location_Object {
   // MAKE METHODS
 
   /**
-   * {@link https://developer.squareup.com/reference/square/objects/BusinessHours |  Link To Square Docs}
+   * {@link https://developer.squareup.com/reference/square/objects/BusinessHours |  Link To Square Docs}<br>
    *
    * business_hours.
    *
