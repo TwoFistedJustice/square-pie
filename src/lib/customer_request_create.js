@@ -11,7 +11,8 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/customers-api/create-customer |  **-------> Link To Square Docs <-------**}
  * @class Customer_Create
- *  @param {customer_object} customer - pass a compliant customer object when you instantiate this class
+ * @extends Square_Request
+ * @param {customer_object} customer - pass a compliant customer object when you instantiate this class
  * @classdesc
  * Upserts exactly one customer object. There is no option to upsert multiples.<br>
  * Has no make() method.

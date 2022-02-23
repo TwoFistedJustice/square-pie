@@ -20,6 +20,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects  |  **-------> Link To Square Docs <-------**}
  * @class Catalog_Search_Filter
+ * @extends Square_Request
  * @classdesc
  * Can search for any type of catalog objects.<br>
  * This is complicated. Read the {@link https://github.com/TwoFistedJustice/square-pie/blob/main/docs/pie_catalog_request_search.md |  Pie Doc} before you try to use it.<br><br>

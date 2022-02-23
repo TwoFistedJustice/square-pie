@@ -18,6 +18,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/orders-api/search-orders |  **-------> Link To Square Docs <-------**}
  * @class Order_Search
+ * @extends Square_Request
  * @param {string|array} id - the id or array of ids of an order(s) you want to search for. You can also add this later. You must do this before calling .request()
  * @classdesc
  *

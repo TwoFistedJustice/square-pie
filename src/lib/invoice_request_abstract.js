@@ -3,6 +3,7 @@ const Square_Request = require("./square_request_abstract");
 /**
  * {@link https://developer.squareup.com/reference/square/invoices-api |  **-------> Link To Square Docs <-------**}
  * @class Invoice_Request
+ * @extends Square_Request
  * @abstract
  * @ignore
  * @classdesc

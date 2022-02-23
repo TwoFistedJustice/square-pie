@@ -13,10 +13,10 @@ const man =
   "\nhttps://developer.squareup.com/docs/invoices-api/overview#update-an-invoice";
 
 /**
- * {@link https://developer.squareup.com/reference/square/invoices-api/update-invoice | **-------> Link To Square Docs: Update endpoint<-------**}
- *
- * {@link https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice | **-------> Link To Square Docs: Updating an invoice<-------**}
+ * {@link https://developer.squareup.com/reference/square/invoices-api/update-invoice | **-------> Link To Square Docs: Update endpoint<-------**}<br>
+ * {@link https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice | **-------> Link To Square Docs: Updating an invoice<-------**}<br>
  * @class Invoice_Update
+ * @extends Square_Request
  * @param {object}  invoice_document Get the invoice you want to update from Square and pass its ID as an argument.
  * You MUST do this when instantiating the Invoice_Update class. There is no option do do it later.
  * @classdesc

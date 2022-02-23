@@ -6,6 +6,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/locations-api/update-location |  **-------> Link To Square Docs <-------**}
  * @class Location_Update
+ * @extends Square_Request
  * @classdesc
  *
  * Updates an existing location.<br><br>

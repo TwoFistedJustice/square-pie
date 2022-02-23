@@ -9,6 +9,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/orders-api/clone-order |  **-------> Link To Square Docs <-------**}
  * @class Order_Clone
+ * @extends Square_Request
  * @param {string} id - the id of the order you want to clone. You can also add this later. You must do this before calling .request()
  * @classdesc
  *

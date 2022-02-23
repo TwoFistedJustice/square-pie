@@ -2,6 +2,7 @@ const Square_Request = require("./square_request_abstract");
 /**
  * {@link https://developer.squareup.com/reference/square/locations-api |  **-------> Link To Square Docs <-------**}
  * @class Location_Request
+ * @extends Square_Request
  * @abstract
  * @ignore
  * @classdesc

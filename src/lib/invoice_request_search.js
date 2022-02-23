@@ -15,6 +15,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/invoices-api/search-invoices |  **-------> Link To Square Docs <-------**}
  * @class Invoice_Search
+ * @extends Square_Request
  * @param {string} location_id - useful if you only need to search one location. You can leave it out and add location_ids using make() or build_query()
  * @classdesc
  *

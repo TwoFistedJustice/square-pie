@@ -8,6 +8,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/catalog-api/catalog-info |  **-------> Link To Square Docs <-------**}
  * @class Catalog_Info
+ * @extends Square_Request
  * @classdesc
  * Makes some response information accessible on a property of the same name as the info.
  * @property standard_unit_descriptions

@@ -9,6 +9,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/invoices-api/get-invoice |  **-------> Link To Square Docs <-------**}
  * @class Location_Retrieve
+ * @extends Square_Request
  * @classdesc
  *
  * An http request to retrieve one location.<br><br>

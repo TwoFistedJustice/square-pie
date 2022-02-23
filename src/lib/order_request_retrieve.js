@@ -10,6 +10,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/orders-api/batch-retrieve-orders |  **-------> Link To Square Docs <-------**}
  * @class Order_Retrieve
+ * @extends Square_Request
  * @classdesc
  *
  * Retrieves one or more orders based on Square id of the order document.

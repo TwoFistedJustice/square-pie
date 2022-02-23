@@ -18,6 +18,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/customers-api/update-customer |  **-------> Link To Square Docs <-------**}
  * @class Customer_Update
+ * @extends Square_Request
  * @classdesc
  * Some fields that are available on Customer_Object are not updatable. This class has its own make() method which omits those fields. It has additional fields
  * not present in Customer_Object (`city` - for example)<br>

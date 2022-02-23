@@ -10,6 +10,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects |  **-------> Link To Square Docs <-------**}
  * @class Catalog_Delete
+ * @extends Square_Request
  * @classdesc
  * Deletes one or more Catalog API objects.<br> Add the id of the objects you want to delete using make().object_ids("id") or
  * you can also skip make() and just call .delete("id"), .nix("id"), ou en francais .effacer("id").<br>You can also add an array

@@ -12,6 +12,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/invoices-api/delete-invoice |  **-------> Link To Square Docs <-------**}
  * @class Invoice_Delete
+ * @extends Square_Request
  * @param {string} id The invoice_id of the invoice you want
  * @classdesc
  *

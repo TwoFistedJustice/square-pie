@@ -8,6 +8,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects |  **-------> Link To Square Docs <-------**}
  * @class Catalog_Upsert
+ * @extends Square_Request
  * @classdesc
  * Upserts one or more Catalog API Objects.<br>
  * Create the object using the appropriate Pie Catalog Object class then add that class's fardel.<br>

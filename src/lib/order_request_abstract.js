@@ -3,6 +3,7 @@ const Square_Request = require("./square_request_abstract");
 /**
  * {@link https://developer.squareup.com/reference/square/orders-api |  **-------> Link To Square Docs <-------**}
  * @class Order_Request
+ * @extends Square_Request
  * @absract
  * @ignore
  * @classdesc

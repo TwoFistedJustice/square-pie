@@ -3,6 +3,7 @@ const Invoice_Request = require("./invoice_request_abstract");
 /**
  * {@link https://developer.squareup.com/reference/square/invoices-api |  **-------> Link To Square Docs <-------**}
  * @class Invoice_RUDCnP
+ * @extends Square_Request
  * @param {id}  Sets the endpoint to the id your pass in.
  * @abstract
  * @ignore

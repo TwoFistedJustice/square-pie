@@ -8,6 +8,7 @@ const {
 /**
  * {@link https://developer.squareup.com/docs/customers-api/use-the-api/keep-records#update-a-customer-profile |  **-------> Link To Square Docs <-------**}
  * @class Customer_Retrieve_Update_Delete_Super
+ * @extends Square_Request
  * @abstract
  * @ignore
  * @classdesc

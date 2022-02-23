@@ -12,6 +12,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects |  **-------> Link To Square Docs <-------**}
  * @class Catalog_Search_Cross_Reference
+ * @extends Square_Request
  * @classdesc
  * This is complicated. Read the {@link https://github.com/TwoFistedJustice/square-pie/blob/main/docs/pie_catalog_request_search.md | Pie Doc} before you try to use it.
  * This class uses ONE array of ids to cross reference your search

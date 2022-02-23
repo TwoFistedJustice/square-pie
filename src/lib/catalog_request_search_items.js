@@ -16,6 +16,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-items |  **-------> Link To Square Docs <-------**}
  * @class Catalog_Search_Items
+ * @extends Square_Request
  * @classdesc
  * Search only for Item and Item Variation type objects. To find another type use one of the other Catalog Search classes.<br>
  * Searches by category_id, enabled_location_id and lets you build custom attribute filters.<br>

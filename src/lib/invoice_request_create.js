@@ -10,6 +10,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/invoices-api/create-invoice |  **-------> Link To Square Docs <-------**}
  * @class Invoice_Create
+ * @extends Square_Request
  * @classdesc
  *
  * An http request to create a new invoice document.<br>

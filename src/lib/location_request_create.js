@@ -7,6 +7,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/locations-api/create-location |  **-------> Link To Square Docs <-------**}
  * @class Location_Create
+ * @extends Square_Request
  * @classdesc
  *
  * An http request to create a new location document.<br>

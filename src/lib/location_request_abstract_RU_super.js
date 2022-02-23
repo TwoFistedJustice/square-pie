@@ -3,6 +3,7 @@ const Location_Request = require("./location_request_abstract");
 /**
  * {@link https://developer.squareup.com/reference/square/locations-api |  **-------> Link To Square Docs <-------**}
  * @class Location_RU
+ * @extends Square_Request
  * @param {id}  Sets the endpoint to the id your pass in.
  * @abstract
  * @ignore

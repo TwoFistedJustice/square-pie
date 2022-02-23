@@ -9,6 +9,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/customers-api/search-customers |  **-------> Link To Square Docs <-------**}
  * @class Customer_Search
+ * @extends Square_Request
  * @classdesc
  * Searches for a customer record using either exact criteria or fuzzy matching.<br>
  * There is no make() method on this class. Instead it has a query() method which operates with one difference.<br>

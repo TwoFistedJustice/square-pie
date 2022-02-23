@@ -16,6 +16,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/invoices-api/list-invoices |  **-------> Link To Square Docs <-------**}
  * @class Invoice_List
+ * @extends Square_Request
  * @classdesc
  *
  * http request to fetch a list of invoices for a given location.<br>

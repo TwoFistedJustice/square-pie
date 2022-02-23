@@ -10,6 +10,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/orders-api/calculate-order |  **-------> Link To Square Docs <-------**}
  * @class Order_Calculate
+ * @extends Square_Request
  * @param {object} order  orderObject.fardel -You can also do this later by calling the order setter. You must add this before calling .request()
  * @classdesc
  *

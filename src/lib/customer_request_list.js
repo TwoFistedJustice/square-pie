@@ -11,6 +11,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/customers-api/list-customers |  **-------> Link To Square Docs <-------**}
  * @class Customer_List
+ * @extends Square_Request
  * @classdesc
  * Fetches a list of customers.<br>
  * You can add a limit, a sort field and sort order using make(). Cursor is appended automatically if it exists.

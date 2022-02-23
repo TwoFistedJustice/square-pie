@@ -6,7 +6,8 @@ const man =
 
 /**
  * {@link https://developer.squareup.com/reference/square/locations-api/list-locations |  **-------> Link To Square Docs <-------**}
- * @clss Location_List
+ * @class Location_List
+ * @extends Square_Request
  * @classdesc
  *
  * Lists location objects. Has no make() method.

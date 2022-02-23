@@ -14,13 +14,10 @@ const man =
   "i.e. make().tax().category()" +
   "https://developer.squareup.com/reference/square/catalog-api/list-catalog";
 
-/** @class Catalog_List
- * {@link  https://developer.squareup.com/reference/square/catalog-api/list-catalog | Square Docs}
- * */
-
 /**
  * {@link  https://developer.squareup.com/reference/square/catalog-api/list-catalog | Link To Square Docs}
  * @class Catalog_List
+ * @extends Square_Request
  * @classdesc
  * Fetches a list of all Catalog API documents in your db. You can filter that list by type.<br>
  * This class is unusual in that it has both a standard enumerated type() function as well as

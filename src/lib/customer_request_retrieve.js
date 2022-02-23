@@ -8,6 +8,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/customers-api/retrieve-customer |  **-------> Link To Square Docs <-------**}
  * @class Customer_Retrieve
+ * @extends Square_Request
  * @classdesc
  * Fetches one customer record.<br>
  * Add the Square id of the customer record to delete as an argument when you create the class. This is required.

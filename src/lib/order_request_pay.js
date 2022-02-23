@@ -11,6 +11,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/orders-api/pay-order |  **-------> Link To Square Docs <-------**}
  * @class Order_Pay
+ * @extends Square_Request
  * @param {string} id - the id of the order you want to pay. You can also add this later. You must do this before calling .request()
  * @classdesc
  *

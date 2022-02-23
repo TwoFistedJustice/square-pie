@@ -11,6 +11,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/invoices-api/publish-invoice |  **-------> Link To Square Docs <-------**}
  * @class Invoice_Publish
+ * @extends Square_Request
  * @param {string} id The invoice_id of the invoice to be published
  * @classdesc
  *

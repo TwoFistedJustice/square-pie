@@ -17,6 +17,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/customers-api/delete-customer |  **-------> Link To Square Docs <-------**}
  * @class Customer_Delete
+ * @extends Square_Request
  * @classdesc
  * Deletes exactly one customer record. SQuare has no built-in option to delete multiple customer records.<br>
  * Add the Square id of the customer record to delete as an argument when you create the class. You can also do it later.<br>

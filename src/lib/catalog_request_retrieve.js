@@ -12,6 +12,7 @@ const man =
 /**
  * {@link https://developer.squareup.com/reference/square/catalog-api/batch-retrieve-catalog-objects |  **-------> Link To Square Docs <-------**}
  * @class Catalog_Retrieve
+ * @extends Square_Request
  * @classdesc
  *Can fetch one or more catalog objects by sending the desired objects Square document ID. Add them one at a time or add an array of ids.<br>
  * There are several aliases that do the same thing, but have different names.
