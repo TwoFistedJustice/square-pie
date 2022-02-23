@@ -197,7 +197,7 @@ class Order_Fulfillment {
   /**
    * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentRecipient | Square Docs}
    *
-   *  #recipient()  method of SOME_CLASS - method names are exactly the same as the property names listed
+   *  #recipient()  method of Order_Object - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
    
    * @typedef {function} Order_Object.recipient

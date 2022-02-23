@@ -382,7 +382,7 @@ class Order_Line_Item {
    * @typedef {function} Order_Line_Item.make
    * @method
    * @public
-   * @memberOf Some_Class
+   * @memberOf Order_Line_Item
    * @property uid(uid) {string} - uid is automatically set
    * @property quantity(qty) {string} -
    * @property name(name) {string} -

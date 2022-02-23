@@ -174,9 +174,6 @@ class Order_Search extends Order_Request {
 
   // PRIVATE METHODS
   /** define_query
-   * @method
-   * @private
-   * @ignore
    *
    *  Creates a new Query Object with the `filter` property set to a filter object with
    *  all properties set to undefined.
@@ -184,7 +181,9 @@ class Order_Search extends Order_Request {
    *  Sets `sort` to a default SearchOrdersSort object with default values:
    * sort_field: "CREATED_AT"
    * sort_order: "ASC"
-   *
+   * @ignore
+   * @method
+   * @private
    * */
 
   #define_query() {
@@ -503,16 +502,16 @@ class Order_Search extends Order_Request {
         return this.fulfillment_types();
       },
       /**
-       * @ignore
        * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersStateFilter | Square Docs}
+       * @ignore
        * */
       state_filter: function () {
         return this.self.#build_state_filter(this);
       },
 
       /**
-       * @ignore
        * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery | Square Docs}
+       * @ignore
        * */
 
       sort_order: function () {
