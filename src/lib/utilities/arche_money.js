@@ -2,8 +2,9 @@ const { isISO4217 } = require("validator");
 /**
  * arche_money builds and returns a compliant Square money object.
  * @typedef {function} arche_money
- * @public
  * @function
+ * @public
+ * @abstract
  * @param {number}  amt is the amount in the smallest currency designation (cents)
  * @param {string=} currency expects a three character case-insensitive string forming an ISO 4217 compliant currency designation. If currency argument is not provided, currency will be set to "USD"
  * @throws Throws a TypeError if amt is not convertible to an integer
