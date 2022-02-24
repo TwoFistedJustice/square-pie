@@ -9,7 +9,7 @@ const man =
   "https://developer.squareup.com/reference/square";
 
 /**
- * {@link https://developer.squareup.com/reference/square |  **-------> Link To Square Docs <-------**}
+ * {@link https://developer.squareup.com/reference/square|  **-------> Link To Square Docs <-------**}
  * @class Square_Request
  * @abstract
  * @classdesc
