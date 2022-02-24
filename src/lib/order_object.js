@@ -227,11 +227,11 @@ class Order_Object {
    * @property state {Enumerated} Calls #enum_state()
    * @property {string} source(str) The name used to identify the place (physical or digital) whence an order originates.
    * @property {boolean | boolean} pricing_options(auto_apply_discounts,auto_apply_taxes)
-   * @property {fardel} service_charges(fardel) an Order_Service_Charge fardel property.
-   * @property {fardel} discounts(fardel) an Order_Discount fardel property
-   * @property {fardel} taxes(fardel) an Order_Tax fardel property
-   * @property {fardel} fulfillments(fardel) an Order_Fulfillment fardel property
-   * @property {fardel} line_items(fardel) an Order_Line_Item fardel property
+   * @property {Fardel} service_charges(fardel) an Order_Service_Charge fardel property.
+   * @property {Fardel} discounts(fardel) an Order_Discount fardel property
+   * @property {Fardel} taxes(fardel) an Order_Tax fardel property
+   * @property {Fardel} fulfillments(fardel) an Order_Fulfillment fardel property
+   * @property {Fardel} line_items(fardel) an Order_Line_Item fardel property
    
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot

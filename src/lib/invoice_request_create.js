@@ -86,7 +86,7 @@ class Invoice_Create extends Invoice_Request {
    * @public
    * @memberOf Invoice_Create
    * @property idempotency_key(key) {string} - use only if you want to use your own key in place of the automatically generated one.
-   * @property invoice(fardel) {fardel} - invoice_obejct.fardel - will throw an error if the order_id is not present
+   * @property invoice(fardel) {Fardel} - invoice_obejct.fardel - will throw an error if the order_id is not present
    * @throws Error if the order_id is not present on the invoice
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot

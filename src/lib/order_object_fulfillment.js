@@ -300,7 +300,7 @@ class Order_Fulfillment {
    * @method
    * @public
    * @memberOf Order_Fulfillment
-   * @property state - Enumerated. Calls #enum_state().
+   * @property state() - {Enumerated} - Calls {@link Order_Fulfillment.enum_state|#enum_state().}
    * @property {string} cancel_reason(str)  - sets `cancel_reason` to the value you pass and `state` to "CANCELED" and .
    * @property cancel - alias of cancel_reason
    * @property {string} auto_complete_duration(time) RFC3339 time string
@@ -311,7 +311,7 @@ class Order_Fulfillment {
    * @property {string} note(str)
    * @property asap() - sets `schedule_type` to "ASAP"
    * @property scheduled() - sets `schedule_type` to "SCHEDULED"
-   * @property {string} recipient() - calls #recipient()
+   * @property {string} recipient() - calls {@link Order_Fulfillment.recipient|#recipient()}
    * @property {string} curbside_details(str) - sets `curbside_details` to the value you pass and `is_curbside_pickup` to true.
    * @property {string} buyer_arrived_at(time) RFC3339 time string
    * @example
@@ -414,18 +414,18 @@ class Order_Fulfillment {
    * @method
    * @public
    * @memberOf Order_Fulfillment
-   * @property state() - Enumerated. Calls #enum_state().
-   * @property {string} expected_shipped_at(time) RFC3339 time string
-   * @property {string} cancel_reason(str) - sets `cancel_reason` to the value you pass and `state` to "CANCELED" and .
+   * @property state() - {Enumerated} - Calls {@link Order_Fulfillment.enum_state|#enum_state().}
+   * @property expected_shipped_at(time) {time} - RFC3339 time string
+   * @property cancel_reason(str) {string} - sets `cancel_reason` to the value you pass and `state` to "CANCELED" and .
    * @property cancel() - alias of cancel_reason
-   * @property {string} failure_reason(str) - sets failure_reason to value passed and state to "FAILED"
-   * @property {string} tracking_number(str)
-   * @property {string} shipping_note(str)
-   * @property {string} note(str)
-   * @property {string} tracking_url(str)
-   * @property {string} shipping_type(str)
-   * @property {string} carrier(str)
-   * @property recipient() - calls #recipient()
+   * @property failure_reason(str) {string} - sets failure_reason to value passed and state to "FAILED"
+   * @property tracking_number(str) {string}
+   * @property shipping_note(str) {string}
+   * @property note(str) {string}
+   * @property tracking_url(str) {string}
+   * @property shipping_type(str) {string}
+   * @property carrier(str) {string}
+   * @property recipient() - calls {@link Order_Fulfillment.recipient|#recipient()}
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
@@ -511,11 +511,11 @@ class Order_Fulfillment {
    * @method
    * @public
    * @memberOf Order_Fulfillment
-   * @property {string} uid(uid) - automatically set. Use this only to replace the generated uid.
-   * @property {string} state(str)
-   * @property {string} type(str)
-   * @property {object} pickup_details(obj) a fully formed compliant pickup object. Use only if you already have a compliant object. Otherwise, use make_pickup().
-   * @property {object} shipment_details(obj) a fully formed compliant shipment object. Use only if you already have a compliant object. Otherwise, use make_shipment().
+   * @property uid(uid) {string} - automatically set. Use this only to replace the generated uid.
+   * @property state(str) {string}
+   * @property type(str) {string}
+   * @property pickup_details(obj) {object} a fully formed compliant pickup object. Use only if you already have a compliant object. Otherwise, use make_pickup().
+   * @property shipment_details(obj) {object} a fully formed compliant shipment object. Use only if you already have a compliant object. Otherwise, use make_shipment().
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

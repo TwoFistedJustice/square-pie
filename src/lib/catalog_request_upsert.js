@@ -80,8 +80,8 @@ class Catalog_Upsert extends Catalog_Request {
    * @method
    * @public
    * @memberOf Catalog_Upsert
-   * @property (fardel) {fardel} - Add a Catalog_Object fardel to be upserted
-   * @property (fardel) {fardel} - - alias of 'body()`
+   * @property (fardel) {Fardel} - Add a Catalog_Object fardel to be upserted
+   * @property (fardel) {Fardel} - - alias of 'body()`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

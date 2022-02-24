@@ -47,7 +47,7 @@ class Location_Create extends Location_Request {
    * @method
    * @public
    * @memberOf Location_Create
-   * @property location(fardel) {fardel} - a location object fardel
+   * @property location(fardel) {Fardel} - a location object fardel
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

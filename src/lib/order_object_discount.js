@@ -176,7 +176,7 @@ class Order_Discount {
   // PRIVATE METHODS
 
   /**
-   * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemDiscountType | Square Docs}<br>
+   * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemDiscountType| Square Docs}<br>
    *
    *  ##enum_type
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
@@ -185,7 +185,7 @@ class Order_Discount {
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   *  @typedef {function} Order_Discount.#enum_type()
+   *  @typedef {function} Order_Discount.enum_type
    * @private
    * @abstract
    * @memberOf  Order_Discount
@@ -205,7 +205,7 @@ class Order_Discount {
     return order_discount_enum.type(this, calling_this);
   }
 
-  /** * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemDiscountScope | Link To Square Docs}<br>
+  /** * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemDiscountScope| Link To Square Docs}<br>
    *
    *  #enum_scope
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
@@ -249,11 +249,11 @@ class Order_Discount {
    * @property catalog_object_id(id) {string} -
    * @property catalog_version(ver) {integer} -
    * @property name(str) {string} -
-   * @property type() {Enumerated} - Calls `#enum_type()`
+   * @property type() {Enumerated} - Calls {@link Order_Discount.enum_type|`#enum_type()`}
    * @property percentage(percent) {string} -
-   * @property amount_money_money(amount,currency) {arche_money} - Standard compliant money object builder.
-   * @property applied_money_money(amount,currency) {arche_money} - Standard compliant money object builder.
-   * @property scope() {Enumerated} - Calls `#enum_scope()`
+   * @property amount_money(amount,currency) {arche_money} - Standard compliant money object builder.
+   * @property applied_money(amount,currency) {arche_money} - Standard compliant money object builder.
+   * @property scope() {Enumerated} - Calls {@link Order_Discount.enum_scope|`#enum_scope()`}
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

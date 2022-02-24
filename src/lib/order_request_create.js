@@ -66,7 +66,7 @@ class Order_Create extends Order_Request {
    * @public
    * @memberOf Order_Create
    * @property idempotency_key(key) {string} - use only if you want to use your own key in place of the automatically generated one.
-   * @property order(fardel) {fardel}
+   * @property order(fardel) {Fardel}
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

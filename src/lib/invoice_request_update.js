@@ -313,7 +313,7 @@ class Invoice_Update extends Invoice_RUDCnP {
    * @public
    * @memberOf Invoice_Update
    * @property idempotency_key(key) {string} - use only if you want to use your own key in place of the automatically generated one.
-   * @property invoice(fardel) {fardel}  - a sparse invoice object fardel containing only the fields to be changed.
+   * @property invoice(fardel) {Fardel}  - a sparse invoice object fardel containing only the fields to be changed.
    * @property fields_to_clear(field) {string} - the key of the key:value pair to be cleared.
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
