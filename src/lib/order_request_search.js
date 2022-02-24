@@ -349,9 +349,9 @@ class Order_Search extends Order_Request {
    * @memberOf Order_Search
    * @private
    * @method
-   * @property close_at(start,end){string}
-   * @property created_at(start,end){string}
-   * @property updated_at(start,end){string}
+   * @property close_at(start,end){arche_time_start_end}
+   * @property created_at(start,end){arche_time_start_end}
+   * @property updated_at(start,end){arche_time_start_end}
    * @param {time} start - the earlier time - an RFC3339 compliant date code
    * @param {time} end - the later time - an RFC3339 compliant date code
    * @throws {error} Throws an error if either time argument is not in RFC3339 format.
@@ -422,13 +422,13 @@ class Order_Search extends Order_Request {
    * You should read the generated docs as:
    *     method_name(arg) {type} description of arg
    *
-   * @typedef {function} Order_Search.make
+   * @typedef {function} Order_Search.make_query
    * @method
    * @public
    * @memberOf Order_Search
    * @property customer_filter(){string}  -
    * @property source_filter(){string}  -
-   * @property date_time_filter() - calls #build_date_time_filter()
+   * @property date_time_filter() {Order_Search.build_date_time_filter}- calls #build_date_time_filter()
    * @property fulfillment_states() - calls #build_fulfillment_states()
    * @property f_states() - alias of `fulfillment_states`
    * @property fulfillment_types() - calls #build_fulfillment_types()

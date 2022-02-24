@@ -1,6 +1,6 @@
 const { isISO4217 } = require("validator");
 /**
- * @description arche_money builds and returns a compliant Square money object.
+ * arche_money builds and returns a compliant Square money object.
  * @typedef {function} arche_money
  * @public
  * @function
