@@ -49,6 +49,27 @@
  * {@link https://developer.squareup.com/reference/square/objects/TimeRange |  Link To Square Docs}<br>
  * @describe A Square API TimeRange object .
  * @typedef {object} time_range
- * @property {number} end_at - A datetime value in RFC 3339 format indicating when the time range ends.
- * @property {number} start_at - A datetime value in RFC 3339 format indicating when the time range begins.
+ * @property {time} end_at - A datetime string in RFC 3339 format indicating when the time range ends.
+ * @property {time} start_at - A datetime string in RFC 3339 format indicating when the time range begins.
+ * */
+
+/**
+ * {@link  https://developer.squareup.com/reference/square/objects/Address|  Link To Square Docs}<br>
+ * @describe A date-time string in RFC3339 format.
+ * @typedef {string} time
+ * @property {string} time - A date-time string in RFC3339 format. Throws an Error if string is not a valid RFC3339 time-date.
+ * */
+
+/**
+ * {@link  https://datatracker.ietf.org/doc/html/rfc3339|  Link To IETF}<br>
+ * @describe A Square API  object .
+ * @typedef {object} address
+ * @property address_line_1{string} - Street address
+ * @property address_line_2{string}  - additional street address details
+ * @property address_line_3{string} - additional street address details
+ * @property locality {string} - city or town or suburb
+ * @property sublocality {string} - an area within a city or town
+ * @property administrative_district_level_1 {string} - state/province/county
+ * @property postal_code {string} The eire/postal/zip code.
+ * @property country {string} The country, in the two-letter format of ISO 3166. For example, US or UK.
  * */
