@@ -235,6 +235,8 @@ class Order_Search extends Order_Request {
 
   /**
    *  * {@link https://developer.squareup.com/reference/square/enums/OrderFulfillmentType | Link To Square Docs}<br>
+   * <br>{@link Order_Search.make|Back to make()}<br>
+   * <br>{@link Order_Search.make_query|Back to make_query()}<br>
    *  #build_fulfillment_types<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
@@ -267,7 +269,9 @@ class Order_Search extends Order_Request {
   }
 
   /**
-   * {@link https://developer.squareup.com/reference/square/enums/OrderState | Square Docs}<br>
+   * {@link https://developer.squareup.com/reference/square/enums/OrderState | Link To Square Docs}<br>
+   * <br>{@link Order_Search.make|Back to make()}<br>
+   * <br>{@link Order_Search.make_query|Back to make_query()}<br>
    *  #build_fulfillment_states<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
@@ -305,8 +309,9 @@ class Order_Search extends Order_Request {
   }
 
   /**
-   * {@link https://developer.squareup.com/reference/square/enums/OrderState | Square Docs}<br>
-   *
+   * {@link https://developer.squareup.com/reference/square/enums/OrderState | Link To Square Docs}<br>
+   * <br>{@link Order_Search.make|Back to make()}<br>
+   * <br>{@link Order_Search.make_query|Back to make_query()}<br>
    *  #build_state_filter<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
@@ -343,15 +348,17 @@ class Order_Search extends Order_Request {
   }
 
   /**
-   * * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersDateTimeFilter | Square Docs}<br>
+   * * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersDateTimeFilter | Link To Square Docs}<br>
+   * <br>{@link Order_Search.make|Back to make()}<br>
+   * <br>{@link Order_Search.make_query|Back to make_query()}<br>
    * **Important:** If you filter for orders by time range, you must set sort to use the same field.
    * @typedef {function} Order_Search.build_date_time_filter
    * @memberOf Order_Search
    * @private
    * @method
-   * @property close_at(start,end){arche_time_start_end}
-   * @property created_at(start,end){arche_time_start_end}
-   * @property updated_at(start,end){arche_time_start_end}
+   * @property close_at(start,end){time_range}
+   * @property created_at(start,end){time_range}
+   * @property updated_at(start,end){time_range}
    * @param {time} start - the earlier time - an RFC3339 compliant date code
    * @param {time} end - the later time - an RFC3339 compliant date code
    * @throws {error} Throws an error if either time argument is not in RFC3339 format.
@@ -413,14 +420,12 @@ class Order_Search extends Order_Request {
 
   // todo need to be able to add whole arrays with length validation
   /**
-   * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery  | Square Docs}<br>
-   *  make() method of Order_Search<br>
+   * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery  | Link To Square Docs}<br>
+   * <br>{@link Order_Search.make|Back to make()}<br>
+   *  **make_query() method of Order_Search**<br>
    *  Make sure to have the Square Docs open in front of you.
    * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   *
-   * You should read the generated docs as:
-   *     method_name(arg) {type} description of arg
    *
    * @typedef {function} Order_Search.make_query
    * @method
@@ -428,14 +433,14 @@ class Order_Search extends Order_Request {
    * @memberOf Order_Search
    * @property customer_filter(){string}  -
    * @property source_filter(){string}  -
-   * @property date_time_filter() {Order_Search.build_date_time_filter}- calls #build_date_time_filter()
-   * @property fulfillment_states() - calls #build_fulfillment_states()
+   * @property date_time_filter() {time_range}- calls {@link Order_Search.build_date_time_filter|#build_date_time_filter()}
+   * @property fulfillment_states() - calls {@link Order_Search.build_fulfillment_states|#build_fulfillment_states()}
    * @property f_states() - alias of `fulfillment_states`
-   * @property fulfillment_types() - calls #build_fulfillment_types()
+   * @property fulfillment_types() - calls {@link Order_Search.build_fulfillment_types|#build_fulfillment_types()}
    * @property f_types() - alias of `fulfillment_types`
-   * @property state_filter() - calls #build_state_filter()
-   * @property sort_order()  Enumerated. Calls on arche_sorting_enum module.
-   * @property sort_field()  Enumerated. Calls on arche_sorting_enum module.
+   * @property state_filter() - calls {@link Order_Search.build_state_filter|build_state_filter()}
+   * @property sort_order()  {Enumerated} Calls on {@link |arche_sorting_enum} module.
+   * @property sort_field()  {Enumerated} Calls on {@link |arche_sorting_enum} module.
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
@@ -502,7 +507,7 @@ class Order_Search extends Order_Request {
         return this.fulfillment_types();
       },
       /**
-       * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersStateFilter | Square Docs}<br>
+       * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersStateFilter | Link To Square Docs}<br>
        * @ignore
        * */
       state_filter: function () {
@@ -510,7 +515,7 @@ class Order_Search extends Order_Request {
       },
 
       /**
-       * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery | Square Docs}<br>
+       * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery | Link To Square Docs}<br>
        * @ignore
        * */
 
@@ -529,9 +534,6 @@ class Order_Search extends Order_Request {
    *  Make sure to have the Square Docs open in front of you.
    * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   *
-   * You should read the generated docs as:
-   *     method_name(arg) {type} description of arg
    *
    * @typedef {function} Order_Search.make
    * @method

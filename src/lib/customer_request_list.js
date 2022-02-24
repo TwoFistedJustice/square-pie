@@ -173,8 +173,8 @@ class Customer_List extends Customer_Request {
    * @public
    * @memberOf Customer_List
    * @property limit(int) {integer} -
-   * @property sort_field() {Enumerated} - calls `#sort_field_enum`
-   * @property sort_order() {Enumerated} - calls `#sort_order_enum`
+   * @property sort_field() {Enumerated} - calls {@link Customer_List.sort_field_enum|`#sort_field_enum`}
+   * @property sort_order() {Enumerated} - calls {@link Customer_List.sort_order_enum|`#sort_order_enum`}
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

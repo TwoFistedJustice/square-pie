@@ -260,7 +260,7 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
    * @memberOf Catalog_Search_Cross_Reference
    * @property include_related_objects(bool) {boolean}
    * @property begin_time(id) {string} -
-   * @property  object_types() {Enumerated}
+   * @property  object_types() {Enumerated} Calls {@link catalog_search_objects_enum.object_types|catalog_search_objects_enum.object_types}
    * @property variations (id) {string} -
    * @property items(id) {string} -
    * @property modifiers(id) {string} -

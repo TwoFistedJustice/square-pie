@@ -373,7 +373,7 @@ class Invoice_Object {
    * @property order_id(id) {string} -
    * @property primary_recipient(customer_id) {string} -
    * @property payment_requests(payment_request_object) {string} -
-   * @property delivery_method() {Enumerated} - Calls `#`-
+   * @property delivery_method() {Enumerated} - Calls {@link Invoice_Object.delivery_method_enum| .delivery_method_enum}
    * @property invoice_number(inv_num) {string} -
    * @property title(str255) {string} -
    * @property description(str65536) {string} -
@@ -383,7 +383,6 @@ class Invoice_Object {
    * @property sale_or_service_date(YYYYMMDD) {string} - The date of the transaction. YYY-MM-DD format. Is displayed on invoice.
    * @property conditions_de_paiement(str2000) {string} - seulement pour la France
    * @property payment_conditions(str2000) {string} - France Only. un chaine de moins de 2,001 caracteres
-   * @property () {Enumerated} - Calls `#`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

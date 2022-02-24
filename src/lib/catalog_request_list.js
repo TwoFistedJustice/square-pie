@@ -195,7 +195,7 @@ class Catalog_List extends Catalog_Request {
    * @public
    * @memberOf Catalog_List
    * @property catalog_version(ver) {integer} - adds the catalog version to the query parameters
-   * @property types() {Enumerated} - calls `#enum_types()` - Duplicated by methods below.
+   * @property types() {Enumerated} - calls {@link Catalog_List.enum_types|`#enum_types()`} - Duplicated by methods below.
    * @property item() sets query parameter to "ITEM"
    * @property item_variation() sets query parameter to "ITEM_VARIATION"
    * @property category() sets query parameter to "CATEGORY"

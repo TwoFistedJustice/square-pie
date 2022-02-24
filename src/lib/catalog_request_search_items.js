@@ -176,8 +176,8 @@ class Catalog_Search_Items extends Catalog_Request {
   }
 
   /** * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Link To Square Docs}<br>
-   *
-   *  #enum_sort_order
+   *<br>{@link Catalog_Search_Items.make| Back to make()}<br>
+   *  #enum_sort_order<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
@@ -220,8 +220,8 @@ class Catalog_Search_Items extends Catalog_Request {
   }
 
   /** * {@link https://developer.squareup.com/reference/square/enums/CatalogItemProductType | Link To Square Docs}<br>
-   *
-   *  #enum_product_type
+   * <br>{@link Catalog_Search_Items.make| Back to make()}<br>
+   *  #enum_product_type<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
@@ -260,7 +260,7 @@ class Catalog_Search_Items extends Catalog_Request {
   }
 
   /** * {@link https://developer.squareup.com/reference/square/enums/SearchCatalogItemsRequestStockLevel | Link To Square Docs}<br>
-   *
+   * <br>{@link Catalog_Search_Items.make| Back to make()}<br>
    *  #enum_stock_levels
    *  stock_levels is an ARRAY. It can take multiple values.
    *
@@ -317,10 +317,10 @@ class Catalog_Search_Items extends Catalog_Request {
    * @method
    * @public
    * @memberOf Catalog_Search_Items
-   * @property sort_order() {Enumerated} - calls `#enum_sort_order`
-   * @property stock_levels() {Enumerated} -- calls `#enum_stock_levels`
+   * @property sort_order() {Enumerated} - calls {@link Catalog_Search_Items.enum_sort_order|`#enum_sort_order`}
+   * @property stock_levels() {Enumerated} -- calls {@link Catalog_Search_Items.enum_stock_levels|`#enum_stock_levels`}
    * @property text_filter(id) {string} -
-   * @property product_types() {Enumerated} -- calls `#enum_product_type`
+   * @property product_types() {Enumerated} -- calls {@link Catalog_Search_Items.enum_product_type|`#enum_product_type`}
    * @property category_ids(id) {string} -
    * @property enabled_location_ids(id) {string} -
    * @property custom_attribute_filters(obj) {object} - Takes a **complete** custom attribute filter object.
@@ -420,6 +420,7 @@ class Catalog_Search_Items extends Catalog_Request {
    *
    * You should read the generated docs as:
    *     method_name(arg) {type} description of arg
+   * @todo refactor this, use clone
    *
    * @typedef {function} Catalog_Search_Items.make_custom_attribute_filter
    * @method

@@ -423,21 +423,21 @@ class Location_Object {
    * @public
    * @memberOf Location_Object
    * @property name(name) {string} -
-   * @property address(address_object) {object}
+   * @property address(address_object) {address}
    * @property timezone(IANA_timezone) {string} -
    * @property phone_number(phone) {string} -
    * @property business_name(name) {string} -
    * @property business_email(email) {string} -
    * @property business_hours((day,start,end)) {string} - Pushes a business_hours object onto the array. See entry.
    * @property description(decription) {string} -
-   * @property language_code() {Enumerated} - Calls `language_code_enum.language_code()` - See enums.
-   * @property type() {Enumerated} - Calls `#enum_type()`
-   * @property status() {Enumerated} - Calls `#enum_status()`
+   * @property language_code() {Enumerated} - Calls `{@link language_code_enum.language_code|language_code_enum.language_code()`}
+   * @property type() {Enumerated} - Calls {@link Location_Object.enum_type|`enum_type()`}
+   * @property status() {Enumerated} - Calls {@link Location_Object.enum_status|`enum_status()`}
    * @property twitter_username(tweety) {string} -
    * @property instagram_username(ig) {string} -
    * @property facebook_url(url) {string} - must contain "facebook.com"
    * @property website_url(url) {string} -
-   * @property coordinates(latitude,longitude) {string} - will accept number or string
+   * @property coordinates(latitude,longitude) {string|number|string|number} - will accept a number or a string
    * @property mcc(mcc) {string} -
    * @property tax_ids(eu_vat) {string} -
    * @example

@@ -10,10 +10,10 @@ const {
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
 const man =
   "Creates a Catalog Item-Variation which you must then add to an 'Item'.\n" +
-  "\nhttps://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation";
+  "https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation";
 
 /**
- * * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation |  **-------> Link To Square Docs <-------**}
+ * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation |  **-------> Link To Square Docs <-------**}
  * @class Catalog_Item_Variation
  * @classdesc
  *
@@ -265,6 +265,9 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
   }
   /**
    * {@link https://developer.squareup.com/reference/square_2022-01-20/enums/InventoryAlertType | Link To Square Docs}<br>
+   * <br>{@link Catalog_Item_Variation.make|  Back to make}
+   * <br>{@link Catalog_Item_Variation.make_location_override|  Back to make_location_override}
+   * <br>{@link Catalog_Item_Variation.make_stockable_conversion|  Back to make_stockable_conversion}<br>
    *  #enum_inventory_alert_type
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
@@ -272,7 +275,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   *  @typedef {function} Catalog_Item_Variation.#enum_inventory_alert_type
+   *  @typedef {function} Catalog_Item_Variation.enum_inventory_alert_type
    *  @enum {string}
    * @private
    * @abstract
@@ -309,16 +312,19 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     };
   }
 
-  /** * {@link https://developer.squareup.com/reference/square_2021-12-15/enums/CatalogPricingType | Link To Square Docs}<br>
-   *
-   *  #enum_pricing_type
+  /**
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/enums/CatalogPricingType | Link To Square Docs}<br>
+   * <br>{@link Catalog_Item_Variation.make|  Back to make}
+   * <br>{@link Catalog_Item_Variation.make_location_override|  Back to make_location_override}
+   * <br>{@link Catalog_Item_Variation.make_stockable_conversion|  Back to make_stockable_conversion}<br>
+   *  enum_pricing_type<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   *  @typedef {function} Catalog_Item_Variation.#enum_pricing_type
+   *  @typedef {function} Catalog_Item_Variation.enum_pricing_type
    * @private
    * @abstract
    * @memberOf Catalog_Item_Variation
@@ -374,19 +380,19 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    * @property service_duration(num) {integer}
    * @property item_id(ud) {string}
    * @property item_option_values(option_id,value_id) {string|string}
-   * @property location_overrides()  calls `make_location_override()`
+   * @property location_overrides()  calls {@link Catalog_Item_Variation.make_location_override|`make_location_override()`}
    * @property inventory_alert_threshold(int) {integer}
-   * @property inventory_alert_type() {Enumerated} - calls `#enum_inventory_alert_type()`
+   * @property inventory_alert_type() {Enumerated} - calls `{@link Catalog_Item_Variation.enum_inventory_alert_type|enum_inventory_alert_type()`}
    * @property track_inventory(bool) {boolean}
    * @property measurement_unit_id() {string}
-   * @property price_money(amount,currency) {arche_money} = Standard Square Pie money object builder.
+   * @property price_money(amount,currency) {money} - Standard Square Pie money object builder.
    * @property sku() {string}
    * @property stockable(bool) {boolean}
-   * @property stockable_conversion() - calls `make_stockable_conversion()`
+   * @property stockable_conversion() - calls {@link Catalog_Item_Variation.make_stockable_conversion|`make_stockable_conversion()`}
    * @property team_member_ids() {string}
    * @property upc() {string}
    * @property user_data() {string}
-   * @property pricing_type() {Enumerated}- calls `#enum_pricing_type()`
+   * @property pricing_type() {Enumerated} - calls {@link Catalog_Item_Variation.enum_pricing_type|`enum_pricing_type()`}
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
@@ -487,6 +493,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
 
   /**
    * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/ItemVariationLocationOverrides | Link To Square Docs}<br>
+   * <br>{@link Catalog_Item_Variation.make|  Back to Make()}<br>
    *  make_location_override() method of Catalog_Item_Variation
    * Builds a compliant ItemVariationLocationOverrides object. You must call .add() as the last step. Note: every time
    * you call this function it begins over again. So if you intend to build one object across several
@@ -503,10 +510,10 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    * @public
    * @memberOf Catalog_Item_Variation
    * @property location_id(id) {string} -
-   * @property price_money(amount,currency) {arche_money} - Standard compliant money object builder.
-   * @property pricing_type()) {Enumerated} - calls `#enum_pricing_type().`
+   * @property price_money(amount,currency) {money} - Standard compliant money object builder.
+   * @property pricing_type()) {Enumerated}- calls {@link Catalog_Item_Variation.enum_pricing_type|`enum_pricing_type()`}
    * @property track_inventory(bool) {} -
-   * @property inventory_alert_type() {Enumerated} - Calls `#enum_inventory_alert_type()`
+   * @property inventory_alert_type() {Enumerated} - calls `{@link Catalog_Item_Variation.enum_inventory_alert_type|enum_inventory_alert_type()`}
    * @property inventory_alert_threshold(int) {integer} -
    * @property base_price_money(amount,currency) {integer|string} - alias of `price_money`
    * @property alert_type() {} -  alias of `inventory_alert_type`

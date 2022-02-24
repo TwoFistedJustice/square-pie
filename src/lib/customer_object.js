@@ -341,11 +341,11 @@ class Customer_Object {
    * @property email_address(email) {string} -
    * @property phone_number(phone) {string} - should be a phone number of no more than 11 characters
    * @property address(address_object) {object} - an Address Object
-   * @property birthday(time) {string} - a date in RFC3339 format
+   * @property birthday(time) {time} - a date in RFC3339 format
    * @property reference_id(id) {string} -
    * @property note(note) {string}
    * @property version(int) {integer}
-   * @property creation_source() {Enumerated} -
+   * @property creation_source() {Enumerated} - Calls {@link Customer_Object.enum_creation_source| enum_creation_source()}
    * @property preferences() {string}
    * @property tax_ids(eu_vat) {string} - a European Union VAT ID of no more than 20 characters
    * @property first_name(first_name) {string} - alias of `given_name`

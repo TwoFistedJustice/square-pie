@@ -194,7 +194,7 @@ class Order_Object {
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   * @typedef {function} Order_Object.#enum_state
+   * @typedef {function} Order_Object.enum_state
    * @private
    * @abstract
    * @memberOf Order_Object
@@ -224,7 +224,7 @@ class Order_Object {
    * @property {string} reference_id(id)
    * @property {string} customer_id(id)
    * @property {string} ticket_name(name)
-   * @property state {Enumerated} Calls #enum_state()
+   * @property state {Enumerated} Calls {@link Order_Object.enum_state|#enum_state()}
    * @property {string} source(str) The name used to identify the place (physical or digital) whence an order originates.
    * @property {boolean | boolean} pricing_options(auto_apply_discounts,auto_apply_taxes)
    * @property {Fardel} service_charges(fardel) an Order_Service_Charge fardel property.

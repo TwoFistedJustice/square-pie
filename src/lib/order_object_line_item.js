@@ -96,8 +96,9 @@ class Order_Line_Item {
     }
   }
 
-  /** * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemItemType | Link To Square Docs}<br>
-   *
+  /**
+   * {@link https://developer.squareup.com/reference/square/enums/OrderLineItemItemType | Link To Square Docs}<br>
+   * <br>{@link Order_Line_Item.make| Back to make()}<br>
    *  #enum_item_type<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
@@ -105,7 +106,7 @@ class Order_Line_Item {
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   *  @typedef {function} Order_Line_Item.enum_item_type
+   * @typedef {function} Order_Line_Item.enum_item_type
    * @private
    * @abstract
    * @memberOf Order_Line_Item
@@ -390,13 +391,13 @@ class Order_Line_Item {
    * @property variation_name(name) {string} -
    * @property catalog_object_id(id) {string} -
    * @property catalog_version(int) {integer} -
-   * @property item_type() {Enumerated} - Calls `#enum_item_type()
-   * @property base_price_money(amount,currency) {arche_money} - Standard compliant money object builder.
+   * @property item_type() {Enumerated} - Calls {@link Order_Line_Item.enum_item_type|`#enum_item_type()}
+   * @property base_price_money(amount,currency) {money} - Standard compliant money object builder.
    * @property applied_discounts(uid) {string} -
    * @property applied_taxes(uid) {string} -
-   * @property pricing_blocklists().discount() - Calls `make_discount_blocklist()`
-   * @property pricing_blocklists().tax() - Calls `make_tax_blocklist()`
-   * @property quantity_unit() - Calls `make_quantity_unit()`
+   * @property pricing_blocklists().discount() - Calls {@link Order_Line_Item.make_discount_blocklist|`make_discount_blocklist()`}
+   * @property pricing_blocklists().tax() - Calls {@link Order_Line_Item.make_tax_blocklist|`make_tax_blocklist()`}
+   * @property quantity_unit() - Calls {@link Order_Line_Item.make_quantity_unit|`make_quantity_unit()`}
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
@@ -482,6 +483,7 @@ class Order_Line_Item {
 
   /**
    * {@link  https://developer.squareup.com/reference/square/objects/OrderLineItemModifier| Link To Square Docs}<br>
+   * <br>{@link Order_Line_Item.make| Back to make()}<br>
    *  make_modifier() method of Order_Line_Item
    *  Make sure to have the Square Docs open in front of you.
    * Sub-Method names are exactly the same as the property names listed
@@ -498,7 +500,7 @@ class Order_Line_Item {
    * @property catalog_object_id(id) {string} -
    * @property catalog_version(int64) {integer} -
    * @property name(val) {string} -
-   * @property base_price_money(amount,currency) {arche_money} - Standard compliant money object builder.
+   * @property base_price_money(amount,currency) {money} - Standard compliant money object builder.
    * @property view - returns the modifier object under construction
    * @property get_uid - returns the uid
    * @property add - calls the modifier setter and passes a  new modifier object cloned from the the one you built.
@@ -617,6 +619,7 @@ class Order_Line_Item {
 
   /**
    * {@link https://developer.squareup.com/reference/square/objects/OrderLineItemPricingBlocklistsBlockedTax | Link To Square Docs}<br>
+   * <br>{@link Order_Line_Item.make| Back to make()}<br>
    *  make_discount_blocklist() method of Order_Line_Item
    *  Make sure to have the Square Docs open in front of you.
    * Sub-Method names are exactly the same as the property names listed
@@ -730,6 +733,7 @@ class Order_Line_Item {
 
   /**
    * {@link https://developer.squareup.com/reference/square/objects/OrderLineItemPricingBlocklistsBlockedTax | Link To Square Docs}<br>
+   * <br>{@link Order_Line_Item.make| Back to make()}<br>
    *  make_tax_blocklist() method of Order_Line_Item
    *  Make sure to have the Square Docs open in front of you.
    * Sub-Method names are exactly the same as the property names listed
@@ -842,6 +846,7 @@ class Order_Line_Item {
 
   /**
    * {@link https://developer.squareup.com/reference/square/objects/OrderQuantityUnit | Link To Square Docs}<br>
+   * <br>{@link Order_Line_Item.make| Back to make()}<br>
    *  make_quantity_unit() method of Order_Line_Item
    *  Make sure to have the Square Docs open in front of you.
    * Sub-Method names are exactly the same as the property names listed
@@ -856,7 +861,7 @@ class Order_Line_Item {
    * @memberOf Order_Line_Item
    * @property catalog_object_id(id) {string} -The catalog object ID referencing the CatalogMeasurementUnit when the unit already exists in the db
    * @property catalog_version(int) {integer} -
-   * @property measurement_unit(archetype) {object} - A MeasurementUnit  objectthat represents the unit of measure for the quantity.
+   * @property measurement_unit(archetype) {object} - A MeasurementUnit  object that represents the unit of measure for the quantity.
    * @property precision(int) {integer} - an integer number. the number of digits after the decimal point that are recorded for this quantity. See Square docs.
    * @property id(id) {string} - alias of `catalog_object_id`
    * @property version(int) {integer} - alias of `catalog_version`

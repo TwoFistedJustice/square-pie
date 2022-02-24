@@ -220,7 +220,7 @@ class Invoice_Search extends Invoice_Request {
    * @property customer_id(id) {string} - adds an id the array on the filter object
    * @property add_location_ids_array(arr) {array<id>} - (concat) adds the contents of an array of ids to filter object.
    * @property add_customer_ids_array(arr) {array<id>} - (concat) adds the contents of an array of ids to filter object.
-   * @property sort() {Enumerated} - Calls `#sort_order()`
+   * @property sort() {Enumerated} - Calls {@link Invoice_Search.sort_order|`sort_order()`}
    * @property location(id - alias of `location_id`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot

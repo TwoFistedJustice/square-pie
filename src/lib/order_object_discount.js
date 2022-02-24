@@ -251,8 +251,8 @@ class Order_Discount {
    * @property name(str) {string} -
    * @property type() {Enumerated} - Calls {@link Order_Discount.enum_type|`#enum_type()`}
    * @property percentage(percent) {string} -
-   * @property amount_money(amount,currency) {arche_money} - Standard compliant money object builder.
-   * @property applied_money(amount,currency) {arche_money} - Standard compliant money object builder.
+   * @property amount_money(amount,currency) {money} - Standard compliant money object builder.
+   * @property applied_money(amount,currency) {money} - Standard compliant money object builder.
    * @property scope() {Enumerated} - Calls {@link Order_Discount.enum_scope|`#enum_scope()`}
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot

@@ -14,7 +14,6 @@ const man =
  * @class Order_Update
  * @extends Square_Request
  * @param {string} id - the id of the order you want to update. You can also add this later. You must do this before calling .request()
- * @extends Square_Request
  * @classdesc
  *
  * Update an order.<br><br>
