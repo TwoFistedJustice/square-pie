@@ -255,7 +255,7 @@ class Invoice_Payment_Request_Object {
    * @method
    * @param {string}  message The reminder message - 1,000 char max
    * @param {int32}  days - Max: +-365 - The number of days before (negative number)  or after (positive number) the reminder is sent.
-   * @param {int32}  whoa_nelly - Slow down thar! If you need less than one year, use 'days' and leave this field empty. Max:  +-32,767 The number of days before (negative number)  or after (positive number) the reminder is sent. If whoa_nelly is specified, the 'days' argument is ignored.
+   * @param {int32=}  whoa_nelly - Slow down thar! If you need less than one year, use 'days' and leave this field empty. Max:  +-32,767 The number of days before (negative number)  or after (positive number) the reminder is sent. If whoa_nelly is specified, the 'days' argument is ignored.
    * @throws Error if `days` argument is greater than 365 or less than -365.
    * @example
    *
@@ -322,7 +322,8 @@ class Invoice_Payment_Request_Object {
    * @property tipping_enabled(bool) {boolean} -This field is allowed only on the final payment request and the payment request_type must be BALANCE or INSTALLMENT. If set to true, the Square-hosted invoice page (the public_url field of the invoice) provides a place for the customer to pay a tip.
    * @property automatic_payment_source() {Enumerated} - Calls `#automatic_payment_source_enum`
    * @property card_id(id) {string} -
-   * @property reminder(message,days,whoa_nelly) {string|integer|integer} - The third arg overrides the second. Read the section about `#build_reminder`
+   * @property reminder(message,days,whoa_nelly) {string=|integer|integer} - The third arg overrides the second. Read the section about `#build_reminder`
+   * @see build_reminder
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
