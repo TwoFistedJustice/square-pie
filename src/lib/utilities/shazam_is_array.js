@@ -4,6 +4,7 @@
  * @param {string} caller - the name variable from the calling function
  * @throws throws and error if the `arr` argument is not an array with at least one member.
  * @return {boolean} returns true if `arr` argument an array with at least one member.
+ * @ignore
  * */
 
 const shazam_is_array = function (

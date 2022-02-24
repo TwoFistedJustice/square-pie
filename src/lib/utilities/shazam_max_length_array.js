@@ -15,6 +15,7 @@
  * @returns {boolean} Returns `true` if `arr` does not exceed the limit
  *
  *  To check for minimum length use shazam_min_length
+ *  @ignore
  * */
 
 const shazam_max_length_array = function (

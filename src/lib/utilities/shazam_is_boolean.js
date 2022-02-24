@@ -7,6 +7,7 @@
  * @throws throws an error if the `bool` argument is not a boolean.
  * @return {boolean} returns true  if the `bool` argument is a boolean.
  * @example if(shazam_is_boolean(arg, "Some_Class", "some_method")) {do stuff}
+ * @ignore
  * */
 const shazam_is_boolean = function (
   bool,

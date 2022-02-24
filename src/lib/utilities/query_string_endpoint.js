@@ -2,10 +2,7 @@
  * @param {string} prop value at the property you want o modify
  * @param {string} The vallue to add
  * @return {string} Returns a new string that concatenates the new value preceded by a comma to the old string.
- *
- * @example
- *
- *
+ *@ignore
  * */
 
 // if duplicate prevention becomes an issue, have a look at query_string_builder. It exists there.

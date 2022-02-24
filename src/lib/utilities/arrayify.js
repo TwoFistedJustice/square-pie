@@ -18,7 +18,7 @@
  * You do:
  * (arrayify(this._body, "foo"))
  *   this._body.foo.push("bar")
- *
+ * @ignore
  * */
 const arrayify = function (
   object_to_check,

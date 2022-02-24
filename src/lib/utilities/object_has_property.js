@@ -6,7 +6,7 @@
  *  if (object_has_property(obj, "prop"){
  *    // do something
  *  }
- *
+ * @ignore
  * */
 const object_has_property = function (object, property) {
   return Object.prototype.hasOwnProperty.call(object, property) ? true : false;

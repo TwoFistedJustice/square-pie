@@ -12,6 +12,7 @@ Returns true if the string is less than or equal to the max length
  *  `if( shazam_exact_length(...) { do stuff }`
  *
  *  To check for minimum length use shazam_min_length
+ *  @ignore
  * */
 
 const shazam_exact_length = function (

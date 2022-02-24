@@ -11,7 +11,7 @@ const { query_param_regex } = require("./regular_expression_patterns");
  * let param = "status";
  * let value = "CANCELED"
  * query_param_add_value(query_string, param, value) => "?status=DRAFT,OPEN,CANCELED&version=3"
- *
+ * @ignore
  * */
 
 const query_param_add_value = function (query_string, param, value) {

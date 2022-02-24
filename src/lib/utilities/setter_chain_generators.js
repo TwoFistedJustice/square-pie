@@ -18,7 +18,7 @@ https://github.com/TwoFistedJustice/square-pie/blob/d5636284b02f742736e2a54d7523
 
 the generated methods will probably not be recognized by your auto-completion. But they are
 there nonethless.
-
+@ignore
  * */
 
 /** @function  setter_chain_generator_config - deprecated but left in because frankly, I think this function is cool!
@@ -41,6 +41,7 @@ there nonethless.
  klass.methods.doe().deer(); => klass.doe = "deer"
  klass.methods.re().golden_sun(); => klass.re = "golden_sun"
  klass.methods.mi().myself(); => klass.mi = "myself"
+ @ignore
  * */
 
 const setter_chain_generator_config = function (config, methods, that) {
@@ -80,6 +81,7 @@ const setter_chain_generator_config = function (config, methods, that) {
  klass.methods.doe().deer(); => klass.doe = "deer"
  klass.methods.re().golden_sun(); => klass.re = "golden_sun"
  klass.methods.mi().myself(); => klass.mi = "myself"
+ @ignore
  * */
 const setter_chain_generator_separate_arrays = function (
   keys,

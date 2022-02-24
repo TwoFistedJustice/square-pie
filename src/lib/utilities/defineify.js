@@ -4,6 +4,7 @@
  * @param {string} property_name the name of the property you want to add
  * @param {any} val - the value to set
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * @ignore
  * */
 
 const defineify = function (object_to_modfiy, property_name, val) {

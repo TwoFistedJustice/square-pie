@@ -12,6 +12,7 @@
  * @example `if( shazam_min_length_array( 1 , ['a', 'b'], display_name, caller) { do stuff }`
  *
  *  To check for maximum length use shazam_max_length
+ *  @ignore
  * */
 
 const shazam_min_length_array = function (

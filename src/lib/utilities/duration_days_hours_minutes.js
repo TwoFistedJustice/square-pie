@@ -10,7 +10,7 @@
  * duration_days_hours_minutes(3, 10, 30) => "P3DT10H30M"
  *
  * duration_days_hours_minutes(3, 0, 30) => "P3DT30M"
- *
+ * @ignore
  * */
 
 const duration_days_hours_minutes = function (days, hours = 0, minutes = 0) {

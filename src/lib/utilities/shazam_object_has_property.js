@@ -16,6 +16,7 @@
  * @param {string} caller - The name of the class.method calling the function.
  * @throws {Error} Throws an error if the object does not contain the specified property name
  * @return {boolean} Returns true if the object under examination has the specified property.
+ * @ignore
  * */
 
 const shazam_object_has_property = function (

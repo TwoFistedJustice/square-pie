@@ -4,6 +4,7 @@
  * @param {string} caller - the name variable from the calling function
  * @throws throws and error if the `num` argument cannot be coerced to an integer
  * @return {boolean} returns true if the `num` argument can be coerced to an integer
+ * @ignore
  * */
 const shazam_is_integer = function (
   num,

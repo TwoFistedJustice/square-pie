@@ -6,6 +6,7 @@ const { isURL } = require("validator");
  * @param {string} caller - the name variable from the calling function
  * @throws throws and error if the url is not valid
  * @return {boolean} returns true if the url is valid
+ * @ignore
  * */
 
 const validator_options = {

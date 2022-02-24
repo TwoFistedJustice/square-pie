@@ -3,6 +3,7 @@
  * @return{object} thomas - a perfect copy of william
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * {@link  https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign | MDN Docs}<br>
+ * @ignore
  * */
 const clone_object = function (william) {
   const thomas = Object.assign({}, william);

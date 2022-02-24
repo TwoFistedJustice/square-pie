@@ -5,6 +5,7 @@ const { isEmail, normalizeEmail } = require("validator");
  * @param {string} email - an email address
  * @throws Throws an error if argument is not a valid email
  * @returns a normalized email address
+ * @ignore
  * */
 const normalize_email = function (
   email,

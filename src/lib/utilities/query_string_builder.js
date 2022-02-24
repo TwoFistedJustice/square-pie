@@ -5,6 +5,7 @@
  * @param {string} char is a single character where you want to slice it at,
  * removes everything up to and including the first occurrence of char
  * @return Returns a new string with the char and everything before it removed
+ * @ignore
  * */
 const slicer = function (str, char) {
   let index = str.indexOf(char) + 1;
@@ -14,6 +15,7 @@ const slicer = function (str, char) {
 /** Builds and modifies a whole query string including the leading '?'
  * @param {string}
  * @return Returns a new query string containing the key and value
+ * @ignore
  * */
 const query_string_builder = function (string_to_modify, key, value) {
   const includesKey = string_to_modify.includes(`${key}=`);
@@ -45,6 +47,7 @@ const query_string_builder = function (string_to_modify, key, value) {
  * @param {string} key - the key you want to add a value to
  * @param {string} value - the value you want to add
  * @return Returns a copy of the old string with an new key-value-set added to it
+ * @ignore
  * */
 const it_has_other_keys_but_not_this_key = function (
   string_to_modify,
@@ -58,6 +61,7 @@ const it_has_other_keys_but_not_this_key = function (
  * @param {string} string_to_modify - the string you want to modify
  * @param {string} value - the value you want to add
  * @return Returns a new string with teh value appended
+ * @ignore
  * */
 
 const it_has_key_but_not_ampersand = function (string_to_modify, value) {
@@ -68,6 +72,7 @@ const it_has_key_but_not_ampersand = function (string_to_modify, value) {
  * @param {string} key - the key you want to add a value to
  * @param {string} val - the value you want add to the key
  * @return Returns a string in the form of "?key=value"
+ * @ignore
  * */
 const it_is_empty = function (key, val) {
   return `?${key}=${val}`;
@@ -80,6 +85,7 @@ const it_is_empty = function (key, val) {
  * @param {string} value - the value to add
  * @throws Throws an error if the key:value pair you add is already present
  * @return Returns a new query string containing the key and value
+ * @ignore
  * */
 const it_has_key_and_ampersand = function (string_to_modify, key, val) {
   const searchKey = `${key}=`;

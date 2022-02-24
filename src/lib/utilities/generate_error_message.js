@@ -3,6 +3,7 @@
  * @param {string} expected_type - the type of argument expected
  * @param {any} received - the value that failed the error check
  * @return Returns an error message explaining what property went wrong, what was expected, and what was received.
+ * @ignore
  * */
 const generate_error_message = function (key, expected_type, received) {
   let type_received = typeof received;

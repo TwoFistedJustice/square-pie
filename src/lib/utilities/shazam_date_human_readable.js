@@ -12,6 +12,7 @@ const { isDate } = require("validator");
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * @example
  *  `if( shazam_some_comparison(...) { do stuff }`
+ *  @ignore
  * */
 
 const shazam_date_human_readable = function (date, display_name, caller) {
