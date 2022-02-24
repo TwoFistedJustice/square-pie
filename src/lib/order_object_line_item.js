@@ -391,7 +391,7 @@ class Order_Line_Item {
    * @property catalog_object_id(id) {string} -
    * @property catalog_version(int) {integer} -
    * @property item_type() {Enumerated} - Calls `#enum_item_type()
-   * @property base_price_money(amount,currency) {integer|string} - Standard compliant money object builder.
+   * @property base_price_money(amount,currency) {arche_money} - Standard compliant money object builder.
    * @property applied_discounts(uid) {string} -
    * @property applied_taxes(uid) {string} -
    * @property pricing_blocklists().discount() - Calls `make_discount_blocklist()`
@@ -498,7 +498,7 @@ class Order_Line_Item {
    * @property catalog_object_id(id) {string} -
    * @property catalog_version(int64) {integer} -
    * @property name(val) {string} -
-   * @property base_price_money(amount,currency) {integer|string} - Standard compliant money object builder.
+   * @property base_price_money(amount,currency) {arche_money} - Standard compliant money object builder.
    * @property view - returns the modifier object under construction
    * @property get_uid - returns the uid
    * @property add - calls the modifier setter and passes a  new modifier object cloned from the the one you built.

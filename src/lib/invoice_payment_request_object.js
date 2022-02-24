@@ -317,7 +317,7 @@ class Invoice_Payment_Request_Object {
    * @property uid(id) {string} - The Square-generated ID
    * @property request_type() {Enumerated} - Calls `#request_type_enum`
    * @property due_date(YYYMMDD) {string} -
-   * @property fixed_amount_requested_money(amount,currency) {integer|string} - Standard compliant money object builder.
+   * @property fixed_amount_requested_money(amount,currency) {arche_money} - Standard compliant money object builder.
    * @property percentage_requested(percent) {string} - You cannot specify percentage_requested when the payment request_type is BALANCE or when the payment request specifies the fixed_amount_requested_money field
    * @property tipping_enabled(bool) {boolean} -This field is allowed only on the final payment request and the payment request_type must be BALANCE or INSTALLMENT. If set to true, the Square-hosted invoice page (the public_url field of the invoice) provides a place for the customer to pay a tip.
    * @property automatic_payment_source() {Enumerated} - Calls `#automatic_payment_source_enum`

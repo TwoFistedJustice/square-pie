@@ -213,7 +213,7 @@ class Order_Tax {
    * @property catalog_object_id(id) {string} -
    * @property catalog_version(ver) {integer} -
    * @property percentage(percent) {string} - a percentage amount in the form of a string.
-   * @property applied_money(amount,currency) {integer|string} - Standard compliant money object builder.
+   * @property applied_money(amount,currency) {arche_money} - Standard compliant money object builder.
    * @property scope() {Enumerated} - Calls `#enum_scope()`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot

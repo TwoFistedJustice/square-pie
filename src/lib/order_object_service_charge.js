@@ -229,7 +229,7 @@ class Order_Object_Service_Charge {
    * @property catalog_object_id(id) {string} -
    * @property catalog_version(ver) {integer} -
    * @property percentage(percent) {string} - a percentage amount in the form of a string.
-   * @property amount_money(amount,currency) {integer|string} - Standard compliant money object builder.
+   * @property amount_money(amount,currency) {arche_money} - Standard compliant money object builder.
    * @property calculation_phase() {Enumerated} - Calls `#enum_calculation_phase()`
    * @property taxable(bool) {boolean}
    * @property applied_taxes(id) {string} -
