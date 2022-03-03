@@ -31,7 +31,7 @@ const man =
  *  search.make().limit(20) // limits response to 20 invoices
  *
  *  search.make().customer_id("some_customer_id").customer_id("OTHER_customer_id") // add several customer ids to the customer_ids array
- *  search.make().add_customer_ids_array(["id2", "id3"]) // adds an the values in the passed array of ids to the existing array of ids
+ *  search.make().concat_customer_ids_array(["id2", "id3"]) // adds an the values in the passed array of ids to the existing array of ids
  *   // ^ use the same syntax but substitute 'location' for 'customer' to work with the location_ids array
  *
  *  await search.request() // tells it to go
@@ -218,8 +218,8 @@ class Invoice_Search extends Invoice_Request {
    * @property query(query_object) {object} **DANGER WILL ROBINSON!** This wil replace the entire query object withwhatever you pass it. Only pass in a complete query object.
    * @property location_id(id) {string<id>} - adds an id the array on the filter object
    * @property customer_id(id) {string<id>} - adds an id the array on the filter object
-   * @property add_location_ids_array(arr) {array<id>} - (concat) adds the contents of an array of ids to filter object.
-   * @property add_customer_ids_array(arr) {array<id>} - (concat) adds the contents of an array of ids to filter object.
+   * @property concat_location_ids_array(arr) {array<id>} - (concat) adds the contents of an array of ids to filter object.
+   * @property concat_customer_ids_array(arr) {array<id>} - (concat) adds the contents of an array of ids to filter object.
    * @property sort() {Enumerated} - Calls {@link Invoice_Search.sort_order|`sort_order()`}
    * @property location(id - alias of `location_id`
    * @example
@@ -252,11 +252,11 @@ class Invoice_Search extends Invoice_Request {
         this.self.#customer_id = id;
         return this;
       },
-      add_location_ids_array: function (arr) {
+      concat_location_ids_array: function (arr) {
         this.self.#location_ids_array = arr;
         return this;
       },
-      add_customer_ids_array: function (arr) {
+      concat_customer_ids_array: function (arr) {
         this.self.#customer_ids_array = arr;
         return this;
       },
