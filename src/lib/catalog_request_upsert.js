@@ -3,11 +3,17 @@ const { nanoid } = require("nanoid/non-secure");
 const man =
   "Upserts one or more Catalog API Objects. Create the object using the appropriate Pie class then add that" +
   "class's fardel using make().add(fardel)\n" +
-  "\nhttps://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects";
+  "\nhttps://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects ";
 
-/** @class Catalog_Upsert
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link  | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects |  **-------> Link To Square Docs <-------**}
+ * @class Catalog_Upsert
+ * @extends Square_Request
+ * @classdesc
+ * Upserts one or more Catalog API Objects.<br>
+ * Create the object using the appropriate Pie Catalog Object class then add that class's fardel.<br>
+ * You can use make().add() or add()
+ * using make().add(fardel)
  * */
 
 class Catalog_Upsert extends Catalog_Request {
@@ -44,28 +50,50 @@ class Catalog_Upsert extends Catalog_Request {
    * @param {object} Item Object
    * @return Adds Item Objects to the body to be sent to Square
    * */
+  /**
+   * add - adds a catalog object fardel to be uploaded to Square.
+   * @typedef {function} Catalog_Upsert.add
+   * @memberOf Catalog_Upsert
+   * @public
+   * @method
+   * @param {string} id
+   * @example
+   * myVar.add(myOtherVar.fardel)
+   * */
+
   add(fardel) {
     this.body = fardel;
     return this;
   }
 
-  // MAKER METHODS
-  /** @function make()  method of Catalog_Upsert - method names are exactly the same as the property names listed
+  // MAKE METHODS
+  /**
+   *  make() method of Catalog_Upsert
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method body - adds an object fardel to be upserted
-   * @param {object} fardel - the fardel property of a Catalog Object
-   * @method add - alias of body
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Catalog_Upsert.make
    * @method
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @public
+   * @memberOf Catalog_Upsert
+   * @property (fardel) {Fardel} - Add a Catalog_Object fardel to be upserted
+   * @property (fardel) {Fardel} - - alias of 'body()`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,
@@ -74,8 +102,7 @@ class Catalog_Upsert extends Catalog_Request {
         return this;
       },
       add: function (fardel) {
-        this.body(fardel);
-        return this;
+        return this.body(fardel);
       },
     };
   }

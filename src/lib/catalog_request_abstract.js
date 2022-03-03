@@ -1,7 +1,13 @@
 const Square_Request = require("./square_request_abstract");
 
-/** @class Catalog_Request - abstract super class of all Catalog Reqeust classes
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+/**
+ * @class Catalog_Request
+ * @extends Square_Request
+ * @abstract
+ * @ignore
+ * @classdesc
+ *
+ * super class of all Catalog Request classes
  * */
 
 class Catalog_Request extends Square_Request {

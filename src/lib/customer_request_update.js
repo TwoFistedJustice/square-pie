@@ -12,22 +12,27 @@ const man =
   "Firstly, you can make one using Customer_Object and pass the fardel as an argument to make().customer(fardel)\n" +
   "or you can build one using the make() method of this class, which works just like the one in Customer_Object.\n" +
   "To add the version, first fetch it from Square, then add it using make().version(version). This is not absolutely\n" +
-  "necessary. But is a good idea if there is more than one potential source of updates." +
-  "\nhttps://developer.squareup.com/reference/square/customers-api/update-customer";
+  "necessary. But is a good idea if there is more than one potential source of updates.\n" +
+  "https://developer.squareup.com/reference/square/customers-api/update-customer";
 
-/** @class Customer_Update representing an http request to update a customer record
- * Some fields that are available on Customer_Object are not updatable. This class has its own
- * make() method which omits those fields.
+/**
+ * {@link https://developer.squareup.com/reference/square/customers-api/update-customer |  **-------> Link To Square Docs <-------**}
+ * @class Customer_Update
+ * @extends Square_Request
+ * @classdesc
+ * Some fields that are available on Customer_Object are not updatable. This class has its own make() method which omits those fields. It has additional fields
+ * not present in Customer_Object (`city` - for example)<br>
+ * You do not need to use the Customer_Object class to create an update. You can. But you don't have to. You can build and send your update entirely from
+ * within this class.
  *
- * You do not need to use the Customer_Object class to send and update. You can. But you don't have to.
- *
- * To use the Customer_Object class simply call the body setter and set it equal to the object.
- *  yourUpdate.body = yourCustomer.fardel
- *
- *  @see Retrieve_Update_Delete
- *  @param {customer id} pass the Square id of the customer you want ot update to the class on instantiation
- *  @author Russ Bain
- *  */
+ * Update a record by sending a sparse customer object containing only the fields you want to update, along with<br>
+ * the current version of the record in Square's db. You can add the sparse object in two ways:<br>
+ * Firstly, you can make one using Customer_Object and pass the fardel as an argument to make().customer(fardel)<br>
+ * or you can build one using the make() method of this class, which works just like the one in Customer_Object.<br>
+ * To add the version, first fetch it from Square, then add it using make().version(version). This is not absolutely<br>
+ * necessary. But is a good idea if there is more than one potential source of updates.<br>
+ * */
+
 class Customer_Update extends Retrieve_Update_Delete {
   _display_name = "Customer_Update";
   _last_verified_square_api_version = "2021-12-15";
@@ -106,39 +111,28 @@ class Customer_Update extends Retrieve_Update_Delete {
   }
 
   // SETTERS
-  /** @function set body - If you already have a compliant customer object you can just call the body setter
-   * @param {customer object} add the Customer_Object fardel
-   * */
   set body(fardel) {
     for (let prop in fardel) {
       this._body[prop] = fardel[prop];
     }
   }
-  set given_name(val) {
-    this._body.given_name = val;
+  set given_name(first_name) {
+    this._body.given_name = first_name;
   }
-  set family_name(val) {
-    this._body.family_name = val;
+  set family_name(last_name) {
+    this._body.family_name = last_name;
   }
-  set company_name(val) {
-    this._body.company_name = val;
+  set company_name(company) {
+    this._body.company_name = company;
   }
-  set nickname(val) {
-    this._body.nickname = val;
+  set nickname(nick) {
+    this._body.nickname = nick;
   }
-  /** sets Customer_Update.email_address
-   * @param {string} email expects a valid email address
-   * @throws Throws an error if email is not valid
-   * */
   set email_address(email) {
     let caller = "email_address";
     let shazam = normalize_email(email, this.display_name, caller);
     this._body.email_address = shazam;
   }
-  /** sets Customer_Update.phone_number
-   * @param {string }phone should be a phone number of no more than 11 characters
-   * @throws Throws an error is `phone` is longer than 11 characters
-   * */
   set phone_number(phone) {
     if (
       shazam_max_length(
@@ -151,8 +145,8 @@ class Customer_Update extends Retrieve_Update_Delete {
       this._body.phone_number = phone;
   }
 
-  set address(address) {
-    this._body.address = address;
+  set address(address_object) {
+    this._body.address = address_object;
   }
   set city(city) {
     this._body.address.locality = city;
@@ -164,26 +158,17 @@ class Customer_Update extends Retrieve_Update_Delete {
   set state(province) {
     this.body.address.administrative_district_level_1 = province;
   }
-  /* sets Customer_Update.birthday
-   * @param {string} time a date in RFC3339 format
-   * * @throws Will throw and error if argument is not a valid RFC3339 date code
-   * */
   set birthday(time) {
     if (shazam_is_time_RFC3339(time, this._display_name, "birthday")) {
       this._body.birthday = time;
     }
   }
-
-  set reference_id(val) {
-    this._body.reference_id = val;
+  set reference_id(id) {
+    this._body.reference_id = id;
   }
-  set note(val) {
-    this._body.note = val;
+  set note(note) {
+    this._body.note = note;
   }
-  /* sets Customer_Update.version
-   * @param {string} int a string that can be coerced to integer
-   * * @throws Will throw and error if argument  cannot be coerced to integer
-   * */
   set version(int) {
     if (shazam_is_integer(int)) {
       this._body.version = int;
@@ -202,88 +187,132 @@ class Customer_Update extends Retrieve_Update_Delete {
     }
   }
 
-  // MAKER METHODS
+  // MAKE METHODS
+  /**
+   *  make() method of Customer_Update
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Customer_Update.make
+   * @method
+   * @public
+   * @memberOf Customer_Update
+   * @property given_name(first_name) {string} -
+   * @property family_name(last_name) {string} -
+   * @property company_name(company) {string} -
+   * @property nickname(nick) {string} -
+   * @property email_address(email) {string} -
+   * @property phone_number(phone) {string} - should be a phone number of no more than 11 characters
+   * @property address(address_object) {object} - an Address Object
+   * @property birthday(time) {string} - a date in RFC3339 format
+   * @property reference_id(id) {string<id>} -
+   * @property note(note) {string}
+   * @property version(int) {integer}
+   * @property creation_source() {Enumerated} -
+   * @property preferences() {string}
+   * @property tax_ids(eu_vat) {string} - a European Union VAT ID of no more than 20 characters
+   * @property first_name(first_name) {string} - alias of `given_name`
+   * @property last_name(last_name) {string} - alias of `family_name`
+   * @property company(company) {string} - alias of `company_name`
+   * @property email(email) {string} - alias of `email_address`
+   * @property phone(phone) {string} - alias of `phone_number`
+   * @example
+   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
+   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
+   *  variable.
+   *
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
+   * */
+
   make() {
     return {
       self: this,
-      given_name: function (val) {
-        this.self.given_name = val;
+      given_name: function (first_name) {
+        this.self.given_name = first_name;
         return this;
       },
-      family_name: function (val) {
-        this.self.family_name = val;
+      family_name: function (last_name) {
+        this.self.family_name = last_name;
         return this;
       },
-      company_name: function (val) {
-        this.self.company_name = val;
+      company_name: function (company) {
+        this.self.company_name = company;
         return this;
       },
-      nickname: function (val) {
-        this.self.nickname = val;
+      nickname: function (nick) {
+        this.self.nickname = nick;
         return this;
       },
-      address: function (val) {
-        this.self.address = val;
+      address: function (address_object) {
+        this.self.address = address_object;
         return this;
       },
-      email_address: function (val) {
-        this.self.email_address = val;
+      email_address: function (email) {
+        this.self.email_address = email;
         return this;
       },
       phone_number: function (val) {
         this.self.phone_number = val;
         return this;
       },
-      reference_id: function (val) {
-        this.self.reference_id = val;
+      reference_id: function (id) {
+        this.self.reference_id = id;
         return this;
       },
-      note: function (val) {
-        this.self.note = val;
+      note: function (note) {
+        this.self.note = note;
         return this;
       },
-      birthday: function (val) {
-        this.self.birthday = val;
+      birthday: function (time) {
+        this.self.birthday = time;
         return this;
       },
-      version: function (val) {
-        this.self.version = val;
+      version: function (int) {
+        this.self.version = int;
         return this;
       },
-      tax_ids: function (val) {
-        this.self.tax_ids = val;
+      tax_ids: function (eu_vat) {
+        this.self.tax_ids = eu_vat;
         return this;
       },
       customer: function (fardel) {
         this.self.body = fardel;
         return this;
       },
-      city: function (val) {
-        this.self.city = val;
+      city: function (city) {
+        this.self.city = city;
         return this;
       },
-      postal_code: function (val) {
-        this.self.postal_code = val;
+      postal_code: function (zip) {
+        this.self.postal_code = zip;
         return this;
       },
-      state: function (val) {
-        this.self.state = val;
+      state: function (state) {
+        this.self.state = state;
         return this;
       },
-      first_name: function (val) {
-        return this.given_name(val);
+      first_name: function (first_name) {
+        return this.given_name(first_name);
       },
-      last_name: function (val) {
-        return this.family_name(val);
+      last_name: function (last_name) {
+        return this.family_name(last_name);
       },
-      company: function (val) {
-        return this.company_name(val);
+      company: function (company) {
+        return this.company_name(company);
       },
-      email: function (val) {
-        return this.email_address(val);
+      email: function (email) {
+        return this.email_address(email);
       },
-      phone: function (val) {
-        return this.phone_number(val);
+      phone: function (phone) {
+        return this.phone_number(phone);
       },
     };
   }

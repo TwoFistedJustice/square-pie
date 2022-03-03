@@ -8,6 +8,7 @@
  * @return mutates the object you pass in as the first argument
  *
  * (It's an arrow function on purpose - don't change it)
+ *  @ignore
  * */
 const define = (object_to_modify, prop, val) => {
   Object.defineProperty(object_to_modify, prop, {

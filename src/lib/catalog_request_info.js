@@ -5,14 +5,18 @@ const man =
   "Has no make-function.\n" +
   "https://developer.squareup.com/reference/square/catalog-api/catalog-info";
 
-/** @class Catalog_Info
- * Makes some response information accessible on a property of the same name
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/catalog-api/catalog-info | Square Docs}
- * @method get standard_unit_descriptions
- * @method get standard_unit_json
- * @method get language_code
- * @method get limits
+/**
+ * {@link https://developer.squareup.com/reference/square/catalog-api/catalog-info |  **-------> Link To Square Docs <-------**}
+ * @class Catalog_Info
+ * @extends Square_Request
+ * @classdesc
+ * Makes some response information accessible on a property of the same name as the info.
+ * @property standard_unit_descriptions
+ * @property standard_unit_json
+ * @property language_code
+ * @property limits
+ * @example
+ * list.language_code => returns the language code that was previously fetched
  * */
 
 class Catalog_Info extends Catalog_Request {

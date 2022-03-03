@@ -3,12 +3,18 @@ const { nanoid } = require("nanoid");
 const { shazam_max_length } = require("./utilities");
 const man =
   "creates a new order document in a DRAFT state by copying core fields from an existing order.\n" +
-  'Add the order_id of the one you want to clone by calling make().order("order_id")' +
-  "\nhttps://developer.squareup.com/reference/square/orders-api/clone-order";
-/** @class Order_Clone representing a call to clone an existing order.
+  'Add the order_id of the one you want to clone by calling make().order("order_id")\n' +
+  "https://developer.squareup.com/reference/square/orders-api/clone-order";
+
+/**
+ * {@link https://developer.squareup.com/reference/square/orders-api/clone-order |  **-------> Link To Square Docs <-------**}
+ * @class Order_Clone
+ * @extends Square_Request
  * @param {string} id - the id of the order you want to clone. You can also add this later. You must do this before calling .request()
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/orders-api/clone-order | Square Docs}
+ * @classdesc
+ *
+ * Creates a new order document in a DRAFT state by copying core fields from an existing order.
+ * Add the order_id of the one you want to clone by calling `make().order("order_id")`
  * */
 
 class Order_Clone extends Order_Request {
@@ -55,26 +61,36 @@ class Order_Clone extends Order_Request {
   }
 
   // MAKE METHODS
-  /** @function make()  method of Order_Clone - method names are exactly the same as the property names listed
+  /**
+   *  make() method of Order_Clone
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method idempotency_key - set automatically
-   * @param {string} key -
-   * @method order_id
-   * @param {string} id -
-   * @method version
-   * @param {number} ver -
-   * @method order - alias of order_id
-   * @method id - alias of order_id
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Order_Clone.make
+   * @method
+   * @public
+   * @memberOf Order_Clone
+   * @property idempotency_key(key) {string} - use only if you want to use your own key in place of the automatically generated one.
+   * @property order_id(id) {string<id>} -
+   * @property version(ver) {integer} -
+   * @property order(id) {string<id>}  - alias of `order_id`
+   * @property id(id) {string<id>}  - alias of `order_id`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,

@@ -6,12 +6,20 @@ const man =
   'myVar = new Order_Pay("order_id"). You can also do this later by calling make().order("order_id")\n' +
   "You can concatenate an array of payment_ids by calling make().concat_payments(array). Note: square does" +
   "not specify an upper limit to the number of payments you can collect.\n" +
-  "\nhttps://developer.squareup.com/reference/square/orders-api/pay-order";
+  "https://developer.squareup.com/reference/square/orders-api/pay-order";
 
-/** @class Order_Pay representing a payment on an existing order.
+/**
+ * {@link https://developer.squareup.com/reference/square/orders-api/pay-order |  **-------> Link To Square Docs <-------**}
+ * @class Order_Pay
+ * @extends Square_Request
  * @param {string} id - the id of the order you want to pay. You can also add this later. You must do this before calling .request()
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/orders-api/pay-order | Square Docs}
+ * @classdesc
+ *
+ * pay for an order. <br><br>
+ * Add the order_id when you instantiate the class.<br><br>
+ * You can also do this later by calling make().order(order_id)'<br><br>
+ * You can concatenate an array of payment_ids by calling make().concat_payments(array).<br><br>
+ * Note: square does not specify an upper limit to the number of payments you can collect.
  * */
 class Order_Pay extends Order_Request {
   _display_name = "Order_Pay";
@@ -79,29 +87,36 @@ class Order_Pay extends Order_Request {
   }
 
   // MAKE METHODS
-  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
+  /**
+   *  make() method of Order_Pay
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method idempotency_key - set automatically
-   * @param {string} key -
-   * @method order_version
-   * @param {number} ver -
-   * @method payment_ids
-   * @param {string} id -
-   * @method order_id
-   * @param {string} id -
-   * @method order - alias of order_id
-   * @method pay - alias of payment_ids
-   * @method concat_payments - adds the contents of an array of IDs to the payment_ids array.
-   * @param {array} arr - an array of ids
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Order_Pay.make
+   * @method
+   * @public
+   * @memberOf Order_Pay
+   * @property idempotency_key(key) {string} - use only if you want to use your own key in place of the automatically generated one.
+   * @property order_version(ver) {integer} -
+   * @property payment_ids(id) {string<id>} -
+   * @property order_id(id) {string<id>} -
+   * @property order(id) {string<id>} -alias of order_id
+   * @property pay(id) {string<id>} -alias of payment_ids
+   * @property concat_payments(arr) {array<id>} - adds the contents of an array of IDs to the payment_ids array.
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
   make() {
     return {

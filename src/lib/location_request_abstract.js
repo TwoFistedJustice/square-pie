@@ -1,8 +1,13 @@
 const Square_Request = require("./square_request_abstract");
-
-/** @class Location_Request super class of all Location API request classes
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/locations-api | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/locations-api |  **-------> Link To Square Docs <-------**}
+ * @class Location_Request
+ * @extends Square_Request
+ * @abstract
+ * @ignore
+ * @classdesc
+ *
+ * Super class of all Location API request classes
  * */
 
 class Location_Request extends Square_Request {

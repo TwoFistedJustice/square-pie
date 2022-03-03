@@ -8,13 +8,16 @@ const {
 } = require("./utilities");
 const man =
   "creates a compliant Square invoice object. Follows standard Pie syntax.\n" +
-  "\nhttps://developer.squareup.com/reference/square/objects/Invoice";
+  "https://developer.squareup.com/reference/square/objects/Invoice";
 
-/** @class Invoice_Object  makes a compliant invoice object
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/objects/Invoice | Square Docs}
- * @example
+/**
+ * {@link https://developer.squareup.com/reference/square/objects/Invoice |  **-------> Link To Square Docs <-------**}
+ * @class Invoice_Object
+ * @classdesc
+ *
+ * Creates a compliant Square invoice object.
  * */
+
 class Invoice_Object {
   _display_name = "Invoice_Object";
   _last_verified_square_api_version = "2021-12-15";
@@ -251,6 +254,28 @@ class Invoice_Object {
     }
   }
 
+  /** * {@link https://developer.squareup.com/reference/square/enums/InvoiceDeliveryMethod | Link To Square Docs}<br>
+   *
+   *  #delivery_method_enum
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   *  @typedef {function} Invoice_Object.delivery_method_enum
+   * @private
+   * @abstract
+   * @memberOf Invoice_Object
+   * @property email() sets value to "EMAIL"
+   * @property share_manually() sets value to "SHARE_MANUALLY"
+   * @property manually() alias of `share_manually`
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
   #delivery_method_enum(calling_this) {
     return {
       self: this,
@@ -318,35 +343,8 @@ class Invoice_Object {
 
   // MAKE METHODS
 
-  /** @function make()  method of Invoice_Object - method names are exactly the same as the property names listed
-   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
-   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
-   * listed here.
-   * @method version
-   * @param {number} int -
-   * @method location_id
-   * @param {string} id -
-   * @method order_id
-   * @param {string} id -
-   * @method primary_recipient
-   * @param {string} customer_id -
-   * @method payment_requests
-   * @param {object} payment_request_object -
-   * {@link https://developer.squareup.com/docs/invoices-api/overview#payment-requests | Square Docs}
-   * @method delivery_method - enumerated function
-   * @example
-   * myVar.make().delivery_method().email()
-   * myVar.make().delivery_method().share_manually()
-   * myVar.make().delivery_method().manually() - alias of share_manually
-   * @method invoice_number
-   * @param {string} inv_num -
-   * @method title
-   * @param {string} str255 -
-   * @method description
-   * @param {string} str65536 -
-   * @method scheduled_at
-   * @param {string} time -
-   * @method accepted_payment_methods
+  /**
+   * {@link https://developer.squareup.com/docs/invoices-api/overview#payment-requests | Square Docs}<br>
    * @example
    * myVar.make().accepted_payment_methods()[property you want to set].yes() => true
    * myVar.make().accepted_payment_methods()[property you want to set].no() => false
@@ -354,22 +352,47 @@ class Invoice_Object {
    *  - bank_account
    *  - card
    *  - square_gift_card
-   * @method custom_fields
-   * @method sale_or_service_date
-   * @param {string} YYYYMMDD - The date of the transaction.  YYY-MM-DD format. Is displayed on invoice.
-   * @method conditions_de_paiement - seulement pour la France
-   * @param {string} str2000 -   un chaine de moins de 2,001 caracteres
-   * @method payment_conditions -  France Only
-   * @param {string} str2000 -   a string of up to 2,000 characters
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * */
+
+  /**
+   *  make() method of Invoice_Object
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Invoice_Object.make
+   * @method
+   * @public
+   * @memberOf Invoice_Object
+   * @property version(int) {string} -
+   * @property location_id(id) {string<id>} -
+   * @property order_id(id) {string<id>} -
+   * @property primary_recipient(customer_id) {string} -
+   * @property payment_requests(payment_request_object) {string} -
+   * @property delivery_method() {Enumerated} - Calls {@link Invoice_Object.delivery_method_enum| .delivery_method_enum}
+   * @property invoice_number(inv_num) {string} -
+   * @property title(str255) {string} -
+   * @property description(str65536) {string} -
+   * @property scheduled_at(time) {string} -
+   * @property accepted_payment_methods(() {string} -
+   * @property custom_fields() {string} -
+   * @property sale_or_service_date(YYYYMMDD) {string} - The date of the transaction. YYY-MM-DD format. Is displayed on invoice.
+   * @property conditions_de_paiement(str2000) {string} - seulement pour la France
+   * @property payment_conditions(str2000) {string} - France Only. un chaine de moins de 2,001 caracteres
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
 
   make() {
@@ -436,25 +459,32 @@ class Invoice_Object {
     };
   }
 
-  /** @function make_custom_field()  method of Invoice_Object - method names are exactly the same as the property names listed
-   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+  /**
+   * {@link https://developer.squareup.com/reference/square/objects/InvoiceCustomField | Square Docs}<br>
+   *
+   *  make_custom_field() method of Invoice_Object
+   *
    * Note: Every time you call custom_fields it starts over with an empty object, so either do it
    * all with one chain or set a variable.
-   * @method add - adds the constructed object to the array. Must be called as the last step.
-   * @method label
-   * @param {string} str -
-   * @method value
-   * @param {string} str -
-   * @method below - sets the 'placement' property value to "BELOW_LINE_ITEMS"
-   * @method above- sets the 'placement' property value to "ABOVE_LINE_ITEMS" - This is the default value.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/objects/InvoiceCustomField | Square Docs}
+   *
+   * Make sure to have the Square Docs open in front of you.
+   *
+   * @typedef {function} Invoice_Object.make_custom_field
+   * @method
+   * @public
+   * @memberOf Invoice_Object
+   * @property add() - adds the constructed object to the array. Must be called as the last step.
+   * @property label(str) {string} -
+   * @property value(str) {string} -
+   * @property below() - sets the 'placement' property value to "BELOW_LINE_ITEMS"
+   * @property above()- sets the 'placement' property value to "ABOVE_LINE_ITEMS" - This is the default value.
    * @example
    *  let custom =  myVar.make().custom_fields();
    *  custom.label("coffee").value("decaf is evil")
    *  custom.above()
    *  custom.add() <- this adds the object to the array, if you don't do this, then it doesn't get saved.
    * */
+
   make_custom_field() {
     let limit = this.configuration.maximums;
     let name = this._display_name;

@@ -13,14 +13,18 @@ const man =
   "can search for any type of catalog objects\n" +
   "This is complicated. Read the Pie doc before you try to use it:\n" +
   "This is the class to use if you want to search by key:value pairs.\n" +
-  "To cross reference by Square document ids use Catalog_Search_Cross_Reference";
-"https://github.com/TwoFistedJustice/square-pie/blob/main/docs/pie_catalog_request_search.md" +
-  "\nhttps://developer.squareup.com/reference/square/catalog-api/search-catalog-objects";
+  "To cross reference by Square document ids use Catalog_Search_Cross_Reference" +
+  "https://github.com/TwoFistedJustice/square-pie/blob/main/docs/pie_catalog_request_search.md\n" +
+  "https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects";
 
-/** @class Catalog_Search_Filter
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects | Square Docs}
- * @example
+/**
+ * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects  |  **-------> Link To Square Docs <-------**}
+ * @class Catalog_Search_Filter
+ * @extends Square_Request
+ * @classdesc
+ * Can search for any type of catalog objects.<br>
+ * This is complicated. Read the {@link https://github.com/TwoFistedJustice/square-pie/blob/main/docs/pie_catalog_request_search.md |  Pie Doc} before you try to use it.<br><br>
+ * To cross reference by Square document ids use Catalog_Search_Cross_Reference
  * */
 
 class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
@@ -163,14 +167,15 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
   }
 
   // METHODS
-  /** @function text_query_remove - removes a keyword from text_query
+  /**
+   * `text_query_remove` removes a keyword from text_query
+   * @typedef {function} Catalog_Search_Filter.text_query_remove
+   * @memberOf Catalog_Search_Filter
+   * @public
+   * @method
    * @param {string} word - a keyword to remove from the text_query. Case sensitive.
    * @throws {Error} Throws error if word is not found.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link  | Square Docs}
-   * @example
    * */
-
   text_query_remove(word) {
     this.#init_text_query();
     let existing_array = this._body.query.text_query.keywords;
@@ -191,7 +196,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     this._body.query.text_query.keywords = arr;
   }
 
-  concat_text_query(arr, calling_this) {
+  #concat_text_query(arr, calling_this) {
     this.#init_text_query();
     let limit = this.configuration.maximums.text_query;
     let text_query_array = this._body.query.text_query.keywords;
@@ -210,67 +215,48 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     return calling_this;
   }
 
-  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
-   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
-   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
-   * listed here.
-   
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * @example
-   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
-   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
-   *  variable.
-   *  let make = myVar.make();
-   *   make.gizmo()
-   *   make.gremlin()
-   *
-   * */
-
-  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
+  /**
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryExact | Square Docs: Exact Query}<br>
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryPrefix | Square Docs: Prefix Query}<br>
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryRange | Square Docs: Range Query}<br>
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryText | Square Docs: Text Query}<br>
+   * {@link https://developer.squareup.com/reference/square/enums/CatalogObjectType | Square Docs: Object Types}<br>
+   *  make() method of Catalog_Search_Filter
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method include_related_objects
-   * @param {bool} bool -
-   * @method begin_time
-   * @param {string} time - an RFC3339 compliant time string.
-   * @method exact_query
-   * @param {string} key - The exact name of the attribute to be searched
-   * @param {string} value - The value of the search attribute. Case insensitive and can be partial.
-   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryExact | Square Docs}
-   * @method prefix_query
-   * @param {string} key - The exact name of the attribute to be searched
-   * @param {string} prefix - The prefix of the attribute to be searched
-   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryPrefix | Square Docs}
-   * @method range_query
-   * @param {string} name - The exact name of the attribute to be searched
-   * @param {number} min - The desired minimum value for the search attribute (inclusive).
-   * @param {number} max - The desired maximum value for the search attribute (inclusive).
-   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryRange | Square Docs}
-   * @method set_query - calls make_set_query() - See that entry.
-   * @method sorted_attribute_query calls make_sorted_attribute_query() - See that entry.
-   * @method object_type - enumerated function - method names are same as lower case allowable values.
-   *{@link https://developer.squareup.com/reference/square/enums/CatalogObjectType | Square Docs}
-   * @method type - alias of object_type
-   * @method concat_object_types -add the contents of an array of object types
-   * @param {array} array_to_add - an array of object types (strings)
-   * @method type - alias of object_type
-   * @method concat_object_types
-   * @param {array} array_to_add - array of Object Type values.
-   * @method text_query - builds a compliant text_query object.
-   * @param {string} word - a word ot add to a text query. You can add up three.
-   * {@link https://developer.squareup.com/reference/square/objects/CatalogQueryText | Square Docs}
-   * @method text_query_concat - adds and array of keywords for a text query. Three maximum.
-   * @param {array} arr - the array to concat.
-   * @method text_query_remove - removes a word from the text_query.
-   * @param {string} word - a word ot remove from  text query.  Must be exact.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Catalog_Search_Filter.make
+   * @method
+   * @public
+   * @memberOf Catalog_Search_Filter
+   * @property include_related_objects(bool) {boolean}
+   * @property begin_time(time) {string} -
+   * @property exact_query(key,) {string|string} -
+   * @property prefix_query(key,) {string|string} -
+   * @property range_query(name,min,max) {string|number|number} -
+   * @property set_query()  - Calls 'make_set_query'
+   * @property sorted_attribute_query()  - Calls 'make_sorted_attribute_query'
+   * @property object_type() {Enumerated} - Calls 'catalog_search_objects_enum.object_types' - Different page.
+   * @property text_query(word) {string} - adds a word onto the text query array
+   * @property text_query_remove(word) {string} - A word to remove from the text query.  Must be exact.
+   * @property text_query_concat(arr) {array<string>} -adds the contents of an array of words onto the text query array
+   * @property limit(int32) {integer}
+   * @property type() alias of `object_type`
+   * @property concat_object_types(array_to_add) {array<enum>} - adds the contents of an array of object type strings to th object_types array. Three maximum.
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
 
   make() {
@@ -317,7 +303,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
         return this;
       },
       text_query_concat: function (arr) {
-        return this.self.concat_text_query(arr, this);
+        return this.self.#concat_text_query(arr, this);
       },
 
       text_query_remove: function (word) {
@@ -338,29 +324,40 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     };
   }
 
-  /** @function make_sorted_attribute_query()  method of Catalog_Search_Filter
-   * {@link https://developer.squareup.com/reference/square/objects/CatalogQuerySortedAttribute | Square Docs}
-   * @method attribute_name - sets attribute_name
-   * @param {string} key The attribute whose value is used as the sort key.
-   * @method initial_attribute_value - sets initial_attribute_value
-   * @param {string} value - The first attribute value to be returned by the query
-   * @method sort_order - enumerated sort function
-   * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Square Docs}
-   * @method key - alias of initial_attribute_value()
-   * @param {string} key The attribute whose value is used as the sort key.
-   * @method name- alias of initial_attribute_value()
-   * @param {string} key The attribute whose value is used as the sort key.
-   * @param {}
-   ** @method value - alias of initial_attribute_value()
-   * @param {string} value - The first attribute value to be returned by the query
-   * @method sort - alias of sort_order()
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+  /**
+   * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Square Docs: Sort Order}<br>
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQuerySortedAttribute | Square Docs: Sorted Attribute Query}<br>
+   *  make_sorted_attribute_query() method of Catalog_Search_Filter
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Catalog_Search_Filter.make_sorted_attribute_query
+   * @method
+   * @public
+   * @memberOf Catalog_Search_Filter
+   * @property attribute_name(key) {string} - sets attribute_name
+   * @property initial_attribute_value(value) {string} -sets initial_attribute_value
+   * @property sort_order() {Enumerated} - Calls `arche_sorting_enum.sort_order()`
+   * @property key(key) {string} - -alias of `attribute_name()`
+   * @property name(key) {string} - -alias of `attribute_name()`
+   * @property value(value) {string} -alias of `initial_attribute_value()`
+   * @property sort() - alias of 'sort_order()`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
    *
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make_sorted_attribute_query() {
     this.#init_sorted_attribute_query();
     let sorted_attribute_query = this._body.query.sorted_attribute_query;
@@ -392,21 +389,35 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
     };
   }
 
-  /** @function make_set_query()  method of Catalog_Search_Filter
-   * {@link https://developer.squareup.com/reference/square/objects/CatalogQuerySet | Square Docs}
-   * @method name - sets attribute_name
-   * @param {string} name - - The exact name (key) of the attribute to be searched
-   * @method value - adds a value to the attribute_values array
-   * @param {string} value - a value to search
-   * @method concat_values - concatenates an array to the attribute_values array
-   * @param {array} arr - an array of values to search.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+  /**
+   * {@link https://developer.squareup.com/reference/square/objects/CatalogQuerySet | Square Docs}<br>
+   *  make_set_query() method of Catalog_Search_Filter
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Catalog_Search_Filter.make_set_query
+   * @method
+   * @public
+   * @memberOf Catalog_Search_Filter
+   * @property name(name) {string} -The exact name (key) of the attribute to be searched
+   * @property value(val) {string} - adds a value to the attribute_values array
+   * @property concat_values(arr) {array<string>} - concatenates an array to the attribute_values array
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
    *
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make_set_query() {
     this.#init_set_query();
     let limit = this.configuration.maximums.attribute_values;

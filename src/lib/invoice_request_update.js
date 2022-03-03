@@ -4,7 +4,7 @@ const { shazam_max_length, arrayify } = require("./utilities");
 
 const man =
   "http request to upate an invoice by modifying fields, clearing fields, or both. \n" +
-  "Pass the invoice_id as a string argument when you instantiate the class. There is no option to do it later.\n" +
+  "Retrieve the invoice from Square and pass it as an argument when you instantiate the class. There is no option to do it later\n" +
   "If you want to change values on invoice fields, create a sparse invoice using Invoice_Object class. If the invoice\n" +
   "has illegal updates this class will throw an error. To aid in debugging, the specific reason will be stashed at myVar.reason.\n" +
   "You can also manually validate a sparse invoice by passing it to myVar.validate(fardel). Then check myVar.reason.\n" +
@@ -12,13 +12,26 @@ const man =
   "\nhttps://developer.squareup.com/reference/square/invoices-api/update-invoice" +
   "\nhttps://developer.squareup.com/docs/invoices-api/overview#update-an-invoice";
 
-/** @class Invoice_Update
- * @param {object}  invoice_document Get the invoice you want to update from Square and pass it as an argument.
+/**
+ * {@link https://developer.squareup.com/reference/square/invoices-api/update-invoice | **-------> Link To Square Docs: Update endpoint<-------**}<br>
+ * {@link https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice | **-------> Link To Square Docs: Updating an invoice<-------**}<br>
+ * @class Invoice_Update
+ * @extends Square_Request
+ * @param {object}  invoice_document Get the invoice you want to update from Square and pass its ID as an argument.
  * You MUST do this when instantiating the Invoice_Update class. There is no option do do it later.
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/invoices-api/update-invoice | Square Docs: Update endpoint}
- * {@link https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice | Square Docs: Update an invoice}
+ * @classdesc
+ *
+ * http request to upate an invoice by modifying fields, clearing fields, or both.<br><br>
+ * Retrieve the invoice from Square and pass it as an argument when you instantiate the class. There is no option to do it later.<br><br>
+ * If you want to change values on invoice fields, create a sparse invoice using Invoice_Object class.<br><br>
+ * You can also manually validate a sparse invoice by passing it to myVar.validate(fardel). Then check myVar.reason. <br><br>
+ * You may not update the order_id or location_id. You may not update the primary_recipient on a published invoice. <br>
+ *
+ * **SPECIAL**<br>
+ * If the invoice has illegal updates this class will throw an error. To aid in debugging, the specific reason will be stashed at `myVar.reason`. <br><br>
+ *
  * */
+
 class Invoice_Update extends Invoice_RUDCnP {
   _display_name = "Invoice_Update";
   _last_verified_square_api_version = "2021-12-15";
@@ -213,16 +226,16 @@ class Invoice_Update extends Invoice_RUDCnP {
     }
   }
 
-  /** @method  validation - determines if an update is legal. If it is legal it returns true. If it is illegal,
+  /**
+   * {@link https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice | Square Docs}<br>
+   *
+   * Determines if an update is legal. If it is legal it returns true. If it is illegal,
    * it returns false and the reason can be accessed at yourVar.reason. This method is run automatically when
    * you call yourVar.request() and will throw an error if validation fails. If you run it manually, no error
-   * will be thrown.
-   * @param {object}  Invoice_Object.fardel
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/docs/invoices-api/overview#update-an-invoice | Square Docs}
+   * will be thrown. Instead errors will be recorded and visible at the `.reason` property.
    *
-   * Determines whether the update is legal or not.
-   * The update is illegal if
+   * Determines whether the update is legal or not.<br>
+   * **The update is illegal if:**
    * - if the versions do no match.
    * - an attempt is made to update order_id or location_id.
    * - the invoice is published and an attempt is made to update primary_recipient
@@ -233,15 +246,28 @@ class Invoice_Update extends Invoice_RUDCnP {
    *    - "CANCELED"
    *    - "FAILED"
    *    - "PAYMENT_PENDING
+   *
+   * @typedef {function} Invoice_Update.validate
+   * @memberOf Invoice_Update
+   * @public
+   * @method
+   * @param {invoice.fardel} fardel
+   * @example
+   * myVar.validate(invoice.fardel)
+   * console.log(myVar.reason) => prints any errors to console
    * */
+
   // the default is the sparse invoice object NOT the original
   validate(fardel = this._body.invoice) {
     let is_legal;
-    /** @function update_legality checks the value of is_legal
+    /**
+     *  update_legality checks the value of is_legal
      * if it is undefined - it sets it to the received value
      * if it true set it to the  received value
      * if it is false, leave it as it is
+     * @function
      * @param {boolean} the result of a test
+     * @ignore
      * */
     let update_legality = function (bool) {
       if (is_legal === undefined || is_legal === true) {
@@ -254,8 +280,6 @@ class Invoice_Update extends Invoice_RUDCnP {
     update_legality(this.#can_clear_primary_recipient());
     // if there is not an invoice to validate, then don't!
     if (fardel !== undefined) {
-      // if (this._body.invoice !== undefined ){
-      // let fardel = this._body.invoice;
       // disallow update if status is PAYMENT_PENDING, PAID, REFUNDED, CANCELED, or FAILED.
       update_legality(this.is_updatable);
       // disallow updating primary_recipient if invoice is published
@@ -271,25 +295,38 @@ class Invoice_Update extends Invoice_RUDCnP {
   }
 
   // MAKE METHODS
-  /** @function make()  method of Invoice_Update - method names are exactly the same as the property names listed
+  /**
+   * @param {object} fardel
+   * @param {string} field
+   * */
+  /**
+   *  make() method of Invoice_Update
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method idempotency_key - this is set automatically
-   * @param {string} key -
-   * @method invoice
-   * @param {object} fardel  - a sparse invoice object fardel containing only the fields to be changed.
-   * @method fields_to_clear
-   * @param {string} field - the key of the key:value pair to be cleard.
-   
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Invoice_Update.make
+   * @method
+   * @public
+   * @memberOf Invoice_Update
+   * @property idempotency_key(key) {string} - use only if you want to use your own key in place of the automatically generated one.
+   * @property invoice(fardel) {Fardel}  - a sparse invoice object fardel containing only the fields to be changed.
+   * @property fields_to_clear(field) {string} - the key of the key:value pair to be cleared.
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,

@@ -12,6 +12,7 @@
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * @example
  *  `if( shazam_some_comparison(...) { do stuff }`
+ *  @ignore
  * */
 
 const shazam_number_between_equals = function (

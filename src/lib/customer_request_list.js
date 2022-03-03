@@ -6,13 +6,16 @@ const {
 } = require("./utilities/index");
 const man =
   "fetches a list of customers\n" +
-  "You can add a limit, a sort field and sort order using make(). Cursor is appended automatically." +
-  "\nhttps://developer.squareup.com/reference/square/customers-api/list-customers";
-
-/** @class Customer_List representing an http request to retrieve a list of customer records
- *  @see Customer_Request
- *  @author Russ Bain
- *  */
+  "You can add a limit, a sort field and sort order using make(). Cursor is appended automatically.\n" +
+  "https://developer.squareup.com/reference/square/customers-api/list-customers";
+/**
+ * {@link https://developer.squareup.com/reference/square/customers-api/list-customers |  **-------> Link To Square Docs <-------**}
+ * @class Customer_List
+ * @extends Square_Request
+ * @classdesc
+ * Fetches a list of customers.<br>
+ * You can add a limit, a sort field and sort order using make(). Cursor is appended automatically if it exists.
+ * */
 class Customer_List extends Customer_Request {
   _display_name = "Customer_List";
   _last_verified_square_api_version = "2021-07-21";
@@ -90,6 +93,28 @@ class Customer_List extends Customer_Request {
     this.endpoint = endpoint;
   }
 
+  /**
+   *  {@link https://developer.squareup.com/reference/square/enums/CustomerSortField | Square Docs}<br>
+   *  #sort_field_enum
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   *  @typedef {function} Customer_List.sort_field_enum
+   * @private
+   * @abstract
+   * @memberOf Customer_List
+   * @property default() sets value to "DEFAULT"
+   * @property created_at() sets value to "CREATED_AT"
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
+
   #sort_field_enum() {
     return {
       default: () => {
@@ -100,6 +125,28 @@ class Customer_List extends Customer_Request {
       },
     };
   }
+
+  /**
+   * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Square Docs}<br>
+   *  #sort_order_enum
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   *  @typedef {function} Customer_List.sort_order_enum
+   * @private
+   * @abstract
+   * @memberOf Customer_List
+   * @property asc() sets value to "ASC"
+   * @property desc() sets value to "DESC"
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
 
   #sort_order_enum() {
     return {
@@ -112,23 +159,32 @@ class Customer_List extends Customer_Request {
     };
   }
 
-  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
+  /**
+   *  make() method of Customer_List
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method limit
-   * @param {number} int -
-   * @method sort_field - enumerated
-   * {@link https://developer.squareup.com/reference/square/enums/CustomerSortField | Square Docs}
-   * @method sort_order enumerated
-   * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Square Docs}
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Customer_List.make
+   * @method
+   * @public
+   * @memberOf Customer_List
+   * @property limit(int) {integer} -
+   * @property sort_field() {Enumerated} - calls {@link Customer_List.sort_field_enum|`#sort_field_enum`}
+   * @property sort_order() {Enumerated} - calls {@link Customer_List.sort_order_enum|`#sort_order_enum`}
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
   make() {
     return {

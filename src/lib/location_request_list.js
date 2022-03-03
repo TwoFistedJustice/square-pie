@@ -4,9 +4,13 @@ const man =
   "http request to list all locations.\n" +
   "https://developer.squareup.com/reference/square/locations-api/list-locations";
 
-/** @class  Location_List - lists location objects. Has no make() method.
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/locations-api/list-locations | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/locations-api/list-locations |  **-------> Link To Square Docs <-------**}
+ * @class Location_List
+ * @extends Square_Request
+ * @classdesc
+ *
+ * Lists location objects. Has no make() method.
  * */
 
 class Location_List extends Location_Request {

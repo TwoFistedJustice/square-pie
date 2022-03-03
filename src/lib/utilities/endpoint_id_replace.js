@@ -4,6 +4,7 @@ const id_matching_regex = /(^\/[\w]*)?/i; // matches the `/${id}` portion
  *  replaces the `/${id}` portion of an endpoint. Enables rapid multiple actions with a single class using iteration.
  * @param {string} old_endpoint - the endpoint into which you would like to swap the new id
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+ * @ignore
  * */
 
 const endpoint_id_replace = function (old_endpoint, id) {

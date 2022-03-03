@@ -2,14 +2,19 @@ const Catalog_Request = require("./catalog_request_abstract");
 const { arrayify, shazam_is_array } = require("./utilities");
 const man =
   "deletes one or more Catalog API objects. Add the id of the objects you want to delete using " +
-  'make().object_ids("id") or you can also skip make() and jut call .delete("id"), .nix("id"), ou en francais' +
+  'make().object_ids("id") or you can also skip make() and just call .delete("id"), .nix("id"), ou en francais' +
   '.effacer("id"). You can also add an array of ids to delete by calling make().concat_object_ids(["id", ...]). ' +
   "You can mix and match methods.\n" +
   "\nhttps://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects";
 
-/** @class Catalog_Delete
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/catalog-api/batch-delete-catalog-objects |  **-------> Link To Square Docs <-------**}
+ * @class Catalog_Delete
+ * @extends Square_Request
+ * @classdesc
+ * Deletes one or more Catalog API objects.<br> Add the id of the objects you want to delete using make().object_ids("id") or
+ * you can also skip make() and just call .delete("id"), .nix("id"), ou en francais .effacer("id").<br>You can also add an array
+ * of ids to delete by calling make().concat_object_ids(["id", ...]). You can mix and match methods.
  * */
 
 class Catalog_Delete extends Catalog_Request {
@@ -43,25 +48,37 @@ class Catalog_Delete extends Catalog_Request {
       this._body.object_ids = joined_array;
     }
   }
-  //MAKER METHODS
-  /** @function make()  method of Catalog_Delete - method names are exactly the same as the property names listed
+  //MAKE METHODS
+
+  /**
+   *  make() method of Catalog_Delete
+   *
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method object_ids
-   * @param {string} id - object ids of documents you wish to delete. Must add at least one.
-   * @method concat_object_ids
-   * @param {array} arr - array of ids (strings)
-   * @method  id- alias of `object_ids`
-   * @method concat - alias of `concat_object_ids`
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Catalog_Delete.make
+   * @method
+   * @public
+   * @memberOf Catalog_Delete
+   * @property object_ids(id) {string<id>} - object ids of documents you wish to delete. Must add at least one.
+   * @property id(id) {string<id>} -alias of `object_ids`
+   * @property concat_object_ids(arr) {array<id>} - adds contents of an array of ids to the object_ids array
+   * @property concat(arr) {array<id>} - alias of `concat_object_ids`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,
@@ -82,39 +99,58 @@ class Catalog_Delete extends Catalog_Request {
     };
   }
 
-  /** @function delete - adds a single object id to the delete request
+  /**
+   * Adds the id of an object to be deleted.
+   * @typedef {function} Catalog_Delete.delete
+   * @memberOf Catalog_Delete
+   * @public
+   * @method
    * @param {string} id
    * @example
-   * myVar.delete(id)
+   * myVar.delete("some_id")
    * */
-
   delete(id) {
     this.object_ids = id;
     return this;
   }
-  /** @function effacer - ajouter un seule object id au requete effacer
+
+  /**
+   * Ajoute l'identifiant d'un objet à supprimer.
+   * @typedef {function} Catalog_Delete.effacer
+   * @memberOf Catalog_Delete
+   * @public
+   * @method
    * @param {string} id
    * @example
-   * myVar.effacer(id)
+   * myVar.effacer("quelque_id")
    * */
 
   effacer(id) {
     return this.delete(id);
   }
-
-  /** @function nix - alias of delete
+  /**
+   * Adds the id of an object to be deleted.
+   * @typedef {function} Catalog_Delete.nix
+   * @memberOf Catalog_Delete
+   * @public
+   * @method
    * @param {string} id
    * @example
-   * myVar.nix(id)
+   * myVar.nix("some_id")
    * */
 
   nix(id) {
     return this.delete(id);
   }
-  /** @function disintegrate - alias of delete
+  /**
+   * Adds the id of an object to be deleted.
+   * @typedef {function} Catalog_Delete.disintegrate
+   * @memberOf Catalog_Delete
+   * @public
+   * @method
    * @param {string} id
    * @example
-   * myVar.disintegrate(id)
+   * myVar.disintegrate("Alderaan")
    * */
 
   disintegrate(id) {

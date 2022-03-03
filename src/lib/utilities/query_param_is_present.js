@@ -9,6 +9,7 @@ const { query_param_regex } = require("./regular_expression_patterns");
  * let query_string = "?status=DRAFT,OPEN&version=3";
  * let param = "version";
  * query_param_add_value(query_string, param) => true
+ * @ignore
  * */
 
 const query_param_is_present = function (query_string, param) {

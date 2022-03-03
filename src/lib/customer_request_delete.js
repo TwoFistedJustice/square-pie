@@ -14,10 +14,18 @@ const man =
   "You may add the version as a second argument to the constructor or you can add it later using make().version(version)\n" +
   "https://developer.squareup.com/reference/square/customers-api/delete-customer";
 
-/** @class Customer_Delete representing an http request to delete one or more customer records
- *  @see Retrieve_Update_Delete
- *  @author Russ Bain
- *  */
+/**
+ * {@link https://developer.squareup.com/reference/square/customers-api/delete-customer |  **-------> Link To Square Docs <-------**}
+ * @class Customer_Delete
+ * @extends Square_Request
+ * @classdesc
+ * Deletes exactly one customer record. SQuare has no built-in option to delete multiple customer records.<br>
+ * Add the Square id of the customer record to delete as an argument when you create the class. You can also do it later.<br>
+ * To add the id after instantiation call make().id("some_id") or use the `replace_id` setter.<br>
+ * To enforce optimistic concurrency you may also add the version number of the Square customer record. To get this you will have to fetch it from Square beforehand.<br>
+ * You may add the version as a second argument to the constructor or you can add it later using make().version(version)<br>
+ * */
+
 class Customer_Delete extends Retrieve_Update_Delete {
   _display_name = "Customer_Delete";
   _last_verified_square_api_version = "2021-07-21";
@@ -73,21 +81,31 @@ class Customer_Delete extends Retrieve_Update_Delete {
     }
   }
 
-  /** @function make()  method of Customer_Delete - method names are exactly the same as the property names listed
+  /**
+   *  make() method of Customer_Delete
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method version
-   * @param {number} version - Expects an integer. Sets the 'version' query parameter
-   * @method id - replaces or set the /{id} portion of the endpoint - can be used any time.
-   * @param {string} id - the id you want to put into the endpoint.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Customer_Delete.make
+   * @method
+   * @public
+   * @memberOf Customer_Delete
+   * @property id(id) {string<id>} -  replaces or set the /{id} portion of the endpoint - can be used any time before calling .request().
+   * @property version(version) {integer} - Expects an integer. Sets the 'version' query parameter
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
   make() {
     return {

@@ -15,11 +15,18 @@ const man =
   "You can also add an array of location_ids by calling make().concat_location(array).\n" +
   "https://developer.squareup.com/reference/square/orders-api/search-orders";
 
-/** @class Order_Search representing a search for an existing order.
- * @param {string | array} id - the id or array of ids of an order(s) you want to search for. You can also add this later. You must do this before calling .request()
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/orders-api/search-orders | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/orders-api/search-orders |  **-------> Link To Square Docs <-------**}
+ * @class Order_Search
+ * @extends Square_Request
+ * @param {string|array} id - the id or array of ids of an order(s) you want to search for. You can also add this later. You must do this before calling .request()
+ * @classdesc
+ *
+ * Searches all orders based on up to ten locations. <br><br>
+ * Add location_ids by calling `make().location(location_id)`<br><br>
+ * You can also add an array of location_ids by calling make().concat_location(array).
  * */
+
 class Order_Search extends Order_Request {
   _display_name = "Order_Search";
   _last_verified_square_api_version = "2021-12-15";
@@ -113,7 +120,9 @@ class Order_Search extends Order_Request {
     }
   }
   /**
-   * @param {array} arr - an array of ids not longer than 10
+   * @ignore
+   * @function
+   * @param {array<id>} arr - an array of ids not longer than 10
    * @throws {Error} Throws an error if the any array or combination of arrays exceeds a length of 10
    * @throws {Error} Throws an error if the argument is not an array
    * @return Replaces the existing array with a new one consisting of the old one plus the one you passed in.
@@ -164,9 +173,7 @@ class Order_Search extends Order_Request {
   }
 
   // PRIVATE METHODS
-  /** @method  define_query
-   * @private
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+  /** define_query
    *
    *  Creates a new Query Object with the `filter` property set to a filter object with
    *  all properties set to undefined.
@@ -174,7 +181,9 @@ class Order_Search extends Order_Request {
    *  Sets `sort` to a default SearchOrdersSort object with default values:
    * sort_field: "CREATED_AT"
    * sort_order: "ASC"
-   *
+   * @ignore
+   * @method
+   * @private
    * */
 
   #define_query() {
@@ -224,23 +233,23 @@ class Order_Search extends Order_Request {
     }
   }
 
-  /** @function
+  /**
+   *  * {@link https://developer.squareup.com/reference/square/enums/OrderFulfillmentType | Link To Square Docs}<br>
+   * <br>{@link Order_Search.make|Back to make()}<br>
+   * <br>{@link Order_Search.make_query|Back to make_query()}<br>
+   *  #build_fulfillment_types<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
+   *  @typedef {function} Order_Search.build_fulfillment_types
    * @private
-   * @method proposed pushes value "PROPOSED"
-   * @method reserved pushes value "RESERVED"
-   * @method prepared pushes value "PREPARED"
-   * @method completed pushes value "COMPLETED"
-   * @method canceled pushes value "CANCELED"
-   * @method failed pushes value "FAILED"
-   
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link  | Square Docs}
+   * @abstract
+   * @memberOf Order_Search
+   * @property pickup() -  pushes value "PICKUP"
+   * @property shipment() -  pushes value "SHIPMENT"
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
    *  value of `clint` on the object 'western'
@@ -259,29 +268,34 @@ class Order_Search extends Order_Request {
     );
   }
 
-  /** @function #build_fulfillment_states
+  /**
+   * {@link https://developer.squareup.com/reference/square/enums/OrderState | Link To Square Docs}<br>
+   * <br>{@link Order_Search.make|Back to make()}<br>
+   * <br>{@link Order_Search.make_query|Back to make_query()}<br>
+   *  #build_fulfillment_states<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
+   *  @typedef {function} Order_Search.build_fulfillment_states
    * @private
-   * @param {object} calling_this - pass in the calling function's 'this'
-   * @method proposed sets value to "PROPOSED"
-   * @method reserved sets value to "RESERVED"
-   * @method prepared sets value to "PREPARED"
-   * @method completed sets value to "COMPLETED"
-   * @method canceled sets value to "CANCELED"
-   * @method failed sets value to "FAILED"
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/enums/OrderState | Square Docs}
+   * @abstract
+   * @memberOf Order_Search
+   * @property proposed() - sets value to "PROPOSED"
+   * @property reserved() - sets value to "RESERVED"
+   * @property prepared() - sets value to "PREPARED"
+   * @property completed() - sets value to "COMPLETED"
+   * @property canceled() - sets value to "CANCELED"
+   * @property failed() - sets value to "FAILED"
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
    *  value of `clint` on the object 'western'
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
+
   #build_fulfillment_states(calling_this) {
     this.#init_fulfillment_filter();
     let filter = this._body.query.filter.fulfillment_filter;
@@ -294,22 +308,27 @@ class Order_Search extends Order_Request {
     );
   }
 
-  /** @function
+  /**
+   * {@link https://developer.squareup.com/reference/square/enums/OrderState | Link To Square Docs}<br>
+   * <br>{@link Order_Search.make|Back to make()}<br>
+   * <br>{@link Order_Search.make_query|Back to make_query()}<br>
+   *  #build_state_filter<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   * @method proposed pushes value "PROPOSED"
-   * @method reserved pushes value "RESERVED"
-   * @method prepared pushes value "PREPARED"
-   * @method completed pushes value "COMPLETED"
-   * @method canceled pushes value "CANCELED"
-   * @method failed pushes value "FAILED"
-   
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/enums/OrderState | Square Docs}
+   *  @typedef {function} Order_Search.build_state_filter
+   * @private
+   * @abstract
+   * @memberOf Order_Search
+   * @property proposed() - pushes value "PROPOSED"
+   * @property reserved() - pushes value "RESERVED"
+   * @property prepared() - pushes value "PREPARED"
+   * @property completed() - pushes value "COMPLETED"
+   * @property canceled() - pushes value "CANCELED"
+   * @property failed() - pushes value "FAILED"
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
    *  value of `clint` on the object 'western'
@@ -328,13 +347,23 @@ class Order_Search extends Order_Request {
     return order_fulfillment_enum.state_filter_arrays(filter, calling_this);
   }
 
-  /** @method  build_date_time_filter
+  /**
+   * * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersDateTimeFilter | Link To Square Docs}<br>
+   * <br>{@link Order_Search.make|Back to make()}<br>
+   * <br>{@link Order_Search.make_query|Back to make_query()}<br>
+   * **Important:** If you filter for orders by time range, you must set sort to use the same field.
+   * @typedef {function} Order_Search.build_date_time_filter
+   * @memberOf Order_Search
    * @private
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersDateTimeFilter | Square Docs}
-   *
-   * Important: If you filter for orders by time range, you must set sort to use the same field.
+   * @method
+   * @property close_at(start,end){time_range}
+   * @property created_at(start,end){time_range}
+   * @property updated_at(start,end){time_range}
+   * @param {time} start - the earlier time - an RFC3339 compliant date code
+   * @param {time} end - the later time - an RFC3339 compliant date code
+   * @throws {error} Throws an error if either time argument is not in RFC3339 format.
    * */
+
   #build_date_time_filter() {
     let name = this.display_name + ".#build_date_time_filter";
     this.#define_date_time_filter();
@@ -389,32 +418,39 @@ class Order_Search extends Order_Request {
     };
   }
 
-  // BUILDER METHODS
   // todo need to be able to add whole arrays with length validation
-  /** @function make_query()  method of Order_Search - method names are exactly the same as the property names listed
+  /**
+   * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery  | Link To Square Docs}<br>
+   * <br>{@link Order_Search.make|Back to make()}<br>
+   *  **make_query() method of Order_Search**<br>
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method customer_filter
-   * @param {string} id -
-   * @method source_filter
-   * @param {string} id -
-   * @method date_time_filter - calls #build_date_time_filter()
-   * @method fulfillment_states - calls #build_fulfillment_states()
-   * @method f_states - alias of `fulfillment_states`
-   * @method fulfillment_types - calls #build_fulfillment_types()
-   * @method f_types - alias of `fulfillment_types`
-   * @method state_filter - calls #build_state_filter()
-   * @method sort_order  Enumerated. Calls on arche_sorting_enum module.
-   * @method sort_field  Enumerated. Calls on arche_sorting_enum module.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery  | Square Docs}
+   *
+   * @typedef {function} Order_Search.make_query
+   * @method
+   * @public
+   * @memberOf Order_Search
+   * @property customer_filter(){string}  -
+   * @property source_filter(){string}  -
+   * @property date_time_filter() {time_range}- calls {@link Order_Search.build_date_time_filter|#build_date_time_filter()}
+   * @property fulfillment_states() - calls {@link Order_Search.build_fulfillment_states|#build_fulfillment_states()}
+   * @property f_states() - alias of `fulfillment_states`
+   * @property fulfillment_types() - calls {@link Order_Search.build_fulfillment_types|#build_fulfillment_types()}
+   * @property f_types() - alias of `fulfillment_types`
+   * @property state_filter() - calls {@link Order_Search.build_state_filter|build_state_filter()}
+   * @property sort_order()  {Enumerated} Calls on {@link |arche_sorting_enum} module.
+   * @property sort_field()  {Enumerated} Calls on {@link |arche_sorting_enum} module.
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
   make_query() {
     const name = this.display_name + ".make_query";
@@ -470,66 +506,57 @@ class Order_Search extends Order_Request {
       f_types: function () {
         return this.fulfillment_types();
       },
-      /** @method state_filter
-       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-       * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersStateFilter | Square Docs}
+      /**
+       * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersStateFilter | Link To Square Docs}<br>
+       * @ignore
        * */
       state_filter: function () {
         return this.self.#build_state_filter(this);
       },
 
-      /** @function sort_order()  enumerated function of arche_sorting_enum -
-       * @method ascending - sets sort_order to "ASC"
-       * @method up - alias of `ascending`
-       * @method oldest_first - alias of `ascending`
-       * @method descending - sets sort_order to "DESC"
-       * @method down - alias of `descending`
-       * @method newest_first - alias of `descending`
-       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-       * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery | Square Docs}
+      /**
+       * {@link https://developer.squareup.com/reference/square/objects/SearchOrdersQuery | Link To Square Docs}<br>
+       * @ignore
        * */
 
       sort_order: function () {
         return arche_sorting_enum.sort_order(sort, this);
       },
-      /** @function sort_field()  enumerated function of arche_sorting_enum
-       * @method created_at sets sort_field to "CREATED_AT"
-       * @method created - alias of created_at
-       * @method updated_at sets sort_field to "UPDATED_AT"
-       * @method updated - alias of updated_at
-       * @method closed_at sets sort_field to "CLOSED_AT"
-       * @method closed - alias of closed_at
-       * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-       * */
+
       sort_field: function () {
         return arche_sorting_enum.sort_field(sort, this);
       },
     };
   }
 
-  /** @function make()  method of Order_Search - method names are exactly the same as the property names listed
+  /**
+   *  make() method of Order_Search
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method location_ids
-   * @param {string} location_id -
-   * @method limit
-   * @param {number} int -
-   * @method return_entries
-   * @param {bool} bool -
-   * @method query
-   *  @param {object} search_orders_query -
-   * @method location - alias of `location_ids`
-   * @method concat_locations - adds the contents of an array of IDs to the `location_ids` array
-   @param {array} arr - an array of location_ids
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * @typedef {function} Order_Search.make
+   * @method
+   * @public
+   * @memberOf Order_Search
+   * @property location_ids(location_id) {string} -
+   * @property limit(int) {integer} -
+   * @property return_entries(bool) {boolean}
+   * @property query(search_orders_query) {object}
+   * @property location(location_id) {string} - alias of `location_ids`
+   * @property concat_locations(arr) {array<id>}- adds the contents of an array of IDs to the `location_ids` array
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,

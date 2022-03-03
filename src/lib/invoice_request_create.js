@@ -4,12 +4,18 @@ const { shazam_max_length } = require("./utilities");
 const man =
   "an http request to create a new invoice document.\n" +
   "Create the invoie using the Invoice_Object class. Pass its fardel as an argument to make().invoice(myVar.fardel)" +
-  '"When creating a new invoice you MUST include the order_id on the invoice object";' +
-  "\nhttps://developer.squareup.com/reference/square/invoices-api/create-invoice";
+  '"When creating a new invoice you MUST include the order_id on the invoice object\n"' +
+  "https://developer.squareup.com/reference/square/invoices-api/create-invoice";
 
-/** @class  Invoice_Create
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/invoices-api/create-invoice | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/invoices-api/create-invoice |  **-------> Link To Square Docs <-------**}
+ * @class Invoice_Create
+ * @extends Square_Request
+ * @classdesc
+ *
+ * An http request to create a new invoice document.<br>
+ * Create the invoie using the Invoice_Object class. Pass its fardel as an argument to make().invoice(myVar.fardel)<br>
+ * When creating a new invoice you MUST include the order_id on the invoice object<br>
  * */
 class Invoice_Create extends Invoice_Request {
   _display_name = "Invoice_Create";
@@ -65,24 +71,36 @@ class Invoice_Create extends Invoice_Request {
     }
   }
 
-  // MAKER METHODS
-  /** @function make()  method of Invoice_Create - method names are exactly the same as the property names listed
+  // MAKE METHODS
+  /**
+   *  make() method of Invoice_Create
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method idempotency_key - this is automatically set
-   * @param {string} key -
-   * @method invoice
-   * @param {object} fardel - an invoice object fardel
-   * @throws an error if order_id is not present on the object passed
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Invoice_Create.make
+   * @method
+   * @public
+   * @memberOf Invoice_Create
+   * @property idempotency_key(key) {string} - use only if you want to use your own key in place of the automatically generated one.
+   * @property invoice(fardel) {Fardel} - invoice_obejct.fardel - will throw an error if the order_id is not present
+   * @throws Error if the order_id is not present on the invoice
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
-   *  let make = myVar.make();
-   *   make.gizmo()
-   *   make.gremlin()
    *
+   *  let invoice = new Invoice_Object()
+   *             // build your invoice object then pass its fardel to the request class
+   *  let create = new Invoice_Create(invoice.fardel)
+   *              //OR
+   *  let create = new Invoice_Create()
+   *  create.make().invoice(invoice.fardel)
    * */
+
   make() {
     return {
       self: this,

@@ -11,12 +11,12 @@ const man =
   "Builds a compliant Location Object\n" +
   "https://developer.squareup.com/reference/square/objects/Location";
 
-/** @class Location_Object builds a compliant Location object
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/objects/Location | Square Docs}
- * @example
- *  const myVar = new Location_Object()
- *  myVar.fardel => pass this to a request class to send your data
+/**
+ * {@link https://developer.squareup.com/reference/square/objects/Location  |  **-------> Link To Square Docs <-------**}
+ * @class Location_Object
+ * @classdesc
+ *
+ * Builds a compliant Location object
  * */
 
 class Location_Object {
@@ -317,6 +317,28 @@ class Location_Object {
     this._fardel.tax_ids = val;
   }
   // Private Methods
+
+  /** * {@link https://developer.squareup.com/reference/square/enums/LocationType | Link To Square Docs}<br>
+   *
+   *  #enum_type
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   *  @typedef {function} Location_Object.enum_type
+   * @private
+   * @abstract
+   * @memberOf Location_Object
+   * @property physical() sets value to "PHYSICAL"
+   * @property mobile() sets value to "MOBILE"
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
   #enum_type(calling_this) {
     return {
       self: this,
@@ -330,6 +352,28 @@ class Location_Object {
       },
     };
   }
+
+  /** * {@link https://developer.squareup.com/reference/square/enums/LocationStatus | Link To Square Docs}<br>
+   *
+   *  #enum_status
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   *  @typedef {function} Location_Object.enum_status
+   * @private
+   * @abstract
+   * @memberOf Location_Object
+   * @property active() sets value to "ACTIVE"
+   * @property inactive() sets value to "INACTIVE"
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
   #enum_status(calling_this) {
     return {
       self: this,
@@ -345,53 +389,67 @@ class Location_Object {
   }
 
   // MAKE METHODS
-  /** @function make()  method of Location_Object - method names are exactly the same as the property names listed
-   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method name
-   * @param {string} name -
-   * @method address
-   *  @param {object} address_object -
-   * @method timezone
-   * @param {string} IANA_timezone -
-   * @method phone_number
-   * @param {string} phone -
-   * @method business_name
-   * @param {string} name -
-   * @method business_email
-   * @param {string} email -
-   * @method business_hours
+
+  /**
+   * {@link https://developer.squareup.com/reference/square/objects/BusinessHours |  Link To Square Docs}<br>
+   *
+   * business_hours.
+   *
+   * You can expect to make one for each day of the week.
+   *
+   * @typedef {function} Location_Object.business_hours
+   * @memberOf Location_Object
+   * @private
+   * @method
    * @param {string} day - The day of the week. Must be either first three letters in all caps (SUN, MON, etc) or first letter capitalized, eg(Sunday, Monday, etc)
    * @param {string} start - start of business hours in 24 hour format, omitting the leading zero. You should append ":00" for seconds to the end.
    * @param {string} end - end of business hours in 24 hour format, omitting the leading zero. You should append ":00" for seconds to the end.
-   * @method description
-   * @param {string} description -
-   * @method language_code - Enumerated function. Calls language_code_enum.language_code()
-   * @method type Enumerated function. Calls #enum_type()
-   * @method status Enumerated function. Calls #enum_status()
-   * @method twitter_username
-   * @param {string} tweety -
-   * @method instagram_username
-   * @param {string}  ig -
-   * @method facebook_url
-   * @param {string} url - must contain "facebook.com"
-   * @method website_url
-   * @param {string} url -
-   * @method coordinates
-   * @param {number} latitude - will also accept it as a string
-   * @param {number} longitude -  will also accept it as a string
-   * @method mcc
-   * @param {string} mcc -
-   * @method tax_ids
-   * @param {string} eu_vat -
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @example
+   *
+   * myvar.make().business_hours("Monday", "8:30:00", "18:30:00").business_hours("Tuesday", "8:30:00", "18:30:00")...
+   * */
+
+  /**
+   *  make() method of Location_Object
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Location_Object.make
+   * @method
+   * @public
+   * @memberOf Location_Object
+   * @property name(name) {string} -
+   * @property address(address_object) {address}
+   * @property timezone(IANA_timezone) {string} -
+   * @property phone_number(phone) {string} -
+   * @property business_name(name) {string} -
+   * @property business_email(email) {string} -
+   * @property business_hours((day,start,end)) {string} - Pushes a business_hours object onto the array. See entry.
+   * @property description(decription) {string} -
+   * @property language_code() {Enumerated} - Calls `{@link language_code_enum.language_code|language_code_enum.language_code()`}
+   * @property type() {Enumerated} - Calls {@link Location_Object.enum_type|`enum_type()`}
+   * @property status() {Enumerated} - Calls {@link Location_Object.enum_status|`enum_status()`}
+   * @property twitter_username(tweety) {string} -
+   * @property instagram_username(ig) {string} -
+   * @property facebook_url(url) {string} - must contain "facebook.com"
+   * @property website_url(url) {string} -
+   * @property coordinates(latitude,longitude) {string|number|string|number} - will accept a number or a string
+   * @property mcc(mcc) {string} -
+   * @property tax_ids(eu_vat) {string} -
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
 
   make() {

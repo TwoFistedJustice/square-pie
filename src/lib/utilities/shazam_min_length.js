@@ -12,6 +12,7 @@
  * @returns {boolean} Returns `true` of the string is less than or equal to the allowed limit
  *
  *  To check for maximum length use shazam_max_length
+ *  @ignore
  * */
 const shazam_min_length = function (
   str = "",

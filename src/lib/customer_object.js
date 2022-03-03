@@ -8,13 +8,14 @@ const {
 
 const man =
   "creates a compliant customer object for sending to Square. Can be used to create a new record,\n" +
-  "or update an existing one. Follows standard Pie syntax. Use make(). to set values." +
-  "\nhttps://developer.squareup.com/reference/square/objects/Customer";
+  "or update an existing one. Follows standard Pie syntax. Use make(). to set values.\n" +
+  "https://developer.squareup.com/reference/square/objects/Customer";
 
-/** @class Customer_Object
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/objects/Customer | Square Docs}
- * @example
+/**
+ * {@link https://developer.squareup.com/reference/square/objects/Customer |  **-------> Link To Square Docs <-------**}
+ * @class Customer_Object
+ * @classdesc
+ * Creates a compliant customer object for sending to Square. Can be used to create a new record or update an existing one.
  * */
 
 class Customer_Object {
@@ -46,11 +47,188 @@ class Customer_Object {
       },
     };
   }
+
+  // GETTERS
+  get display_name() {
+    return this._display_name;
+  }
+  get square_version() {
+    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
+  }
+  get help() {
+    return this._help;
+  }
+  get fardel() {
+    return this._fardel;
+  }
+  get id() {
+    return this._fardel.id;
+  }
+  get given_name() {
+    return this._fardel.given_name;
+  }
+  get family_name() {
+    return this._fardel.family_name;
+  }
+  get company_name() {
+    return this._fardel.company_name;
+  }
+  get nickname() {
+    return this._fardel.nickname;
+  }
+  get email_address() {
+    return this._fardel.email_address;
+  }
+  get phone_number() {
+    return this._fardel.phone_number;
+  }
+  get address() {
+    return this._fardel.address;
+  }
+  get birthday() {
+    return this._fardel.birthday;
+  }
+  get reference_id() {
+    return this._fardel.reference_id;
+  }
+  get note() {
+    return this._fardel.note;
+  }
+  get version() {
+    return this._fardel.version;
+  }
+  get creation_source() {
+    return this._fardel.creation_source;
+  }
+  get preferences() {
+    return this._fardel.preferences;
+  }
+  get tax_ids() {
+    return this._fardel.tax_ids;
+  } // {str20}
+
+  // SETTERS
+
+  set id(id) {
+    this._fardel.id = id;
+  }
+  set given_name(first_name) {
+    this._fardel.given_name = first_name;
+  }
+  set family_name(last_name) {
+    this._fardel.family_name = last_name;
+  }
+  set company_name(company) {
+    this._fardel.company_name = company;
+  }
+  set nickname(nick) {
+    this._fardel.nickname = nick;
+  }
+  set email_address(email) {
+    let caller = "email_address";
+    let shazam = normalize_email(email, this.display_name, caller);
+    this._fardel.email_address = shazam;
+  }
+  set phone_number(phone) {
+    if (
+      shazam_max_length(
+        phone,
+        this.configuration.maximums.phone_number,
+        this.display_name,
+        "phone_number"
+      )
+    )
+      this._fardel.phone_number = phone;
+  }
+  set address(address_object) {
+    this._fardel.address = address_object;
+  }
+  set birthday(time) {
+    if (shazam_is_time_RFC3339(time, this._display_name, "birthday")) {
+      this._fardel.birthday = time;
+    }
+  }
+  set reference_id(id) {
+    this._fardel.reference_id = id;
+  }
+  set note(note) {
+    this._fardel.note = note;
+  }
+  set version(int) {
+    if (shazam_is_integer(int, this.display_name, "version")) {
+      this._fardel.version = int;
+    }
+  }
+  set creation_source(source) {
+    this._fardel.creation_source = source;
+  }
+  set preferences(bool) {
+    if (shazam_is_boolean(bool, this.display_name, "preferences")) {
+      this._fardel.preferences = {
+        email_unsubscribed: bool,
+      };
+    }
+  }
+
+  set tax_ids(eu_vat) {
+    if (
+      shazam_max_length(
+        eu_vat,
+        this.configuration.maximums.tax_ids,
+        this.display_name,
+        "tax_ids"
+      )
+    ) {
+      this._fardel.tax_ids = {
+        eu_vat: eu_vat,
+      };
+    }
+  }
   // ENUMS
+
   /**
-   *  @private
-   *  Sets fixed string values on fardel.creation_source
-   */
+   * {@link https://developer.squareup.com/reference/square/enums/CustomerCreationSource | Link To Square Docs}<br>
+   *
+   *  #enum_creation_source
+   *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
+   *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
+   *  exist abbreviated aliases.
+   *
+   *  Enumerated methods are usually called by other functions and set the value on the object on which
+   *  the calling function operates.
+   *  @typedef {function} Customer_Object.enum_creation_source
+   * @private
+   * @abstract
+   * @memberOf Customer_Object
+   * @property other() sets value to "OTHER"
+   * @property appointments() sets value to "APPOINTMENTS"
+   * @property coupon() sets value to "COUPON"
+   * @property deletion_recovery() sets value to "DELETION_RECOVERY"
+   * @property directory() sets value to "DIRECTORY"
+   * @property egifting() sets value to "EGIFTING"
+   * @property email_collection() sets value to "EMAIL_COLLECTION"
+   * @property feedback() sets value to "FEEDBACK"
+   * @property import() sets value to "IMPORT"
+   * @property invoices() sets value to "INVOICES"
+   * @property loyalty() sets value to "LOYALTY"
+   * @property marketing() sets value to "MARKETING"
+   * @property merge() sets value to "MERGE"
+   * @property online_store() sets value to "ONLINE_STORE"
+   * @property instant_profile() sets value to "INSTANT_PROFILE"
+   * @property terminal() sets value to "TERMINAL"
+   * @property third_party() sets value to "THIRD_PARTY"
+   * @property third_party_import() sets value to "THIRD_PARTY_IMPORT"
+   * @property unmerge_recovery() sets value to "UNMERGE_RECOVERY"
+   * @property appt() alias of `appointments`
+   * @property unmerge() alias of `unmerge_recovery`
+   * @property undelete() alias of `deletion_recovery`
+   * @example
+   *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
+   *  value of `clint` on the object 'western'
+   *
+   *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
+   * */
+
   #enum_creation_source(calling_this) {
     return {
       self: this,
@@ -141,260 +319,103 @@ class Customer_Object {
       },
     };
   }
-  // GETTERS
-  get display_name() {
-    return this._display_name;
-  }
-  get square_version() {
-    return `The last verified compatible Square API version is ${this._last_verified_square_api_version}`;
-  }
-  get help() {
-    return this._help;
-  }
-  get fardel() {
-    return this._fardel;
-  }
-  get id() {
-    return this._fardel.id;
-  }
-  get given_name() {
-    return this._fardel.given_name;
-  }
-  get family_name() {
-    return this._fardel.family_name;
-  }
-  get company_name() {
-    return this._fardel.company_name;
-  }
-  get nickname() {
-    return this._fardel.nickname;
-  }
-  get email_address() {
-    return this._fardel.email_address;
-  }
-  get phone_number() {
-    return this._fardel.phone_number;
-  }
-  get address() {
-    return this._fardel.address;
-  }
-  get birthday() {
-    return this._fardel.birthday;
-  }
-  get reference_id() {
-    return this._fardel.reference_id;
-  }
-  get note() {
-    return this._fardel.note;
-  }
-  get version() {
-    return this._fardel.version;
-  }
-  get creation_source() {
-    return this._fardel.creation_source;
-  }
-  get preferences() {
-    return this._fardel.preferences;
-  }
-  get tax_ids() {
-    return this._fardel.tax_ids;
-  } // {str20}
-
-  // SETTERS
-
-  set id(val) {
-    this._fardel.id = val;
-  }
-  set given_name(val) {
-    this._fardel.given_name = val;
-  }
-  set family_name(val) {
-    this._fardel.family_name = val;
-  }
-  set company_name(val) {
-    this._fardel.company_name = val;
-  }
-  set nickname(val) {
-    this._fardel.nickname = val;
-  }
-  set email_address(email) {
-    let caller = "email_address";
-    let shazam = normalize_email(email, this.display_name, caller);
-    this._fardel.email_address = shazam;
-  }
-  set phone_number(phone) {
-    if (
-      shazam_max_length(
-        phone,
-        this.configuration.maximums.phone_number,
-        this.display_name,
-        "phone_number"
-      )
-    )
-      this._fardel.phone_number = phone;
-  }
-  set address(val) {
-    this._fardel.address = val;
-  }
-  set birthday(time) {
-    if (shazam_is_time_RFC3339(time, this._display_name, "birthday")) {
-      this._fardel.birthday = time;
-    }
-  }
-  set reference_id(val) {
-    this._fardel.reference_id = val;
-  }
-  set note(val) {
-    this._fardel.note = val;
-  }
-  set version(int) {
-    if (shazam_is_integer(int, this.display_name, "version")) {
-      this._fardel.version = int;
-    }
-  }
-  set creation_source(val) {
-    this._fardel.creation_source = val;
-  }
-  set preferences(bool) {
-    if (shazam_is_boolean(bool, this.display_name, "preferences")) {
-      this._fardel.preferences = {
-        email_unsubscribed: bool,
-      };
-    }
-  }
-
-  set tax_ids(id) {
-    if (
-      shazam_max_length(
-        id,
-        this.configuration.maximums.tax_ids,
-        this.display_name,
-        "tax_ids"
-      )
-    ) {
-      this._fardel.tax_ids = {
-        eu_vat: id,
-      };
-    }
-  }
-
   // MAKE METHODS
-  /** @function make()  method of Customer_Object - method names are exactly the same as the property names listed
+  /**
+   *  make() method of Customer_Object
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method id
-   * @param {string} val -
-   * @method given_name
-   * @param {string} val -
-   * @method family_name
-   * @param {string} val -
-   * @method company_name
-   * @param {string} val -
-   * @method nickname
-   * @param {string} val -
-   * @method email_address
-   * @param {string} val -expects a valid email address
-   * @throws Throws an error if email is not valid
-   * @method phone_number
-   * @param {string} val -should be a phone number of no more than 11 characters
-   * @throws Throws an error is `phone` is longer than 11 characters
-   * @method address
-   * @param {object} val - an Address Object
-   * @method birthday
-   * @param {string} val -  time a date in RFC3339 format
-   * @throws Error Will throw and error if argument is not a valid RFC3339 date code
-   * @method reference_id
-   * @param {string} val -
-   * @method note
-   * @param {string} val -
-   * @method version
-   * @param {string} val -  int a string that can be coerced to integer
-   * @throws Will throw and error if argument  cannot be coerced to integer
-   * @method creation_source - enumerated
-   * {@link https://developer.squareup.com/reference/square/enums/CustomerCreationSource | Square Docs}
-   * @method preferences
-   * @param {bool} bool -
-   * @method tax_ids
-   * @param {string} eu_vat -a European Union VAT ID of no more than 20 characters
-   * @throws throws an error if the length is greater than 20
-   * @method first_name
-   * @param {string} val -
-   * @method last_name
-   * @param {string} val -
-   * @method company
-   * @param {string} val -
-   * @method email
-   * @param {string} val -
-   * @method phone
-   * @param {string} val -
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Customer_Object.make
    * @method
-   * @param {string} val -
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @public
+   * @memberOf Customer_Object
+   * @property id(id) {string<id>} -
+   * @property given_name(first_name) {string} -
+   * @property family_name(last_name) {string} -
+   * @property company_name(company) {string} -
+   * @property nickname(nick) {string} -
+   * @property email_address(email) {string} -
+   * @property phone_number(phone) {string} - should be a phone number of no more than 11 characters
+   * @property address(address_object) {object} - an Address Object
+   * @property birthday(time) {time} - a date in RFC3339 format
+   * @property reference_id(id) {string<id>} -
+   * @property note(note) {string}
+   * @property version(int) {integer}
+   * @property creation_source() {Enumerated} - Calls {@link Customer_Object.enum_creation_source| enum_creation_source()}
+   * @property preferences() {string}
+   * @property tax_ids(eu_vat) {string} - a European Union VAT ID of no more than 20 characters
+   * @property first_name(first_name) {string} - alias of `given_name`
+   * @property last_name(last_name) {string} - alias of `family_name`
+   * @property company(company) {string} - alias of `company_name`
+   * @property email(email) {string} - alias of `email_address`
+   * @property phone(phone) {string} - alias of `phone_number`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,
-      id: function (val) {
-        this.self.id = val;
+      id: function (id) {
+        this.self.id = id;
         return this;
       },
-      given_name: function (val) {
-        this.self.given_name = val;
+      given_name: function (first_name) {
+        this.self.given_name = first_name;
         return this;
       },
-      family_name: function (val) {
-        this.self.family_name = val;
+      family_name: function (last_name) {
+        this.self.family_name = last_name;
         return this;
       },
-      company_name: function (val) {
-        this.self.company_name = val;
+      company_name: function (company) {
+        this.self.company_name = company;
         return this;
       },
-      nickname: function (val) {
-        this.self.nickname = val;
+      nickname: function (nick) {
+        this.self.nickname = nick;
         return this;
       },
-      email_address: function (val) {
-        this.self.email_address = val;
+      email_address: function (email) {
+        this.self.email_address = email;
         return this;
       },
-      phone_number: function (val) {
-        this.self.phone_number = val;
+      phone_number: function (phone) {
+        this.self.phone_number = phone;
         return this;
       },
-      address: function (val) {
-        this.self.address = val;
+      address: function (address_object) {
+        this.self.address = address_object;
         return this;
       },
-      birthday: function (val) {
-        this.self.birthday = val;
+      birthday: function (time) {
+        this.self.birthday = time;
         return this;
       },
-      reference_id: function (val) {
-        this.self.reference_id = val;
+      reference_id: function (id) {
+        this.self.reference_id = id;
         return this;
       },
-      note: function (val) {
-        this.self.note = val;
+      note: function (note) {
+        this.self.note = note;
         return this;
       },
-      version: function (val) {
-        this.self.version = val;
+      version: function (int) {
+        this.self.version = int;
         return this;
       },
-      /**
-       *
-       * Returns a set of curried functions that set the value of creation_source such that the name
-       * of the function is the lowercase analog of the value set.
-       * @see this.#enum_creation_source()
-       * */
       creation_source: function () {
         return this.self.#enum_creation_source(this);
       },
@@ -406,25 +427,20 @@ class Customer_Object {
         this.self.tax_ids = eu_vat;
         return this;
       },
-      first_name: function (val) {
-        this.given_name(val);
-        return this;
+      first_name: function (first_name) {
+        return this.given_name(first_name);
       },
-      last_name: function (val) {
-        this.family_name(val);
-        return this;
+      last_name: function (last_name) {
+        return this.family_name(last_name);
       },
-      company: function (val) {
-        this.company_name(val);
-        return this;
+      company: function (company) {
+        return this.company_name(company);
       },
-      email: function (val) {
-        this.email_address(val);
-        return this;
+      email: function (email) {
+        return this.email_address(email);
       },
-      phone: function (val) {
-        this.phone_number(val);
-        return this;
+      phone: function (phone) {
+        return this.phone_number(phone);
       },
     };
   }

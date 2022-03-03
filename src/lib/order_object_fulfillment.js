@@ -12,11 +12,18 @@ const man =
   "make_shipment() lets you add shipping details.\n" +
   "make_pickup() lets you add pickup details.\n" +
   "They are both one and done type methods. You don't need to add their output to anything. It is automatic.\n" +
-  "\nhttps://developer.squareup.com/reference/square/objects/OrderFulfillment";
+  "https://developer.squareup.com/reference/square/objects/OrderFulfillment";
 
-/** @class Order_Fulfillment
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillment | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillment |  **-------> Link To Square Docs <-------**}
+ * @class Order_Fulfillment
+ * @classdesc
+ *
+ * Sets up details on how to fulfill the order.<br><br>
+ * This class has two specialized make-methods in addition to the normal one:<br>
+ * 1-   make_shipment() lets you add shipping details.<br>
+ * 2-   make_pickup() lets you add pickup details.<br><br>
+ * They are both one and done type methods. You don't need to add their output to anything. It is automatic.
  * */
 
 class Order_Fulfillment {
@@ -110,24 +117,25 @@ class Order_Fulfillment {
   }
 
   // PRIVATE METHODS
-  /** @function #enum_state
+  /** * {@link https://developer.squareup.com/reference/square/enums/OrderFulfillmentState | Link To Square Docs}<br>
+   *
+   *  #enum_state
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
+   *  @typedef {function} Order_Fulfillment.enum_state
    * @private
-   * @param {object} calling_this - pass in the calling function's 'this'
-   * @method proposed sets value to "PROPOSED"
-   * @method reserved sets value to "RESERVED"
-   * @method prepared sets value to "PREPARED"
-   * @method completed sets value to "COMPLETED"
-   * @method canceled sets value to "CANCELED"
-   * @method failed sets value to "FAILED"
-   
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/enums/OrderFulfillmentState | Square Docs}
+   * @abstract
+   * @memberOf Order_Fulfillment
+   * @property proposed() sets value to "PROPOSED"
+   * @property reserved() sets value to "RESERVED"
+   * @property prepared() sets value to "PREPARED"
+   * @property completed() sets value to "COMPLETED"
+   * @property canceled() sets value to "CANCELED"
+   * @property failed() sets value to "FAILED"
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
    *  value of `clint` on the object 'western'
@@ -138,15 +146,19 @@ class Order_Fulfillment {
     return order_fulfillment_state.state(self, calling_this);
   }
 
-  /**@function  time_date
+  /**
+   * time_date
+   * @ignore
+   * @typedef {function} Order_Fulfillment.time_date
    * @private
-   * @param {fulfillment object} fulfillment
+   * @abstract
+   * @memberOf Order_Fulfillment
+   * @param {fulfillment_object} fulfillment
    * @param {string} key - the name of the property you want to create
    * @param {string} time - RFC3339 compliant date-time
    * @throws Throws an error if time is not RFC3339 compliant
    * @return Creates a key:value pair on the object passed in
    * */
-
   #time_date(fulfillment, key, time) {
     if (shazam_is_time_RFC3339(time, this.display_name, "#time_date")) {
       !Object.prototype.hasOwnProperty.call(fulfillment, key)
@@ -155,9 +167,14 @@ class Order_Fulfillment {
     }
   }
 
-  /**@function note
+  /**
+   * note
+   * @ignore
+   * @typedef {function} Order_Fulfillment.note
    * @private
-   * @param {fulfillment object} fulfillment
+   * @abstract
+   * @memberOf Order_Fulfillment
+   * @param {fulfillment_object} fulfillment
    * @param {string} key - the name of the property you want to create
    * @param {string} note - a string you want to persist
    * @throws Throws an error if note exceeds character limit (varies according to usage)
@@ -177,22 +194,21 @@ class Order_Fulfillment {
       ? define(fulfillment, key, value)
       : (fulfillment[key] = value);
   }
-
-  /** @function make()  method of SOME_CLASS - method names are exactly the same as the property names listed
+  /**
+   * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentRecipient | Square Docs}<br>
+   *
+   *  #recipient()  method of Order_Object - method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   
+   * @typedef {function} Order_Object.recipient
+   * @method
    * @private
-   * @method customer_id
-   * @param {string} id -
-   * @method display_name
-   * @param {string} name -
-   * @method email
-   * @param {string} email -
-   * @method phone
-   * @param {string} phone -
-   * @method address
-   * @param {object} address_object - a fully formed and compliant Square Address Object
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentRecipient | Square Docs}
+   * @memberOf Order_Fulfillment
+   * @property {string} customer_id(id)
+   * @property {string} display_name(name)
+   * @property {string} email(email)
+   * @property {string} phone(phone)
+   * @property {object} address(address_object) a fully formed and compliant Square Address Object
    * */
 
   #recipient(fulfillment) {
@@ -272,44 +288,44 @@ class Order_Fulfillment {
 
   // MAKE METHODS
 
-  /** @function make_pickup()  method of Order_Fulfillment - Makes and sets a compliant pickup object.
+  /**
+   * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentPickupDetails |  Link To Square Docs}<br>
+   *
+   * make_pickup()  method of Order_Fulfillment - Makes and sets a compliant pickup object.
    *
    * Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method state - Enumerated. Calls #enum_state().
-   * @method cancel_reason - sets `cancel_reason` to the value you pass and `state` to "CANCELED" and .
-   * @param {string} str -
-   * @method cancel - alias of cancel_reason
-   * @method auto_complete_duration
-   * @param {string} time - RFC3339 time string
-   * @method expires_at
-   * @param {string} time - RFC3339 time string
-   * @method pickup_at
-   * @param {string} time -
-   * @method pickup_window_duration
-   * @param {string} time - use one of the Pie duration utilities to easily construct a compliant duration string.
-   * @method prep_time_duration
-   * @param {string} time - use one of the Pie duration utilities to easily construct a compliant duration string.
-   * @method note
-   * @param {string} str -
-   * @method asap - sets `schedule_type` to "ASAP"
-   * @method scheduled - sets `schedule_type` to "SCHEDULED"
-   * @method recipient - calls #recipient()
-   * @param {string}  str -
-   * @method curbside_details - sets `curbside_details` to the value you pass and `is_curbside_pickup` to true.
-   * @param {string}  -
-   * @method buyer_arrived_at
-   * @param {string} time - RFC3339 time string
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * @typedef {function} Order_Fulfillment.make_pickup
+   * @method
+   * @public
+   * @memberOf Order_Fulfillment
+   * @property state() - {Enumerated} - Calls {@link Order_Fulfillment.enum_state|#enum_state().}
+   * @property {string} cancel_reason(str)  - sets `cancel_reason` to the value you pass and `state` to "CANCELED" and .
+   * @property cancel - alias of cancel_reason
+   * @property {string} auto_complete_duration(time) RFC3339 time string
+   * @property {string} expires_at(time) RFC3339 time string
+   * @property {string} pickup_at(time)  RFC3339 time string
+   * @property {string} pickup_window_duration(time) use one of the Pie duration utilities to easily construct a compliant duration string.
+   * @property {string} prep_time_duration(time) use one of the Pie duration utilities to easily construct a compliant duration string.
+   * @property {string} note(str)
+   * @property asap() - sets `schedule_type` to "ASAP"
+   * @property scheduled() - sets `schedule_type` to "SCHEDULED"
+   * @property {string} recipient() - calls {@link Order_Fulfillment.recipient|#recipient()}
+   * @property {string} curbside_details(str) - sets `curbside_details` to the value you pass and `is_curbside_pickup` to true.
+   * @property {string} buyer_arrived_at(time) RFC3339 time string
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make_pickup() {
     this.type = "PICKUP";
     this.pickup_details = {};
@@ -387,40 +403,39 @@ class Order_Fulfillment {
     };
   }
 
-  /** @function make_shipment()  method of Order_Fulfillment - Makes and sets a compliant shipment object.
+  /**
+   * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentShipmentDetails | Link To Square Docs}<br>
+   *
+   * make_shipment()  method of Order_Fulfillment - Makes and sets a compliant shipment object.
    *
    * Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method state - Enumerated. Calls #enum_state().
-   * @method expected_shipped_at
-   * @param {string} time - RFC3339 time string
-   * @method cancel_reason - sets `cancel_reason` to the value you pass and `state` to "CANCELED" and .
-   * @param {string} str -
-   * @method cancel - alias of cancel_reason
-   * @method failure_reason - sets failure_reason to value passed and state to "FAILED"
-   * @param {string} str -
-   * @method tracking_number
-   * @param {string} str -
-   * @method shipping_note
-   * @param {string} str -
-   * @method note
-   * @param {string} str -
-   * @method tracking_url
-   * @param {string} str -
-   * @method shipping_type
-   * @param {string} str -
-   * @method carrier
-   * @param {string} str -
-   * @method recipient - calls #recipient()
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square/objects/OrderFulfillmentShipmentDetails | Square Docs}
+   * @typedef {function} Order_Fulfillment.make_shipment
+   * @method
+   * @public
+   * @memberOf Order_Fulfillment
+   * @property state() - {Enumerated} - Calls {@link Order_Fulfillment.enum_state|#enum_state().}
+   * @property expected_shipped_at(time) {time} - RFC3339 time string
+   * @property cancel_reason(str) {string} - sets `cancel_reason` to the value you pass and `state` to "CANCELED" and .
+   * @property cancel() - alias of cancel_reason
+   * @property failure_reason(str) {string} - sets failure_reason to value passed and state to "FAILED"
+   * @property tracking_number(str) {string}
+   * @property shipping_note(str) {string}
+   * @property note(str) {string}
+   * @property tracking_url(str) {string}
+   * @property shipping_type(str) {string}
+   * @property carrier(str) {string}
+   * @property recipient() - calls {@link Order_Fulfillment.recipient|#recipient()}
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
   make_shipment() {
     this.type = "SHIPMENT";
@@ -486,30 +501,33 @@ class Order_Fulfillment {
     };
   }
 
-  /** @function make()  method of Order_Fulfillment - Do not use this unless you have pre-built pickup or
+  /**
+   *  make() method of Order_Fulfillment - Do not use this unless you have pre-built pickup or
    * shipment objects. Rather use make_pickup() or make_shipment().
    *
    * Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method uid - automatically set. Use this only to replace the generated uid.
-   * @param {string} uid -
-   * @method state
-   * @param {string} str -
-   * @method type
-   * @param {string} str -
-   * @method pickup_details
-   * @param {object} obj - a fully formed compliant pickup object. Use only if you already have a compliant object. Otherwise, use make_pickup().
-   * @method shipment_details
-   * @param {object} obj - a fully formed compliant shipment object. Use only if you already have a compliant object. Otherwise, use make_shipment().
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * @typedef {function} Order_Fulfillment.make
+   * @method
+   * @public
+   * @memberOf Order_Fulfillment
+   * @property uid(uid) {string} - automatically set. Use this only to replace the generated uid.
+   * @property state(str) {string}
+   * @property type(str) {string}
+   * @property pickup_details(obj) {object} a fully formed compliant pickup object. Use only if you already have a compliant object. Otherwise, use make_pickup().
+   * @property shipment_details(obj) {object} a fully formed compliant shipment object. Use only if you already have a compliant object. Otherwise, use make_shipment().
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,

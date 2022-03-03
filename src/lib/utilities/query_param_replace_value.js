@@ -11,6 +11,7 @@ const { query_param_regex } = require("./regular_expression_patterns");
  * let param = "version";
  * let value = "4"
  * query_param_add_value(query_string, param, value) => "?status=DRAFT,OPEN,CANCELED&version=4"
+ * @ignore
  * */
 
 const query_param_replace_value = function (query_string, param, value) {

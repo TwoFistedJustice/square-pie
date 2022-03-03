@@ -1,20 +1,24 @@
 // This class should own the "ID" value and automatically insert the required '#' character if the user does not provide it.
 // (check if the first character is a hash, and insert one if it's not there)
 const { arrayify } = require("./utilities");
-/** Base class for the Square catalog API
- *
- * This class should own the "ID" value and automatically insert the required '#' character if the user does not provide it.
- * (check if the first character is a hash, and insert one if it's not there)
- */
+
 const man =
   "Super class for all Catalog Objects.\n" +
   "Follow the structure on the Square batch-upsert request page\n" +
-  "\nhttps://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects";
+  "https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects";
 
-/** @class Catalog_Object_Super - super class of Catalog API objects
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects | Square Docs}
- * @example
+/**
+ *   {@link https://developer.squareup.com/reference/square/catalog-api/batch-upsert-catalog-objects |  **-------> Link To Square Docs <-------**}
+ *  @class  Catalog_Object_Super
+ *  @abstract
+ *  @ignore
+ *  @classdesc
+ *  Super class of Catalog API objects
+ *  Todo:
+ * Base class for the Square catalog API
+ *
+ * This class should own the "ID" value and automatically insert the required '#' character if the user does not provide it.
+ * (check if the first character is a hash, and insert one if it's not there)
  * */
 
 class Catalog_Object_Super {

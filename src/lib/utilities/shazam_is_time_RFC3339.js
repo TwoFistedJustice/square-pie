@@ -5,6 +5,7 @@ const { isRFC3339 } = require("validator");
  * @param {string} caller - the name variable from the calling function
  * @throws throws and error if the `time` argument is not in RFC3339 format
  * @return {boolean} returns true if `time` argument is a valid RFC3339 date code
+ * @ignore
  * */
 const shazam_is_time_RFC3339 = function (time, displayName, caller) {
   if (!isRFC3339(time)) {

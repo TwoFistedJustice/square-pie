@@ -11,12 +11,18 @@ const man =
   "Pass the location_id as a string argument when you instantiate the class. You can also pass it later by calling\n" +
   'make().location("id")\n' +
   "Delivery is an array because this endpoint has a pagination cursor.\n" +
-  "\nhttps://developer.squareup.com/reference/square/invoices-api/list-invoices";
+  "https://developer.squareup.com/reference/square/invoices-api/list-invoices";
 
-/** @class  Invoice_List
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/invoices-api/list-invoices | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/invoices-api/list-invoices |  **-------> Link To Square Docs <-------**}
+ * @class Invoice_List
+ * @extends Square_Request
+ * @classdesc
+ *
+ * http request to fetch a list of invoices for a given location.<br>
+ * Pass the location_id as a string argument when you instantiate the class. You can also pass it later by calling `make().location(id)`<br>
  * */
+
 class Invoice_List extends Invoice_Request {
   _display_name = "Invoice_List";
   _last_verified_square_api_version = "2021-12-15";
@@ -100,28 +106,39 @@ class Invoice_List extends Invoice_Request {
   }
 
   // MAKE METHODS
-  /** @function make()  method of Invoice_List - method names are exactly the same as the property names listed
+  /**
+   *  make() method of Invoice_List
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method limit - sets the query parameter of the same name
-   * @param {number} val -
-   * @method location_id sets the query parameter of the same name
-   * @param {string} id -
-   * @method location - alias of location_id
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Invoice_List.make
+   * @method
+   * @public
+   * @memberOf Invoice_List
+   * @property limit(int) {integer} -  sets the query parameter of the same name
+   * @property location_id(id) {string<id>} -  sets the query parameter of the same name
+   * @property location(id) {string<id>} - alias of  `location_id`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,
-      limit: function (val) {
-        this.self.limit = val;
+      limit: function (int) {
+        this.self.limit = int;
         return this;
       },
       location_id: function (id) {

@@ -6,7 +6,7 @@
  *  if (object_does_not_have_property(obj, "prop"){
  *    // define (obj, "prop");
  *  }
- *
+ * @ignore
  * */
 const object_does_not_have_property = function (object, property) {
   return Object.prototype.hasOwnProperty.call(object, property) ? false : true;

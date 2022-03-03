@@ -8,7 +8,7 @@
  * @example
  *  duration_months_days(3, 10) => "P3M10D"
  *  duration_months_days(0, 10) => "P10D"
- *
+ * @ignore
  * */
 
 const duration_months_days = function (months, days = 0) {

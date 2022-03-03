@@ -10,16 +10,18 @@ const {
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
 const man =
   "Creates a Catalog Item-Variation which you must then add to an 'Item'.\n" +
-  "\nhttps://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation";
+  "https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation";
 
-/** @class  Catalog_Item_Variation
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation | Square Docs}
- * @example
- * const variation = new Catalog_Item_Variation()
- *  variation.make()...
+/**
+ * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogItemVariation |  **-------> Link To Square Docs <-------**}
+ * @class Catalog_Item_Variation
+ * @classdesc
  *
- *  variation.fardel => feed to Catalog_Item
+ * The property `item_id` will be set automatically when you add your variation fardel to an item.
+ *
+ * The property `service_duration` is tied to the property pricing_type and will automatically change its value to "VARIABLE_PRICING" when you set a service-duration
+ *
+ * The `price_money` property is tied to the the property pricing_type and will automatically change its value to "FIXED_PRICING" when you set a base_price_money.
  * */
 
 class Catalog_Item_Variation extends Catalog_Object_Super {
@@ -118,11 +120,6 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     return this._fardel.item_variation_data.stockable_conversion;
   }
   // this gets called automatically from Item - so you don't need to
-  /** setter: id
-   *  will automatically be set when added to an Item, but you can set it here if you want
-   * @param {string} an item ID
-   * @return sets the id
-   * */
   set item_id(id) {
     this._fardel.item_variation_data.item_id = id;
   }
@@ -139,6 +136,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     }
   }
   /**
+   * @memberOf Catalog_Item_Variation
    * @param {number} num must be an integer representing the number of minutes
    * @throws Throws a Typeerror if num is not an integer
    * @return Sets pricing_type to "VARIABLE_PRICING" and sets service_duration to duration in milliseconds
@@ -149,7 +147,6 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
       this._fardel.item_variation_data.service_duration = num * 60 * 1000;
     }
   }
-  // todo - this is wrong, it takes an object
   set item_option_values(obj) {
     // Square docs are unclear about this
     arrayify(this._fardel.item_variation_data, "item_option_values");
@@ -169,12 +166,13 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     }
     this._fardel.item_variation_data.pricing_type = str;
   }
-  // price_money is only used if pricing type is fixed. So set it to fixed and save a step.
-  /** @method `set price_money` - sets the price_money property of fardel. price_money is only used if pricing type is fixed.
+  /**
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/Money | Link To Square Docs}<br>
+   * @method
+   * @memberOf Catalog_Item_Variation
+   * @param {object} money expects a Square Money object
+   * `set price_money` - sets the price_money property of fardel. price_money is only used if pricing type is fixed.
    *  So it also sets pricing_type to "FIXED_PRICING"
-   * @param {object} expects a Square Money object
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/Money | Square Docs}
    * */
   set price_money(money) {
     this._fardel.item_variation_data.pricing_type = "FIXED_PRICING";
@@ -265,27 +263,35 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
 
     throw new Error(message);
   }
-
-  /** @function #enum_inventory_alert_type
+  /**
+   * {@link https://developer.squareup.com/reference/square_2022-01-20/enums/InventoryAlertType | Link To Square Docs}<br>
+   * <br>{@link Catalog_Item_Variation.make|  Back to make}
+   * <br>{@link Catalog_Item_Variation.make_location_override|  Back to make_location_override}
+   * <br>{@link Catalog_Item_Variation.make_stockable_conversion|  Back to make_stockable_conversion}<br>
+   *  #enum_inventory_alert_type
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   * @method `none` sets value to "NONE"
-   * @method `out` alias of `none`
-   * @method `low_quantity` sets value to "LOW_QUANTITY"
-   * @method ``alias of `low_quantity`
-   
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square_2022-01-20/enums/InventoryAlertType | Square Docs}
+   *  @typedef {function} Catalog_Item_Variation.enum_inventory_alert_type
+   *  @enum {string}
+   * @private
+   * @abstract
+   * @memberOf Catalog_Item_Variation
+   * @property none() sets value to "NONE"
+   * @property out() alias of `none`
+   * @property low_quantity() sets value to "LOW_QUANTITY"
+   * @property low() alias of `low_quantity`
+ 
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
    *  value of `clint` on the object 'western'
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
+
   #enum_inventory_alert_type(object_to_modify, calling_this) {
     return {
       self: this,
@@ -306,19 +312,26 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     };
   }
 
-  /** @function #enum_pricing_type()
+  /**
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/enums/CatalogPricingType | Link To Square Docs}<br>
+   * <br>{@link Catalog_Item_Variation.make|  Back to make}
+   * <br>{@link Catalog_Item_Variation.make_location_override|  Back to make_location_override}
+   * <br>{@link Catalog_Item_Variation.make_stockable_conversion|  Back to make_stockable_conversion}<br>
+   *  enum_pricing_type<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   * @method `fixed_pricing` - sets value to "FIXED_PRICING"
-   * @method `fixed` alias of `fixed_pricing`
-   * @method `variable_pricing` sets value to "VARIABLE_PRICING"
-   * @method ``alias of `variable_pricing`
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link  | Square Docs}
+   *  @typedef {function} Catalog_Item_Variation.enum_pricing_type
+   * @private
+   * @abstract
+   * @memberOf Catalog_Item_Variation
+   * @property fixed_pricing() - sets value to "FIXED_PRICING"
+   * @property fixed() - alias of `fixed_pricing`
+   * @property variable_pricing() - sets value to "VARIABLE_PRICING"
+   * @property variable() - alias of `variable_pricing`
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
    *  value of `clint` on the object 'western'
@@ -347,58 +360,49 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
 
   //MAKE METHODS
 
-  /** @function make()  method of Catalog_Item_Variation - method names are exactly the same as the property names listed
-   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method name
-   * @param {string} str -
-   * @method present_at_all_locations
-   *@param {bool} bool -
-   * @method present_at_location_ids
+  /**
+   *  make() method of Catalog_Item_Variation
    *
-   * @method available_for_booking
-   *@param {bool} bool -
-   * @method service_duration
-   * @param {number} num -
-   * @method item_id
-   * @param {string} id -
-   * @method item_option_values
-   * @param {string} `option_id`
-   * @param {string} `value_id`
-   * @method `location_overrides` - calls `make_location_override()`. See that entry.
-   * @method inventory_alert_threshold
-   * @param {number} int -
-   * @method  `inventory_alert_type - calls `#enum_inventory_alert_type`. See that entry.
-   * @method `price_money`
-   * @param {number} `amount` - an integer. The price in the smallest currency designation. Usually cents.
-   * @param {string} `currency` - Three letter currency designation. Enforces ISO 4217 format. Case insens
-   * @method track_inventory
-   *@param {bool} bool -
-   * @method measurement_unit_id
-   * @param {string} id -
-   * @method price_money - Standard compliant money object builder.
-   * @param {number} `amount` - an integer. The price in the smallest currency designation. Usually cents.
-   * @param {string} `currency` - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
-   * @method sku
-   * @param {string} sku -
-   * @method stockable
-   * @param {bool} bool -
-   * @method `stockable_conversion` - calls make_stockable_conversion(). See that entry.
-   * @method team_member_ids
-   * @param {string} str -
-   * @method upc
-   * @param {string} upc -
-   * @method user_data
-   * @param {string} str -
-   * @method `pricing_type` - enumerated. Calls #enum_pricing_type. See that entry.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Catalog_Item_Variation.make
+   * @method
+   * @public
+   * @memberOf Catalog_Item_Variation
+   * @property name(str) {string}
+   * @property present_at_all_locations(bool {boolean}
+   * @property present_at_location_ids(id) {string<id>}
+   * @property available_for_booking(bool) {boolean}
+   * @property service_duration(num) {integer}
+   * @property item_id(ud) {string}
+   * @property item_option_values(option_id,value_id) {string|string}
+   * @property location_overrides()  calls {@link Catalog_Item_Variation.make_location_override|`make_location_override()`}
+   * @property inventory_alert_threshold(int) {integer}
+   * @property inventory_alert_type() {Enumerated} - calls `{@link Catalog_Item_Variation.enum_inventory_alert_type|enum_inventory_alert_type()`}
+   * @property track_inventory(bool) {boolean}
+   * @property measurement_unit_id() {string}
+   * @property price_money(amount,currency) {money} - Standard Square Pie money object builder.
+   * @property sku() {string}
+   * @property stockable(bool) {boolean}
+   * @property stockable_conversion() - calls {@link Catalog_Item_Variation.make_stockable_conversion|`make_stockable_conversion()`}
+   * @property team_member_ids() {string}
+   * @property upc() {string}
+   * @property user_data() {string}
+   * @property pricing_type() {Enumerated} - calls {@link Catalog_Item_Variation.enum_pricing_type|`enum_pricing_type()`}
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
 
   make() {
@@ -487,37 +491,40 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     };
   }
 
-  /** @function make_location_override()  method of Catalog_Item_Variation - Builds a compliant
-   * ItemVariationLocationOverrides object. You must call .add() as the last step. Note: every time
+  /**
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/ItemVariationLocationOverrides | Link To Square Docs}<br>
+   * <br>{@link Catalog_Item_Variation.make|  Back to Make()}<br>
+   *  make_location_override() method of Catalog_Item_Variation
+   * Builds a compliant ItemVariationLocationOverrides object. You must call .add() as the last step. Note: every time
    * you call this function it begins over again. So if you intend to build one object across several
    * lines of code, you must first set the function call to a variable, and then work from that variable.
    *
-   * method names are exactly the same as the property names listed
-   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
-   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters
-   * are listed here.  You must use parentheses with every call to make and with every sub-method.
-   * @method location_id
-   * @param {string} id -
-   * @method price_money - Standard compliant money object builder.
-   * @param {number} `amount` - an integer. The price in the smallest currency designation. Usually cents.
-   * @param {string} `currency` - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
-   * @method `price` alias of `price_money`
-   * @method pricing_type - calls enum_pricing_type().
-   * @method track_inventory
-   * @method inventory_alert_threshold
-   * @param {number} int -
-   * @method `inventory_alert_type` Calls #enum_inventory_alert_type(). See entry for that.
-   * @method `alert_type` - alias of `inventory_alert_type`
-   * @method `alert_threshold` - alias of `inventory_alert_threshold`. See Square docs.
-   * @method `view` returns the location_override object under construction.
-   * @method `add` Adds the newly built object to the location_overrides array. Enforces rule on pricing_type and price.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/ItemVariationLocationOverrides | Square Docs}
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Catalog_Item_Variation.make_location_override
+   * @method
+   * @public
+   * @memberOf Catalog_Item_Variation
+   * @property location_id(id) {string<id>} -
+   * @property price_money(amount,currency) {money} - Standard compliant money object builder.
+   * @property pricing_type()) {Enumerated}- calls {@link Catalog_Item_Variation.enum_pricing_type|`enum_pricing_type()`}
+   * @property track_inventory(bool) {} -
+   * @property inventory_alert_type() {Enumerated} - calls `{@link Catalog_Item_Variation.enum_inventory_alert_type|enum_inventory_alert_type()`}
+   * @property inventory_alert_threshold(int) {integer} -
+   * @property base_price_money(amount,currency) {integer|string} - alias of `price_money`
+   * @property alert_type() {} -  alias of `inventory_alert_type`
+   * @property alert_threshold(int) {integer} - alias of `inventory_alert_threshold`
+   * @property view()) {} - returns the location_override object under construction.
+   * @property add() - Adds the newly built object to the location_overrides array. Enforces rule on pricing_type and base_price_money.
    * @example
    *  let override = myVar.make_location_override().location_id("123").price_money(499, "CAD").add();
    *  is the same as
    *   override.location_id("123");
-   *   override.price(499, "cad");
+   *   override.base_price_money(499, "cad");
    *   override.add();
    *  it builds:
    *  {
@@ -531,6 +538,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    *
    *  location_overrides: [{the object you built}]
    * */
+
   make_location_override() {
     let name = this.display_name + ".make_location_override().";
     let override = {
@@ -596,37 +604,34 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
     };
   }
 
-  /** @function make()  method of Catalog_Item_Variation -
-   *  Builds the stockable_conversion object on fardel. If called from make() will terminate a chain.
-   *  Can be called independently of make().
+  /**
+   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogStockConversion | Link To Square Docs}<br>
+   *  make_stockable_conversion() method of Catalog_Item_Variation
    *
-   * method names are exactly the same as the property names listed
-   * in the Square docs. If the method is not listed here it takes one argument of the type specified by
-   * the Square docs and sets the appropriate value. Only methods that do not behave as simple setters are
-   * listed here.
-   * @method `stockable_item_variation_id`
-   * @param {string} ``
-   * @method `id` alias of `stockable_item_variation_id`
-   * @method `nonstockable_quantity`
-   * @param {string} `quantity`  It accepts a decimal number in a string format that can take up to 10 digits before the decimal point and up to 5 digits after the decimal point.
-   * @method `stockable_quantity`
-   * @param {string} `quantity`  It accepts a decimal number in a string format that can take up to 10 digits before the decimal point and up to 5 digits after the decimal point.
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square_2021-12-15/objects/CatalogStockConversion | Square Docs}
+   * Sub-Method names are exactly the same as the property names listed
+   * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Catalog_Item_Variation.make_stockable_conversion
+   * @method
+   * @public
+   * @memberOf Catalog_Item_Variation
+   * @property  stockable_item_variation_id(id) {string<id>} -
+   * @property  nonstockable_quantity(quantity) {string} - It accepts a decimal number in a string format that can take up to 10 digits before the decimal point and up to 5 digits after the decimal point.
+   * @property  stockable_quantity(quantity) {string} - It accepts a decimal number in a string format that can take up to 10 digits before the decimal point and up to 5 digits after the decimal point.
+   * @property  id(id) {string<id>} - alias of `stockable_item_variation_id`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
-   *  let convert = myVar.make_stockable_conversion();
-   *  convert.stockable_item_variation_id("123").nonstockable_quantity("123.456").stockable_quantity("234.567")
    *
-   *  builds:
-   *  stockable_conversion: {
-   *    stockable_item_variation_id: "123",
-        nonstockable_quantity: "123.456" ,
-        stockable_quantity: "234.567"
-   *  }
-   *
+   *  let make = myVar.make();
+   *   make.gizmo()
+   *   make.gremlin()
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
 
   make_stockable_conversion() {

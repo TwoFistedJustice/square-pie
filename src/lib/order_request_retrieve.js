@@ -1,27 +1,30 @@
-// build 'batch'first and see if it can do just one
-// if it can, don't build the single retrieve
-
 const Order_Request = require("./order_request_abstract");
 const { shazam_max_length_array, shazam_is_array } = require("./utilities");
 const man =
   "retrieves one or more orders based on Square id of the order document. Add ids one at a time\n" +
   'by calling make().order("id1").order("id2") ...  or you can add an array of order_ids by calling\n' +
   "make().concat_orders(array_of_ids). You can use any combination of these methods.\n" +
-  'Add the location_id by calling make().location("location_id")' +
-  "\nhttps://developer.squareup.com/reference/square/orders-api/batch-retrieve-orders";
+  'Add the location_id by calling make().location("location_id")\n' +
+  "https://developer.squareup.com/reference/square/orders-api/batch-retrieve-orders";
 
-/** @class Order_Retrieve representing a http request to retrieve one or more orders
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/orders-api/batch-retrieve-orders | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/orders-api/batch-retrieve-orders |  **-------> Link To Square Docs <-------**}
+ * @class Order_Retrieve
+ * @extends Square_Request
+ * @classdesc
+ *
+ * Retrieves one or more orders based on Square id of the order document.
+ * Add ids one at a time
+ * 'by calling make().order(id1).order(id2) ...  or you can add an array of order_ids by calling'
+ * make().concat_orders(array_of_ids). You can use any combination of these methods.
+ * 'Add the location_id by calling make().location(location_id)'
  * */
+
 class Order_Retrieve extends Order_Request {
   _display_name = "Order_Retrieve";
   _last_verified_square_api_version = "2021-11-17";
   _help = this.display_name + ": " + man;
 
-  /**
-   * Creates an instance of an http request to retrieve orders
-   *  */
   constructor() {
     super();
     this._method = "POST";
@@ -62,8 +65,10 @@ class Order_Retrieve extends Order_Request {
       this._body.order_ids.push(id);
     }
   }
-  /**@function  set order_array_concat
-   * @param {array} arr - an array of ids not longer than 100
+  /**
+   * @ignore
+   * @function  set order_array_concat
+   * @param {array<id>} arr - an array of ids not longer than 100
    * @throws {Error} Throws an error if the any array or combination of arrays exceeds a length of 100
    * @throws {Error} Throws an error if the argument is not an array
    * @return Replaces the existing array with a new one consisting of the old one plus the one you passed in.
@@ -104,24 +109,34 @@ class Order_Retrieve extends Order_Request {
     }
   }
 
-  /** @function make()  method of Order_Retrieve - method names are exactly the same as the property names listed
+  /**
+   *  make() method of Order_Retrieve
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method location_id
-   * @param {string} id -
-   * @method order_ids
-   * @param {string} id -
-   * @method order - alias of order_ids
-   * @method location - alias of location_ids
-   * @method concat_orders - adds the contents of an array of IDs to the order_ids array
-   * @param {array} array - an array of order_ids
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Order_Retrieve.make
+   * @method
+   * @public
+   * @memberOf Order_Retrieve
+   * @property location_id(id) {string<id>} -
+   * @property order_ids(id) {string<id>} -
+   * @property order(id) {string<id>} - alias of `order_ids`
+   * @property location(id) {string<id>} - alias of `location_ids`
+   * @property concat_orders(array) {array<id>} - adds the contents of an array of IDs to the order_ids array
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
   make() {
     return {

@@ -3,9 +3,14 @@ const man =
   "Updates an existing location. Add only the fields you want to change.\n" +
   "https://developer.squareup.com/reference/square/locations-api/update-location";
 
-/** @class Location_Update
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/locations-api/update-location | Square Docs}
+/**
+ * {@link https://developer.squareup.com/reference/square/locations-api/update-location |  **-------> Link To Square Docs <-------**}
+ * @class Location_Update
+ * @extends Square_Request
+ * @classdesc
+ *
+ * Updates an existing location.<br><br>
+ * Build your with the Location_Object class with only the fields you want to change
  * */
 
 class Location_Update extends Location_RU {
@@ -27,22 +32,33 @@ class Location_Update extends Location_RU {
     this._body.location = fardel;
   }
 
-  /** @function make()  method of Location_Update - method names are exactly the same as the property names listed
+  /**
+   *  make() method of Location_Update
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method id - sets the id in the endppoint, overrides constructor argument.
-   * @param {string} id -
-   * @method location
-   * @param {object} fardel - Location_Object.fardel
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Location_Update.make
+   * @method
+   * @public
+   * @memberOf Location_Update
+   * @property id(id) {string<id>} - sets the id in the endppoint, overrides constructor argument.
+   * @property location(fardel) {Fardel} - Location_Object.fardel
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
-   *
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
+
   make() {
     return {
       self: this,

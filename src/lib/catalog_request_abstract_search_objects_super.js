@@ -6,16 +6,15 @@ const {
   shazam_is_integer,
 } = require("./utilities");
 
-/*
- *  The query feature is INCOMPLETE
- *  It will probably need to be extracted out
- *  Catalog_Search_Objects.prototype.query = function...
- *
+/**
+ * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects |  **-------> Link To Square Docs <-------**}
+ * @class Catalog_Search_Objects_Super
+ * @extends Square_Request
+ * @classdesc super class of catalog object search classes
+ * @abstract
+ * @ignore
  * */
-/** @class  Catalog_Search_Objects_Super - abstract super class of catalog object search classes
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square/catalog-api/search-catalog-objects | Square Docs}
- * */
+
 class Catalog_Search_Objects_Super extends Catalog_Request {
   _display_name = "Catalog_Search_Objects_Super";
   constructor() {
@@ -85,11 +84,13 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
 
   // NOT PRIVATE METHODS = because you can't reference private functions from subclasses
 
-  /** @function concat_object_types - concatenates an array of objects to the object_types array. Inherited by its sub classes.
-   * @param {array} array_to_add - an array of object 'types' (strings)
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link  | Square Docs}
-   * @example
+  /**
+   * concat_object_types - concatenates an array of objects to the object_types array. Inherited from Catalog_Search_Objects_Super.
+   * @function
+   * @param {array<enum>} array_to_add - an array of object 'types' (strings)
+   * @memberOf Catalog_Search_Filter
+   * @memberOf  Catalog_Search_Cross_Reference
+   * @memberOf Catalog_Search_Objects_Super
    * */
 
   concat_object_types(array_to_add) {

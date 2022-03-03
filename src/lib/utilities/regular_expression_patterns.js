@@ -15,6 +15,7 @@ const regular_expression_patterns = {
      * @returns {RegExp} Returns the pattern including named group "param" to find the
      * parameter set within a query parameter string
      * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+     * @ignore
      * */
     query_param_capture: function (param) {
       return new RegExp(

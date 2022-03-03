@@ -7,6 +7,7 @@
  * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
  * @example
  *  `if( isInteger(some_value) { set some intermediate variable }`
+ *  @ignore
  * */
 
 const is_integer = function (num) {

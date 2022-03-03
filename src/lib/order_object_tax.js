@@ -11,14 +11,14 @@ const man =
   "uid is set automatically. But you can change it using make().uid()\n" +
   "https://developer.squareup.com/reference/square_2022-01-20/objects/OrderLineItemTax";
 
-/** @class Order_Tax representing an OrderLineItemTax
- * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
- * {@link https://developer.squareup.com/reference/square_2022-01-20/objects/OrderLineItemTax | Square Docs}
- * @example
- *  const myVar = new Order_Tax()
- *  myVar.fardel => pass this to a request class to send your data
+/**
+ * {@link https://developer.squareup.com/reference/square_2022-01-20/objects/OrderLineItemTax |  **-------> Link To Square Docs <-------**}
+ * @class Order_Tax
+ * @classdesc
+ *
+ * Build one Line Item Tax for an order. (goes in taxes array of Order_Object)<br><br>
+ * uid is set automatically. But you can change it using make().uid()<br><br>
  * */
-
 class Order_Tax {
   _display_name = "Order_Tax";
   _last_verified_square_api_version = "2022-01-20";
@@ -142,26 +142,33 @@ class Order_Tax {
     this._fardel.scope = str;
   }
 
-  /** @function #enum_scope
+  /**
+   * {@link https://developer.squareup.com/reference/square_2022-01-20/enums/OrderLineItemTaxScope | Square Docs}<br>
+   *
+   *  #enum_scope<br>
    *  Enumerated methods set specific values from a limited set of allowable values defined by Square.
    *  For each value, a sub-method will exist that is the lowercase version of that value. There may also
    *  exist abbreviated aliases.
    *
    *  Enumerated methods are usually called by other functions and set the value on the object on which
    *  the calling function operates.
-   * @method other_tax_scope  sets value to "OTHER_TAX_SCOPE"
-   * @method line_item  sets value to "LINE_ITEM"
-   * @method order  sets value to "ORDER"
-   * @method other alias of `other_tax_scope`
-   * @method line  alias of `line_item`
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
-   * {@link https://developer.squareup.com/reference/square_2022-01-20/enums/OrderLineItemTaxScope | Square Docs}
+   *  @typedef {function} Order_Tax.enum_scope
+   * @private
+   * @abstract
+   * @memberOf Order_Tax
+   * @property other_tax_scope() -   sets value to "OTHER_TAX_SCOPE"
+   * @property line_item() -   sets value to "LINE_ITEM"
+   * @property order() -   sets value to "ORDER"
+   * @property other() -  alias of `other_tax_scope`
+   * @property line() -   alias of `line_item`
+   * @property ()
    * @example
    *  If you were allowed to choose from the set ["GOOD", "BAD", "UGLY"] in order to set the
    *  value of `clint` on the object 'western'
    *
    *  vyMar.make_western().clint.().good() => const spaghetti = {western : {clint: "GOOD"}}
    * */
+
   #enum_scope(calling_this) {
     return {
       self: this,
@@ -187,30 +194,37 @@ class Order_Tax {
   }
 
   // MAKE METHODS
-  /** @function make()  method of Order_Tax - method names are exactly the same as the property names listed
+
+  /**
+   *  make() method of Order_Tax
+   *  Make sure to have the Square Docs open in front of you.
+   * Sub-Method names are exactly the same as the property names listed
    * in the Square docs. There may be additional methods and/or shortened aliases of other methods.
-   * @method uid
-   * @param {string} uid - this is automatically set.
-   * @method name
-   * @param {string} name -
-   * @method catalog_object_id
-   * @param {string} id -
-   * @method catalog_version
-   * @param {number} ver -
-   * @method percentage
-   * @param {string} percent - a percentage amount in the form of a string.
-   * @method applied_money Standard compliant money object builder.
-   * @param {number} amount - an integer. The price in the smallest currency designation. Usually cents.
-   * @param {string} currency - Three letter currency designation. Enforces ISO 4217 format. Case insensitive.
-   * @method scope Enumerated. Calls #enum_scope
-   * @author Russ Bain <russ.a.bain@gmail.com> https://github.com/TwoFistedJustice/
+   *
+   * You should read the generated docs as:
+   *     method_name(arg) {type} description of arg
+   *
+   * @typedef {function} Order_Tax.make
+   * @method
+   * @public
+   * @memberOf Order_Tax
+   * @property {string} uid(uid) - automatically set. Use this only to replace the generated uid.
+   * @property name(name) {string} -
+   * @property catalog_object_id(id) {string<id>} -
+   * @property catalog_version(ver) {integer} -
+   * @property percentage(percent) {string} - a percentage amount in the form of a string.
+   * @property applied_money(amount,currency) {money} - Standard compliant money object builder.
+   * @property scope() {Enumerated} - Calls `#enum_scope()`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
    *  variable.
+   *
    *  let make = myVar.make();
    *   make.gizmo()
    *   make.gremlin()
+   *    //is the same as
+   *   myVar.make().gizmo().gremlin()
    * */
 
   make() {
