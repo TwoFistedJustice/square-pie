@@ -207,7 +207,7 @@ describe("Invoice_Search", () => {
     let id_array = ["doreymefaso", "latte"];
     let expected = [id, other_id, "doreymefaso", "latte"];
     search.make().location_id(id).location_id(other_id);
-    search.make().add_location_ids_array(id_array);
+    search.make().concat_location_ids_array(id_array);
     expect(search.location_ids).toEqual(expected);
   });
 
@@ -215,7 +215,7 @@ describe("Invoice_Search", () => {
     let id_array = ["doreymefaso", "latte"];
     let expected = [id, other_id, "doreymefaso", "latte"];
     search.make().customer_id(id).customer_id(other_id);
-    search.make().add_customer_ids_array(id_array);
+    search.make().concat_customer_ids_array(id_array);
     expect(search.customer_ids).toEqual(expected);
   });
 });
