@@ -259,12 +259,12 @@ class Catalog_Search_Cross_Reference extends Catalog_Search_Objects_Super {
    * @public
    * @memberOf Catalog_Search_Cross_Reference
    * @property include_related_objects(bool) {boolean}
-   * @property begin_time(id) {string} -
+   * @property begin_time(id) {string<id>} -
    * @property  object_types() {Enumerated} Calls {@link catalog_search_objects_enum.object_types|catalog_search_objects_enum.object_types}
-   * @property variations (id) {string} -
-   * @property items(id) {string} -
-   * @property modifiers(id) {string} -
-   * @property taxes(id) {string} -
+   * @property variations (id) {string<id>} -
+   * @property items(id) {string<id>} -
+   * @property modifiers(id) {string<id>} -
+   * @property taxes(id) {string<id>} -
    * @property concat_variations(arr) {array<id>} - adds the contents of an array of ids
    * @property concat_items(arr) {array<id>} - adds the contents of an array of ids
    * @property concat_modifiers(arr) {array<id>} - adds the contents of an array of ids

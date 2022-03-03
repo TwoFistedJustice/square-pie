@@ -69,7 +69,7 @@ class Invoice_Cancel extends Invoice_RUDCnP {
    * @method
    * @public
    * @memberOf Invoice_Cancel
-   * @property (id) {string} -
+   * @property (id) {string<id>} -
    * @property (ver) {integer} -
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot

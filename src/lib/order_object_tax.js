@@ -210,7 +210,7 @@ class Order_Tax {
    * @memberOf Order_Tax
    * @property {string} uid(uid) - automatically set. Use this only to replace the generated uid.
    * @property name(name) {string} -
-   * @property catalog_object_id(id) {string} -
+   * @property catalog_object_id(id) {string<id>} -
    * @property catalog_version(ver) {integer} -
    * @property percentage(percent) {string} - a percentage amount in the form of a string.
    * @property applied_money(amount,currency) {money} - Standard compliant money object builder.

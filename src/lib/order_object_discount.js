@@ -246,7 +246,7 @@ class Order_Discount {
    * @public
    * @memberOf Order_Discount
    * @property uid(uid) {string} - set automatically. Use this if you want to change it.
-   * @property catalog_object_id(id) {string} -
+   * @property catalog_object_id(id) {string<id>} -
    * @property catalog_version(ver) {integer} -
    * @property name(str) {string} -
    * @property type() {Enumerated} - Calls {@link Order_Discount.enum_type|`#enum_type()`}

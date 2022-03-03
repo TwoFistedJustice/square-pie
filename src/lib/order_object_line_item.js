@@ -389,7 +389,7 @@ class Order_Line_Item {
    * @property name(name) {string} -
    * @property note(note) {string} -
    * @property variation_name(name) {string} -
-   * @property catalog_object_id(id) {string} -
+   * @property catalog_object_id(id) {string<id>} -
    * @property catalog_version(int) {integer} -
    * @property item_type() {Enumerated} - Calls {@link Order_Line_Item.enum_item_type|`#enum_item_type()}
    * @property base_price_money(amount,currency) {money} - Standard compliant money object builder.
@@ -497,7 +497,7 @@ class Order_Line_Item {
    * @public
    * @memberOf Order_Line_Item
    * @property uid(uid) {string} - UID is set automatically. Only call this if you want to change it.
-   * @property catalog_object_id(id) {string} -
+   * @property catalog_object_id(id) {string<id>} -
    * @property catalog_version(int64) {integer} -
    * @property name(val) {string} -
    * @property base_price_money(amount,currency) {money} - Standard compliant money object builder.
@@ -633,10 +633,10 @@ class Order_Line_Item {
    * @public
    * @memberOf Order_Line_Item
    * @property uid(uid) {string} - UID is set automatically. Only call this if you want to change it.
-   * @property discount_catalog_object_id(id) {string} - The catalog_object_id of the discount that should be blocked. Use this field to block catalog discounts. For ad hoc discounts, use the discount_uid field. Max length 192.
-   * @property discount_object(id) {string} - alias of `discount_catalog_object_id`
+   * @property discount_catalog_object_id(id) {string<id>} - The catalog_object_id of the discount that should be blocked. Use this field to block catalog discounts. For ad hoc discounts, use the discount_uid field. Max length 192.
+   * @property discount_object(id) {string<id>} - alias of `discount_catalog_object_id`
    * @property discount_uid(uid) {string} - The uid of the discount that should be blocked. Use this field to block ad hoc discounts. For catalog, discounts use the discount_catalog_object_id field. Max length 60.
-   * @property ad_hoc(id) {string}-alias of `discount_uid`
+   * @property ad_hoc(id) {string<id>}-alias of `discount_uid`
    * @property view() - returns the object under construction
    * @property get_uid() - returns the uid of the blocklist
    * @property add() - calls the discount_blocklist setter and passes a new discount_blocklist object cloned from the the one you built.
@@ -747,8 +747,8 @@ class Order_Line_Item {
    * @public
    * @memberOf Order_Line_Item
    * @property uid(uid) {string} - UID is set automatically. Only call this if you want to change it.
-   * @property tax_catalog_object_id(id) {string} -The catalog_object_id of the tax that should be blocked. Use this field to block catalog taxes. For ad hoc taxes, use the tax_uid field. Max length 192.
-   * @property tax_object(id) {string} - alias of `tax_catalog_object_id`
+   * @property tax_catalog_object_id(id) {string<id>} -The catalog_object_id of the tax that should be blocked. Use this field to block catalog taxes. For ad hoc taxes, use the tax_uid field. Max length 192.
+   * @property tax_object(id) {string<id>} - alias of `tax_catalog_object_id`
    * @property tax_uid(uid) {string} -The uid of the tax that should be blocked. Use this field to block ad hoc taxes. For catalog, taxes use the tax_catalog_object_id field. Max length 60.
    * @property ad_hoc(uid) {string} - alias of `tax_uid`
    * @property view - returns the object under construction
@@ -859,11 +859,11 @@ class Order_Line_Item {
    * @method
    * @public
    * @memberOf Order_Line_Item
-   * @property catalog_object_id(id) {string} -The catalog object ID referencing the CatalogMeasurementUnit when the unit already exists in the db
+   * @property catalog_object_id(id) {string<id>} -The catalog object ID referencing the CatalogMeasurementUnit when the unit already exists in the db
    * @property catalog_version(int) {integer} -
    * @property measurement_unit(archetype) {object} - A MeasurementUnit  object that represents the unit of measure for the quantity.
    * @property precision(int) {integer} - an integer number. the number of digits after the decimal point that are recorded for this quantity. See Square docs.
-   * @property id(id) {string} - alias of `catalog_object_id`
+   * @property id(id) {string<id>} - alias of `catalog_object_id`
    * @property version(int) {integer} - alias of `catalog_version`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot

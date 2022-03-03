@@ -74,7 +74,7 @@ class Customer_Search extends Customer_Request {
    * @property exact() - top-level method (call one of these first), all non-top-level methods are the same for both fuzzy() and exact()
    * @property email(email) {string} -
    * @property phone(phone) {string} -
-   * @property id(id) {string} -
+   * @property id(id) {string<id>} -
    * @property limit(limit) {integer} -
    * @property sortUp()  - sets sort.order to "ASC"
    * @property sortDown()  - sets sort.order to "DESC"

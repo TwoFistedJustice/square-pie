@@ -209,7 +209,7 @@ class Customer_Update extends Retrieve_Update_Delete {
    * @property phone_number(phone) {string} - should be a phone number of no more than 11 characters
    * @property address(address_object) {object} - an Address Object
    * @property birthday(time) {string} - a date in RFC3339 format
-   * @property reference_id(id) {string} -
+   * @property reference_id(id) {string<id>} -
    * @property note(note) {string}
    * @property version(int) {integer}
    * @property creation_source() {Enumerated} -

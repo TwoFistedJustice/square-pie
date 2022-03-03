@@ -320,7 +320,7 @@ class Catalog_Item extends Catalog_Object_Super {
    * @method
    * @public
    * @memberOf Catalog_Item
-   * @property  modifier_list_id(id) {string} -
+   * @property  modifier_list_id(id) {string<id>} -
    * @property  modifier_overrides(id,bool) {string|boolean} - boolean defaults to false
    * @property  min_selected_modifiers(int32) {number} -must be an integer
    * @property  max_selected_modifiers(int32) {number} -must be an integer
@@ -414,7 +414,7 @@ class Catalog_Item extends Catalog_Object_Super {
    * @method
    * @public
    * @memberOf Catalog_Item
-   * @property  id(id) {string} -
+   * @property  id(id) {string<id>} -
    * @property  temp_id(temp_id) {string} - will concatenate the argument to "#temp_id_"
    * @property  present_at_all_locations()
    * @property  present_at_all_locations_ids(id) {boolean} -
@@ -425,8 +425,8 @@ class Catalog_Item extends Catalog_Object_Super {
    * @property  available_online(bool) {boolean}
    * @property  available_for_pickup(bool) {boolean}
    * @property  available_electronically(bool) {boolean}
-   * @property  category_id(id) {string} -
-   * @property  tax_ids(id) {string} -
+   * @property  category_id(id) {string<id>} -
+   * @property  tax_ids(id) {string<id>} -
    * @property  modifier_list_info(mod) {object}  a modifier list object
    * @property  variations(obj) {object} - an item_variation object
    * @property  skip_modifier_screen(bool) {boolean}

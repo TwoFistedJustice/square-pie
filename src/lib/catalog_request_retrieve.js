@@ -97,9 +97,9 @@ class Catalog_Retrieve extends Catalog_Request {
    * @method
    * @public
    * @memberOf Catalog_Retrieve
-   * @property object_ids(id) {string} -
-   * @property object(id) {string} - alias of `object_ids`
-   * @property retrieve(id) {string} -
+   * @property object_ids(id) {string<id>} -
+   * @property object(id) {string<id>} - alias of `object_ids`
+   * @property retrieve(id) {string<id>} -
    * @property concat_object_ids(arr) {array<id>}
    * @property concat(arr) {array<id>} - alias of `concat_object_ids`
    

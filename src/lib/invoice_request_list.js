@@ -120,8 +120,8 @@ class Invoice_List extends Invoice_Request {
    * @public
    * @memberOf Invoice_List
    * @property limit(int) {integer} -  sets the query parameter of the same name
-   * @property location_id(id) {string} -  sets the query parameter of the same name
-   * @property location(id) {string} - alias of  `location_id`
+   * @property location_id(id) {string<id>} -  sets the query parameter of the same name
+   * @property location(id) {string<id>} - alias of  `location_id`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

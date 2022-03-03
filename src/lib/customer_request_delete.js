@@ -94,7 +94,7 @@ class Customer_Delete extends Retrieve_Update_Delete {
    * @method
    * @public
    * @memberOf Customer_Delete
-   * @property id(id) {string} -  replaces or set the /{id} portion of the endpoint - can be used any time before calling .request().
+   * @property id(id) {string<id>} -  replaces or set the /{id} portion of the endpoint - can be used any time before calling .request().
    * @property version(version) {integer} - Expects an integer. Sets the 'version' query parameter
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot

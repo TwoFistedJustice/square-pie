@@ -99,7 +99,7 @@ class Order_Update extends Order_Request {
    * @public
    * @memberOf Order_Update
    * @property idempotency_key(key) {string} - use only if you want to use your own key in place of the automatically generated one.
-   * @property order_id(id) {string} -
+   * @property order_id(id) {string<id>} -
    * @property order(sparse_order) {object}
    * @property fields_to_clear(field) {string} -
    * @example

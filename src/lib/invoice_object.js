@@ -369,8 +369,8 @@ class Invoice_Object {
    * @public
    * @memberOf Invoice_Object
    * @property version(int) {string} -
-   * @property location_id(id) {string} -
-   * @property order_id(id) {string} -
+   * @property location_id(id) {string<id>} -
+   * @property order_id(id) {string<id>} -
    * @property primary_recipient(customer_id) {string} -
    * @property payment_requests(payment_request_object) {string} -
    * @property delivery_method() {Enumerated} - Calls {@link Invoice_Object.delivery_method_enum| .delivery_method_enum}

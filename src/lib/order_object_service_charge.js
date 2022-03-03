@@ -226,13 +226,13 @@ class Order_Object_Service_Charge {
    * @memberOf Order_Object_Service_Charge
    * @property {string} uid(uid) - automatically set. Use this only to replace the generated uid.
    * @property name(name) {string} -
-   * @property catalog_object_id(id) {string} -
+   * @property catalog_object_id(id) {string<id>} -
    * @property catalog_version(ver) {integer} -
    * @property percentage(percent) {string} - a percentage amount in the form of a string.
    * @property amount_money(amount,currency) {money} - Standard compliant money object builder.
    * @property calculation_phase() {Enumerated} - Calls {@link Order_Object_Service_Charge.enum_calculation_phase|`enum_calculation_phase()`}
    * @property taxable(bool) {boolean}
-   * @property applied_taxes(id) {string} -
+   * @property applied_taxes(id) {string<id>} -
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

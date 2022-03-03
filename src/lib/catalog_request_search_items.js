@@ -319,10 +319,10 @@ class Catalog_Search_Items extends Catalog_Request {
    * @memberOf Catalog_Search_Items
    * @property sort_order() {Enumerated} - calls {@link Catalog_Search_Items.enum_sort_order|`#enum_sort_order`}
    * @property stock_levels() {Enumerated} -- calls {@link Catalog_Search_Items.enum_stock_levels|`#enum_stock_levels`}
-   * @property text_filter(id) {string} -
+   * @property text_filter(id) {string<id>} -
    * @property product_types() {Enumerated} -- calls {@link Catalog_Search_Items.enum_product_type|`#enum_product_type`}
-   * @property category_ids(id) {string} -
-   * @property enabled_location_ids(id) {string} -
+   * @property category_ids(id) {string<id>} -
+   * @property enabled_location_ids(id) {string<id>} -
    * @property custom_attribute_filters(obj) {object} - Takes a **complete** custom attribute filter object.
    * @property (obj) {object}
    * @property sort() alias of `sort_order`
@@ -426,11 +426,11 @@ class Catalog_Search_Items extends Catalog_Request {
    * @method
    * @public
    * @memberOf Catalog_Search_Items
-   * @property custom_attribute_definition_id(id) {string} -
-   * @property key(id) {string} -
-   * @property string_filter(id) {string} -
+   * @property custom_attribute_definition_id(id) {string<id>} -
+   * @property key(id) {string<id>} -
+   * @property string_filter(id) {string<id>} -
    * @property number_filter(num1,num2) {number|number}
-   * @property selection_uids_filter(id) {string} -
+   * @property selection_uids_filter(id) {string<id>} -
    * @property bool_filter(bool) {boolean}
    * @property add() - NOT IMPLEMENTED
    * @example

@@ -216,8 +216,8 @@ class Invoice_Search extends Invoice_Request {
    * @memberOf Invoice_Search
    * @property limit(limit) {integer} - an integer up to 200 - default is 100
    * @property query(query_object) {object} **DANGER WILL ROBINSON!** This wil replace the entire query object withwhatever you pass it. Only pass in a complete query object.
-   * @property location_id(id) {string} - adds an id the array on the filter object
-   * @property customer_id(id) {string} - adds an id the array on the filter object
+   * @property location_id(id) {string<id>} - adds an id the array on the filter object
+   * @property customer_id(id) {string<id>} - adds an id the array on the filter object
    * @property add_location_ids_array(arr) {array<id>} - (concat) adds the contents of an array of ids to filter object.
    * @property add_customer_ids_array(arr) {array<id>} - (concat) adds the contents of an array of ids to filter object.
    * @property sort() {Enumerated} - Calls {@link Invoice_Search.sort_order|`sort_order()`}

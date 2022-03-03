@@ -122,10 +122,10 @@ class Order_Retrieve extends Order_Request {
    * @method
    * @public
    * @memberOf Order_Retrieve
-   * @property location_id(id) {string} -
-   * @property order_ids(id) {string} -
-   * @property order(id) {string} - alias of `order_ids`
-   * @property location(id) {string} - alias of `location_ids`
+   * @property location_id(id) {string<id>} -
+   * @property order_ids(id) {string<id>} -
+   * @property order(id) {string<id>} - alias of `order_ids`
+   * @property location(id) {string<id>} - alias of `location_ids`
    * @property concat_orders(array) {array<id>} - adds the contents of an array of IDs to the order_ids array
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot

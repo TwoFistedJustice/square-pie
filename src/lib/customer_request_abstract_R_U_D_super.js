@@ -85,7 +85,7 @@ class Customer_Retrieve_Update_Delete_Super extends Customer_Request {
    * @method
    * @public
    * @memberOf Customer_Retrieve_Update_Delete_Super
-   * @property id(id) {string} - sets the id in the URL
+   * @property id(id) {string<id>} - sets the id in the URL
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

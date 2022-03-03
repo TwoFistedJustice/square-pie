@@ -75,10 +75,10 @@ class Order_Clone extends Order_Request {
    * @public
    * @memberOf Order_Clone
    * @property idempotency_key(key) {string} - use only if you want to use your own key in place of the automatically generated one.
-   * @property order_id(id) {string} -
+   * @property order_id(id) {string<id>} -
    * @property version(ver) {integer} -
-   * @property order(id) {string}  - alias of `order_id`
-   * @property id(id) {string}  - alias of `order_id`
+   * @property order(id) {string<id>}  - alias of `order_id`
+   * @property id(id) {string<id>}  - alias of `order_id`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a

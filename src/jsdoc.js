@@ -23,7 +23,6 @@
  *  const myClass = new Class()
  *
  *  myClass.make().type().item().type().category() => {types: ["ITEM", "CATEGORY"]}
- *  myClass.make().type().item().type().category() => {types: ["ITEM", "CATEGORY"]}
  * */
 
 /**
@@ -34,6 +33,39 @@
  *
  * A "Body" on the other hand, is the "body" of a Square Pie Request class. It will automatically
  * become the request body of an http request. You never pass a "Body" as an argument.
+ * */
+
+/**
+ * @namespace id
+ * @classdesc
+ * An "id" is a  Square generated unique alphanumeric sequence used to identify a document in the Square database.
+ * There is no definable pattern that we know of. I asked Square, but they didn't know either. (I actually did ask...)
+ * */
+
+/**
+ * @namespace integer
+ * @classdesc
+ * An "integer" is a "counting number". While Javascript does not have "integer" as an official type, Square uses them frequently. Whenever
+ * an integer is expected, a validation check will happen and an error will be thrown on any value that is not a number in the form of an
+ * integer or a string that cannot be coerced into an integer.
+ *
+ * 5 is an integer.
+ * "5" counts as an integer.
+ * 5.1 is not an integer and will cause an error to be thrown.
+ * */
+
+/**
+ * @namespace uid
+ * @classdesc
+ * A "uid" is **usually** a user-generated unique-ish alphanumeric sequence used to identify an object within a given
+ * http request. Square Pie generally generates these for you using {@link https://www.npmjs.com/package/nanoid|nanoid(10)} to generate the unique portion and
+ * prefixing each one according to object type: "uid_object_type#".
+ *
+ * A Square Pie generated uid will look like: "uid_service_charge#ad5d1q39m6"
+ *
+ * The logic behind that pattern is that for most small businesses, 10 digits should be enough to avoid collisions within a single transaction.
+ * The rest is to make it easier to debug from log files. You know it's a uid for a service charge when you see it, because it explicitly says so.
+ * The # is to make it easier for us to write our regex unit tests.
  * */
 
 // TYPEDEFS

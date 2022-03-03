@@ -102,10 +102,10 @@ class Order_Pay extends Order_Request {
    * @memberOf Order_Pay
    * @property idempotency_key(key) {string} - use only if you want to use your own key in place of the automatically generated one.
    * @property order_version(ver) {integer} -
-   * @property payment_ids(id) {string} -
-   * @property order_id(id) {string} -
-   * @property order(id) {string} -alias of order_id
-   * @property pay(id) {string} -alias of payment_ids
+   * @property payment_ids(id) {string<id>} -
+   * @property order_id(id) {string<id>} -
+   * @property order(id) {string<id>} -alias of order_id
+   * @property pay(id) {string<id>} -alias of payment_ids
    * @property concat_payments(arr) {array<id>} - adds the contents of an array of IDs to the payment_ids array.
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot

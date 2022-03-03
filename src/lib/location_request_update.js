@@ -45,7 +45,7 @@ class Location_Update extends Location_RU {
    * @method
    * @public
    * @memberOf Location_Update
-   * @property id(id) {string} - sets the id in the endppoint, overrides constructor argument.
+   * @property id(id) {string<id>} - sets the id in the endppoint, overrides constructor argument.
    * @property location(fardel) {Fardel} - Location_Object.fardel
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot

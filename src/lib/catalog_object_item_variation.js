@@ -375,7 +375,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    * @memberOf Catalog_Item_Variation
    * @property name(str) {string}
    * @property present_at_all_locations(bool {boolean}
-   * @property present_at_location_ids(id)  {string}
+   * @property present_at_location_ids(id) {string<id>}
    * @property available_for_booking(bool) {boolean}
    * @property service_duration(num) {integer}
    * @property item_id(ud) {string}
@@ -509,7 +509,7 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    * @method
    * @public
    * @memberOf Catalog_Item_Variation
-   * @property location_id(id) {string} -
+   * @property location_id(id) {string<id>} -
    * @property price_money(amount,currency) {money} - Standard compliant money object builder.
    * @property pricing_type()) {Enumerated}- calls {@link Catalog_Item_Variation.enum_pricing_type|`enum_pricing_type()`}
    * @property track_inventory(bool) {} -
@@ -618,10 +618,10 @@ class Catalog_Item_Variation extends Catalog_Object_Super {
    * @method
    * @public
    * @memberOf Catalog_Item_Variation
-   * @property  stockable_item_variation_id(id) {string} -
+   * @property  stockable_item_variation_id(id) {string<id>} -
    * @property  nonstockable_quantity(quantity) {string} - It accepts a decimal number in a string format that can take up to 10 digits before the decimal point and up to 5 digits after the decimal point.
    * @property  stockable_quantity(quantity) {string} - It accepts a decimal number in a string format that can take up to 10 digits before the decimal point and up to 5 digits after the decimal point.
-   * @property  id(id) {string} - alias of `stockable_item_variation_id`
+   * @property  id(id) {string<id>} - alias of `stockable_item_variation_id`
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
