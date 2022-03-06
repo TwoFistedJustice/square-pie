@@ -1,5 +1,6 @@
 const {
   arrayify,
+  clone_object,
   shazam_max_length,
   shazam_max_length_array,
   shazam_is_time_RFC3339,
@@ -489,7 +490,7 @@ class Invoice_Object {
     return {
       self: this,
       add: function () {
-        this.self.custom_fields = field;
+        this.self.custom_fields = clone_object(field);
       },
       label: function (str) {
         if (shazam_max_length(limit.custom_fields_label, str, name, caller)) {

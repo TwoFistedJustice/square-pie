@@ -384,10 +384,10 @@ describe("object make methods", () => {
       {
         label: "fred",
         placement: "BELOW_LINE_ITEMS",
-        value: "flintone",
+        value: "flinstone",
       },
     ];
-    make.custom_fields().label("fred").value("flintone").below().add();
+    make.custom_fields().label("fred").value("flinstone").below().add();
     expect(invoice.custom_fields).toEqual(expected);
   });
 
@@ -400,6 +400,24 @@ describe("object make methods", () => {
       },
     ];
     make.custom_fields().label("fred").value("flintone").below().above().add();
+    expect(invoice.custom_fields).toEqual(expected);
+  });
+
+  test("make().custom_fields() should add multiple objects", () => {
+    let expected = [
+      {
+        label: "fred",
+        placement: "ABOVE_LINE_ITEMS",
+        value: "flintone",
+      },
+      {
+        label: "barney",
+        placement: "BELOW_LINE_ITEMS",
+        value: "rubble",
+      },
+    ];
+    make.custom_fields().label("fred").value("flintone").above().add();
+    make.custom_fields().label("barney").value("rubble").below().add();
     expect(invoice.custom_fields).toEqual(expected);
   });
 
