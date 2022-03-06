@@ -353,9 +353,9 @@ describe("object make methods", () => {
       card: false,
       square_gift_card: true,
     };
-    make.accepted_payment_methods().bank_account().no();
-    make.accepted_payment_methods().card().no();
-    make.accepted_payment_methods().square_gift_card().yes();
+    make.accepted_payment_methods().bank_account(false);
+    make.accepted_payment_methods().card(false);
+    make.accepted_payment_methods().square_gift_card(true);
     expect(invoice.accepted_payment_methods).toEqual(expected);
   });
 
@@ -369,15 +369,12 @@ describe("object make methods", () => {
     // it's ugly, but it works.
     make
       .accepted_payment_methods()
-      .square_gift_card()
-      .yes()
+      .square_gift_card(true)
       .scheduled_at(time)
       .accepted_payment_methods()
-      .card()
-      .no()
+      .card(false)
       .accepted_payment_methods()
-      .bank_account()
-      .no();
+      .bank_account(false);
     expect(invoice.accepted_payment_methods).toEqual(expected);
     expect(invoice.scheduled_at).toEqual(time);
   });

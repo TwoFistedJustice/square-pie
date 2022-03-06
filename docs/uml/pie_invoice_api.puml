@@ -78,7 +78,6 @@ Setters
 Private Methods
 +#define_accepted_payment_methods()
 +#delivery_method_enum()
-+#accepted_payment_methods_enum(property_name)
 +#build_accepted_payment_methods()
 +#build_custom_field()
 ==
