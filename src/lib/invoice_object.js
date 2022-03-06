@@ -1,9 +1,11 @@
 const {
   arrayify,
+  clone_object,
   shazam_max_length,
   shazam_max_length_array,
   shazam_is_time_RFC3339,
   shazam_date_human_readable,
+  shazam_is_boolean,
   shazam_is_integer,
 } = require("./utilities");
 const man =
@@ -293,50 +295,40 @@ class Invoice_Object {
     };
   }
 
-  #accepted_payment_methods_enum(property_name, calling_this) {
-    return {
-      self: this,
-      true: function () {
-        this.self._fardel.accepted_payment_methods[property_name] = true;
-        return calling_this;
-      },
-      false: function () {
-        this.self._fardel.accepted_payment_methods[property_name] = false;
-        return calling_this;
-      },
-      yes: function () {
-        return this.true();
-      },
-      no: function () {
-        return this.false();
-      },
-    };
-  }
+  /**
+   * Describes_the_function_in_the_documentation
+   * @typedef {function} Invoice_Object.build_accepted_payment_methods
+   * @memberOf Invoice_Object
+   * @private
+   * @method
+   * @property bank_account(bool) {boolean} Sets `accepted_payment_methods.bank_account`
+   * @property card(bool) {boolean} Sets `accepted_payment_methods.card`
+   * @property square_gift_card(bool) {boolean} Sets `accepted_payment_methods.square_gift_card`
+   * */
 
   #build_accepted_payment_methods(calling_this) {
+    let name = this.display_name;
+    let caller = "accepted_payment_methods";
     this.#define_accepted_payment_methods();
     return {
       self: this,
-      bank_account: function () {
-        let property_name = "bank_account";
-        return this.self.#accepted_payment_methods_enum(
-          property_name,
-          calling_this
-        );
+      bank_account: function (bool) {
+        if (shazam_is_boolean(bool, name, caller)) {
+          this.self._fardel.accepted_payment_methods.bank_account = bool;
+          return calling_this;
+        }
       },
-      card: function () {
-        let property_name = "card";
-        return this.self.#accepted_payment_methods_enum(
-          property_name,
-          calling_this
-        );
+      card: function (bool) {
+        if (shazam_is_boolean(bool, name, caller)) {
+          this.self._fardel.accepted_payment_methods.card = bool;
+          return calling_this;
+        }
       },
-      square_gift_card: function () {
-        let property_name = "square_gift_card";
-        return this.self.#accepted_payment_methods_enum(
-          property_name,
-          calling_this
-        );
+      square_gift_card: function (bool) {
+        if (shazam_is_boolean(bool, name, caller)) {
+          this.self._fardel.accepted_payment_methods.square_gift_card = bool;
+          return calling_this;
+        }
       },
     };
   }
@@ -498,7 +490,7 @@ class Invoice_Object {
     return {
       self: this,
       add: function () {
-        this.self.custom_fields = field;
+        this.self.custom_fields = clone_object(field);
       },
       label: function (str) {
         if (shazam_max_length(limit.custom_fields_label, str, name, caller)) {

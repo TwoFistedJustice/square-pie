@@ -353,9 +353,9 @@ describe("object make methods", () => {
       card: false,
       square_gift_card: true,
     };
-    make.accepted_payment_methods().bank_account().no();
-    make.accepted_payment_methods().card().no();
-    make.accepted_payment_methods().square_gift_card().yes();
+    make.accepted_payment_methods().bank_account(false);
+    make.accepted_payment_methods().card(false);
+    make.accepted_payment_methods().square_gift_card(true);
     expect(invoice.accepted_payment_methods).toEqual(expected);
   });
 
@@ -369,15 +369,12 @@ describe("object make methods", () => {
     // it's ugly, but it works.
     make
       .accepted_payment_methods()
-      .square_gift_card()
-      .yes()
+      .square_gift_card(true)
       .scheduled_at(time)
       .accepted_payment_methods()
-      .card()
-      .no()
+      .card(false)
       .accepted_payment_methods()
-      .bank_account()
-      .no();
+      .bank_account(false);
     expect(invoice.accepted_payment_methods).toEqual(expected);
     expect(invoice.scheduled_at).toEqual(time);
   });
@@ -387,10 +384,10 @@ describe("object make methods", () => {
       {
         label: "fred",
         placement: "BELOW_LINE_ITEMS",
-        value: "flintone",
+        value: "flinstone",
       },
     ];
-    make.custom_fields().label("fred").value("flintone").below().add();
+    make.custom_fields().label("fred").value("flinstone").below().add();
     expect(invoice.custom_fields).toEqual(expected);
   });
 
@@ -403,6 +400,24 @@ describe("object make methods", () => {
       },
     ];
     make.custom_fields().label("fred").value("flintone").below().above().add();
+    expect(invoice.custom_fields).toEqual(expected);
+  });
+
+  test("make().custom_fields() should add multiple objects", () => {
+    let expected = [
+      {
+        label: "fred",
+        placement: "ABOVE_LINE_ITEMS",
+        value: "flintone",
+      },
+      {
+        label: "barney",
+        placement: "BELOW_LINE_ITEMS",
+        value: "rubble",
+      },
+    ];
+    make.custom_fields().label("fred").value("flintone").above().add();
+    make.custom_fields().label("barney").value("rubble").below().add();
     expect(invoice.custom_fields).toEqual(expected);
   });
 
