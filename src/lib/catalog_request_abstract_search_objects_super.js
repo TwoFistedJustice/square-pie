@@ -103,7 +103,6 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
     );
     // iterate over the array and call the setter on each member
     array_to_add.forEach((type) => (this.object_types = type));
-    this.object_types.concat(array_to_add);
   }
 } // END class
 
