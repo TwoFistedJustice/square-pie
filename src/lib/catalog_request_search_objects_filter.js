@@ -24,6 +24,7 @@ const man =
  * @classdesc
  * Can search for any type of catalog objects.<br>
  * This is complicated. Read the {@link https://github.com/TwoFistedJustice/square-pie/blob/main/docs/pie_catalog_request_search.md |  Pie Doc} before you try to use it.<br><br>
+ * This is the class to use if you want to search by key:value pairs.<br><br>
  * To cross reference by Square document ids use Catalog_Search_Cross_Reference
  * */
 
