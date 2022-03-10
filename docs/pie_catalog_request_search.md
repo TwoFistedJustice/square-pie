@@ -22,8 +22,8 @@ For the [search-catalog-objects endpoint](https://developer.squareup.com/referen
 # Catalog_Search_Cross_Reference & Catalog_Search_Filter
 
 Square provides two mutually exclusive ways to search with a single endpoint. One way is to filter using different searchable properties and values. The other way
-is to provide it an array of IDs for specific modifiers such as taxes or modifier_lists. So if you want all objects that use a taxes called "sales taxes"
-you would find the Object ID of that taxes and then put that ID into the array. It would then return all objects that use that taxes. You cannot filter such a
+is to provide it an array of IDs for specific modifiers such as taxes or modifier_lists. So if you want all objects that use a tax called "sales taxes"
+you would find the Object ID of that tax and then put that ID into the array. It would then return all objects that use that tax. You cannot filter such a
 request. You must use one type or the other. Square will reject a request which has an array of IDs along with any kind of refining details.
 
 When looking at the Square docs, the 'query' property is where all the confusing stuff happens. Note that there are two broad mutually exclusive

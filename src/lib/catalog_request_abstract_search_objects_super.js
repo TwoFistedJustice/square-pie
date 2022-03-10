@@ -12,7 +12,7 @@ const {
  * @extends Square_Request
  * @classdesc super class of catalog object search classes
  * @abstract
- * @ignore
+ *
  * */
 
 class Catalog_Search_Objects_Super extends Catalog_Request {
@@ -85,12 +85,13 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
   // NOT PRIVATE METHODS = because you can't reference private functions from subclasses
 
   /**
-   * concat_object_types - concatenates an array of objects to the object_types array. Inherited from Catalog_Search_Objects_Super.
-   * @function
-   * @param {array<enum>} array_to_add - an array of object 'types' (strings)
-   * @memberOf Catalog_Search_Filter
-   * @memberOf  Catalog_Search_Cross_Reference
+   * Describes_the_function_in_the_documentation
+   * @typedef {function} Catalog_Search_Objects_Super.concat_object_types
    * @memberOf Catalog_Search_Objects_Super
+   * @public
+   * @method
+   * @param {array<enum>} array_to_add - an array of object 'types' (strings)
+   * @throws {Error} Throws an error if a duplicate entry already exists on the object_types array
    * */
 
   concat_object_types(array_to_add) {
@@ -100,8 +101,9 @@ class Catalog_Search_Objects_Super extends Catalog_Request {
       this.display_name,
       "concat_object_types"
     );
-    let replacement = this.object_types.concat(array_to_add);
-    this._body.object_types = replacement;
+    // iterate over the array and call the setter on each member
+    array_to_add.forEach((type) => (this.object_types = type));
+    this.object_types.concat(array_to_add);
   }
 } // END class
 

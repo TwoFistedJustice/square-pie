@@ -371,9 +371,16 @@ describe("Catalog Request Search Filter", () => {
   });
 
   test("make().object_types_concat() should set", () => {
-    let expected = ["ITEM", "CATEGORY"];
+    let expected = ["ITEM", "CATEGORY", "TAX", "IMAGE"];
     make.concat_object_types(expected);
     expect(filter.object_types).toMatchObject(expected);
+  });
+
+  test("make().object_types_concat() should prevent duplicates", () => {
+    let array_to_add = ["ITEM", "CATEGORY", "TAX", "IMAGE", "TAX"];
+    expect(() => {
+      make.concat_object_types(array_to_add);
+    }).toThrowError(/object_types/);
   });
 
   /* --------------------------------------------------------*

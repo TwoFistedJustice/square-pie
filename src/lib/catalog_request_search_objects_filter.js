@@ -24,6 +24,7 @@ const man =
  * @classdesc
  * Can search for any type of catalog objects.<br>
  * This is complicated. Read the {@link https://github.com/TwoFistedJustice/square-pie/blob/main/docs/pie_catalog_request_search.md |  Pie Doc} before you try to use it.<br><br>
+ * This is the class to use if you want to search by key:value pairs.<br><br>
  * To cross reference by Square document ids use Catalog_Search_Cross_Reference
  * */
 
@@ -246,7 +247,7 @@ class Catalog_Search_Filter extends Catalog_Search_Objects_Super {
    * @property text_query_concat(arr) {array<string>} -adds the contents of an array of words onto the text query array
    * @property limit(int32) {integer}
    * @property type() alias of `object_type`
-   * @property concat_object_types(array_to_add) {array<enum>} - adds the contents of an array of object type strings to th object_types array. Three maximum.
+   * @property concat_object_types(array_to_add) {array<enum>} - Calls {@link Catalog_Search_Objects_Super.concat_object_types| `super.concat_object_types`}adds the contents of an array of object type strings to th object_types array.
    * @example
    *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
    *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
