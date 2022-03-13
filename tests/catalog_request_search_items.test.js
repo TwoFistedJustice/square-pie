@@ -201,7 +201,7 @@ describe("Catalog_Search_Items make_custom_attribute_filter()", () => {
       selection_uids_filter: [],
       bool_filter: undefined,
     };
-    expect(search.attribute_filter).toMatchObject(expected);
+    expect(make.view()).toMatchObject(expected);
   });
 
   test("make_custom_attribute_filter() should make a compliant object", () => {
@@ -228,7 +228,7 @@ describe("Catalog_Search_Items make_custom_attribute_filter()", () => {
       .selection_uids_filter(key)
       .selection_uids_filter(id)
       .bool_filter(true);
-    expect(search.attribute_filter).toMatchObject(expected);
+    expect(make.view()).toMatchObject(expected);
   });
 
   test("make_custom_attribute_filter() error checking", () => {
@@ -243,7 +243,8 @@ describe("Catalog_Search_Items make_custom_attribute_filter()", () => {
       max: 100,
     };
     make.number_filter(expected.max, expected.min);
-    expect(search.attribute_filter.number_filter).toMatchObject(expected);
+
+    expect(make.view().number_filter).toMatchObject(expected);
   });
 
   test("number_filter should set one number to zero when fed only one argument. ", () => {
@@ -252,7 +253,7 @@ describe("Catalog_Search_Items make_custom_attribute_filter()", () => {
       max: 100,
     };
     make.number_filter(expected.max);
-    expect(search.attribute_filter.number_filter).toMatchObject(expected);
+    expect(make.view().number_filter).toMatchObject(expected);
   });
 
   test("number_filter should set number to same when fed duplicates ", () => {
@@ -261,6 +262,63 @@ describe("Catalog_Search_Items make_custom_attribute_filter()", () => {
       max: 100,
     };
     make.number_filter(expected.min, expected.min);
-    expect(search.attribute_filter.number_filter).toMatchObject(expected);
+    expect(make.view().number_filter).toMatchObject(expected);
+  });
+
+  test.only("make_custom_attribute_filter() should push different objects even when all values are the same", () => {
+    let id = "someid";
+    let key = "someKey";
+    let string_filter = "some text I want to find";
+    let min = 1;
+    let max = 5;
+
+    let expected = {
+      custom_attribute_definition_id: id,
+      key: key,
+      string_filter: string_filter,
+      number_filter: { min, max },
+      selection_uids_filter: [key, id],
+      bool_filter: true,
+    };
+
+    search
+      .make_custom_attribute_filter()
+      .custom_attribute_definition_id(id)
+      .key(key)
+      .string_filter(string_filter)
+      .number_filter(min, max)
+      .selection_uids_filter(key)
+      .selection_uids_filter(id)
+      .bool_filter(true)
+      .add();
+
+    search
+      .make_custom_attribute_filter()
+      .custom_attribute_definition_id(id)
+      .key(key)
+      .string_filter(string_filter)
+      .number_filter(min, max)
+      .selection_uids_filter(key)
+      .selection_uids_filter(id)
+      .bool_filter(true)
+      .add();
+
+    // len should be 2
+    // 0 and 1 should match expected
+    // 0 should match 1
+    // 0 should not be strictly equal to 0
+    console.log(search.custom_attribute_filters);
+    expect(search.custom_attribute_filters[0]).toMatchObject(expected);
+    expect(search.custom_attribute_filters[1]).toMatchObject(expected);
+    expect(search.custom_attribute_filters.length).toEqual(2);
+    expect(search.custom_attribute_filters[1]).toMatchObject(
+      search.custom_attribute_filters[0]
+    );
+    expect(search.custom_attribute_filters[0]).toStrictEqual(
+      search.custom_attribute_filters[0]
+    );
+    expect(
+      search.custom_attribute_filters[0] === search.custom_attribute_filters[1]
+    ).toEqual(false);
   });
 });
