@@ -1,6 +1,7 @@
 const Catalog_Request = require("./catalog_request_abstract");
 const {
   arrayify,
+  clone_object,
   generate_error_message,
   shazam_is_array,
 } = require("./utilities");
@@ -44,7 +45,6 @@ class Catalog_Search_Items extends Catalog_Request {
       enabled_location_ids: undefined, // [ ids ]
       custom_attribute_filters: undefined, //[ {}, {}] max 10
     };
-    this._attribute_filter = {};
   }
   // GETTERS
   get sort_order() {
@@ -67,9 +67,6 @@ class Catalog_Search_Items extends Catalog_Request {
   }
   get custom_attribute_filters() {
     return this._body.custom_attribute_filters;
-  }
-  get attribute_filter() {
-    return this._attribute_filter;
   }
 
   // SETTERS
@@ -163,17 +160,6 @@ class Catalog_Search_Items extends Catalog_Request {
   }
 
   // PRIVATE METHODS
-
-  #init_filter() {
-    this.attribute_filter = {
-      custom_attribute_definition_id: undefined,
-      key: undefined,
-      string_filter: undefined,
-      number_filter: undefined,
-      selection_uids_filter: [],
-      bool_filter: undefined,
-    };
-  }
 
   /** * {@link https://developer.squareup.com/reference/square/enums/SortOrder | Link To Square Docs}<br>
    *<br>{@link Catalog_Search_Items.make| Back to make()}<br>
@@ -420,8 +406,6 @@ class Catalog_Search_Items extends Catalog_Request {
    *
    * You should read the generated docs as:
    *     method_name(arg) {type} description of arg
-   * @todo refactor this, use clone
-   *
    * @typedef {function} Catalog_Search_Items.make_custom_attribute_filter
    * @method
    * @public
@@ -432,22 +416,23 @@ class Catalog_Search_Items extends Catalog_Request {
    * @property number_filter(num1,num2) {number|number}
    * @property selection_uids_filter(id) {string<id>} -
    * @property bool_filter(bool) {boolean}
-   * @property add() - NOT IMPLEMENTED
+   * @property view() - Returns the custom_attribute_filter under construction
+   * @property add() - Adds the custom_attribute_filter to the array - Must be called last.
    * @example
-   *  You must use parentheses with every call to make and with every sub-method. If you have to make a lot
-   *  of calls from different lines, it will reduce your tying and improve readability to set make() to a
-   *  variable.
+   *  This behaves similarly to a normal `make` function except that you must call `.add()` as the last
+   *  step. You must call the function for each object you want to build.
    *
-   *  let make = myVar.make();
-   *   make.gizmo()
-   *   make.gremlin()
-   *    //is the same as
-   *   myVar.make().gizmo().gremlin()
    * */
 
   make_custom_attribute_filter() {
-    this.#init_filter();
-    let filter = this._attribute_filter;
+    let filter = {
+      custom_attribute_definition_id: undefined,
+      key: undefined,
+      string_filter: undefined,
+      number_filter: undefined,
+      selection_uids_filter: [],
+      bool_filter: undefined,
+    };
     return {
       self: this,
       custom_attribute_definition_id: function (id) {
@@ -485,6 +470,12 @@ class Catalog_Search_Items extends Catalog_Request {
         }
         filter.bool_filter = bool;
         return this;
+      },
+      view: function () {
+        return filter;
+      },
+      add: function () {
+        this.self.custom_attribute_filters = clone_object(filter);
       },
     };
   }
