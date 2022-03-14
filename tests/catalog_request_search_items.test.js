@@ -265,7 +265,7 @@ describe("Catalog_Search_Items make_custom_attribute_filter()", () => {
     expect(make.view().number_filter).toMatchObject(expected);
   });
 
-  test.only("make_custom_attribute_filter() should push different objects even when all values are the same", () => {
+  test("make_custom_attribute_filter() should push different objects even when all values are the same", () => {
     let id = "someid";
     let key = "someKey";
     let string_filter = "some text I want to find";
@@ -307,7 +307,6 @@ describe("Catalog_Search_Items make_custom_attribute_filter()", () => {
     // 0 and 1 should match expected
     // 0 should match 1
     // 0 should not be strictly equal to 0
-    console.log(search.custom_attribute_filters);
     expect(search.custom_attribute_filters[0]).toMatchObject(expected);
     expect(search.custom_attribute_filters[1]).toMatchObject(expected);
     expect(search.custom_attribute_filters.length).toEqual(2);
