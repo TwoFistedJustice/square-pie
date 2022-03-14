@@ -29,18 +29,27 @@ const Invoice_Publish = require("./lib/invoice_request_publish");
 const Invoice_Retrieve = require("./lib/invoice_request_retrieve");
 const Invoice_Search = require("./lib/invoice_request_search");
 const Invoice_Update = require("./lib/invoice_request_update");
+// Location API
+const Location_Object = require("./lib/location_object");
+const Location_Create = require("./lib/location_request_create");
+const Location_list = require("./lib/location_request_list");
+const Location_Retrieve = require("./lib/location_request_retrieve");
+const Location_Update = require("./lib/location_request_update");
+
 // Order API
 const Order_Object = require("./lib/order_object");
 const Order_Discount = require("./lib/order_object_discount");
 const Order_Fulfillment = require("./lib/order_object_fulfillment");
 const Order_Line_Item = require("./lib/order_object_line_item");
+const Order_Object_Service_Charge = require("./lib/order_object_service_charge");
+const Order_Tax = require("./lib/order_object_tax");
 const Order_Calculate = require("./lib/order_request_calculate");
 const Order_Clone = require("./lib/order_request_clone");
 const Order_Create = require("./lib/order_request_create");
 const Order_Pay = require("./lib/order_request_pay");
 const Order_Retrieve = require("./lib/order_request_retrieve");
 const Order_Search = require("./lib/order_request_search");
-const Order_Upate = require("./lib/order_request_update");
+const Order_Update = require("./lib/order_request_update");
 
 const version = "1.0.0";
 const square_pie = {
@@ -76,18 +85,26 @@ const square_pie = {
   Invoice_Retrieve,
   Invoice_Search,
   Invoice_Update,
+  // Location API
+  Location_Object,
+  Location_Create,
+  Location_list,
+  Location_Retrieve,
+  Location_Update,
   // Order API
   Order_Object,
   Order_Discount,
   Order_Fulfillment,
   Order_Line_Item,
+  Order_Object_Service_Charge,
+  Order_Tax,
   Order_Calculate,
   Order_Clone,
   Order_Create,
   Order_Pay,
   Order_Retrieve,
   Order_Search,
-  Order_Upate,
+  Order_Update,
 };
 
 module.exports = square_pie;
