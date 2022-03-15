@@ -6,7 +6,7 @@ const {
   shazam_is_integer,
   shazam_is_boolean,
 } = require("./utilities/");
-const { uid_length } = require("./pie_defaults");
+const { uid_length } = require("../pie_defaults");
 
 const man =
   "build one service charge for an order.  \n" +

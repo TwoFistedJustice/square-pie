@@ -1,5 +1,5 @@
 const { nanoid } = require("nanoid");
-const { uid_length } = require("./pie_defaults");
+const { uid_length } = require("../pie_defaults");
 const {
   arrayify,
   arche_money,

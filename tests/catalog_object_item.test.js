@@ -36,16 +36,11 @@ describe("basic object class structures", () => {
   test("should have defined _fardel", () => {
     expect(item._fardel).toBeDefined();
   });
-  test("product_type should default to REGULAR ", () => {
+  test("auto_set_appointment_service: product_type should default to REGULAR ", () => {
     let expected = "REGULAR";
     expect(item.product_type).toEqual(expected);
   });
 
-  // test("product_type should default to APPOINTMENTS_SERVICE if auto_set_appointment_service is set to true ", () => {
-  //   let
-  //   let expected = "APPOINTMENTS_SERVICE";
-  //   expect(item.product_type).toEqual(expected);
-  // });
   test("type should be ITEM", () => {
     expect(item.type).toEqual("ITEM");
   });

@@ -4,7 +4,7 @@ const {
   shazam_max_length,
   shazam_is_integer,
 } = require("./utilities");
-const { uid_length } = require("./pie_defaults");
+const { uid_length } = require("../pie_defaults");
 const man =
   "build one Line Item Tax for an order. (goes in taxes array of Order_Object) \n" +
   "Uses standard Pie syntax. There is nothing unusual about this class.\n" +

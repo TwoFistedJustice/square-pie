@@ -1,6 +1,7 @@
 const Catalog_Object_Super = require("./catalog_object_abstract_super");
 const { nanoid } = require("nanoid");
-const { auto_set_appointment_service } = require("./pie_defaults");
+const { auto_set_appointment_service } = require("../pie_defaults");
+
 const {
   arrayify,
   clone_object,

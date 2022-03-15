@@ -1,6 +1,6 @@
 const { shazam_max_length, arche_money } = require("./utilities");
 const { nanoid } = require("nanoid");
-const { uid_length } = require("./pie_defaults");
+const { uid_length } = require("../pie_defaults");
 const order_discount_enum = require("./enum/order_discount_enum");
 const man =
   " builds a discount which will be applied to one or more line items in an order.\n" +

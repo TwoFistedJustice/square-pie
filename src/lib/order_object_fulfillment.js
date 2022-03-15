@@ -4,7 +4,7 @@ const {
   shazam_max_length,
   shazam_is_time_RFC3339,
 } = require("./utilities");
-const { uid_length } = require("./pie_defaults");
+const { uid_length } = require("../pie_defaults");
 const order_fulfillment_state = require("./enum/order_fulfillment_enum");
 const man =
   "sets up details on how to fulfill the order. \n" +
