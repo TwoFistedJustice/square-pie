@@ -501,6 +501,7 @@ class Order_Line_Item {
    * @property catalog_version(int64) {integer} -
    * @property name(val) {string} -
    * @property base_price_money(amount,currency) {money} - Standard compliant money object builder.
+   * @property price(amount,currency) {money} - Alias of `base_price_money`.
    * @property view - returns the modifier object under construction
    * @property get_uid - returns the uid
    * @property add - calls the modifier setter and passes a  new modifier object cloned from the the one you built.
@@ -601,6 +602,9 @@ class Order_Line_Item {
           caller + key
         );
         return this;
+      },
+      price: function (amount, currency) {
+        return this.base_price_money(amount, currency);
       },
 
       view: function () {
