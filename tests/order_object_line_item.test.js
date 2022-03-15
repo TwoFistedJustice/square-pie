@@ -349,22 +349,48 @@ describe("make_modifier()", () => {
     let expected = obj1;
     let mod = line.make_modifier();
 
-    mod.uid(id).catalog_object_id(id).catalog_version(4).price(428, "cad");
+    mod
+      .uid(id)
+      .catalog_object_id(id)
+      .catalog_version(4)
+      .base_price_money(428, "cad");
     expect(mod.view()).toEqual(expected);
   });
 
   test("make().modifier().get_uid() should get uid of modifier under construction ", () => {
     let expected = id;
     let mod = line.make_modifier();
-    mod.uid(id).catalog_object_id(id).catalog_version(4).price(428, "cad");
+    mod
+      .uid(id)
+      .catalog_object_id(id)
+      .catalog_version(4)
+      .base_price_money(428, "cad");
     expect(mod.get_uid()).toEqual(expected);
   });
 
   test("make().modifier() should automatically set uid of modifier under construction with nanoid ", () => {
     let mod = line.make_modifier();
-    mod.catalog_object_id(id).catalog_version(4).price(428, "cad");
+    mod.catalog_object_id(id).catalog_version(4).base_price_money(428, "cad");
     let uid = mod.get_uid();
     expect(pattern.test(uid)).toEqual(true);
+  });
+
+  test("make().modifier().price should set base price ", () => {
+    let obj1 = {
+      uid: id,
+      catalog_object_id: id,
+      catalog_version: 4,
+      name: undefined,
+      base_price_money: {
+        amount: 428,
+        currency: "CAD",
+      },
+    };
+    let expected = obj1;
+    let mod = line.make_modifier();
+
+    mod.uid(id).catalog_object_id(id).catalog_version(4).price(428, "cad");
+    expect(mod.view()).toEqual(expected);
   });
 });
 
