@@ -23,11 +23,8 @@ make square pies. But they do take requests...
 
 ## Install
 
-**not yet deployed to npm**
-for now the installation method is "copy and paste"
-
 ```sh
-npm install the last words of Joseph of Arimathea
+npm install @twofistedjustice/square-pie
 ```
 
 ## Author
@@ -44,9 +41,8 @@ Branch naming convention: `issue[issue number]_somethingMeaningful` eg:`issue27_
 
 Make sure that your editor is configured per our Style Guide.
 
-Before writing any code, create a github Issue outlining the changes you intend to make (be clear and concise). Assign yourself
-and TwoFistedJustice to the issue so that notifications will be sent to the repo owner. Assign an appropriate Label. Add the
-issue to the appropriate Project. If no other project seems appropriate, add it to Overview.
+Before writing any code, create a github Issue outlining the changes you intend to make (be clear and concise). Assign yourself.
+Assign an appropriate Label. Add the issue to the appropriate Project. If no other project seems appropriate, add it to Overview.
 
 On your local copy, make a new git branch for your edits. Make your edits. Push your branch up to github and create a pull request.
 If your PR is an intermediate step add the comment `Progresses #[issue number]`. If your PR is final, then add the comment
@@ -68,7 +64,15 @@ to use the same version of Prettier as we do. This will not affect your global e
 
 Give a ⭐️ if this project helped you!
 
----
+## Which Square APIs are Covered
+
+As of version 1.0.0-alpha.0, there are object and request classes for the following Square APIs
+
+- Catalog
+- Customer
+- Invoice
+- Location
+- Order
 
 ## Basic Usage
 

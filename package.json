@@ -1,8 +1,12 @@
 {
-  "name": "square-pie",
+  "name": "@twofistedjustice/square-pie",
   "version": "1.0.0-alpha.0",
-  "description": "an easy to use class based chainable interface for accessing the Square API.",
-  "main": "index.js",
+  "description": "an easy to use class based chainable interface for the Square API.",
+  "main": "src/index.js",
+  "keywords": [
+    "square",
+    "squareup"
+  ],
   "scripts": {
     "t": "jest",
     "async": "node tests/data_preparation/setup_test.js & npx jest tests/async/",
