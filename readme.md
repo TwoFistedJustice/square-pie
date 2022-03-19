@@ -27,6 +27,33 @@ make square pies. But they do take requests...
 npm install @twofistedjustice/square-pie
 ```
 
+## Configuration
+
+#### Environment Variables
+
+Square-Pie uses [dotenv](https://www.npmjs.com/package/dotenv) as a production dependency to configure nodes process.env
+
+Square-Pie requires three process.env (environment) variables
+
+- `SQUARE_SANDBOX` : holds your Square sandbox key
+- `SQUARE_PRODUCTION_KEY`: holds your Square production key
+- `NODE_ENV`: determines which api key is used. Set to "test" to use sandbox and "production" to for production.
+
+To configure those place a file called `.env` in the root folder of your app. Be certain to add this file to your .gitignore BEFORE adding anything or
+committing it or else you may expose your api keys. It should contain
+
+```sh
+SQUARE_SANDBOX=[your api key]
+SQUARE_PRODUCTION_KEY=[your api key]
+NODE_ENV=test
+#or
+NODE_ENV=production
+```
+
+#### HTTP Headers
+
+In the alpha release the http headers are hard coded. You can find and change them in square_request_abstract.js
+
 ## Author
 
 👤 **Russ Bain**
