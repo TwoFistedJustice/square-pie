@@ -91,7 +91,6 @@ class Square_Request {
       "Square-Version": `${config.square.api_version}`,
       "Content-Type": `${config.http_headers.content_type}`,
       Accept: `${config.http_headers.Accept}`,
-      // Authorization: `Bearer ${this._secret}`,
       Authorization: `Bearer ${secret}`,
     };
   }
