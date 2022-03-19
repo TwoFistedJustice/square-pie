@@ -1,6 +1,6 @@
 {
   "name": "@twofistedjustice/square-pie",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "an easy to use class based chainable interface for the Square API.",
   "main": "src/index.js",
   "keywords": [

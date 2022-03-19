@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-alpha.1](https://github.com/TwoFistedJustice/square-pie/compare/v1.0.0-alpha.0...v1.0.0-alpha.1) (2022-03-19)
+
+
+### Features
+
+* add alias for make_modifider.base_price_money() ([3bb1ffc](https://github.com/TwoFistedJustice/square-pie/commit/3bb1ffca51d86bcbf9f968b472ecdbbc7860a1f8))
+* add all core classes to index ([08643ed](https://github.com/TwoFistedJustice/square-pie/commit/08643ed9fc90121103b912daceb0106764b897e1))
+* add idempotentcy setter to make ([a9348bc](https://github.com/TwoFistedJustice/square-pie/commit/a9348bcb1a992a6ba0a29b811c0069a4e87aac57))
+* concat_object_types prevents duplicate entries ([483d5dc](https://github.com/TwoFistedJustice/square-pie/commit/483d5dcf73cb5366cda5352dfe79ed3cc17b2a7e)), closes [#224](https://github.com/TwoFistedJustice/square-pie/issues/224)
+
+
+### Bug Fixes
+
+* change npm validator from dev to production ([bd67514](https://github.com/TwoFistedJustice/square-pie/commit/bd675148069f7242434081ae953639794eceae35))
+* make_custom_attribute_filter now correctly adds unique objects to array ([35ea06f](https://github.com/TwoFistedJustice/square-pie/commit/35ea06f6e5aff97fc22bcb2c06f4da689e6354dc))
+* make_custom_field now always adds a unique object ([34d809e](https://github.com/TwoFistedJustice/square-pie/commit/34d809e4edae55b6d5065fba09ea9d242864004a))
+* remove artificat line from refactor ([3b2ea47](https://github.com/TwoFistedJustice/square-pie/commit/3b2ea47743ed6cd78a15aa64fbaee0c32f8d2b37))
+
 ## 1.0.0-alpha.0 (2022-02-18)
 
 
