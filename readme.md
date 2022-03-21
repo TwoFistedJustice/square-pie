@@ -54,6 +54,19 @@ NODE_ENV=production
 
 In the alpha release the http headers are hard coded. You can find and change them in square_request_abstract.js
 
+## Documentation
+
+Besides the readme, there is a folder called 'docs' which has markdown files which I made, some for myself, some for others. You can consider those
+as informal docs.
+
+If you want more robust docs covering classes and methods available you can generate your own local docs by doing the following:
+
+- In a terminal window navigate to `node_modules/@twofistedjustice/square-pie`
+- Install jsdoc as a dev-dependency
+- Run `npm run jsdoc`.
+  <br>
+  This will create a set of .html jsdocs at `node_modules/@twofistedjustice/square-pie/pie_docs`
+
 ## Author
 
 👤 **Russ Bain**
