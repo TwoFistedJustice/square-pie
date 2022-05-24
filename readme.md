@@ -56,10 +56,12 @@ In the alpha release the http headers are hard coded. You can find and change th
 
 ## Documentation
 
+[JSDOC generated docs](https://www.russbain.me/square-pie/jsdoc/index.html) can be found on my personal site.
+
 Besides the readme, there is a folder called 'docs' which has markdown files which I made, some for myself, some for others. You can consider those
 as informal docs.
 
-If you want more robust docs covering classes and methods available you can generate your own local docs by doing the following:
+If you want your own local copy of the jsdocs to read follow these steps:
 
 - In a terminal window navigate to `node_modules/@twofistedjustice/square-pie`
 - Install jsdoc as a dev-dependency
@@ -293,7 +295,7 @@ addition to being quick and easy to use, they also result in concise, easily und
 
 ### Enums
 
-Square frequently has properties that expect values chosen from a list of acceptable value. It is often from a list of words. Whenever this is the case,
+Square frequently has properties that expect values chosen from a list of acceptable values. It is often from a list of words. Whenever this is the case,
 we use a function we call an "enum" or "enumerated function" (our own terminology). These will have methods titled as lower_snake_case versions of the values they set. They will automatically set the
 value in the form that Square expects. Some of these may be aliases that are quicker to type. For example `.true()` or `.false()` may have the aliases .`yes()` and `.no()`. There may even be aliases that make it
 easier to reason about the values to set. For example `.sort().ascending()` and `.sort().descending()` may have the aliases like `sort().oldest_first()` and `sort().newest_first()`
@@ -313,8 +315,8 @@ thing.make().name("fred").sort().id("123abc");
 
 ### Arrays of Strings
 
-Sometimes a Square object or endpoint will expect an array of strings. In those instances there will be functions to allow you to add individual stringss or whole arrays of strings or both. Generally
-the functions that allow you to enter an array will have be similar to the one that adds individual values, but will either start with the word 'concat'. Occasionally one will end with 'concat' instead or
+Sometimes a Square object or endpoint will expect an array of strings. In those instances there will be functions to allow you to add individual strings or whole arrays of strings or both. Generally
+the functions that allow you to enter an array will have a similar name to the one that adds individual values, but will start with the word 'concat\_'. Occasionally one will end with 'concat' instead or
 simpy not exist. Those are errors and we would appreciate if you went to our github repo and created an issue for that so we can fix it.
 
 ### Getting Just the Document Ids from your Square Database
@@ -330,7 +332,7 @@ your.var.id_array => gets the id_array // use the class getter
 
 ### Idempotency Keys
 
-Square Pie automatically generates idempotency keys wherever Square expects them. We use nanoid at the default setting. If you want to use your own key instead, you can easily
+Square Pie automatically generates idempotency keys wherever Square expects them. We use [nanoid](https://www.npmjs.com/package/nanoid) at the default setting. If you want to use your own key instead, you can easily
 change it by using the idempotency_key setter or with the idempotency_key-method on `make()`.
 
 ### UIDs
