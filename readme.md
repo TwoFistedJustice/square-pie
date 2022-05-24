@@ -56,10 +56,12 @@ In the alpha release the http headers are hard coded. You can find and change th
 
 ## Documentation
 
+[JSDOC generated docs](https://www.russbain.me/square-pie/jsdoc/index.html) can be found on my personal site.
+
 Besides the readme, there is a folder called 'docs' which has markdown files which I made, some for myself, some for others. You can consider those
 as informal docs.
 
-If you want more robust docs covering classes and methods available you can generate your own local docs by doing the following:
+If you want your own local copy of the jsdocs to read follow these steps:
 
 - In a terminal window navigate to `node_modules/@twofistedjustice/square-pie`
 - Install jsdoc as a dev-dependency
